@@ -70,6 +70,7 @@
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
+                git status
                     </execution>
                     <execution>
                         <id>jacoco-site</id>
