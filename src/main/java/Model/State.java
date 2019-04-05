@@ -13,6 +13,8 @@ public abstract class State {
      * this represent number of steps which the player can do
      */
     private int remainingSteps;
+    //TODO
+    //è necessario inizializzarlo?
 
 
     /**
