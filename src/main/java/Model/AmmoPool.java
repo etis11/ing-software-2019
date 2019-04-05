@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,9 +33,9 @@ public class AmmoPool {
      * this is the constructor method
      */
     public AmmoPool(){
-        redAmmos = new List<Ammo>();
-        yellowAmmos = new List<Ammo>();
-        blueAmmos = new List<Ammo>();
+        this.redAmmos = new ArrayList<Ammo>();
+        this.yellowAmmos = new ArrayList<Ammo>();
+        this.blueAmmos = new ArrayList<Ammo>();
     }
 
     /**
@@ -70,7 +71,10 @@ public class AmmoPool {
     /**
      * this method insert in the pool used ammos
      */
-    public void insertAmmos(List<Ammo>){
+    public void insertAmmos(List<Ammo> ammmoToInsert){
 
     }
+
+    //TODO
+    //serve un metodo per colore o switch case???
 }

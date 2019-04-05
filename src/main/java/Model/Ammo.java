@@ -18,8 +18,8 @@ public class Ammo {
     /**
      * this is the constructor method
      */
-    public Ammo(){
-
+    public Ammo(Color ammoColor){
+        this.color = ammoColor;
     }
 
     //TODO
