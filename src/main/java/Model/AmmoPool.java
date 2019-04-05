@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * this class rappresent ammos avaible for each player that they can take by an ammoCard
+ * this class rappresent ammos aviable for each player that they can take by an ammoCard
  *
  * @author Alessandro Passoni
  * @version 1.0
@@ -17,15 +17,15 @@ public class AmmoPool {
     public static final int MAX_AMMO = 3;
 
     /**
-     * redAmmos is a list which contains avaible red ammos for the player, not in the loader yet
+     * redAmmos is a list which contains aviable red ammos for the player, not in the loader yet
      */
     private List<Ammo> redAmmos;
     /**
-     * yellowAmmos is a list which contains avaible yellow ammos for the player, not in the loader yet
+     * yellowAmmos is a list which contains aviable yellow ammos for the player, not in the loader yet
      */
     private List<Ammo> yellowAmmos;
     /**
-     * blueAmmos is a list which contains avaible blue ammos for the player, not in the loader yet
+     * blueAmmos is a list which contains aviable blue ammos for the player, not in the loader yet
      */
     private List<Ammo> blueAmmos;
 
@@ -36,6 +36,8 @@ public class AmmoPool {
         this.redAmmos = new ArrayList<Ammo>();
         this.yellowAmmos = new ArrayList<Ammo>();
         this.blueAmmos = new ArrayList<Ammo>();
+        //TODO
+        //inizializzazione loader???
     }
 
     /**

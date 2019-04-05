@@ -22,6 +22,9 @@ public class Ammo {
         this.color = ammoColor;
     }
 
+    public Color getColor(){
+        return this.color;
+    }
     //TODO
-    //getters and setters are necesary?
+    //setters are necessary?
 }
