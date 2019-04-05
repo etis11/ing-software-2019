@@ -1,3 +1,5 @@
+package Model;
+
 /**
  * this class rappresent player's loader and contains ammos avaible to reload weaponsCard
  *
