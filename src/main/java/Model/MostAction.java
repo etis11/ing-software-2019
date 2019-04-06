@@ -1,7 +1,5 @@
 package Model;
 
-import jdk.tools.jaotc.binformat.macho.MachOSegment;
-
 /**
  * this class identify particular action for player based on his damage
  *

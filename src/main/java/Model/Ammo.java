@@ -23,8 +23,8 @@ public class Ammo {
     }
 
     public Color getColor(){
+
         return this.color;
     }
-    //TODO
-    //setters are necessary?
+
 }
