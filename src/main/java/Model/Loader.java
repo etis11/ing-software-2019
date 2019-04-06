@@ -104,6 +104,47 @@ public class Loader {
         return yellowLoader.size();
     }
 
+
+    private void addBlueAmmo(List<Ammo> blueAmmo){
+        blueLoader.addAll(blueAmmo);
+    }
+
+
+    private void addRedAmmo(List<Ammo> redAmmo){
+        blueLoader.addAll(redAmmo);
+    }
+
+
+    private void addYellowAmmo(List<Ammo> yellowAmmo){
+        blueLoader.addAll(yellowAmmo);
+    }
+
+    public void askReload(int blueAmmo, int redAmmo, int yellowAmmo){
+        if (isFullBlue()){
+            blueAmmo = 0;
+        }
+        else if (blueLoader.size()+blueAmmo > 3){
+            blueAmmo = AmmoPool.MAX_AMMO - blueLoader.size();
+        }
+        addBlueAmmo(ammoPool.getNumBlueAmmos(blueAmmo));
+
+        if (isFullRed()){
+            redAmmo = 0;
+        }
+        else if (redLoader.size()+redAmmo > 3){
+            redAmmo = AmmoPool.MAX_AMMO - redLoader.size();
+        }
+        addRedAmmo(ammoPool.getNumRedAmmos(redAmmo));
+
+        if (isFullBlue()){
+            yellowAmmo = 0;
+        }
+        else if (yellowLoader.size()+yellowAmmo > 3){
+            yellowAmmo = AmmoPool.MAX_AMMO - yellowLoader.size();
+        }
+        addYellowAmmo(ammoPool.getNumYellowAmmos(yellowAmmo));
+    }
+
     //TODO
-    //method to insert ammos in the loader
+    //method to transfer ammos in the Pool
 }
