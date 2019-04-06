@@ -104,17 +104,26 @@ public class Loader {
         return yellowLoader.size();
     }
 
-
+    /**
+     * this method add to the blueLoader the given blue ammos
+     * @param blueAmmo List of blue ammos to put in the blueLoader
+     */
     private void addBlueAmmo(List<Ammo> blueAmmo){
         blueLoader.addAll(blueAmmo);
     }
 
-
+    /**
+     * this method add to the redLoader the given red ammos
+     * @param redAmmo List of red ammos to put in the redLoader
+     */
     private void addRedAmmo(List<Ammo> redAmmo){
         blueLoader.addAll(redAmmo);
     }
 
-
+    /**
+     * this method add to the yellowLoader the given yellow ammos
+     * @param yellowAmmo List of blue ammos to put in the yellowLoader
+     */
     private void addYellowAmmo(List<Ammo> yellowAmmo){
         blueLoader.addAll(yellowAmmo);
     }
@@ -145,6 +154,24 @@ public class Loader {
         addYellowAmmo(ammoPool.getNumYellowAmmos(yellowAmmo));
     }
 
-    //TODO
-    //method to transfer ammos in the Pool
+
+    public void ammoToPool(int blueAmmo, int redAmmo, int yellowAmmo){
+        List<Ammo> toReturn = new ArrayList<Ammo>();
+        while (blueAmmo > 0){
+            toReturn.add(blueLoader.remove(0));
+            blueAmmo--;
+        }
+
+        while (redAmmo > 0){
+            toReturn.add(redLoader.remove(0));
+            redAmmo--;
+        }
+
+        while (yellowAmmo > 0){
+            toReturn.add(yellowLoader.remove(0));
+            yellowAmmo--;
+        }
+
+        ammoPool.insertAmmos(toReturn);
+    }
 }

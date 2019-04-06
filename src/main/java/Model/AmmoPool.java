@@ -80,9 +80,9 @@ public class AmmoPool {
      * this method insert in the pool used ammos
      */
     public void insertAmmos(List<Ammo> ammmoToInsert){
-
+        while(!ammmoToInsert.isEmpty()){
+            //TODO
+        }
     }
 
-    //TODO
-    //serve un metodo per colore o switch case???
 }
