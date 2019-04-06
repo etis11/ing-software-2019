@@ -1,5 +1,6 @@
 package Model;
 
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class AmmoPool {
         this.redAmmos = new ArrayList<Ammo>();
         this.yellowAmmos = new ArrayList<Ammo>();
         this.blueAmmos = new ArrayList<Ammo>();
-        //inizializzazione
+
         redAmmos.add(new Ammo(Color.RED));
         redAmmos.add(new Ammo(Color.RED));
         blueAmmos.add(new Ammo(Color.BLUE));
@@ -78,10 +79,22 @@ public class AmmoPool {
 
     /**
      * this method insert in the pool used ammos
+     * @param ammmoToInsert List of ammos to insert in the pool
      */
     public void insertAmmos(List<Ammo> ammmoToInsert){
+        Ammo tempAmmo;
         while(!ammmoToInsert.isEmpty()){
-            //TODO
+            tempAmmo = ammmoToInsert.remove(0);
+            if (tempAmmo.getColor().equals(Color.BLUE)){
+                blueAmmos.add(tempAmmo);
+            }
+            else if (tempAmmo.getColor().equals(Color.RED)){
+                redAmmos.add(tempAmmo);
+            }
+            else if (tempAmmo.getColor().equals(Color.YELLOW)){
+                yellowAmmos.add(tempAmmo);
+            }
+            tempAmmo = null;
         }
     }
 
