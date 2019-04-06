@@ -1,5 +1,9 @@
 package Model;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * this class rappresent player's loader and contains ammos avaible to reload weaponsCard
  *
@@ -10,13 +14,33 @@ public class Loader {
     /**
      * this is the player pool which contains used ad gettable ammos
      */
-    AmmoPool ammoPool;
+    private AmmoPool ammoPool;
 
-    //TODO
-    //array di ammo per colore?
+    /**
+     * blueLoader is a list which contains blue ammos for the player ready to use
+     */
+    private List<Ammo> blueLoader;
+    /**
+     * redLoader is a list which contains red ammos for the player ready to use
+     */
+    private List<Ammo> redLoader;
+    /**
+     * yellowLoader is a list which contains yellow ammos for the player ready to use
+     */
+    private List<Ammo> yellowLoader;
 
+    /**
+     * this is the constructor method
+     */
     public Loader(){
-        ammoPool = new AmmoPool();
+        this.ammoPool = new AmmoPool();
+        this.blueLoader = new ArrayList<Ammo>();
+        this.redLoader = new ArrayList<Ammo>();
+        this.yellowLoader = new ArrayList<Ammo>();
+        //inizializzazione loader
+        this.blueLoader.add(new Ammo(Color.BLUE));
+        this.redLoader.add(new Ammo(Color.RED));
+        this.yellowLoader.add(new Ammo(Color.YELLOW));
     }
 
 
@@ -25,7 +49,9 @@ public class Loader {
      * @return if the loader is full of blue ammos
      */
     public boolean isFullBlue(){
-
+        if(blueLoader.size()==AmmoPool.MAX_AMMO){
+            return true;
+        }
         return false;
     }
 
@@ -34,7 +60,9 @@ public class Loader {
      * @return if the loader is full of red ammos
      */
     public boolean isFullRed(){
-
+        if(redLoader.size()==AmmoPool.MAX_AMMO){
+            return true;
+        }
         return false;
     }
 
@@ -43,7 +71,9 @@ public class Loader {
      * @return if the loader is full of yellow ammos
      */
     public boolean isFullYellow(){
-
+        if(yellowLoader.size()==AmmoPool.MAX_AMMO){
+            return true;
+        }
         return false;
     }
 
@@ -53,7 +83,7 @@ public class Loader {
      */
     public int getNumBlueAmmo(){
 
-        return 0;
+        return blueLoader.size();
     }
 
     /**
@@ -62,7 +92,7 @@ public class Loader {
      */
     public int getNumRedAmmo(){
 
-        return 0;
+        return redLoader.size();
     }
 
     /**
@@ -71,6 +101,9 @@ public class Loader {
      */
     public int getNumYellowAmmo(){
 
-        return 0;
+        return yellowLoader.size();
     }
+
+    //TODO
+    //method to insert ammos in the loader
 }

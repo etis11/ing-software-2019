@@ -18,10 +18,13 @@ public class Ammo {
     /**
      * this is the constructor method
      */
-    public Ammo(){
-
+    public Ammo(Color ammoColor){
+        this.color = ammoColor;
     }
 
+    public Color getColor(){
+        return this.color;
+    }
     //TODO
-    //getters and setters are necesary?
+    //setters are necessary?
 }
