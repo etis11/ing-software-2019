@@ -1,5 +1,6 @@
 package Model;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +37,13 @@ public class AmmoPool {
         this.redAmmos = new ArrayList<Ammo>();
         this.yellowAmmos = new ArrayList<Ammo>();
         this.blueAmmos = new ArrayList<Ammo>();
-        //TODO
-        //inizializzazione loader???
+        //inizializzazione
+        redAmmos.add(new Ammo(Color.RED));
+        redAmmos.add(new Ammo(Color.RED));
+        blueAmmos.add(new Ammo(Color.BLUE));
+        blueAmmos.add(new Ammo(Color.BLUE));
+        yellowAmmos.add(new Ammo(Color.YELLOW));
+        yellowAmmos.add(new Ammo(Color.YELLOW));
     }
 
     /**
