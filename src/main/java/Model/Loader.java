@@ -1,5 +1,6 @@
 package Model;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +37,10 @@ public class Loader {
         this.blueLoader = new ArrayList<Ammo>();
         this.redLoader = new ArrayList<Ammo>();
         this.yellowLoader = new ArrayList<Ammo>();
-        //TODO
-        //inizializzazione loader???
+        //inizializzazione loader
+        this.blueLoader.add(new Ammo(Color.BLUE));
+        this.redLoader.add(new Ammo(Color.RED));
+        this.yellowLoader.add(new Ammo(Color.YELLOW));
     }
 
 
