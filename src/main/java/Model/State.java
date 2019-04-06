@@ -47,8 +47,7 @@ public abstract class State {
 
     //TODO
     //write documentation
-    //param is necessary ?
-    public void nextState(/*Player p*/){
+    public void nextState(Player p){
         //TODO
         //astratto o no?
     }

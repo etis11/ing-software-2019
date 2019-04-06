@@ -109,6 +109,7 @@ public class Loader {
      * @param blueAmmo List of blue ammos to put in the blueLoader
      */
     private void addBlueAmmo(List<Ammo> blueAmmo){
+
         blueLoader.addAll(blueAmmo);
     }
 
@@ -117,6 +118,7 @@ public class Loader {
      * @param redAmmo List of red ammos to put in the redLoader
      */
     private void addRedAmmo(List<Ammo> redAmmo){
+
         blueLoader.addAll(redAmmo);
     }
 
@@ -125,9 +127,16 @@ public class Loader {
      * @param yellowAmmo List of blue ammos to put in the yellowLoader
      */
     private void addYellowAmmo(List<Ammo> yellowAmmo){
+
         blueLoader.addAll(yellowAmmo);
     }
 
+    /**
+     * this method ask to ammoPool ammos to reload, for example after drawing an ammoCard, and insert them in the appropriate loader
+     * @param blueAmmo number of blue ammos requested
+     * @param redAmmo numeber of red ammos requested
+     * @param yellowAmmo number of yellow ammos requested
+     */
     public void askReload(int blueAmmo, int redAmmo, int yellowAmmo){
         if (isFullBlue()){
             blueAmmo = 0;
@@ -154,7 +163,12 @@ public class Loader {
         addYellowAmmo(ammoPool.getNumYellowAmmos(yellowAmmo));
     }
 
-
+    /**
+     * this method put used ammos back in the pool until they will be recharged in the loader
+     * @param blueAmmo number of blue ammos to put in the pool
+     * @param redAmmo number of red ammos to put in the pool
+     * @param yellowAmmo number of yellow ammos to put in the pool
+     */
     public void ammoToPool(int blueAmmo, int redAmmo, int yellowAmmo){
         List<Ammo> toReturn = new ArrayList<Ammo>();
         while (blueAmmo > 0){
