@@ -1,6 +1,6 @@
 package Model;
 
-public class AmmoCard {
+public class AmmoCard extends Card {
 
 
 
