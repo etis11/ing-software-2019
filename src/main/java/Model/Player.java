@@ -57,7 +57,7 @@ public class Player {
     public int getNumWeapons(){
         return weapons.size();
     }
-    public List<PowerUpCard> getWeapons(){
+    public List<PowerUpCard> getPowerUps(){
         //TODO
     }
 
@@ -98,5 +98,33 @@ public class Player {
             powerUps.add(drawnPowerUp);
         }
 
+    }
+
+    public PowerUpCard throwPowerUp(PowerUpCard p) throws Exception{
+        PowerUpCard ret_card = null;
+        if (!powerUps.cointains(p)){
+            throw new Exception("non si può throware il power up perchè non è in mano al giocatore");
+        }
+        else{
+            for (int i =0; i < powerUps.size(); i++){
+                if(powerUps.get(i).equals(p)){
+                    ret_card= powerUps.remove(i);
+                }
+            }
+        }
+        return ret_card;
+    }
+
+    public void usePowerUp(PowerUpCard){
+        //TODO
+    }
+
+    public void reloadWeapon(Weapon w){
+        String reloadCost = w.getReloadCost();
+        playerBoard.getLoader().
+    }
+
+    public void pickUpAmmoCard(){
+        //TODO
     }
 }
