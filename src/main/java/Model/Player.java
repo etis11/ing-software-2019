@@ -102,7 +102,7 @@ public class Player {
 
     public PowerUpCard throwPowerUp(PowerUpCard p) throws Exception{
         PowerUpCard ret_card = null;
-        if (!powerUps.cointains(p)){
+        if (!powerUps.contains(p)){
             throw new Exception("non si può throware il power up perchè non è in mano al giocatore");
         }
         else{
