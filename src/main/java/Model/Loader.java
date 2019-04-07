@@ -104,6 +104,88 @@ public class Loader {
         return yellowLoader.size();
     }
 
-    //TODO
-    //method to insert ammos in the loader
+    /**
+     * this method add to the blueLoader the given blue ammos
+     * @param blueAmmo List of blue ammos to put in the blueLoader
+     */
+    private void addBlueAmmo(List<Ammo> blueAmmo){
+
+        blueLoader.addAll(blueAmmo);
+    }
+
+    /**
+     * this method add to the redLoader the given red ammos
+     * @param redAmmo List of red ammos to put in the redLoader
+     */
+    private void addRedAmmo(List<Ammo> redAmmo){
+
+        blueLoader.addAll(redAmmo);
+    }
+
+    /**
+     * this method add to the yellowLoader the given yellow ammos
+     * @param yellowAmmo List of blue ammos to put in the yellowLoader
+     */
+    private void addYellowAmmo(List<Ammo> yellowAmmo){
+
+        blueLoader.addAll(yellowAmmo);
+    }
+
+    /**
+     * this method ask to ammoPool ammos to reload, for example after drawing an ammoCard, and insert them in the appropriate loader
+     * @param blueAmmo number of blue ammos requested
+     * @param redAmmo numeber of red ammos requested
+     * @param yellowAmmo number of yellow ammos requested
+     */
+    public void askReload(int blueAmmo, int redAmmo, int yellowAmmo){
+        if (isFullBlue()){
+            blueAmmo = 0;
+        }
+        else if (blueLoader.size()+blueAmmo > 3){
+            blueAmmo = AmmoPool.MAX_AMMO - blueLoader.size();
+        }
+        addBlueAmmo(ammoPool.getNumBlueAmmos(blueAmmo));
+
+        if (isFullRed()){
+            redAmmo = 0;
+        }
+        else if (redLoader.size()+redAmmo > 3){
+            redAmmo = AmmoPool.MAX_AMMO - redLoader.size();
+        }
+        addRedAmmo(ammoPool.getNumRedAmmos(redAmmo));
+
+        if (isFullBlue()){
+            yellowAmmo = 0;
+        }
+        else if (yellowLoader.size()+yellowAmmo > 3){
+            yellowAmmo = AmmoPool.MAX_AMMO - yellowLoader.size();
+        }
+        addYellowAmmo(ammoPool.getNumYellowAmmos(yellowAmmo));
+    }
+
+    /**
+     * this method put used ammos back in the pool until they will be recharged in the loader
+     * @param blueAmmo number of blue ammos to put in the pool
+     * @param redAmmo number of red ammos to put in the pool
+     * @param yellowAmmo number of yellow ammos to put in the pool
+     */
+    public void ammoToPool(int blueAmmo, int redAmmo, int yellowAmmo){
+        List<Ammo> toReturn = new ArrayList<Ammo>();
+        while (blueAmmo > 0){
+            toReturn.add(blueLoader.remove(0));
+            blueAmmo--;
+        }
+
+        while (redAmmo > 0){
+            toReturn.add(redLoader.remove(0));
+            redAmmo--;
+        }
+
+        while (yellowAmmo > 0){
+            toReturn.add(yellowLoader.remove(0));
+            yellowAmmo--;
+        }
+
+        ammoPool.insertAmmos(toReturn);
+    }
 }
