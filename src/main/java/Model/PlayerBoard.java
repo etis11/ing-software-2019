@@ -43,6 +43,7 @@ public class PlayerBoard {
     }
 
     /**
+     * This method return the number of damage points
      * @return the size of damagePoints list
      */
     public int getNumDamagePoints(){

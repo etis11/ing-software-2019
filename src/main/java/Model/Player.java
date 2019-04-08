@@ -1,7 +1,11 @@
 package Model;
 
+import sun.awt.image.ImageWatched;
+
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class Player {
@@ -80,7 +84,7 @@ public class Player {
     }
 
     /**
-     * getter
+     * This method returns the name of the player
      * @return the name of the player
      */
     public String getName() {
@@ -88,7 +92,7 @@ public class Player {
     }
 
     /**
-     * getter
+     * This method returns the current points of the player
      * @return the current points of the player
      */
     public int getPoints() {
@@ -96,7 +100,7 @@ public class Player {
     }
 
     /**
-     * getter
+     * This method returns the current state of the player
      * @return the current state of the player
      */
     public State getState(){
@@ -109,12 +113,11 @@ public class Player {
      * @return the list of all weapons in the hand of the player
      */
     public List<WeaponCard> getWeapons(){
-        //return weapons.stream().map(WeaponCard::new).collect(toList());
-        //TODO
+        return weapons.stream().map(WeaponCard::new).collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
-     *getter
+     *This method return the number of the weapons in the player's hand
      * @return the number of weapons in the player's hand
      */
     public int getNumWeapons(){
@@ -131,7 +134,7 @@ public class Player {
     }
 
     /**
-     * getter
+     * This method returns the number of power ups in the player's hand
      * @return the number of power ups in the player's hand
      */
     public int getNumPowerUps(){
@@ -139,7 +142,7 @@ public class Player {
     }
 
     /**
-     * getter
+     * This method return the current location of the player
      * @return returns the tile where the player is located
      */
     public Tile getTile() {
@@ -147,8 +150,8 @@ public class Player {
     }
 
     /**
-     * getter
-     * @return a reference of the player's playerBoard, where all his public information are stored
+     * This method returns the playerBoard, where all his public information are stored
+     * @return a reference of the player's playerBoard
      */
     public PlayerBoard getPlayerBoard() {
         return playerBoard;
@@ -156,7 +159,7 @@ public class Player {
 
 
     /**
-     * This methods updates the player's score
+     * This method updates the player's score
      * @param points points that have to be added to the current score
      */
     public void addPoints(int points){
@@ -165,7 +168,7 @@ public class Player {
 
 
     /**
-     * change the state of the player
+     * This method change the state of the player
      * @param s new state where the player should be
      */
     public void setState(State s){
