@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class WeaponCard extends Card{
@@ -10,6 +12,22 @@ public class WeaponCard extends Card{
     private boolean loaded;
     private String NAME;
     private List<Effect> optionalEffects;
+
+    /**
+     * This constructor creates an imperfect copy of a given weapon. This constructor is used when the weapon has to be copied
+     * in order to be given to the client.
+     * L'inglese non è un gran che e contiene un po' di porcherie il codice, poi ne parliamo. Mi serve per la funzione
+     * getWeaponCards in player
+     * @param ref weapon that  has to be copied.
+     */
+    public WeaponCard(WeaponCard ref){
+        reloadCost = new LinkedList<>(ref.getReloadCost());
+        targetStrategy1 = null;
+        targetStrategy2 = null;
+        loaded = ref.loaded;
+        NAME = String.valueOf(ref.getNAME());
+        reloadCost = null
+    }
 
     public List<String> getReloadCost() {
         return reloadCost;
