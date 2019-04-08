@@ -17,7 +17,7 @@ public class Player {
 
     //creators
 
-    void Player(){
+    public void Player(){
         NAME = "";
         points = 0;
         state = new EndTurn();
@@ -27,7 +27,7 @@ public class Player {
         playerBoard = null;
     }
 
-    void Player(String name){
+    public void Player(String name){
         NAME = name;
         points = 0;
         state = new EndTurn();
@@ -120,8 +120,9 @@ public class Player {
     }
 
     public void reloadWeapon(Weapon w){
-        String reloadCost = w.getReloadCost();
-        playerBoard.getLoader().
+        //TODO
+        //String reloadCost = w.getReloadCost();
+        //playerBoard.getLoader().
     }
 
     public void pickUpAmmoCard(){
