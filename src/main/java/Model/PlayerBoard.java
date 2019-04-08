@@ -28,7 +28,7 @@ public class PlayerBoard {
     /**
      * A list that contains the possible points that other player could get after a kill
      */
-    private LinkedList<Integer> points ;
+    private LinkedList<Integer> pointsList ;
 
     /**
      * constructor method,
@@ -39,9 +39,17 @@ public class PlayerBoard {
         loader = new Loader();
         damagePoints = new LinkedList<>();
         marks = new LinkedList<>();
-        points = (IntStream.of(8,6,4,2,1,1,1,1,1).boxed().collect(Collectors.toCollection(LinkedList::new)));
+        pointsList = (IntStream.of(8,6,4,2,1,1,1,1,1).boxed().collect(Collectors.toCollection(LinkedList::new)));
     }
 
+
+    /**
+     * Gets the list of current point list
+     * @return
+     */
+    public LinkedList<Integer> getPointsList(){
+        return pointsList;
+    }
     /**
      * This method return the number of damage points
      * @return the size of damagePoints list
@@ -58,6 +66,15 @@ public class PlayerBoard {
     public int getNumMarksOfPlayer(Player p){
         return  (int) marks.stream().filter(mark -> mark.getOwner()==p).count();
     }
+
+    /**
+     * Returns the number of marks of the player, without distinguishing the owner
+     * @return the number of marks
+     */
+    public int getNumMarks(){
+        return  marks.size();
+    }
+
 
     /**
      * This method returns the number of damage that a player thit to the owner of the playerBoard

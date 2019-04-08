@@ -26,7 +26,7 @@ public class WeaponCard extends Card{
         targetStrategy2 = null;
         loaded = ref.loaded;
         NAME = String.valueOf(ref.getNAME());
-        reloadCost = null
+        reloadCost = null;
     }
 
     public List<String> getReloadCost() {
