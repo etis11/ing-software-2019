@@ -1,9 +1,11 @@
 package Model;
 
-import java.util.*;
+import java.lang.Integer;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 
 
@@ -40,7 +42,7 @@ public class PlayerBoard {
         loader = new Loader();
         damagePoints = new LinkedList<>();
         marks = new LinkedList<>();
-        points = new LinkedList<>().addAll(IntStream.of(8,6,4,2,1,1,1,1,1).boxed().collect(Collectors.toList());
+        points = (IntStream.of(8,6,4,2,1,1,1,1,1).boxed().collect(Collectors.toCollection(LinkedList::new)));
     }
 
     /**
