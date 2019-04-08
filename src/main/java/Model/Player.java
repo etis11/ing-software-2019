@@ -125,6 +125,6 @@ public class Player {
     }
 
     public void pickUpAmmoCard(){
-        //TODO culo
+        //TODO 
     }
 }
