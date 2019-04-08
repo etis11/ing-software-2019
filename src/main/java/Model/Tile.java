@@ -2,6 +2,7 @@ package Model;
 
 import java.util.List;
 
+//tile dovrebbe essere abstract
 public class Tile {
 
 

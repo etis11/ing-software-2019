@@ -108,11 +108,10 @@ public class Player {
     }
 
     /**
-     * getter. Sono indeciso se passare una copia delle armi oppure se passare la lista per valore. La seconda idea mi
-     * sembra una pessima idea
+     * This method returns a copy of the weaponsCards in the player's hand.
      * @return the list of all weapons in the hand of the player
      */
-    public List<WeaponCard> getWeapons(){
+    public LinkedList<WeaponCard> getWeapons(){
         return weapons.stream().map(WeaponCard::new).collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -125,12 +124,11 @@ public class Player {
     }
 
     /**
-     * getter. Sono indeciso se passare una copia dei power ups oppure se passare la lista per valore. La seconda idea mi
-     * sembra una pessima idea
+     * This method return a copy of the powerups in te player's hand.
      * @return the list of all power ups in the player's hand
      */
-    public List<PowerUpCard> getPowerUps(){
-        //TODO
+    public LinkedList<PowerUpCard> getPowerUps(){
+        return powerUps.stream().map(PowerUpCard::new).collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
@@ -182,6 +180,7 @@ public class Player {
      * @throws Exception
      */
     public void pickUpWeapon(WeaponCard w) throws Exception{
+        //TODO
         if (weapons.size() > 3){
             throw new Exception("Il giocatore ha già 3 armi in mano");
         }
@@ -241,14 +240,13 @@ public class Player {
      */
     public void reloadWeapon(Weapon w){
         //TODO
-        //String reloadCost = w.getReloadCost();
-        //playerBoard.getLoader().
     }
 
     /**
      * 
      */
     public void pickUpAmmoCard(){
-        //TODO 
+        AmmoCard card = Tile.getAmmoCard();
+
     }
 }
