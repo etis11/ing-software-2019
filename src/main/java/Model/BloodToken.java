@@ -3,7 +3,7 @@ package Model;
 public class BloodToken {
     private Player owner;
 
-    public void BloodToken(Player p){
+    public BloodToken(Player p){
         owner = p;
     }
 

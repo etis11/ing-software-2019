@@ -42,7 +42,23 @@ public class PlayerBoard {
         
     }
 
-    private void MarkToDamage(){
-        //TODO
+    private void MarkToDamage(DamageTransporter d){
+        for( BloodToken mark: marks){
+            if(mark.getOwner() == d.getOwner()){
+                marks.remove(mark);
+                if (getNumDamagePoints()<12) {
+                    damagePoints.addLast(mark);
+                }
+
+            }
+        }
+    }
+
+    private void addMarks(DamageTransporter d){
+        int numMarks = d.getNumMark();
+        for(int i = 0; i < numMarks; i++){
+            if(getNumDamagePoints(d.getTarget()) < 3)
+                marks.addLast(new BloodToken(d.getOwner()));
+        }
     }
 }
