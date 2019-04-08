@@ -8,6 +8,11 @@ public class DamageTransporter {
     private Player target;
 
     /**
+     * this is the player that created this damageTransporter object
+     */
+    private Player owner;
+
+    /**
      * this is the number of damage assigned to target
      */
     private int numDamage;
@@ -30,13 +35,15 @@ public class DamageTransporter {
     /**
      * this is the cunstroctor method
      * @param target is the player to damage
+     * @param owner is the player that created this DamageTransporter object
      * @param numDamage is the damage to assign to target
      * @param numMark is the number of marks to assign to target
      * @param firstMovement move before damaging
      * @param firstDamage damage before moving
      */
-    public DamageTransporter(Player target, int numDamage, int numMark, boolean firstMovement, boolean firstDamage) {
+    public DamageTransporter(Player target, Player owner, int numDamage, int numMark, boolean firstMovement, boolean firstDamage) {
         this.target = target;
+        this.owner = owner;
         this.numDamage = numDamage;
         this.numMark = numMark;
         this.firstMovement = firstMovement;
@@ -52,12 +59,21 @@ public class DamageTransporter {
     }
 
     /**
+     * this method return the player that wants to damage the target
+     * @return owner of this object
+     */
+    public Player getOwner(){
+        return owner;
+    }
+
+    /**
      * this method return the number of damage to assign to target
      * @return number of damage
      */
     public int getNumDamage() {
         return numDamage;
     }
+
 
     /**
      * this method return the number of marks to assign to target
