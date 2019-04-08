@@ -9,8 +9,8 @@ import java.util.stream.Stream;
 
 public class PlayerBoard {
     private Loader loader;
-    private List<BloodToken> damagePoints;
-    private List<BloodToken> marks;
+    private LinkedList<BloodToken> damagePoints;
+    private LinkedList<BloodToken> marks;
     private final int MAX_DAMAGE_POINTS = 12;
     private LinkedList<Integer> points ;
 
@@ -39,7 +39,7 @@ public class PlayerBoard {
 
 
     public void calculateDamage(DamageTransporter d){
-        //TODO
+        
     }
 
     private void MarkToDamage(){
