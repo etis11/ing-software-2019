@@ -12,7 +12,7 @@ public class Player {
     /**
      * name of the player
      */
-    private String NAME;
+    private final String NAME;
 
     /**
      * current points of the player

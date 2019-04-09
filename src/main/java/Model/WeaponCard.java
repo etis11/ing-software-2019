@@ -13,6 +13,18 @@ public class WeaponCard extends Card{
     private String NAME;
     private List<Effect> optionalEffects;
 
+
+
+    public WeaponCard(){
+        reloadCost = null;
+        targetStrategy1 = null;
+        targetStrategy2 = null;
+        loaded = true;
+        NAME = "";
+        reloadCost = null;
+
+    }
+
     /**
      * This constructor creates an imperfect copy of a given weapon. This constructor is used when the weapon has to be copied
      * in order to be given to the client.
