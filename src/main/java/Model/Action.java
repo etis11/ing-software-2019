@@ -16,22 +16,26 @@ public class Action extends State{
     }
 
     @Override
-    public void tryToRun() {
-
+    public boolean tryToRun() {
+        //TODO
+        return false;
     }
 
     @Override
-    public void tryToPickUp() {
-
+    public boolean tryToPickUp() {
+        //TODO
+        return false;
     }
 
     @Override
-    public void tryToShoot() {
-
+    public boolean tryToShoot() {
+        //TODO
+        return false;
     }
 
     @Override
-    public void tryToUsePowerUp() {
-
+    public boolean tryToUsePowerUp() {
+        //TODO
+        return false;
     }
 }

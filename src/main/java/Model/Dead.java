@@ -16,22 +16,25 @@ public class Dead extends State{
     }
 
     @Override
-    public void tryToRun() {
+    public boolean tryToRun() {
 
+        return false;
     }
 
     @Override
-    public void tryToPickUp() {
+    public boolean tryToPickUp() {
 
+        return false;
     }
 
     @Override
-    public void tryToShoot() {
+    public boolean tryToShoot() {
 
+        return false;
     }
 
     @Override
-    public void tryToUsePowerUp() {
-
+    public boolean tryToUsePowerUp() {
+        return false;
     }
 }

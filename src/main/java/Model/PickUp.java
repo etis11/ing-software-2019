@@ -15,23 +15,28 @@ public class PickUp extends State {
 
     }
 
-    @Override
-    public void tryToRun() {
 
+    @Override
+    public boolean tryToRun() {
+        //TODO
+        return false;
     }
 
     @Override
-    public void tryToPickUp() {
-
+    public boolean tryToPickUp() {
+        //TODO
+        return false;
     }
 
     @Override
-    public void tryToShoot() {
-
+    public boolean tryToShoot() {
+        //TODO
+        return false;
     }
 
     @Override
-    public void tryToUsePowerUp() {
-
+    public boolean tryToUsePowerUp() {
+        //TODO
+        return false;
     }
 }

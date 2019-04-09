@@ -28,22 +28,22 @@ public abstract class State {
     /**
      * this method verify for each subclass if playare can run
      */
-    public abstract void tryToRun();
+    public abstract boolean tryToRun();
 
     /**
      * this method verify for each subclass if playare can pick up
      */
-    public abstract void tryToPickUp();
+    public abstract boolean tryToPickUp();
 
     /**
      * this method verify for each subclass if playare can shoot
      */
-    public abstract void tryToShoot();
+    public abstract boolean tryToShoot();
 
     /**
      * this method verify for each subclass if playare can use a power up
      */
-    public abstract void tryToUsePowerUp();
+    public abstract boolean tryToUsePowerUp();
 
     //TODO
     //write documentation
