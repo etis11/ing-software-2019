@@ -1,6 +1,7 @@
 package Test;
 
 import Model.AmmoCard;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,14 +10,10 @@ public class CardTest {
 
     private AmmoCard ammoCard;
 
-
-    @Test
-    public void testConstructor() {
+    @BeforeEach
+    void initInstance(){
         ammoCard = new AmmoCard();
-
-        assertTrue(ammoCard instanceof AmmoCard, "ERRORE Istanza");
     }
-
     @Test
     public void testSetter() {
 
@@ -26,5 +23,14 @@ public class CardTest {
         assertTrue(ammoCard.getNumBlue() == 2);
 
     }
+
+    @Test
+    public void testConstructor() {
+        ammoCard = new AmmoCard();
+
+        assertTrue(ammoCard instanceof AmmoCard, "ERRORE Istanza");
+    }
+
+
 
 }
