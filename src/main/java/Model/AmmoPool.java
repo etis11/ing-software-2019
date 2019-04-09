@@ -32,7 +32,7 @@ public class AmmoPool {
     private List<Ammo> blueAmmos;
 
     /**
-     * this is the constructor method
+     * this is the constructor method, it initialize pool of every ammo color
      */
     public AmmoPool(){
         this.redAmmos = new ArrayList<Ammo>();
@@ -48,7 +48,7 @@ public class AmmoPool {
     }
 
     /**
-     * this method gives to player, if possible, blue ammos as requested
+     * this method gives, if possible, blue ammos as requested by a parameter
      * @param ammoNum number of blue ammos requested
      * @return list of blue ammos requested
      */
@@ -58,7 +58,7 @@ public class AmmoPool {
     }
 
     /**
-     * this method gives to player, if possible, yellow ammos as requested
+     * this method gives, if possible, yellow ammos as requested by a parameter
      * @param ammoNum number of yellow ammos requested
      * @return list of yellow ammos requested
      */
@@ -68,7 +68,7 @@ public class AmmoPool {
     }
 
     /**
-     * this method gives to player, if possible, red ammos as requested
+     * this method gives, if possible, red ammos as requested by a parameter
      * @param ammoNum number of red ammos requested
      * @return list of red ammos requested
      */
@@ -78,20 +78,21 @@ public class AmmoPool {
     }
 
     /**
-     * this method insert in the pool used ammos
+     * this method insert used ammos in the pool
      * @param ammmoToInsert List of ammos to insert in the pool
      */
     public void insertAmmos(List<Ammo> ammmoToInsert){
         Ammo tempAmmo;
         while(!ammmoToInsert.isEmpty()){
             tempAmmo = ammmoToInsert.remove(0);
-            if (tempAmmo.getColor().equals(Color.BLUE)){
+            if (tempAmmo.getColor()== Color.BLUE)
+            {
                 blueAmmos.add(tempAmmo);
             }
-            else if (tempAmmo.getColor().equals(Color.RED)){
+            else if (tempAmmo.getColor()== Color.RED){
                 redAmmos.add(tempAmmo);
             }
-            else if (tempAmmo.getColor().equals(Color.YELLOW)){
+            else if (tempAmmo.getColor() == Color.YELLOW){
                 yellowAmmos.add(tempAmmo);
             }
             tempAmmo = null;

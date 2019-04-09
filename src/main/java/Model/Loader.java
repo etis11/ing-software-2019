@@ -30,14 +30,14 @@ public class Loader {
     private List<Ammo> yellowLoader;
 
     /**
-     * this is the constructor method
+     * this is the constructor method, ance initialize loader of every color
      */
     public Loader(){
         this.ammoPool = new AmmoPool();
         this.blueLoader = new ArrayList<Ammo>();
         this.redLoader = new ArrayList<Ammo>();
         this.yellowLoader = new ArrayList<Ammo>();
-        //inizializzazione loader
+        
         this.blueLoader.add(new Ammo(Color.BLUE));
         this.redLoader.add(new Ammo(Color.RED));
         this.yellowLoader.add(new Ammo(Color.YELLOW));
