@@ -2,6 +2,7 @@ package Test;
 
 import Model.PlayerBoard;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,7 +14,7 @@ public class PlayerBoardTest {
     private int[] rightPoints = {8,6,4,2,1,1,1,1,1};
 
 
-    @BeforeAll
+    @BeforeEach
     public void inizializePlayerBoard(){
         p = new PlayerBoard();
     }

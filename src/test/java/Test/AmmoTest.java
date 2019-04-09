@@ -2,6 +2,7 @@ package Test;
 
 import Model.Ammo;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
@@ -13,7 +14,7 @@ public class AmmoTest {
 
     private Ammo ammo;
 
-    @BeforeAll
+    @BeforeEach
     public void initInstance(){
         ammo = new Ammo(Color.BLUE);
     }

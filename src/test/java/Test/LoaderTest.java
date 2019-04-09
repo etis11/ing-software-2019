@@ -1,6 +1,10 @@
 package Test;
 
 import Model.Loader;
+<<<<<<< HEAD
+=======
+import org.junit.jupiter.api.BeforeAll;
+>>>>>>> 121634dd28c2e8bd637c3545bc40b7a47376cb2f
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,11 +17,12 @@ public class LoaderTest {
 
     @BeforeEach
     public  void initInstance(){
+
         loader = new Loader();
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
 
         assertTrue(loader instanceof Loader, "ERROR of Instance");
 
@@ -41,7 +46,7 @@ public class LoaderTest {
     }
 
     @Test
-    public void testAskingReload(){
+    void testAskingReload(){
 
         int ammoToAsk = 1;
 
@@ -56,7 +61,7 @@ public class LoaderTest {
     }
 
     @Test
-    public void testAskingReloadOverMaxAmmo(){
+    void testAskingReloadOverMaxAmmo(){
 
         int ammoToAsk = 3;
 
@@ -71,7 +76,7 @@ public class LoaderTest {
     }
 
     @Test
-    public void testFull(){
+    void testFull(){
 
         int ammoToAsk = 3;
 
@@ -86,7 +91,7 @@ public class LoaderTest {
     }
 
     @Test
-    public void testPutToAmmo(){
+    void testPutToAmmo(){
 
         int ammoToAsk = 3;
 
