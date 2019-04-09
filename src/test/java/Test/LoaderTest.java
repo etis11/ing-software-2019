@@ -19,24 +19,24 @@ public class LoaderTest {
     @Test
     public void testConstructor() {
 
-        assertTrue(loader instanceof Loader, "ERRORE Istanza");
+        assertTrue(loader instanceof Loader, "ERROR of Instance");
 
-        assertTrue(loader.getNumBlueAmmo() == 1, "ERRORE Munizioni blu costruite");
+        assertTrue(loader.getNumBlueAmmo() == 1, "ERROR blue ammo constructed");
 
-        assertTrue(loader.getNumRedAmmo() == 1, "ERRORE Munizioni rosse costruite");
+        assertTrue(loader.getNumRedAmmo() == 1, "ERROR blue ammo constructed");
 
-        assertTrue(loader.getNumYellowAmmo() == 1, "ERRORE Munizioni gialle costruite");
+        assertTrue(loader.getNumYellowAmmo() == 1, "ERROR blue ammo constructed");
 
     }
 
     @Test
     public void testFilledAfterConctructed() {
 
-        assertTrue(!loader.isFullBlue(), "ERRORE Munizioni blu piene");
+        assertTrue(!loader.isFullBlue(), "ERROR full blue ammo");
 
-        assertTrue(!loader.isFullRed(), "ERRORE Munizioni rosse piene");
+        assertTrue(!loader.isFullRed(), "ERROR full red ammo");
 
-        assertTrue(!loader.isFullYellow(), "ERRORE Munizioni gialle piene");
+        assertTrue(!loader.isFullYellow(), "ERROR full yellow ammo");
 
     }
 
@@ -47,11 +47,11 @@ public class LoaderTest {
 
         loader.askReload(ammoToAsk, ammoToAsk, ammoToAsk);
 
-        assertTrue(loader.getNumBlueAmmo() == 1+ ammoToAsk, "ERRORE Munizioni blu caricate");
+        assertTrue(loader.getNumBlueAmmo() == 1+ ammoToAsk, "ERROR wrong blue ammo loaded");
 
-        assertTrue(loader.getNumRedAmmo() == 1+ ammoToAsk, "ERRORE Munizioni rosse caricate");
+        assertTrue(loader.getNumRedAmmo() == 1+ ammoToAsk, "ERROR wrong red ammo loaded");
 
-        assertTrue(loader.getNumYellowAmmo() == 1+ ammoToAsk, "ERRORE Munizioni gialle caricate");
+        assertTrue(loader.getNumYellowAmmo() == 1+ ammoToAsk, "ERROR wrong yellow ammo loaded");
 
     }
 
@@ -62,11 +62,11 @@ public class LoaderTest {
 
         loader.askReload(ammoToAsk, ammoToAsk, ammoToAsk);
 
-        assertTrue(loader.getNumBlueAmmo() == 1+ ammoToAsk, "ERRORE Munizioni blu caricate");
+        assertTrue(loader.getNumBlueAmmo() == 1+ ammoToAsk, "ERROR wrong blue ammo loaded");
 
-        assertTrue(loader.getNumRedAmmo() == 1+ ammoToAsk, "ERRORE Munizioni rosse caricate");
+        assertTrue(loader.getNumRedAmmo() == 1+ ammoToAsk, "ERROR wrong red ammo loaded");
 
-        assertTrue(loader.getNumYellowAmmo() == 1+ ammoToAsk, "ERRORE Munizioni gialle caricate");
+        assertTrue(loader.getNumYellowAmmo() == 1+ ammoToAsk, "ERROR wrong yellow ammo loaded");
 
     }
 
@@ -77,11 +77,11 @@ public class LoaderTest {
 
         loader.askReload(ammoToAsk, ammoToAsk, ammoToAsk);
 
-        assertTrue(loader.isFullBlue(), "ERRORE Munizioni blu non piene");
+        assertTrue(loader.isFullBlue(), "ERROR blue ammo not full");
 
-        assertTrue(loader.isFullRed(), "ERRORE Munizioni rosse non piene");
+        assertTrue(loader.isFullRed(), "ERROR red ammo not full");
 
-        assertTrue(loader.isFullYellow(), "ERRORE Munizioni gialle non piene");
+        assertTrue(loader.isFullYellow(), "ERROR yellow ammo not full");
 
     }
 
@@ -94,11 +94,11 @@ public class LoaderTest {
 
         loader.ammoToPool(ammoToAsk, ammoToAsk, ammoToAsk );
 
-        assertTrue(loader.getNumBlueAmmo() == 0, "ERRORE Munizioni blu non svuotate");
+        assertTrue(loader.getNumBlueAmmo() == 0, "ERROR blue ammo not thrown");
 
-        assertTrue(loader.getNumRedAmmo() == 0, "ERRORE Munizioni rosse svuotate");
+        assertTrue(loader.getNumRedAmmo() == 0, "ERROR red ammo not thrown");
 
-        assertTrue(loader.getNumYellowAmmo() == 0, "ERRORE Munizioni gialle svuotate");
+        assertTrue(loader.getNumYellowAmmo() == 0, "ERROR yellow ammo not thrown");
     }
 
 

@@ -20,7 +20,7 @@ public class AmmoTest {
 
     @Test
     public void testConstructor(){
-        assertTrue(ammo instanceof Ammo, "ERRORE Istanza");
+        assertTrue(ammo instanceof Ammo, "ERROR of Instance");
 
         assertTrue(ammo.getColor() == Color.BLUE, "ERROR not blue ammo");
 
