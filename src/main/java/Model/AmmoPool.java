@@ -35,9 +35,9 @@ public class AmmoPool {
      * this is the constructor method, it initialize pool of every ammo color
      */
     public AmmoPool(){
-        this.redAmmos = new ArrayList<Ammo>();
-        this.yellowAmmos = new ArrayList<Ammo>();
-        this.blueAmmos = new ArrayList<Ammo>();
+        this.redAmmos = new ArrayList<>();
+        this.yellowAmmos = new ArrayList<>();
+        this.blueAmmos = new ArrayList<>();
 
         redAmmos.add(new Ammo(Color.RED));
         redAmmos.add(new Ammo(Color.RED));
@@ -53,8 +53,11 @@ public class AmmoPool {
      * @return list of blue ammos requested
      */
     public List<Ammo> getNumBlueAmmos(int ammoNum){
-
-        return null;
+        List<Ammo> toReturn= new ArrayList<>();
+        for (int i = 0; i < ammoNum; i++){
+            toReturn.add(blueAmmos.remove(0));
+        }
+        return toReturn;
     }
 
     /**
@@ -63,8 +66,11 @@ public class AmmoPool {
      * @return list of yellow ammos requested
      */
     public List<Ammo> getNumYellowAmmos(int ammoNum){
-
-        return null;
+        List<Ammo> toReturn= new ArrayList<>();
+        for (int i = 0; i < ammoNum; i++){
+            toReturn.add(yellowAmmos.remove(0));
+        }
+        return toReturn;
     }
 
     /**
@@ -73,8 +79,11 @@ public class AmmoPool {
      * @return list of red ammos requested
      */
     public List<Ammo> getNumRedAmmos(int ammoNum){
-
-        return null;
+        List<Ammo> toReturn= new ArrayList<>();
+        for (int i = 0; i < ammoNum; i++){
+            toReturn.add(redAmmos.remove(0));
+        }
+        return toReturn;
     }
 
     /**
@@ -95,7 +104,6 @@ public class AmmoPool {
             else if (tempAmmo.getColor() == Color.YELLOW){
                 yellowAmmos.add(tempAmmo);
             }
-            tempAmmo = null;
         }
     }
 
