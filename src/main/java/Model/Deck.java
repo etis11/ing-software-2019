@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Stack;
 
 public class Deck<T> {
-    Stack<T> cards;
+   private Stack<T> cards;
 
 public T draw() {
 return cards.pop();
