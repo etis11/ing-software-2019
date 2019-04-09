@@ -1,7 +1,9 @@
 package Test;
 
 import Model.Loader;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,12 +11,13 @@ public class LoaderTest {
 
     private Loader loader;
 
-
+    @BeforeAll
+    public void initInstance(){
+        loader = new Loader();
+    }
 
     @Test
     public void testConstructor() {
-
-        loader = new Loader();
 
         assertTrue(loader instanceof Loader, "ERRORE Istanza");
 
@@ -29,8 +32,6 @@ public class LoaderTest {
     @Test
     public void testFilledAfterConctructed() {
 
-        loader = new Loader();
-
         assertTrue(!loader.isFullBlue(), "ERRORE Munizioni blu piene");
 
         assertTrue(!loader.isFullRed(), "ERRORE Munizioni rosse piene");
@@ -41,8 +42,6 @@ public class LoaderTest {
 
     @Test
     public void testAskingReload(){
-
-        loader = new Loader();
 
         int ammoToAsk = 1;
 
@@ -59,8 +58,6 @@ public class LoaderTest {
     @Test
     public void testAskingReloadOverMaxAmmo(){
 
-        loader = new Loader();
-
         int ammoToAsk = 3;
 
         loader.askReload(ammoToAsk, ammoToAsk, ammoToAsk);
@@ -76,8 +73,6 @@ public class LoaderTest {
     @Test
     public void testFull(){
 
-        loader = new Loader();
-
         int ammoToAsk = 3;
 
         loader.askReload(ammoToAsk, ammoToAsk, ammoToAsk);
@@ -92,12 +87,11 @@ public class LoaderTest {
 
     @Test
     public void testPutToAmmo(){
-        loader = new Loader();
 
         int ammoToAsk = 3;
 
         loader.askReload(ammoToAsk, ammoToAsk, ammoToAsk);
-        
+
         loader.ammoToPool(ammoToAsk, ammoToAsk, ammoToAsk );
 
         assertTrue(loader.getNumBlueAmmo() == 0, "ERRORE Munizioni blu non svuotate");
