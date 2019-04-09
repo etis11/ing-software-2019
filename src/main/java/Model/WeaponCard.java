@@ -82,23 +82,28 @@ public class WeaponCard extends Card{
     }
 
     public int getBlueCost() {
-
+    //TODO
+        return 0;
     }
 
     public int getYellowCost() {
-
+        //TODO
+        return 0;
     }
 
     public int getRedCost() {
-
+        //TODO
+        return 0;
     }
 
     public boolean isLoaded() {
-
+    //TODO
+        return false;
     }
 
     public String getName() {
-
+    //TODO
+        return null;
     }
 
     public void chooseEffect() {
