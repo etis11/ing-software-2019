@@ -1,7 +1,7 @@
 package Test;
 
 import Model.Loader;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
@@ -11,8 +11,8 @@ public class LoaderTest {
 
     private Loader loader;
 
-    @BeforeAll
-    public void initInstance(){
+    @BeforeEach
+    public  void initInstance(){
         loader = new Loader();
     }
 
@@ -62,11 +62,11 @@ public class LoaderTest {
 
         loader.askReload(ammoToAsk, ammoToAsk, ammoToAsk);
 
-        assertTrue(loader.getNumBlueAmmo() == 1+ ammoToAsk, "ERROR wrong blue ammo loaded");
+        assertTrue(loader.getNumBlueAmmo() == 3, "ERROR wrong blue ammo loaded");
 
-        assertTrue(loader.getNumRedAmmo() == 1+ ammoToAsk, "ERROR wrong red ammo loaded");
+        assertTrue(loader.getNumRedAmmo() == 3, "ERROR wrong red ammo loaded");
 
-        assertTrue(loader.getNumYellowAmmo() == 1+ ammoToAsk, "ERROR wrong yellow ammo loaded");
+        assertTrue(loader.getNumYellowAmmo() == 3, "ERROR wrong yellow ammo loaded");
 
     }
 

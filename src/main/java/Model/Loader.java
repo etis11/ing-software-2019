@@ -113,7 +113,7 @@ public class Loader {
      */
     private void addRedAmmo(List<Ammo> redAmmo){
 
-        blueLoader.addAll(redAmmo);
+        redLoader.addAll(redAmmo);
     }
 
     /**
@@ -122,7 +122,7 @@ public class Loader {
      */
     private void addYellowAmmo(List<Ammo> yellowAmmo){
 
-        blueLoader.addAll(yellowAmmo);
+        yellowLoader.addAll(yellowAmmo);
     }
 
     /**
@@ -138,7 +138,7 @@ public class Loader {
         else if (blueLoader.size()+blueAmmo > 3){
             blueAmmo = AmmoPool.MAX_AMMO - blueLoader.size();
         }
-        addBlueAmmo(ammoPool.getNumBlueAmmos(blueAmmo));
+        addBlueAmmo(ammoPool.getBlueAmmos(blueAmmo));
 
         if (isFullRed()){
             redAmmo = 0;
@@ -148,7 +148,7 @@ public class Loader {
         }
         addRedAmmo(ammoPool.getNumRedAmmos(redAmmo));
 
-        if (isFullBlue()){
+        if (isFullYellow()){
             yellowAmmo = 0;
         }
         else if (yellowLoader.size()+yellowAmmo > 3){
