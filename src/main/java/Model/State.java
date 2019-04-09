@@ -13,8 +13,6 @@ public abstract class State {
      * this represent number of steps which the player can do
      */
     private int remainingSteps;
-    //TODO
-    //è necessario inizializzarlo?
 
 
     /**
@@ -45,11 +43,12 @@ public abstract class State {
      */
     public abstract boolean tryToUsePowerUp();
 
-    //TODO
-    //write documentation
+    /**
+     * this function calls setState in class Player
+     * @param p Player who change his state
+     */
     public void nextState(Player p){
-        //TODO
-        //astratto o no?
+        p.setState(new EndTurn());
     }
 
 
