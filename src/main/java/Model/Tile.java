@@ -1,54 +1,63 @@
 package Model;
 
+import java.util.LinkedList;
 import java.util.List;
 
-//tile dovrebbe essere abstract
-public class Tile {
+
+public  abstract class Tile {
 
 
 
-    public Tile EastTile;
-    public Tile WestTile;
-    public Tile NorthTile;
-    public Tile SouthTile;
+    private Tile eastTile;
+    private Tile westTile;
+    private Tile northTile;
+    private Tile southTile;
+    private List<Player> players;
 
-    private List<Player> getPlayers;
+    public Tile(){
+        eastTile = null;
+        westTile = null;
+        northTile = null;
+        southTile = null;
+        players = new LinkedList<>();
+        
+    }
 
     public Tile getEastTile() {
-        return EastTile;
+        return eastTile;
     }
 
     public void setEastTile(Tile eastTile) {
-        EastTile = eastTile;
+        this.eastTile = eastTile;
     }
 
     public Tile getWestTile() {
-        return WestTile;
+        return westTile;
     }
 
     public void setWestTile(Tile westTile) {
-        WestTile = westTile;
+        this.westTile = westTile;
     }
 
     public Tile getNorthTile() {
-        return NorthTile;
+        return northTile;
     }
 
     public void setNorthTile(Tile northTile) {
-        NorthTile = northTile;
+        this.northTile = northTile;
     }
 
     public Tile getSouthTile() {
-        return SouthTile;
+        return southTile;
     }
 
     public void setSouthTile(Tile southTile) {
-        SouthTile = southTile;
+        this.southTile = southTile;
     }
 
 
-    public List<Player> getPlayersInTile() {
-        return getPlayers;
+    public List<Player> getPlayers() {
+        return players;
     }
 
 }
