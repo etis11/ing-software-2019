@@ -34,9 +34,9 @@ public class Loader {
      */
     public Loader(){
         this.ammoPool = new AmmoPool();
-        this.blueLoader = new ArrayList<Ammo>();
-        this.redLoader = new ArrayList<Ammo>();
-        this.yellowLoader = new ArrayList<Ammo>();
+        this.blueLoader = new ArrayList<>();
+        this.redLoader = new ArrayList<>();
+        this.yellowLoader = new ArrayList<>();
 
         this.blueLoader.add(new Ammo(Color.BLUE));
         this.redLoader.add(new Ammo(Color.RED));
@@ -49,10 +49,8 @@ public class Loader {
      * @return if the loader is full of blue ammos
      */
     public boolean isFullBlue(){
-        if(blueLoader.size()==AmmoPool.MAX_AMMO){
-            return true;
-        }
-        return false;
+
+        return blueLoader.size()==AmmoPool.MAX_AMMO;
     }
 
     /**
@@ -60,10 +58,8 @@ public class Loader {
      * @return if the loader is full of red ammos
      */
     public boolean isFullRed(){
-        if(redLoader.size()==AmmoPool.MAX_AMMO){
-            return true;
-        }
-        return false;
+
+        return redLoader.size()==AmmoPool.MAX_AMMO;
     }
 
     /**
@@ -71,10 +67,8 @@ public class Loader {
      * @return if the loader is full of yellow ammos
      */
     public boolean isFullYellow(){
-        if(yellowLoader.size()==AmmoPool.MAX_AMMO){
-            return true;
-        }
-        return false;
+
+        return yellowLoader.size()==AmmoPool.MAX_AMMO;
     }
 
     /**
@@ -170,7 +164,7 @@ public class Loader {
      * @param yellowAmmo number of yellow ammos to put in the pool
      */
     public void ammoToPool(int blueAmmo, int redAmmo, int yellowAmmo){
-        List<Ammo> toReturn = new ArrayList<Ammo>();
+        List<Ammo> toReturn = new ArrayList<>();
         while (blueAmmo > 0){
             toReturn.add(blueLoader.remove(0));
             blueAmmo--;
