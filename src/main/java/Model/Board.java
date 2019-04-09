@@ -9,9 +9,9 @@ public class Board {
     private int skulls;
     private GameMap map;
     private LinkedList<Player> players;
-    private Deck<powerUpDeck> powerUpDeck;
-    private Deck<weaponDeck> weaponDeck;
-    private Deck<ammoDeck> ammoDeck;
+    private Deck<PowerUpCard> powerUpDeck;
+    private Deck<WeaponCard> weaponDeck;
+    private Deck<AmmoCard> ammoDeck;
 
 
     public int getSkulls() {
@@ -38,27 +38,27 @@ public class Board {
         this.players = players;
     }
 
-    public Deck<powerUpDeck> getPowerUpDeck() {
+    public Deck<PowerUpCard> getPowerUpDeck() {
         return powerUpDeck;
     }
 
-    public void setPowerUpDeck(Deck<powerUpDeck> powerUpDeck) {
+    public void setPowerUpDeck(Deck<PowerUpCard> powerUpDeck) {
         this.powerUpDeck = powerUpDeck;
     }
 
-    public Deck<weaponDeck> getWeaponDeck() {
+    public Deck<WeaponCard> getWeaponDeck() {
         return weaponDeck;
     }
 
-    public void setWeaponDeck(Deck<weaponDeck> weaponDeck) {
+    public void setWeaponDeck(Deck<WeaponCard> weaponDeck) {
         this.weaponDeck = weaponDeck;
     }
 
-    public Deck<ammoDeck> getAmmoDeck() {
+    public Deck<AmmoCard> getAmmoDeck() {
         return ammoDeck;
     }
 
-    public void setAmmoDeck(Deck<ammoDeck> ammoDeck) {
+    public void setAmmoDeck(Deck<AmmoCard> ammoDeck) {
         this.ammoDeck = ammoDeck;
     }
 }
