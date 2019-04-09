@@ -117,4 +117,26 @@ public class WeaponCard extends Card{
     public void getTargetStrategy2() {
 
     }
+
+    /**
+     * Two weaponsCard are equals if they have the same name
+     * @param o object that has to be testes
+     * @return true if the weapons have the same name, false othwerwise
+     */
+    @Override
+    public boolean equals(Object o){
+        if (o == null) {
+            return false;
+        }
+        else if (o == this) {
+            return true;
+        }
+        else if (!(o instanceof WeaponCard))
+            return false;
+
+        WeaponCard w = (WeaponCard) o;
+        return w.getNAME().equals(this.getName());
+
+
+    }
 }
