@@ -13,6 +13,8 @@ public  abstract class Tile {
     private Tile northTile;
     private Tile southTile;
     private List<Player> players;
+    private AmmoCard ammoCard;
+    private LinkedList<WeaponCard> weapons;
 
     public Tile(){
         eastTile = null;
@@ -20,6 +22,7 @@ public  abstract class Tile {
         northTile = null;
         southTile = null;
         players = new LinkedList<>();
+        ammoCard = new AmmoCard();
         
     }
 
@@ -59,5 +62,17 @@ public  abstract class Tile {
     public List<Player> getPlayers() {
         return players;
     }
+
+    public abstract AmmoCard getAmmoCard();
+
+    public abstract boolean isPresentAmmoCard();
+
+    public abstract LinkedList<WeaponCard> getWeapons();
+
+    public abstract boolean arePresentWeapons();
+
+    public abstract void putWeaponCard(WeaponCard w);
+
+
 
 }
