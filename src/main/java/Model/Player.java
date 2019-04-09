@@ -238,7 +238,7 @@ public class Player {
      *
      * @param w
      */
-    public void reloadWeapon(Weapon w){
+    public void reloadWeapon(WeaponCard w){
         //TODO
     }
 
@@ -247,7 +247,7 @@ public class Player {
      * this method. The ammoCard is used (passed to the loader). The player draws a powerUp if the drawPowerUp is true
      * @param powerUpDeck the deck from where the powerUp is drawn
      */
-    public void pickUpAmmoCard(Deck<PowerUpCard> powerUpDeck){
+    public void pickUpAmmoCard(Deck<PowerUpCard> powerUpDeck) throws Exception {
         AmmoCard card = Tile.getAmmoCard();
         playerBoard.getLoader().askReload(card.getNumBlue(), card.getNumRed(), card.getNumYellow());
         if (card.getDrawPowerUp()){
