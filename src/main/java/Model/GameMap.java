@@ -28,24 +28,39 @@ public class GameMap {
         this.referenceTile = referenceTile;
     }
 
-    public List<Player> allVisiblePlayers(Player p) {
-
-    }
-
     public Tile getTile(Player p) {
-     //TODO must return something
+        return p.getTile();
     }
 
     public List<Player> allVisiblePlayers(Player p)  {
-        //TODO must return something
+
+        List<Player> visiblePlayers = new ArrayList<>();
+        for (Tile tile: this.allVisibleTiles(p) ){
+            visiblePlayers.addAll(tile.getPlayersInTile()) ;
+        }
+        return visiblePlayers;
     }
 
     public List<Tile> allVisibleTiles(Player p)  {
-        //TODO must return something
+        List<Tile> visibleTiles = new ArrayList<>();
+        Tile eastTile = p.getTile().getEastTile();
+        Tile northTile = p.getTile().getNorthTile();
+        Tile southTile = p.getTile().getSouthTile();
+        Tile westTile = p.getTile().getWestTile();
+
+
+        visibleTiles.add(eastTile);
+        visibleTiles.add(northTile);
+        visibleTiles.add(southTile);
+        visibleTiles.add(westTile);
+
+
+       return  referenceTile;
     }
 
     public List<Room> visibleRooms(Player p) {
         //TODO must return something
+        return null;
     }
     //room or rooms?! or both?
 }
