@@ -246,7 +246,7 @@ public class Player {
      * @param powerUpDeck the deck from where the powerUp is drawn
      */
     public void pickUpAmmoCard(Deck<PowerUpCard> powerUpDeck) throws Exception {
-        AmmoCard card = Tile.getAmmoCard();
+        AmmoCard card = tile.getAmmoCard();
         playerBoard.getLoader().askReload(card.getNumBlue(), card.getNumRed(), card.getNumYellow());
         if (card.getDrawPowerUp()){
             drawPowerUp(powerUpDeck);

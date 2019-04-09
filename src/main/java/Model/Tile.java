@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -48,7 +49,7 @@ public  abstract class Tile {
         westTile = null;
         northTile = null;
         southTile = null;
-        players = new LinkedList<>();
+        players = new ArrayList<>();
         ammoCard = new AmmoCard();
         
     }
@@ -130,7 +131,10 @@ public  abstract class Tile {
      * Gets the ammo card in the tile
      * @return an ammo card
      */
-    public abstract AmmoCard getAmmoCard();
+    public AmmoCard getAmmoCard(){
+        //TODO
+        return null;
+    }
 
 
     /**
@@ -143,7 +147,7 @@ public  abstract class Tile {
      * Gets the weapons in the tile.
      * @return weapons, cant be null
      */
-    public abstract LinkedList<WeaponCard> getWeapons();
+    public abstract List<WeaponCard> getWeapons();
 
     /**
      * Checks if the tile contains the weapons
@@ -157,6 +161,9 @@ public  abstract class Tile {
      */
     public abstract void putWeaponCard(WeaponCard w);
 
-
+    public List<Player> getPlayersInTile(){
+        //TODO
+        return null;
+    }
 
 }
