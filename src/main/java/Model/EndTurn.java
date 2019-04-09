@@ -38,7 +38,7 @@ public class EndTurn extends State{
     }
 
     @Override
-    public void nextState(Player p) {
+    public void nextState(Player p, String state) {
 
         int playerDamage = p.getPlayerBoard().getNumDamagePoints();
 

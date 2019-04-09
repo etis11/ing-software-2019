@@ -47,7 +47,7 @@ public abstract class State {
      * this function calls setState in class Player
      * @param p Player who change his state
      */
-    public void nextState(Player p){
+    public void nextState(Player p, String state){
         p.setState(new EndTurn());
     }
 
