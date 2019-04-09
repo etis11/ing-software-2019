@@ -1,10 +1,7 @@
 package Test;
 
 import Model.Loader;
-<<<<<<< HEAD
-=======
-import org.junit.jupiter.api.BeforeAll;
->>>>>>> 121634dd28c2e8bd637c3545bc40b7a47376cb2f
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
