@@ -27,7 +27,7 @@ public class LoaderTest {
     }
 
     @Test
-    public void testFilled() {
+    public void testFilledAfterConctructed() {
 
         loader = new Loader();
 
@@ -36,6 +36,23 @@ public class LoaderTest {
         assertTrue(!loader.isFullRed(), "ERRORE Munizioni rosse piene");
 
         assertTrue(!loader.isFullYellow(), "ERRORE Munizioni gialle piene");
+
+    }
+
+    @Test
+    public void testAskingReload(){
+
+        loader = new Loader();
+
+        int ammoToAsk = 1;
+
+        loader.askReload(ammoToAsk, ammoToAsk, ammoToAsk);
+
+        assertTrue(loader.getNumBlueAmmo() == 1+ ammoToAsk, "ERRORE Munizioni blu caricate");
+
+        assertTrue(loader.getNumRedAmmo() == 1+ ammoToAsk, "ERRORE Munizioni rosse caricate");
+
+        assertTrue(loader.getNumYellowAmmo() == 1+ ammoToAsk, "ERRORE Munizioni gialle caricate");
 
     }
 }
