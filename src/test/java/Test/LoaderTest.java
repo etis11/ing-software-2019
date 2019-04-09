@@ -88,6 +88,22 @@ public class LoaderTest {
     }
 
     @Test
+    void testReloadButFull(){
+
+        int ammoToAsk = 3;
+
+        loader.askReload(ammoToAsk, ammoToAsk, ammoToAsk);
+
+        loader.askReload(ammoToAsk, ammoToAsk, ammoToAsk);
+
+        assertTrue(loader.getNumBlueAmmo() == 3, "ERROR wrong blue ammo loaded");
+
+        assertTrue(loader.getNumRedAmmo() == 3, "ERROR wrong red ammo loaded");
+
+        assertTrue(loader.getNumYellowAmmo() == 3, "ERROR wrong yellow ammo loaded");
+    }
+
+    @Test
     void testPutToAmmo(){
 
         int ammoToAsk = 3;
