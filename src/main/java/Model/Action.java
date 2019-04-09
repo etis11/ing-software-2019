@@ -9,33 +9,34 @@ package Model;
 public class Action extends State{
 
     /**
-     * this is the constructor method
+     * this is the constructor method, it has no body as this class is behavioural
      */
     public Action(){
-
+        //this method is only behavioural so it doesn't need to initialize anything
     }
 
     @Override
     public boolean tryToRun() {
-        //TODO
-        return false;
+        return remainingSteps>0;    //maggiore o maggiore uguale?
     }
 
     @Override
     public boolean tryToPickUp() {
-        //TODO
-        return false;
+        return remainingSteps>0;
     }
 
     @Override
     public boolean tryToShoot() {
-        //TODO
-        return false;
+        return remainingSteps>0;
     }
 
     @Override
     public boolean tryToUsePowerUp() {
+        return remainingSteps>0;
+    }
+
+    @Override
+    public void nextState(Player p) {
         //TODO
-        return false;
     }
 }
