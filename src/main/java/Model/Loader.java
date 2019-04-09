@@ -154,7 +154,7 @@ public class Loader {
         else if (yellowLoader.size()+yellowAmmo > 3){
             yellowAmmo = AmmoPool.MAX_AMMO - yellowLoader.size();
         }
-        addYellowAmmo(ammoPool.getNumYellowAmmos(yellowAmmo));
+        addYellowAmmo(ammoPool.getYellowAmmos(yellowAmmo));
     }
 
     /**

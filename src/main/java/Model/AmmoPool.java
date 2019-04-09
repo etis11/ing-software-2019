@@ -65,7 +65,7 @@ public class AmmoPool {
      * @param ammoNum number of yellow ammos requested
      * @return list of yellow ammos requested
      */
-    public List<Ammo> getNumYellowAmmos(int ammoNum){
+    public List<Ammo> getYellowAmmos(int ammoNum){
         List<Ammo> toReturn= new ArrayList<>();
         for (int i = 0; i < ammoNum; i++){
             toReturn.add(yellowAmmos.remove(0));
