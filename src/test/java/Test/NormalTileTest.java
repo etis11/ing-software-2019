@@ -62,10 +62,16 @@ public class NormalTileTest {
         try{
             normalTile.putAmmoCard(ammo);
         }
+<<<<<<< HEAD
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
+=======
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+>>>>>>> tile
         assertSame(ammo, normalTile.pickUpAmmoCard(), () -> "ERROR: the tile that has been picked up is not the same that has been put in")
     }
 
@@ -76,7 +82,6 @@ public class NormalTileTest {
     void doubleInsertionTest(){
         AmmoCard ammo1 = new AmmoCard();
         AmmoCard ammo2 = new AmmoCard();
-
         try{
             normalTile.putAmmoCard(ammo1);
         }
@@ -84,8 +89,7 @@ public class NormalTileTest {
             System.out.println(e.getMessage());
         }
 
-        assertThrows(Exception.class, () -> normalTile.putAmmoCard(ammo2), "ERROR: A double insertion should throw an exception\"");
-
+        assertThrows(Exception.class, () -> {normalTile.putAmmoCard(ammo2);}, () -> "ERROR: dovrebbe lanciare un eccezzione se c'è già una munizione nel tile")
     }
 
 
