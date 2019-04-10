@@ -36,7 +36,7 @@ public class GameMap {
 
         List<Player> visiblePlayers = new ArrayList<>();
         for (Tile tile: this.allVisibleTiles(p) ){
-            visiblePlayers.addAll(tile.getPlayersInTile()) ;
+            visiblePlayers.addAll(tile.getPlayers()) ;
         }
         return visiblePlayers;
     }

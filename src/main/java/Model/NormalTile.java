@@ -69,7 +69,7 @@ public class NormalTile extends Tile {
     public void putAmmoCard(AmmoCard ammo) throws NullPointerException, Exception {
         if (ammo == null) throw new NullPointerException("The argument passed is null");
         if( ammoCard != null) throw new Exception("Can't add an ammoCard card in a tile that has already an ammo card");
-        this.ammoCard = ammoCard;
+        this.ammoCard = ammo;
         presentAmmo = true;
     }
 
