@@ -135,7 +135,7 @@ public  abstract class Tile {
     }
 
     public boolean isPlayerIn(Player p){
-
+        return players.contains(p);
     }
 
 }
