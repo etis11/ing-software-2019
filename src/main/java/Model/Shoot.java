@@ -12,31 +12,48 @@ public class Shoot extends State{
      * this is constructor method
      */
     public Shoot(){
-
+        remainingSteps--;
     }
 
 
     @Override
     public boolean tryToRun() {
-        //TODO
+
         return false;
     }
 
     @Override
     public boolean tryToPickUp() {
-        //TODO
+
         return false;
     }
 
     @Override
     public boolean tryToShoot() {
-        //TODO
+
         return false;
     }
 
     @Override
     public boolean tryToUsePowerUp() {
-        //TODO
+
         return false;
+    }
+
+    @Override
+    public void nextState(Player p, String mexState) {
+        //TODO
+        //vedi commento in pickUp
+        int playerDamage = p.getPlayerBoard().getNumDamagePoints();
+
+        if (playerDamage < 3) {
+            p.setState(new Action());
+        }
+        else if (playerDamage <6){
+            p.setState(new MoreAction());
+        }
+        else{
+            p.setState(new MostAction());
+        }
     }
 }
