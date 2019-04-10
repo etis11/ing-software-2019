@@ -12,7 +12,7 @@ public class Reload extends State{
      * this is the constructor method
      */
     public Reload(){
-
+        //this class is behavioural so there aren't attributes to initialize
     }
 
 
@@ -34,5 +34,10 @@ public class Reload extends State{
     @Override
     public boolean tryToUsePowerUp() {
         return false;
+    }
+
+    @Override
+    public void nextState(Player p, String mexState) {
+        p.setState(new EndTurn());
     }
 }

@@ -22,6 +22,8 @@ public abstract class State {
     public int getRemainingSteps(){
         return this.remainingSteps;
     }
+    //TODO
+    //add to UML
 
     /**
      * this method verify for each subclass if playare can run
@@ -50,6 +52,7 @@ public abstract class State {
     public void nextState(Player p, String mexState){
         //TODO
         //change UML
+        //problem in case of overkilled or dead state
         p.setState(new EndTurn());
     }
 
