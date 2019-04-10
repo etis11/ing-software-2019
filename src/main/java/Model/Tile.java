@@ -1,57 +1,64 @@
 package Model;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-
+/**
+ * The Tile class is the element that constitutes a GameMap. A Tile contains the reference of the adjacent tiles in the map.
+ * All the adjacent tiles are different ( example: northTile and SouthTile can't both point to the same object).
+ * A tile contains the players that are placed in it.
+ */
 public  abstract class Tile {
-    /**
-     * reference to the tile plaed to the east
-     */
-    private Tile eastTile;
 
     /**
-     * reference to the tile plaed to the west
-     */
-    private Tile westTile;
-
-    /**
-     * reference to the tile plaed to the north
+     * reference to the tile placed to the north. Can be null.
      */
     private Tile northTile;
 
     /**
-     * reference to the tile plaed to the south
+     * reference to the tile placed to the east. Can be null.
+     */
+    private Tile eastTile;
+    /**
+     * reference to the tile placed to the south. Can be null.
      */
     private Tile southTile;
 
     /**
-     * list of all players that are in the tile
+     * reference to the tile placed to the west. Can be null.
+     */
+    private Tile westTile;
+
+    /**
+     * list of all players that are in the tile. If the player is present, there is only one occurence.
+     * Can't be null. Can be a empty list. All players in the list are different.
      */
     private List<Player> players;
-
-    /**
-     * ammoCard of the tile. This value is null if there is no ammo or the tile is a regen point
-     */
-    private AmmoCard ammoCard;
-
-    /**
-     * the weapons that are in the tile. this field is null only if the tile is a normaltile
-     */
-    private LinkedList<WeaponCard> weapons;
 
     /**
      * creates a tile with all the values set to null
      */
     public Tile(){
-        eastTile = null;
-        westTile = null;
         northTile = null;
+        eastTile = null;
         southTile = null;
-        players = new ArrayList<>();
-        ammoCard = new AmmoCard();
-        
+        westTile = null;
+        players = new LinkedList<>();
+    }
+
+    /**
+     * Creates a tile given the surrounding tiles. The parameters can be null.
+     * @param north north tile
+     * @param east east tile
+     * @param south south tile
+     * @param west west tile
+     */
+    public Tile(Tile north, Tile east, Tile south, Tile west){
+        northTile = north;
+        eastTile = east;
+        southTile = south;
+        westTile = west;
+        players = new LinkedList<>();
     }
 
     /**
@@ -127,43 +134,8 @@ public  abstract class Tile {
         return players;
     }
 
-    /**
-     * Gets the ammo card in the tile
-     * @return an ammo card
-     */
-    public AmmoCard getAmmoCard(){
-        //TODO
-        return null;
-    }
+    public boolean isPlayerIn(Player p){
 
-
-    /**
-     * checks if the tile contains the ammo card.
-     * @return true when the ammo card is present, false when it's not
-     */
-    public abstract boolean isPresentAmmoCard();
-
-    /**
-     * Gets the weapons in the tile.
-     * @return weapons, cant be null
-     */
-    public abstract List<WeaponCard> getWeapons();
-
-    /**
-     * Checks if the tile contains the weapons
-     * @return True if the tile is a regen point, false if it's a normal tile.
-     */
-    public abstract boolean arePresentWeapons();
-
-    /**
-     *Puts a weapon card in the weapons list. Used when the player is givin up a weapon.
-     * @param w the weapon that the player wants to drop
-     */
-    public abstract void putWeaponCard(WeaponCard w);
-
-    public List<Player> getPlayersInTile(){
-        //TODO
-        return null;
     }
 
 }
