@@ -5,6 +5,7 @@ import Model.AmmoCard;
 import Model.NormalTile;
 import Model.Tile;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,6 +18,7 @@ public class NormalTileTest {
     void initTile(){
         normalTile = new NormalTile();
     }
+
     /**
      * Tests if the empty constructor works. All the reference to the other tile should be null and should not be present
      * the ammo
@@ -38,10 +40,10 @@ public class NormalTileTest {
      */
     @Test
     void correctInit2(){
-        Tile north = new normalTile();
-        Tile east = new normalTile();
-        Tile south = new normalTile();
-        Tile west = new normalTile();
+        Tile north = new NormalTile();
+        Tile east = new NormalTile();
+        Tile south = new NormalTile();
+        Tile west = new NormalTile();
 
         normalTile = new NormalTile(north, east, south, west);
 
@@ -65,7 +67,7 @@ public class NormalTileTest {
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        assertSame(ammo, normalTile.pickUpAmmoCard(), () -> "ERROR: the tile that has been picked up is not the same that has been put in")
+        assertSame(ammo, normalTile.pickUpAmmoCard(), () -> "ERROR: the tile that has been picked up is not the same that has been put in");
     }
 
     /**
@@ -82,7 +84,7 @@ public class NormalTileTest {
             System.out.println(e.getMessage());
         }
 
-        assertThrows(Exception.class, () -> {normalTile.putAmmoCard(ammo2);}, () -> "ERROR: dovrebbe lanciare un eccezzione se c'è già una munizione nel tile")
+        assertThrows(Exception.class, () -> {normalTile.putAmmoCard(ammo2);}, () -> "ERROR: Should throw an exception since there is already an ammo card in the tile");
     }
 
 
