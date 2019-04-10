@@ -20,7 +20,7 @@ public class WeaponCard extends Card{
         targetStrategy1 = null;
         targetStrategy2 = null;
         loaded = true;
-        NAME = "";
+        NAME = "default";
         reloadCost = null;
 
     }
@@ -33,12 +33,15 @@ public class WeaponCard extends Card{
      * @param ref weapon that  has to be copied.
      */
     public WeaponCard(WeaponCard ref){
-        reloadCost = new LinkedList<>(ref.getReloadCost());
-        targetStrategy1 = null;
-        targetStrategy2 = null;
-        loaded = ref.loaded;
-        NAME = String.valueOf(ref.getNAME());
-        reloadCost = null;
+        super();
+        if (ref!= null){
+            targetStrategy1 = null;
+            targetStrategy2 = null;
+            loaded = ref.loaded;
+            NAME = String.valueOf(ref.getNAME());
+            reloadCost = null;
+        }
+
     }
 
     public List<String> getReloadCost() {
