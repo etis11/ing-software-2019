@@ -51,7 +51,7 @@ public class NormalTile extends Tile {
      */
     public AmmoCard pickUpAmmoCard() throws NullPointerException {
         if (ammoCard == null){
-            throw  new NullPointerException("Cant pick up a null object")
+            throw  new NullPointerException("Cant pick up a null object");
         }
         AmmoCard toBePicked = ammoCard;
         presentAmmo = false;
