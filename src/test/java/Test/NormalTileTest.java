@@ -1,5 +1,6 @@
 package Test;
 
+import Model.Ammo;
 import Model.AmmoCard;
 import Model.NormalTile;
 import Model.Tile;
@@ -58,7 +59,13 @@ public class NormalTileTest {
     @Test
     void insertionTest(){
         AmmoCard ammo = new AmmoCard();
-        normalTile.putAmmoCard(ammo);
+        try{
+            normalTile.putAmmoCard(ammo);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         assertSame(ammo, normalTile.pickUpAmmoCard(), () -> "ERROR: the tile that has been picked up is not the same that has been put in")
     }
 
@@ -67,6 +74,17 @@ public class NormalTileTest {
      */
     @Test
     void doubleInsertionTest(){
+        AmmoCard ammo1 = new AmmoCard();
+        AmmoCard ammo2 = new AmmoCard();
+
+        try{
+            normalTile.putAmmoCard(ammo1);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        assertThrows(Exception.class, () -> normalTile.putAmmoCard(ammo2), "ERROR: A double insertion should throw an exception\"");
 
     }
 
