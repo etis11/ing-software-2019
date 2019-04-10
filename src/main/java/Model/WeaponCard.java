@@ -20,7 +20,7 @@ public class WeaponCard extends Card{
         targetStrategy1 = null;
         targetStrategy2 = null;
         loaded = true;
-        NAME = "";
+        NAME = "default";
         reloadCost = null;
 
     }
@@ -33,12 +33,15 @@ public class WeaponCard extends Card{
      * @param ref weapon that  has to be copied.
      */
     public WeaponCard(WeaponCard ref){
-        reloadCost = new LinkedList<>(ref.getReloadCost());
-        targetStrategy1 = null;
-        targetStrategy2 = null;
-        loaded = ref.loaded;
-        NAME = String.valueOf(ref.getNAME());
-        reloadCost = null;
+        super();
+        if (ref!= null){
+            targetStrategy1 = null;
+            targetStrategy2 = null;
+            loaded = ref.loaded;
+            NAME = String.valueOf(ref.getNAME());
+            reloadCost = null;
+        }
+
     }
 
     public List<String> getReloadCost() {
@@ -115,6 +118,28 @@ public class WeaponCard extends Card{
     }
 
     public void getTargetStrategy2() {
+
+    }
+
+    /**
+     * Two weaponsCard are equals if they have the same name
+     * @param o object that has to be testes
+     * @return true if the weapons have the same name, false othwerwise
+     */
+    @Override
+    public boolean equals(Object o){
+        if (o == null) {
+            return false;
+        }
+        else if (o == this) {
+            return true;
+        }
+        else if (!(o instanceof WeaponCard))
+            return false;
+
+        WeaponCard w = (WeaponCard) o;
+        return w.getNAME().equals(this.getName());
+
 
     }
 }

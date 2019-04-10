@@ -60,8 +60,8 @@ public class Player {
         NAME = "";
         points = 0;
         state = new EndTurn();
-        weapons = new ArrayList<>();
-        powerUps = new ArrayList<>();
+        weapons = new LinkedList<>();
+        powerUps = new LinkedList<>();
         tile = null;
         playerBoard = null;
     }
@@ -75,8 +75,8 @@ public class Player {
         NAME = name;
         points = 0;
         state = new EndTurn();
-        weapons = new ArrayList<>();
-        powerUps = new ArrayList<>();
+        weapons = new LinkedList<>();
+        powerUps = new LinkedList<>();
         tile = null;
         playerBoard = null;
     }
@@ -111,6 +111,12 @@ public class Player {
      */
     public LinkedList<WeaponCard> getWeapons(){
         return weapons.stream().map(WeaponCard::new).collect(Collectors.toCollection(LinkedList::new));
+        //LinkedList<WeaponCard> retWeapons = new LinkedList<>();
+        //for(WeaponCard w: weapons){
+        //    retWeapons.addLast(new WeaponCard(w));
+        //}
+        //return retWeapons;
+
     }
 
     /**
@@ -171,16 +177,18 @@ public class Player {
         state = s;
     }
 
+
     /**
      * Add the weapon to the player hand if he has less then 3 weapons. If the player has more than three weapons, this
      * method throws an exception
      * @param w weapon that has to be picked
-     * @throws Exception
+     * @throws Exception if the player has already 4 weapons
+     * @throws NullPointerException if the weapon is null
      */
-    public void pickUpWeapon(WeaponCard w) throws Exception{
-        //TODO
-        if (weapons.size() > 3){
-            throw new Exception("Il giocatore ha già 3 armi in mano");
+    public void pickUpWeapon(WeaponCard w) throws Exception, NullPointerException{
+        if (w == null)  throw new NullPointerException("Passato un valore nullo");
+        if (weapons.size() > 4){
+            throw new Exception("Il giocatore ha già 4 armi in mano");
         }
         else weapons.add(w);
     }
