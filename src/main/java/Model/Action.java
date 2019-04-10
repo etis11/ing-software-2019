@@ -37,7 +37,16 @@ public class Action extends State{
     }
 
     @Override
-    public void nextState(Player p, String state) {
-        //TODO
+    public void nextState(Player p, String mexState) {
+
+        if (mexState.equals("run")){
+            p.setState(new Run());
+        }
+        else if (mexState.equals("reload")){
+            p.setState(new Reload());
+        }
+        else if (mexState.equals("endTurn")){
+            p.setState(new EndTurn());
+        }
     }
 }

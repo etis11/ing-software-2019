@@ -14,4 +14,15 @@ public class NormalAction extends Action {
     public NormalAction(){
         super();
     }
+
+    @Override
+    public void nextState(Player p, String mexState) {
+        super.nextState(p, mexState);
+        if (mexState.equals("shoot")){
+            p.setState(new Shoot());
+        }
+        else if (mexState.equals("pickUp")){
+            p.setState(new PickUp());
+        }
+    }
 }

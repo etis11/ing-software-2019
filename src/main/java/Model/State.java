@@ -47,7 +47,9 @@ public abstract class State {
      * this function calls setState in class Player
      * @param p Player who change his state
      */
-    public void nextState(Player p, String state){
+    public void nextState(Player p, String mexState){
+        //TODO
+        //change UML
         p.setState(new EndTurn());
     }
 

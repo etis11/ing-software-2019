@@ -38,7 +38,7 @@ public class EndTurn extends State{
     }
 
     @Override
-    public void nextState(Player p, String state) {
+    public void nextState(Player p, String mexState) {
 
         int playerDamage = p.getPlayerBoard().getNumDamagePoints();
 

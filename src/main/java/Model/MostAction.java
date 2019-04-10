@@ -14,4 +14,15 @@ public class MostAction extends Action{
     public MostAction(){
         super();
     }
+
+    @Override
+    public void nextState(Player p, String mexState) {
+        super.nextState(p, mexState);
+        if (mexState.equals("shoot")){
+            p.setState(new ShootPlus());
+        }
+        else if (mexState.equals("pickUp")){
+            p.setState(new PickUpPlus());
+        }
+    }
 }
