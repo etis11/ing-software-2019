@@ -62,16 +62,9 @@ public class NormalTileTest {
         try{
             normalTile.putAmmoCard(ammo);
         }
-<<<<<<< HEAD
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
-=======
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
->>>>>>> tile
         assertSame(ammo, normalTile.pickUpAmmoCard(), () -> "ERROR: the tile that has been picked up is not the same that has been put in")
     }
 
