@@ -17,7 +17,6 @@ public class Action extends State{
 
     @Override
     public boolean tryToRun() {
-        //TODO
         return remainingSteps>0;    //maggiore o maggiore uguale?
     }
 
