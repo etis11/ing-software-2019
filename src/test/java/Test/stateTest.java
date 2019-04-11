@@ -45,7 +45,9 @@ public class stateTest {
     public void normalActionStateTest(){
 
         state = new EndTurn();
-//        state.nextState(p, "");
+        state.nextState(p, "");
+
+        state = p.getState();
 
         assertTrue(state instanceof NormalAction, "ERROR of Instance");
 
@@ -60,17 +62,29 @@ public class stateTest {
         state.nextState(p,"run");
         assertTrue(p.getState() instanceof Run, "ERROR not in run state" );
 
+        state = p.getState();
+
         state.nextState(p,"");
+
+        state = p.getState();
 
         state.nextState(p,"shoot");
         assertTrue(p.getState() instanceof Shoot, "ERROR not in shoot state" );
 
+        state = p.getState();
+
         state.nextState(p,"");
+
+        state = p.getState();
 
         state.nextState(p,"pickUp");
         assertTrue(p.getState() instanceof PickUp, "ERROR not in pick up state" );
 
+        state = p.getState();
+
         state.nextState(p,"");
+
+        state = p.getState();
 
         state.nextState(p,"reload");
         assertTrue(p.getState() instanceof Reload, "ERROR not in shoot state" );
@@ -78,10 +92,11 @@ public class stateTest {
 
     @Test
     public void moreActionStateTest(){
-
         state = new EndTurn();
-//        p.getPlayerBoard().calculateDamage(new DamageTransporter(p, null, 3, 0, false, false));
-//        state.nextState(p, "");
+        p.getPlayerBoard().calculateDamage(new DamageTransporter(p, null, 3, 0, false, false));
+        state.nextState(p, "");
+
+        state = p.getState();
 
         assertTrue(state instanceof MoreAction, "ERROR of Instance");
 
@@ -96,17 +111,29 @@ public class stateTest {
         state.nextState(p,"run");
         assertTrue(p.getState() instanceof Run, "ERROR not in run state" );
 
+        state = p.getState();
+
         state.nextState(p,"");
+
+        state = p.getState();
 
         state.nextState(p,"shoot");
         assertTrue(p.getState() instanceof Shoot, "ERROR not in shoot state" );
 
+        state = p.getState();
+
         state.nextState(p,"");
+
+        state = p.getState();
 
         state.nextState(p,"pickUp");
         assertTrue(p.getState() instanceof PickUpPlus, "ERROR not in pick up state" );
 
+        state = p.getState();
+
         state.nextState(p,"");
+
+        state = p.getState();
 
         state.nextState(p,"reload");
         assertTrue(p.getState() instanceof Reload, "ERROR not in shoot state" );
@@ -114,12 +141,12 @@ public class stateTest {
 
     @Test
     public void mostActionStateTest(){
-
         state = new EndTurn();
-//        p.getPlayerBoard().calculateDamage(new DamageTransporter(p, null, 6, 0, false, false));
-//        state.nextState(p, "");
+        p.getPlayerBoard().calculateDamage(new DamageTransporter(p, null, 6, 0, false, false));
+        state.nextState(p, "");
 
-        assertTrue(state instanceof MoreAction, "ERROR of Instance");
+        assertTrue(p.getState() instanceof MoreAction, "ERROR of Instance");
+        state = p.getState();
 
         assertTrue(state.tryToRun(), "ERROR has to be allowed to run");
 
@@ -132,17 +159,29 @@ public class stateTest {
         state.nextState(p,"run");
         assertTrue(p.getState() instanceof Run, "ERROR not in run state" );
 
+        state = p.getState();
+
         state.nextState(p,"");
+
+        state = p.getState();
 
         state.nextState(p,"shoot");
         assertTrue(p.getState() instanceof ShootPlus, "ERROR not in shoot state" );
 
+        state = p.getState();
+
         state.nextState(p,"");
+
+        state = p.getState();
 
         state.nextState(p,"pickUp");
         assertTrue(p.getState() instanceof PickUpPlus, "ERROR not in pick up state" );
 
+        state = p.getState();
+
         state.nextState(p,"");
+
+        state = p.getState();
 
         state.nextState(p,"reload");
         assertTrue(p.getState() instanceof Reload, "ERROR not in shoot state" );
@@ -164,7 +203,7 @@ public class stateTest {
         assertFalse(state.tryToUsePowerUp(), "ERROR not allowed to use power up");
 
         state.nextState(p, "");
-        assertTrue(state instanceof EndTurn, "ERROR of Instance (Reload has to go to EndTurn)");
+        assertTrue(p.getState() instanceof EndTurn, "ERROR of Instance (Reload has to go to EndTurn)");
 
     }
 
@@ -184,7 +223,7 @@ public class stateTest {
         assertFalse(state.tryToUsePowerUp(), "ERROR not allowed to use power up");
 
         state.nextState(p, "");
-        assertTrue(state instanceof EndTurn, "ERROR of Instance (Dead has to go to EndTurn)");
+        assertTrue(p.getState() instanceof EndTurn, "ERROR of Instance (Dead has to go to EndTurn)");
 
     }
 
@@ -204,7 +243,7 @@ public class stateTest {
         assertFalse(state.tryToUsePowerUp(), "ERROR not allowed to use power up");
 
         state.nextState(p, "");
-        assertTrue(state instanceof EndTurn, "ERROR of Instance (Overkilled has to go to EndTurn)");
+        assertTrue(p.getState() instanceof EndTurn, "ERROR of Instance (Overkilled has to go to EndTurn)");
 
     }
 }
