@@ -63,7 +63,7 @@ public class Player {
         weapons = new LinkedList<>();
         powerUps = new LinkedList<>();
         tile = null;
-        playerBoard = null;
+        playerBoard = new PlayerBoard();
     }
 
     /**
@@ -79,7 +79,7 @@ public class Player {
         weapons = new LinkedList<>();
         powerUps = new LinkedList<>();
         tile = null;
-        playerBoard = null;
+        playerBoard = new PlayerBoard();
     }
 
     /**
