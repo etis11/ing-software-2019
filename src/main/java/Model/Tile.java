@@ -1,11 +1,6 @@
 package Model;
 
-import sun.awt.image.ImageWatched;
-
 import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toCollection;
 
@@ -14,7 +9,7 @@ import static java.util.stream.Collectors.toCollection;
  * All the adjacent tiles are different ( example: northTile and SouthTile can't both point to the same object).
  * A tile contains the players that are placed in it.
  */
-public  abstract class Tile {
+public class Tile {
 
     /**
      * reference to the tile placed to the north. Can be null.
@@ -39,7 +34,7 @@ public  abstract class Tile {
      * list of all players that are in the tile. If the player is present, there is only one occurence.
      * Can't be null. Can be a empty list. All players in the list are different.
      */
-    private List<Player> players;
+    private LinkedList<Player> players;
 
     /**
      * Tells if the tile can contain ammos
@@ -57,7 +52,7 @@ public  abstract class Tile {
     /**
      * weapons that can be picked in the tile
      */
-    private List<WeaponCard> weapons;
+    private LinkedList<WeaponCard> weapons;
 
     /**
      * creates a tile with all the values set to null
@@ -81,15 +76,15 @@ public  abstract class Tile {
      * @param south south tile
      * @param west west tile
      */
-    public Tile(Tile north, Tile east, Tile south, Tile west){
+    public Tile(Tile north, Tile east, Tile south, Tile west, boolean ammoTile, boolean weaponTile){
         northTile = north;
         eastTile = east;
         southTile = south;
         westTile = west;
         players = new LinkedList<>();
-        ammoTile = false;
+        this.ammoTile = ammoTile;
         ammoCard = null;
-        weaponTile = false;
+        this.weaponTile = weaponTile;
         weapons = new LinkedList<>();
     }
 
@@ -160,7 +155,7 @@ public  abstract class Tile {
      * Gets the players that are present in this tile
      * @return list of players. can be null
      */
-    public List<Player> getPlayers() {
+    public LinkedList<Player> getPlayers() {
         return players;
     }
 
@@ -180,7 +175,7 @@ public  abstract class Tile {
      * Says if an ammo che be put in the tile
      * @return True if it's an ammo tile, false if not.
      */
-    public boolean canContainAmmos(){ return ammoTile};
+    public boolean canContainAmmos(){ return ammoTile;};
 
     /**
      * Set the ammoCard field to null and return the ammo card. The boolean field is set to null
@@ -214,7 +209,7 @@ public  abstract class Tile {
 
     public boolean canContainWapons(){ return weaponTile;}
 
-    public boolean arePresentAmmos(){ return weapons != null}
+    public boolean arePresentAmmos(){ return weapons != null;}
 
     public LinkedList<WeaponCard> getWeapons() throws Exception{
         if (!weaponTile) throw new Exception("This is tile is not a weapon tile");
