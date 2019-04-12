@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 
 public class PlayerBoard {
     /**
-     * The loader where the player's ammos are stored
+     * The loader where the player's ammo are stored
      */
     private Loader loader;
 
@@ -18,7 +18,7 @@ public class PlayerBoard {
     private LinkedList<BloodToken> damagePoints;
 
     /**
-     * this list contains all the bloodtokens that indicates the marks on the currentplayer
+     * this list contains all the bloodtokens that indicates the marks on the current player
      */
     private LinkedList<BloodToken> marks;
     /**
