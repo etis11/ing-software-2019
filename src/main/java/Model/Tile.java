@@ -1,7 +1,13 @@
 package Model;
 
+import sun.awt.image.ImageWatched;
+
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toCollection;
 
 /**
  * The Tile class is the element that constitutes a GameMap. A Tile contains the reference of the adjacent tiles in the map.
@@ -65,7 +71,7 @@ public  abstract class Tile {
         ammoTile = false;
         ammoCard = null;
         weaponTile = false;
-        weaponCards = null;
+        weapons = null;
     }
 
     /**
@@ -91,9 +97,7 @@ public  abstract class Tile {
      * returns the tile place to the east
      * @return the east tile, can be null
      */
-    public Tile getEastTile() {
-        return eastTile;
-    }
+    public Tile getEastTile() {  return eastTile; }
 
     /**
      * assign to the east tile a know tile.
@@ -176,7 +180,7 @@ public  abstract class Tile {
      * Says if an ammo che be put in the tile
      * @return True if it's an ammo tile, false if not.
      */
-    public boolean canPutAmmo(){ return ammoTile};
+    public boolean canContainAmmos(){ return ammoTile};
 
     /**
      * Set the ammoCard field to null and return the ammo card. The boolean field is set to null
@@ -189,6 +193,7 @@ public  abstract class Tile {
         if (ammoCard == null){
             throw  new NullPointerException("Cant pick up a null object");
         }
+
         AmmoCard toBePicked = ammoCard;
         ammoCard = null;
         return toBePicked;
@@ -205,6 +210,39 @@ public  abstract class Tile {
         if (ammo == null) throw new NullPointerException("The argument passed is null");
         if( ammoCard != null) throw new Exception("Can't add an ammoCard card in a tile that has already an ammo card");
         this.ammoCard = ammo;
+    }
+
+    public boolean canContainWapons(){ return weaponTile;}
+
+    public boolean arePresentAmmos(){ return weapons != null}
+
+    public LinkedList<WeaponCard> getWeapons() throws Exception{
+        if (!weaponTile) throw new Exception("This is tile is not a weapon tile");
+        return weapons.stream().map(WeaponCard::new).collect(toCollection(LinkedList::new));
+    }
+
+    public WeaponCard pickUpWeaponCard(WeaponCard desired) throws Exception{
+        WeaponCard removed;
+        boolean found = false;
+        if (!weaponTile) throw new Exception("this is not a weapon tile");
+        if (desired== null) throw  new NullPointerException("The argument passed is null");
+
+        for( WeaponCard w: weapons){
+            if (w.equals(desired)) {
+                desired = w;
+                found = weapons.remove(w);}
+        }
+
+        if (!found) throw new Exception("The weapon was not in the list");
+
+        return desired;
+    }
+
+    public void putWeaponCard(WeaponCard toBePut) throws Exception{
+        if (weapons.size() >= 3) throw new Exception("Can't put the weapon in the tile because it's full");
+        if (toBePut == null) throw new NullPointerException("The argument passed is null");
+
+        weapons.add(toBePut);
     }
 
 }
