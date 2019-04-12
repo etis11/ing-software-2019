@@ -142,4 +142,9 @@ public class WeaponCard extends Card{
 
 
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
