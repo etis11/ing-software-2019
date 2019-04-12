@@ -36,6 +36,19 @@ public  abstract class Tile {
     private List<Player> players;
 
     /**
+     * presentAmmo <==> ammoCard != null
+     */
+
+    /**
+     * Says if the tile can contain ammos
+     */
+    private boolean ammoTile;
+    /**
+     * ammoCard that can be picked up by a player. This field can be null
+     */
+    private AmmoCard ammoCard;
+
+    /**
      * creates a tile with all the values set to null
      */
     public Tile(){
@@ -44,6 +57,7 @@ public  abstract class Tile {
         southTile = null;
         westTile = null;
         players = new LinkedList<>();
+        ammoCard = null;
     }
 
     /**
@@ -59,6 +73,7 @@ public  abstract class Tile {
         southTile = south;
         westTile = west;
         players = new LinkedList<>();
+        ammoCard = null;
     }
 
     /**
@@ -136,6 +151,49 @@ public  abstract class Tile {
 
     public boolean isPlayerIn(Player p){
         return players.contains(p);
+    }
+
+    /**
+     *  Tells if the tile has an ammo in it or not.
+     * @return True if the ammoCard is in the tile, false if not
+     */
+    public boolean isPresentAmmoCard() {
+        return ammoCard!=null;
+    }
+
+    /**
+     * Says if an ammo che be put in the tile
+     * @return True if it's an ammo tile, false if not.
+     */
+    public boolean canPutAmmo(){ return ammoTile};
+
+    /**
+     * Set the ammoCard field to null and return the ammo card. The boolean field is set to null
+     * @return the ammo card contained in the tile
+     * @throws NullPointerException if the ammo card in it is null
+     * @throws Exception if the tile cant contain ammos
+     */
+    public AmmoCard pickUpAmmoCard() throws NullPointerException, Exception {
+        if (!ammoTile) throw new Exception("This tile is not an ammo Tile");
+        if (ammoCard == null){
+            throw  new NullPointerException("Cant pick up a null object");
+        }
+        AmmoCard toBePicked = ammoCard;
+        ammoCard = null;
+        return toBePicked;
+    }
+
+    /**
+     * This method put's an ammo card in the tile. This can work only if the tile hasn't ammoCard in it.
+     * @param ammo the ammo that has to be putted in
+     * @throws NullPointerException the ammo argument is null
+     * @throws Exception The tile has already an ammo card or the tile is not an ammo tile
+     */
+    public void putAmmoCard(AmmoCard ammo) throws NullPointerException, Exception {
+        if (!ammoTile) throw  new Exception("This tile is not an ammo Tile");
+        if (ammo == null) throw new NullPointerException("The argument passed is null");
+        if( ammoCard != null) throw new Exception("Can't add an ammoCard card in a tile that has already an ammo card");
+        this.ammoCard = ammo;
     }
 
 }

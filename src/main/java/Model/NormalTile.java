@@ -73,12 +73,6 @@ public class NormalTile extends Tile {
         presentAmmo = true;
     }
 
-    /**
-     *  Tells if the tile has an ammo in it or not.
-     * @return True if the ammoCard is in the tile, false if not
-     */
-    public boolean isPresentAmmoCard() {
-        return presentAmmo;
-    }
+
 
 }
