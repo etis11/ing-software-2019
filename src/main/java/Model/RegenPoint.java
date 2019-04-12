@@ -5,7 +5,7 @@ import java.util.List;
 public class RegenPoint extends Tile {
 
 
-    private List<WeaponCard> weaponCards;
+
 
     public List<WeaponCard> getWeapons() {
       return weaponCards;

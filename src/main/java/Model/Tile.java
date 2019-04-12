@@ -36,17 +36,22 @@ public  abstract class Tile {
     private List<Player> players;
 
     /**
-     * presentAmmo <==> ammoCard != null
-     */
-
-    /**
-     * Says if the tile can contain ammos
+     * Tells if the tile can contain ammos
      */
     private boolean ammoTile;
     /**
      * ammoCard that can be picked up by a player. This field can be null
      */
     private AmmoCard ammoCard;
+
+    /**
+     * Tells if the tile can contain weapons
+     */
+    private boolean weaponTile;
+    /**
+     * weapons that can be picked in the tile
+     */
+    private List<WeaponCard> weapons;
 
     /**
      * creates a tile with all the values set to null
@@ -57,7 +62,10 @@ public  abstract class Tile {
         southTile = null;
         westTile = null;
         players = new LinkedList<>();
+        ammoTile = false;
         ammoCard = null;
+        weaponTile = false;
+        weaponCards = null;
     }
 
     /**
@@ -73,7 +81,10 @@ public  abstract class Tile {
         southTile = south;
         westTile = west;
         players = new LinkedList<>();
+        ammoTile = false;
         ammoCard = null;
+        weaponTile = false;
+        weapons = new LinkedList<>();
     }
 
     /**
