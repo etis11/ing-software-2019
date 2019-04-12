@@ -100,7 +100,7 @@ public class AmmoTileTest {
 
     @Test tryToPickUpWeapon(){
         WeaponCard w = new WeaponCard();
-        assertThrows(Exception.class, () -> tile.pickUpWeaponCard(w), () -> "ERROR:Should throw an exception because it's not a weapon tile")
+        assertThrows(Exception.class, () -> tile.pickUpWeaponCard(w), () -> "ERROR:Should throw an exception because it's not a weapon tile");
     }
 
 
