@@ -47,7 +47,7 @@ public class Shoot extends State{
         int playerDamage = p.getPlayerBoard().getNumDamagePoints();
 
         if (playerDamage < 3) {
-            p.setState(new Action());
+            p.setState(new NormalAction());
         }
         else if (playerDamage <6){
             p.setState(new MoreAction());
