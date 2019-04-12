@@ -2,6 +2,7 @@ package Test;
 
 import Model.AmmoCard;
 import Model.Tile;
+import Model.WeaponCard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -90,6 +91,16 @@ public class AmmoTileTest {
         }
 
         assertThrows(Exception.class, () -> {tile.putAmmoCard(ammo2);}, () -> "ERROR: Should throw an exception since there is already an ammo card in the tile");
+    }
+
+    @Test
+    void tryTopGetWeapons(){
+        assertThrows(Exception.class, () -> tile.getWeapons(), ()-> "ERROR: Should throw an exception because it's not a weapon tile");
+    }
+
+    @Test tryToPickUpWeapon(){
+        WeaponCard w = new WeaponCard();
+        assertThrows(Exception.class, () -> tile.pickUpWeaponCard(w), () -> "ERROR:Should throw an exception because it's not a weapon tile")
     }
 
 
