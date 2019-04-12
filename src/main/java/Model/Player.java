@@ -23,6 +23,11 @@ public class Player {
     private State state;
 
     /**
+     * remainingStep are moves remaining for playing turn
+     */
+    protected int remainigStep;
+
+    /**
      * list of weapons owned by the player
      */
     private List<WeaponCard> weapons;
@@ -107,6 +112,24 @@ public class Player {
      */
     public State getState() {
         return state;
+    }
+
+    /**
+     * returns the number of remaining moves for playing turn
+     *
+     * @return the number of remaining moves for playing turn
+     */
+    public int getRemainigStep() {
+        return remainigStep;
+    }
+
+    /**
+     * sets the number of remaining moves for playing turn
+     *
+     * @param remainigStep are the new number of remaining moves for playing turn
+     */
+    public void setRemainigStep(int remainigStep) {
+        this.remainigStep = remainigStep;
     }
 
     /**
