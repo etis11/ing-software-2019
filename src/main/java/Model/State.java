@@ -41,9 +41,11 @@ public abstract class State {
     public abstract boolean tryToShoot();
 
     /**
-     * this method verify for each subclass if playare can use a power up
+     * this method verify for each subclass if player can use a power up
      */
     public abstract boolean tryToUsePowerUp();
+    //TODO
+    //anche se ho 0 mosse rimanenti posso
 
     /**
      * this function calls setState in class Player
