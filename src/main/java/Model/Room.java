@@ -4,28 +4,14 @@ import java.util.List;
 
 public class Room {
 
-    private List<NormalTile> normalTile;
-    private List<Player> getplayersinroom;
+    private List<Tile> tiles;
 
-    public List<NormalTile> getNormalTile() {
+    public List<Tile> getTiles() {
 
-        return normalTile;
+        return tiles;
     }
-
-    public void setNormalTile(List<NormalTile> normalTile) {
-
-        this.normalTile = normalTile;
+    public List<Player> getPlayersInRoom() {
+        //TODO
+        return null;
     }
-
-    public List<Player> getGetplayersinroom() {
-
-        return getplayersinroom;
-    }
-
-    public void setGetplayersinroom(List<Player> getplayersinroom) {
-
-        this.getplayersinroom = getplayersinroom;
-    }
-
-
 }
