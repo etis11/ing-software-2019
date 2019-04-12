@@ -17,8 +17,7 @@ public class PlayerTest {
     void initPlayer(){
         p = new Player();
     }
-
-    @Test
+    
     void weaponOneInsertionTest(){
         WeaponCard w = new WeaponCard();
         try{
