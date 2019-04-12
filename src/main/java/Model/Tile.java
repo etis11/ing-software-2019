@@ -7,7 +7,7 @@ import static java.util.stream.Collectors.toCollection;
 /**
  * The Tile class is the element that constitutes a GameMap. A Tile contains the reference of the adjacent tiles in the map.
  * All the adjacent tiles are different ( example: northTile and SouthTile can't both point to the same object).
- * A tile contains the players that are placed in it.
+ * A tile contains the players that are placed in it. A boolean field indicate if contains ammos or weapons.
  */
 public class Tile {
 
@@ -75,6 +75,8 @@ public class Tile {
      * @param east east tile
      * @param south south tile
      * @param west west tile
+     * @param ammoTile enables the ammo funcionality
+     * @param weaponTile enables the weapon funcionality
      */
     public Tile(Tile north, Tile east, Tile south, Tile west, boolean ammoTile, boolean weaponTile){
         northTile = north;
@@ -159,6 +161,11 @@ public class Tile {
         return players;
     }
 
+    /**
+     * Tells if the player is in the tile
+     * @param p the player
+     * @return  true if player is in, false othwerwise
+     */
     public boolean isPlayerIn(Player p){
         return players.contains(p);
     }
@@ -207,16 +214,36 @@ public class Tile {
         this.ammoCard = ammo;
     }
 
+    /**
+     * tells if it's a weapon tile
+     * @return true if it's a weapon tile
+     */
     public boolean canContainWapons(){ return weaponTile;}
 
+    /**
+     * Tells if there are some weapons in the tile
+     * @return true if there are weapons
+     */
     public boolean arePresentAmmos(){ return weapons != null;}
 
+    /**
+     * Returns a copy of the weapons in the weapon Tile
+     * @return copy of weapons
+     * @throws Exception The tile is not a weapon tile
+     */
     public LinkedList<WeaponCard> getWeapons() throws Exception{
         if (!weaponTile) throw new Exception("This is tile is not a weapon tile");
         return weapons.stream().map(WeaponCard::new).collect(toCollection(LinkedList::new));
     }
 
-    public WeaponCard pickUpWeaponCard(WeaponCard desired) throws Exception{
+    /**
+     * Pick up the desired weapon
+     * @param desired weapon that has to be picked up
+     * @return the desired weapon
+     * @throws Exception the tile is not a weapon tile, cant pick up a weapon
+     * @@throws NullPointerException the desired weapon is null
+     */
+    public WeaponCard pickUpWeaponCard(WeaponCard desired) throws Exception, NullPointerException{
         WeaponCard removed;
         boolean found = false;
         if (!weaponTile) throw new Exception("this is not a weapon tile");
@@ -233,7 +260,13 @@ public class Tile {
         return desired;
     }
 
-    public void putWeaponCard(WeaponCard toBePut) throws Exception{
+    /**
+     * Puts a weapon card in the tile
+     * @param toBePut the weapon that has to be put in the tile
+     * @throws Exception the tile is full
+     * @throws NullPointerException The weaponCard is actually null
+     */
+    public void putWeaponCard(WeaponCard toBePut) throws Exception, NullPointerException{
         if (weapons.size() >= 3) throw new Exception("Can't put the weapon in the tile because it's full");
         if (toBePut == null) throw new NullPointerException("The argument passed is null");
 
