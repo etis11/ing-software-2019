@@ -241,7 +241,7 @@ public class Tile {
      * @param desired weapon that has to be picked up
      * @return the desired weapon
      * @throws Exception the tile is not a weapon tile, cant pick up a weapon
-     * @@throws NullPointerException the desired weapon is null
+     * @throws NullPointerException the desired weapon is null
      */
     public WeaponCard pickUpWeaponCard(WeaponCard desired) throws Exception, NullPointerException{
         WeaponCard removed;

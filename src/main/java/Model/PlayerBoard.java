@@ -96,7 +96,7 @@ public class PlayerBoard {
 
     /**
      * This method applies all the changes to the player board given a damageTransporter object.
-     * If the damage of the trasporter is >0, all the old marks are converted to damage. then all the damage
+     * If the damage of the trasporter is greater than0, all the old marks are converted to damage. then all the damage
      * is added to the damagePoints list and then all the new marks are added to the marks list.
      * @param d contains all the information that regards the damage. It's supposed to be legal
      */
