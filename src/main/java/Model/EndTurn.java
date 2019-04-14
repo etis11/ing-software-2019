@@ -10,10 +10,15 @@ package Model;
 public class EndTurn extends State{
 
     /**
+     * MAX_MOVES is number of moves for each turn
+     */
+    public final int MAX_MOVES = 2;
+
+    /**
      * this is the constructor method
      */
     public EndTurn(){
-        remainingSteps = 2;
+        //is only beahavioural function
     }
 
 
@@ -42,14 +47,18 @@ public class EndTurn extends State{
 
         int playerDamage = p.getPlayerBoard().getNumDamagePoints();
 
+        if (p.getRemainigStep() == 0){
+            p.setRemainigStep(MAX_MOVES);   //TODO o meglio spostarlo nel costruttore e sempre messo a 2 se siamo qua
+        }
+
         if (playerDamage < 3) {
-            p.setState(new NormalAction());
+            p.setState(new NormalAction(p.getRemainigStep()));
         }
         else if (playerDamage <6){
-            p.setState(new MoreAction());
+            p.setState(new MoreAction(p.getRemainigStep()));
         }
         else{
-            p.setState(new MostAction());
+            p.setState(new MostAction(p.getRemainigStep()));
         }
     }
 }

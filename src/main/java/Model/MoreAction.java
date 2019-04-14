@@ -11,8 +11,8 @@ public class MoreAction extends Action{
     /**
      * this is the constructor method
      */
-    public MoreAction(){
-        super();
+    public MoreAction(int moves){
+        super(moves);
     }
 
     @Override
@@ -20,9 +20,11 @@ public class MoreAction extends Action{
         super.nextState(p, mexState);
         if (mexState.equals("shoot")){
             p.setState(new Shoot());
+            p.setRemainigStep(p.getRemainigStep()-1); //TODO forse metodo ad hoc
         }
         else if (mexState.equals("pickUp")){
             p.setState(new PickUpPlus());
+            p.setRemainigStep(p.getRemainigStep()-1);
         }
     }
 }

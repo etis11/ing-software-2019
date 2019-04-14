@@ -12,7 +12,9 @@ public class Run extends State {
      * this is the constructor method, ti creates the state and decrement possible action to do in the turn
      */
     public Run(){
-        remainingSteps--;
+
+        // is only behavioural function
+
     }
 
 
@@ -47,13 +49,13 @@ public class Run extends State {
         int playerDamage = p.getPlayerBoard().getNumDamagePoints();
 
         if (playerDamage < 3) {
-            p.setState(new NormalAction());
+            p.setState(new NormalAction(p.getRemainigStep()));
         }
         else if (playerDamage <6){
-            p.setState(new MoreAction());
+            p.setState(new MoreAction(p.getRemainigStep()));
         }
         else{
-            p.setState(new MostAction());
+            p.setState(new MostAction(p.getRemainigStep()));
         }
     }
 }

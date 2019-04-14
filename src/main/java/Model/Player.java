@@ -25,7 +25,7 @@ public class Player {
     /**
      * remainingStep are moves remaining for playing turn
      */
-    protected int remainigStep;
+    private int remainigStep;
 
     /**
      * list of weapons owned by the player
@@ -69,6 +69,7 @@ public class Player {
         powerUps = new LinkedList<>();
         tile = null;
         playerBoard = new PlayerBoard();
+        remainigStep = 0;
     }
 
     /**
@@ -85,6 +86,7 @@ public class Player {
         powerUps = new LinkedList<>();
         tile = null;
         playerBoard = new PlayerBoard();
+        remainigStep = 0;
     }
 
     /**

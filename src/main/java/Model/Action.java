@@ -8,44 +8,49 @@ package Model;
  */
 public class Action extends State{
 
+    private  int remainingMoves;
+
     /**
      * this is the constructor method, it has no body as this class is behavioural
      */
-    public Action(){
-        //this method is only behavioural so it doesn't need to initialize anything
+    public Action(int moves){
+        this.remainingMoves = moves;
     }
 
     @Override
     public boolean tryToRun() {
-        return remainingSteps>0;    //maggiore o maggiore uguale?
+        return remainingMoves>0;
     }
 
     @Override
     public boolean tryToPickUp() {
-        return remainingSteps>0;
+        return remainingMoves>0;
     }
 
     @Override
     public boolean tryToShoot() {
-        return remainingSteps>0;
+        return remainingMoves>0;
     }
 
     @Override
     public boolean tryToUsePowerUp() {
-        return remainingSteps>0;
-    }
+        return remainingMoves>0;
+    } //maggiore o maggiore uguale?
 
     @Override
     public void nextState(Player p, String mexState) {
 
         if (mexState.equals("run")){
             p.setState(new Run());
+            p.setRemainigStep(p.getRemainigStep()-1);   //TODO forse può essre implemtato ad hoc
         }
         else if (mexState.equals("reload")){
             p.setState(new Reload());
+            p.setRemainigStep(p.getRemainigStep()-1);
         }
         else if (mexState.equals("endTurn")){
             p.setState(new EndTurn());
+            p.setRemainigStep(p.getRemainigStep()-1);
         }
     }
 }

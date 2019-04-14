@@ -27,8 +27,6 @@ public class stateTest {
 
         assertTrue(state instanceof EndTurn, "ERROR of Instance");
 
-        assertEquals(2, state.getRemainingSteps(), "ERROR remaining steps bad initialized");
-
         assertFalse(state.tryToRun(), "ERROR not allowed to run");
 
         assertFalse(state.tryToPickUp(), "ERROR not allowed to pick up");
@@ -47,14 +45,14 @@ public class stateTest {
         state = p.getState();
 
         assertTrue(state instanceof NormalAction, "ERROR of Instance");
-        //TODO
-//        assertTrue(state.tryToRun(), "ERROR has to be allowed to run");
-//
-//        assertTrue(state.tryToPickUp(), "ERROR has to be allowed to pick up");
-//
-//        assertTrue(state.tryToShoot(), "ERROR has to be allowed to shoot");
-//
-//        assertTrue(state.tryToUsePowerUp(), "ERROR has to be allowed to use power up");
+
+        assertTrue(state.tryToRun(), "ERROR has to be allowed to run");
+
+        assertTrue(state.tryToPickUp(), "ERROR has to be allowed to pick up");
+
+        assertTrue(state.tryToShoot(), "ERROR has to be allowed to shoot");
+
+        assertTrue(state.tryToUsePowerUp(), "ERROR has to be allowed to use power up");
 
         state.nextState(p,"run");
         assertTrue(p.getState() instanceof Run, "ERROR not in run state" );
@@ -97,13 +95,13 @@ public class stateTest {
 
         assertTrue(state instanceof MoreAction, "ERROR of Instance");
 
-//        assertTrue(state.tryToRun(), "ERROR has to be allowed to run");
-//
-//        assertTrue(state.tryToPickUp(), "ERROR has to be allowed to pick up");
-//
-//        assertTrue(state.tryToShoot(), "ERROR has to be allowed to shoot");
-//
-//        assertTrue(state.tryToUsePowerUp(), "ERROR has to be allowed to use power up");
+        assertTrue(state.tryToRun(), "ERROR has to be allowed to run");
+
+        assertTrue(state.tryToPickUp(), "ERROR has to be allowed to pick up");
+
+        assertTrue(state.tryToShoot(), "ERROR has to be allowed to shoot");
+
+        assertTrue(state.tryToUsePowerUp(), "ERROR has to be allowed to use power up");
 
         state.nextState(p,"run");
         assertTrue(p.getState() instanceof Run, "ERROR not in run state" );
@@ -145,13 +143,13 @@ public class stateTest {
         assertTrue(p.getState() instanceof MostAction, "ERROR of Instance");
         state = p.getState();
 
-//        assertTrue(state.tryToRun(), "ERROR has to be allowed to run");
-//
-//        assertTrue(state.tryToPickUp(), "ERROR has to be allowed to pick up");
-//
-//        assertTrue(state.tryToShoot(), "ERROR has to be allowed to shoot");
-//
-//        assertTrue(state.tryToUsePowerUp(), "ERROR has to be allowed to use power up");
+        assertTrue(state.tryToRun(), "ERROR has to be allowed to run");
+
+        assertTrue(state.tryToPickUp(), "ERROR has to be allowed to pick up");
+
+        assertTrue(state.tryToShoot(), "ERROR has to be allowed to shoot");
+
+        assertTrue(state.tryToUsePowerUp(), "ERROR has to be allowed to use power up");
 
         state.nextState(p,"run");
         assertTrue(p.getState() instanceof Run, "ERROR not in run state" );
