@@ -29,7 +29,6 @@ public class AmmoTileTest {
         assertNull(tile.getEastTile(), () -> "ERROR: the east tile should be null");
         assertNull(tile.getSouthTile(), () -> "ERROR: the south tile should be null");
         assertNull(tile.getWestTile(), () -> "ERROR: the west tile should be null");
-        assertFalse(tile.isPresentAmmoCard(), () -> "ERROR: the west tile should not be present");
     }
 
     /**
@@ -50,6 +49,9 @@ public class AmmoTileTest {
         assertSame(south, tile.getSouthTile(), () -> "ERROR: the tiles should be the same. Probably is null or is in another field");
         assertSame(west, tile.getWestTile(), () -> "ERROR: the tiles should be the same. Probably is null or is in another field");
         assertFalse(tile.isPresentAmmoCard(), () -> "ERROR: Should not be present");
+        assertTrue(tile.canContainAmmos(), () -> "The tile should be able to contain ammos");
+        assertFalse(tile.canContainWapons(), () -> "ERROR: The tile should not be able to contain weapons");
+
 
     }
 
@@ -93,11 +95,17 @@ public class AmmoTileTest {
         assertThrows(Exception.class, () -> {tile.putAmmoCard(ammo2);}, () -> "ERROR: Should throw an exception since there is already an ammo card in the tile");
     }
 
+    /**
+     * Controls that is not possible to get weapons from an ammo tile
+     */
     @Test
     void tryTopGetWeapons(){
         assertThrows(Exception.class, () -> tile.getWeapons(), ()-> "ERROR: Should throw an exception because it's not a weapon tile");
     }
 
+    /**
+     * Checks that is not possible to pick up weapon in an ammo tile
+     */
     @Test
     void tryToPickUpWeapon(){
         WeaponCard w = new WeaponCard();
