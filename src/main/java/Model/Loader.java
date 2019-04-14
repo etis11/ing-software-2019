@@ -1,7 +1,7 @@
 package Model;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -12,20 +12,20 @@ import java.util.List;
  */
 public class Loader {
     /**
-     * this is the player pool which contains used ad gettable ammos
+     * this is the player pool which contains used ad gettable ammo
      */
     private AmmoPool ammoPool;
 
     /**
-     * blueLoader is a list which contains blue ammos for the player ready to use
+     * blueLoader is a list which contains blue ammo for the player ready to use
      */
     private List<Ammo> blueLoader;
     /**
-     * redLoader is a list which contains red ammos for the player ready to use
+     * redLoader is a list which contains red ammo for the player ready to use
      */
     private List<Ammo> redLoader;
     /**
-     * yellowLoader is a list which contains yellow ammos for the player ready to use
+     * yellowLoader is a list which contains yellow ammo for the player ready to use
      */
     private List<Ammo> yellowLoader;
 
@@ -34,9 +34,9 @@ public class Loader {
      */
     public Loader(){
         this.ammoPool = new AmmoPool();
-        this.blueLoader = new ArrayList<>();
-        this.redLoader = new ArrayList<>();
-        this.yellowLoader = new ArrayList<>();
+        this.blueLoader = new LinkedList<>();
+        this.redLoader = new LinkedList<>();
+        this.yellowLoader = new LinkedList<>();
 
         this.blueLoader.add(new Ammo(Color.BLUE));
         this.redLoader.add(new Ammo(Color.RED));
@@ -164,7 +164,7 @@ public class Loader {
      * @param yellowAmmo number of yellow ammos to put in the pool
      */
     public void ammoToPool(int blueAmmo, int redAmmo, int yellowAmmo){
-        List<Ammo> toReturn = new ArrayList<>();
+        List<Ammo> toReturn = new LinkedList<>();
         while (blueAmmo > 0){
             toReturn.add(blueLoader.remove(0));
             blueAmmo--;

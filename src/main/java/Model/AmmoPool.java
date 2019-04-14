@@ -2,7 +2,7 @@ package Model;
 
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -14,12 +14,12 @@ import java.util.List;
 public class AmmoPool {
 
     /**
-     * MAX_AMMO rappresent max ammos for each color that can be teken from any loader
+     * MAX_AMMO reppresent max ammo for each color that can be teken from any loader
      */
     public static final int MAX_AMMO = 3;
 
     /**
-     * redAmmos is a list which contains aviable red ammos for the player, not in the loader yet
+     * redAmmos is a list which contains aviable red ammo for the player, not in the loader yet
      */
     private List<Ammo> redAmmos;
     /**
@@ -35,9 +35,9 @@ public class AmmoPool {
      * this is the constructor method, it initialize pool of every ammo color
      */
     public AmmoPool(){
-        this.redAmmos = new ArrayList<>();
-        this.yellowAmmos = new ArrayList<>();
-        this.blueAmmos = new ArrayList<>();
+        this.redAmmos = new LinkedList<>();
+        this.yellowAmmos = new LinkedList<>();
+        this.blueAmmos = new LinkedList<>();
 
         redAmmos.add(new Ammo(Color.RED));
         redAmmos.add(new Ammo(Color.RED));
@@ -49,11 +49,11 @@ public class AmmoPool {
 
     /**
      * this method gives, if possible, blue ammos as requested by a parameter
-     * @param ammoNum number of blue ammos requested
-     * @return list of blue ammos requested
+     * @param ammoNum number of blue ammo requested
+     * @return list of blue ammo requested
      */
     public List<Ammo> getBlueAmmos(int ammoNum){
-        List<Ammo> toReturn= new ArrayList<>();
+        List<Ammo> toReturn= new LinkedList<>();
         for (int i = 0; i < ammoNum; i++){
             toReturn.add(blueAmmos.remove(0));
         }
@@ -62,11 +62,11 @@ public class AmmoPool {
 
     /**
      * this method gives, if possible, yellow ammos as requested by a parameter
-     * @param ammoNum number of yellow ammos requested
-     * @return list of yellow ammos requested
+     * @param ammoNum number of yellow ammo requested
+     * @return list of yellow ammo requested
      */
     public List<Ammo> getYellowAmmos(int ammoNum){
-        List<Ammo> toReturn= new ArrayList<>();
+        List<Ammo> toReturn= new LinkedList<>();
         for (int i = 0; i < ammoNum; i++){
             toReturn.add(yellowAmmos.remove(0));
         }
@@ -75,11 +75,11 @@ public class AmmoPool {
 
     /**
      * this method gives, if possible, red ammos as requested by a parameter
-     * @param ammoNum number of red ammos requested
-     * @return list of red ammos requested
+     * @param ammoNum number of red ammo requested
+     * @return list of red ammo requested
      */
     public List<Ammo> getNumRedAmmos(int ammoNum){
-        List<Ammo> toReturn= new ArrayList<>();
+        List<Ammo> toReturn= new LinkedList<>();
         for (int i = 0; i < ammoNum; i++){
             toReturn.add(redAmmos.remove(0));
         }
