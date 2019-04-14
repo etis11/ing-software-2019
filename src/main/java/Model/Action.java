@@ -46,11 +46,9 @@ public class Action extends State{
         }
         else if (mexState.equals("reload")){
             p.setState(new Reload());
-            p.setRemainigStep(p.getRemainigStep()-1);
         }
         else if (mexState.equals("endTurn")){
             p.setState(new EndTurn());
-            p.setRemainigStep(p.getRemainigStep()-1);
         }
     }
 }

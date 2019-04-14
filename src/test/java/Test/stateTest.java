@@ -83,6 +83,8 @@ public class stateTest {
 
         state.nextState(p,"reload");
         assertTrue(p.getState() instanceof Reload, "ERROR not in shoot state" );
+
+
     }
 
     @Test
@@ -370,5 +372,17 @@ public class stateTest {
         state.nextState(p, "");
         assertTrue(p.getState() instanceof MostAction, "ERROR of Instance (0 damage so has to go to MostAction)");
 
+    }
+
+    @Test
+    public void actotionToEnd(){
+        state = new EndTurn();
+
+        state.nextState(p,"");
+
+        state = p.getState();
+
+        state.nextState(p,"endTurn");
+        assertTrue(p.getState() instanceof EndTurn, "ERROR not in end turn state" );
     }
 }
