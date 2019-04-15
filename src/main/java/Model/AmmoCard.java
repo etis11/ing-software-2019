@@ -2,8 +2,6 @@ package Model;
 
 public class AmmoCard extends Card {
 
-
-
     private int numBlue;
     private int numYellow;
     private int numRed;
