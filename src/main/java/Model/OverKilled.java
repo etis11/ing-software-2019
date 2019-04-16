@@ -35,4 +35,9 @@ public class OverKilled extends State {
     public boolean tryToUsePowerUp() {
         return false;
     }
+
+    @Override
+    public void nextState(Player p, String mexState) {
+        p.setState(new EndTurn());
+    }
 }

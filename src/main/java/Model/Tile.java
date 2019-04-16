@@ -273,4 +273,9 @@ public class Tile {
         weapons.add(toBePut);
     }
 
+    public Room getRoom(){
+        //TODO
+        return null;
+    }
+
 }

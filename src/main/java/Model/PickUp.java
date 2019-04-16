@@ -41,18 +41,6 @@ public class PickUp extends State {
 
     @Override
     public void nextState(Player p, String mexState) {
-        //TODO
-        //se non poso avere dano autoinflitto nextState è per forza normalAction
-        int playerDamage = p.getPlayerBoard().getNumDamagePoints();
-
-        if (playerDamage < 3) {
-            p.setState(new NormalAction(p.getRemainigStep()));
-        }
-        else if (playerDamage <6){
-            p.setState(new MoreAction(p.getRemainigStep()));
-        }
-        else{
-            p.setState(new MostAction(p.getRemainigStep()));
-        }
+        super.nextState(p, mexState);
     }
 }

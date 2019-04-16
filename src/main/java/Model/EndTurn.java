@@ -44,21 +44,8 @@ public class EndTurn extends State{
 
     @Override
     public void nextState(Player p, String mexState) {
+        p.setRemainigStep(MAX_MOVES);
+        super.nextState(p, mexState);
 
-        int playerDamage = p.getPlayerBoard().getNumDamagePoints();
-
-        if (p.getRemainigStep() == 0){
-            p.setRemainigStep(MAX_MOVES);   //TODO o meglio spostarlo nel costruttore e sempre messo a 2 se siamo qua
-        }
-
-        if (playerDamage < 3) {
-            p.setState(new NormalAction(p.getRemainigStep()));
-        }
-        else if (playerDamage <6){
-            p.setState(new MoreAction(p.getRemainigStep()));
-        }
-        else{
-            p.setState(new MostAction(p.getRemainigStep()));
-        }
     }
 }

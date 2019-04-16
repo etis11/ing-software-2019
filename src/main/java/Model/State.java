@@ -54,8 +54,17 @@ public abstract class State {
     public void nextState(Player p, String mexState){
         //TODO
         //change UML
-        //problem in case of overkilled or dead state
-        p.setState(new EndTurn());
+        int playerDamage = p.getPlayerBoard().getNumDamagePoints();
+
+        if (playerDamage < 3) {
+            p.setState(new NormalAction(p.getRemainigStep()));
+        }
+        else if (playerDamage <6){
+            p.setState(new MoreAction(p.getRemainigStep()));
+        }
+        else{
+            p.setState(new MostAction(p.getRemainigStep()));
+        }
     }
 
 
