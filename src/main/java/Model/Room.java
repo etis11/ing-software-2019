@@ -3,29 +3,42 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Contains reference to the tiles that are in the room.
+ */
 public class Room {
 
-
-    public GameMap getGameMap() {
-        return gameMap;
-    }
-
-    public void setGameMap(GameMap gameMap) {
-        this.gameMap = gameMap;
-    }
-
-    private GameMap gameMap;
     private List<Tile> tiles;
 
-    public List<Tile> getTiles() {
+    /**
+     * Creates a room with no tiles in it
+     */
+    public Room(){
+        tiles = new ArrayList<>();
+    }
 
+    /**
+     * returns the tiles in the room
+     * @return a list of tiles
+     */
+    public List<Tile> getTiles() {
         return tiles;
     }
 
-    public void setTiles(List<Tile> tiles) {
-        this.tiles = tiles;
+    /**
+     * adds a tile to the current room and assigns the given room to the tile
+     * @param toAdd the tile that has to be added to the room
+     */
+    public void addTile(Tile toAdd) throws NullPointerException{
+        if (toAdd == null) throw  new NullPointerException("The tile passed is null");
+        tiles.add(toAdd);
+        toAdd.setRoom(this);
     }
 
+    /**
+     * returns all the players in the room
+     * @return
+     */
     public List<Player> getPlayersInRoom() {
 
         List<Player> players = new ArrayList<>();

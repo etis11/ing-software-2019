@@ -55,6 +55,11 @@ public class Tile {
     private LinkedList<WeaponCard> weapons;
 
     /**
+     * room in which the tile is placed
+     */
+    private Room room;
+
+    /**
      * creates a tile with all the values set to null
      */
     public Tile(){
@@ -67,6 +72,7 @@ public class Tile {
         ammoCard = null;
         weaponTile = false;
         weapons = null;
+        room = null;
     }
 
     /**
@@ -88,6 +94,7 @@ public class Tile {
         ammoCard = null;
         this.weaponTile = weaponTile;
         weapons = new LinkedList<>();
+        room = null;
     }
 
     /**
@@ -169,6 +176,8 @@ public class Tile {
     public boolean isPlayerIn(Player p){
         return players.contains(p);
     }
+
+    public void setRoom(Room r){ this.room = r;}
 
     /**
      *  Tells if the tile has an ammo in it or not.
@@ -273,9 +282,39 @@ public class Tile {
         weapons.add(toBePut);
     }
 
+    /**
+     * returns the room of the tile
+     * @return room
+     */
     public Room getRoom(){
-        //TODO
-        return null;
+        return room;
     }
 
+    /**
+     * Tells if the given player is present
+     * @param p player that is wanted to know his location
+     * @return True if the player is present, false if not
+     */
+    public boolean isPlayerPresent(Player p){
+        return players.contains(p);
+    }
+
+    /**
+     * adds a player to the tile
+     * @param playerToAdd player that has to be placed in
+     */
+    public void addPlayer(Player playerToAdd){
+        players.addLast(playerToAdd);
+    }
+
+    /**
+     * Remove the player from the tile
+     * @param playerToRemove the player that has to be removed
+     * @return the player given as param
+     * @throws Exception if the player was not in the tile
+     */
+    public Player removePlayer(Player playerToRemove) throws Exception{
+        if (! players.remove(playerToRemove)) throw new Exception("The player should have been present");
+        return playerToRemove;
+    }
 }
