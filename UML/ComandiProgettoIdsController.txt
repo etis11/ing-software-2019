@@ -1,0 +1,119 @@
+COMANDI E USE DIAGRAM VIEW CONTROLLER
+	CREAZIONE UTENTE/GIOCATORE
+	chiedere username (diversi per partita)
+	
+	(
+	- : cli
+	> : comandi
+	)
+	
+	
+	
+CREAZIONE GIOCATORE	
+	
+	-inserire username:					il controller appena il client si collega chiede di settare l'username
+	-[username]
+	
+		>setUsername([username])
+		>verificaPartitaGiàInAttesa		verifico se ci sono già partite in atteasa
+		>creaPartita					istanzia i dati iniziali e man mano viene completata l'inizializzazione
+		>joinGame						il controller fa joinare il client in un gruppo (sala d'attesa) e la view viene notificata
+		
+	-quale personaggio vuoi essere?		il controller chiede quale tra i rimanenti vuoi essere
+	-personaggio1
+	-personaggio2
+	-...
+	-[personaggio]
+	
+		>controlloPersonaggioUtilizzabile([personaggio])	verfica che il personaggio sia disponibile
+		>setPersonaggio([personaggio])
+
+	-inserisci la tua frase ad efetto:
+	-[fraseAdEfetto]
+		>setFraseEffetto([fraseAdEfetto])
+
+
+
+
+	
+		
+SETTING PARAMETRI PARTITA (per il primo giocatore, se non fa modifiche rimane defalt)
+
+	comando help per conoscere i comandi di setting
+	
+	-inserisci parametri partita che vuoi modificare, se non conosci i comandi scrivi help
+	-help
+	
+		>help
+		
+	-comandi:								(scritti gia con le relative invocazioni, anche se presentati come elenco nella view)
+	-numeroUccisioni [numUccisioni]			{(tra min_uccisioni e max_uccisioni)}
+		>setNumUccisioni([numUccisioni])
+		>notifyAll
+		
+	-scegliModalità [modalità]				{(classica, dominazione, torrette)}
+		>setModalità([modalità])
+		>notifyAll
+		
+	-scegliMappa [mappa]					{(piccola, media, grande, versatile)}
+		>setMappa([mappa])
+		>notifyAll
+		
+	-numeroGiocatori [numGiocatori]
+		>setNumGiocatori([numGiocatori])	{(tra min_giocaotori e max_giocaotori)}
+		>notifyAll
+		
+
+		
+		
+CONTROLLER PARTITA
+	qaulsiasi giocatore deve poter inviare comandi in qualsiasi momento (eseguibili o no)->gestiti poi dal controller
+	
+	deve poter permettere l'esecuzione parallela di comandi, controlla se sono eseguibili ed eventualmente li esegue, 
+	contiene i metodi chiamati dai command per modifcare il model, se un giocatore durante un comando richiede un altr comando (solo lettura) deve poterlo fare in manirea sequanziale
+	
+	-cammina [-s stringaMovimenti]				{(su, sx, giù, dx)}
+		>walkCommand -> new WalkCommand
+	-dove vuoi andare?	(se manca flag)
+	-[comandi]
+	-[movimenti]
+	-[annulla]
+	-end
+	
+	-raccogli munizione
+	-[movimenti]
+		>pickUpAmmoCommand -> new PickUpAmmoCommand
+		
+	-raccogli arma
+	-[movimenti]		(non possibile dopo aver raccolto)
+		>pickUpWeapon -> new PickUpWeaponCommand
+	-lista armi:
+	-arma 1
+	-arma 2
+	-arma 3
+	-[annulla]
+	-[arma]
+		>pickUpWeapon([arma])
+		>controlNumberWeapon
+	-quale arma vuoi scartare tra : ....	(se ne ho 4)
+	-[arma]
+	
+	-spara
+	-[movimenti] 		(non possibile dopo aver scelto gli effetti)
+	-scegli l'arma:
+	-[arma]
+		>checkWeapon
+		>setWeaponToShoot([arma])
+	-scegli effetti tra:
+	-[effetti]
+		>checkLoaded
+		>payAdditionalEffect
+		>setEffect([effetti])
+	-scegli bersagli tra:
+	-[bersagli]	(l'ordine dei bersagli è il seguente: rosso primo bersaglio, blu secondo bersaglio, verde terzo bersaglio)
+		>checkTarget
+		>settarget([bersagli])
+		>shoot
+		>assignDamage
+		>assignMarks
+	
