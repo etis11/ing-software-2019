@@ -1,11 +1,13 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Contains all the reference to the rooms and spawn point of the map.
- * There should be at least one s
+ * There should be at least one regenPoint, The rooms should at least be an empty list.
  */
 public class GameMap {
 
@@ -14,33 +16,35 @@ public class GameMap {
      */
     private List<Room> rooms;
 
-    private Tile blueRegenPoint;
+    /**
+     * A map that contains all the regent points
+     */
+    private Map<String, Tile> regenPoints;
 
-    private Tile redRegenPoint;
-
-    private Tile yellowRegenPoint;
-
-    public Tile getReferenceTile() {
-        return referenceTile;
+    /**
+     * Creates a game map with no rooms and with no regen points
+     */
+    public GameMap(){
+        rooms = new ArrayList<>();
+        regenPoints = new HashMap<>();
     }
 
-    public void setReferenceTile(Tile referenceTile) {
-        this.referenceTile = referenceTile;
-    }
-
+    /**
+     * Returns the rooms in the gameMap
+     * @return a copy of the list. however the rooms are not copied. Only the list
+     */
     public List<Room> getRooms() {
-
-        return rooms;
+        return new ArrayList<>(rooms);
     }
 
-    public void setRooms(List<Room> rooms) {
-
-        this.rooms = rooms;
-    }
-
-
-    public Tile getTile(Player p) {
-        return p.getTile();
+    /**
+     * Add the given room to the game map
+     * @param toAdd the room that has to be added
+     * @throws NullPointerException the given room is null
+     */
+    public void addRoom(Room toAdd) throws NullPointerException{
+        if (toAdd== null) throw new NullPointerException("The given room is null");
+        rooms.add(toAdd);
     }
 
     public List<Player> allVisiblePlayers(Player p)  {
