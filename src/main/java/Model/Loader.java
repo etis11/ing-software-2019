@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * this class rappresent player's loader and contains ammos avaible to reload weaponsCard
+ * Loader represent player's loader and contains ammo available to reload weaponsCard, a Player can ask for ammo o give back to his AmmoPool
  *
  * @author Alessandro Passoni
  * @version 1.0
@@ -30,7 +30,7 @@ public class Loader {
     private List<Ammo> yellowLoader;
 
     /**
-     * this is the constructor method, ance initialize loader of every color
+     * initialize loader with an ammo for each color
      */
     public Loader(){
         this.ammoPool = new AmmoPool();
@@ -45,8 +45,8 @@ public class Loader {
 
 
     /**
-     * this method calculate if max blue player ammos are in the loader
-     * @return if the loader is full of blue ammos
+     * calculates if max blue player ammo are in the loader
+     * @return if the loader is full of blue ammo
      */
     public boolean isFullBlue(){
 
@@ -54,8 +54,8 @@ public class Loader {
     }
 
     /**
-     * this method calculate if max red player ammos are in the loader
-     * @return if the loader is full of red ammos
+     * calculates if max red player ammo are in the loader
+     * @return if the loader is full of red ammo
      */
     public boolean isFullRed(){
 
@@ -63,8 +63,8 @@ public class Loader {
     }
 
     /**
-     * this method calculate if max yellow player ammos are in the loader
-     * @return if the loader is full of yellow ammos
+     * calculates if max yellow player ammo are in the loader
+     * @return if the loader is full of yellow ammo
      */
     public boolean isFullYellow(){
 
@@ -72,8 +72,8 @@ public class Loader {
     }
 
     /**
-     * this method calculate blue ammos in the loader
-     * @return the number of blue ammos in the loader
+     * calculates blue ammo in the loader
+     * @return the number of blue ammo in the loader
      */
     public int getNumBlueAmmo(){
 
@@ -81,8 +81,8 @@ public class Loader {
     }
 
     /**
-     * this method calculate red ammos in the loader
-     * @return the number of red ammos in the loader
+     * calculates red ammo in the loader
+     * @return the number of red ammo in the loader
      */
     public int getNumRedAmmo(){
 
@@ -90,8 +90,8 @@ public class Loader {
     }
 
     /**
-     * this method calculate yellow ammos in the loader
-     * @return the number of yellow ammos in the loader
+     * calculates yellow ammo in the loader
+     * @return the number of yellow ammo in the loader
      */
     public int getNumYellowAmmo(){
 
@@ -99,8 +99,8 @@ public class Loader {
     }
 
     /**
-     * this method add to the blueLoader the given blue ammos
-     * @param blueAmmo List of blue ammos to put in the blueLoader
+     * adds to the blueLoader the given blue ammo
+     * @param blueAmmo List of blue ammo to put in the blueLoader
      */
     private void addBlueAmmo(List<Ammo> blueAmmo){
 
@@ -108,8 +108,8 @@ public class Loader {
     }
 
     /**
-     * this method add to the redLoader the given red ammos
-     * @param redAmmo List of red ammos to put in the redLoader
+     * adds to the redLoader the given red ammo
+     * @param redAmmo List of red ammo to put in the redLoader
      */
     private void addRedAmmo(List<Ammo> redAmmo){
 
@@ -117,8 +117,8 @@ public class Loader {
     }
 
     /**
-     * this method add to the yellowLoader the given yellow ammos
-     * @param yellowAmmo List of blue ammos to put in the yellowLoader
+     * adds to the yellowLoader the given yellow ammo
+     * @param yellowAmmo List of blue ammo to put in the yellowLoader
      */
     private void addYellowAmmo(List<Ammo> yellowAmmo){
 
@@ -126,10 +126,10 @@ public class Loader {
     }
 
     /**
-     * this method ask to ammoPool ammos to reload, for example after drawing an ammoCard, and insert them in the appropriate loader
-     * @param blueAmmo number of blue ammos requested
-     * @param redAmmo numeber of red ammos requested
-     * @param yellowAmmo number of yellow ammos requested
+     * asks to ammoPool ammo to reload, for example after drawing an ammoCard, and insert them in the appropriate loader
+     * @param blueAmmo number of blue ammo requested
+     * @param redAmmo number of red ammo requested
+     * @param yellowAmmo number of yellow ammo requested
      */
     public void askReload(int blueAmmo, int redAmmo, int yellowAmmo){
         if (isFullBlue()){
@@ -158,10 +158,10 @@ public class Loader {
     }
 
     /**
-     * this method put used ammos back in the pool until they will be recharged in the loader
-     * @param blueAmmo number of blue ammos to put in the pool
-     * @param redAmmo number of red ammos to put in the pool
-     * @param yellowAmmo number of yellow ammos to put in the pool
+     * puts used ammo back in the pool until they will be recharged in the loader
+     * @param blueAmmo number of blue ammo to put in the pool
+     * @param redAmmo number of red ammo to put in the pool
+     * @param yellowAmmo number of yellow ammo to put in the pool
      */
     public void ammoToPool(int blueAmmo, int redAmmo, int yellowAmmo){
         List<Ammo> toReturn = new LinkedList<>();

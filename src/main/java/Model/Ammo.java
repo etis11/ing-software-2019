@@ -3,7 +3,7 @@ package Model;
 import java.awt.*;
 
 /**
- * this class rappresent ammos for weaponCard, they are contained in ammoPool and in Loader
+ * Ammo represent ammo to reload weaponCard, they are contained in ammoPool and in Loader
  *
  * @author Alessandro Passoni
  * @version 1.0
@@ -11,19 +11,26 @@ import java.awt.*;
 public class Ammo {
 
     /**
-     * this rappresent ammo color
+     * color is ammo color
      */
     private Color color;
 
     /**
-     * this is the constructor method
+     * creates ammo of color given
+     *
+     * @param ammoColor Color for the ammo
      */
     public Ammo(Color ammoColor){
         this.color = ammoColor;
     }
 
-    public Color getColor(){
 
+    /**
+     * return color of the ammo
+     *
+     * @return color of the ammo
+     */
+    public Color getColor(){
         return this.color;
     }
 

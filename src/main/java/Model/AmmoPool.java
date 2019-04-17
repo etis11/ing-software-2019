@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * this class rappresent ammos aviable for each player that they can take by an ammoCard
+ * AmmoPool represent ammo available for each player that they can take by an ammoCard, it can return ammo to a Loader
  *
  * @author Alessandro Passoni
  * @version 1.0
@@ -14,7 +14,7 @@ import java.util.List;
 public class AmmoPool {
 
     /**
-     * MAX_AMMO reppresent max ammo for each color that can be teken from any loader
+     * MAX_AMMO represent max ammo for each color that can be teken from any loader
      */
     public static final int MAX_AMMO = 3;
 
@@ -32,7 +32,7 @@ public class AmmoPool {
     private List<Ammo> blueAmmos;
 
     /**
-     * this is the constructor method, it initialize pool of every ammo color
+     * initializes pool with two ammo for each color
      */
     public AmmoPool(){
         this.redAmmos = new LinkedList<>();
