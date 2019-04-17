@@ -57,13 +57,13 @@ public abstract class State {
         int playerDamage = p.getPlayerBoard().getNumDamagePoints();
 
         if (playerDamage < 3) {
-            p.setState(new NormalAction(p.getRemainigStep()));
+            p.setState(new NormalAction(p.getRemainigMoves()));
         }
         else if (playerDamage <6){
-            p.setState(new MoreAction(p.getRemainigStep()));
+            p.setState(new MoreAction(p.getRemainigMoves()));
         }
         else{
-            p.setState(new MostAction(p.getRemainigStep()));
+            p.setState(new MostAction(p.getRemainigMoves()));
         }
     }
 

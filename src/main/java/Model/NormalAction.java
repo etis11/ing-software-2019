@@ -20,11 +20,11 @@ public class NormalAction extends Action {
         super.nextState(p, mexState);
         if (mexState.equals("shoot")){
             p.setState(new Shoot());
-            p.setRemainigStep(p.getRemainigStep()-1);   //TODO forse può esserci metodo ad hoc
+            p.decrementMoves();
         }
         else if (mexState.equals("pickUp")){
             p.setState(new PickUp());
-            p.setRemainigStep(p.getRemainigStep()-1);
+            p.decrementMoves();
         }
     }
 }

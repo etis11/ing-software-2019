@@ -1,6 +1,5 @@
 package Model;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +24,7 @@ public class Player {
     /**
      * remainingStep are moves remaining for playing turn
      */
-    private int remainigStep;
+    private int remainigMoves;
 
     /**
      * list of weapons owned by the player
@@ -69,7 +68,7 @@ public class Player {
         powerUps = new LinkedList<>();
         tile = null;
         playerBoard = new PlayerBoard();
-        remainigStep = 0;
+        remainigMoves = 0;
     }
 
     /**
@@ -86,7 +85,7 @@ public class Player {
         powerUps = new LinkedList<>();
         tile = null;
         playerBoard = new PlayerBoard();
-        remainigStep = 0;
+        remainigMoves = 0;
     }
 
     /**
@@ -121,17 +120,25 @@ public class Player {
      *
      * @return the number of remaining moves for playing turn
      */
-    public int getRemainigStep() {
-        return remainigStep;
+    public int getRemainigMoves() {
+        return remainigMoves;
     }
 
     /**
      * sets the number of remaining moves for playing turn
      *
-     * @param remainigStep are the new number of remaining moves for playing turn
+     * @param remainigMoves are the new number of remaining moves for playing turn
      */
-    public void setRemainigStep(int remainigStep) {
-        this.remainigStep = remainigStep;
+    public void setRemainigMoves(int remainigMoves) {
+        this.remainigMoves = remainigMoves;
+    }
+
+
+    /**
+     * decrements number of moves after an action has chosen
+     */
+    public void decrementMoves(){
+        this.remainigMoves--;
     }
 
     /**

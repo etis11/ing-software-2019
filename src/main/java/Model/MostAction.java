@@ -20,11 +20,11 @@ public class MostAction extends Action{
         super.nextState(p, mexState);
         if (mexState.equals("shoot")){
             p.setState(new ShootPlus());
-            p.setRemainigStep(p.getRemainigStep()-1);   //TODO forse metodo ad hoc
+            p.decrementMoves();
         }
         else if (mexState.equals("pickUp")){
             p.setState(new PickUpPlus());
-            p.setRemainigStep(p.getRemainigStep()-1);
+            p.decrementMoves();
         }
     }
 }
