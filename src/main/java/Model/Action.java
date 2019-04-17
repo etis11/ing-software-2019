@@ -42,7 +42,7 @@ public class Action extends State{
 
         if (mexState.equals("run")){
             p.setState(new Run());
-            p.setRemainigMoves(p.getRemainigMoves()-1);   //TODO forse può essre implemtato ad hoc
+            p.decrementMoves();
         }
         else if (mexState.equals("reload")){
             p.setState(new Reload());
