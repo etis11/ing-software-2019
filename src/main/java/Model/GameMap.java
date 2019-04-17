@@ -3,13 +3,22 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Contains all the reference to the rooms and spawn point of the map.
+ * There should be at least one s
+ */
 public class GameMap {
 
+    /**
+     * List of the rooms in the GameMap
+     */
     private List<Room> rooms;
 
+    private Tile blueRegenPoint;
 
+    private Tile redRegenPoint;
 
-    private Tile referenceTile;
+    private Tile yellowRegenPoint;
 
     public Tile getReferenceTile() {
         return referenceTile;
