@@ -14,6 +14,7 @@ public class CardTest {
     void initInstance(){
         ammoCard = new AmmoCard();
     }
+
     @Test
     public void testSetter() {
 
