@@ -25,6 +25,8 @@ public class AmmoCard extends Card {
     public void setNumBlue(int numBlue) {
         this.numBlue = numBlue;
     }
+    //TODO
+    //i setters sono necessari? secondo me no perchè ammo card non cambiano mai una volta create
 
     public int getNumYellow() {
 
@@ -50,10 +52,5 @@ public class AmmoCard extends Card {
     public int getNumRed() {
 
         return numRed;
-    }
-
-    public boolean getDrawPowerUp() {
-
-        return drawPowerUp;
     }
 }
