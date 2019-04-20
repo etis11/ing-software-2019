@@ -23,6 +23,7 @@ public class PowerUpCard  extends Card{
         this.powerUpType = p.getPowerUpType();
     }
 
+    
     /**
      * create powerUpCard by parameters given
      * @param color color of the powerUpCard

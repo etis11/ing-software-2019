@@ -33,4 +33,5 @@ public class AmmoCard extends Card {
     public int getNumRed() {
         return numRed;
     }
+
 }
