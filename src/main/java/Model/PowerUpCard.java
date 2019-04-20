@@ -8,7 +8,8 @@ public class PowerUpCard  extends Card{
     private PowerUpType powerUpType ;
 
     public PowerUpCard(PowerUpCard p) {
-        //TODO
+        this.color = p.getColor();
+        this.powerUpType = p.getPowerUpType();
     }
 
     public PowerUpCard(Color color, PowerUpType powerUpType) {
