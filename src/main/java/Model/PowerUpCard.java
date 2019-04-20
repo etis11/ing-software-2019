@@ -25,6 +25,8 @@ public class PowerUpCard  extends Card{
     public void setColor(Color color) {
         this.color = color;
     }
+    //TODO
+    //i setters sono necessari? secondo me no perche una volta creati le carte power up non vengono più modificate
 
 
     public PowerUpCard(Color color) {
