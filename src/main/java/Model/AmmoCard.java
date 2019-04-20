@@ -18,39 +18,19 @@ public class AmmoCard extends Card {
     }
 
     public int getNumBlue() {
-
         return numBlue;
     }
 
-    public void setNumBlue(int numBlue) {
-        this.numBlue = numBlue;
-    }
-    //TODO
-    //i setters sono necessari? secondo me no perchè ammo card non cambiano mai una volta create
 
     public int getNumYellow() {
-
         return numYellow;
-    }
-
-    public void setNumYellow(int numYellow) {
-        this.numYellow = numYellow;
-    }
-
-    public void setNumRed(int numRed) {
-        this.numRed = numRed;
     }
 
     public boolean isDrawPowerUp() {
         return drawPowerUp;
     }
 
-    public void setDrawPowerUp(boolean drawPowerUp) {
-        this.drawPowerUp = drawPowerUp;
-    }
-
     public int getNumRed() {
-
         return numRed;
     }
 }

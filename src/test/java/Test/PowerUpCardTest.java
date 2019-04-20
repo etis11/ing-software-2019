@@ -27,57 +27,65 @@ public class PowerUpCardTest {
 
     @Test
     public void redPowerUpCardTest(){
-        assertTrue(card.getColor() == Color.RED, "ERROR: not red powerUp");
-        assertTrue(card.getPowerUpType()==PowerUpType.gunsight, "ERROR: not red gunsight");
+        assertSame(card.getColor(), Color.RED, "ERROR: not red powerUp");
+        assertSame(card.getPowerUpType(), PowerUpType.gunsight, "ERROR: not red gunsight");
 
         card = new PowerUpCard(Color.RED, PowerUpType.kineticBeam);
-        assertTrue(card.getColor() == Color.RED, "ERROR: not red powerUp");
-        assertTrue(card.getPowerUpType()==PowerUpType.kineticBeam, "ERROR: not red kineticBeam");
+        assertSame(card.getColor(), Color.RED, "ERROR: not red powerUp");
+        assertSame(card.getPowerUpType(), PowerUpType.kineticBeam, "ERROR: not red kineticBeam");
 
         card = new PowerUpCard(Color.RED, PowerUpType.teleport);
-        assertTrue(card.getColor() == Color.RED, "ERROR: not red powerUp");
-        assertTrue(card.getPowerUpType()==PowerUpType.teleport, "ERROR: not red teleport");
+        assertSame(card.getColor(), Color.RED, "ERROR: not red powerUp");
+        assertSame(card.getPowerUpType(), PowerUpType.teleport, "ERROR: not red teleport");
 
         card = new PowerUpCard(Color.RED, PowerUpType.venomGranade);
-        assertTrue(card.getColor() == Color.RED, "ERROR: not red powerUp");
-        assertTrue(card.getPowerUpType()==PowerUpType.venomGranade, "ERROR: not red venomGranade");
+        assertSame(card.getColor(), Color.RED, "ERROR: not red powerUp");
+        assertSame(card.getPowerUpType(), PowerUpType.venomGranade, "ERROR: not red venomGranade");
     }
 
     @Test
     public void bluePowerUpCardTest(){
         card = new PowerUpCard(Color.BLUE, PowerUpType.gunsight);
-        assertTrue(card.getColor() == Color.BLUE, "ERROR: not blue powerUp");
-        assertTrue(card.getPowerUpType()==PowerUpType.gunsight, "ERROR: not blue gunsight");
+        assertSame(card.getColor(), Color.BLUE, "ERROR: not blue powerUp");
+        assertSame(card.getPowerUpType(), PowerUpType.gunsight, "ERROR: not blue gunsight");
 
         card = new PowerUpCard(Color.BLUE, PowerUpType.kineticBeam);
-        assertTrue(card.getColor() == Color.BLUE, "ERROR: not blue powerUp");
-        assertTrue(card.getPowerUpType()==PowerUpType.kineticBeam, "ERROR: not blue kineticBeam");
+        assertSame(card.getColor(), Color.BLUE, "ERROR: not blue powerUp");
+        assertSame(card.getPowerUpType(), PowerUpType.kineticBeam, "ERROR: not blue kineticBeam");
 
         card = new PowerUpCard(Color.BLUE, PowerUpType.teleport);
-        assertTrue(card.getColor() == Color.BLUE, "ERROR: not blue powerUp");
-        assertTrue(card.getPowerUpType()==PowerUpType.teleport, "ERROR: not blue teleport");
+        assertSame(card.getColor(), Color.BLUE, "ERROR: not blue powerUp");
+        assertSame(card.getPowerUpType(), PowerUpType.teleport, "ERROR: not blue teleport");
 
         card = new PowerUpCard(Color.BLUE, PowerUpType.venomGranade);
-        assertTrue(card.getColor() == Color.BLUE, "ERROR: not red powerUp");
-        assertTrue(card.getPowerUpType()==PowerUpType.venomGranade, "ERROR: not blue venomGranade");
+        assertSame(card.getColor(), Color.BLUE, "ERROR: not red powerUp");
+        assertSame(card.getPowerUpType(), PowerUpType.venomGranade, "ERROR: not blue venomGranade");
     }
 
     @Test
     public void yellowPowerUpCardTest(){
         card = new PowerUpCard(Color.YELLOW, PowerUpType.gunsight);
-        assertTrue(card.getColor() == Color.YELLOW, "ERROR: not yellow powerUp");
-        assertTrue(card.getPowerUpType()==PowerUpType.gunsight, "ERROR: not yellow gunsight");
+        assertSame(card.getColor(), Color.YELLOW, "ERROR: not yellow powerUp");
+        assertSame(card.getPowerUpType(), PowerUpType.gunsight, "ERROR: not yellow gunsight");
 
         card = new PowerUpCard(Color.YELLOW, PowerUpType.kineticBeam);
-        assertTrue(card.getColor() == Color.YELLOW, "ERROR: not yellow powerUp");
-        assertTrue(card.getPowerUpType()==PowerUpType.kineticBeam, "ERROR: not yellow kineticBeam");
+        assertSame(card.getColor(), Color.YELLOW, "ERROR: not yellow powerUp");
+        assertSame(card.getPowerUpType(), PowerUpType.kineticBeam, "ERROR: not yellow kineticBeam");
 
         card = new PowerUpCard(Color.YELLOW, PowerUpType.teleport);
-        assertTrue(card.getColor() == Color.YELLOW, "ERROR: not yellow powerUp");
-        assertTrue(card.getPowerUpType()==PowerUpType.teleport, "ERROR: not yellow teleport");
+        assertSame(card.getColor(), Color.YELLOW, "ERROR: not yellow powerUp");
+        assertSame(card.getPowerUpType(), PowerUpType.teleport, "ERROR: not yellow teleport");
 
         card = new PowerUpCard(Color.YELLOW, PowerUpType.venomGranade);
-        assertTrue(card.getColor() == Color.YELLOW, "ERROR: not yellow powerUp");
-        assertTrue(card.getPowerUpType()==PowerUpType.venomGranade, "ERROR: not yellow venomGranade");
+        assertSame(card.getColor(), Color.YELLOW, "ERROR: not yellow powerUp");
+        assertSame(card.getPowerUpType(), PowerUpType.venomGranade, "ERROR: not yellow venomGranade");
+    }
+
+    @Test
+    public void copyConstructorTest(){
+        PowerUpCard card2 = new PowerUpCard(card);
+        assertTrue(card2 instanceof PowerUpCard, "ERROR of Instance");
+        assertSame(card.getColor(), card2.getColor(), "ERROR: wrong color");
+        assertSame(card.getPowerUpType(), card2.getPowerUpType(), "ERROR: wrong type");
     }
 }
