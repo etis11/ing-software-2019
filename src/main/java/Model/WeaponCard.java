@@ -30,7 +30,7 @@ public class WeaponCard extends Card{
     /**
      * Each WeaponCard should contain a name to be distinguished by other cards
      * */
-    private String NAME;
+    private String Name;
 
     /**
      * List containing optional effects for a Weapon Card
@@ -44,8 +44,7 @@ public class WeaponCard extends Card{
         targetStrategy1 = null;
         targetStrategy2 = null;
         loaded = true;
-        NAME = "default";
-        reloadCost = null;
+        Name = "default";
 
     }
 
@@ -59,13 +58,29 @@ public class WeaponCard extends Card{
     public WeaponCard(WeaponCard ref){
         super();
         if (ref!= null){
-            targetStrategy1 = null;
-            targetStrategy2 = null;
-            loaded = ref.loaded;
-            NAME = String.valueOf(ref.getNAME());
-            reloadCost = null;
+            this.targetStrategy1 = null;
+            this.targetStrategy2 = null;
+            this.loaded = ref.loaded;
+            this.Name = String.valueOf(ref.getName());
+            this.reloadCost = null;
         }
 
+    }
+
+    /**
+     * creates the instance of each weapon by given information
+     * @param reloadCost cost to reload weapon
+     * @param targetStrategy1 primary strategy to choose target
+     * @param targetStrategy2 secondary strategy to choose target
+     * @param NAME  name of the weapon
+     * @param optionalEffects weapon optional effect usable by paying extra reload cost
+     */
+    public WeaponCard(List<String> reloadCost, ChooseTargetStrategy targetStrategy1, ChooseTargetStrategy targetStrategy2, String NAME, List<Effect> optionalEffects) {
+        this.reloadCost = reloadCost;
+        this.targetStrategy1 = targetStrategy1;
+        this.targetStrategy2 = targetStrategy2;
+        this.Name = NAME;
+        this.optionalEffects = optionalEffects;
     }
 
     /**
@@ -73,21 +88,6 @@ public class WeaponCard extends Card{
      * */
     public List<String> getReloadCost() {
         return reloadCost;
-    }
-
-    /**
-     * Sets cost for each WeaponCard effect to be used.
-     * */
-    public void setReloadCost(List<String> reloadCost) {
-        this.reloadCost = reloadCost;
-    }
-//TODO: define targetstrategy
-    public void setTargetStrategy1(ChooseTargetStrategy targetStrategy1) {
-        this.targetStrategy1 = targetStrategy1;
-    }
-
-    public void setTargetStrategy2(ChooseTargetStrategy targetStrategy2) {
-        this.targetStrategy2 = targetStrategy2;
     }
 
  /**
@@ -101,12 +101,8 @@ public class WeaponCard extends Card{
     /**
      * Method used to get the name of a WeaponCard
      * */
-    public String getNAME() {
-        return NAME;
-    }
-//TODO make sure if this setter is needed or not
-    public void setNAME(String NAME) {
-        this.NAME = NAME;
+    public String getName() {
+        return Name;
     }
 
     /**
@@ -116,50 +112,59 @@ public class WeaponCard extends Card{
     public List<Effect> getOptionalEffects() {
         return optionalEffects;
     }
-//TODO maybe not needed
-    public void setOptionalEffects(List<Effect> optionalEffects) {
-        this.optionalEffects = optionalEffects;
-    }
 
     public void reload() {
-
+    //TODO
     }
 
     public int getBlueCost() {
-    //TODO
-        return 0;
+        int toReturn = 0;
+        //TODO probabilmente si può usare java funzionale
+        for (String s:reloadCost){
+            if (s.equals("Blue")){
+                toReturn++;
+            }
+        }
+        return toReturn;
     }
 
     public int getYellowCost() {
-        //TODO
-        return 0;
+        int toReturn = 0;
+        //TODO probabilmente si può usare java funzionale
+        for (String s:reloadCost){
+            if (s.equals("Yellow")){
+                toReturn++;
+            }
+        }
+        return toReturn;
     }
 
     public int getRedCost() {
-        //TODO
-        return 0;
+        int toReturn = 0;
+        //TODO probabilmente si può usare java funzionale
+        for (String s:reloadCost){
+            if (s.equals("Red")){
+                toReturn++;
+            }
+        }
+        return toReturn;
     }
 
     public boolean isLoaded() {
-    //TODO
-        return false;
+        return loaded;
     }
 
-    public String getName() {
-    //TODO
-        return null;
-    }
 
     public void chooseEffect() {
-
+    //TODO
     }
 
     public void getTargetStrategy1() {
-
+    //TODO
     }
 
     public void getTargetStrategy2() {
-
+    //TODO
     }
 
     /**
@@ -179,7 +184,7 @@ public class WeaponCard extends Card{
             return false;
 
         WeaponCard w = (WeaponCard) o;
-        return w.getNAME().equals(this.getName());
+        return w.getName().equals(this.getName());
 
 
     }
