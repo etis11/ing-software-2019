@@ -76,5 +76,24 @@ public class GameMapTest {
         assertSame(yellow, map.getRegenPoint("yellow"), ()->"ERROR: The regen points should be the same");
     }
 
+    @Test
+    void insertionExceptions(){
+        Tile t = new Tile();
+        String s = "red";
+        assertThrows(NullPointerException.class, ()-> map.addRegenPoint(null, t),
+                ()-> "ERROR: The method should throw an exception because the color is null");
+        assertThrows(NullPointerException.class, ()-> map.addRegenPoint(s, null),
+                ()-> "ERROR: the method should throw an exception because the tile is null");
+    }
 
+    @Test
+    void gettingRegenPointsExceptions(){
+        assertThrows(NullPointerException.class, ()-> map.getRedRegenPoint());
+        assertThrows(NullPointerException.class, ()-> map.getBlueRegenPoint());
+        assertThrows(NullPointerException.class, ()-> map.getYellowRegenPoint());
+
+        assertThrows(NullPointerException.class, ()-> map.getRegenPoint("red"));
+        assertThrows(NullPointerException.class, ()-> map.getRegenPoint("blue"));
+        assertThrows(NullPointerException.class, ()-> map.getRegenPoint("yellow"));
+    }
 }
