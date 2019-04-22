@@ -106,7 +106,7 @@ public class WeaponCard extends Card{
     }
 
     /**
-     * The followin method returns list of Optional Effects to a certain cards. THere might be 0,1
+     * The following method returns list of Optional Effects to a certain cards. THere might be 0,1
      * or 2 optional effects based on the Weapon Card
      * */
     public List<Effect> getOptionalEffects() {
@@ -117,6 +117,11 @@ public class WeaponCard extends Card{
     //TODO
     }
 
+    /**
+     * The following method is used to return the number of blue ammos that needed for the WeaponCard to be used
+     * Each weaponCard has its own cost based on ammos
+     * @return toReturn number of blue ammos needed to use the WeaponCard Effect
+     * */
     public int getBlueCost() {
         int toReturn = 0;
         //TODO probabilmente si può usare java funzionale
@@ -127,7 +132,11 @@ public class WeaponCard extends Card{
         }
         return toReturn;
     }
-
+    /**
+     * The following method is used to return the number of yellow ammos that needed for the WeaponCard to be used
+     * Each weaponCard has its own cost based on ammos
+     * @return toReturn number of yellow ammos needed to use the WeaponCard Effect
+     * */
     public int getYellowCost() {
         int toReturn = 0;
         //TODO probabilmente si può usare java funzionale
@@ -138,7 +147,11 @@ public class WeaponCard extends Card{
         }
         return toReturn;
     }
-
+    /**
+     * The following method is used to return the number of red ammos that needed for the WeaponCard to be used
+     * Each weaponCard has its own cost based on ammos
+     * @return toReturn number of red ammos needed to use the WeaponCard Effect
+     * */
     public int getRedCost() {
         int toReturn = 0;
         //TODO probabilmente si può usare java funzionale
@@ -150,6 +163,10 @@ public class WeaponCard extends Card{
         return toReturn;
     }
 
+    /**
+     * Method that checkeds whether or not a Weapon Card is loaded
+     * @return loaded if Weapon is loaded or not
+     * */
     public boolean isLoaded() {
         return loaded;
     }
