@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * Contains all the reference to the rooms and spawn point of the map.
@@ -117,6 +118,19 @@ public class GameMap {
             tiles.add(westTile);
         }
         return tiles;
+    }
+
+    /**
+     * adds the regenPoint to the game map
+     * @param color the color of the regen point
+     * @param regenPoint the tile
+     * @throws Exception If there is already a regen point with that color
+     * @throws Exception if that regen point is already in the game map
+     */
+    public void addRegenPoint(String color, Tile regenPoint) throws Exception{
+        if (regenPoints.containsKey(color)) throw new Exception("There is already a regen point of the given color");
+        if (regenPoints.containsValue(regenPoint)) throw new Exception("The regen point has been already put in");
+        regenPoints.put(color, regenPoint);
     }
 
     /**
