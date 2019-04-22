@@ -9,7 +9,7 @@ public class BloodToken {
     /**
      * owner is the Player
      */
-    /
+
     private Player owner;
 
     /**
@@ -25,8 +25,7 @@ public class BloodToken {
      * Returns the owner based on player's turn
      * @return owner returns the Player whose turn is, needed later on to check his blood tokens
      */
-     */
-    /
+
     public Player getOwner(){
         return owner;
     }
