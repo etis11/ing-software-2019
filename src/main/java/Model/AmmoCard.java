@@ -28,7 +28,7 @@ public class AmmoCard extends Card {
     /**
      * drawPowerUp is a boolean to check whether there's a PowerUp effect in an AmmoCard or not
      * */
-    private boolean drawPowerUp;
+    private boolean drawPowerUp; //TODO define it
 
     /**
      * Constructor method that contains:
