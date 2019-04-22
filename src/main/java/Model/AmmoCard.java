@@ -48,17 +48,20 @@ public class AmmoCard extends Card {
     }
 
     /**Method that returns number of blue ammos in an Ammo Card
+     * @return numBlue
      * */
     public int getNumBlue() {
         return numBlue;
     }
 
     /**Method that returns number of yellow ammos in an Ammo Card
+     * @return numYellow
      * */
     public int getNumYellow() {
         return numYellow;
     }
     /**Method that returns number of red ammos in an Ammo Card
+     * @return numRed
      * */
     public int getNumRed() {
         return numRed;

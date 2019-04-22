@@ -37,7 +37,7 @@ public class Room {
 
     /**
      * returns all the players in the room
-     * @return
+     * @return players that are in the same Room
      */
     public List<Player> getPlayersInRoom() {
 

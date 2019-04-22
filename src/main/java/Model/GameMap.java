@@ -63,9 +63,9 @@ public class GameMap {
     }
 
     /**
-     *
-     * @param p
-     * @return
+     * Returns all the tiles available to the chosen Player
+     * @param p is the player who decides to check all the visible Tiles to him
+     * @return list of all the Tiles where the player can interact(
      */
     public List<Tile> allVisibleTiles(Player p)  {
         List<Tile> visibleTiles = new ArrayList<>();
@@ -78,9 +78,9 @@ public class GameMap {
     }
 
     /**
-     *
-     * @param p
-     * @return
+     * Returns the Rooms available to Action for the chosen player
+     * @param p the player that checks which Rooms are available to him during his gameTurn
+     * @return all the Rooms that are visible to the player by the gameLogic
      */
     public List<Room> visibleRooms(Player p) {
 

@@ -7,13 +7,19 @@ package Model;
  * */
 public abstract class Card {
 
-    public void showBack() {
+
+
+    public void showBack() { //TODO check if it's needed or not
 
     }
 
-    public void showCard() {
+    public void showCard() { //TODO check if it's needed or not
 
     }
+
+/**
+ *  Determine whether or not the card should be used
+ * */
 
     public void use() {
 
