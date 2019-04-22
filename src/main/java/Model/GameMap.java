@@ -77,7 +77,7 @@ public class GameMap {
     }
 
     /**
-     * 
+     *
      * @param p
      * @return
      */
@@ -117,6 +117,51 @@ public class GameMap {
             tiles.add(westTile);
         }
         return tiles;
+    }
+
+    /**
+     * Returns the red regen point
+     * @return red regen point
+     * @throws NullPointerException if there's not a red regen point
+     */
+    public Tile getRedRegenPoint() throws NullPointerException{
+        Tile redRegen =  regenPoints.get("red");
+        if (redRegen == null) throw new NullPointerException("There isn't a red regen point");
+        return redRegen;
+    }
+
+    /**
+     * Returns the blue regen point
+     * @return blue regen point
+     * @throws NullPointerException if it's not present
+     */
+    public Tile getBlueRegenPoint() throws NullPointerException{
+        Tile blueRegen =  regenPoints.get("blue");
+        if (blueRegen == null) throw new NullPointerException("There isn't a blue regen point");
+        return blueRegen;
+    }
+
+    /**
+     * Returns the yellow regen point
+     * @return yellow regen point
+     * @throws NullPointerException if it's not present
+     */
+    public Tile getYellowRegenPoint() throws  NullPointerException{
+        Tile yellowRegen =  regenPoints.get("yellow");
+        if (yellowRegen == null) throw new NullPointerException("There isn't a yellow regen point");
+        return yellowRegen;
+    }
+
+    /**
+     * Returns the given color regen point
+     * @param color a string that says the color of the wanted regen point
+     * @return the regen point of color "color"
+     * @throws NullPointerException if doesn't exist the regen point of that color
+     */
+    public Tile getRegenPoint(String color) throws NullPointerException{
+        Tile regenPoint = regenPoints.get(color);
+        if (regenPoint == null) throw new NullPointerException("There isn0t a " + color + "regen point");
+        return regenPoint;
     }
 }
 
