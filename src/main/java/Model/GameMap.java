@@ -47,6 +47,11 @@ public class GameMap {
         rooms.add(toAdd);
     }
 
+    /**
+     * Gets all the players that are visible for the given player
+     * @param p the player that wants to know which are the other visible players
+     * @return a list of all the players seen by p, EXCEPT p
+     */
     public List<Player> allVisiblePlayers(Player p)  {
 
         List<Player> visiblePlayers = new ArrayList<>();
@@ -56,6 +61,11 @@ public class GameMap {
         return visiblePlayers;
     }
 
+    /**
+     *
+     * @param p
+     * @return
+     */
     public List<Tile> allVisibleTiles(Player p)  {
         List<Tile> visibleTiles = new ArrayList<>();
 
@@ -66,6 +76,11 @@ public class GameMap {
        return  visibleTiles;
     }
 
+    /**
+     * 
+     * @param p
+     * @return
+     */
     public List<Room> visibleRooms(Player p) {
 
         List<Room> visibRooms = new ArrayList<>();
@@ -77,7 +92,11 @@ public class GameMap {
         return visibRooms;
     }
 
-    //ritorna i tiles che sono in direzioni nord est ovest e sud
+    /**
+     * Returns the tiles near the given player
+     * @param p the player
+     * @return all not null tiles around the player
+     */
     private List<Tile> getNearTiles(Player p){
         List<Tile> tiles = new ArrayList<>();
         Tile eastTile = p.getTile().getEastTile();
