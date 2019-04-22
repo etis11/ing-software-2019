@@ -57,8 +57,11 @@ public class GameMap {
 
         List<Player> visiblePlayers = new ArrayList<>();
         for (Tile tile: this.allVisibleTiles(p) ){
-            visiblePlayers.addAll(tile.getPlayers()) ;
+            if(!tile.getPlayers().equals(p)){
+                visiblePlayers.addAll(tile.getPlayers()) ;
+            }
         }
+
         return visiblePlayers;
     }
 
@@ -87,7 +90,10 @@ public class GameMap {
         List<Room> visibRooms = new ArrayList<>();
 
         for (Tile tile : getNearTiles(p)){
-            visibRooms.add(tile.getRoom());
+            if(!visibRooms.contains(tile.getRoom())){
+                visibRooms.add(tile.getRoom());
+            }
+
         }
 
         return visibRooms;
