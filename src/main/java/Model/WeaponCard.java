@@ -4,13 +4,37 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * The following class is supposed to extend Card by adding another type of Cards known as WeaponCards
+ * There are 21 WeaponCards each different from the other. THese cards are to be used during Gameplay to
+ * inflict damage to the adversary.
+ * */
+
 public class WeaponCard extends Card{
 
+
+    /**
+     *List containing colorAmmos.
+     */
     private List<String> reloadCost;
+
+    //TODO define the following two strategies
     private ChooseTargetStrategy targetStrategy1;
     private ChooseTargetStrategy targetStrategy2;
+
+    /**
+     * Boolean used to check if a Weapon is loaded or not
+     * */
     private boolean loaded;
+
+    /**
+     * Each WeaponCard should contain a name to be distinguished by other cards
+     * */
     private String NAME;
+
+    /**
+     * List containing optional effects for a Weapon Card
+     * */
     private List<Effect> optionalEffects;
 
 
@@ -44,14 +68,20 @@ public class WeaponCard extends Card{
 
     }
 
+    /**
+     * Returns the cost for a WeaponCard effect to be used. It returns a string of colouredAmmos
+     * */
     public List<String> getReloadCost() {
         return reloadCost;
     }
 
+    /**
+     * Sets cost for each WeaponCard effect to be used.
+     * */
     public void setReloadCost(List<String> reloadCost) {
         this.reloadCost = reloadCost;
     }
-
+//TODO: define targetstrategy
     public void setTargetStrategy1(ChooseTargetStrategy targetStrategy1) {
         this.targetStrategy1 = targetStrategy1;
     }
@@ -60,22 +90,33 @@ public class WeaponCard extends Card{
         this.targetStrategy2 = targetStrategy2;
     }
 
+ /**
+  * Returns a boolean in case the loader is loaded or not.
+  * */
+
     public void setLoaded(boolean loaded) {
         this.loaded = loaded;
     }
 
+    /**
+     * Method used to get the name of a WeaponCard
+     * */
     public String getNAME() {
         return NAME;
     }
-
+//TODO make sure if this setter is needed or not
     public void setNAME(String NAME) {
         this.NAME = NAME;
     }
 
+    /**
+     * The followin method returns list of Optional Effects to a certain cards. THere might be 0,1
+     * or 2 optional effects based on the Weapon Card
+     * */
     public List<Effect> getOptionalEffects() {
         return optionalEffects;
     }
-
+//TODO maybe not needed
     public void setOptionalEffects(List<Effect> optionalEffects) {
         this.optionalEffects = optionalEffects;
     }

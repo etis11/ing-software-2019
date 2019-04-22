@@ -89,7 +89,7 @@ public class Board {
     public void setPlayers(LinkedList<Player> players) {
         this.players = players;
     }
-    
+
     /**
      * Method used to return the deck of PowerUp cards
      * */
