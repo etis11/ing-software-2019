@@ -23,10 +23,10 @@ public class PlayerBoardTest {
         assertNotNull(p.getLoader(), () -> "ERRORE the loader is null, but should be instantiated");
         assertEquals(0,p.getNumDamagePoints() , ()-> "ERRORE, the player's damage is not 0.");
         assertEquals(0,p.getNumMarks() , ()-> "ERRORE, the player has more than 0 marks.");
-        assertEquals(rightPoints.length, p.getPointsList().size(), ()-> "ERRORE, the poiny list has the wrong size.");
+        assertEquals(rightPoints.length, p.getKillValue().size(), ()-> "ERRORE, the poiny list has the wrong size.");
 
         for(int i = 0; i< rightPoints.length; i++){
-            if (rightPoints[i] != p.getPointsList().get(i)){
+            if (rightPoints[i] != p.getKillValue().get(i)){
                 fail(()-> "The point list has been initializated in the wrong way");
             }
         }

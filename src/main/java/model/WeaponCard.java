@@ -28,14 +28,14 @@ public class WeaponCard{
     /**
      * Each WeaponCard should contain a name to be distinguished by other cards
      * */
-    private String Name;
+    private String NAME;
 
     public WeaponCard(){
         this.reloadCost = null;
         this.baseEffect = null;
         this.advancedEffect = null;
         this.loaded = true;
-        this.Name = "default";
+        this.NAME = "default";
 
     }
 
@@ -52,7 +52,7 @@ public class WeaponCard{
             this.baseEffect = null;
             this.advancedEffect = null;
             this.loaded = ref.loaded;
-            this.Name = String.valueOf(ref.getName());
+            this.NAME = String.valueOf(ref.getNAME());
             this.reloadCost = null;
         }
 
@@ -78,8 +78,8 @@ public class WeaponCard{
     /**
      * Method used to get the name of a WeaponCard
      * */
-    public String getName() {
-        return Name;
+    public String getNAME() {
+        return NAME;
     }
 
     public void reload() {
@@ -157,7 +157,7 @@ public class WeaponCard{
             return false;
 
         WeaponCard w = (WeaponCard) o;
-        return w.getName().equals(this.getName());
+        return w.getNAME().equals(this.getNAME());
 
 
     }
