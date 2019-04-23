@@ -191,7 +191,7 @@ public class Tile {
      * Says if an ammo che be put in the tile
      * @return True if it's an ammo tile, false if not.
      */
-    public boolean canContainAmmos(){ return ammoTile;};
+    public boolean canContainAmmo(){ return ammoTile;};
 
     /**
      * Set the ammoCard field to null and return the ammo card. The boolean field is set to null
