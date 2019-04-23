@@ -29,6 +29,49 @@ public class GameMap {
     }
 
     /**
+     * Retruns all the tiles of a given direction. The tile in which the player is always returned
+     * @param dir a string that should be "north", "east", "south", "wesr"
+     * @param p player from wich the list is built
+     * @return a list of all tile in a given direction
+     * @throws IllegalArgumentException if dir is not correct or the player is null
+     */
+    public static List<Tile> getTilesInDirection(String dir, Player p) throws IllegalArgumentException{
+        if (!dir.equals("north") && !dir.equals("east") && !dir.equals("south") && !dir.equals("west")) throw new IllegalArgumentException(
+                                                                "The direction given is not north east south or west");
+        if (p == null) throw new IllegalArgumentException("The player is null");
+        Tile currentTile = p.getTile();
+        List<Tile> tiles = new ArrayList<>();
+        switch (dir){
+            case "north":
+                while(currentTile != null) {
+                    tiles.add(currentTile);
+                    currentTile = currentTile.getNorthTile();
+                }
+                break;
+            case "east":
+                while(currentTile != null) {
+                    tiles.add(currentTile);
+                    currentTile = currentTile.getEastTile();
+                }
+                break;
+            case "south":
+                while(currentTile != null) {
+                    tiles.add(currentTile);
+                    currentTile = currentTile.getSouthTile();
+                }
+                break;
+            case "west":
+                while(currentTile != null) {
+                    tiles.add(currentTile);
+                    currentTile = currentTile.getWestTile();
+                }
+                break;
+        }
+        return tiles;
+    }
+
+
+    /**
      * Returns the rooms in the gameMap
      * @return a copy of the list. however the rooms are not copied. Only the list
      */
