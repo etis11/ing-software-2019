@@ -17,14 +17,8 @@ public class WeaponCard{
      */
     private List<String> reloadCost;
 
-<<<<<<< HEAD
     private Effect baseEffect;
     private Effect advancedEffect;
-=======
-    //TODO define the following two strategies
-    private TargetStrategy targetStrategy1;
-    private TargetStrategy targetStrategy2;
->>>>>>> 525ec4f345167a273c34066904d5ec734d05b685
 
     /**
      * Boolean used to check if a Weapon is loaded or not
@@ -64,25 +58,6 @@ public class WeaponCard{
 
     }
 
-<<<<<<< HEAD
-
-=======
-    /**
-     * creates the instance of each weapon by given information
-     * @param reloadCost cost to reload weapon
-     * @param targetStrategy1 primary strategy to choose target
-     * @param targetStrategy2 secondary strategy to choose target
-     * @param NAME  name of the weapon
-     * @param optionalEffects weapon optional effect usable by paying extra reload cost
-     */
-    public WeaponCard(List<String> reloadCost, TargetStrategy targetStrategy1, TargetStrategy targetStrategy2, String NAME, List<Effect> optionalEffects) {
-        this.reloadCost = reloadCost;
-        this.targetStrategy1 = targetStrategy1;
-        this.targetStrategy2 = targetStrategy2;
-        this.Name = NAME;
-        this.optionalEffects = optionalEffects;
-    }
->>>>>>> 525ec4f345167a273c34066904d5ec734d05b685
 
     /**
      * Returns the cost for a WeaponCard effect to be used. It returns a string of colouredAmmo

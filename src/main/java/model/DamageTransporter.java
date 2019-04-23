@@ -37,6 +37,9 @@ public class DamageTransporter {
         this.numMark = numMark;
     }
 
+    public DamageTransporter(Player p, Object o, int i, int i1, boolean b, boolean b1) {
+    }
+
     /**
      * this method return the player targeted
      * @return player targeted
