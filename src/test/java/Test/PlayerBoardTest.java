@@ -1,7 +1,6 @@
 package Test;
 
-import Model.PlayerBoard;
-import org.junit.jupiter.api.BeforeAll;
+import model.PlayerBoard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

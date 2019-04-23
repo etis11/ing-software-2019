@@ -1,8 +1,8 @@
 package Test;
 
-import Model.GameMap;
-import Model.Room;
-import Model.Tile;
+import model.GameMap;
+import model.Room;
+import model.Tile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

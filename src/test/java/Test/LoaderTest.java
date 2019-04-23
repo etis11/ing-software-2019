@@ -1,6 +1,6 @@
 package Test;
 
-import Model.Loader;
+import model.Loader;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

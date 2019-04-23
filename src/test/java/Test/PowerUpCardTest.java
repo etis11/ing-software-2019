@@ -1,7 +1,7 @@
 package Test;
 
-import Model.PowerUpCard;
-import Model.PowerUpType;
+import model.PowerUpCard;
+import model.PowerUpType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

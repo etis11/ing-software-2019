@@ -1,6 +1,6 @@
 package Test;
 
-import Model.Ammo;
+import model.Ammo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
