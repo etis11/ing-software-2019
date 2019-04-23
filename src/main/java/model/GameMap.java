@@ -88,7 +88,7 @@ public class GameMap {
 
         List<Room> visibRooms = new ArrayList<>();
 
-        for (Tile tile : getNearTiles(p)){
+        for (Tile tile : getAdjacentTiles(p)){
             if(!visibRooms.contains(tile.getRoom())){
                 visibRooms.add(tile.getRoom());
             }
@@ -103,7 +103,7 @@ public class GameMap {
      * @param p the player
      * @return all not null tiles around the player
      */
-    private List<Tile> getNearTiles(Player p){
+    private List<Tile> getAdjacentTiles(Player p){
         List<Tile> tiles = new ArrayList<>();
         Tile eastTile = p.getTile().getEastTile();
         Tile northTile = p.getTile().getNorthTile();

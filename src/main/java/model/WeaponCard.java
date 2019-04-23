@@ -1,24 +1,30 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The following class is supposed to extend Card by adding another type of Cards known as WeaponCards
- * There are 21 WeaponCards each different from the other. THese cards are to be used during Gameplay to
+ * There are 21 WeaponCards each different from the other. These cards are to be used during Gameplay to
  * inflict damage to the adversary.
  * */
 
-public class WeaponCard extends Card{
+public class WeaponCard{
 
 
     /**
-     *List containing colorAmmos.
+     *List containing colorAmmo.
      */
     private List<String> reloadCost;
 
+<<<<<<< HEAD
+    private Effect baseEffect;
+    private Effect advancedEffect;
+=======
     //TODO define the following two strategies
     private TargetStrategy targetStrategy1;
     private TargetStrategy targetStrategy2;
+>>>>>>> 525ec4f345167a273c34066904d5ec734d05b685
 
     /**
      * Boolean used to check if a Weapon is loaded or not
@@ -28,21 +34,14 @@ public class WeaponCard extends Card{
     /**
      * Each WeaponCard should contain a name to be distinguished by other cards
      * */
-    private String Name;
-
-    /**
-     * List containing optional effects for a Weapon Card
-     * */
-    private List<Effect> optionalEffects;
-
-
+    private String NAME;
 
     public WeaponCard(){
-        reloadCost = null;
-        targetStrategy1 = null;
-        targetStrategy2 = null;
-        loaded = true;
-        Name = "default";
+        this.reloadCost = null;
+        this.baseEffect = null;
+        this.advancedEffect = null;
+        this.loaded = true;
+        this.NAME = "default";
 
     }
 
@@ -56,15 +55,18 @@ public class WeaponCard extends Card{
     public WeaponCard(WeaponCard ref){
         super();
         if (ref!= null){
-            this.targetStrategy1 = null;
-            this.targetStrategy2 = null;
+            this.baseEffect = null;
+            this.advancedEffect = null;
             this.loaded = ref.loaded;
-            this.Name = String.valueOf(ref.getName());
+            this.NAME = String.valueOf(ref.getNAME());
             this.reloadCost = null;
         }
 
     }
 
+<<<<<<< HEAD
+
+=======
     /**
      * creates the instance of each weapon by given information
      * @param reloadCost cost to reload weapon
@@ -80,18 +82,19 @@ public class WeaponCard extends Card{
         this.Name = NAME;
         this.optionalEffects = optionalEffects;
     }
+>>>>>>> 525ec4f345167a273c34066904d5ec734d05b685
 
     /**
-     * Returns the cost for a WeaponCard effect to be used. It returns a string of colouredAmmos
+     * Returns the cost for a WeaponCard effect to be used. It returns a string of colouredAmmo
      * */
     public List<String> getReloadCost() {
-        return reloadCost;
+        //TODO si può forse migliorare
+        return new ArrayList<>(reloadCost);
     }
 
- /**
-  * Returns a boolean in case the loader is loaded or not.
-  * */
-
+     /**
+      * Returns a boolean in case the loader is loaded or not.
+      * */
     public void setLoaded(boolean loaded) {
         this.loaded = loaded;
     }
@@ -99,16 +102,8 @@ public class WeaponCard extends Card{
     /**
      * Method used to get the name of a WeaponCard
      * */
-    public String getName() {
-        return Name;
-    }
-
-    /**
-     * The following method returns list of Optional Effects to a certain cards. THere might be 0,1
-     * or 2 optional effects based on the Weapon Card
-     * */
-    public List<Effect> getOptionalEffects() {
-        return optionalEffects;
+    public String getNAME() {
+        return NAME;
     }
 
     public void reload() {
@@ -116,9 +111,9 @@ public class WeaponCard extends Card{
     }
 
     /**
-     * The following method is used to return the number of blue ammos that needed for the WeaponCard to be used
-     * Each weaponCard has its own cost based on ammos
-     * @return toReturn number of blue ammos needed to use the WeaponCard Effect
+     * The following method is used to return the number of blue ammo that needed for the WeaponCard to be used
+     * Each weaponCard has its own cost based on ammo
+     * @return toReturn number of blue ammo needed to use the WeaponCard Effect
      * */
     public int getBlueCost() {
         int toReturn = 0;
@@ -131,9 +126,9 @@ public class WeaponCard extends Card{
         return toReturn;
     }
     /**
-     * The following method is used to return the number of yellow ammos that needed for the WeaponCard to be used
-     * Each weaponCard has its own cost based on ammos
-     * @return toReturn number of yellow ammos needed to use the WeaponCard Effect
+     * The following method is used to return the number of yellow ammo that needed for the WeaponCard to be used
+     * Each weaponCard has its own cost based on ammo
+     * @return toReturn number of yellow ammo needed to use the WeaponCard Effect
      * */
     public int getYellowCost() {
         int toReturn = 0;
@@ -146,9 +141,9 @@ public class WeaponCard extends Card{
         return toReturn;
     }
     /**
-     * The following method is used to return the number of red ammos that needed for the WeaponCard to be used
-     * Each weaponCard has its own cost based on ammos
-     * @return toReturn number of red ammos needed to use the WeaponCard Effect
+     * The following method is used to return the number of red ammo that needed for the WeaponCard to be used
+     * Each weaponCard has its own cost based on ammo
+     * @return toReturn number of red ammo needed to use the WeaponCard Effect
      * */
     public int getRedCost() {
         int toReturn = 0;
@@ -162,24 +157,11 @@ public class WeaponCard extends Card{
     }
 
     /**
-     * Method that checkeds whether or not a Weapon Card is loaded
+     * Method that checks whether or not a Weapon Card is loaded
      * @return loaded if Weapon is loaded or not
      * */
     public boolean isLoaded() {
         return loaded;
-    }
-
-
-    public void chooseEffect() {
-    //TODO
-    }
-
-    public void getTargetStrategy1() {
-    //TODO
-    }
-
-    public void getTargetStrategy2() {
-    //TODO
     }
 
     /**
@@ -199,7 +181,7 @@ public class WeaponCard extends Card{
             return false;
 
         WeaponCard w = (WeaponCard) o;
-        return w.getName().equals(this.getName());
+        return w.getNAME().equals(this.getNAME());
 
 
     }

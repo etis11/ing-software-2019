@@ -22,15 +22,6 @@ public class DamageTransporter {
      */
     private int numMark;
 
-    /**
-     * this indicate if before damaging there is a movement to do
-     */
-    private boolean firstMovement;
-
-    /**
-     * this indicate if before moving there is a damage to assign
-     */
-    private boolean firstDamage;
 
     /**
      * this is the cunstroctor method
@@ -38,16 +29,12 @@ public class DamageTransporter {
      * @param owner is the player that created this DamageTransporter object
      * @param numDamage is the damage to assign to target
      * @param numMark is the number of marks to assign to target
-     * @param firstMovement move before damaging
-     * @param firstDamage damage before moving
      */
-    public DamageTransporter(Player target, Player owner, int numDamage, int numMark, boolean firstMovement, boolean firstDamage) {
+    public DamageTransporter(Player target, Player owner, int numDamage, int numMark) {
         this.target = target;
         this.owner = owner;
         this.numDamage = numDamage;
         this.numMark = numMark;
-        this.firstMovement = firstMovement;
-        this.firstDamage = firstDamage;
     }
 
     /**
@@ -83,19 +70,4 @@ public class DamageTransporter {
         return numMark;
     }
 
-    /**
-     * this method return if movement must be done before assign damage
-     * @return boolean if movement must be don before damage
-     */
-    public boolean isFirstMovement() {
-        return firstMovement;
-    }
-
-    /**
-     * this method return if damage must be done before moving
-     * @return boolean if damage must be don before move
-     */
-    public boolean isFirstDamage() {
-        return firstDamage;
-    }
 }

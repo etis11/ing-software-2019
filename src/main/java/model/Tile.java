@@ -7,7 +7,7 @@ import static java.util.stream.Collectors.toCollection;
 /**
  * The Tile class is the element that constitutes a GameMap. A Tile contains the reference of the adjacent tiles in the map.
  * All the adjacent tiles are different ( example: northTile and SouthTile can't both point to the same object).
- * A tile contains the players that are placed in it. A boolean field indicate if contains ammos or weapons.
+ * A tile contains the players that are placed in it. A boolean field indicate if contains ammo or weapons.
  */
 public class Tile {
 
@@ -31,13 +31,13 @@ public class Tile {
     private Tile westTile;
 
     /**
-     * list of all players that are in the tile. If the player is present, there is only one occurence.
+     * list of all players that are in the tile. If the player is present, there is only one occurrence.
      * Can't be null. Can be a empty list. All players in the list are different.
      */
     private LinkedList<Player> players;
 
     /**
-     * Tells if the tile can contain ammos
+     * Tells if the tile can contain ammo
      */
     private boolean ammoTile;
     /**
@@ -81,8 +81,8 @@ public class Tile {
      * @param east east tile
      * @param south south tile
      * @param west west tile
-     * @param ammoTile enables the ammo funcionality
-     * @param weaponTile enables the weapon funcionality
+     * @param ammoTile enables the ammo functionality
+     * @param weaponTile enables the weapon functionality
      */
     public Tile(Tile north, Tile east, Tile south, Tile west, boolean ammoTile, boolean weaponTile){
         northTile = north;
@@ -171,13 +171,15 @@ public class Tile {
     /**
      * Tells if the player is in the tile
      * @param p the player
-     * @return  true if player is in, false othwerwise
+     * @return  true if player is in, false otherwise
      */
     public boolean isPlayerIn(Player p){
         return players.contains(p);
     }
 
-    public void setRoom(Room r){ this.room = r;}
+    public void setRoom(Room r){
+        this.room = r;
+    }
 
     /**
      *  Tells if the tile has an ammo in it or not.
@@ -191,7 +193,9 @@ public class Tile {
      * Says if an ammo che be put in the tile
      * @return True if it's an ammo tile, false if not.
      */
-    public boolean canContainAmmos(){ return ammoTile;};
+    public boolean canContainAmmo(){
+        return ammoTile;
+    }
 
     /**
      * Set the ammoCard field to null and return the ammo card. The boolean field is set to null
@@ -227,13 +231,17 @@ public class Tile {
      * tells if it's a weapon tile
      * @return true if it's a weapon tile
      */
-    public boolean canContainWapons(){ return weaponTile;}
+    public boolean canContainWeapons(){
+        return weaponTile;
+    }
 
     /**
      * Tells if there are some weapons in the tile
      * @return true if there are weapons
      */
-    public boolean arePresentAmmos(){ return weapons != null;}
+    public boolean arePresentWeapons(){
+        return !weapons.isEmpty();
+    }
 
     /**
      * Returns a copy of the weapons in the weapon Tile
@@ -288,15 +296,6 @@ public class Tile {
      */
     public Room getRoom(){
         return room;
-    }
-
-    /**
-     * Tells if the given player is present
-     * @param p player that is wanted to know his location
-     * @return True if the player is present, false if not
-     */
-    public boolean isPlayerPresent(Player p){
-        return players.contains(p);
     }
 
     /**
