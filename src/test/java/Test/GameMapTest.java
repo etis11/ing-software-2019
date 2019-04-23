@@ -80,9 +80,9 @@ public class GameMapTest {
     void insertionExceptions(){
         Tile t = new Tile();
         String s = "red";
-        assertThrows(NullPointerException.class, ()-> map.addRegenPoint(null, t),
+        assertThrows(IllegalArgumentException.class, ()-> map.addRegenPoint(null, t),
                 ()-> "ERROR: The method should throw an exception because the color is null");
-        assertThrows(NullPointerException.class, ()-> map.addRegenPoint(s, null),
+        assertThrows(IllegalArgumentException.class, ()-> map.addRegenPoint(s, null),
                 ()-> "ERROR: the method should throw an exception because the tile is null");
     }
 

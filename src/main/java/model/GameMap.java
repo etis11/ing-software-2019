@@ -1,9 +1,8 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import exceptions.DuplicateException;
+
+import java.util.*;
 
 /**
  * Contains all the reference to the rooms and spawn point of the map.
@@ -129,15 +128,15 @@ public class GameMap {
      * adds the regenPoint to the game map
      * @param color the color of the regen point
      * @param regenPoint the tile
-     * @throws Exception If there is already a regen point with that color
-     * @throws Exception if that regen point is already in the game map
-     * @throws NullPointerException if the color or the regen point are null
+     * @throws DuplicateException If there is already a regen point with that color
+     * @throws DuplicateException if that regen point is already in the game map
+     * @throws IllegalArgumentException if the color or the regen point are null
      */
-    public void addRegenPoint(String color, Tile regenPoint) throws Exception, NullPointerException{
-        if (regenPoints.containsKey(color)) throw new Exception("There is already a regen point of the given color");
-        if (regenPoints.containsValue(regenPoint)) throw new Exception("The regen point has been already put in");
-        if(color == null) throw  new NullPointerException("The color is null");
-        if(regenPoint == null) throw  new NullPointerException("The regen point is null");
+    public void addRegenPoint(String color, Tile regenPoint) throws IllegalArgumentException, DuplicateException{
+        if (regenPoints.containsKey(color)) throw new DuplicateException("There is already a regen point of the given color");
+        if (regenPoints.containsValue(regenPoint)) throw new DuplicateException("The regen point has been already put in");
+        if(color == null) throw  new IllegalArgumentException("The color is null");
+        if(regenPoint == null) throw  new IllegalArgumentException("The regen point is null");
         regenPoints.put(color, regenPoint);
     }
 
@@ -178,10 +177,10 @@ public class GameMap {
      * Returns the given color regen point
      * @param color a string that says the color of the wanted regen point
      * @return the regen point of color "color"
-     * @throws NullPointerException if doesn't exist the regen point of that color
+     * @throws IllegalArgumentException if doesn't exist the regen point of that color
      * @throws NullPointerException if the given color is null
      */
-    public Tile getRegenPoint(String color) throws NullPointerException{
+    public Tile getRegenPoint(String color) throws NullPointerException, IllegalArgumentException{
         if(color == null) throw  new NullPointerException("The given color is null");
         Tile regenPoint = regenPoints.get(color);
         if (regenPoint == null) throw new NullPointerException("There isn't a " + color + "regen point");
