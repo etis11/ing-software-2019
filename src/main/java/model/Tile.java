@@ -7,7 +7,10 @@ import static java.util.stream.Collectors.toCollection;
 /**
  * The Tile class is the element that constitutes a GameMap. A Tile contains the reference of the adjacent tiles in the map.
  * All the adjacent tiles are different ( example: northTile and SouthTile can't both point to the same object).
- * A tile contains the players that are placed in it. A boolean field indicate if contains ammos or weapons.
+ * A tile contains the players that are placed in it. A boolean field indicate if contains ammo or weapons.
+ * A Tile can have a reference to a tile that is not connected, but that is only separated by a wall. The "walled" fields
+ * store this reference, and can be null (for example, if the wall is one of the edges of the map, of course there isn't a
+ * tile in the wall),
  */
 public class Tile {
 
@@ -58,6 +61,26 @@ public class Tile {
      * room in which the tile is placed
      */
     private Room room;
+
+    /**
+     * Tile behind the north wall
+     */
+    private Tile northWalledTile;
+
+    /**
+     * tile behind the east wall
+     */
+    private Tile eastWalledTile;
+
+    /**
+     * tile behind the south wall
+     */
+    private Tile southWalledTile;
+
+    /**
+     * tile behind the west wall
+     */
+    private Tile westWalledTile;
 
     /**
      * creates a tile with all the values set to null
@@ -112,6 +135,18 @@ public class Tile {
     }
 
     /**
+     * Gets the tile behind the east wall
+     * @return
+     */
+    public Tile getEastTileBehindWall(){ return eastWalledTile;}
+
+    /**
+     * set the tile behind the east wall
+     * @param eastTile tile to be set
+     */
+    public void setEastTileBehindWall(Tile eastTile){ this.eastWalledTile = eastTile;}
+
+    /**
      * returns the tile place to the west
      * @return the west tile, can be null
      */
@@ -126,6 +161,18 @@ public class Tile {
     public void setWestTile(Tile westTile) {
         this.westTile = westTile;
     }
+
+    /**
+     * Gets the tile behind the west wall
+     * @return
+     */
+    public Tile getWestTileBehindWall(){ return westWalledTile;}
+
+    /**
+     * set the tile behind the west wall
+     * @param westTile tile to be set
+     */
+    public void setWestTileBehindWall(Tile westTile){ this.westWalledTile = westTile;}
 
     /**
      * returns the tile place to the north
@@ -144,6 +191,17 @@ public class Tile {
     }
 
     /**
+     * Gets the tile behind the north wall
+     * @return
+     */
+    public Tile getnNrthTileBehindWall(){ return northWalledTile;}
+
+    /**
+     * set the tile behind the north wall
+     * @param northTile tile to be set
+     */
+    public void setNorthTileBehindWall(Tile northTile){ this.northWalledTile = northTile;}
+    /**
      * returns the tile place to the south
      * @return the south tile, can be null
      */
@@ -159,6 +217,17 @@ public class Tile {
         this.southTile = southTile;
     }
 
+    /**
+     * Gets the tile behind the south wall
+     * @return
+     */
+    public Tile getSouthTileBehindWall(){ return southWalledTile;}
+
+    /**
+     * set the tile behind the south wall
+     * @param southTile tile to be set
+     */
+    public void setSouthTileBehindWall(Tile southTile){ this.southWalledTile = southTile;}
 
     /**
      * Gets the players that are present in this tile
