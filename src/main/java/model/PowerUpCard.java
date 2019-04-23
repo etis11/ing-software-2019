@@ -2,7 +2,7 @@ package model;
 
 import java.awt.*;
 
-public class PowerUpCard  extends Card{
+public class PowerUpCard{
 
     /**
      * color is the color of the PowerUpCard, it is used to identify the first regen point or to pay ammo cost

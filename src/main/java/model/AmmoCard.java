@@ -5,7 +5,7 @@ package model;
  * like Weapon reloading or as a way of paying for a WeaponCard. There are 36 cards and each
  * one of them contains either 3 colored ammo or 2 ammo plus one power up
  * */
-public class AmmoCard extends Card {
+public class AmmoCard {
 
     /**
      * numBlue is an integer that represents the number of Blue ammo in an AmmoCard.
