@@ -1,11 +1,8 @@
 package Test;
 
-import Model.Player;
-import Model.WeaponCard;
+import model.Player;
+import model.WeaponCard;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.util.WeakHashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

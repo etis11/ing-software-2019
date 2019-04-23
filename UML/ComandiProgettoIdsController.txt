@@ -117,3 +117,86 @@ CONTROLLER PARTITA
 		>assignDamage
 		>assignMarks
 	
+	
+	- usaPowerUp
+	-segli tra quelli che hai
+	-powerUp1
+	-...
+	-non hai powerUp (se non ne ha, ed esce dalla chiamata a funzione)
+	-[powerUp]
+		>usable([powerUp])
+		>usePowerUp([powerUp])
+	-scegli su chi usarlo
+	-[target]
+		>setTarget([target])	(se non implicito e se previsto)
+	-scegli posizione
+	-[posizione]
+		>setPosition([posizione]) (se previsto)
+		
+		
+	-ricarica
+		>verifyCanReload		(se non può va in fine turno, altrime ìnti scegli l'arma)
+	-scegli l'arma da ricaricare
+	-arma1
+	-...
+	-[arma]
+		>reload([arma])
+		
+		
+	-endturn
+		>endturn
+	
+	
+	-comandi 	(comandi utilizzabili ed elenco degli altri non utilizzabili al momento)
+	-comand1
+	-...
+	
+	
+	-armi
+	-miaarma1 loaded
+	-...
+	
+	
+	-manualeArmi
+	-arma1 funzionamento e dettagli
+	-...
+	
+	
+	-powerUp
+	-miopoweup1
+	-...
+	
+	
+	-manualPowerUp
+	-powerUp1 funzionamento
+	-...
+	
+	
+	-plancia 
+		-a (di tutti) 
+		-p [nomeGioc] (di nomeGioc)
+		senza argomenti visualizza la tua
+		
+		
+	-mappa
+	
+	
+	-rules ->probabilmente non lo facciamo
+	
+	
+	-Tile (contenuto del tile in cui ti trovi)
+	
+	
+	-armiRaccoglibili (divisi per pt di rigenerazione)
+	
+	
+	-uccsioniMancanti
+	
+	
+	-punti
+	
+	
+	-killer (chi ha ucciso)
+	
+	
+	-armideglialtri (ovviamente quelle scariche)

@@ -10,4 +10,21 @@ TODO
 	armi che fanno muovere il proprierario
 	armi che fanno muovere i target
 	
-	
+	strategie:
+		etis: 	
+				AttractiveRayStrategy
+				AdjacentStrategy
+				VortexCannon
+				DontSeeStrategy
+				
+		alessandro:
+				SeeStrategy
+				FixedDistanceStragegy
+				RoomStratetgy
+				MeeleStrategy
+				
+		oscar: 	
+				GameMap
+				LaserRifleStrategy
+				FlameThrowerStrategy
+				BBQStrategy

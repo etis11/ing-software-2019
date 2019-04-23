@@ -1,7 +1,7 @@
 package Test;
 
-import Model.Tile;
-import Model.WeaponCard;
+import model.Tile;
+import model.WeaponCard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

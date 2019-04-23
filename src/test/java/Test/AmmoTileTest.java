@@ -1,8 +1,8 @@
 package Test;
 
-import Model.AmmoCard;
-import Model.Tile;
-import Model.WeaponCard;
+import model.AmmoCard;
+import model.Tile;
+import model.WeaponCard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
