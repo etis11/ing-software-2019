@@ -128,7 +128,7 @@ public class GameMap {
      * @throws Exception if that regen point is already in the game map
      * @throws NullPointerException if the color or the regen point are null
      */
-    public void addRegenPoint(String color, Tile regenPoint) throws Exception{
+    public void addRegenPoint(String color, Tile regenPoint) throws Exception, NullPointerException{
         if (regenPoints.containsKey(color)) throw new Exception("There is already a regen point of the given color");
         if (regenPoints.containsValue(regenPoint)) throw new Exception("The regen point has been already put in");
         if(color == null) throw  new NullPointerException("The color is null");
