@@ -17,8 +17,8 @@ public class WeaponCard extends Card{
     private List<String> reloadCost;
 
     //TODO define the following two strategies
-    private ChooseTargetStrategy targetStrategy1;
-    private ChooseTargetStrategy targetStrategy2;
+    private TargetStrategy targetStrategy1;
+    private TargetStrategy targetStrategy2;
 
     /**
      * Boolean used to check if a Weapon is loaded or not
@@ -73,7 +73,7 @@ public class WeaponCard extends Card{
      * @param NAME  name of the weapon
      * @param optionalEffects weapon optional effect usable by paying extra reload cost
      */
-    public WeaponCard(List<String> reloadCost, ChooseTargetStrategy targetStrategy1, ChooseTargetStrategy targetStrategy2, String NAME, List<Effect> optionalEffects) {
+    public WeaponCard(List<String> reloadCost, TargetStrategy targetStrategy1, TargetStrategy targetStrategy2, String NAME, List<Effect> optionalEffects) {
         this.reloadCost = reloadCost;
         this.targetStrategy1 = targetStrategy1;
         this.targetStrategy2 = targetStrategy2;
