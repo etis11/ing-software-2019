@@ -315,6 +315,6 @@ public class Tile {
      */
     public Player removePlayer(Player playerToRemove) throws Exception{
         if (! players.remove(playerToRemove)) throw new Exception("The player should have been present");
-        return playerToRemove;
+        return playerToRemove; //test
     }
 }
