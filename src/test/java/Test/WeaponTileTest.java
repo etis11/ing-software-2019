@@ -48,8 +48,8 @@ public class WeaponTileTest {
         assertSame(south, tile.getSouthTile(), () -> "ERROR: the tiles should be the same. Probably is null or is in another field");
         assertSame(west, tile.getWestTile(), () -> "ERROR: the tiles should be the same. Probably is null or is in another field");
         assertFalse(tile.isPresentAmmoCard(), () -> "ERROR: Should not be present");
-        assertFalse(tile.canContainAmmos(), () -> "The tile should not be able to contain ammos");
-        assertTrue(tile.canContainWapons(), () -> "ERROR: The tile should  be able to contain weapons");
+        assertFalse(tile.canContainAmmo(), () -> "The tile should not be able to contain ammos");
+        assertTrue(tile.canContainWeapons(), () -> "ERROR: The tile should  be able to contain weapons");
 
 
     }

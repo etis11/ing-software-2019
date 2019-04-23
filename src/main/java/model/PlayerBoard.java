@@ -13,12 +13,12 @@ public class PlayerBoard {
     private Loader loader;
 
     /**
-     * This list contains all the bloodtokens that indicates damage
+     * This list contains all the bloodTokens that indicates damage
      */
     private LinkedList<BloodToken> damagePoints;
 
     /**
-     * this list contains all the bloodtokens that indicates the marks on the current player
+     * this list contains all the bloodTokens that indicates the marks on the current player
      */
     private LinkedList<BloodToken> marks;
     /**
@@ -28,7 +28,7 @@ public class PlayerBoard {
     /**
      * A list that contains the possible points that other player could get after a kill
      */
-    private LinkedList<Integer> pointsList ;
+    private LinkedList<Integer> killValue;
 
     /**
      * constructor method,
@@ -39,7 +39,7 @@ public class PlayerBoard {
         loader = new Loader();
         damagePoints = new LinkedList<>();
         marks = new LinkedList<>();
-        pointsList = (IntStream.of(8,6,4,2,1,1,1,1,1).boxed().collect(Collectors.toCollection(LinkedList::new)));
+        killValue = (IntStream.of(8,6,4,2,1,1,1,1,1).boxed().collect(Collectors.toCollection(LinkedList::new)));
     }
 
 
@@ -47,8 +47,8 @@ public class PlayerBoard {
      * Gets the list of current point list
      * @return
      */
-    public LinkedList<Integer> getPointsList(){
-        return pointsList;
+    public LinkedList<Integer> getKillValue(){
+        return killValue;
     }
     /**
      * This method return the number of damage points
@@ -96,13 +96,13 @@ public class PlayerBoard {
 
     /**
      * This method applies all the changes to the player board given a damageTransporter object.
-     * If the damage of the trasporter is greater than0, all the old marks are converted to damage. then all the damage
+     * If the damage of the transporter is greater than0, all the old marks are converted to damage. then all the damage
      * is added to the damagePoints list and then all the new marks are added to the marks list.
      * @param d contains all the information that regards the damage. It's supposed to be legal
      */
     public void calculateDamage(DamageTransporter d){
         //the conversion of the marks happens only if the damage is greater then 0
-        if (d.getNumDamage()>0) MarkToDamage(d);
+        if (d.getNumDamage()>0) markToDamage(d);
 
         //add the damage in the list. a player can't have more then 12 damage points
         for(int i = 0; i < d.getNumDamage(); i++){
@@ -117,9 +117,9 @@ public class PlayerBoard {
 
     /**
      * All the marks of a given player become damage
-     * @param d contains all the information that regards the makrs. It's supposed to be legal
+     * @param d contains all the information that regards the marks. It's supposed to be legal
      */
-    private void MarkToDamage(DamageTransporter d){
+    private void markToDamage(DamageTransporter d){
         for( BloodToken mark: marks){
             if(mark.getOwner() == d.getOwner()){
                 marks.remove(mark);
@@ -132,7 +132,7 @@ public class PlayerBoard {
     }
 
     /**
-     * add the marks contained in the damageTrasporter
+     * add the marks contained in the DamageTransporter
      * @param d contains all the information that regards the damage. It's supposed to be legal
      */
     private void addMarks(DamageTransporter d){

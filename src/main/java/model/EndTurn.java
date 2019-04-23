@@ -44,7 +44,7 @@ public class EndTurn extends State{
 
     @Override
     public void nextState(Player p, String mexState) {
-        p.setRemainigMoves(MAX_MOVES);
+        p.setRemainingMoves(MAX_MOVES);
         super.nextState(p, mexState);
 
     }

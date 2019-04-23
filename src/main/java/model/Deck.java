@@ -23,19 +23,11 @@ public class Deck<T> {
     }
 
 
-    /**
-     * get Method used to get list of cards from Stack
-     * */
-    public Stack<T> getCards() {
-        return cards;
-    }
-    
-
      /**
       *  Method that removes the first card from the stack(deck) and returns the card as value of the function
       * */
     public T draw() {
-    return cards.pop();
+        return cards.pop();
     }
 
     /**
@@ -50,6 +42,14 @@ public class Deck<T> {
      * */
     public boolean isEmpty() {
     return cards.empty();
+    }
+
+    /**
+     * add a card in the current deck
+     * @param card to be added
+     */
+    public void addCard(T card){
+        cards.push(card);
     }
 
     }

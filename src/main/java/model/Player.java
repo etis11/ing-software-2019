@@ -24,7 +24,7 @@ public class Player {
     /**
      * remainingStep are moves remaining for playing turn
      */
-    private int remainigMoves;
+    private int remainingMoves;
 
     /**
      * list of weapons owned by the player
@@ -68,7 +68,7 @@ public class Player {
         powerUps = new LinkedList<>();
         tile = null;
         playerBoard = new PlayerBoard();
-        remainigMoves = 0;
+        remainingMoves = 0;
     }
 
     /**
@@ -85,7 +85,7 @@ public class Player {
         powerUps = new LinkedList<>();
         tile = null;
         playerBoard = new PlayerBoard();
-        remainigMoves = 0;
+        remainingMoves = 0;
     }
 
     /**
@@ -120,17 +120,17 @@ public class Player {
      *
      * @return the number of remaining moves for playing turn
      */
-    public int getRemainigMoves() {
-        return remainigMoves;
+    public int getRemainingMoves() {
+        return remainingMoves;
     }
 
     /**
      * sets the number of remaining moves for playing turn
      *
-     * @param remainigMoves are the new number of remaining moves for playing turn
+     * @param remainingMoves are the new number of remaining moves for playing turn
      */
-    public void setRemainigMoves(int remainigMoves) {
-        this.remainigMoves = remainigMoves;
+    public void setRemainingMoves(int remainingMoves) {
+        this.remainingMoves = remainingMoves;
     }
 
 
@@ -138,7 +138,7 @@ public class Player {
      * decrements number of moves after an action has chosen
      */
     public void decrementMoves(){
-        this.remainigMoves--;
+        this.remainingMoves--;
     }
 
     /**
@@ -148,12 +148,6 @@ public class Player {
      */
     public LinkedList<WeaponCard> getWeapons() {
         return weapons.stream().map(WeaponCard::new).collect(Collectors.toCollection(LinkedList::new));
-        //LinkedList<WeaponCard> retWeapons = new LinkedList<>();
-        //for(WeaponCard w: weapons){
-        //    retWeapons.addLast(new WeaponCard(w));
-        //}
-        //return retWeapons;
-
     }
 
     /**
@@ -166,7 +160,7 @@ public class Player {
     }
 
     /**
-     * This method return a copy of the powerups in te player's hand.
+     * This method return a copy of the powerUps in te player's hand.
      *
      * @return the list of all power ups in the player's hand
      */
@@ -239,24 +233,6 @@ public class Player {
 
 
     /**
-     * Draws a power up from the power up deck. Probabilmente questo metodo è da rivedere, non tollera di avere più di tre
-     * power ups in mano, ma in realtà ci sono casi in cui MOMENTANEAMENTE il giocatore ne ha 4 in mano.
-     *
-     * @param d power up deck
-     * @throws Exception
-     */
-    public void drawPowerUp(Deck<PowerUpCard> d) throws Exception {
-        //TODO
-        if (powerUps.size() > 3) {
-            throw new Exception("Il giocatore ha già 3 armi in mano");
-        } else {
-            PowerUpCard drawnPowerUp = d.draw();
-            powerUps.add(drawnPowerUp);
-        }
-
-    }
-
-    /**
      * Throws away the power up. The power up will be no longer in the hand of the player.
      *
      * @param p copy of the power up that has to be thrown away
@@ -294,10 +270,8 @@ public class Player {
     /**
      * This method picks up the Ammo card in the current tile. The legality of this action must be controlled before calling
      * this method. The ammoCard is used (passed to the loader). The player draws a powerUp if the drawPowerUp is true
-     *
-     * @param powerUpDeck the deck from where the powerUp is drawn
      */
-    public void pickUpAmmoCard(Deck<PowerUpCard> powerUpDeck) throws Exception {
+    public void pickUpAmmoCard() throws Exception {
         //TODO
     }
 }
