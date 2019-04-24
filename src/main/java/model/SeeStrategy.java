@@ -9,6 +9,7 @@ public class SeeStrategy extends AbstractTargetStrategy {
     public SeeStrategy(GameMap gameMap){
         this.gameMap = gameMap;
     }
+
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         super.areTargetValid(shooter, targets);
