@@ -1,10 +1,11 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractTargetStrategy implements TargetStrategy{
 
-    private List<Effect> effects;
+    protected List<Effect> effects;
 
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
@@ -15,5 +16,15 @@ public abstract class AbstractTargetStrategy implements TargetStrategy{
             throw new IllegalArgumentException("targets mustn't be null");
         }
         return false;
+    }
+
+    @Override
+    public boolean canHitSomeone(Player shooter, List<Player> players) {
+        return false;
+    }
+
+    @Override
+    public List<Player> hittableTargets(Player shooter, List<Player> players) {
+        return new ArrayList<>();
     }
 }
