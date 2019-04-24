@@ -1,0 +1,18 @@
+SPECIFICA CONTROLLER
+
+è composto da un parser su cui si può:
+	resgistrare un comando fornendone chiave
+	ottenere un comando dato il suo nome
+	e ottenere una lista di comandi divisi tra eseguibili e non eseguibili in quel momento
+
+è presente un'interfaccia comando che contiene:
+	un metodo execute e forse un metodo per ottenere chi lo ha creato. (nel costuttore vengono passati le strutture dati di cui ha bisogno)
+	
+è presente un esecutore di comandi che permette di:
+	eseguire comandi in parallelo
+	aggiungere comandi alla sua coda ed eseguire comandi innestati
+	aggiungere comandi
+	
+ci sono due tipi d'esecutore:
+	matchExecutor
+	lobbyExecutor
