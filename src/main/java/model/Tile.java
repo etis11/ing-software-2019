@@ -240,7 +240,7 @@ public class Tile {
     /**
      * Tells if the player is in the tile
      * @param p the player
-     * @return  true if player is in, false othwerwise
+     * @return  true if player is in, false otherwise
      */
     public boolean isPlayerIn(Player p){
         return players.contains(p);
