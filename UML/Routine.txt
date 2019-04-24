@@ -1,3 +1,46 @@
 ROUTINES CONTROLLER
 
 WALKROUTINE
+controlla possibilità movimento (se stato lo permette) ->false : esce
+richiesta al model possibii mosse (il numero di mosse)
+richiesta mosse e costruisce oggetto movement
+match.getMap()
+map.isMovementValid() ->false: ciclo
+map.apply()
+	notify a tutte le view (dentro alla funzione apply)
+	
+	
+	
+PICKAMMOROUTINE
+controlla possibilità di raccolta munizioni (se stato lo permette) ->false : esce
+controlla che il tile sia ammo tile -> false: esce
+player.pickUpAmmo()
+	notify a tutte le view (dentro la funzione del player)
+	
+	
+	
+PICKWEAPONROUTINE
+controlla possibilità di raccolta armi (se stato lo permette) ->false : esce
+controlla che il tile sia weapon tile -> false: esce
+controlla che il player possa raccogiere almeno un'arma
+invia lista presenti e raccoglibili e attendi scelta arma
+controllo se è una di quelle della lista possibili ->false: ciclo
+player.pickUpWeapon()
+	notify a tutte le view (dentro la funzione del player)
+controllo se necessario scarto
+invia lista armi e attede scarto
+
+
+
+SHOOTROUTINE
+controlla possibilità di raccolta armi (se stato lo permette) ->false : esce
+controllo almeno un'arma carica
+chiedo eventuali effettti opzionali e ne verifico il costo
+controlliamo che le strategie delle armi cariche mi permettono di colpire almeno uno
+chiedo playerList
+verifico la strategy
+Effect.applyEffect()
+for del controller che applica i danni
+	notify a tutte le view (dentro la funzione calculateDamage********************************************************************)
+	MA VA SPOSTATO SUL PLAYER
+	MANCA CASO GRANATA VENOM
