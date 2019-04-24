@@ -10,6 +10,10 @@ import java.util.List;
  */
 public class MeleeStrategy extends AbstractTargetStrategy {
 
+    public MeleeStrategy(){
+        
+    }
+
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         super.areTargetValid(shooter, targets);

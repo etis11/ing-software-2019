@@ -3,6 +3,10 @@ package model;
 import java.util.List;
 
 public class RoomStrategy extends AbstractTargetStrategy {
+
+    public  RoomStrategy(){
+
+    }
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         super.areTargetValid(shooter, targets);
