@@ -176,10 +176,10 @@ public class GameMap {
      * @throws IllegalArgumentException if the color or the regen point are null
      */
     public void addRegenPoint(String color, Tile regenPoint) throws IllegalArgumentException, DuplicateException{
-        if (regenPoints.containsKey(color)) throw new DuplicateException("There is already a regen point of the given color");
-        if (regenPoints.containsValue(regenPoint)) throw new DuplicateException("The regen point has been already put in");
         if(color == null) throw  new IllegalArgumentException("The color is null");
         if(regenPoint == null) throw  new IllegalArgumentException("The regen point is null");
+        if (regenPoints.containsKey(color)) throw new DuplicateException("There is already a regen point of the given color");
+        if (regenPoints.containsValue(regenPoint)) throw new DuplicateException("The regen point has been already put in");
         regenPoints.put(color, regenPoint);
     }
 
