@@ -5,9 +5,9 @@ import java.util.LinkedList;
 
 /**
  * This class handles nearly everything in the game. Starting from the GameMap,Decks,Players and so on.
- * THe Board contains every Player and handles all moves done by players in the gamemap each turn.
+ * THe Match contains every Player and handles all moves done by players in the gamemap each turn.
  * */
-public class Board {
+public class Match {
 
 
 /**
