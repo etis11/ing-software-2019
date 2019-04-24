@@ -2,6 +2,12 @@ package model;
 
 import java.util.List;
 
+/**
+ * MeleeStrategy class determinate the possibility to shoot player in your tile
+ *
+ * @author Alessandro Passoni
+ * @version 1.0
+ */
 public class MeleeStrategy extends AbstractTargetStrategy {
 
     @Override
