@@ -1,5 +1,7 @@
 package model;
 
-public interface TargetStrategy {
+import java.util.List;
 
+public interface TargetStrategy {
+    public boolean areTargetValid(Player shooter, List<Player> targets);
 }
