@@ -184,7 +184,7 @@ public class Tile {
 
     /**
      * assign to the north tile a know tile.
-     * @param northTile a tile
+     * @param northTile tile to be set
      */
     public void setNorthTile(Tile northTile) {
         this.northTile = northTile;
@@ -192,9 +192,9 @@ public class Tile {
 
     /**
      * Gets the tile behind the north wall
-     * @return
+     * @return the north Tile behind a wall, can be null
      */
-    public Tile getnNrthTileBehindWall(){ return northWalledTile;}
+    public Tile getnNorthTileBehindWall(){ return northWalledTile;}
 
     /**
      * set the tile behind the north wall
@@ -385,5 +385,26 @@ public class Tile {
     public Player removePlayer(Player playerToRemove) throws Exception{
         if (! players.remove(playerToRemove)) throw new Exception("The player should have been present");
         return playerToRemove; //test
+    }
+
+    //TODO mi interessa sia minima la distanza???????
+    public int distance (Player target){
+        int distance=0;
+        if (target == null) throw new IllegalArgumentException("The given player from which calculate distance is null");
+        if (this.isPlayerIn(target)){
+            return 0;
+        }
+        distance = 1 + northTile.distance(target);
+        if (distance>1 + eastTile.distance(target)){
+            distance = 1 + eastTile.distance(target);
+        }
+        if (distance>1 + southTile.distance(target)){
+            distance = 1 + southTile.distance(target);
+        }
+        if (distance>1 + westTile.distance(target)){
+            distance = 1 + westTile.distance(target);
+        }
+
+        return distance;
     }
 }
