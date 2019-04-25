@@ -1,5 +1,7 @@
 package controller;
 
+import exceptions.DuplicateException;
+
 import java.util.List;
 
 /**
@@ -14,7 +16,7 @@ public interface Registry<T> {
      * @param commandName the name of the command
      * @param c the command that has to be registered
      */
-    public void registerCommand( T commandName, Command c);
+    public void registerCommand( T commandName, Command c) throws DuplicateException;
 
     /**
      * Returns a command associated to the key
