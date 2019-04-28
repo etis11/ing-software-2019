@@ -30,8 +30,8 @@ public class GameMap {
 
     /**
      * Retruns all the tiles of a given direction. The tile in which the player is always returned
-     * @param dir a string that should be "north", "east", "south", "wesr"
-     * @param p player from wich the list is built
+     * @param dir a string that should be "north", "east", "south", "west"
+     * @param p player from which the list is built
      * @return a list of all tile in a given direction
      */
     public static List<Tile> getTilesInDirection(String dir, Player p) {
@@ -66,9 +66,17 @@ public class GameMap {
                 }
                 break;
         }
-        return new ArrayList(tiles);
+        return new ArrayList<>(tiles);
     }
 
+    /**
+     * Returns a list of all the tiles in a given direction. The walls are ignored. So  A->B | C would return [A,B,C], while
+     * the getTilesDirection would have returned [A,B]. This list in never empty, since the tile of the player is always
+     * returned
+     * @param dir can only be "north", "east", "south", "west"
+     * @param p player from where the direction is chosen
+     * @return a list of tiles (is never empty, the tile in the player is always in).
+     */
     public static List<Tile> getTilesDirectionBehindWall(String dir, Player p) {
         if (!dir.equals("north") && !dir.equals("east") && !dir.equals("south") && !dir.equals("west")) throw new IllegalArgumentException(
                 "The direction given is not north east south or west");
