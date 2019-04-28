@@ -15,7 +15,7 @@ public class FlameThrowerStrategy extends AbstractTargetStrategy {
 
         String[] directions = { "north", "east", "south", "west"};
 
-        //first of all, check if the list has 2 player. Then the shooter and the 2 players should be aligned.
+        //first of all, check if the list has 2 player or is empty. Then the shooter and the 2 players should be aligned.
         if (targets.size() >2 || targets.isEmpty()) throw new IllegalArgumentException("There number of players should be at max 2 and should not be empty.");
         if (targets.size() == 2){
             //if the 2 players are in the same tile, the targets are not valid
