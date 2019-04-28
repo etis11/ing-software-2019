@@ -13,6 +13,7 @@ public abstract class AbstractTargetStrategy implements TargetStrategy{
         if (targets == null){
             throw new IllegalArgumentException("targets mustn't be null");
         }
+        if(targets.contains(shooter)) throw new IllegalArgumentException("The shooter cant be in the targets");
         return false;
     }
 

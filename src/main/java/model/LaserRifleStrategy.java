@@ -4,11 +4,40 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * A strategy used fror the rifle lasers and for all the weapons that can shoot through walls in one direction
+ */
 public class LaserRifleStrategy extends AbstractTargetStrategy {
 
+    /**
+     * Return true if all the players are in the same direction.
+     * @param shooter the player shooting
+     * @param targets the list of possible targets
+     * @return true if the list is correct
+     */
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
+        //checks for exceptions;
+        super.areTargetValid();
+        String[] directions = {"north", "east", "south", "west"};
+        List<Tile> tiles;
+        List<Player> playerInDirection;
+        boolean allPlayerCorrect = true;
 
+        for(String d: directions){
+            playerInDirection = new LinkedList<>();
+            tiles = GameMap.getTilesDirectionBehindWall(d, shooter);
+            for(Tile t: tiles){
+                playerInDirection.addAll(t.getPlayers());
+            }
+
+            for(Player p: targets){
+                if(!playerInDirection.contains(p)) allPlayerCorrect = false;
+            }
+            if (allPlayerCorrect) return true;
+
+        }
+        return false;
     }
 
     /**
@@ -33,8 +62,13 @@ public class LaserRifleStrategy extends AbstractTargetStrategy {
         return false;
     }
 
+    /**
+     * Returns a list of all the players (except for the shooter) in the four cardinal directions
+     * @param shooter the player that is shooting
+     * @return a list of players
+     */
     @Override
-    public List<Player> hittableTargets(Player shooter, List<Player> players) {
+    public List<Player> hittableTargets(Player shooter) {
         String[] directions = {"north", "east", "south", "west"};
         List<Tile> tiles;
         List<Player> possibleTargets = new LinkedList<>();

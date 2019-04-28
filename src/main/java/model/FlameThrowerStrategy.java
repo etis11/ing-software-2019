@@ -12,7 +12,7 @@ public class FlameThrowerStrategy extends AbstractTargetStrategy {
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         //checks if throws an exception
         super.areTargetValid(shooter, targets);
-        if(targets.contains(shooter)) throw new IllegalArgumentException("The shooter cant be in the targets");
+
 
         String[] directions = { "north", "east", "south", "west"};
 
