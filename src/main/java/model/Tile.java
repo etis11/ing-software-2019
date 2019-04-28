@@ -411,7 +411,7 @@ public class Tile {
     }
 
     /**
-     * Gives a list with the tiles around the current tile
+     * Gives a list with the tiles around the current tile.
      * @return
      */
     public List<Tile> adjacentTiles(){
@@ -421,6 +421,7 @@ public class Tile {
         if (southTile!= null) adj.add(southTile);
         if (westTile!= null) adj.add(westTile);
 
+        if (adj.isEmpty()) throw new IllegalStateException("This tile is not well built, it's not connected with the map");
         return adj;
     }
 }
