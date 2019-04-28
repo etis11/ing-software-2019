@@ -274,5 +274,9 @@ public class Player {
     public void pickUpAmmoCard() throws Exception {
         //TODO
     }
+
+    public void setTile(Tile tile){
+        this.tile = tile;
+    }
 }
 

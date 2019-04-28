@@ -29,9 +29,9 @@ public class GameMap {
     }
 
     /**
-     * Retruns all the tiles of a given direction. The tile in which the player is always returned
-     * @param dir a string that should be "north", "east", "south", "wesr"
-     * @param p player from wich the list is built
+     * Returns all the tiles of a given direction. The tile in which the player is always returned
+     * @param dir a string that should be "north", "east", "south", "west"
+     * @param p player from which the list is built
      * @return a list of all tile in a given direction
      * @throws IllegalArgumentException if dir is not correct or the player is null
      */
@@ -106,6 +106,9 @@ public class GameMap {
         return visiblePlayers;
     }
 
+
+
+
     /**
      * Returns all the tiles available to the chosen Player
      * @param p is the player who decides to check all the visible Tiles to him
@@ -138,6 +141,16 @@ public class GameMap {
         }
 
         return visibRooms;
+    }
+
+    public List<Player> allAdjacentPlayers(Player p){
+        List<Player> adjacendPlayers = new LinkedList<>();
+        for (Tile tile: this.getAdjacentTiles(p) ){
+            if(!tile.getPlayers().equals(p)){
+                adjacendPlayers.addAll(tile.getPlayers()) ;
+            }
+        }
+        return adjacendPlayers;
     }
 
     /**
