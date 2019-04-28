@@ -106,6 +106,22 @@ public class GameMap {
         return visiblePlayers;
     }
 
+    public List<Player> allNotVisiblePlayers(Player player)  {
+
+        List<Player> allPlayers = new LinkedList<>();
+        List<Player> allNotVisiblePlayers = new LinkedList<>();
+        for(Room room : this.getRooms()){
+            allPlayers.addAll(room.getPlayersInRoom());
+        }
+        for(Player p : allPlayers){
+            if(!this.allVisiblePlayers(player).contains(p)&&!p.equals(player)){
+                allNotVisiblePlayers.add(p);
+            }
+        }
+
+        return allNotVisiblePlayers;
+    }
+
 
 
 

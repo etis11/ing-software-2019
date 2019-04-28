@@ -12,14 +12,6 @@ public class AdjacentStrategy extends AbstractTargetStrategy {
         this.gameMap = gameMap;
     }
 
-    public GameMap getGameMap() {
-        return gameMap;
-    }
-
-    public void setGameMap(GameMap gameMap) {
-        this.gameMap = gameMap;
-    }
-
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         super.areTargetValid(shooter, targets);
