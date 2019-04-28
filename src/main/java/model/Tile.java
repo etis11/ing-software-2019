@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 import java.util.LinkedList;
 
 import static java.util.stream.Collectors.toCollection;
@@ -406,5 +408,19 @@ public class Tile {
         }
 
         return distance;
+    }
+
+    /**
+     * Gives a list with the tiles around the current tile
+     * @return
+     */
+    public List<Tile> adjacentTiles(){
+        List<Tile> adj = new LinkedList<>();
+        if (northTile!= null) adj.add(northTile);
+        if (eastTile!= null) adj.add(eastTile);
+        if (southTile!= null) adj.add(southTile);
+        if (westTile!= null) adj.add(westTile);
+
+        return adj;
     }
 }

@@ -15,7 +15,9 @@ public class FlameThrowerStrategy extends AbstractTargetStrategy {
     }
 
     @Override
-    public boolean canHitSomeone(Player shooter, List<Player> players) {
+    public boolean canHitSomeone(Player shooter) {
+        Tile shooterTile = shooter.getTile();
+        Tile north = shooterTile.getNorthTile();
 
     }
 
