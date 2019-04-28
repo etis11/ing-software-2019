@@ -1,11 +1,11 @@
 package model;
-
-import java.util.ArrayList;
+;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * the current implementation requires
+ * A strategy that implements the behavior of the FlameThrower and the BBQ mode. Works fine if the given targets are 1 or 2.
+ * Could be a problem when applying the effect, so this class has to be watched carefully.
  */
 public class FlameThrowerStrategy extends AbstractTargetStrategy {
 
@@ -13,6 +13,41 @@ public class FlameThrowerStrategy extends AbstractTargetStrategy {
         //checks if throws an exception
         super.areTargetValid(shooter, targets);
 
+        String[] directions = { "north", "east", "south", "west"};
+
+        //first of all, check if the list has 2 player. Then the shooter and the 2 players should be aligned.
+        if (targets.size() >2 || targets.isEmpty()) throw new IllegalArgumentException("There number of players should be at max 2 and should not be empty.");
+        if (targets.size() == 2){
+            //if the 2 players are in the same tile, the targets are not valid
+            if (targets.get(0).getTile() == targets.get(1).getTile()) return false;
+
+            List<Tile> tiles;
+            for (String dir : directions){
+                tiles = GameMap.getTilesInDirection(dir, shooter);
+                Player target1 = targets.get(0);
+                Player target2 = targets.get(1);
+                //if there are only 2 tiles, the 3 player cant be aligned
+                if (tiles.size()>=3) {
+                    //maybe the check on the shooter is not necessary
+                    if (tiles.get(0).isPlayerIn(shooter) && tiles.get(1).isPlayerIn(target1) && tiles.get(2).isPlayerIn(target2))
+                        return true;
+                }
+            }
+        }
+        //the target list contains only one player
+        else{
+            List<Tile> tiles;
+            Player target = targets.get(0);
+            for (String dir : directions){
+                tiles = GameMap.getTilesInDirection(dir, shooter);
+                //check if is in an adjacent tile. The adjacent tile should exist (size at least of 2)
+                if(tiles.size()>=2 && tiles.get(1).isPlayerIn(target)) return true;
+                //checks if it's in the tile after (size at least of 3, since there is the shooter tile, then an empty tile
+                //then the tile where the player should be
+                if (tiles.size()>=3 && tiles.get(2).isPlayerIn(target)) return true;
+            }
+        }
+        return false;
     }
 
     /**
