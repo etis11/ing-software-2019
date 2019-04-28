@@ -5,8 +5,6 @@ import java.util.List;
 
 public abstract class AbstractTargetStrategy implements TargetStrategy{
 
-    protected List<Effect> effects;
-
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         if (shooter == null){
