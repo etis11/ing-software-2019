@@ -196,7 +196,7 @@ public class Tile {
      * Gets the tile behind the north wall
      * @return the north Tile behind a wall, can be null
      */
-    public Tile getnNorthTileBehindWall(){ return northWalledTile;}
+    public Tile getNorthTileBehindWall(){ return northWalledTile;}
 
     /**
      * set the tile behind the north wall

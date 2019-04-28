@@ -33,14 +33,13 @@ public class GameMap {
      * @param dir a string that should be "north", "east", "south", "wesr"
      * @param p player from wich the list is built
      * @return a list of all tile in a given direction
-     * @throws IllegalArgumentException if dir is not correct or the player is null
      */
-    public static List<Tile> getTilesInDirection(String dir, Player p) throws IllegalArgumentException{
+    public static List<Tile> getTilesInDirection(String dir, Player p) {
         if (!dir.equals("north") && !dir.equals("east") && !dir.equals("south") && !dir.equals("west")) throw new IllegalArgumentException(
                                                                 "The direction given is not north east south or west");
         if (p == null) throw new IllegalArgumentException("The player is null");
         Tile currentTile = p.getTile();
-        List<Tile> tiles = new ArrayList<>();
+        List<Tile> tiles = new LinkedList<>();
         switch (dir){
             case "north":
                 while(currentTile != null) {
@@ -67,14 +66,69 @@ public class GameMap {
                 }
                 break;
         }
-        return tiles;
+        return new ArrayList(tiles);
+    }
+
+    public static List<Tile> getTilesDirectionBehindWall(String dir, Player p) {
+        if (!dir.equals("north") && !dir.equals("east") && !dir.equals("south") && !dir.equals("west")) throw new IllegalArgumentException(
+                "The direction given is not north east south or west");
+        if (p == null) throw new IllegalArgumentException("The player is null");
+        Tile currentTile = p.getTile();
+        Tile nextTile;
+        List<Tile> tiles = new LinkedList<>();
+        switch (dir){
+            case "north":
+                while(currentTile != null) {
+                    tiles.add(currentTile);
+                    nextTile = currentTile.getNorthTile();
+                    //in this way, if there is a wall, the current tile is set to be the tile behind the wall
+                    //if even then the tile is null, then we are at the edge of the
+                    if (nextTile == null) nextTile=currentTile.getNorthTileBehindWall();
+
+                    currentTile = nextTile;
+                }
+                break;
+            case "east":
+                while(currentTile != null) {
+                    tiles.add(currentTile);
+                    nextTile = currentTile.getEastTile();
+
+                    if (nextTile == null) nextTile=currentTile.getEastTileBehindWall();
+
+                    currentTile = nextTile;
+                }
+                break;
+            case "south":
+                while(currentTile != null) {
+                    tiles.add(currentTile);
+                    nextTile = currentTile.getSouthTile();
+
+                    if (nextTile == null) nextTile=currentTile.getSouthTileBehindWall();
+
+                    currentTile = nextTile;
+                }
+                break;
+            case "west":
+                while(currentTile != null) {
+                    tiles.add(currentTile);
+                    nextTile = currentTile.getWestTile();
+
+                    if (nextTile == null) nextTile=currentTile.getWestTileBehindWall();
+
+                    currentTile = nextTile;
+                }
+                break;
+        }
+        return new ArrayList<>(tiles);
+
     }
 
 
-    /**
-     * Returns the rooms in the gameMap
-     * @return a copy of the list. however the rooms are not copied. Only the list
-     */
+
+        /**
+         * Returns the rooms in the gameMap
+         * @return a copy of the list. however the rooms are not copied. Only the list
+         */
     public List<Room> getRooms() {
         return new ArrayList<>(rooms);
     }
