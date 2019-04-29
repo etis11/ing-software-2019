@@ -49,7 +49,7 @@ public class RoomStrategy extends AbstractTargetStrategy {
      * @return true if there are someone, false otherwise
      */
     @Override
-    public boolean canHitSomeone(Player shooter, List<Player> players) {
+    public boolean canHitSomeone(Player shooter) {
         List<Player> roomPlayer = shooter.getTile().getRoom().getPlayersInRoom();
         for (Player p : Match.getPlayers()){
             if (roomPlayer.contains(p)){
@@ -65,7 +65,7 @@ public class RoomStrategy extends AbstractTargetStrategy {
      * @return list of player hittable
      */
     @Override
-    public List<Player> hittableTargets(Player shooter, List<Player> players) {
+    public List<Player> hittableTargets(Player shooter) {
         return new ArrayList<>(shooter.getTile().getRoom().getPlayersInRoom());
     }
 }

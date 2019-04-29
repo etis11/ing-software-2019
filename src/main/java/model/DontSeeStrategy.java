@@ -18,14 +18,14 @@ public class DontSeeStrategy extends AbstractTargetStrategy {
     }
 
     @Override
-    public boolean canHitSomeone(Player shooter, List<Player> players) {
+    public boolean canHitSomeone(Player shooter) {
         List<Player> notVisiblePlayers = gameMap.allNotVisiblePlayers(shooter);
-        return players.stream().anyMatch(p ->  notVisiblePlayers.contains(p) ) ;
+        return Match.getPlayers().stream().anyMatch(p ->  notVisiblePlayers.contains(p) ) ;
     }
 
     //all not visible targets
     @Override
-    public List<Player> hittableTargets(Player shooter, List<Player> players) {
+    public List<Player> hittableTargets(Player shooter) {
         return gameMap.allNotVisiblePlayers(shooter);
     }
 }

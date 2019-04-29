@@ -41,7 +41,7 @@ public class MeleeStrategy extends AbstractTargetStrategy {
      * @return true if there are someone, false otherwise
      */
     @Override
-    public boolean canHitSomeone(Player shooter, List<Player> players) {
+    public boolean canHitSomeone(Player shooter) {
         for (Player p : Match.getPlayers()){
             if (shooter.getTile().isPlayerIn(p)){
                 return true;
@@ -56,7 +56,7 @@ public class MeleeStrategy extends AbstractTargetStrategy {
      * @return list of player hittable
      */
     @Override
-    public List<Player> hittableTargets(Player shooter, List<Player> players) {
+    public List<Player> hittableTargets(Player shooter) {
         List<Player> hittable = new ArrayList<>();
         for (Player p : Match.getPlayers()){
             if (shooter.getTile().isPlayerIn(p)){

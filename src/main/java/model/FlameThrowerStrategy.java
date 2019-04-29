@@ -10,18 +10,19 @@ public class FlameThrowerStrategy extends AbstractTargetStrategy {
 
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         //checks if throws an exception
-        super.areTargetValid(shooter, targets);
+        return super.areTargetValid(shooter, targets);
 
     }
 
     @Override
-    public boolean canHitSomeone(Player shooter, List<Player> players) {
-
+    public boolean canHitSomeone(Player shooter) {
+        return false;
     }
 
-    }
 
     @Override
-    public List<Player> hittableTargets(Player shooter, List<Player> players) {
+    public List<Player> hittableTargets(Player shooter) {
         return new ArrayList<>();
     }
+
+}

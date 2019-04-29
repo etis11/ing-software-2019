@@ -48,7 +48,7 @@ public class SeeStrategy extends AbstractTargetStrategy {
      * @return true if there are someone, false otherwise
      */
     @Override
-    public boolean canHitSomeone(Player shooter, List<Player> players) {
+    public boolean canHitSomeone(Player shooter) {
         List<Player> visiblePlayer = gameMap.allVisiblePlayers(shooter);
         for (Player p: Match.getPlayers()){
             if (visiblePlayer.contains(p)){
@@ -64,7 +64,7 @@ public class SeeStrategy extends AbstractTargetStrategy {
      * @return list of player hittable
      */
     @Override
-    public List<Player> hittableTargets(Player shooter, List<Player> players) {
+    public List<Player> hittableTargets(Player shooter) {
         return new ArrayList<>(gameMap.allVisiblePlayers(shooter));
     }
 }

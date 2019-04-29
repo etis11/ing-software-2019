@@ -29,7 +29,7 @@ public class AdjacentStrategy extends AbstractTargetStrategy {
      * whose turn it is) or valid or not.
      * @param shooter is used to identify the player who chooses the targets to shoot at
      * @param targets is the list of targets chosen by the player whose turn is
-     * @return true if all the chosen targets can be shooted at,else false
+     * @return true if all the chosen targets can be shot at,else false
      * */
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
@@ -43,24 +43,22 @@ public class AdjacentStrategy extends AbstractTargetStrategy {
      * or not) . In case the player can't hit any other player it returns false so the player can't make use
      * of that effect of the card.
      * @param shooter is used to identify the player who chooses the targets to shoot at
-     * @param players is the list of all players
      * @return true if there is at least one player the shooter can shoot at
      * */
     @Override
-    public boolean canHitSomeone(Player shooter, List<Player> players) {
+    public boolean canHitSomeone(Player shooter) {
         List<Player> adjacentPlayers = gameMap.allAdjacentPlayers(shooter);
-        return players.stream().anyMatch(p ->  adjacentPlayers.contains(p) ) ;
+        return Match.getPlayers().stream().anyMatch(p ->  adjacentPlayers.contains(p) ) ;
     }
 
 /**
  * The following method is used to return all the players that can be targeted by the shooter bvased on the
  * way the strategy itself works.
  * @param shooter is used to reference to the player whose turn it is
- * @param players is the list of players playing the game
  * @return the list of the players that the shooter can shoot at
  * */
     @Override
-    public List<Player> hittableTargets(Player shooter, List<Player> players) {
+    public List<Player> hittableTargets(Player shooter) {
        return gameMap.allAdjacentPlayers(shooter);
     }
  }
