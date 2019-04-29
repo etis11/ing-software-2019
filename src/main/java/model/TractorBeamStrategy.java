@@ -32,10 +32,11 @@ public class TractorBeamStrategy extends AbstractTargetStrategy {
 
     public void moveTarget(Player shooter,  Player target, Tile destination){
         Tile startPoint = target.getTile();
-        if(this.destinationTiles(shooter,target).contains(destination)){
+        if(this.destinationTiles(shooter,target).contains(destination)&&hittableTargets(shooter).contains(target)){
             startPoint.getPlayers().remove(target);
             target.setTile(destination);
             destination.getPlayers().add(target);
         }
     }
+
 }
