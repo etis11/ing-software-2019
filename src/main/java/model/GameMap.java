@@ -105,7 +105,11 @@ public class GameMap {
 
         return visiblePlayers;
     }
-
+/**
+ * Method used to return all the players that are not visible based from where the shooter is standing at
+ * in the gamemap. The way the method works is by getting first the list of all players and then removing
+ * all the visible players (the shooter also)
+ * */
     public List<Player> allNotVisiblePlayers(Player player)  {
 
         List<Player> allPlayers = new LinkedList<>();
