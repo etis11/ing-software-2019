@@ -2,29 +2,15 @@ package controller;
 
 import model.Match;
 
+import java.util.ArrayList;
+
 public class LobbyCommandExecutor extends AbstractCommandExecutor{
 
-    public LobbyCommandExecutor(Match match/*, List<Command> commandList*/) {
-        //TODO i parametri sono unici?
+    public LobbyCommandExecutor(Match match) {
+        this.match = match;
+        this.commandList = new ArrayList<>();
     }
-
-    @Override
-    public void executeCommand() {
-        //TODO
-        super.executeCommand();
-    }
-
-    @Override
-    public void addCommand() {
-        //TODO
-        super.addCommand();
-    }
-
-    @Override
-    public void executeSecondaryCommand() {
-        //TODO
-        super.executeSecondaryCommand();
-    }
+    
 
     /**
      * routine to set user Username
