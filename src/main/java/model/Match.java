@@ -79,7 +79,7 @@ public class Match {
     /**
      * This method returns the list of players that are going to/will play when game starts
      * */
-    public LinkedList<Player> getPlayers() {
+    public static LinkedList<Player> getPlayers() {
         return players;
     }
 

@@ -25,6 +25,12 @@ public class FixedDistanceStrategy extends SeeStrategy {
         this.distance = distance;
     }
 
+    /**
+     * verify if all players in target are at least distance tiles far from the shooter
+     * @param shooter player who wants to shoot
+     * @param targets player to be shot
+     * @return true if all targets are correctly selected, false otherwise
+     */
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         if (super.areTargetValid(shooter, targets)){
@@ -40,6 +46,11 @@ public class FixedDistanceStrategy extends SeeStrategy {
         return true;
     }
 
+    /**
+     * verify if someone can be shot by this type of strategy particular if there is someone at least distance tiles far from shooter
+     * @param shooter player who wants to shoot
+     * @return true if there are someone, false otherwise
+     */
     @Override
     public boolean canHitSomeone(Player shooter, List<Player> players) {
         if(super.canHitSomeone(shooter, players)){
@@ -52,13 +63,18 @@ public class FixedDistanceStrategy extends SeeStrategy {
         return false;
     }
 
+    /**
+     * produce a list of player shootable by this type of strategy, particular players at least far distance tiles from the shooter
+     * @param shooter player who wants to shoot
+     * @return list of player hittable
+     */
     @Override
     public List<Player> hittableTargets(Player shooter, List<Player> players) {
-        List<Player> toReturn =  super.hittableTargets(shooter, players);
+        List<Player> toReturn =  super.hittableTargets(shooter, Match.getPlayers());
         if (toReturn.isEmpty()){
             return toReturn;
         }
-        for(Player p:players){
+        for(Player p:Match.getPlayers()){
             if (shooter.getTile().distance(p)<distance){
                 toReturn.remove(p);
             }
