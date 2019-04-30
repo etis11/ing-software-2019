@@ -27,7 +27,7 @@ public class BBQStrategy extends FlameThrowerStrategy {
         //else checks that all the players are placed in the same direction
         List<Tile> tiles;
         for(String dir : directions){
-            tiles = GameMap.getTilesInDirection(dir, shooter);
+            tiles = shooter.getTile().getTilesInDirection(dir);
             // shooterTile -> tile1 -> tile2, the other are irrelevant
             Tile tile1;
             Tile tile2;

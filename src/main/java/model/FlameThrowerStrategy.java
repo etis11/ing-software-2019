@@ -24,7 +24,7 @@ public class FlameThrowerStrategy extends AbstractTargetStrategy {
 
             List<Tile> tiles;
             for (String dir : directions) {
-                tiles = GameMap.getTilesInDirection(dir, shooter);
+                tiles = shooter.getTile().getTilesInDirection(dir);
                 Player target1 = targets.get(0);
                 Player target2 = targets.get(1);
                 //if there are only 2 tiles, the 3 player cant be aligned
@@ -40,7 +40,7 @@ public class FlameThrowerStrategy extends AbstractTargetStrategy {
             List<Tile> tiles;
             Player target = targets.get(0);
             for (String dir : directions) {
-                tiles = GameMap.getTilesInDirection(dir, shooter);
+                tiles = shooter.getTile().getTilesInDirection(dir);
                 //check if is in an adjacent tile. The adjacent tile should exist (size at least of 2)
                 if (tiles.size() >= 2 && tiles.get(1).isPlayerIn(target)) return true;
                 //checks if it's in the tile after (size at least of 3, since there is the shooter tile, then an empty tile
