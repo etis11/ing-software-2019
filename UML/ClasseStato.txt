@@ -1,0 +1,24 @@
+Classe stato
+
++NUM_PASSI_ESEGUIBILI
+
+-Player owner
+-List<Stati> statipossibili o mappa
+-normalaction
+-moreaction
+-mostaction
+-walk
+-pikpup
+-shoot
+-usePowerUp
+-dead
+-overkilled
+-#passirimanenti
+
++costruttore
+
++getters
+
+TODO decremento passirimanenti
+
++nextstate
