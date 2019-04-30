@@ -67,7 +67,6 @@ public class AdjacentStrategyTest {
         assertFalse(adjacentStrategy.areTargetValid(shooter,targets),"Targets should not be valid");
         assertFalse(adjacentStrategy.canHitSomeone(shooter),"Can hit someone");
         assertFalse(adjacentStrategy.getHittableTargets(shooter).isEmpty(),"Can hit someone");
-        assertFalse(adjacentStrategy.getHittableTargets(shooter).isEmpty(),"Can hit someone");
         assertTrue(adjacentStrategy.getHittableTargets(shooter).contains(target),"Can hit Arlind");
         assertFalse(adjacentStrategy.getHittableTargets(shooter).contains(target2),"Cannot hit Hamid");
 
