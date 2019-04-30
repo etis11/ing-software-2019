@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import java.util.LinkedList;
@@ -231,6 +232,95 @@ public class Tile {
      */
     public void setSouthTileBehindWall(Tile southTile){ this.southWalledTile = southTile;}
 
+
+    /**
+     * Return the tile at the given direction. Return type can be null
+     * @param dir should be "north", "east", "south", "west"
+     * @return a tile or null
+     */
+    public Tile getTile(String dir){
+        switch (dir){
+            case "north":
+                return northTile;
+            case "east":
+                return eastTile;
+
+            case "south":
+                return southTile;
+
+            case "west":
+                return westTile;
+            default: throw new IllegalArgumentException("The direction is neither north east south or west");
+        }
+    }
+
+    /**
+     * Gets the tile behind the wall of a given direction. Can be null
+     * @param dir should be a string "north" "east" "south" "west"
+     * @return
+     */
+    public Tile getTileBehindWall(String dir){
+        switch (dir){
+            case "north":
+                return northWalledTile;
+            case "east":
+                return eastWalledTile;
+
+            case "south":
+                return southWalledTile;
+            case "west":
+                return westWalledTile;
+            default: throw new IllegalArgumentException("The direction is neither north east south or west");
+        }
+    }
+
+    /**
+     * Returns all the tiles of a given direction. The tile in which the player is always returned
+     * @param dir a string that should be "north", "east", "south", "west"
+     * @return a list of all tile in a given direction
+     */
+    public List<Tile> getTilesInDirection(String dir) {
+        if (!dir.equals("north") && !dir.equals("east") && !dir.equals("south") && !dir.equals("west")) throw new IllegalArgumentException(
+                "The direction given is not north east south or west");
+        if (dir == null) throw new IllegalArgumentException("The direction is null");
+        Tile currentTile = this;
+        List<Tile> tiles = new LinkedList<>();
+
+        String[] directions = {"north", "east", "south", "west"};
+        while(currentTile != null){
+            tiles.add(currentTile);
+            currentTile = currentTile.getTile(dir);
+        }
+
+        return new ArrayList<>(tiles);
+    }
+
+    /**
+     * Returns a list of all the tiles in a given direction. The walls are ignored. So  A->B | C would return [A,B,C], while
+     * the getTilesDirection would have returned [A,B]. This list in never empty, since the tile of the player is always
+     * returned
+     * @param dir can only be "north", "east", "south", "west"
+     * @return a list of tiles (is never empty, the tile in the player is always in).
+     */
+    public  List<Tile> getTilesDirectionBehindWall(String dir) {
+        if (!dir.equals("north") && !dir.equals("east") && !dir.equals("south") && !dir.equals("west")) throw new IllegalArgumentException(
+                "The direction given is not north east south or west");
+        if (dir == null) throw new IllegalArgumentException("The direction is null");
+        Tile currentTile = this;
+        Tile nextTile;
+        List<Tile> tiles = new LinkedList<>();
+        while(currentTile!= null){
+            tiles.add(currentTile);
+            nextTile = currentTile.getTile(dir);
+            if (nextTile == null) nextTile = currentTile.getTileBehindWall(dir);
+
+            currentTile = nextTile;
+        }
+        return new ArrayList<>(tiles);
+
+    }
+
+
     /**
      * Gets the players that are present in this tile
      * @return list of players. can be null
@@ -238,6 +328,9 @@ public class Tile {
     public LinkedList<Player> getPlayers() {
         return players;
     }
+
+
+
 
     /**
      * Tells if the player is in the tile
