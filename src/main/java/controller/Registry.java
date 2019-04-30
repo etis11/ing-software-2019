@@ -16,7 +16,7 @@ public interface Registry<T> {
      * @param commandName the name of the command
      * @param c the command that has to be registered
      */
-    public void registerCommand( T commandName, Command c) throws DuplicateException;
+    public void registerCommand( T commandName, Command c);
 
     /**
      * Returns a command associated to the key

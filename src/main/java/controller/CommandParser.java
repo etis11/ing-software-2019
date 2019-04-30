@@ -24,7 +24,7 @@ public class CommandParser<T> implements Registry<T> {
      * @throws DuplicateException if the command is already in the registry or there is already a command with the given key
      */
     @Override
-    public void registerCommand(T commandName, Command c) throws  DuplicateException {
+    public void registerCommand(T commandName, Command c){
         if (commandName == null || c == null) throw new IllegalArgumentException("The key or the command are null");
         if(registry.containsKey(commandName)) throw new DuplicateException("There's already a command with this key");
         if(registry.containsValue(c)) throw new DuplicateException("There is already a command with a different key");
