@@ -63,6 +63,11 @@ public class State {
     private final boolean usePowerUp;
 
     /**
+     * reload identify if the owner of the state can reload
+     */
+    private final boolean reload;
+
+    /**
      * dead represent if the owner of the state is dead or not
      */
     private final boolean dead;
@@ -82,7 +87,7 @@ public class State {
      */
     private int remainingSteps;
 
-    public State(String NAME, int MAX_POSSIBLE_STEPS,  Player owner, boolean normalAction, boolean moreAction, boolean mostAction, boolean run, boolean pickUp, boolean shoot, boolean usePowerUp, boolean dead, boolean overKilled, Map<String, State> possibleNextState) {
+    public State(String NAME, int MAX_POSSIBLE_STEPS,  Player owner, boolean normalAction, boolean moreAction, boolean mostAction, boolean run, boolean pickUp, boolean shoot, boolean usePowerUp, boolean reload, boolean dead, boolean overKilled, Map<String, State> possibleNextState) {
         this.NAME = NAME;
         this.MAX_POSSIBLE_STEPS = MAX_POSSIBLE_STEPS;
         this.owner = owner;
@@ -97,6 +102,7 @@ public class State {
         this.overKilled = overKilled;
         this.possibleNextState = possibleNextState;
         this.remainingSteps = MAX_POSSIBLE_STEPS;
+        this.reload =reload;
     }
 
     /**
@@ -177,6 +183,14 @@ public class State {
      */
     public boolean canUsePowerUp() {
         return usePowerUp;
+    }
+
+    /**
+     * tells if the owner can reload in this state
+     * @return if the owner can reload in this state
+     */
+    public boolean canReload(){
+        return reload;
     }
 
     /**
