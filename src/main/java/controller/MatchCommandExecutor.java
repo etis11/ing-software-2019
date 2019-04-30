@@ -39,7 +39,7 @@ public class MatchCommandExecutor extends AbstractCommandExecutor{
     /**
      * routine to pick up weapon
      */
-    public void pickWeaponRoutine(){//forse va nel comando
+    public void pickWeaponRoutine(){
         //TODO controllo se lo stato mi permette di raccogliere
         //TODO penso vada eliminato ma almeno posso scrivere il codice
         Player owner = new Player();
