@@ -67,11 +67,11 @@ public class GameMapTest {
 
         adjacentStrategy.areTargetValid(shooter,targets);
         assertFalse(adjacentStrategy.areTargetValid(shooter,targets),"Targets should not be valid");
-        assertTrue(adjacentStrategy.canHitSomeone(shooter,targets),"Can hit someone");
-        assertFalse(adjacentStrategy.hittableTargets(shooter,targets).isEmpty(),"Can hit someone");
-        assertFalse(adjacentStrategy.hittableTargets(shooter,null).isEmpty(),"Can hit someone");
-        assertTrue(adjacentStrategy.hittableTargets(shooter,targets).contains(target),"Can hit Arlind");
-        assertFalse(adjacentStrategy.hittableTargets(shooter,targets).contains(target2),"Cannot hit Hamid");
+        assertTrue(adjacentStrategy.canHitSomeone(shooter),"Can hit someone");
+        assertFalse(adjacentStrategy.hittableTargets(shooter).isEmpty(),"Can hit someone");
+        assertFalse(adjacentStrategy.hittableTargets(shooter).isEmpty(),"Can hit someone");
+        assertTrue(adjacentStrategy.hittableTargets(shooter).contains(target),"Can hit Arlind");
+        assertFalse(adjacentStrategy.hittableTargets(shooter).contains(target2),"Cannot hit Hamid");
 
     }
 
