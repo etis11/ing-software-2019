@@ -1,13 +1,21 @@
 package controller;
 
+import exceptions.NotValidActionException;
+
 public class RunCommand extends AbstractCommand {
 
-    public RunCommand(){
+    MatchCommandExecutor executor;
 
+    public RunCommand(MatchCommandExecutor exe){
+        this.executor = exe;
     }
 
     @Override
     public void execute() {
-        super.execute();
+        try {
+            executor.walkingRoutine(owner);
+        } catch (NotValidActionException e) {
+            e.printStackTrace();
+        }
     }
 }

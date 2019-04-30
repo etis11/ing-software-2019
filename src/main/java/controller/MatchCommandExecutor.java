@@ -18,9 +18,7 @@ public class MatchCommandExecutor extends AbstractCommandExecutor{
     /**
      * routine to walk
      */
-    public void walkingRoutine() throws NotValidActionException{
-        //TODO penso vada eliminato ma almeno posso scrivere il codice
-        Player owner = new Player();
+    public void walkingRoutine(Player owner) throws NotValidActionException{
         //check if the player can pickUp in his current state
         if (!owner.getState().canRun()) throw new NotValidActionException("You can't run in this state");
         //TODO recupero #movimenti dal model
