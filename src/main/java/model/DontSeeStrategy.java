@@ -60,7 +60,7 @@ public class DontSeeStrategy extends AbstractTargetStrategy {
      * @return list of players to whom the shooter can shoot at
      * */
     @Override
-    public List<Player> hittableTargets(Player shooter) {
+    public List<Player> getHittableTargets(Player shooter) {
         return gameMap.allNotVisiblePlayers(shooter);
     }
 }

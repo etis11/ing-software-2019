@@ -69,8 +69,8 @@ public class FixedDistanceStrategy extends SeeStrategy {
      * @return list of player hittable
      */
     @Override
-    public List<Player> hittableTargets(Player shooter) {
-        List<Player> toReturn =  super.hittableTargets(shooter);
+    public List<Player> getHittableTargets(Player shooter) {
+        List<Player> toReturn =  super.getHittableTargets(shooter);
         if (toReturn.isEmpty()){
             return toReturn;
         }

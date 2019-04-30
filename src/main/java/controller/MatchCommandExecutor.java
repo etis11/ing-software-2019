@@ -5,13 +5,13 @@ import model.Movement;
 import model.Player;
 import model.WeaponCard;
 
-import java.util.ArrayList;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class MatchCommandExecutor extends AbstractCommandExecutor{
 
     public MatchCommandExecutor(Match match) {
         this.match = match;
-        this.commandList = new ArrayList<>();
+        this.commandList = new ConcurrentLinkedQueue<>();
     }
 
     /**

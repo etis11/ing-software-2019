@@ -68,7 +68,7 @@ public class LaserRifleStrategy extends AbstractTargetStrategy {
      * @return a list of players
      */
     @Override
-    public List<Player> hittableTargets(Player shooter) {
+    public List<Player> getHittableTargets(Player shooter) {
         String[] directions = {"north", "east", "south", "west"};
         List<Tile> tiles;
         List<Player> possibleTargets = new LinkedList<>();

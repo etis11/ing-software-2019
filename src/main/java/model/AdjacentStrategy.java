@@ -58,7 +58,7 @@ public class AdjacentStrategy extends AbstractTargetStrategy {
  * @return the list of the players that the shooter can shoot at
  * */
     @Override
-    public List<Player> hittableTargets(Player shooter) {
+    public List<Player> getHittableTargets(Player shooter) {
        return gameMap.allAdjacentPlayers(shooter);
     }
  }

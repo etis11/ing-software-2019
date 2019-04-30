@@ -65,7 +65,7 @@ public class RoomStrategy extends AbstractTargetStrategy {
      * @return list of player hittable
      */
     @Override
-    public List<Player> hittableTargets(Player shooter) {
+    public List<Player> getHittableTargets(Player shooter) {
         return new ArrayList<>(shooter.getTile().getRoom().getPlayersInRoom());
     }
 }

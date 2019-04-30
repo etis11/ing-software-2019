@@ -23,7 +23,7 @@ public abstract class AbstractTargetStrategy implements TargetStrategy{
     }
 
     @Override
-    public List<Player> hittableTargets(Player shooter) {
+    public List<Player> getHittableTargets(Player shooter) {
         return new ArrayList<>();
     }
 }

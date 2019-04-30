@@ -56,7 +56,7 @@ public class MeleeStrategy extends AbstractTargetStrategy {
      * @return list of player hittable
      */
     @Override
-    public List<Player> hittableTargets(Player shooter) {
+    public List<Player> getHittableTargets(Player shooter) {
         List<Player> hittable = new ArrayList<>();
         for (Player p : Match.getPlayers()){
             if (shooter.getTile().isPlayerIn(p)){

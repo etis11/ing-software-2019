@@ -107,7 +107,7 @@ public class FlameThrowerStrategy extends AbstractTargetStrategy {
      * @return list of player on a cross
      */
     @Override
-    public List<Player> hittableTargets(Player shooter) {
+    public List<Player> getHittableTargets(Player shooter) {
         LinkedList<Player> hittableTargets = new LinkedList<>();
         Tile shooterTile = shooter.getTile();
 

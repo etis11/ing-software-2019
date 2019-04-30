@@ -64,7 +64,7 @@ public class SeeStrategy extends AbstractTargetStrategy {
      * @return list of player hittable
      */
     @Override
-    public List<Player> hittableTargets(Player shooter) {
+    public List<Player> getHittableTargets(Player shooter) {
         return new ArrayList<>(gameMap.allVisiblePlayers(shooter));
     }
 }

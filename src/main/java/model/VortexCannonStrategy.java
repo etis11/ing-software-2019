@@ -35,18 +35,18 @@ public class VortexCannonStrategy extends AbstractTargetStrategy {
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         super.areTargetValid(shooter, targets);
-        return hittableTargets(shooter).containsAll(targets);
+        return getHittableTargets(shooter).containsAll(targets);
     }
 
     /**
      * Method needed to determine whether or not there's at least one target available for the shooter.This way
      * we can avoid unneeded further methods to be used at
      * @param shooter is the player whose turn is
-     * @return a boolean that checks whether or not the hittableTargets method is empty or not
+     * @return a boolean that checks whether or not the getHittableTargets method is empty or not
      * */
     @Override
     public boolean canHitSomeone(Player shooter) {
-        return !hittableTargets(shooter).isEmpty();
+        return !getHittableTargets(shooter).isEmpty();
     }
 
     /**
@@ -60,7 +60,7 @@ public class VortexCannonStrategy extends AbstractTargetStrategy {
      * */
 //tra tutti i player,filtro quelli che hanno distanza di <=1 da visibletiles e l'altra condizione e' che non sia mestesso
     @Override
-    public List<Player> hittableTargets(Player shooter) {
+    public List<Player> getHittableTargets(Player shooter) {
          return Match.getPlayers().stream().filter( player -> gameMap.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(player)<=1)) && !player.equals(shooter) ).collect(Collectors.toList());
     }
 
