@@ -20,6 +20,6 @@ Classe stato
 
 +getters
 
-TODO decremento passirimanenti
++decremento passirimanenti
 
 +nextstate
