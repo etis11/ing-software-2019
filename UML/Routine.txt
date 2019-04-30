@@ -33,7 +33,7 @@ invia lista armi e attede scarto
 
 
 SHOOTROUTINE
-controlla possibilità di raccolta armi (se stato lo permette) ->false : esce
+controlla sparare (se stato lo permette) ->false : esce
 controllo almeno un'arma carica
 chiedo eventuali effettti opzionali e ne verifico il costo
 controlliamo che le strategie delle armi cariche mi permettono di colpire almeno uno

@@ -4,7 +4,7 @@ TODO
 		CLASSI: user, group, modifiedParametersObserver(interface), userChangeObeserver, matchChangeObserver
 		
 	inserire in controller:
-		CLASSI: command(interface) -> nel costruttore viene passato il controller, parser <<abstract>>, lobbyController, matchController, lobbyParse, matchParser
+		CLASSI: command(interface) -> nel costruttore viene passato il controller, parser <<abstract>>, lobbyController, matchController
 		
 	rivedere state pattern
 	armi che fanno muovere il proprierario
