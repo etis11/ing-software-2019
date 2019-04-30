@@ -160,7 +160,7 @@ public class GameMap {
 
         List<Player> visiblePlayers = new ArrayList<>();
         for (Tile tile: this.allVisibleTiles(p) ){
-            if(!tile.getPlayers().equals(p)){
+            if(!tile.getPlayers().contains(p)){
                 visiblePlayers.addAll(tile.getPlayers()) ;
             }
         }
@@ -228,7 +228,7 @@ public class GameMap {
     public List<Player> allAdjacentPlayers(Player p){
         List<Player> adjacendPlayers = new LinkedList<>();
         for (Tile tile: this.getAdjacentTiles(p) ){
-            if(!tile.getPlayers().equals(p)){
+            if(!tile.getPlayers().contains(p)){
                 adjacendPlayers.addAll(tile.getPlayers()) ;
             }
         }
