@@ -11,6 +11,7 @@ Classe stato
 -pikpup
 -shoot
 -usePowerUp
+-reload
 -dead
 -overkilled
 -#passirimanenti
