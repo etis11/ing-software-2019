@@ -53,7 +53,7 @@ public class FixedDistanceStrategy extends SeeStrategy {
      */
     @Override
     public boolean canHitSomeone(Player shooter) {
-        if(super.canHitSomeone(shooter, Match.getPlayers())){
+        if(super.canHitSomeone(shooter)){
             for (Player p: Match.getPlayers()){
                 if (shooter.getTile().distance(p)>=distance){
                     return true;
@@ -70,7 +70,7 @@ public class FixedDistanceStrategy extends SeeStrategy {
      */
     @Override
     public List<Player> hittableTargets(Player shooter) {
-        List<Player> toReturn =  super.hittableTargets(shooter, Match.getPlayers());
+        List<Player> toReturn =  super.hittableTargets(shooter);
         if (toReturn.isEmpty()){
             return toReturn;
         }
