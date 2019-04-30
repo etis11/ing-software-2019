@@ -18,12 +18,12 @@ public abstract class AbstractTargetStrategy implements TargetStrategy{
     }
 
     @Override
-    public boolean canHitSomeone(Player shooter, List<Player> players) {
+    public boolean canHitSomeone(Player shooter) {
         return false;
     }
 
     @Override
-    public List<Player> hittableTargets(Player shooter, List<Player> players) {
+    public List<Player> hittableTargets(Player shooter) {
         return new ArrayList<>();
     }
 }

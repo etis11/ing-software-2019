@@ -29,7 +29,7 @@ public class GameMap {
     }
 
     /**
-     * Retruns all the tiles of a given direction. The tile in which the player is always returned
+     * Returns all the tiles of a given direction. The tile in which the player is always returned
      * @param dir a string that should be "north", "east", "south", "west"
      * @param p player from which the list is built
      * @return a list of all tile in a given direction
@@ -167,6 +167,29 @@ public class GameMap {
 
         return visiblePlayers;
     }
+/**
+ * Method used to return all the players that are not visible based from where the shooter is standing at
+ * in the gamemap. The way the method works is by getting first the list of all players and then removing
+ * all the visible players (the shooter also)
+ * */
+    public List<Player> allNotVisiblePlayers(Player player)  {
+
+        List<Player> allPlayers = new LinkedList<>();
+        List<Player> allNotVisiblePlayers = new LinkedList<>();
+        for(Room room : this.getRooms()){
+            allPlayers.addAll(room.getPlayersInRoom());
+        }
+        for(Player p : allPlayers){
+            if(!this.allVisiblePlayers(player).contains(p)&&!p.equals(player)){
+                allNotVisiblePlayers.add(p);
+            }
+        }
+
+        return allNotVisiblePlayers;
+    }
+
+
+
 
     /**
      * Returns all the tiles available to the chosen Player
@@ -200,6 +223,16 @@ public class GameMap {
         }
 
         return visibRooms;
+    }
+
+    public List<Player> allAdjacentPlayers(Player p){
+        List<Player> adjacendPlayers = new LinkedList<>();
+        for (Tile tile: this.getAdjacentTiles(p) ){
+            if(!tile.getPlayers().equals(p)){
+                adjacendPlayers.addAll(tile.getPlayers()) ;
+            }
+        }
+        return adjacendPlayers;
     }
 
     /**

@@ -1,50 +1,80 @@
 package controller;
 
+import model.Match;
+import model.Movement;
+import model.Player;
+import model.WeaponCard;
+
+import java.util.ArrayList;
+
 public class MatchCommandExecutor extends AbstractCommandExecutor{
 
-    //TODO costruttore
-
-    @Override
-    public void executeCommand() {
-        super.executeCommand();
-    }
-
-    @Override
-    public void addCommand() {
-        super.addCommand();
-    }
-
-    @Override
-    public void executeSecondaryCommand() {
-        super.executeSecondaryCommand();
+    public MatchCommandExecutor(Match match) {
+        this.match = match;
+        this.commandList = new ArrayList<>();
     }
 
     /**
      * routine to walk
      */
     public void walkingRoutine(){
-        //TODO
+        //TODO controllo se lo stato mi permette di muovermi
+        //TODO recupero #movimenti dal model
+
+        /*while(!match.getMap().isMovementValid(new Movement())){
+            //TODO richiedi di insrire movimenti
+        };*/
+        //match.getMap().apply();
+
     }
 
     /**
      * routine to shoot
      */
     public void shootRoutine(){
-        //TODO
+        //TODO controllo se nello stato posso sparare
+
     }
 
     /**
      * routine to pick up weapon
      */
-    public void pickWeaponRoutine(){
-        //TODO
+    public void pickWeaponRoutine(){//forse va nel comando
+        //TODO controllo se lo stato mi permette di raccogliere
+        //TODO penso vada eliminato ma almeno posso scrivere il codice
+        Player owner = new Player();
+        WeaponCard w = new WeaponCard();
+        //if o eccezione apposita notvalidaction???
+        if(owner.getTile().canContainWapons()){
+            //TODO controllo player possa raccogliere l'arma e se può invio lista armi raccoglibili
+            //TODO controllo se l'arma scelta s può raccogliere
+            try {
+                owner.pickUpWeapon(w);
+                //TODO controllo se necessario scarto ed eventualmente invia lista armi e attende scarto
+                //notify to view
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 
     /**
      * routine to pick up ammo
      */
     public void pickAmmoRoutine(){
-        //TODO
+        //TODO controllo se lo stato mi permette di raccogliere
+        //TODO penso vada eliminato ma almeno posso scrivere il codice
+        Player owner = new Player();
+        //if o eccezione apposita notvalidaction???
+        if (owner.getTile().canContainAmmo()){
+            try {
+                owner.pickUpAmmoCard();
+                //notify to view
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -58,7 +88,8 @@ public class MatchCommandExecutor extends AbstractCommandExecutor{
      * routine to reload
      */
     public void reload(){
-        //TODO
+        //TODO posso ricaricare da quello stato
+        //TODO verifico che abbia le munizioni
     }
 
     /**

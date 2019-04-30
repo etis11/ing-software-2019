@@ -274,5 +274,12 @@ public class Player {
     public void pickUpAmmoCard() throws Exception {
         //TODO
     }
+
+    /**
+     * THis is the constructor of tile,needed later on other classes to grab players or visible tiles.
+     * */
+    public void setTile(Tile tile){
+        this.tile = tile;
+    }
 }
 

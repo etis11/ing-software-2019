@@ -24,6 +24,13 @@ public class RoomStrategy extends AbstractTargetStrategy {
         this.gameMap = gameMap;
     }
 
+
+    /**
+     * verify if all players in target are in the same room of shooter
+     * @param shooter player who wants to shoot
+     * @param targets player to be shot
+     * @return true if all targets are correctly selected, false otherwise
+     */
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         super.areTargetValid(shooter, targets);
@@ -36,10 +43,15 @@ public class RoomStrategy extends AbstractTargetStrategy {
         return true;
     }
 
+    /**
+     * verify if someone can be shot by this type of strategy particular if there is someone in the shooter room
+     * @param shooter player who wants to shoot
+     * @return true if there are someone, false otherwise
+     */
     @Override
-    public boolean canHitSomeone(Player shooter, List<Player> players) {
+    public boolean canHitSomeone(Player shooter) {
         List<Player> roomPlayer = shooter.getTile().getRoom().getPlayersInRoom();
-        for (Player p : players){
+        for (Player p : Match.getPlayers()){
             if (roomPlayer.contains(p)){
                 return true;
             }
@@ -47,8 +59,13 @@ public class RoomStrategy extends AbstractTargetStrategy {
         return false;
     }
 
+    /**
+     * produce a list of player shootable by this type of strategy, particular player in the shooter room
+     * @param shooter player who wants to shoot
+     * @return list of player hittable
+     */
     @Override
-    public List<Player> hittableTargets(Player shooter, List<Player> players) {
+    public List<Player> hittableTargets(Player shooter) {
         return new ArrayList<>(shooter.getTile().getRoom().getPlayersInRoom());
     }
 }
