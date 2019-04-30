@@ -21,9 +21,9 @@ public class MatchCommandExecutor extends AbstractCommandExecutor{
         //TODO controllo se lo stato mi permette di muovermi
         //TODO recupero #movimenti dal model
 
-        /*while(!match.getMap().isMovementValid(new Movement())){
+        /*do{
             //TODO richiedi di insrire movimenti
-        };*/
+        }while(!match.getMap().isMovementValid(new Movement(new ArrayList<>()("up")));*/
         //match.getMap().apply();
 
     }
