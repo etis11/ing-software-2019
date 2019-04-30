@@ -2,7 +2,6 @@ package controller;
 
 import model.Match;
 
-import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract  class AbstractCommandExecutor implements CommandExecutor{
