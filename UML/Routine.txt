@@ -43,4 +43,4 @@ Effect.applyEffect()
 for del controller che applica i danni
 	notify a tutte le view (dentro la funzione calculateDamage********************************************************************)
 	MA VA SPOSTATO SUL PLAYER
-	MANCA CASO GRANATA VENOM
+	MANCA CASO GRANATA VENOM	
