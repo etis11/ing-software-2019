@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 /**
  * this class represent movement of a player, it is used in DamageTransporter
  *
@@ -9,23 +11,23 @@ package model;
 public class Movement {
 
     /**
-     * this is the numeber of moves
+     * this is the number of moves
      */
-    private int moves;
+    private List<String> steps;
 
     /**
      * this is the constructor method
-     * @param moves number of moves to do
+     * @param steps number of moves to do
      */
-    public Movement(int moves) {
-        this.moves = moves;
+    public Movement(List<String> steps) {
+        this.steps = steps;
     }
 
     /**
-     * this method return number of moves
-     * @return number of moves
+     * return the list of steps
+     * @return list of steps
      */
-    public int getMoves() {
-        return moves;
+    public List<String> getSteps() {
+        return steps;
     }
 }
