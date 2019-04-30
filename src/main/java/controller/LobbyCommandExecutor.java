@@ -3,12 +3,13 @@ package controller;
 import model.Match;
 
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class LobbyCommandExecutor extends AbstractCommandExecutor{
 
     public LobbyCommandExecutor(Match match) {
         this.match = match;
-        this.commandList = new ArrayList<>();
+        this.commandList = new ConcurrentLinkedQueue<>();
     }
 
 

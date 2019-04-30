@@ -63,7 +63,7 @@ public class Player {
     public Player() {
         NAME = "";
         points = 0;
-        state = new EndTurn();
+        state = null; //TODO
         weapons = new LinkedList<>();
         powerUps = new LinkedList<>();
         tile = null;
@@ -80,7 +80,7 @@ public class Player {
     public Player(String name) {
         NAME = name;
         points = 0;
-        state = new EndTurn();
+        state = null;   //TODO
         weapons = new LinkedList<>();
         powerUps = new LinkedList<>();
         tile = null;
