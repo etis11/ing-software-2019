@@ -33,6 +33,13 @@ public class MatchCommandExecutor extends AbstractCommandExecutor{
      */
     public void shootRoutine(){
         //TODO controllo se nello stato posso sparare
+        //TODO controllo se almeno un'arma è carica
+        //TODO chiedo con quali effetti sparare ed eventualmente verifico i costi aggiuntivi
+        //TODO controllo che la strategia dell'arma mi permetta di colpire almeno uno
+        //TODO pago i costi aggiuntivi
+        //TODO chiedo  target e li verifico
+        //TODO applico l'effetto
+        //TODO for del controller che applica gli effetti
 
     }
 
@@ -90,6 +97,9 @@ public class MatchCommandExecutor extends AbstractCommandExecutor{
     public void reload(){
         //TODO posso ricaricare da quello stato
         //TODO verifico che abbia le munizioni
+        //TODO ricarico
+        //posso più armi?
+        endTurn();//posso farlo direttamente o devo aspettare
     }
 
     /**

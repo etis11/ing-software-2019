@@ -3,24 +3,22 @@ package controller;
 import model.Match;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public abstract  class AbstractCommandExecutor implements CommandExecutor{
     //TODO lista di client
 
     protected Match match;
 
-    List<Command> commandList;
+    ConcurrentLinkedQueue<Command> commandList;
 
     /**
-     * execute the specified command
-     * @param c command to be executed
+     * execute the first command in the CommandList
      */
     @Override
-    public void executeCommand(Command c) {
-        if (c == null) {
-            throw new IllegalArgumentException();
-        }
-        commandList.get(commandList.indexOf(c)).execute();
+    public void executeCommand() {
+        Command c = commandList.remove();
+        c.execute();
     }
 
     /**

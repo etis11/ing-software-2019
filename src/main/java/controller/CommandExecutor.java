@@ -5,7 +5,7 @@ public interface CommandExecutor {
     /**
      * executes a command and removes from a queue
      */
-    void executeCommand(Command c);
+    void executeCommand();
 
     /**
      * adds a command to a queue
