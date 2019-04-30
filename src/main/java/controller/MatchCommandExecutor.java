@@ -1,5 +1,6 @@
 package controller;
 
+import exceptions.NotValidActionException;
 import model.Match;
 import model.Movement;
 import model.Player;
@@ -17,8 +18,11 @@ public class MatchCommandExecutor extends AbstractCommandExecutor{
     /**
      * routine to walk
      */
-    public void walkingRoutine(){
-        //TODO controllo se lo stato mi permette di muovermi
+    public void walkingRoutine() throws NotValidActionException{
+        //TODO penso vada eliminato ma almeno posso scrivere il codice
+        Player owner = new Player();
+        //check if the player can pickUp in his current state
+        if (!owner.getState().canRun()) throw new NotValidActionException("You can't run in this state");
         //TODO recupero #movimenti dal model
 
         /*do{
@@ -31,8 +35,11 @@ public class MatchCommandExecutor extends AbstractCommandExecutor{
     /**
      * routine to shoot
      */
-    public void shootRoutine(){
-        //TODO controllo se nello stato posso sparare
+    public void shootRoutine() throws NotValidActionException{
+        //TODO penso vada eliminato ma almeno posso scrivere il codice
+        Player owner = new Player();
+        //check if the player can pickUp in his current state
+        if (!owner.getState().canShoot()) throw new NotValidActionException("You can't shoot in this state");
         //TODO controllo se almeno un'arma è carica
         //TODO chiedo con quali effetti sparare ed eventualmente verifico i costi aggiuntivi
         //TODO controllo che la strategia dell'arma mi permetta di colpire almeno uno
@@ -46,12 +53,12 @@ public class MatchCommandExecutor extends AbstractCommandExecutor{
     /**
      * routine to pick up weapon
      */
-    public void pickWeaponRoutine(){
-        //TODO controllo se lo stato mi permette di raccogliere
+    public void pickWeaponRoutine() throws NotValidActionException{
         //TODO penso vada eliminato ma almeno posso scrivere il codice
         Player owner = new Player();
+        //check if the player can pickUp in his current state
+        if (!owner.getState().canPickUp()) throw new NotValidActionException("You can't pickup in this state");
         WeaponCard w = new WeaponCard();
-        //if o eccezione apposita notvalidaction???
         if(owner.getTile().canContainWapons()){
             //TODO controllo player possa raccogliere l'arma e se può invio lista armi raccoglibili
             //TODO controllo se l'arma scelta s può raccogliere
@@ -69,11 +76,11 @@ public class MatchCommandExecutor extends AbstractCommandExecutor{
     /**
      * routine to pick up ammo
      */
-    public void pickAmmoRoutine(){
-        //TODO controllo se lo stato mi permette di raccogliere
+    public void pickAmmoRoutine() throws NotValidActionException{
         //TODO penso vada eliminato ma almeno posso scrivere il codice
         Player owner = new Player();
-        //if o eccezione apposita notvalidaction???
+        //check if the player can pickUp in his current state
+        if (!owner.getState().canPickUp()) throw new NotValidActionException("You can't pickup in this state");
         if (owner.getTile().canContainAmmo()){
             try {
                 owner.pickUpAmmoCard();
@@ -87,15 +94,22 @@ public class MatchCommandExecutor extends AbstractCommandExecutor{
     /**
      * routine to use power up routine
      */
-    public void usePowerUpRoutine(){
+    public void usePowerUpRoutine() throws NotValidActionException{
+        //TODO penso vada eliminato ma almeno posso scrivere il codice
+        Player owner = new Player();
+        //check if the player can pickUp in his state
+        if (!owner.getState().canUsePowerUp()) throw new NotValidActionException("You can't use power up  in this state");
         //TODO
     }
 
     /**
      * routine to reload
      */
-    public void reload(){
-        //TODO posso ricaricare da quello stato
+    public void reload() throws NotValidActionException {
+        //TODO penso vada eliminato ma almeno posso scrivere il codice
+        Player owner = new Player();
+        //check if the player can pickUp in his current state
+        if (!owner.getState().canReload()) throw new NotValidActionException("You can't reload in this state");
         //TODO verifico che abbia le munizioni
         //TODO ricarico
         //posso più armi?
