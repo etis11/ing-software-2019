@@ -1,6 +1,7 @@
 package model;
 
 import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -25,7 +26,7 @@ public class Match {
      * List of players playing when game starts. Such list is longer no lesser then three and no bigger then five.
      * Each player has  his own playerboard and cards
      * */
-    private LinkedList<Player> players;
+    private List<Player> players = new LinkedList<>();
 
     /**
      * One of the three Decks used during gameplay.It contains all PowerUp cards (playable or not during game)
@@ -79,8 +80,9 @@ public class Match {
     /**
      * This method returns the list of players that are going to/will play when game starts
      * */
-    public static LinkedList<Player> getPlayers() {
-        return players;
+    public static List<Player> getPlayers() {
+        //TODO
+        return new LinkedList<>();
     }
 
     /**
