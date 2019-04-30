@@ -26,7 +26,7 @@ public class LaserRifleStrategy extends AbstractTargetStrategy {
 
         for(String d: directions){
             playerInDirection = new LinkedList<>();
-            tiles = GameMap.getTilesDirectionBehindWall(d, shooter);
+            tiles = shooter.getTile().getTilesDirectionBehindWall(d);
             for(Tile t: tiles){
                 playerInDirection.addAll(t.getPlayers());
             }
@@ -54,7 +54,7 @@ public class LaserRifleStrategy extends AbstractTargetStrategy {
 
         //else i have to check every tile in a given direction, ignoring the shooter's tile
         for(String dir: directions){
-            tiles = GameMap.getTilesDirectionBehindWall(dir, shooter);
+            tiles = shooter.getTile().getTilesDirectionBehindWall(dir);
             for(int i = 1; i < tiles.size(); i++)
                 if (!tiles.get(i).getPlayers().isEmpty()) return true;
         }
@@ -78,7 +78,7 @@ public class LaserRifleStrategy extends AbstractTargetStrategy {
         possibleTargets.remove(shooter);
 
         for(String dir: directions){
-            tiles = GameMap.getTilesDirectionBehindWall(dir, shooter);
+            tiles = shooter.getTile().getTilesDirectionBehindWall(dir);
             //removes the cell where the player is
             tiles.remove(0);
             for(Tile t: tiles){

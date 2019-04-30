@@ -19,7 +19,7 @@ public class DontSeeStrategy extends AbstractTargetStrategy {
      * This is the constructor of our class
      * */
     public DontSeeStrategy(GameMap gameMap){
-        this.gameMap= gameMap;
+        this.gameMap = gameMap;
     }
 
     /**
