@@ -1,7 +1,7 @@
 package exceptions;
 
 public class NotValidActionException extends Exception{
-    
+
     public NotValidActionException() {
         super();
     }
