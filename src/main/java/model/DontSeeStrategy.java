@@ -9,6 +9,8 @@ import java.util.List;
  * */
 public class DontSeeStrategy extends AbstractTargetStrategy {
 
+    private Match match;
+
     /**
      * Attribute called to declare a private gameMap of GameMap type. Needed to interact with players position
      * in the gameMap
@@ -18,8 +20,9 @@ public class DontSeeStrategy extends AbstractTargetStrategy {
     /**
      * This is the constructor of our class
      * */
-    public DontSeeStrategy(GameMap gameMap){
+    public DontSeeStrategy(GameMap gameMap, Match match){
         this.gameMap = gameMap;
+        this.match = match;
     }
 
     /**
@@ -49,7 +52,7 @@ public class DontSeeStrategy extends AbstractTargetStrategy {
     @Override
     public boolean canHitSomeone(Player shooter) {
         List<Player> notVisiblePlayers = gameMap.allNotVisiblePlayers(shooter);
-        return Match.getPlayers().stream().anyMatch(p ->  notVisiblePlayers.contains(p) ) ;
+        return match.getPlayers().stream().anyMatch(p ->  notVisiblePlayers.contains(p) ) ;
     }
 
     /**

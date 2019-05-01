@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class RoomStrategy extends AbstractTargetStrategy {
 
+    private Match match;
     /**
      * gameMap is a reference to game map as to get player in visible position
      */
@@ -20,8 +21,9 @@ public class RoomStrategy extends AbstractTargetStrategy {
      * creates a roomStrategy
      * @param gameMap of the match
      */
-    public RoomStrategy(GameMap gameMap) {
+    public RoomStrategy(GameMap gameMap, Match match) {
         this.gameMap = gameMap;
+        this.match = match;
     }
 
 
@@ -51,7 +53,7 @@ public class RoomStrategy extends AbstractTargetStrategy {
     @Override
     public boolean canHitSomeone(Player shooter) {
         List<Player> roomPlayer = shooter.getTile().getRoom().getPlayersInRoom();
-        for (Player p : Match.getPlayers()){
+        for (Player p : match.getPlayers()){
             if (roomPlayer.contains(p)){
                 return true;
             }

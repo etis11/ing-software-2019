@@ -11,11 +11,13 @@ import java.util.List;
  */
 public class MeleeStrategy extends AbstractTargetStrategy {
 
+    private Match match;
+
     /**
      * creates a MeleeStrategy
      */
-    public MeleeStrategy(){
-
+    public MeleeStrategy(Match m){
+        this.match = m;
     }
 
     /**
@@ -42,7 +44,7 @@ public class MeleeStrategy extends AbstractTargetStrategy {
      */
     @Override
     public boolean canHitSomeone(Player shooter) {
-        for (Player p : Match.getPlayers()){
+        for (Player p : match.getPlayers()){
             if (shooter.getTile().isPlayerIn(p)){
                 return true;
             }
@@ -58,7 +60,7 @@ public class MeleeStrategy extends AbstractTargetStrategy {
     @Override
     public List<Player> getHittableTargets(Player shooter) {
         List<Player> hittable = new ArrayList<>();
-        for (Player p : Match.getPlayers()){
+        for (Player p : match.getPlayers()){
             if (shooter.getTile().isPlayerIn(p)){
                 hittable.add(p);
             }

@@ -75,7 +75,7 @@ public class DontSeeStrategyTest {
         targets.add(target2);
         List<Player> target4 = new LinkedList<>();
         target4.add(target3);
-        dontSeeStrategy = new DontSeeStrategy(map);
+        dontSeeStrategy = new DontSeeStrategy(map, null);
 
         dontSeeStrategy.areTargetValid(shooter, targets);
         assertFalse(dontSeeStrategy.areTargetValid(shooter,targets), "wrong");

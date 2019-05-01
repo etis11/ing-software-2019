@@ -10,6 +10,8 @@ import java.util.List;
  */
 public class FixedDistanceStrategy extends SeeStrategy {
 
+    private Match match;
+
     /**
      * distance represent number of moves by the shooter player
      */
@@ -20,8 +22,8 @@ public class FixedDistanceStrategy extends SeeStrategy {
      * @param gameMap of the match
      * @param distance from the shooter player at least
      */
-    public  FixedDistanceStrategy(GameMap gameMap, int distance){
-        super(gameMap);
+    public  FixedDistanceStrategy(GameMap gameMap, int distance, Match match){
+        super(gameMap, match);
         this.distance = distance;
     }
 
@@ -54,7 +56,7 @@ public class FixedDistanceStrategy extends SeeStrategy {
     @Override
     public boolean canHitSomeone(Player shooter) {
         if(super.canHitSomeone(shooter)){
-            for (Player p: Match.getPlayers()){
+            for (Player p: match.getPlayers()){
                 if (shooter.getTile().distance(p)>=distance){
                     return true;
                 }
@@ -74,7 +76,7 @@ public class FixedDistanceStrategy extends SeeStrategy {
         if (toReturn.isEmpty()){
             return toReturn;
         }
-        for(Player p:Match.getPlayers()){
+        for(Player p:match.getPlayers()){
             if (shooter.getTile().distance(p)<distance){
                 toReturn.remove(p);
             }

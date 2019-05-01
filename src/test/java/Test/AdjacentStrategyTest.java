@@ -61,7 +61,7 @@ public class AdjacentStrategyTest {
         List<Player> targets = new LinkedList<>();
         targets.add(target);
         targets.add(target2) ;
-        adjacentStrategy = new AdjacentStrategy(map);
+        adjacentStrategy = new AdjacentStrategy(map, null);
 
         adjacentStrategy.areTargetValid(shooter,targets);
         assertFalse(adjacentStrategy.areTargetValid(shooter,targets),"Targets should not be valid");

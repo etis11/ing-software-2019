@@ -11,6 +11,8 @@ import java.util.List;
  */
 public class SeeStrategy extends AbstractTargetStrategy {
 
+    private Match match;
+    //TODO serve ancora game map?
     /**
      * gameMap is a reference to game map as to get player in visible position
      */
@@ -20,8 +22,9 @@ public class SeeStrategy extends AbstractTargetStrategy {
      * creates a seeStrategy
      * @param gameMap of the match
      */
-    public SeeStrategy(GameMap gameMap){
+    public SeeStrategy(GameMap gameMap, Match match){
         this.gameMap = gameMap;
+        this.match = match;
     }
 
     /**
@@ -50,7 +53,7 @@ public class SeeStrategy extends AbstractTargetStrategy {
     @Override
     public boolean canHitSomeone(Player shooter) {
         List<Player> visiblePlayer = gameMap.allVisiblePlayers(shooter);
-        for (Player p: Match.getPlayers()){
+        for (Player p: match.getPlayers()){
             if (visiblePlayer.contains(p)){
                 return true;
             }

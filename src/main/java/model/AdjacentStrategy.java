@@ -10,6 +10,8 @@ import java.util.List;
 
 public class AdjacentStrategy extends AbstractTargetStrategy {
 
+    private Match match;
+
     /**
      * gameMap is a private attribute of type GameMap used later on to get players on the board when needed
      * */
@@ -18,8 +20,9 @@ public class AdjacentStrategy extends AbstractTargetStrategy {
     /**
      * Constructor method used in this class
      * */
-    public AdjacentStrategy (GameMap gameMap){
+    public AdjacentStrategy (GameMap gameMap, Match match){
         this.gameMap = gameMap;
+        this.match = match;
     }
 
     /**
@@ -46,7 +49,7 @@ public class AdjacentStrategy extends AbstractTargetStrategy {
     @Override
     public boolean canHitSomeone(Player shooter) {
         List<Player> adjacentPlayers = gameMap.allAdjacentPlayers(shooter);
-        return Match.getPlayers().stream().anyMatch(p ->  adjacentPlayers.contains(p) ) ;
+        return match.getPlayers().stream().anyMatch(p ->  adjacentPlayers.contains(p) ) ;
     }
 
 /**
