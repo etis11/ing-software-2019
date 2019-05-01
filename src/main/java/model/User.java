@@ -1,9 +1,24 @@
 package model;
 
 public class User {
+    /**
+     * username is the name chosen by the user
+     */
     private String username;
+
+    /**
+     * token is the user identifier
+     */
     private final long token;
+
+    /**
+     * effectPhrase is the phrase chosen by the user to play
+     */
     private String effectPhrase;
+
+    /**
+     * player is the player associate with the user
+     */
     private Player player;
     //TODO LobbyListener lobbyListener;
 
