@@ -13,12 +13,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class DontSeeStrategyTest {
     private GameMap map;
     private DontSeeStrategy dontSeeStrategy;
+    private Match match;
 
     @BeforeEach
-    void initGameMap() {map =new GameMap();}
+    void initGameMap() {map =new GameMap();
+    match = new Match();
+    }
 
     @Test
-    void notVisiblePlayers() {
+    public void notVisiblePlayers() {
         Tile blue1 = new Tile();
         Tile pink1 = new Tile();
         Tile white1 = new Tile();
@@ -33,11 +36,18 @@ public class DontSeeStrategyTest {
         Player target3 = new Player("Banshee");
 
         blue1.setSouthTile(pink1);
-        pink1.setNorthTile(blue1);
-        pink2.setNorthTile(blue2);
+        blue1.setWestTile(blue2);
         blue2.setSouthTile(pink2);
+        blue2.setEastTile(blue1);
+        pink1.setNorthTile(blue1);
+        pink1.setEastTile(pink2);
+        pink2.setNorthTile(blue2);
         pink2.setSouthTile(white2);
+        pink2.setEastTile(pink1);
+        white1.setWestTile(white2);
         white2.setNorthTile(pink2);
+        white2.setWestTile(white3);
+        white2.setEastTile(white1);
 
         blue1.getPlayers().add(shooter);
         pink1.getPlayers().add(target1);
@@ -67,24 +77,26 @@ public class DontSeeStrategyTest {
 
         List<Player>  invisiblePlayers =map.allNotVisiblePlayers(shooter);
         assertTrue(invisiblePlayers.contains(target3),"Target should be invisible");
+        assertFalse(invisiblePlayers.contains(target2),"Target should be visible");
+        assertFalse(invisiblePlayers.contains(target1),"Target should be visible");
         assertTrue(!invisiblePlayers.contains(target1)&&!invisiblePlayers.contains(target2),"Targets should be invisible");
-        assertTrue(!invisiblePlayers.contains(shooter),"Shooter must be in the excluded list");
+        assertFalse(invisiblePlayers.contains(shooter),"Shooter shouldn't be a target of himself");
 
         List<Player> targets = new LinkedList<>();
         targets.add(target1);
         targets.add(target2);
-        List<Player> target4 = new LinkedList<>();
-        target4.add(target3);
-        dontSeeStrategy = new DontSeeStrategy(map, null);
-
+        targets.add(target3);
+        dontSeeStrategy = new DontSeeStrategy(map, match);
         dontSeeStrategy.areTargetValid(shooter, targets);
-        assertFalse(dontSeeStrategy.areTargetValid(shooter,targets), "wrong");
-        assertTrue(dontSeeStrategy.areTargetValid(shooter,target4), "cant shoot himself");
-        assertFalse(dontSeeStrategy.canHitSomeone(shooter),"Can hit someone");
+        dontSeeStrategy.canHitSomeone(shooter);
+        assertFalse(dontSeeStrategy.areTargetValid(shooter,targets), "You can't hit all them");
+        assertTrue(dontSeeStrategy.canHitSomeone(shooter),"Can hit someone");
         assertFalse(dontSeeStrategy.getHittableTargets(shooter).isEmpty(),"Can hit someone");
-        assertFalse(dontSeeStrategy.getHittableTargets(shooter).isEmpty(),"Can hit someone");
-        assertTrue(!dontSeeStrategy.getHittableTargets(shooter).contains(target1),"Can hit Dozer");
-        assertFalse(dontSeeStrategy.getHittableTargets(shooter).contains(target2),"Cannot hit Banshee");
+        assertFalse(dontSeeStrategy.getHittableTargets(shooter).contains(target1),"You can shoot Distruttore but YOU MUSTNT");
+        assertFalse(dontSeeStrategy.getHittableTargets(shooter).contains(target2),"You can shoot DOzer but YOU MUSTNT");
+        assertTrue(dontSeeStrategy.getHittableTargets(shooter).contains(target3),"You cant shoot Banshee but YOU MUST");
+        assertTrue(dontSeeStrategy.getHittableTargets(shooter).size()<2,"there is just one target");
+
     }
 
 }

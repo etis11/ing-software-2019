@@ -13,10 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AdjacentStrategyTest {
     private GameMap map;
     private AdjacentStrategy adjacentStrategy;
+    private Match match;
 
     @BeforeEach
     void initGameMap(){
         map = new GameMap();
+        match = new Match();
     }
     @Test
     void adjacentPlayersTesting() {
@@ -57,15 +59,13 @@ public class AdjacentStrategyTest {
         assertTrue(adjacentPlayers.contains(target),"Target should be in Adjacent");
         assertFalse(adjacentPlayers.contains(shooter),"shooter should not be in Adjacent");
         assertFalse(adjacentPlayers.contains(target2),"target2 should not be in Adjacent");
-
+        adjacentStrategy = new AdjacentStrategy(map, match);
         List<Player> targets = new LinkedList<>();
         targets.add(target);
         targets.add(target2) ;
-        adjacentStrategy = new AdjacentStrategy(map, null);
 
-        adjacentStrategy.areTargetValid(shooter,targets);
         assertFalse(adjacentStrategy.areTargetValid(shooter,targets),"Targets should not be valid");
-        assertFalse(adjacentStrategy.canHitSomeone(shooter),"Can hit someone");
+        assertTrue(adjacentStrategy.canHitSomeone(shooter),"Can't hit anyone");
         assertFalse(adjacentStrategy.getHittableTargets(shooter).isEmpty(),"Can hit someone");
         assertTrue(adjacentStrategy.getHittableTargets(shooter).contains(target),"Can hit Arlind");
         assertFalse(adjacentStrategy.getHittableTargets(shooter).contains(target2),"Cannot hit Hamid");

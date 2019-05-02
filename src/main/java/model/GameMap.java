@@ -79,7 +79,6 @@ public class GameMap {
                 allNotVisiblePlayers.add(p);
             }
         }
-
         return allNotVisiblePlayers;
     }
 

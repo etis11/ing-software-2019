@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public class DontSeeStrategy extends AbstractTargetStrategy {
      * This is the constructor of our class
      * */
     public DontSeeStrategy(GameMap gameMap, Match match){
-        this.gameMap = gameMap;
+       this.gameMap = gameMap;
         this.match = match;
     }
 
@@ -39,7 +40,13 @@ public class DontSeeStrategy extends AbstractTargetStrategy {
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         super.areTargetValid(shooter, targets);
         List<Player> notVisiblePlayers = gameMap.allNotVisiblePlayers(shooter);
-        return notVisiblePlayers.containsAll(targets);
+        for (Player p: targets) {
+            if(!notVisiblePlayers.contains(p)){
+                return false;
+            }
+        }
+        return true;
+        //return notVisiblePlayers.containsAll(targets);
     }
 
     /**
@@ -49,11 +56,30 @@ public class DontSeeStrategy extends AbstractTargetStrategy {
      * @param shooter is the player who is going to perform the action. Needed to check all of his valid targets
      * @return a boolean when trying to check if there are any targets or not
      * */
-    @Override
+    /**
+   @Override
     public boolean canHitSomeone(Player shooter) {
         List<Player> notVisiblePlayers = gameMap.allNotVisiblePlayers(shooter);
-        return match.getPlayers().stream().anyMatch(p ->  notVisiblePlayers.contains(p) ) ;
+        for(Player p: match.getPlayers()){
+            if (notVisiblePlayers.contains(p)){
+                return true;
+            }
+        }
+        return false;
     }
+*/
+    public boolean canHitSomeone(Player shooter) {
+        return !getHittableTargets(shooter).isEmpty();
+    }
+
+
+    /** @Override
+     public boolean canHitSomeone(Player shooter) {
+         List<Player> notVisiblePlayers = gameMap.allNotVisiblePlayers(shooter);
+         return Match.getPlayers().stream().anyMatch(p ->  notVisiblePlayers.contains(p) ) ;
+     }
+     */
+
 
     /**
      * This method is used to return ALL the hittable players that can be considered as possible targets to the player
@@ -64,6 +90,6 @@ public class DontSeeStrategy extends AbstractTargetStrategy {
      * */
     @Override
     public List<Player> getHittableTargets(Player shooter) {
-        return gameMap.allNotVisiblePlayers(shooter);
+        return new ArrayList<>(gameMap.allNotVisiblePlayers(shooter));
     }
 }
