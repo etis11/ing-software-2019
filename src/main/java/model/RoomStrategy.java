@@ -12,17 +12,12 @@ import java.util.List;
 public class RoomStrategy extends AbstractTargetStrategy {
 
     private Match match;
-    /**
-     * gameMap is a reference to game map as to get player in visible position
-     */
-    private GameMap gameMap;
+
 
     /**
      * creates a roomStrategy
-     * @param gameMap of the match
      */
-    public RoomStrategy(GameMap gameMap, Match match) {
-        this.gameMap = gameMap;
+    public RoomStrategy(Match match) {
         this.match = match;
     }
 
@@ -54,7 +49,7 @@ public class RoomStrategy extends AbstractTargetStrategy {
     public boolean canHitSomeone(Player shooter) {
         List<Player> roomPlayer = shooter.getTile().getRoom().getPlayersInRoom();
         for (Player p : match.getPlayers()){
-            if (roomPlayer.contains(p)){
+            if (roomPlayer.contains(p) && p!=shooter){
                 return true;
             }
         }
@@ -68,6 +63,12 @@ public class RoomStrategy extends AbstractTargetStrategy {
      */
     @Override
     public List<Player> getHittableTargets(Player shooter) {
-        return new ArrayList<>(shooter.getTile().getRoom().getPlayersInRoom());
+        List<Player> toReturn = new ArrayList<>();
+        for (Player p:shooter.getTile().getRoom().getPlayersInRoom()){
+            if (p!=shooter){
+                toReturn.add(p);
+            }
+        }
+        return toReturn;
     }
 }
