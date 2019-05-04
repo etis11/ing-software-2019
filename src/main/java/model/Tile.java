@@ -123,6 +123,19 @@ public class Tile {
         room = null;
     }
 
+    public Tile(boolean ammoTile, boolean weaponTile){
+        northTile = null;
+        eastTile = null;
+        southTile = null;
+        westTile = null;
+        players = new LinkedList<>();
+        this.ammoTile = ammoTile;
+        ammoCard = null;
+        this.weaponTile = weaponTile;
+        weapons = null;
+        room = null;
+    }
+
     /**
      * returns the tile place to the east
      * @return the east tile, can be null
@@ -250,6 +263,30 @@ public class Tile {
 
             case "west":
                 return westTile;
+            default: throw new IllegalArgumentException("The direction is neither north east south or west");
+        }
+    }
+
+    /**
+     * Given a direction, sets the corrensponding field
+     * @param dir can only be "north" "east" "south" and "west"
+     * @param t the tile that has to be set
+     */
+    public void setTile(String dir, Tile t){
+        if (t == null) throw new IllegalArgumentException("The tile passed is null");
+        switch (dir){
+            case "north":
+                northTile = t;
+                break;
+            case "east":
+                 eastTile = t;
+                 break;
+            case "south":
+                 southTile = t;
+                 break;
+            case "west":
+                 westTile = t;
+                 break;
             default: throw new IllegalArgumentException("The direction is neither north east south or west");
         }
     }

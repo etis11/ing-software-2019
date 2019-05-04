@@ -30,8 +30,8 @@ public class Room {
      * adds a tile to the current room and assigns the given room to the tile
      * @param toAdd the tile that has to be added to the room
      */
-    public void addTile(Tile toAdd) throws NullPointerException{
-        if (toAdd == null) throw  new NullPointerException("The tile passed is null");
+    public void addTile(Tile toAdd) throws IllegalArgumentException{
+        if (toAdd == null) throw  new IllegalArgumentException("The tile passed is null");
         tiles.add(toAdd);
         toAdd.setRoom(this);
     }

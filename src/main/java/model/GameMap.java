@@ -38,11 +38,10 @@ public class GameMap {
 
     /**
      * Add the given room to the game map
-     * @param toAdd the room that has to be added
-     * @throws NullPointerException the given room is null
+     * @param toAdd the room that has to be added. cant be null
      */
-    public void addRoom(Room toAdd) throws NullPointerException{
-        if (toAdd== null) throw new NullPointerException("The given room is null");
+    public void addRoom(Room toAdd) {
+        if (toAdd== null) throw new IllegalArgumentException("The given room is null");
         rooms.add(toAdd);
     }
 
