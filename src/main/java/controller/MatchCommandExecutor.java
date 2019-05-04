@@ -30,6 +30,16 @@ public class MatchCommandExecutor extends AbstractCommandExecutor{
 
     }
 
+    public void askToWalk(Player owner) throws NotValidActionException{
+        //check if the player can pickUp in his current state
+        if (!owner.getState().canRun()) throw new NotValidActionException("You can't run in this state");
+    }
+
+    public void stepToWalk(Player owner, int step) throws Exception{
+        //check if the player can walk by the given steps
+        if (owner.getState().getRemainingSteps()>=step) throw new Exception("no more steps");
+    }
+
     /**
      * routine to shoot
      */

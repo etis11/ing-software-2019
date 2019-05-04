@@ -1,5 +1,7 @@
-package controller;
+package controller.commandPack;
 
+import controller.AbstractCommand;
+import controller.MatchCommandExecutor;
 import exceptions.NotValidActionException;
 
 public class RunCommand extends AbstractCommand {
@@ -13,7 +15,7 @@ public class RunCommand extends AbstractCommand {
     @Override
     public void execute() {
         try {
-            executor.walkingRoutine(owner);
+            executor.askToWalk(owner);
         } catch (NotValidActionException e) {
             e.printStackTrace();
         }
