@@ -12,18 +12,11 @@ import java.util.List;
 public class SeeStrategy extends AbstractTargetStrategy {
 
     private Match match;
-    //TODO serve ancora game map?
-    /**
-     * gameMap is a reference to game map as to get player in visible position
-     */
-    private GameMap gameMap;
 
     /**
      * creates a seeStrategy
-     * @param gameMap of the match
      */
-    public SeeStrategy(GameMap gameMap, Match match){
-        this.gameMap = gameMap;
+    public SeeStrategy(Match match){
         this.match = match;
     }
 
@@ -36,7 +29,7 @@ public class SeeStrategy extends AbstractTargetStrategy {
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         super.areTargetValid(shooter, targets);
-        List<Player> visiblePlayer = gameMap.allVisiblePlayers(shooter);
+        List<Player> visiblePlayer = match.getMap().allVisiblePlayers(shooter);
         for (Player p: targets){
             if (!visiblePlayer.contains(p)){
                 return false;
@@ -52,9 +45,9 @@ public class SeeStrategy extends AbstractTargetStrategy {
      */
     @Override
     public boolean canHitSomeone(Player shooter) {
-        List<Player> visiblePlayer = gameMap.allVisiblePlayers(shooter);
+        List<Player> visiblePlayer = match.getMap().allVisiblePlayers(shooter);
         for (Player p: match.getPlayers()){
-            if (visiblePlayer.contains(p)){
+            if (visiblePlayer.contains(p) && p!=shooter){
                 return true;
             }
         }
@@ -68,6 +61,12 @@ public class SeeStrategy extends AbstractTargetStrategy {
      */
     @Override
     public List<Player> getHittableTargets(Player shooter) {
-        return new ArrayList<>(gameMap.allVisiblePlayers(shooter));
+        List<Player> toReturn = new ArrayList<>();
+        for (Player p: match.getMap().allVisiblePlayers(shooter)){
+            if (p!=shooter){
+                toReturn.add(p);
+            }
+        }
+        return toReturn;
     }
 }

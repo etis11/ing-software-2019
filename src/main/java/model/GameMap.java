@@ -59,12 +59,16 @@ public class GameMap {
                 visiblePlayers.addAll(tile.getPlayers()) ;
             }
         }
-
+        for (Player pl:p.getTile().getPlayers()){
+            if(pl!=p){
+                visiblePlayers.add(pl);
+            }
+        }
         return visiblePlayers;
     }
 /**
  * Method used to return all the players that are not visible based from where the shooter is standing at
- * in the gamemap. The way the method works is by getting first the list of all players and then removing
+ * in the gameMap. The way the method works is by getting first the list of all players and then removing
  * all the visible players (the shooter also)
  * */
     public List<Player> allNotVisiblePlayers(Player player)  {

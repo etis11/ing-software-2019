@@ -44,6 +44,11 @@ public class MeleeStrategyTest {
     }
 
     @Test
+    public void instanceTest(){
+        assertTrue(strategy instanceof MeleeStrategy, "ERROR: wrong instance");
+    }
+
+    @Test
     public void onlyShooterInTile(){
         List<Player> target = new ArrayList<>();
 
