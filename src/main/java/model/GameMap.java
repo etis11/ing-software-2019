@@ -35,6 +35,11 @@ public class GameMap {
         regenPoints = new HashMap<>();
     }
 
+    /**
+     * creates a game map associated to the json file given in the path
+     * @param mapPath path of the json file
+     * @return 
+     */
     public static GameMap loadMap(String mapPath){
         //creates the gson parser
         GsonBuilder builder = new GsonBuilder();
