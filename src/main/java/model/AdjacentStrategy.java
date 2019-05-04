@@ -46,16 +46,16 @@ public class AdjacentStrategy extends AbstractTargetStrategy {
      * @param shooter is used to identify the player who chooses the targets to shoot at
      * @return true if there is at least one player the shooter can shoot at
      * */
-    /**
+
     @Override
     public boolean canHitSomeone(Player shooter) {
         List<Player> adjacentPlayers = gameMap.allAdjacentPlayers(shooter);
         return match.getPlayers().stream().anyMatch(p ->  adjacentPlayers.contains(p) ) ;
     }
-*/
-    public boolean canHitSomeone(Player shooter) {
-        return !getHittableTargets(shooter).isEmpty();
-    }
+
+   // public boolean canHitSomeone(Player shooter) {
+     //   return !getHittableTargets(shooter).isEmpty();
+ //   }
 
     /**
  * The following method is used to return all the players that can be targeted by the shooter bvased on the

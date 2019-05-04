@@ -68,17 +68,17 @@ public class DontSeeStrategy extends AbstractTargetStrategy {
         return false;
     }
 */
-    public boolean canHitSomeone(Player shooter) {
-        return !getHittableTargets(shooter).isEmpty();
-    }
+    //public boolean canHitSomeone(Player shooter) {
+       // return !getHittableTargets(shooter).isEmpty();
+ //   }
 
 
-    /** @Override
+    @Override
      public boolean canHitSomeone(Player shooter) {
          List<Player> notVisiblePlayers = gameMap.allNotVisiblePlayers(shooter);
-         return Match.getPlayers().stream().anyMatch(p ->  notVisiblePlayers.contains(p) ) ;
+         return match.getPlayers().stream().anyMatch(p ->  notVisiblePlayers.contains(p) ) ;
      }
-     */
+
 
 
     /**
