@@ -37,13 +37,14 @@ public class SeeStrategyTest {
         oppositeTile = new Tile();
         oppositeNotVisibleTile = new Tile();
         otherTile = new Tile(null, notVisibleTile, null, oppositeNotVisibleTile, false, false);
-        tile = new Tile(otherTile, adjacent, oppositeTile, null, false, false);
+        tile = new Tile(otherTile, null, oppositeTile, null, false, false);
         otherTile.setSouthTile(tile);
         oppositeTile.setNorthTile(tile);
         notVisibleTile.setWestTile(otherTile);
         oppositeNotVisibleTile.setEastTile(otherTile);
         adjacent.setNorthTile(notVisibleTile);
-        adjacent.setWestTile(tile);
+        adjacent.setWestTileBehindWall(tile);
+        tile.setEastTileBehindWall(adjacent);
         room.addTile(oppositeTile);
         room.addTile(otherTile);
         room.addTile(tile);
@@ -105,9 +106,55 @@ public class SeeStrategyTest {
         target2.setTile(notVisibleTile);
         notVisibleTile.addPlayer(target2);
         assertTrue(strategy.canHitSomeone(shooter), "ERROR: there are players");
-        //TODO
-//        assertSame(strategy.getHittableTargets(shooter).size(),1, "ERROR: there are players");
-//        assertFalse(strategy.areTargetValid(shooter, target), "ERROR: there is wrong target");
+        assertSame(strategy.getHittableTargets(shooter).size(),1, "ERROR: there are players");
+       assertFalse(strategy.areTargetValid(shooter, target), "ERROR: there is wrong target");
+    }
+
+    @Test
+    public void onePlayerVisible(){
+        List<Player> target = new ArrayList<>();
+
+        target.add(target1);
+        target1.setTile(oppositeTile);
+        oppositeTile.addPlayer(target1);
+        assertTrue(strategy.canHitSomeone(shooter), "ERROR: there are players");
+        assertSame(strategy.getHittableTargets(shooter).size(),1, "ERROR: there are players");
+        assertTrue(strategy.areTargetValid(shooter, target), "ERROR: there is the target");
+
+        target.add(target2);
+        target2.setTile(adjacent);
+        adjacent.addPlayer(target2);
+        assertTrue(strategy.canHitSomeone(shooter), "ERROR: there are players");
+        assertSame(strategy.getHittableTargets(shooter).size(),1, "ERROR: there are players");
+        assertFalse(strategy.areTargetValid(shooter, target), "ERROR: there is wrong target");
+
+        otherTile.addPlayer(shooter);
+        shooter.setTile(otherTile);
+        try {
+            tile.removePlayer(shooter);
+        } catch (Exception e) { e.printStackTrace();}
+        assertTrue(strategy.canHitSomeone(shooter), "ERROR: there are players");
+        assertSame(strategy.getHittableTargets(shooter).size(),2, "ERROR: there are players");
+        assertTrue(strategy.areTargetValid(shooter, target), "ERROR: there is wrong target");
+    }
+
+    public void twoPlayerVisible(){
+        List<Player> target = new ArrayList<>();
+
+        target.add(target1);
+        target1.setTile(oppositeTile);
+        oppositeTile.addPlayer(target1);
+        target.add(target2);
+        adjacent.addPlayer(target2);
+        target2.setTile(adjacent);
+        otherTile.addPlayer(shooter);
+        shooter.setTile(otherTile);
+        try {
+            tile.removePlayer(shooter);
+        } catch (Exception e) { e.printStackTrace();}
+        assertTrue(strategy.canHitSomeone(shooter), "ERROR: there are players");
+        assertSame(strategy.getHittableTargets(shooter).size(),2, "ERROR: there are players");
+        assertTrue(strategy.areTargetValid(shooter, target), "ERROR: there is wrong target");
     }
 
 }

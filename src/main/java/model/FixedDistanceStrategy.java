@@ -19,11 +19,11 @@ public class FixedDistanceStrategy extends SeeStrategy {
 
     /**
      * creates a FixedDistanceStrategy
-     * @param gameMap of the match
      * @param distance from the shooter player at least
      */
     public  FixedDistanceStrategy(int distance, Match match){
         super(match);
+        System.out.println(match.getPlayers());
         this.distance = distance;
     }
 

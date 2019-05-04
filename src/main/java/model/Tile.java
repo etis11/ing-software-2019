@@ -489,14 +489,16 @@ public class Tile {
         if (this.isPlayerIn(target)){
             return 0;
         }
-        distance = 1 + northTile.distance(target);
-        if (distance>1 + eastTile.distance(target)){
+        if (northTile != null){
+            distance = 1 + northTile.distance(target);
+        }
+        if (eastTile != null && distance>1 + eastTile.distance(target)){
             distance = 1 + eastTile.distance(target);
         }
-        if (distance>1 + southTile.distance(target)){
+        if (southTile!= null && distance>1 + southTile.distance(target)){
             distance = 1 + southTile.distance(target);
         }
-        if (distance>1 + westTile.distance(target)){
+        if (westTile!=null && distance>1 + westTile.distance(target)){
             distance = 1 + westTile.distance(target);
         }
 
