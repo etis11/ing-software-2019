@@ -19,6 +19,8 @@ import static java.util.stream.Collectors.toCollection;
  */
 public class Tile {
 
+    private int ID;
+
     /**
      * reference to the tile placed to the north. Can be null.
      */
@@ -137,6 +139,24 @@ public class Tile {
         weapons = null;
         room = null;
     }
+
+    public Tile(int id, boolean ammoTile, boolean weaponTile){
+        this.ID = id;
+        northTile = null;
+        eastTile = null;
+        southTile = null;
+        westTile = null;
+        players = new LinkedList<>();
+        this.ammoTile = ammoTile;
+        ammoCard = null;
+        this.weaponTile = weaponTile;
+        weapons = null;
+        room = null;
+    }
+
+    public int getID(){ return ID;}
+
+    public void setID(int i){ ID = i;}
 
     /**
      * returns the tile place to the east

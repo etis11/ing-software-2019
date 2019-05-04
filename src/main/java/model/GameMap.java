@@ -252,5 +252,7 @@ public class GameMap {
         if (regenPoint == null) throw new NullPointerException("There isn't a " + color + "regen point");
         return regenPoint;
     }
+
+    public List<Tile> getAllRegenPoints(){ return new LinkedList<>(regenPoints.values());}
 }
 

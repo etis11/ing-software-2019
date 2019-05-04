@@ -55,12 +55,13 @@ public class GameMapDeserializer implements JsonDeserializer<GameMap> {
             JsonObject jsonTile = j.getAsJsonObject();
 
             //gets all the fields
+            int id = jsonTile.get("ID").getAsInt();
             boolean isAmmoTile = jsonTile.get("ammoTile").getAsBoolean();
             boolean isWeaponTile = jsonTile.get("weaponTile").getAsBoolean();
             int current_room = jsonTile.get("room").getAsInt();
 
             //creates a tile
-            currentTile = new Tile(isAmmoTile, isWeaponTile);
+            currentTile = new Tile(id,isAmmoTile, isWeaponTile);
             tiles.set(jsonTile.get("ID").getAsInt(), currentTile );
             //adds the tile to the room indicated in the json;
             rooms.get(current_room).addTile(currentTile);

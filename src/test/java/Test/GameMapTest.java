@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.File;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,19 +35,6 @@ public class GameMapTest {
     @BeforeEach
     void initGameMap(){
         gameMap = new GameMap();
-    }
-
-
-    /**
-     * Tests if the json of the maps can be de-serialised
-     */
-    @Test
-    void correctJsonFileLoad(){
-        assertDoesNotThrow(() -> GameMap.loadMap(pathMap1));
-        assertDoesNotThrow(() -> GameMap.loadMap(pathMap2));
-        assertDoesNotThrow(() -> GameMap.loadMap(pathMap3));
-        assertDoesNotThrow(() -> GameMap.loadMap(pathMap4));
-
     }
 
     @Test
@@ -125,5 +113,149 @@ public class GameMapTest {
         assertThrows(NullPointerException.class, ()-> gameMap.getRegenPoint("red"));
         assertThrows(NullPointerException.class, ()-> gameMap.getRegenPoint("blue"));
         assertThrows(NullPointerException.class, ()-> gameMap.getRegenPoint("yellow"));
+    }
+
+    /**
+     * Tests if the json of the maps can be de-serialised
+     */
+    @Test
+    void correctJsonFileLoad(){
+        assertDoesNotThrow(() -> GameMap.loadMap(pathMap1));
+        assertDoesNotThrow(() -> GameMap.loadMap(pathMap2));
+        assertDoesNotThrow(() -> GameMap.loadMap(pathMap3));
+        assertDoesNotThrow(() -> GameMap.loadMap(pathMap4));
+    }
+
+    @Test
+    void allMapsHaveRedRegenPoints(){
+        assertDoesNotThrow(()->GameMap.loadMap(pathMap1).getRegenPoint("red"));
+        assertDoesNotThrow(()->GameMap.loadMap(pathMap2).getRegenPoint("red"));
+        assertDoesNotThrow(()->GameMap.loadMap(pathMap3).getRegenPoint("red"));
+        assertDoesNotThrow(()->GameMap.loadMap(pathMap4).getRegenPoint("red"));
+    }
+
+    @Test
+    void allMapsHaveBlueRegenPoints(){
+        assertDoesNotThrow(()->GameMap.loadMap(pathMap1).getRegenPoint("blue"));
+        assertDoesNotThrow(()->GameMap.loadMap(pathMap2).getRegenPoint("blue"));
+        assertDoesNotThrow(()->GameMap.loadMap(pathMap3).getRegenPoint("blue"));
+        assertDoesNotThrow(()->GameMap.loadMap(pathMap4).getRegenPoint("blue"));
+    }
+
+
+    @Test
+    void allMapsHaveYellowRegenPoints(){
+        assertDoesNotThrow(()->GameMap.loadMap(pathMap1).getRegenPoint("yellow"));
+        assertDoesNotThrow(()->GameMap.loadMap(pathMap2).getRegenPoint("yellow"));
+        assertDoesNotThrow(()->GameMap.loadMap(pathMap3).getRegenPoint("yellow"));
+        assertDoesNotThrow(()->GameMap.loadMap(pathMap4).getRegenPoint("yellow"));
+    }
+
+
+    @Test
+    void allMapsWalkable(){
+
+        assertTrue(isMapWalkable(pathMap1), ()-> "ERROR: map1 has not the right number of tiles");
+        assertTrue(isMapWalkable(pathMap2), ()-> "ERROR: map2 has not the right number of tiles");
+        assertTrue(isMapWalkable(pathMap3), ()-> "ERROR: map3 has not the right number of tiles");
+        assertTrue(isMapWalkable(pathMap4), ()-> "ERROR: map4 has not the right number of tiles");
+
+    }
+
+    private static boolean isMapWalkable(String path){
+        GameMap gameMap = GameMap.loadMap(path);
+        Tile current;
+        Tile toPut;
+        Stack<Tile> stack = new Stack<>();
+        int numOfTiles = 0;
+        Map<Tile, Boolean> encounteredTiles = new HashMap<>();
+        String[] directions = {"north", "east", "south", "west"};
+
+        Tile startingTile = gameMap.getRedRegenPoint();
+
+        //walking in the map
+        stack.push(startingTile);
+        encounteredTiles.put(startingTile, true);
+        while(!stack.empty()){
+            current = stack.pop();
+            //System.out.println(current.getID());
+            numOfTiles += 1;
+            for(String dir : directions) {
+                toPut = current.getTile(dir);
+                //if the tile is not null and the i didn't encountered it (so it's not in the map)
+                if (toPut != null && encounteredTiles.get(toPut) == null) {
+                    encounteredTiles.put(toPut, true);
+                    stack.push(toPut);
+                }
+            }
+        }
+        //switch case for every map. every map has a different number of tiles. the numOftiles counted must be the one expected
+       // System.out.println("\n\n" +numOfTiles + "\n\n");
+        if (path.equals(pathMap1))
+            return( numOfTiles == 10 );
+        if (path.equals(pathMap2))
+            return( numOfTiles == 11 );
+        if (path.equals(pathMap3))
+            return( numOfTiles == 12 );
+        if (path.equals(pathMap4))
+            return( numOfTiles == 11 );
+        return false;
+    }
+
+    @Test
+    void allRegenPointCorrect(){
+        assertTrue(areAllRegenPointPresent(pathMap1), () -> "ERROR: A weapon tile is not a regen point");
+        assertTrue(areAllRegenPointPresent(pathMap2), () -> "ERROR: A weapon tile is not a regen point");
+        assertTrue(areAllRegenPointPresent(pathMap3), () -> "ERROR: A weapon tile is not a regen point");
+        assertTrue(areAllRegenPointPresent(pathMap4), () -> "ERROR: A weapon tile is not a regen point");
+    }
+
+    /**
+     * checks that every ammo tile is part of the regen points
+     * @param path
+     * @return
+     */
+    private static boolean areAllRegenPointPresent(String path){
+        GameMap gameMap = GameMap.loadMap(path);
+        Tile current;
+        Tile toPut;
+        Stack<Tile> stack = new Stack<>();
+        Map<Tile, Boolean> encounteredTiles = new HashMap<>();
+        String[] directions = {"north", "east", "south", "west"};
+        List<Tile> weaponTiles = new LinkedList<>();
+        List<Tile> regenPoints = gameMap.getAllRegenPoints();
+
+
+        Tile startingTile = gameMap.getRedRegenPoint();
+
+        //walking in the map
+        stack.push(startingTile);
+        encounteredTiles.put(startingTile, true);
+        while(!stack.empty()){
+            current = stack.pop();
+            if (current.canContainWapons()) weaponTiles.add(current);
+            //System.out.println(current.getID());
+            for(String dir : directions) {
+                toPut = current.getTile(dir);
+                //if the tile is not null and the i didn't encountered it (so it's not in the map)
+                if (toPut != null && encounteredTiles.get(toPut) == null) {
+                    encounteredTiles.put(toPut, true);
+                    stack.push(toPut);
+                }
+            }
+        }
+
+        //for each weapon tile, check if it's in the regen point list
+        if( weaponTiles.size() != regenPoints.size()) return false;
+        //there must be 3 regen points
+        if(weaponTiles.size() != 3) return false;
+
+        //remove the tile from the regen points list
+        for(Tile t: weaponTiles){
+            if(!regenPoints.contains(t)) return false;
+            regenPoints.remove(t);
+        }
+
+        return true;
     }
 }
