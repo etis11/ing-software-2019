@@ -15,7 +15,7 @@ public class TractorBeamAdvancedStrategy extends AbstractTargetStrategy {
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         super.areTargetValid(shooter, targets);
-        return shooter.getTile().distance(targets.get(0))<3  ;
+        return shooter.getTile().distance(targets.get(0), true, true, true, true)<3  ;
     }
 
     @Override
@@ -25,6 +25,6 @@ public class TractorBeamAdvancedStrategy extends AbstractTargetStrategy {
 
     @Override
     public List<Player> getHittableTargets(Player shooter) {
-        return match.getPlayers().stream().filter(player -> shooter.getTile().distance(player)<=2 && !player.equals(shooter)).collect(Collectors.toList());
+        return match.getPlayers().stream().filter(player -> shooter.getTile().distance(player, true, true, true, true)<=2 && !player.equals(shooter)).collect(Collectors.toList());
     }
 }

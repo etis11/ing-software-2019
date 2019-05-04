@@ -23,7 +23,7 @@ public class FixedDistanceStrategy extends SeeStrategy {
      */
     public  FixedDistanceStrategy(int distance, Match match){
         super(match);
-        System.out.println(match.getPlayers());
+        this.match = match;
         this.distance = distance;
     }
 
@@ -37,7 +37,7 @@ public class FixedDistanceStrategy extends SeeStrategy {
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         if (super.areTargetValid(shooter, targets)){
             for (Player p: targets){
-                if (shooter.getTile().distance(p)<distance){
+                if (shooter.getTile().distance(p, true, true, true, true)<distance){
                     return false;
                 }
             }
@@ -57,7 +57,7 @@ public class FixedDistanceStrategy extends SeeStrategy {
     public boolean canHitSomeone(Player shooter) {
         if(super.canHitSomeone(shooter)){
             for (Player p: match.getPlayers()){
-                if (shooter.getTile().distance(p)>=distance){
+                if (shooter.getTile().distance(p, true, true, true, true)>=distance){
                     return true;
                 }
             }
@@ -77,7 +77,7 @@ public class FixedDistanceStrategy extends SeeStrategy {
             return toReturn;
         }
         for(Player p:match.getPlayers()){
-            if (shooter.getTile().distance(p)<distance){
+            if (shooter.getTile().distance(p, true, true, true, true)<distance){
                 toReturn.remove(p);
             }
         }

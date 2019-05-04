@@ -1,6 +1,6 @@
 package model;
 
-import sun.jvm.hotspot.debugger.InputLexer;
+//import sun.jvm.hotspot.debugger.InputLexer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -541,23 +541,23 @@ public class Tile {
     }
 
     //TODO mi interessa sia minima la distanza???????
-    public int distance (Player target){
+    public int distance (Player target, boolean north, boolean west, boolean south, boolean east){
         int distance=0;
         if (target == null) throw new IllegalArgumentException("The given player from which calculate distance is null");
         if (this.isPlayerIn(target)){
             return 0;
         }
-        if (northTile != null){
-            distance = 1 + northTile.distance(target);
+        if (northTile != null && north){
+            distance = 1 + northTile.distance(target, true, true, false, true);
         }
-        if (eastTile != null && distance>1 + eastTile.distance(target)){
-            distance = 1 + eastTile.distance(target);
+        if (eastTile != null && east && distance>1 + eastTile.distance(target, true, false, true, true)){
+            distance = 1 + eastTile.distance(target, true, false, true, true);
         }
-        if (southTile!= null && distance>1 + southTile.distance(target)){
-            distance = 1 + southTile.distance(target);
+        if (southTile!= null && south && distance>1 + southTile.distance(target, false, true, true, true)){
+            distance = 1 + southTile.distance(target, false, true, true, true);
         }
-        if (westTile!=null && distance>1 + westTile.distance(target)){
-            distance = 1 + westTile.distance(target);
+        if (westTile!=null && west && distance>1 + westTile.distance(target, true, true, true, false)){
+            distance = 1 + westTile.distance(target, true, true, true, false);
         }
 
         return distance;

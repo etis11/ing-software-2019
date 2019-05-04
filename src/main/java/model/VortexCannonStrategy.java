@@ -63,7 +63,7 @@ public class VortexCannonStrategy extends AbstractTargetStrategy {
 //tra tutti i player,filtro quelli che hanno distanza di <=1 da visibletiles e l'altra condizione e' che non sia mestesso
     @Override
     public List<Player> getHittableTargets(Player shooter) {
-         return match.getPlayers().stream().filter( player -> gameMap.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(player)<=1)) && !player.equals(shooter) ).collect(Collectors.toList());
+         return match.getPlayers().stream().filter( player -> gameMap.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(player, true, true, true, true)<=1)) && !player.equals(shooter) ).collect(Collectors.toList());
     }
                         //THE FOLLOWING METHODS ARE NOT NEEDED AS OF RIGHT NOW
     /**
@@ -111,7 +111,7 @@ public class VortexCannonStrategy extends AbstractTargetStrategy {
      * @return list of all valid targets seen by our shooter's perspective
      * */
     public List<Player> hittableTargetsBlackHole(Player shooter) {
-        return match.getPlayers().stream().filter( player -> gameMap.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(player)<=1)) && !player.equals(shooter) && !this.attackedPlayers.contains(player) ).collect(Collectors.toList());
+        return match.getPlayers().stream().filter( player -> gameMap.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(player, true, true, true, true)<=1)) && !player.equals(shooter) && !this.attackedPlayers.contains(player) ).collect(Collectors.toList());
     }
 
     /**
