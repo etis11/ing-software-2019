@@ -65,7 +65,7 @@ public class VortexCannonStrategy extends AbstractTargetStrategy {
     public List<Player> getHittableTargets(Player shooter) {
          return match.getPlayers().stream().filter( player -> gameMap.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(player)<=1)) && !player.equals(shooter) ).collect(Collectors.toList());
     }
-
+                        //THE FOLLOWING METHODS ARE NOT NEEDED AS OF RIGHT NOW
     /**
      * Method used to move the picked target (after verifying that the player is a valid target and destination
      * is a valid action also.

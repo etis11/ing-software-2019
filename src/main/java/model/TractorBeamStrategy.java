@@ -2,6 +2,7 @@ package model;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class is one of the strategy used to determine the action needed to be done when the effect of the card
@@ -15,13 +16,13 @@ public class TractorBeamStrategy extends AbstractTargetStrategy {
      * Private attribute of type GameMap needed to determine other players position based from the shooter's
      * point of view
      * */
-    private GameMap gameMap;
+    private Match match;
 
     /**
      * This is the constructor of the class
      * */
-    public TractorBeamStrategy (GameMap gameMap){
-        this.gameMap = gameMap;
+    public TractorBeamStrategy (Match match){
+        this.match = match;
     }
 
     /**
@@ -35,7 +36,7 @@ public class TractorBeamStrategy extends AbstractTargetStrategy {
      * */
     //TODO fare test con metodo distance
     public List<Tile> destinationTiles(Player shooter, Player target){
-        List<Tile> visibleTiles = gameMap.allVisibleTiles(shooter);
+        List<Tile> visibleTiles = match.getMap().allVisibleTiles(shooter);
         List<Tile> destinations = new LinkedList<>();
         for(Tile tile : visibleTiles){
             if(tile.distance(target)<3){
@@ -55,8 +56,18 @@ public class TractorBeamStrategy extends AbstractTargetStrategy {
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         super.areTargetValid(shooter, targets);
-        List<Tile> visibleTiles = gameMap.allVisibleTiles(shooter);
+        List<Tile> visibleTiles = match.getMap().allVisibleTiles(shooter);
         return visibleTiles.stream().anyMatch(tile ->  tile.distance(targets.get(0))<3 ) ;
+    }
+
+    @Override
+    public boolean canHitSomeone(Player shooter) {
+        return !getHittableTargets(shooter).isEmpty();
+    }
+
+    @Override
+    public List<Player> getHittableTargets(Player shooter) {
+        return match.getPlayers().stream().filter(player -> match.getMap().allVisibleTiles(shooter).stream().anyMatch(tile -> tile.distance(player)<=2)&& !player.equals(shooter)).collect(Collectors.toList());
     }
 
     /**
