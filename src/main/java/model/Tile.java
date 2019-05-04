@@ -1,5 +1,7 @@
 package model;
 
+import sun.jvm.hotspot.debugger.InputLexer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -268,7 +270,7 @@ public class Tile {
     }
 
     /**
-     * Given a direction, sets the corrensponding field
+     * Given a direction, sets the corresponding field
      * @param dir can only be "north" "east" "south" and "west"
      * @param t the tile that has to be set
      */
@@ -307,6 +309,25 @@ public class Tile {
                 return southWalledTile;
             case "west":
                 return westWalledTile;
+            default: throw new IllegalArgumentException("The direction is neither north east south or west");
+        }
+    }
+
+    public void setTileBehindWall(String dir, Tile t){
+        if (t == null) throw  new IllegalArgumentException("The tile is null");
+        switch (dir){
+            case "north":
+                northWalledTile = t;
+                break;
+            case "east":
+                eastWalledTile = t;
+                break;
+            case "south":
+                southWalledTile = t;
+                break;
+            case "west":
+                westWalledTile = t;
+                break;
             default: throw new IllegalArgumentException("The direction is neither north east south or west");
         }
     }

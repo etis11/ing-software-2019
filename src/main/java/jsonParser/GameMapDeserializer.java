@@ -96,7 +96,7 @@ public class GameMapDeserializer implements JsonDeserializer<GameMap> {
             for(int i = 0; i < directionsWalled.length; i++){
                 tilePosition =currentJsonTile.get(directionsWalled[i]).getAsInt();
                 if ( tilePosition!= -1){
-                    t.setTile(directions[i], tiles.get(tilePosition));
+                    t.setTileBehindWall(directions[i], tiles.get(tilePosition));
                 }
             }
         }
