@@ -81,7 +81,7 @@ public class Match {
      * This method returns the list of players that are going to/will play when game starts
      * */
     public List<Player> getPlayers() {
-        return new LinkedList<>();
+        return this.players;
     }
 
     /**
