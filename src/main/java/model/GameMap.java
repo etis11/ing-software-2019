@@ -1,7 +1,14 @@
 package model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import exceptions.DuplicateException;
+import jsonParser.GameMapDeserializer;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.Reader;
 import java.util.*;
 
 /**
@@ -28,10 +35,29 @@ public class GameMap {
         regenPoints = new HashMap<>();
     }
 
-        /**
-         * Returns the rooms in the gameMap
-         * @return a copy of the list. however the rooms are not copied. Only the list
-         */
+    public static GameMap loadMap(String mapPath){
+        //creates the gson parser
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(GameMap.class, new GameMapDeserializer());
+        Gson customGson = builder.create();
+        BufferedReader jsonFile;
+        try{
+            jsonFile = new BufferedReader( new FileReader(mapPath));
+        }
+        catch (FileNotFoundException f){
+            System.out.println(f.getMessage());
+            f.printStackTrace();
+            return null;
+        }
+
+        return customGson.fromJson(jsonFile, GameMap.class);
+    }
+
+
+    /**
+     * Returns the rooms in the gameMap
+     * @return a copy of the list. however the rooms are not copied. Only the list
+     */
     public List<Room> getRooms() {
         return new ArrayList<>(rooms);
     }
