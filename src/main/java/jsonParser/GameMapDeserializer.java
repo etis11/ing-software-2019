@@ -37,11 +37,10 @@ public class GameMapDeserializer implements JsonDeserializer<GameMap> {
         if (!jsonGameMap.has("map")) throw new JsonParseException("The json file is not correct, doesn't contain the map");
         if(!jsonGameMap.get("map").isJsonArray()) throw new JsonParseException("The field map should be an array");
 
-        //create an arrayListt where all the tiles are ordered based on the id. The tiles is initialised with null objects
+        //create an arrayList where all the tiles are ordered based on the id. The tiles is initialised with null objects
         int initialCapacity = jsonGameMap.get("n_rows").getAsInt()*jsonGameMap.get("n_cols").getAsInt();
-        List<Tile> tiles = new ArrayList<>( initialCapacity);
+        List<Tile> tiles = new ArrayList<>(initialCapacity);
         for(int i = 0; i < initialCapacity; i++) tiles.add(i, null);
-
         //at this point, all the rooms are created
         int num_rooms = jsonGameMap.get("n_rooms").getAsInt();
         List<Room> rooms = new ArrayList<>(num_rooms);
@@ -62,7 +61,7 @@ public class GameMapDeserializer implements JsonDeserializer<GameMap> {
 
             //creates a tile
             currentTile = new Tile(isAmmoTile, isWeaponTile);
-            tiles.add(jsonTile.get("ID").getAsInt(), currentTile );
+            tiles.set(jsonTile.get("ID").getAsInt(), currentTile );
             //adds the tile to the room indicated in the json;
             rooms.get(current_room).addTile(currentTile);
 
@@ -81,24 +80,27 @@ public class GameMapDeserializer implements JsonDeserializer<GameMap> {
         String[] directionsWalled =  {"northWalled", "eastWalled", "southWalled", "westWalled"};
         int tilePosition;
         for(Tile t: tiles){
-            currentJsonTile = jsonMatching.get(t);
+            if (t!= null){
+                currentJsonTile = jsonMatching.get(t);
 
-            //sets the tiles that can be reached
-            for(String dir : directions){
-                tilePosition =currentJsonTile.get(dir).getAsInt();
-                //if it's present a tile in the given direction, set it
-                if ( tilePosition!= -1){
-                    t.setTile(dir, tiles.get(tilePosition));
+                //sets the tiles that can be reached
+                for(String dir : directions){
+                    tilePosition =currentJsonTile.get(dir).getAsInt();
+                    //if it's present a tile in the given direction, set it
+                    if ( tilePosition!= -1){
+                        t.setTile(dir, tiles.get(tilePosition));
+                    }
+                }
+
+                //sets the tiles behind the walls
+                for(int i = 0; i < directionsWalled.length; i++){
+                    tilePosition =currentJsonTile.get(directionsWalled[i]).getAsInt();
+                    if ( tilePosition!= -1){
+                        t.setTileBehindWall(directions[i], tiles.get(tilePosition));
+                    }
                 }
             }
 
-            //sets the tiles behind the walls
-            for(int i = 0; i < directionsWalled.length; i++){
-                tilePosition =currentJsonTile.get(directionsWalled[i]).getAsInt();
-                if ( tilePosition!= -1){
-                    t.setTileBehindWall(directions[i], tiles.get(tilePosition));
-                }
-            }
         }
 
         for(Room r: rooms){
