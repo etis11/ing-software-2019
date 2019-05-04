@@ -46,10 +46,71 @@ public class MeleeStrategyTest {
     @Test
     public void onlyShooterInTile(){
         List<Player> target = new ArrayList<>();
+
         target.add(target1);
+        assertFalse(strategy.canHitSomeone(shooter), "ERROR: there are no players");
+        assertSame(strategy.getHittableTargets(shooter).size(),0, "ERROR: there are no players");
         assertFalse(strategy.areTargetValid(shooter, target), "ERROR: there is only the shooter");
+
         assertThrows(IllegalArgumentException.class, ()->strategy.areTargetValid(null, target));
         assertThrows(IllegalArgumentException.class, ()->strategy.areTargetValid(shooter, null));
+
+        target1.setTile(otherTile);
+        otherTile.addPlayer(target1);
+        otherTile.addPlayer(target2);
+        target2.setTile(otherTile);
+        assertFalse(strategy.canHitSomeone(shooter), "ERROR: there are no players");
+        assertSame(strategy.getHittableTargets(shooter).size(),0, "ERROR: there are no players");
+        assertFalse(strategy.areTargetValid(shooter, target), "ERROR: there is only the shooter");
+    }
+
+    @Test
+    public void onePlayerInShooterTile(){
+        List<Player> target = new ArrayList<>();
+
+        target.add(target1);
+        target1.setTile(tile);
+        tile.addPlayer(target1);
+        assertTrue(strategy.canHitSomeone(shooter), "ERROR: there are players");
+        assertSame(strategy.getHittableTargets(shooter).size(),1, "ERROR: there are players");
+        assertTrue(strategy.areTargetValid(shooter, target), "ERROR: there is the target");
+
+        target.add(target2);
+        assertSame(strategy.getHittableTargets(shooter).size(),1, "ERROR: there are players");
+        assertFalse(strategy.areTargetValid(shooter, target), "ERROR: there aren't all target");
+
+        otherTile.addPlayer(target2);
+        target2.setTile(otherTile);
+        assertSame(strategy.getHittableTargets(shooter).size(),1, "ERROR: there are players");
+        assertFalse(strategy.areTargetValid(shooter, target), "ERROR: there aren't all target");
+
+        target1.setTile(otherTile);
+        otherTile.addPlayer(target1);
+        try {
+            tile.removePlayer(target1);
+        } catch (Exception e) {e.printStackTrace();}
+        target2.setTile(tile);
+        tile.addPlayer(target2);
+        try {
+            otherTile.removePlayer(target2);
+        } catch (Exception e) {e.printStackTrace();}
+        assertSame(strategy.getHittableTargets(shooter).size(),1, "ERROR: there are players");
+        assertFalse(strategy.areTargetValid(shooter, target), "ERROR: there aren't all target");
+    }
+
+    @Test
+    public void twoPlayersInTile(){
+        List<Player> target = new ArrayList<>();
+
+        target.add(target1);
+        target.add(target2);
+        target1.setTile(tile);
+        tile.addPlayer(target1);
+        target2.setTile(tile);
+        tile.addPlayer(target2);
+        assertTrue(strategy.canHitSomeone(shooter), "ERROR: there are players");
+        assertSame(strategy.getHittableTargets(shooter).size(),2, "ERROR: there are players");
+        assertTrue(strategy.areTargetValid(shooter, target), "ERROR: there is the target");
     }
 
 }

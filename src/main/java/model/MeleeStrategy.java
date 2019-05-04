@@ -45,7 +45,7 @@ public class MeleeStrategy extends AbstractTargetStrategy {
     @Override
     public boolean canHitSomeone(Player shooter) {
         for (Player p : match.getPlayers()){
-            if (shooter.getTile().isPlayerIn(p)){
+            if (shooter.getTile().isPlayerIn(p) && p!=shooter){
                 return true;
             }
         }
@@ -61,7 +61,7 @@ public class MeleeStrategy extends AbstractTargetStrategy {
     public List<Player> getHittableTargets(Player shooter) {
         List<Player> hittable = new ArrayList<>();
         for (Player p : match.getPlayers()){
-            if (shooter.getTile().isPlayerIn(p)){
+            if (shooter.getTile().isPlayerIn(p) && p!=shooter){
                 hittable.add(p);
             }
         }
