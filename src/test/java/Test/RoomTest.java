@@ -47,7 +47,7 @@ public class RoomTest {
     @Test
     void nullTileInsertion(){
         Tile tileToAdd = null;
-        assertThrows(NullPointerException.class, () ->{
+        assertThrows(IllegalArgumentException.class, () ->{
             room.addTile(tileToAdd);
         }, ()-> "ERROR: the method should have raised an exception, since the tile is null");
     }
