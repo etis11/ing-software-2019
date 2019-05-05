@@ -31,6 +31,11 @@ public class LobbyTest {
     }
 
     @Test
+    public void maxUser(){
+        assertSame(Lobby.getMaxPlayerInLobby(), 5, "ERROR: wrong costant");
+    }
+
+    @Test
     public void joinTest(){
         assertTrue(lobby.getUsers().isEmpty(), "ERROR: not empty");
 
