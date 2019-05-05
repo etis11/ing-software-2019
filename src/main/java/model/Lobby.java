@@ -20,6 +20,22 @@ public class Lobby {
     }
 
     /**
+     * tells maximum number of player for the lobby
+     * @return constant of max player
+     */
+    public static int getMaxPlayerInLobby() {
+        return MAX_PLAYER_IN_LOBBY;
+    }
+
+    /**
+     * give players in the lobby
+     * @return list of players in the lobby
+     */
+    public List<User> getUsers() {
+        return users;
+    }
+
+    /**
      * allow a User to join the lobby if it is not full
      * @param u user to be added
      * @throws Exception thrown if the lobby is already full
@@ -45,6 +61,8 @@ public class Lobby {
      * @return user to be removed
      */
     public User removeUser (User u){
+        if (u == null) throw new IllegalArgumentException("not inserted an user");
+        //TODO devo gestire se user non presente o lascio sia il metodo a ritornare null?
         return users.remove(users.indexOf(u));
     }
 }
