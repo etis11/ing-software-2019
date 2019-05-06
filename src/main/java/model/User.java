@@ -1,6 +1,12 @@
 package model;
 
 public class User {
+
+    /**
+     * instance variable for the user token
+     */
+    private static long idToken = 0L;
+
     /**
      * username is the name chosen by the user
      */
@@ -24,8 +30,9 @@ public class User {
 
 
     public User() {
-        this.username = "player";
-        this.token = 0L;//TODO
+        this.username = "user";
+        this.token = User.idToken;
+        User.idToken++;//increment id for token
         this.effectPhrase = "I will survive";
         this.player = null;
         //listener

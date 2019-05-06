@@ -358,9 +358,10 @@ public class Tile {
      * @return a list of all tile in a given direction
      */
     public List<Tile> getTilesInDirection(String dir) {
+        if (dir == null) throw new IllegalArgumentException("The direction is null");
         if (!dir.equals("north") && !dir.equals("east") && !dir.equals("south") && !dir.equals("west")) throw new IllegalArgumentException(
                 "The direction given is not north east south or west");
-        if (dir == null) throw new IllegalArgumentException("The direction is null");
+
         Tile currentTile = this;
         List<Tile> tiles = new LinkedList<>();
 
@@ -381,9 +382,10 @@ public class Tile {
      * @return a list of tiles (is never empty, the tile in the player is always in).
      */
     public  List<Tile> getTilesDirectionBehindWall(String dir) {
+        if (dir == null) throw new IllegalArgumentException("The direction is null");
         if (!dir.equals("north") && !dir.equals("east") && !dir.equals("south") && !dir.equals("west")) throw new IllegalArgumentException(
                 "The direction given is not north east south or west");
-        if (dir == null) throw new IllegalArgumentException("The direction is null");
+
         Tile currentTile = this;
         Tile nextTile;
         List<Tile> tiles = new LinkedList<>();

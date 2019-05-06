@@ -8,7 +8,7 @@ public class Lobby {
     /**
      * MAX_PLAYER_IN_LOBBY are the maximum of player allowed in the lobby
      */
-    public final static int MAX_PLAYER_IN_LOBBY =5;
+    public static final int MAX_PLAYER_IN_LOBBY =5;
 
     /**
      * users are the User contained in the Lobby
@@ -62,7 +62,11 @@ public class Lobby {
      */
     public User removeUser (User u){
         if (u == null) throw new IllegalArgumentException("not inserted an user");
-        //TODO devo gestire se user non presente o lascio sia il metodo a ritornare null?
-        return users.remove(users.indexOf(u));
+        if (users.contains(u)) {
+            return users.remove(users.indexOf(u));
+        }
+        else{
+            return null;
+        }
     }
 }

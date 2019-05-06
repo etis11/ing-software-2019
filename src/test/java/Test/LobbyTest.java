@@ -67,7 +67,7 @@ public class LobbyTest {
         assertDoesNotThrow(()->lobby.join(user3), "ERROR: lobby not full");
         assertSame(lobby.getUsers().size(), 3, "ERROR: not inserted all users");
 
-        //assertNull(lobby.removeUser(user4));
+        assertNull(lobby.removeUser(user4));
         assertSame(lobby.getUsers().size(), 3, "ERROR: not to remove user");
 
         assertSame(lobby.removeUser(user2), user2, "ERROR: user 2 not to be removed");
