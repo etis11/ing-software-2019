@@ -8,7 +8,7 @@ public class Lobby {
     /**
      * MAX_PLAYER_IN_LOBBY are the maximum of player allowed in the lobby
      */
-    public final static int MAX_PLAYER_IN_LOBBY =5;
+    public static final int MAX_PLAYER_IN_LOBBY =5;
 
     /**
      * users are the User contained in the Lobby
@@ -17,6 +17,22 @@ public class Lobby {
 
     public Lobby() {
         this.users = new ArrayList<>();
+    }
+
+    /**
+     * tells maximum number of player for the lobby
+     * @return constant of max player
+     */
+    public static int getMaxPlayerInLobby() {
+        return MAX_PLAYER_IN_LOBBY;
+    }
+
+    /**
+     * give players in the lobby
+     * @return list of players in the lobby
+     */
+    public List<User> getUsers() {
+        return users;
     }
 
     /**
@@ -45,6 +61,12 @@ public class Lobby {
      * @return user to be removed
      */
     public User removeUser (User u){
-        return users.remove(users.indexOf(u));
+        if (u == null) throw new IllegalArgumentException("not inserted an user");
+        if (users.contains(u)) {
+            return users.remove(users.indexOf(u));
+        }
+        else{
+            return null;
+        }
     }
 }
