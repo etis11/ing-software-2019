@@ -1,6 +1,6 @@
 package controller;
 
-import exceptions.DuplicateException;
+import controller.commandpack.Command;
 
 import java.util.List;
 

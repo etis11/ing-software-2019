@@ -1,5 +1,6 @@
 package controller;
 
+import controller.commandpack.Command;
 import model.Match;
 
 import java.util.concurrent.ConcurrentLinkedQueue;

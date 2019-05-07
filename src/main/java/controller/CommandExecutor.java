@@ -1,5 +1,7 @@
 package controller;
 
+import controller.commandpack.Command;
+
 public interface CommandExecutor {
 
     /**
