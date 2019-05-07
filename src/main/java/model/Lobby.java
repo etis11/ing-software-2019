@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.NotValidActionException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,9 +42,9 @@ public class Lobby {
      * @param u user to be added
      * @throws Exception thrown if the lobby is already full
      */
-    public void join(User u) throws Exception {
+    public void join(User u) throws NotValidActionException {
         if(!canJoin()) {
-            throw new Exception("Lobby full");
+            throw new NotValidActionException("Lobby full");
         }
         users.add(u);
     }
