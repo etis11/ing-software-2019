@@ -362,8 +362,7 @@ public class Tile {
 
         Tile currentTile = this;
         List<Tile> tiles = new LinkedList<>();
-
-        String[] directions = {"north", "east", "south", "west"};
+        
         while(currentTile != null){
             tiles.add(currentTile);
             currentTile = currentTile.getTile(dir);
