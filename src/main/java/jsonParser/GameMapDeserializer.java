@@ -25,7 +25,7 @@ public class GameMapDeserializer implements JsonDeserializer<GameMap> {
      * @throws JsonParseException if the json doesn't have all the fields said in the jsonElement parameter.
      */
     @Override
-    public GameMap deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+    public GameMap deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext){
         JsonObject jsonGameMap = jsonElement.getAsJsonObject();
         GameMap gameMap = new GameMap();
         //given a tile, returns the associated json
@@ -58,16 +58,16 @@ public class GameMapDeserializer implements JsonDeserializer<GameMap> {
             int id = jsonTile.get("ID").getAsInt();
             boolean isAmmoTile = jsonTile.get("ammoTile").getAsBoolean();
             boolean isWeaponTile = jsonTile.get("weaponTile").getAsBoolean();
-            int current_room = jsonTile.get("room").getAsInt();
+            int currentRoom = jsonTile.get("room").getAsInt();
 
             //creates a tile
             currentTile = new Tile(id,isAmmoTile, isWeaponTile);
             tiles.set(jsonTile.get("ID").getAsInt(), currentTile );
             //adds the tile to the room indicated in the json;
-            rooms.get(current_room).addTile(currentTile);
+            rooms.get(currentRoom).addTile(currentTile);
 
             //if the tile has a regenPoint member, and the regenPoint is not an empty string, add the tile to the regen point list
-            if(jsonTile.has("regenPoint") && !jsonTile.get("regenPoint").getAsString().equals("")){
+            if(hasMember(jsonTile, "regenPoint")){
                 gameMap.addRegenPoint(jsonTile.get("regenPoint").getAsString(), currentTile);
             }
 
@@ -108,5 +108,9 @@ public class GameMapDeserializer implements JsonDeserializer<GameMap> {
             gameMap.addRoom(r);
         }
         return gameMap;
+    }
+
+    private boolean hasMember(JsonObject jsonTile, String memberName){
+        return jsonTile.has(memberName)  && !jsonTile.get(memberName).getAsString().equals("");
     }
 }
