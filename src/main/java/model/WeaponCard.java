@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -16,9 +17,15 @@ public class WeaponCard{
      *List containing colorAmmo.
      */
     private List<String> reloadCost;
+    private List<Effect> baseEffect;
+    private List<Effect> advancedEffect;
 
-    private Effect baseEffect;
-    private Effect advancedEffect;
+    public void setOptionalEffect(List<Effect> optionalEffect) {
+        this.optionalEffect = optionalEffect;
+    }
+
+    private List<Effect> optionalEffect;
+
 
     /**
      * Boolean used to check if a Weapon is loaded or not
@@ -30,13 +37,25 @@ public class WeaponCard{
      * */
     private String NAME;
 
+    public List<Effect> getBaseEffect() {
+        return baseEffect;
+    }
+
+    public List<Effect> getAdvancedEffect() {
+        return advancedEffect;
+    }
+
+    public List<Effect> getOptionalEffect() {
+        return optionalEffect;
+    }
+
     public WeaponCard(){
-        this.reloadCost = null;
-        this.baseEffect = null;
-        this.advancedEffect = null;
+        this.reloadCost = new LinkedList<>();
         this.loaded = true;
         this.NAME = "default";
-
+        this.baseEffect = new LinkedList<>();
+        this.optionalEffect = new LinkedList<>();
+        this.advancedEffect = new LinkedList<>();
     }
 
     /**
@@ -53,7 +72,7 @@ public class WeaponCard{
             this.advancedEffect = null;
             this.loaded = ref.loaded;
             this.NAME = String.valueOf(ref.getNAME());
-            this.reloadCost = null;
+            this.reloadCost =new LinkedList<>();
         }
 
     }
@@ -161,8 +180,36 @@ public class WeaponCard{
 
     }
 
+    public void setBaseEffect(List<Effect> baseEffect) {
+        this.baseEffect = baseEffect;
+    }
+
+    public void setAdvancedEffect(List<Effect> advancedEffect) {
+        this.advancedEffect = advancedEffect;
+    }
+
+    public void setNAME(String NAME) {
+        this.NAME = NAME;
+    }
+
+    public void setReloadCost(List<String> reloadCost) {
+        this.reloadCost = reloadCost;
+    }
+
     @Override
     public int hashCode() {
         return super.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "WeaponCard{" +
+                "reloadCost=" + reloadCost.size() +
+                ", baseEffect=" + baseEffect.size() +
+                ", advancedEffect=" + advancedEffect.size() +
+                ", optionalEffect=" + optionalEffect.size() +
+                ", loaded=" + loaded +
+                ", NAME='" + NAME + '\'' +
+                '}';
     }
 }

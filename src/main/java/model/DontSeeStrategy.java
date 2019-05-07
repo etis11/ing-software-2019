@@ -18,6 +18,9 @@ public class DontSeeStrategy extends AbstractTargetStrategy {
      * */
     private GameMap gameMap;
 
+    public DontSeeStrategy() {
+    }
+
     /**
      * This is the constructor of our class
      * */

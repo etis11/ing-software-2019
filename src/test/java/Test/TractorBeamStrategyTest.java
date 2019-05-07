@@ -11,17 +11,17 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class VortexCannonStrategyTest {
+public class TractorBeamStrategyTest {
     private GameMap map;
-    private VortexCannonStrategy vortex;
+    private TractorBeamStrategy tractorBeam;
     private Match match;
 
     @BeforeEach
     void initGameMap() {map =new GameMap();
-    match = new Match();}
+        match = new Match();}
 
     @Test
-    void VortexStrategy() {
+    void TractorBramStrategy() {
         Tile blue1 = new Tile(1,true,true);
         Tile pink1 = new Tile(2,true,true);
         Tile white1 = new Tile(3,true,true);
@@ -98,29 +98,32 @@ public class VortexCannonStrategyTest {
         match.getPlayers().addAll(enemies);
 
         System.out.println("match players : "+match.getPlayers());
-        vortex = new VortexCannonStrategy(map,match);
+        tractorBeam = new TractorBeamStrategy(match);
         System.out.println("init tests");
+        List<Tile> allvisibtiles = map.allVisibleTiles(shooter);
         List<Tile> tiles = map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).collect(Collectors.toList());
-
         System.out.println("tiles : "+tiles);
-
-       /** System.out.println("boolean Distance : "+(blue1.distance(shooter)<1));
-        System.out.println("boolean Distance2 : "+(blue2.distance(shooter)<=1));
-        System.out.println("distanza : "+blue1.distance(shooter));
-        System.out.println("boolean Distance2 : "+(pink1.distance(shooter)));
-        System.out.println("boolean Distance2 : "+(pink2.distance(shooter)));
-        System.out.println("distanza : "+white1.distance(shooter));
-        **/
+        System.out.println("allvisibtiles : "+allvisibtiles);
+        /** System.out.println("boolean Distance : "+(blue1.distance(shooter)<1));
+         System.out.println("boolean Distance2 : "+(blue2.distance(shooter)<=1));
+         System.out.println("distanza : "+blue1.distance(shooter));
+         System.out.println("boolean Distance2 : "+(pink1.distance(shooter)));
+         System.out.println("boolean Distance2 : "+(pink2.distance(shooter)));
+         System.out.println("distanza : "+white1.distance(shooter));
+         **/
         System.out.println("boolean Distance2 : "+(white1.distance(shooter)));
 
+        match.setMap(map);
 
 
-  //     System.out.println("boolean any match : "+map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(player)<=1)));
 
-  //      List<Player> playersss =match.getPlayers().stream().filter( playerr -> map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(playerr)<=1)) && !playerr.equals(shooter) ).collect(Collectors.toList());
 
-   //     System.out.println("players : "+playersss);
-   //     match.getPlayers().stream().filter( player -> map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(player)<=1)) && !player.equals(shooter) ).collect(Collectors.toList());
+        //     System.out.println("boolean any match : "+map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(player)<=1)));
+
+        //      List<Player> playersss =match.getPlayers().stream().filter( playerr -> map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(playerr)<=1)) && !playerr.equals(shooter) ).collect(Collectors.toList());
+
+        //     System.out.println("players : "+playersss);
+        //     match.getPlayers().stream().filter( player -> map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(player)<=1)) && !player.equals(shooter) ).collect(Collectors.toList());
 /*
         System.out.println("allVisibleTiles : "+map.allVisibleTiles(shooter));
 
@@ -131,4 +134,5 @@ public class VortexCannonStrategyTest {
         vortex.canHitSomeone(shooter);
         assertTrue(vortex.areTargetValid(shooter,targets),"but they should all be targets");
         assertFalse(vortex.areTargetValid(shooter,enemies),"target3 is not a target!!!");
-*/} }
+*/
+assertTrue(tractorBeam.canHitSomeone(shooter),"ERROR:he can hit!!!");    } }
