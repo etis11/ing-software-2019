@@ -1,15 +1,18 @@
 package controller.commandpack;
 
 import View.AbstractView;
+import model.Match;
 
 import java.util.List;
 
 public abstract class AbstractCommand implements Command {
 
-    private AbstractView originView;
-    private List<AbstractView> allViews;
+    protected AbstractView originView;
+    protected List<AbstractView> allViews;
+    protected Match match;
 
-    public AbstractCommand(AbstractView originView, List<AbstractView> allViews){
+    public AbstractCommand(Match match, AbstractView originView, List<AbstractView> allViews){
+        this.match = match;
         this.originView = originView;
         this.allViews = allViews;
     }
