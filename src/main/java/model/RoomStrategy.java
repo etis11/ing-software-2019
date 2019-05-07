@@ -14,6 +14,9 @@ public class RoomStrategy extends AbstractTargetStrategy {
     private Match match;
 
 
+    public RoomStrategy() {
+    }
+
     /**
      * creates a roomStrategy
      */

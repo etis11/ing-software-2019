@@ -26,7 +26,9 @@ public class FixedDistanceStrategy extends SeeStrategy {
         this.match = match;
         this.distance = distance;
     }
-
+    public  FixedDistanceStrategy(int distance){
+        this.distance = distance;
+    }
     /**
      * verify if all players in target are at least distance tiles far from the shooter
      * @param shooter player who wants to shoot

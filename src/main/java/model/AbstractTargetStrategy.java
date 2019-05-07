@@ -14,6 +14,9 @@ public abstract class AbstractTargetStrategy implements TargetStrategy{
      * @param shooter  is the player who is trying to perform the action
      * @param targets is a list of players chosen by the shooter as possible targets
      * */
+    String type;
+    int param;
+
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         if (shooter == null){

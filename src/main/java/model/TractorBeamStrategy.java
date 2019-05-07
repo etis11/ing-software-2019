@@ -12,11 +12,17 @@ import java.util.stream.Collectors;
  * */
 public class TractorBeamStrategy extends AbstractTargetStrategy {
 
+    private int distance;
+
     /**
      * Private attribute of type GameMap needed to determine other players position based from the shooter's
      * point of view
      * */
     private Match match;
+
+    public TractorBeamStrategy(int distance) {
+        this.distance = distance;
+    }
 
     /**
      * This is the constructor of the class
@@ -24,7 +30,8 @@ public class TractorBeamStrategy extends AbstractTargetStrategy {
     public TractorBeamStrategy (Match match){
         this.match = match;
     }
-
+    public TractorBeamStrategy (){
+    }
     /**
      * The following method accepts as input two parameters and is needed to grab all the visible tiles of the player
      * whose turn is.The way it works is that it checks all the possible tiles of a distance minor to 3 from where the

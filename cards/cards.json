@@ -1,0 +1,796 @@
+[
+  {
+    "NAME": "Lock Rifle",
+    "reloadCost": [
+      "blue"
+    ],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 2,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        }
+      },
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Mark",
+        "marks": 2,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        }
+      }
+    ],
+    "advancedEffect": [],
+    "optionalEffect": []
+  },
+  {
+    "NAME": "Machine Gun",
+    "reloadCost": [
+      "red"
+    ],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 1,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        }
+      }
+    ],
+    "advancedEffect": [],
+    "optionalEffect": []
+  },
+  {
+    "NAME": "Thor",
+    "reloadCost": [
+      "red"
+    ],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 2,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        }
+      }
+    ],
+    "advancedEffect": [],
+    "optionalEffect": []
+  },
+  {
+    "NAME": "Plasma Gun",
+    "reloadCost": [
+      "yellow"
+    ],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 2,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        }
+      }
+    ],
+    "advancedEffect": [],
+    "optionalEffect": []
+  },
+  {
+    "NAME": "Whisper",
+    "reloadCost": [
+      "blue",
+      "yellow"
+    ],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 3,
+        "strategy": {
+          "type": "FixedDistanceStrategy",
+          "param": 2
+        }
+      },
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Mark",
+        "marks": 1,
+        "strategy": {
+          "type": "FixedDistanceStrategy",
+          "param": 2
+        }
+      }
+    ],
+    "advancedEffect": [],
+    "optionalEffect": []
+  },
+  {
+    "NAME": "Electroscythe",
+    "reloadCost": [],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": true,
+        "type": "Damage",
+        "damage": 1,
+        "strategy": {
+          "type": "FixedDistanceStrategy",
+          "param": 0
+        }
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [
+          "blue",
+          "red"
+        ],
+        "isOptional": false,
+        "isGlobal": true,
+        "type": "Damage",
+        "damage": 2,
+        "strategy": {
+          "type": "FixedDistanceStrategy",
+          "param": 0
+        }
+      }
+    ],
+    "optionalEffect": []
+  },
+  {
+    "NAME": "Tractor Beam",
+    "reloadCost": [],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Movement",
+        "movementType": "optionalMovement",
+        "steps": 2,
+        "strategy": {
+          "type": "TractorBeamStrategy",
+          "param": null
+        }
+      },
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 1,
+        "strategy": {
+          "type": "TractorBeamStrategy",
+          "param": null
+        }
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [
+          "red",
+          "yellow"
+        ],
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Movement",
+        "movementType": "optionalMovement",
+        "steps": 2,
+        "strategy": {
+          "type": "FixedDistanceStrategy",
+          "param": 2
+        }
+      },
+      {
+        "cost": [
+          "red",
+          "yellow"
+        ],
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 3,
+        "strategy": {
+          "type": "FixedDistanceStrategy",
+          "param": 2
+        }
+      }
+    ],
+    "optionalEffect": []
+  },
+  {
+    "NAME": "Vortex Cannon",
+    "reloadCost": [
+      "blue"
+    ],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Movement",
+        "movementType": "fixedMovement",
+        "steps": 1,
+        "strategy": {
+          "type": "VortexCannonStrategy",
+          "param": null
+        }
+      },
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 2,
+        "strategy": {
+          "type": "VortexCannonStrategy",
+          "param": null
+        }
+      }
+    ],
+    "advancedEffect": [],
+    "optionalEffect": []
+  },
+  {
+    "NAME": "Furnace",
+    "reloadCost": [
+      "blue"
+    ],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": true,
+        "type": "Damage",
+        "damage": 1,
+        "strategy": {
+          "type": "RoomStrategy",
+          "param": null
+        }
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [],
+        "isOptional": false,
+        "isGlobal": true,
+        "type": "Damage",
+        "damage": 1,
+        "strategy": {
+          "type": "AdjacentStrategy",
+          "param": null
+        }
+      },
+      {
+        "cost": [],
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Mark",
+        "marks": 1,
+        "strategy": {
+          "type": "AdjacentStrategy",
+          "param": null
+        }
+      }
+    ]
+  },
+  {
+    "NAME": "HeatSeeker",
+    "reloadCost": [
+      "red",
+      "yellow"
+    ],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 3,
+        "strategy": {
+          "type": "DontSeeStrategy",
+          "param": null
+        }
+      }
+    ],
+    "advancedEffect": [],
+    "optionalEffect": []
+  },
+  {
+    "NAME": "Hellion",
+    "reloadCost": [
+      "yellow"
+    ],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 1,
+        "strategy": {
+          "type": "FixedDistanceStrategy",
+          "param": 1
+        }
+      },
+      {
+        "isOptional": false,
+        "isGlobal": true,
+        "type": "Mark",
+        "marks": 1,
+        "strategy": {
+          "type": "FixedDistancceStrategy",
+          "param": 1
+        }
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [
+          "blue",
+          "red"
+        ],
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 1,
+        "strategy": {
+          "type": "FixedDistanceStrategy",
+          "param": 1
+        }
+      },
+      {
+        "cost": [
+          "blue",
+          "red"
+        ],
+        "isOptional": false,
+        "isGlobal": true,
+        "type": "Mark",
+        "marks": 2,
+        "strategy": {
+          "type": "FixedDistanceStrategy",
+          "param": 1
+        }
+      }
+    ],
+    "optionalEffect": []
+  },
+  {
+    "NAME": "FlameThrower",
+    "reloadCost": [],
+    "baseEffect": [
+      {
+        "isOptional": true,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 1,
+        "strategy": {
+          "type": "FlameThrowerStrategy",
+          "param": null
+        }
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [
+          "yellow",
+          "yellow"
+        ],
+        "isOptional": false,
+        "isGlobal": true,
+        "type": "Damage",
+        "damage": 2,
+        "strategy": {
+          "type": "BBQStrategy",
+          "param": 1
+        }
+      },
+      {
+        "cost": [
+          "blue",
+          "red"
+        ],
+        "isOptional": false,
+        "isGlobal": true,
+        "type": "Damage",
+        "damage": 1,
+        "strategy": {
+          "type": "BBQStrategy",
+          "param": 2
+        }
+      }
+    ],
+    "optionalEffect": []
+  },
+  {
+    "NAME": "Grenade Launcher",
+    "reloadCost": [],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 1,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        }
+      },
+      {
+        "isOptional": true,
+        "isGlobal": false,
+        "type": "Movement",
+        "movementType": "optionalMovement",
+        "steps": 1,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        }
+      }
+    ],
+    "advancedEffect": [],
+    "optionalEffect": []
+  },
+  {
+    "NAME": "Rocket Launcher",
+    "reloadCost": [
+      "red"
+    ],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 2,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        }
+      },
+      {
+        "isOptional": true,
+        "isGlobal": false,
+        "type": "Movement",
+        "movementType": "fixedMovement",
+        "steps": 1,
+        "strategy": {
+          "type": "FixedDistanceStrategy",
+          "param": 1
+        }
+      }
+    ],
+    "advancedEffect": [],
+    "optionalEffect": []
+  },
+  {
+    "NAME": "RailGun",
+    "reloadCost": [
+      "yellow",
+      "blue"
+    ],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 3,
+        "strategy": {
+          "type": "LaserRifleStrategy",
+          "param": null
+        }
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [
+          "blue",
+          "red"
+        ],
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 2,
+        "strategy": {
+          "type": "LaserRifleStrategy",
+          "param": null
+        }
+      }
+    ],
+    "optionalEffect": []
+  },
+  {
+    "NAME": "CyberBlade",
+    "reloadCost": [
+      "red"
+    ],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 2,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": null
+        }
+      }
+    ],
+    "advancedEffect": [],
+    "optionalEffect": []
+  },
+  {
+    "NAME": "ZX-2",
+    "reloadCost": [
+      "red"
+    ],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 1,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        }
+      },
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Mark",
+        "marks": 2,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        }
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [
+          "blue",
+          "red"
+        ],
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Mark",
+        "marks": 1,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        }
+      }
+    ],
+    "optionalEffect": []
+  },
+  {
+    "NAME": "Shotgun",
+    "reloadCost": [
+      "yellow"
+    ],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 3,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": null
+        }
+      },
+      {
+        "isOptional": true,
+        "isGlobal": false,
+        "type": "Movement",
+        "movementType": "optionalMovement",
+        "steps": 1,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": null
+        }
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [
+          "blue",
+          "red"
+        ],
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 2,
+        "strategy": {
+          "type": "FixedDistanceStrategy",
+          "param": 1
+        }
+      }
+    ],
+    "optionalEffect": []
+  },
+  {
+    "NAME": "Power Glove",
+    "reloadCost": [
+      "blue"
+    ],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Movement",
+        "movementType": "fixedMovement",
+        "steps": 1,
+        "strategy": {
+          "type": "FixedDistanceStrategy",
+          "param": 1
+        }
+      },
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 1,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": null
+        }
+      },
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Mark",
+        "marks": 2,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": null
+        }
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [
+          "blue"
+        ],
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Movement",
+        "movementType": "fixedMovement",
+        "steps": 1,
+        "strategy": {
+          "type": "FixedDistanceStrategy",
+          "param": 1
+        }
+      },
+      {
+        "cost": [
+          "blue"
+        ],
+        "isOptional": true,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 2,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": null
+        }
+      },
+      {
+        "cost": [
+          "blue"
+        ],
+        "isOptional": true,
+        "isGlobal": false,
+        "type": "Movement",
+        "movementType": "fixedMovement",
+        "steps": 1,
+        "strategy": {
+          "type": "FixedDistanceStrategy",
+          "param": 1
+        }
+      },
+      {
+        "cost": [
+          "blue"
+        ],
+        "isOptional": true,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 2,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": null
+        }
+      }
+    ],
+    "optionalEffect": []
+  },
+  {
+    "NAME": "Shockwave",
+    "reloadCost": [],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 1,
+        "strategy": {
+          "type": "AdjacentStrategy",
+          "param": null
+        }
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [
+          "yellow"
+        ],
+        "isOptional": false,
+        "isGlobal": true,
+        "type": "Damage",
+        "damage": 1,
+        "strategy": {
+          "type": "AdjacentStrategy",
+          "param": null
+        }
+      }
+    ],
+    "optionalEffect": []
+  },
+  {
+    "NAME": "SledgeHammer",
+    "reloadCost": [],
+    "baseEffect": [
+      {
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 2,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": null
+        }
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [
+          "red"
+        ],
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Damage",
+        "damage": 3,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": null
+        }
+      },
+      {
+        "cost": [
+          "red"
+        ],
+        "isOptional": false,
+        "isGlobal": false,
+        "type": "Movement",
+        "movementType": "optionalMovement",
+        "steps": 2,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": null
+        }
+      }
+    ],
+    "optionalEffect": []
+  }
+]

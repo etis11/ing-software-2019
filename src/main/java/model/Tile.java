@@ -362,7 +362,7 @@ public class Tile {
 
         Tile currentTile = this;
         List<Tile> tiles = new LinkedList<>();
-
+        String[] directions = {"north", "east", "south", "west"};
         while(currentTile != null){
             tiles.add(currentTile);
             currentTile = currentTile.getTile(dir);
@@ -536,7 +536,9 @@ public class Tile {
         players.addLast(playerToAdd);
         playerToAdd.setTile(this);
     }
-
+    public boolean isPlayerPresent(Player p){
+        return players.contains(p);
+    }
     /**
      * Remove the player from the tile
      * @param playerToRemove the player that has to be removed
@@ -546,6 +548,9 @@ public class Tile {
     public Player removePlayer(Player playerToRemove) throws Exception{
         if (! players.remove(playerToRemove)) throw new Exception("The player should have been present");
         return playerToRemove; //test
+    }
+    public int distance (Player target){
+        return distance(target,true,true,true,true);
     }
 
     //TODO mi interessa sia minima la distanza???????

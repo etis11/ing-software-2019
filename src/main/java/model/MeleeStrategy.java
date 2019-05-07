@@ -11,7 +11,12 @@ import java.util.List;
  */
 public class MeleeStrategy extends AbstractTargetStrategy {
 
+    private int distance;
     private Match match;
+
+    public MeleeStrategy(int distance) {
+        this.distance = distance;
+    }
 
     /**
      * creates a MeleeStrategy

@@ -63,9 +63,11 @@ public class AdjacentStrategyTest {
         List<Player> targets = new LinkedList<>();
         targets.add(target);
         targets.add(target2) ;
+        match.getPlayers().add(shooter);
+        match.getPlayers().addAll(targets);
 
         assertFalse(adjacentStrategy.areTargetValid(shooter,targets),"Targets should not be valid");
-        //TODO controllare assertTrue(adjacentStrategy.canHitSomeone(shooter),"Can't hit anyone");
+        assertTrue(adjacentStrategy.canHitSomeone(shooter),"Can't hit anyone");
         assertFalse(adjacentStrategy.getHittableTargets(shooter).isEmpty(),"Can hit someone");
         assertTrue(adjacentStrategy.getHittableTargets(shooter).contains(target),"Can hit Arlind");
         assertFalse(adjacentStrategy.getHittableTargets(shooter).contains(target2),"Cannot hit Hamid");

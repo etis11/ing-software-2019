@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"controller"},{"l":"exceptions"},{"l":"model"},{"l":"Test"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"controller"},{"l":"controller.commandpack"},{"l":"exceptions"},{"l":"jsonParser"},{"l":"model"},{"l":"Test"}]

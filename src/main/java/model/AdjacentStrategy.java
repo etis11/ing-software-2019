@@ -10,12 +10,17 @@ import java.util.List;
 
 public class AdjacentStrategy extends AbstractTargetStrategy {
 
+    private int distance;
     private Match match;
 
     /**
      * gameMap is a private attribute of type GameMap used later on to get players on the board when needed
      * */
     private GameMap gameMap ;
+
+    public AdjacentStrategy(int distance) {
+        this.distance = distance;
+    }
 
     /**
      * Constructor method used in this class
