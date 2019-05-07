@@ -48,13 +48,13 @@ public class MatchCommandExecutor extends AbstractCommandExecutor{
         Player owner = new Player();
         //check if the player can pickUp in his current state
         if (!owner.getState().canShoot()) throw new NotValidActionException("You can't shoot in this state");
-        //TODO controllo se almeno un'arma è carica
-        //TODO chiedo con quali effetti sparare ed eventualmente verifico i costi aggiuntivi
-        //TODO controllo che la strategia dell'arma mi permetta di colpire almeno uno
-        //TODO pago i costi aggiuntivi
-        //TODO chiedo  target e li verifico
-        //TODO applico l'effetto
-        //TODO for del controller che applica gli effetti
+        //controllo se almeno un'arma è carica
+        //chiedo con quali effetti sparare ed eventualmente verifico i costi aggiuntivi
+        //controllo che la strategia dell'arma mi permetta di colpire almeno uno
+        //pago i costi aggiuntivi
+        //chiedo  target e li verifico
+        //applico l'effetto
+        //for del controller che applica gli effetti
 
     }
 
@@ -67,12 +67,12 @@ public class MatchCommandExecutor extends AbstractCommandExecutor{
         //check if the player can pickUp in his current state
         if (!owner.getState().canPickUp()) throw new NotValidActionException("You can't pickup in this state");
         WeaponCard w = new WeaponCard();
-        if(owner.getTile().canContainWapons()){
-            //TODO controllo player possa raccogliere l'arma e se può invio lista armi raccoglibili
-            //TODO controllo se l'arma scelta s può raccogliere
+        if(owner.getTile().canContainWeapons()){
+            //controllo player possa raccogliere l'arma e se può invio lista armi raccoglibili
+            //controllo se l'arma scelta s può raccogliere
             try {
                 owner.pickUpWeapon(w);
-                //TODO controllo se necessario scarto ed eventualmente invia lista armi e attende scarto
+                //controllo se necessario scarto ed eventualmente invia lista armi e attende scarto
                 //notify to view
             } catch (Exception e) {
                 e.printStackTrace();
@@ -118,8 +118,8 @@ public class MatchCommandExecutor extends AbstractCommandExecutor{
         Player owner = new Player();
         //check if the player can pickUp in his current state
         if (!owner.getState().canReload()) throw new NotValidActionException("You can't reload in this state");
-        //TODO verifico che abbia le munizioni
-        //TODO ricarico
+        //verifico che abbia le munizioni
+        //ricarico
         //posso più armi?
         endTurn();//posso farlo direttamente o devo aspettare
     }

@@ -362,7 +362,7 @@ public class Tile {
 
         Tile currentTile = this;
         List<Tile> tiles = new LinkedList<>();
-        
+
         while(currentTile != null){
             tiles.add(currentTile);
             currentTile = currentTile.getTile(dir);
