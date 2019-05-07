@@ -59,6 +59,12 @@ public class DontSeeStrategyTest {
         target2.setTile(pink2);
         target3.setTile(white1);
 
+        assertTrue(blue1.isPlayerIn(shooter));
+        assertFalse(blue1.getPlayers().isEmpty());
+        assertTrue(blue1.getPlayers().contains(shooter));
+        assertTrue(shooter.getTile().equals(blue1));
+
+
         Room blue = new Room();
         Room pink = new Room();
         Room white = new Room();
@@ -70,6 +76,19 @@ public class DontSeeStrategyTest {
         white.addTile(white1);
         white.addTile(white2);
         white.addTile(white3);
+
+        System.out.println("match players : "+match.getPlayers().toString());
+        match.getPlayers().add(shooter);
+        match.getPlayers().add(target1);
+        match.getPlayers().add(target2);
+        match.getPlayers().add(target3);
+        for(Player player :match.getPlayers()){
+            System.out.println("match players : "+player.getName());
+        }
+        System.out.println("match players : "+match.getPlayers());
+        System.out.println("match players : "+match.getPlayers().toString());
+        System.out.println("match players : "+match.getPlayers());
+        assertFalse(match.getPlayers().isEmpty(),"match players are empty");
 
         map.addRoom(white);
         map.addRoom(pink);
@@ -90,7 +109,7 @@ public class DontSeeStrategyTest {
         dontSeeStrategy.areTargetValid(shooter, targets);
         dontSeeStrategy.canHitSomeone(shooter);
         assertFalse(dontSeeStrategy.areTargetValid(shooter,targets), "You can't hit all them");
-        //TODO controllare assertTrue(dontSeeStrategy.canHitSomeone(shooter),"Can hit someone");
+        assertTrue(dontSeeStrategy.canHitSomeone(shooter),"Can hit someone");
         assertFalse(dontSeeStrategy.getHittableTargets(shooter).isEmpty(),"Can hit someone");
         assertFalse(dontSeeStrategy.getHittableTargets(shooter).contains(target1),"You can shoot Distruttore but YOU MUSTNT");
         assertFalse(dontSeeStrategy.getHittableTargets(shooter).contains(target2),"You can shoot DOzer but YOU MUSTNT");
