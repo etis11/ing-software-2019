@@ -546,7 +546,7 @@ public class Tile {
         if (! players.remove(playerToRemove)) throw new Exception("The player should have been present");
         return playerToRemove; //test
     }
-    
+
     //TODO mi interessa sia minima la distanza???????
     public int distance (Player target, boolean north, boolean west, boolean south, boolean east){
         int distance=0;
