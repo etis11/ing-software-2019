@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,7 +11,10 @@ import java.util.List;
  * */
 public class Match {
 
-
+    /**
+     * the number of player playing the game
+     */
+    private final int playerNumber;
 /**
  * Integer used to count number of lifes till GameOver.An integer that is between 5(included) and 8(included)
  * */
@@ -26,7 +30,12 @@ public class Match {
      * List of players playing when game starts. Such list is longer no lesser then three and no bigger then five.
      * Each player has  his own playerboard and cards
      * */
-    private List<Player> players = new LinkedList<>();
+    private List<Player> players = new ArrayList<>(playerNumber);
+
+    /**
+     * the index of the player that is currently playing
+     */
+    private int currentPlayer = 0;
 
     /**
      * One of the three Decks used during gameplay.It contains all PowerUp cards (playable or not during game)
@@ -45,6 +54,12 @@ public class Match {
     private Deck<AmmoCard> ammoDeck;
 
 
+    public Match(int playerNumber, int skulls, String mapPath) {
+        this.playerNumber = playerNumber;
+        this.skulls = skulls;
+        this.map = GameMap.loadMap(mapPath);
+        currentPlayer = 0;
+    }
     /**
      * Method that returns number of skulls left during gameplay.
      * */
@@ -58,6 +73,15 @@ public class Match {
      * */
     public void setSkulls(int skulls) {
         this.skulls = skulls;
+    }
+
+
+    /**
+     * This method return the player that is currently actively playing
+     * @return
+     */
+    public Player getCurrentPlayer(){
+        return players.get(currentPlayer);
     }
 
     /**
