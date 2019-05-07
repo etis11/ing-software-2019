@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
  * */
 public class VortexCannonStrategy extends AbstractTargetStrategy {
 
+    private int distance;
     private Match match;
     /**
      * Private attribute of type GameMap needed to check other players position in the map
@@ -27,7 +28,9 @@ public class VortexCannonStrategy extends AbstractTargetStrategy {
          this.gameMap = gameMap ;
          this.match = match;
      }
-
+    public  VortexCannonStrategy(int distance){
+        this.distance = distance;
+    }
      /**
       * Method used to check whether or not the targets chosen by our shooter are all valid or not
       * @param shooter is the player whose turn is and who got to chose the target/targets

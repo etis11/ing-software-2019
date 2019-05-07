@@ -19,6 +19,8 @@ public class SeeStrategy extends AbstractTargetStrategy {
     public SeeStrategy(Match match){
         this.match = match;
     }
+    public SeeStrategy(){
+    }
 
     /**
      * verify if all players in target are visible by shooter

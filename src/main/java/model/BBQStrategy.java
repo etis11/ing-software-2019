@@ -1,12 +1,24 @@
 package model;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *this strategy extends the flameThrowerStrategy, but  just the areTargetsValid method, since the others work fine
  */
 public class BBQStrategy extends FlameThrowerStrategy {
 
+    private int distance;
+
+    public BBQStrategy(int distance) {
+        this.distance = distance;
+    }
+
+    @Override
+    public List<Player> getHittableTargets(Player shooter) {
+        List<Player> hittableTargets = super.getHittableTargets(shooter);
+        return hittableTargets.stream().filter(p->p.getTile().distance(shooter)==distance).collect(Collectors.toList());
+    }
     /**
      *Checks if all the targets are in the same direction. The check is made on a cross centered in the shooter at a max distance
      * of two. More players can be in the same tile
