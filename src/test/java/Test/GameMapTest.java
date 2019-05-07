@@ -233,7 +233,7 @@ public class GameMapTest {
         encounteredTiles.put(startingTile, true);
         while(!stack.empty()){
             current = stack.pop();
-            if (current.canContainWapons()) weaponTiles.add(current);
+            if (current.canContainWeapons()) weaponTiles.add(current);
             //System.out.println(current.getID());
             for(String dir : directions) {
                 toPut = current.getTile(dir);
