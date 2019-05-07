@@ -8,7 +8,6 @@ import jsonParser.GameMapDeserializer;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.Reader;
 import java.util.*;
 
 /**
@@ -198,7 +197,7 @@ public class GameMap {
      * @throws DuplicateException if that regen point is already in the game map
      * @throws IllegalArgumentException if the color or the regen point are null
      */
-    public void addRegenPoint(String color, Tile regenPoint) throws IllegalArgumentException, DuplicateException{
+    public void addRegenPoint(String color, Tile regenPoint){
         if(color == null) throw  new IllegalArgumentException("The color is null");
         if(regenPoint == null) throw  new IllegalArgumentException("The regen point is null");
         if (regenPoints.containsKey(color)) throw new DuplicateException("There is already a regen point of the given color");
@@ -211,7 +210,7 @@ public class GameMap {
      * @return red regen point
      * @throws NullPointerException if there's not a red regen point
      */
-    public Tile getRedRegenPoint() throws NullPointerException{
+    public Tile getRedRegenPoint(){
         Tile redRegen =  regenPoints.get("red");
         if (redRegen == null) throw new NullPointerException("There isn't a red regen point");
         return redRegen;
@@ -222,7 +221,7 @@ public class GameMap {
      * @return blue regen point
      * @throws NullPointerException if it's not present
      */
-    public Tile getBlueRegenPoint() throws NullPointerException{
+    public Tile getBlueRegenPoint(){
         Tile blueRegen =  regenPoints.get("blue");
         if (blueRegen == null) throw new NullPointerException("There isn't a blue regen point");
         return blueRegen;
@@ -233,7 +232,7 @@ public class GameMap {
      * @return yellow regen point
      * @throws NullPointerException if it's not present
      */
-    public Tile getYellowRegenPoint() throws  NullPointerException{
+    public Tile getYellowRegenPoint(){
         Tile yellowRegen =  regenPoints.get("yellow");
         if (yellowRegen == null) throw new NullPointerException("There isn't a yellow regen point");
         return yellowRegen;
@@ -246,7 +245,7 @@ public class GameMap {
      * @throws IllegalArgumentException if doesn't exist the regen point of that color
      * @throws NullPointerException if the given color is null
      */
-    public Tile getRegenPoint(String color) throws NullPointerException, IllegalArgumentException{
+    public Tile getRegenPoint(String color){
         if(color == null) throw  new NullPointerException("The given color is null");
         Tile regenPoint = regenPoints.get(color);
         if (regenPoint == null) throw new NullPointerException("There isn't a " + color + "regen point");

@@ -224,7 +224,7 @@ public class Player {
      * @throws Exception            if the player has already 4 weapons
      * @throws NullPointerException if the weapon is null
      */
-    public void pickUpWeapon(WeaponCard w) throws Exception, NullPointerException {
+    public void pickUpWeapon(WeaponCard w) throws Exception {
         if (w == null) throw new NullPointerException("Passato un valore nullo");
         if (weapons.size() > 4) {
             throw new Exception("Il giocatore ha già 4 armi in mano");
@@ -240,17 +240,17 @@ public class Player {
      * @throws Exception if the power up is not in the hand of the player
      */
     public PowerUpCard throwPowerUp(PowerUpCard p) throws Exception {
-        PowerUpCard ret_card = null;
+        PowerUpCard retCard = null;
         if (!powerUps.contains(p)) {
             throw new Exception("non si può throware il power up perchè non è in mano al giocatore");
         } else {
             for (int i = 0; i < powerUps.size(); i++) {
                 if (powerUps.get(i).equals(p)) {
-                    ret_card = powerUps.remove(i);
+                    retCard = powerUps.remove(i);
                 }
             }
         }
-        return ret_card;
+        return retCard;
     }
 
     /**

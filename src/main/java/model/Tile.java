@@ -1,7 +1,5 @@
 package model;
 
-//import sun.jvm.hotspot.debugger.InputLexer;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +45,7 @@ public class Tile {
     private LinkedList<Player> players;
 
     /**
-     * Tells if the tile can contain ammos
+     * Tells if the tile can contain ammo
      */
     private boolean ammoTile;
     /**
@@ -364,8 +362,7 @@ public class Tile {
 
         Tile currentTile = this;
         List<Tile> tiles = new LinkedList<>();
-
-        String[] directions = {"north", "east", "south", "west"};
+        
         while(currentTile != null){
             tiles.add(currentTile);
             currentTile = currentTile.getTile(dir);
@@ -435,7 +432,7 @@ public class Tile {
      * Says if an ammo che be put in the tile
      * @return True if it's an ammo tile, false if not.
      */
-    public boolean canContainAmmo(){ return ammoTile;};
+    public boolean canContainAmmo(){ return ammoTile;}
 
     /**
      * Set the ammoCard field to null and return the ammo card. The boolean field is set to null
@@ -443,7 +440,7 @@ public class Tile {
      * @throws NullPointerException if the ammo card in it is null
      * @throws Exception if the tile cant contain ammos
      */
-    public AmmoCard pickUpAmmoCard() throws NullPointerException, Exception {
+    public AmmoCard pickUpAmmoCard() throws Exception {
         if (!ammoTile) throw new Exception("This tile is not an ammo Tile");
         if (ammoCard == null){
             throw  new NullPointerException("Cant pick up a null object");
@@ -460,7 +457,7 @@ public class Tile {
      * @throws NullPointerException the ammo argument is null
      * @throws Exception The tile has already an ammo card or the tile is not an ammo tile
      */
-    public void putAmmoCard(AmmoCard ammo) throws NullPointerException, Exception {
+    public void putAmmoCard(AmmoCard ammo) throws Exception {
         if (!ammoTile) throw  new Exception("This tile is not an ammo Tile");
         if (ammo == null) throw new NullPointerException("The argument passed is null");
         if( ammoCard != null) throw new Exception("Can't add an ammoCard card in a tile that has already an ammo card");
@@ -471,7 +468,7 @@ public class Tile {
      * tells if it's a weapon tile
      * @return true if it's a weapon tile
      */
-    public boolean canContainWapons(){ return weaponTile;}
+    public boolean canContainWeapons(){ return weaponTile;}
 
     /**
      * Tells if there are some weapons in the tile
@@ -494,10 +491,8 @@ public class Tile {
      * @param desired weapon that has to be picked up
      * @return the desired weapon
      * @throws Exception the tile is not a weapon tile, cant pick up a weapon
-     * @throws NullPointerException the desired weapon is null
      */
-    public WeaponCard pickUpWeaponCard(WeaponCard desired) throws Exception, NullPointerException{
-        WeaponCard removed;
+    public WeaponCard pickUpWeaponCard(WeaponCard desired) throws Exception{
         boolean found = false;
         if (!weaponTile) throw new Exception("this is not a weapon tile");
         if (desired== null) throw  new NullPointerException("The argument passed is null");
@@ -517,9 +512,8 @@ public class Tile {
      * Puts a weapon card in the tile
      * @param toBePut the weapon that has to be put in the tile
      * @throws Exception the tile is full
-     * @throws NullPointerException The weaponCard is actually null
      */
-    public void putWeaponCard(WeaponCard toBePut) throws Exception, NullPointerException{
+    public void putWeaponCard(WeaponCard toBePut) throws Exception{
         if (weapons.size() >= 3) throw new Exception("Can't put the weapon in the tile because it's full");
         if (toBePut == null) throw new NullPointerException("The argument passed is null");
 
@@ -532,15 +526,6 @@ public class Tile {
      */
     public Room getRoom(){
         return room;
-    }
-
-    /**
-     * Tells if the given player is present
-     * @param p player that is wanted to know his location
-     * @return True if the player is present, false if not
-     */
-    public boolean isPlayerPresent(Player p){
-        return players.contains(p);
     }
 
     /**

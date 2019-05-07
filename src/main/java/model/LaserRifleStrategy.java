@@ -17,7 +17,7 @@ public class LaserRifleStrategy extends AbstractTargetStrategy {
      */
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
-        //checks for exceptions;
+        //checks for exceptions
         super.areTargetValid(shooter, targets);
         String[] directions = {"north", "east", "south", "west"};
         List<Tile> tiles;

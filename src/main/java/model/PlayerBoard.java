@@ -24,7 +24,7 @@ public class PlayerBoard {
     /**
      * It'is a constant that defines the max damage that a player can have
      */
-    private final int MAX_DAMAGE_POINTS = 12;
+    private static final int MAX_DAMAGE_POINTS = 12;
     /**
      * A list that contains the possible points that other player could get after a kill
      */

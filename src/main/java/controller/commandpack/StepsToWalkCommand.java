@@ -1,8 +1,7 @@
-package controller.commandPack;
+package controller.commandpack;
 
 import controller.AbstractCommand;
 import controller.MatchCommandExecutor;
-import exceptions.NotValidActionException;
 
 public class StepsToWalkCommand extends AbstractCommand {
 
