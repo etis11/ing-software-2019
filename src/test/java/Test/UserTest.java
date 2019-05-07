@@ -25,9 +25,9 @@ public class UserTest {
 
     @Test
     public void tokenTest(){
-        assertSame(user1.getToken(), 23L, "ERROR: wrong token for user 1");
         user2 = new User();
-        assertSame(user2.getToken(), 24L, "ERROR: wrong token for user 2");
+        assertNotSame(user1.getToken(), user2.getToken(), "ERROR: same token");
+
     }
 
     @Test

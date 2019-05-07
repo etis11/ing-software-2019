@@ -3,6 +3,7 @@ package Test;
 import model.Player;
 import model.WeaponCard;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -14,7 +15,8 @@ public class PlayerTest {
     void initPlayer(){
         p = new Player();
     }
-    
+
+    @Test
     void weaponOneInsertionTest(){
         WeaponCard w = new WeaponCard();
         try{
