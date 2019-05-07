@@ -9,7 +9,7 @@ public class Player {
     /**
      * name of the player
      */
-    private final String NAME;
+    private final String name;
 
     /**
      * current points of the player
@@ -48,12 +48,12 @@ public class Player {
     /**
      * max number of weapons that can be in the player's hand
      */
-    private final int MAX_WEAPON_CARDS = 3;
+    private static final int MAX_WEAPON_CARDS = 3;
 
     /**
      * max number of power ups that can be in the player's hand
      */
-    private final int MAX_POWERUP_CARDS = 3;
+    private static final int MAX_POWERUP_CARDS = 3;
 
 
     /**
@@ -61,7 +61,7 @@ public class Player {
      * has been created, this player has not been positioned on any tile
      */
     public Player() {
-        NAME = "";
+        name = "";
         points = 0;
         state = null; //TODO
         weapons = new LinkedList<>();
@@ -78,7 +78,7 @@ public class Player {
      * @param name name of the player
      */
     public Player(String name) {
-        NAME = name;
+        this.name = name;
         points = 0;
         state = null;   //TODO
         weapons = new LinkedList<>();
@@ -94,7 +94,7 @@ public class Player {
      * @return the name of the player
      */
     public String getName() {
-        return NAME;
+        return name;
     }
 
     /**
