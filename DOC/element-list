@@ -1,4 +1,6 @@
 controller
+controller.commandpack
 exceptions
+jsonParser
 model
 Test
