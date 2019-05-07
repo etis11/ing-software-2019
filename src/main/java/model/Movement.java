@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +29,6 @@ public class Movement {
      * @return list of steps
      */
     public List<String> getSteps() {
-        return steps;
+        return new ArrayList<>(steps);
     }
 }
