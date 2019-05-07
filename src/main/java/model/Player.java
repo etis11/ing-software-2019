@@ -284,6 +284,10 @@ public class Player {
         this.tile = tile;
     }
 
+    /**
+     * moves a player of a given path if it is possible
+     * @param movement Movement containing the list of moves to do
+     */
     public void move(Movement movement){
         Tile newTile = getTile();
         if (movement == null) throw new IllegalArgumentException("null movement");
