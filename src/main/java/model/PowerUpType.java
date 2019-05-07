@@ -6,11 +6,11 @@ package model;
  * */
 public enum PowerUpType {
 
-    targetingScope,
+    TARGETING_SCOPE,
 
-    newton,
+    NEWTON,
 
-    tagbackGranade,
+    TAGBACK_GRANADE,
 
-    teleporter
+    TELEPORTER
 }
