@@ -1,20 +1,23 @@
 package controller.commandpack;
 
-import controller.CommandExecutor;
+import model.Match;
 
 public class AskWalkCommand extends AbstractCommand {
 
-    CommandExecutor executor;
+    private Match match;
 
-    public AskWalkCommand(CommandExecutor exe){
-        this.executor = exe;
+    public AskWalkCommand(Match match){
+        this.match = match;
     }
 
     @Override
     public void execute() {
-        if (!owner.getState().canRun()){
-
+        if (!match.getCurrentPlayer().getState().canRun()){
+            //TODO notify alla mia view che non posso
         }
-        owner.getState().nextState("Walk", owner);
+        else {
+            match.getCurrentPlayer().getState().nextState("Walk", match.getCurrentPlayer());
+            //TODO notify a tutte le view che il current si muove
+        }
     }
 }

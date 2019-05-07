@@ -8,15 +8,15 @@ public class MoveCommand extends AbstractCommand {
 
     int steps;
 
-    public MoveCommand(MatchCommandExecutor executor, int steps) {
-        this.executor = executor;
-        this.steps = steps;
-    }
+//    public MoveCommand(MatchCommandExecutor executor, int steps) {
+//        this.executor = executor;
+//        this.steps = steps;
+//    }
 
     @Override
     public void execute() {
         try {
-            executor.stepToWalk(owner, steps);
+            //executor.stepToWalk(owner, steps);
         } catch (Exception e) {
             e.printStackTrace();
         }
