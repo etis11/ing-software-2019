@@ -1,9 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import java.util.LinkedList;
+import java.util.*;
 
 import static java.util.stream.Collectors.toCollection;
 
@@ -549,10 +546,7 @@ public class Tile {
         if (! players.remove(playerToRemove)) throw new Exception("The player should have been present");
         return playerToRemove; //test
     }
-    public int distance (Player target){
-        return distance(target,true,true,true,true);
-    }
-
+    
     //TODO mi interessa sia minima la distanza???????
     public int distance (Player target, boolean north, boolean west, boolean south, boolean east){
         int distance=0;
@@ -575,7 +569,6 @@ public class Tile {
 
         return distance;
     }
-
     /**
      * Gives a list with the tiles around the current tile.
      * @return
