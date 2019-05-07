@@ -80,9 +80,7 @@ public class FixedDistanceStrategyTest {
         assertThrows(IllegalArgumentException.class, ()->strategy.areTargetValid(null, target));
         assertThrows(IllegalArgumentException.class, ()->strategy.areTargetValid(shooter, null));
 
-        tile.addPlayer(target1);
         target1.setTile(tile);
-        tile.addPlayer(target2);
         target2.setTile(tile);
         assertFalse(strategy.canHitSomeone(shooter), "ERROR: there are no players");
         assertSame(strategy.getHittableTargets(shooter).size(),0, "ERROR: there are no players");
@@ -100,9 +98,7 @@ public class FixedDistanceStrategyTest {
 
         target.add(target2);
         tile.addPlayer(target1);
-        target1.setTile(tile);
         otherTile.addPlayer(target2);
-        target2.setTile(otherTile);
         assertTrue(strategy.canHitSomeone(shooter), "ERROR: there are players to be shot");
         assertSame(strategy.getHittableTargets(shooter).size(),1, "ERROR: there are players to be shot");
         assertTrue(strategy.areTargetValid(shooter, target), "ERROR: there is a player to be shot by shooter");
@@ -120,9 +116,7 @@ public class FixedDistanceStrategyTest {
         target.add(target1);
         target.add(target2);
         oppositeNotVisibleTile.addPlayer(target1);
-        target1.setTile(oppositeNotVisibleTile);
         otherTile.addPlayer(target2);
-        target2.setTile(otherTile);
         assertTrue(strategy.canHitSomeone(shooter), "ERROR: there are players to be shot");
         assertSame(strategy.getHittableTargets(shooter).size(),2, "ERROR: there are players to be shot");
         assertTrue(strategy.areTargetValid(shooter, target), "ERROR: there is a player to be shot by shooter");
@@ -135,9 +129,7 @@ public class FixedDistanceStrategyTest {
         target.add(target1);
         target.add(target2);
         adjacent.addPlayer(target1);
-        target1.setTile(adjacent);
         adjacent.addPlayer(target2);
-        target2.setTile(adjacent);
 
         assertFalse(strategy.canHitSomeone(shooter), "ERROR: there are no players");
         assertSame(strategy.getHittableTargets(shooter).size(),0, "ERROR: there are no players");

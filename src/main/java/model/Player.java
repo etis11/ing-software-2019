@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.NotValidMoves;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -282,8 +284,48 @@ public class Player {
         this.tile = tile;
     }
 
-    public void move(List<String> steps){
-        
+    public void move(Movement movement){
+        Tile newTile = getTile();
+        if (movement == null) throw new IllegalArgumentException("null movement");
+        for (String str : movement.getSteps()){
+            switch (str){
+                case "up":
+                    if(newTile.getNorthTile()!=null){
+                        newTile = newTile.getNorthTile();
+                    }
+                    else{
+                        throw new NotValidMoves("not valid moves");
+                    }
+                    break;
+                case "right":
+                    if(newTile.getEastTile()!=null){
+                        newTile = newTile.getEastTile();
+                    }
+                    else{
+                        throw new NotValidMoves("not valid moves");
+                    }
+                    break;
+                case "down":
+                    if(newTile.getSouthTile()!=null){
+                        newTile = newTile.getSouthTile();
+                    }
+                    else{
+                        throw new NotValidMoves("not valid moves");
+                    }
+                    break;
+                case "left":
+                    if(newTile.getWestTile()!=null){
+                        newTile = newTile.getWestTile();
+                    }
+                    else{
+                        throw new NotValidMoves("not valid moves");
+                    }
+                    break;
+                default:
+                    throw new NotValidMoves("not valid moves");
+            }
+        }
+        newTile.addPlayer(this);
     }
 }
 

@@ -534,6 +534,7 @@ public class Tile {
      */
     public void addPlayer(Player playerToAdd){
         players.addLast(playerToAdd);
+        playerToAdd.setTile(this);
     }
 
     /**
