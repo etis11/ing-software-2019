@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * this class represent movement of a player, it is used in DamageTransporter
+ * this class represent movement of a player
  *
  * @author Alessandro Passoni
  * @version 1.0

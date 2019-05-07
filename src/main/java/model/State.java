@@ -11,19 +11,14 @@ import java.util.Map;
  */
 public class State {
     /**
-     * MAX_POSSIBLE_STEPS is the number of steps a player can do in this state
+     * maxPossibleSteps is the number of steps a player can do in this state
      */
-    private final int MAX_POSSIBLE_STEPS;
+    private final int maxPossibleSteps;
 
     /**
-     * NAME identify the state
+     * name identify the state
      */
-    private final String NAME;
-
-    /**
-     * player who owns the instance of this state
-     */
-    private final Player owner;
+    private final String name;
 
     /**
      * normalAction identify if the player are in a state where he has to choose what to do
@@ -41,7 +36,7 @@ public class State {
     private final boolean mostAction;
 
     /**
-     * run identify if the owner of the state can run of MAX_POSSIBLE_STEPS
+     * run identify if the owner of the state can run of maxPossibleSteps
      */
     private final boolean run;
 
@@ -85,10 +80,9 @@ public class State {
      */
     private int remainingSteps;
 
-    public State(String NAME, int MAX_POSSIBLE_STEPS,  Player owner, boolean normalAction, boolean moreAction, boolean mostAction, boolean run, boolean pickUp, boolean shoot, boolean usePowerUp, boolean reload, boolean dead, boolean overKilled, Map<String, State> possibleNextState) {
-        this.NAME = NAME;
-        this.MAX_POSSIBLE_STEPS = MAX_POSSIBLE_STEPS;
-        this.owner = owner;
+    public State(String name, int maxPossibleSteps, boolean normalAction, boolean moreAction, boolean mostAction, boolean run, boolean pickUp, boolean shoot, boolean usePowerUp, boolean reload, boolean dead, boolean overKilled, Map<String, State> possibleNextState) {
+        this.name = name;
+        this.maxPossibleSteps = maxPossibleSteps;
         this.normalAction = normalAction;
         this.moreAction = moreAction;
         this.mostAction = mostAction;
@@ -99,7 +93,7 @@ public class State {
         this.dead = dead;
         this.overKilled = overKilled;
         this.possibleNextState = possibleNextState;
-        this.remainingSteps = MAX_POSSIBLE_STEPS;
+        this.remainingSteps = maxPossibleSteps;
         this.reload =reload;
     }
 
@@ -107,24 +101,16 @@ public class State {
      * tells the max number of step a player can do in this state
      * @return number of steps for this state
      */
-    public int getMAX_POSSIBLE_STEPS() {
-        return MAX_POSSIBLE_STEPS;
+    public int getMaxPossibleSteps() {
+        return maxPossibleSteps;
     }
 
     /**
      * tells the name of the state
      * @return name of state
      */
-    public String getNAME(){
-        return NAME;
-    }
-
-    /**
-     * tells the owner of the state
-     * @return player who owns thw state
-     */
-    public Player getOwner() {
-        return owner;
+    public String getName(){
+        return name;
     }
 
     /**
@@ -227,7 +213,7 @@ public class State {
      * reset the number of remaining steps
      */
     public void resetRemainingSteps(){
-        remainingSteps = MAX_POSSIBLE_STEPS;
+        remainingSteps = maxPossibleSteps;
     }
 
     /**
@@ -242,9 +228,9 @@ public class State {
      * sets the nextState for the player by a given string
      * @param state string containing the wanted nextState
      */
-    public void nextState(String state){
+    public void nextState(String state, Player player){
         if (state == null) throw new IllegalArgumentException();
-        if (!possibleNextState.containsKey(state)) throw  new IllegalStateException("Error: from "+getNAME()+" state you can't go to "+state+" state");
-        owner.setState(possibleNextState.get(state));
+        if (!possibleNextState.containsKey(state)) throw  new IllegalStateException("Error: from "+ getName()+" state you can't go to "+state+" state");
+        player.setState(possibleNextState.get(state));
     }
 }

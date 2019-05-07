@@ -1102,7 +1102,7 @@
 											"top": 804,
 											"width": 147.05615234375,
 											"height": 13,
-											"text": "-NAME: String",
+											"text": "-name: String",
 											"horizontalAlignment": 0
 										}
 									],
@@ -17820,7 +17820,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFpuXbyI/V1zuU="
 									},
-									"name": "NAME",
+									"name": "name",
 									"visibility": "private",
 									"type": "String"
 								}
