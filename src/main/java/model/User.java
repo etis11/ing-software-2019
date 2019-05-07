@@ -26,7 +26,7 @@ public class User {
      * player is the player associate with the user
      */
     private Player player;
-    //TODO LobbyListener lobbyListener;
+    //TODO LobbyListener lobbyListener
 
 
     public User() {
