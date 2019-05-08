@@ -30,8 +30,7 @@ public class Match {
      * List of players playing when game starts. Such list is longer no lesser then three and no bigger then five.
      * Each player has  his own playerboard and cards
      * */
-    private List<Player> players;
-
+    private List<Player> players= new LinkedList<>();;
     /**
      * the index of the player that is currently playing
      */
@@ -53,6 +52,10 @@ public class Match {
      * */
     private Deck<AmmoCard> ammoDeck;
 
+
+    public Match() {
+        this.playerNumber = 5;
+    }
 
     public Match(int playerNumber, int skulls, String mapPath) {
         this.playerNumber = playerNumber;

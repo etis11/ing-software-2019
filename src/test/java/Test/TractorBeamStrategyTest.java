@@ -4,6 +4,7 @@ import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,20 +16,26 @@ public class TractorBeamStrategyTest {
     private GameMap map;
     private TractorBeamStrategy tractorBeam;
     private Match match;
-
+    private Tile blue1;
+    private Tile blue2;
+    private Tile pink1;
+    private Tile pink2;
+    private Tile white1;
+    private Tile white2;
+    private Tile white3;
     @BeforeEach
     void initGameMap() {map =new GameMap();
         match = new Match();}
 
     @Test
     void TractorBramStrategy() {
-        Tile blue1 = new Tile(1,true,true);
-        Tile pink1 = new Tile(2,true,true);
-        Tile white1 = new Tile(3,true,true);
-        Tile blue2 = new Tile(4,true,true);
-        Tile pink2 = new Tile(5,true,true);
-        Tile white2 = new Tile(6,true,true);
-        Tile white3 = new Tile(7,true,true);
+        blue1 = new Tile(null, null, pink1, blue1, false, false);
+        pink1 = new Tile(blue1,null,null,pink2,true,true);
+        white1 = new Tile(null,null,null,white2,true,true);
+        blue2 = new Tile(null,blue1,pink2,null,true,true);
+        pink2 = new Tile(blue2,pink1,white2,null,true,true);
+        white2 = new Tile(blue2,white1,null,white3,true,true);
+        white3 = new Tile(null,white2,null,null,true,true);
 
         Player shooter = new Player("Sprog");
         Player target1 = new Player("Dozer");
@@ -36,6 +43,15 @@ public class TractorBeamStrategyTest {
         Player target3 = new Player("Banshee");
         Player target4 = new Player("Dozer2");
         Player target5 = new Player("happytarget");
+/**
+        String path = "." + File.separatorChar + "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar + "map1.json";
+        GameMap myMap = GameMap.loadMap(path);
+
+        myMap.getYellowRegenPoint().addPlayer(shooter);
+        myMap.getBlueRegenPoint().addPlayer(target1);
+        System.out.println(myMap.getYellowRegenPoint().distance(target1));
+*/
 
         blue1.setSouthTile(pink1);
         blue1.setWestTile(blue2);
@@ -96,7 +112,6 @@ public class TractorBeamStrategyTest {
 
         match.getPlayers().add(shooter);
         match.getPlayers().addAll(enemies);
-
         System.out.println("match players : "+match.getPlayers());
         tractorBeam = new TractorBeamStrategy(match);
         System.out.println("init tests");
@@ -104,6 +119,10 @@ public class TractorBeamStrategyTest {
         List<Tile> tiles = map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).collect(Collectors.toList());
         System.out.println("tiles : "+tiles);
         System.out.println("allvisibtiles : "+allvisibtiles);
+        System.out.println("boolean Distance : "+(blue1.distance(target1)));
+        System.out.println("boolean Distance : "+(blue1.distance(target2)));
+        System.out.println("boolean Distance : "+(blue1.distance(target4)));
+        System.out.println("boolean Distance : "+(blue1.distance(target5)));
         /** System.out.println("boolean Distance : "+(blue1.distance(shooter)<1));
          System.out.println("boolean Distance2 : "+(blue2.distance(shooter)<=1));
          System.out.println("distanza : "+blue1.distance(shooter));
@@ -111,6 +130,7 @@ public class TractorBeamStrategyTest {
          System.out.println("boolean Distance2 : "+(pink2.distance(shooter)));
          System.out.println("distanza : "+white1.distance(shooter));
          **/
+
         System.out.println("boolean Distance2 : "+(white1.distance(shooter)));
 
         match.setMap(map);
@@ -135,5 +155,5 @@ public class TractorBeamStrategyTest {
         assertTrue(vortex.areTargetValid(shooter,targets),"but they should all be targets");
         assertFalse(vortex.areTargetValid(shooter,enemies),"target3 is not a target!!!");
 */
-//TODO assertTrue(tractorBeam.canHitSomeone(shooter),"ERROR:he can hit!!!");
+//assertTrue(tractorBeam.canHitSomeone(shooter),"ERROR:he can hit!!!");
 } }

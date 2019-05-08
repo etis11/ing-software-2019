@@ -547,6 +547,9 @@ public class Tile {
         return playerToRemove; //test
     }
 
+    public int distance (Player target){
+        return distance(target,true,true,true,true);
+    }
     //TODO mi interessa sia minima la distanza???????
     public int distance (Player target, boolean north, boolean west, boolean south, boolean east){
         int distance=0;
