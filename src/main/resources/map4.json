@@ -16,7 +16,8 @@
       "ammoTile": true,
       "weaponTile": false,
       "room": 1,
-      "regenPoint": ""
+      "regenPoint": "",
+      "players": []
     },
     {
       "ID": 1,
@@ -31,7 +32,8 @@
       "ammoTile": true,
       "weaponTile": false,
       "room": 1,
-      "regenPoint": ""
+      "regenPoint": "",
+      "players": []
     },
     {
       "ID": 2,
@@ -46,7 +48,8 @@
       "ammoTile": false,
       "weaponTile": true,
       "room": 1,
-      "regenPoint": "blue"
+      "regenPoint": "blue",
+      "players": []
     },
     {
       "ID": 3,
@@ -61,7 +64,8 @@
       "ammoTile": true,
       "weaponTile": false,
       "room": 3,
-      "regenPoint": ""
+      "regenPoint": "",
+      "players": []
     },
     {
       "ID": 4,
@@ -76,7 +80,8 @@
       "ammoTile": false,
       "weaponTile": true,
       "room": 0,
-      "regenPoint": "red"
+      "regenPoint": "red",
+      "players": []
     },
     {
       "ID": 5,
@@ -91,7 +96,8 @@
       "ammoTile": true,
       "weaponTile": false,
       "room": 0,
-      "regenPoint": ""
+      "regenPoint": "",
+      "players": []
     },
     {
       "ID": 6,
@@ -106,7 +112,8 @@
       "ammoTile": true,
       "weaponTile": false,
       "room": 2,
-      "regenPoint": ""
+      "regenPoint": "",
+      "players": []
     },
     {
       "ID": 7,
@@ -121,7 +128,8 @@
       "ammoTile": true,
       "weaponTile": false,
       "room": 2,
-      "regenPoint": ""
+      "regenPoint": "",
+      "players": []
     },
     {
       "ID": 9,
@@ -136,7 +144,8 @@
       "ammoTile": true,
       "weaponTile": false,
       "room": 4,
-      "regenPoint": ""
+      "regenPoint": "",
+      "players": []
     },
     {
       "ID": 10,
@@ -151,7 +160,8 @@
       "ammoTile": true,
       "weaponTile": false,
       "room": 2,
-      "regenPoint": ""
+      "regenPoint": "",
+      "players": []
     },
     {
       "ID": 11,
@@ -166,7 +176,8 @@
       "ammoTile": false,
       "weaponTile": true,
       "room": 2,
-      "regenPoint": "yellow"
+      "regenPoint": "yellow",
+      "players": []
     }
   ]
 }
