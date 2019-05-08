@@ -6,15 +6,15 @@ import model.Match;
 import java.util.List;
 
 /**
- * AskWalkCommand is an instance of command pattern
+ * AskReloadCommand is an instance of command pattern
  * to ask if the player are allowed to pick up something in his state of game
  *
  * @author Alessandro Passoni
  * @version 1.0
  */
-public class AskWalkCommand extends AbstractCommand {
+public class AskReloadCommand extends AbstractCommand{
 
-    public AskWalkCommand(Match match, AbstractView originView, List<AbstractView> allViews){
+    public AskReloadCommand(Match match, AbstractView originView, List<AbstractView> allViews){
         super(match, originView, allViews);
     }
 
@@ -24,12 +24,12 @@ public class AskWalkCommand extends AbstractCommand {
      */
     @Override
     public void execute() {
-        if (!match.getCurrentPlayer().getState().canRun()){
+        if (!match.getCurrentPlayer().getState().canReload()){
             //TODO originView.onfailure();
         }
         else {
-            match.getCurrentPlayer().getState().nextState("Walk", match.getCurrentPlayer());
-            //TODO allViews.onfailure();
+            match.getCurrentPlayer().getState().nextState("Reload", match.getCurrentPlayer());
+            //TODO allViews
         }
     }
 }

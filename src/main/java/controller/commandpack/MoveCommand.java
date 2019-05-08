@@ -1,24 +1,20 @@
 package controller.commandpack;
 
-import controller.MatchCommandExecutor;
+import View.AbstractView;
+import model.Match;
+
+import java.util.List;
 
 public class MoveCommand extends AbstractCommand {
 
-    MatchCommandExecutor executor;
 
-    int steps;
-
-//    public MoveCommand(MatchCommandExecutor executor, int steps) {
-//        this.executor = executor;
-//        this.steps = steps;
-//    }
+    public MoveCommand(Match match, AbstractView originView, List<AbstractView> allViews){
+        super(match, originView, allViews);
+        //TODO mancano parametri per creare movimento e controlli booleani
+    }
 
     @Override
     public void execute() {
-        try {
-            //executor.stepToWalk(owner, steps);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        //TODO
     }
 }
