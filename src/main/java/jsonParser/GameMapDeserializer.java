@@ -113,4 +113,13 @@ public class GameMapDeserializer implements JsonDeserializer<GameMap> {
     private boolean hasMember(JsonObject jsonTile, String memberName){
         return jsonTile.has(memberName)  && !jsonTile.get(memberName).getAsString().equals("");
     }
+
+
+
+    ------------
+    Gson g = new Gson();
+    jsonObject j = jsonPartenza.get("damage").getAsObject();
+    Type t = qualcosa< Map<String, Integer>>(){}.getType();
+
+    Map<String, Integer> damMap = g.fromJson(j, t.class)
 }
