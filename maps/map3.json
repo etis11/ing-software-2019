@@ -1,5 +1,5 @@
 {
-  "n_rooms": 5,
+  "n_rooms": 6,
   "n_rows": 3,
   "n_cols": 4,
   "map": [
@@ -16,7 +16,8 @@
       "ammoTile": true,
       "weaponTile": false,
       "room": 0,
-      "regenPoint": ""
+      "regenPoint": "",
+      "players": []
     },
     {
       "ID": 1,
@@ -31,12 +32,13 @@
       "ammoTile": true,
       "weaponTile": false,
       "room": 1,
-      "regenPoint": ""
+      "regenPoint": "",
+      "players": []
     },
     {
       "ID": 2,
       "north": -1,
-      "east": -1,
+      "east": 3,
       "south": 6,
       "west": 1,
       "northWalled": -1,
@@ -46,7 +48,24 @@
       "ammoTile": false,
       "weaponTile": true,
       "room": 1,
-      "regenPoint": "blue"
+      "regenPoint": "blue",
+      "players": []
+    },
+    {
+      "ID": 3,
+      "north": -1,
+      "east": -1,
+      "south": 7,
+      "west": 2,
+      "northWalled": -1,
+      "eastWalled": -1,
+      "southWalled": -1,
+      "westWalled": -1,
+      "ammoTile": true,
+      "weaponTile": false,
+      "room": 3,
+      "regenPoint": "",
+      "players": []
     },
     {
       "ID": 4,
@@ -61,41 +80,44 @@
       "ammoTile": false,
       "weaponTile": true,
       "room": 0,
-      "regenPoint": "red"
+      "regenPoint": "red",
+      "players": []
     },
     {
       "ID": 5,
       "north": 1,
-      "east": 6,
+      "east": -1,
       "south": 9,
       "west": -1,
       "northWalled": -1,
-      "eastWalled": -1,
+      "eastWalled": 6,
       "southWalled": -1,
       "westWalled": 4,
       "ammoTile": true,
       "weaponTile": false,
-      "room": 3,
-      "regenPoint": ""
+      "room": 4,
+      "regenPoint": "",
+      "players": []
     },
     {
       "ID": 6,
       "north": 2,
       "east": 7,
-      "south": -1,
-      "west": 5,
+      "south": 10,
+      "west": -1,
       "northWalled": -1,
       "eastWalled": -1,
-      "southWalled": 10,
-      "westWalled": -1,
+      "southWalled": -1,
+      "westWalled": 5,
       "ammoTile": true,
       "weaponTile": false,
-      "room": 3,
-      "regenPoint": ""
+      "room": 2,
+      "regenPoint": "",
+      "players": []
     },
     {
       "ID": 7,
-      "north": -1,
+      "north": 3,
       "east": -1,
       "south": 11,
       "west": 6,
@@ -106,7 +128,8 @@
       "ammoTile": true,
       "weaponTile": false,
       "room": 2,
-      "regenPoint": ""
+      "regenPoint": "",
+      "players": []
     },
     {
       "ID": 8,
@@ -120,8 +143,9 @@
       "westWalled": -1,
       "ammoTile": true,
       "weaponTile": false,
-      "room": 4,
-      "regenPoint": ""
+      "room": 5,
+      "regenPoint": "",
+      "players": []
     },
     {
       "ID": 9,
@@ -135,23 +159,25 @@
       "westWalled": -1,
       "ammoTile": true,
       "weaponTile": false,
-      "room": 4,
-      "regenPoint": ""
+      "room": 5,
+      "regenPoint": "",
+      "players": []
     },
     {
       "ID": 10,
-      "north": -1,
+      "north": 6,
       "east": 11,
       "south": -1,
       "west": 9,
-      "northWalled": 6,
+      "northWalled": -1,
       "eastWalled": -1,
       "southWalled": -1,
       "westWalled": -1,
       "ammoTile": true,
       "weaponTile": false,
-      "room": 4,
-      "regenPoint": ""
+      "room": 2,
+      "regenPoint": "",
+      "players": []
     },
     {
       "ID": 11,
@@ -166,7 +192,8 @@
       "ammoTile": false,
       "weaponTile": true,
       "room": 2,
-      "regenPoint": "yellow"
+      "regenPoint": "yellow",
+      "players": []
     }
   ]
 }
