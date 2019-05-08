@@ -6,15 +6,15 @@ import model.Match;
 import java.util.List;
 
 /**
- * AskReloadCommand is an instance of command pattern
- * to ask if the player are allowed to reload in his state of game
+ * AskEndTurnCommand is an instance of command pattern
+ * to ask if the player are allowed to go to the end turn state
  *
  * @author Alessandro Passoni
  * @version 1.0
  */
-public class AskReloadCommand extends AbstractCommand{
+public class AskEndTurnCommand extends AbstractCommand {
 
-    public AskReloadCommand(Match match, AbstractView originView, List<AbstractView> allViews){
+    public AskEndTurnCommand(Match match, AbstractView originView, List<AbstractView> allViews){
         super(match, originView, allViews);
     }
 
@@ -24,11 +24,12 @@ public class AskReloadCommand extends AbstractCommand{
      */
     @Override
     public void execute() {
-        if (!match.getCurrentPlayer().getState().canReload()){
+        //TODO rivedere la condizione
+        if (!match.getCurrentPlayer().getState().canPickUp()){
             //TODO originView.onfailure();
         }
         else {
-            match.getCurrentPlayer().getState().nextState("Reload", match.getCurrentPlayer());
+            match.getCurrentPlayer().getState().nextState("EndTurn", match.getCurrentPlayer());
             //TODO allViews
         }
     }

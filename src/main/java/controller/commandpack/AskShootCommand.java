@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * AskShootCommand is an instance of command pattern
- * to ask if the player are allowed to pick up something in his state of game
+ * to ask if the player are allowed to shoot someone in his state of game
  *
  * @author Alessandro Passoni
  * @version 1.0
