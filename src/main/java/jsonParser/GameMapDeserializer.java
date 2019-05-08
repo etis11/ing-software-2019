@@ -2,14 +2,12 @@ package jsonParser;
 
 import com.google.gson.*;
 import model.GameMap;
+import model.Player;
 import model.Room;
 import model.Tile;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GameMapDeserializer implements JsonDeserializer<GameMap> {
 
@@ -38,9 +36,10 @@ public class GameMapDeserializer implements JsonDeserializer<GameMap> {
         if(!jsonGameMap.get("map").isJsonArray()) throw new JsonParseException("The field map should be an array");
 
         //create an arrayList where all the tiles are ordered based on the id. The tiles is initialised with null objects
-        int initialCapacity = jsonGameMap.get("n_rows").getAsInt()*jsonGameMap.get("n_cols").getAsInt();
+        int initialCapacity = getInizialCapacity(jsonGameMap);
         List<Tile> tiles = new ArrayList<>(initialCapacity);
-        for(int i = 0; i < initialCapacity; i++) tiles.add(i, null);
+        fillWithNull(tiles, initialCapacity);
+
         //at this point, all the rooms are created
         int num_rooms = jsonGameMap.get("n_rooms").getAsInt();
         List<Room> rooms = new ArrayList<>(num_rooms);
@@ -59,6 +58,7 @@ public class GameMapDeserializer implements JsonDeserializer<GameMap> {
             boolean isAmmoTile = jsonTile.get("ammoTile").getAsBoolean();
             boolean isWeaponTile = jsonTile.get("weaponTile").getAsBoolean();
             int currentRoom = jsonTile.get("room").getAsInt();
+            List<Player> players = getPlayersFromJson(jsonTile.get("player").getAsJsonArray());
 
             //creates a tile
             currentTile = new Tile(id,isAmmoTile, isWeaponTile);
@@ -67,7 +67,7 @@ public class GameMapDeserializer implements JsonDeserializer<GameMap> {
             rooms.get(currentRoom).addTile(currentTile);
 
             //if the tile has a regenPoint member, and the regenPoint is not an empty string, add the tile to the regen point list
-            if(hasMember(jsonTile, "regenPoint")){
+            if(hasRegenPoint(jsonTile)){
                 gameMap.addRegenPoint(jsonTile.get("regenPoint").getAsString(), currentTile);
             }
 
@@ -110,16 +110,45 @@ public class GameMapDeserializer implements JsonDeserializer<GameMap> {
         return gameMap;
     }
 
-    private boolean hasMember(JsonObject jsonTile, String memberName){
+    /**
+     * Checks if a method has a regen point and it's not an empty string. The json should have been produced correctly.
+     * @param jsonTile the tile from where to get the regenPoint information
+     * @return true if there is a regenPoint
+     */
+    private boolean hasRegenPoint(JsonObject jsonTile){
+        String memberName = "regenPoint";
         return jsonTile.has(memberName)  && !jsonTile.get(memberName).getAsString().equals("");
     }
 
+    /**
+     * Tells the number of cells (active and inacctive) of a game map. ES: rows = 3, cols = 4, total cells = 12
+     * @param map a json object that encodes a game map
+     * @return the product between the n_rows and n_cols field of the map.
+     */
+    private int getInizialCapacity(JsonObject map){
+        return map.get("n_rows").getAsInt()*map.get("n_cols").getAsInt();
+    }
 
+    /**
+     * Fills a list of tiles null pointers
+     * @param tiles the list that has to be filled
+     * @param capacity the desired capacity of the list
+     */
+    private void fillWithNull(List<Tile> tiles, int capacity){
+        for(int i = 0; i < capacity; i++) tiles.add(i, null);
+    }
 
-    ------------
-    Gson g = new Gson();
-    jsonObject j = jsonPartenza.get("damage").getAsObject();
-    Type t = qualcosa< Map<String, Integer>>(){}.getType();
-
-    Map<String, Integer> damMap = g.fromJson(j, t.class)
+    /**
+     * given a json array that contains some players, return the correspongin object. In future should call a player deserializer.
+     * @param jsonPlayers an array of json players
+     * @return a list of players, can be empty, can't be null
+     */
+    private List<Player> getPlayersFromJson(JsonArray jsonPlayers){
+        List<Player> players = new LinkedList<>();
+        for(JsonElement j : jsonPlayers){
+            JsonObject playerJsonObject = j.getAsJsonObject();
+            players.add(new Player(playerJsonObject.get("name").getAsString()));
+        }
+        return players;
+    }
 }
