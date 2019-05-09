@@ -2,7 +2,9 @@ package Test;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import jsonParser.JsonFileReader;
+import jsonParser.WeaponCardDeserializer;
 import model.AmmoCard;
 import model.Effect;
 import model.WeaponCard;
@@ -49,8 +51,11 @@ public class WeaponCardTest {
     @Test
     void jsonLoadTest(){
         JsonFileReader jsonFileReader = new JsonFileReader();
-        List<WeaponCard> cards = jsonFileReader.loadWeaponCards("cards/cards.json");
+        JsonArray cards = jsonFileReader.loadWeaponCards("cards/cards.json");
 
+        WeaponCardDeserializer weaponCardDeserializer = new WeaponCardDeserializer();
+        List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
+        
 
     }
 
