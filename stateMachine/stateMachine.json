@@ -1,0 +1,234 @@
+[
+  {
+    "name": "NormalAction",
+    "normalAction": true,
+    "moreAction": false,
+    "mostAction": false,
+    "run": false,
+    "pickUp": false,
+    "shoot": false,
+    "usePowerUp": true,
+    "reload": false,
+    "dead": false,
+    "overKilled": false,
+    "maxPossibleSteps": 0,
+    "remainingSteps": 0,
+    "possibleNextState": [
+      "PickUp",
+      "Shoot",
+      "Run",
+      "Reload",
+      "EndTurn"
+    ]
+  },
+  {
+    "name": "MoreAction",
+    "normalAction": false,
+    "moreAction": true,
+    "mostAction": false,
+    "run": false,
+    "pickUp": false,
+    "shoot": false,
+    "usePowerUp": true,
+    "reload": false,
+    "dead": false,
+    "overKilled": false,
+    "maxPossibleSteps": 0,
+    "remainingSteps": 0,
+    "possibleNextState": [
+      "Shoot",
+      "Run",
+      "PickUpPlus",
+      "Reload",
+      "EndTurn"
+    ]
+  },
+  {
+    "name": "MostAction",
+    "normalAction": false,
+    "moreAction": false,
+    "mostAction": true,
+    "run": false,
+    "pickUp": false,
+    "shoot": false,
+    "usePowerUp": true,
+    "reload": false,
+    "dead": false,
+    "overKilled": false,
+    "maxPossibleSteps": 0,
+    "remainingSteps": 0,
+    "possibleNextState": [
+      "Run",
+      "PickUpPlus",
+      "ShootPlus",
+      "Reload",
+      "EndTurn"
+    ]
+  },
+  {
+    "name": "Run",
+    "normalAction": false,
+    "moreAction": false,
+    "mostAction": false,
+    "run": true,
+    "pickUp": false,
+    "shoot": false,
+    "usePowerUp": false,
+    "reload": false,
+    "dead": false,
+    "overKilled": false,
+    "maxPossibleSteps": 3,
+    "remainingSteps": 3,
+    "possibleNextState": [
+      "NormalAction",
+      "MoreAction",
+      "MostAction"
+    ]
+  },
+  {
+    "name": "PickUp",
+    "normalAction": false,
+    "moreAction": false,
+    "mostAction": false,
+    "run": true,
+    "pickUp": true,
+    "shoot": false,
+    "usePowerUp": false,
+    "reload": false,
+    "dead": false,
+    "overKilled": false,
+    "maxPossibleSteps": 1,
+    "remainingSteps": 1,
+    "possibleNextState": [
+      "NormalAction"
+    ]
+  },
+  {
+    "name": "Shoot",
+    "normalAction": false,
+    "moreAction": false,
+    "mostAction": false,
+    "run": false,
+    "pickUp": false,
+    "shoot": true,
+    "usePowerUp": true,
+    "reload": false,
+    "dead": false,
+    "overKilled": false,
+    "maxPossibleSteps": 0,
+    "remainingSteps": 0,
+    "possibleNextState": [
+      "NormalAction",
+      "MoreAction"
+    ]
+  },
+  {
+    "name": "PickUpPlus",
+    "normalAction": false,
+    "moreAction": false,
+    "mostAction": false,
+    "run": true,
+    "pickUp": true,
+    "shoot": false,
+    "usePowerUp": false,
+    "reload": false,
+    "dead": false,
+    "overKilled": false,
+    "maxPossibleSteps": 2,
+    "remainingSteps": 2,
+    "possibleNextState": [
+      "MoreAction",
+      "MostAction"
+    ]
+  },
+  {
+    "name": "ShootPlus",
+    "normalAction": false,
+    "moreAction": false,
+    "mostAction": false,
+    "run": true,
+    "pickUp": false,
+    "shoot": true,
+    "usePowerUp": false,
+    "reload": false,
+    "dead": false,
+    "overKilled": false,
+    "maxPossibleSteps": 1,
+    "remainingSteps": 1,
+    "possibleNextState": [
+      "MostAction"
+    ]
+  },
+  {
+    "name": "Reload",
+    "normalAction": false,
+    "moreAction": false,
+    "mostAction": false,
+    "run": false,
+    "pickUp": false,
+    "shoot": false,
+    "usePowerUp": false,
+    "reload": true,
+    "dead": false,
+    "overKilled": false,
+    "maxPossibleSteps": 0,
+    "remainingSteps": 0,
+    "possibleNextState": [
+      "EndTurn"
+    ]
+  },
+  {
+    "name": "EndTurn",
+    "normalAction": false,
+    "moreAction": false,
+    "mostAction": false,
+    "run": false,
+    "pickUp": false,
+    "shoot": false,
+    "usePowerUp": false,
+    "reload": false,
+    "dead": false,
+    "overKilled": false,
+    "maxPossibleSteps": 0,
+    "remainingSteps": 0,
+    "possibleNextState": [
+      "Dead"
+    ]
+  },
+  {
+    "name": "Dead",
+    "normalAction": false,
+    "moreAction": false,
+    "mostAction": false,
+    "run": false,
+    "pickUp": false,
+    "shoot": false,
+    "usePowerUp": false,
+    "reload": false,
+    "dead": true,
+    "overKilled": false,
+    "maxPossibleSteps": 0,
+    "remainingSteps": 0,
+    "possibleNextState": [
+      "Overkilled"
+    ]
+  },
+  {
+    "name": "Overkilled",
+    "normalAction": false,
+    "moreAction": false,
+    "mostAction": false,
+    "run": false,
+    "pickUp": false,
+    "shoot": false,
+    "usePowerUp": false,
+    "reload": false,
+    "dead": true,
+    "overKilled": true,
+    "maxPossibleSteps": 0,
+    "remainingSteps": 0,
+    "possibleNextState": [
+      "EndTurn"
+    ]
+  }
+]
