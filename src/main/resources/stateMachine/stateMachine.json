@@ -4,21 +4,23 @@
     "normalAction": true,
     "moreAction": false,
     "mostAction": false,
-    "run": false,
-    "pickUp": false,
-    "shoot": false,
+    "run": true,
+    "pickUp": true,
+    "shoot": true,
     "usePowerUp": true,
-    "reload": false,
+    "reload": true,
     "dead": false,
     "overKilled": false,
     "maxPossibleSteps": 0,
     "remainingSteps": 0,
     "possibleNextState": [
-      "PickUp",
-      "Shoot",
-      "Run",
-      "Reload",
-      "EndTurn"
+      {
+        "PickUp":"PickUp",
+        "Shoot": "Shoot",
+        "Run": "Run",
+        "Reload": "Reload",
+        "EndTurn": "EndTurn",
+      }
     ]
   },
   {
@@ -26,21 +28,23 @@
     "normalAction": false,
     "moreAction": true,
     "mostAction": false,
-    "run": false,
-    "pickUp": false,
-    "shoot": false,
+    "run": true,
+    "pickUp": true,
+    "shoot": true,
     "usePowerUp": true,
-    "reload": false,
+    "reload": true,
     "dead": false,
     "overKilled": false,
     "maxPossibleSteps": 0,
     "remainingSteps": 0,
     "possibleNextState": [
-      "Shoot",
-      "Run",
-      "PickUpPlus",
-      "Reload",
-      "EndTurn"
+      {
+        "PickUp":"PickUpPlus",
+        "Shoot": "Shoot",
+        "Run": "Run",
+        "Reload": "Reload",
+        "EndTurn": "EndTurn",
+      }
     ]
   },
   {
@@ -48,21 +52,23 @@
     "normalAction": false,
     "moreAction": false,
     "mostAction": true,
-    "run": false,
-    "pickUp": false,
-    "shoot": false,
+    "run": true,
+    "pickUp": true,
+    "shoot": true,
     "usePowerUp": true,
-    "reload": false,
+    "reload": true,
     "dead": false,
     "overKilled": false,
     "maxPossibleSteps": 0,
     "remainingSteps": 0,
     "possibleNextState": [
-      "Run",
-      "PickUpPlus",
-      "ShootPlus",
-      "Reload",
-      "EndTurn"
+      {
+        "PickUp":"PickUpPlus",
+        "Shoot": "ShootPlus",
+        "Run": "Run",
+        "Reload": "Reload",
+        "EndTurn": "EndTurn",
+      }
     ]
   },
   {
@@ -80,9 +86,11 @@
     "maxPossibleSteps": 3,
     "remainingSteps": 3,
     "possibleNextState": [
-      "NormalAction",
-      "MoreAction",
-      "MostAction"
+      {
+        "NormalAction": "NormalAction",
+        "MoreAction": "NormalAction",
+        "MostAction": "NormalAction"
+      }
     ]
   },
   {
@@ -100,7 +108,9 @@
     "maxPossibleSteps": 1,
     "remainingSteps": 1,
     "possibleNextState": [
-      "NormalAction"
+      {
+        "NormalAction":"NormalAction"
+      }
     ]
   },
   {
@@ -118,8 +128,10 @@
     "maxPossibleSteps": 0,
     "remainingSteps": 0,
     "possibleNextState": [
-      "NormalAction",
-      "MoreAction"
+      {
+        "NormalAction": "NormalAction",
+        "MoreAction": "MoreAtion"
+      }
     ]
   },
   {
@@ -137,8 +149,10 @@
     "maxPossibleSteps": 2,
     "remainingSteps": 2,
     "possibleNextState": [
-      "MoreAction",
-      "MostAction"
+      {
+        "MoreAction": "MoreAction",
+        "MostAction": "MostAction"
+      }
     ]
   },
   {
@@ -156,7 +170,9 @@
     "maxPossibleSteps": 1,
     "remainingSteps": 1,
     "possibleNextState": [
-      "MostAction"
+      {
+        "MostAction": "MostAction"
+      }
     ]
   },
   {
@@ -174,7 +190,9 @@
     "maxPossibleSteps": 0,
     "remainingSteps": 0,
     "possibleNextState": [
-      "EndTurn"
+      {
+        "EndTurn": "EndTurn"
+      }
     ]
   },
   {
@@ -192,7 +210,9 @@
     "maxPossibleSteps": 0,
     "remainingSteps": 0,
     "possibleNextState": [
-      "Dead"
+      {
+        "Dead": "Dead"
+      }
     ]
   },
   {
@@ -210,7 +230,9 @@
     "maxPossibleSteps": 0,
     "remainingSteps": 0,
     "possibleNextState": [
-      "Overkilled"
+      {
+        "Overkilled": "Overkilled"
+      }
     ]
   },
   {
@@ -228,7 +250,9 @@
     "maxPossibleSteps": 0,
     "remainingSteps": 0,
     "possibleNextState": [
-      "EndTurn"
+      {
+        "EndTurn": "EndTurn"
+      }
     ]
   }
 ]
