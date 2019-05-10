@@ -224,6 +224,8 @@ public class State {
         this.remainingSteps -= stepsToDecrement;
     }
 
+
+
     /**
      * sets the nextState for the player by a given string
      * @param state string containing the wanted nextState

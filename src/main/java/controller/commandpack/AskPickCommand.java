@@ -28,8 +28,10 @@ public class AskPickCommand extends AbstractCommand {
             //TODO originView.onfailure();
         }
         else {
+            match.getCurrentPlayer().setOldState(match.getCurrentPlayer().getState());
             match.getCurrentPlayer().getState().nextState("PickUp", match.getCurrentPlayer());
             //TODO allViews
+
         }
     }
 }

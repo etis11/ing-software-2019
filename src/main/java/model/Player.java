@@ -48,6 +48,11 @@ public class Player {
     private PlayerBoard playerBoard;
 
     /**
+     * oldState is the previous state of the player
+     */
+    private State oldState;
+
+    /**
      * max number of weapons that can be in the player's hand
      */
     private static final int MAX_WEAPON_CARDS = 3;
@@ -71,6 +76,7 @@ public class Player {
         tile = null;
         playerBoard = new PlayerBoard();
         remainingMoves = 0;
+        oldState = null;
     }
 
     /**
@@ -88,6 +94,7 @@ public class Player {
         tile = null;
         playerBoard = new PlayerBoard();
         remainingMoves = 0;
+        oldState=null;
     }
 
     /**
@@ -197,6 +204,21 @@ public class Player {
         return playerBoard;
     }
 
+    /**
+     * tells which was the player previous state
+     * @return player previous state
+     */
+    public State getOldState() {
+        return oldState;
+    }
+
+    /**
+     * allows to set the player previous state
+     * @param oldState state to be set
+     */
+    public void setOldState(State oldState) {
+        this.oldState = oldState;
+    }
 
     /**
      * This method updates the player's score
