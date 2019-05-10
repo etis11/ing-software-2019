@@ -24,7 +24,7 @@ public class AskWalkCommand extends AbstractCommand {
      */
     @Override
     public void execute() {
-        if (!match.getCurrentPlayer().getState().canRun()){
+        if (!match.getCurrentPlayer().getState().canRun() && match.getCurrentPlayer().getRemainingMoves()>0){
             //TODO originView.onfailure();
         }
         else {

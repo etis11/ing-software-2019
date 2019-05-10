@@ -23,13 +23,13 @@ public class GameMapTest {
     @BeforeAll
     static void initPaths(){
         pathMap1 = "." +File.separatorChar + "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "map1.json";
+                + File.separatorChar + "maps"+File.separatorChar+"map1.json";
         pathMap2 = "." +File.separatorChar + "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "map2.json";
+                + File.separatorChar + "maps"+File.separatorChar+"map2.json";
         pathMap3 = "." +File.separatorChar + "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "map3.json";
+                + File.separatorChar + "maps"+File.separatorChar+"map3.json";
         pathMap4 = "." +File.separatorChar + "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "map4.json";
+                + File.separatorChar +"maps"+File.separatorChar+ "map4.json";
     }
 
     @BeforeEach

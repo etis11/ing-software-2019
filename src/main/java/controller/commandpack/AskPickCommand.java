@@ -24,7 +24,7 @@ public class AskPickCommand extends AbstractCommand {
      */
     @Override
     public void execute() {
-        if (!match.getCurrentPlayer().getState().canPickUp()){
+        if (!match.getCurrentPlayer().getState().canPickUp() && match.getCurrentPlayer().getRemainingMoves()>0){
             //TODO originView.onfailure();
         }
         else {

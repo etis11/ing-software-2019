@@ -25,7 +25,7 @@ public class AskEndTurnCommand extends AbstractCommand {
     @Override
     public void execute() {
         //TODO rivedere la condizione
-        if (!match.getCurrentPlayer().getState().canPickUp()){
+        if (!match.getCurrentPlayer().getState().isNormalAction() || !match.getCurrentPlayer().getState().isMoreAction() ||!match.getCurrentPlayer().getState().isMostAction() ){
             //TODO originView.onfailure();
         }
         else {

@@ -24,7 +24,7 @@ public class AskShootCommand extends AbstractCommand{
      */
     @Override
     public void execute() {
-        if (!match.getCurrentPlayer().getState().canShoot()){
+        if (!match.getCurrentPlayer().getState().canShoot() && match.getCurrentPlayer().getRemainingMoves()>0){
             //TODO originView.onfailure();
         }
         else {
