@@ -9,14 +9,22 @@ import java.util.List;
 
 public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
 
+    private Match match;
+
+    public WeaponCardDeserializer (Match match){
+        this.match = match;
+    }
+
     @Override
     public WeaponCard deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         return null;
     }
 
-    public  List<WeaponCard> parseWeaponCards(JsonArray json){
+    public  List<WeaponCard> parseWeaponCards(String jsonFile){
         //creates the gson parser
 
+        Gson gson = new Gson();
+        JsonArray json = gson.fromJson(jsonFile,JsonArray.class) ;
         List<WeaponCard> wcToReturn=new ArrayList<>();
         for (JsonElement el: json){
             WeaponCard wcToAdd= new WeaponCard();
@@ -104,37 +112,37 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
         AbstractTargetStrategy toReturn=null;
         switch (name){
             case "SeeStrategy":
-                toReturn=new SeeStrategy();
+                toReturn=new SeeStrategy(match);
                 break;
             case "FixedDistanceStrategy":
-                toReturn=new FixedDistanceStrategy(param);
+                toReturn=new FixedDistanceStrategy(param,match);
                 break;
             case "RoomStrategy":
-                toReturn=new RoomStrategy();
+                toReturn=new RoomStrategy(match);
                 break;
             case "VortexCannonStrategy":
-                toReturn=new VortexCannonStrategy(param);
+                toReturn=new VortexCannonStrategy(param, match);
                 break;
             case "DontSeeStrategy":
-                toReturn = new DontSeeStrategy();
+                toReturn = new DontSeeStrategy(match);
                 break;
             case "FlameThrowerStrategy":
                 toReturn = new FlameThrowerStrategy();
                 break;
             case "BBQStrategy":
-                toReturn = new BBQStrategy(param);
+                toReturn = new BBQStrategy(param,match);
                 break;
             case "TractorBeamStrategy":
-                toReturn = new TractorBeamStrategy(param);
+                toReturn = new TractorBeamStrategy(param, match);
                 break;
             case "AdjacentStrategy":
-                toReturn = new AdjacentStrategy(param);
+                toReturn = new AdjacentStrategy(param , match);
                 break;
             case "LaserRifleStrategy":
                 toReturn = new LaserRifleStrategy();
                 break;
             case "MeleeStrategy":
-                toReturn = new MeleeStrategy(param);
+                toReturn = new MeleeStrategy(param, match);
                 break;
             default:
                 break;
