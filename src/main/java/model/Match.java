@@ -52,6 +52,11 @@ public class Match {
      * */
     private Deck<AmmoCard> ammoDeck;
 
+    /**
+     * ammoSlushPile contains all AmmoCards used
+     * */
+    private Deck<AmmoCard> ammoSlushPile;
+
 
     public Match() {
         this.playerNumber = 5;
@@ -148,5 +153,12 @@ public class Match {
 //TODO need to know if this method should be used or not
     public void setAmmoDeck(Deck<AmmoCard> ammoDeck) {
         this.ammoDeck = ammoDeck;
+    }
+
+    /**
+     * Method used to return the slush pile of Ammo cards
+     * */
+    public Deck<AmmoCard> getAmmoSlushPile() {
+        return ammoSlushPile;
     }
 }

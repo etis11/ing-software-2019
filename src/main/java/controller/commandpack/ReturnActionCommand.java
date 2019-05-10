@@ -5,14 +5,21 @@ import model.Match;
 
 import java.util.List;
 
-public class NewTurnCommand extends AbstractCommand {
+/**
+ * ReturnActionCommand is an instance of command pattern
+ * to put the player in his type of choosing action state
+ *
+ * @author Alessandro Passoni
+ * @version 1.0
+ */
+public class ReturnActionCommand extends AbstractCommand {
 
-    public NewTurnCommand(Match match, AbstractView originView, List<AbstractView> allViews){
+    public ReturnActionCommand(Match match, AbstractView originView, List<AbstractView> allViews){
         super(match, originView, allViews);
     }
 
     /**
-     *
+     *checks player damage to put into his type of choosing action state
      */
     @Override
     public void execute() {
@@ -25,7 +32,7 @@ public class NewTurnCommand extends AbstractCommand {
         else{
             match.getCurrentPlayer().getState().nextState("MostAction", match.getCurrentPlayer());
         }
-        //TODO ELIMINARE TUTTO
+        match.getCurrentPlayer().decrementMoves();
     }
 
 }

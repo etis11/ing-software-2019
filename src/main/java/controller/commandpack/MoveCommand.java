@@ -40,7 +40,7 @@ public class MoveCommand extends AbstractCommand {
         }
         else {
             match.getCurrentPlayer().getState().decrementReaminingSteps(moves.size());
-            match.getCurrentPlayer().move(new Movement(new ArrayList<String>()));
+            match.getCurrentPlayer().move(new Movement(new ArrayList<String>(moves)));
             //TODO allViews
         }
     }

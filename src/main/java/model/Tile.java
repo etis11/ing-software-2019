@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.PickableNotPresent;
+
 import java.util.*;
 
 import static java.util.stream.Collectors.toCollection;
@@ -437,8 +439,8 @@ public class Tile {
      * @throws NullPointerException if the ammo card in it is null
      * @throws Exception if the tile cant contain ammos
      */
-    public AmmoCard pickUpAmmoCard() throws Exception {
-        if (!ammoTile) throw new Exception("This tile is not an ammo Tile");
+    public AmmoCard pickUpAmmoCard(){
+        if (!ammoTile) throw new PickableNotPresent("This tile is not an ammo Tile");
         if (ammoCard == null){
             throw  new NullPointerException("Cant pick up a null object");
         }

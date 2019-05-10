@@ -256,6 +256,20 @@ public class Player {
     }
 
     /**
+     * useAmmoCard reload the loader and if necessary or possible draw a PowerUp
+     * @param card AmmoCard to use
+     * @param deck PowerUp deck of the match
+     */
+    public void useAmmoCard(AmmoCard card, Deck<PowerUpCard> deck){
+        //put ammo in the loader
+        getPlayerBoard().getLoader().askReload(card.getNumBlue(), card.getNumRed(), card.getNumYellow());
+//        verify if the card allow to draw a PowerUp and if the player has less than 3 PowerUp
+        if (card.isDrawPowerUp() && getNumPowerUps() < MAX_POWERUP_CARDS){
+            powerUps.add(deck.draw());
+        }
+    }
+
+    /**
      *
      */
     public void usePowerUp(PowerUpCard c) {
