@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.InsufficientAmmoException;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -100,8 +102,14 @@ public class WeaponCard{
         return NAME;
     }
 
-    public void reload() {
-    //TODO
+    public void reload(Loader loader) throws InsufficientAmmoException {
+        if (getBlueCost() == loader.getNumBlueAmmo() && getRedCost() == loader.getNumRedAmmo() && getYellowCost() == loader.getNumYellowAmmo()) {
+            loader.ammoToPool(getBlueCost(), getRedCost(), getYellowCost());
+            loaded = true;
+        }
+        else{
+            throw new InsufficientAmmoException("you don't have ammo");
+        }
     }
 
     /**

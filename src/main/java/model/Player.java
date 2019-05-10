@@ -1,6 +1,6 @@
 package model;
 
-import exceptions.NotValidMoves;
+import exceptions.NotValidMovesException;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -334,7 +334,7 @@ public class Player {
                         newTile = newTile.getNorthTile();
                     }
                     else{
-                        throw new NotValidMoves("not valid moves");
+                        throw new NotValidMovesException("not valid moves");
                     }
                     break;
                 case "right":
@@ -342,7 +342,7 @@ public class Player {
                         newTile = newTile.getEastTile();
                     }
                     else{
-                        throw new NotValidMoves("not valid moves");
+                        throw new NotValidMovesException("not valid moves");
                     }
                     break;
                 case "down":
@@ -350,7 +350,7 @@ public class Player {
                         newTile = newTile.getSouthTile();
                     }
                     else{
-                        throw new NotValidMoves("not valid moves");
+                        throw new NotValidMovesException("not valid moves");
                     }
                     break;
                 case "left":
@@ -358,11 +358,11 @@ public class Player {
                         newTile = newTile.getWestTile();
                     }
                     else{
-                        throw new NotValidMoves("not valid moves");
+                        throw new NotValidMovesException("not valid moves");
                     }
                     break;
                 default:
-                    throw new NotValidMoves("not valid moves");
+                    throw new NotValidMovesException("not valid moves");
             }
         }
         newTile.addPlayer(this);

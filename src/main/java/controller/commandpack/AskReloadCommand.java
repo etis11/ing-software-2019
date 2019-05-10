@@ -29,6 +29,7 @@ public class AskReloadCommand extends AbstractCommand{
         }
         else {
             match.getCurrentPlayer().getState().nextState("Reload", match.getCurrentPlayer());
+            //TODO notify al player le armi che ha a disposizione
             //TODO allViews
         }
     }

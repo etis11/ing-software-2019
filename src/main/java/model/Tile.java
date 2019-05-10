@@ -1,6 +1,6 @@
 package model;
 
-import exceptions.PickableNotPresent;
+import exceptions.PickableNotPresentException;
 
 import java.util.*;
 
@@ -440,7 +440,7 @@ public class Tile {
      * @throws Exception if the tile cant contain ammos
      */
     public AmmoCard pickUpAmmoCard(){
-        if (!ammoTile) throw new PickableNotPresent("This tile is not an ammo Tile");
+        if (!ammoTile) throw new PickableNotPresentException("This tile is not an ammo Tile");
         if (ammoCard == null){
             throw  new NullPointerException("Cant pick up a null object");
         }
@@ -480,8 +480,8 @@ public class Tile {
      * @return copy of weapons
      * @throws Exception The tile is not a weapon tile
      */
-    public LinkedList<WeaponCard> getWeapons() throws Exception{
-        if (!weaponTile) throw new Exception("This is tile is not a weapon tile");
+    public LinkedList<WeaponCard> getWeapons() throws PickableNotPresentException {
+        if (!weaponTile) throw new PickableNotPresentException("This is tile is not a weapon tile");
         return weapons.stream().map(WeaponCard::new).collect(toCollection(LinkedList::new));
     }
 

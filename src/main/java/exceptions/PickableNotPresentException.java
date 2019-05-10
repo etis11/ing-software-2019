@@ -1,23 +1,23 @@
 package exceptions;
 
-public class PickableNotPresent extends  RuntimeException{
-    public PickableNotPresent() {
+public class PickableNotPresentException extends  RuntimeException{
+    public PickableNotPresentException() {
         super();
     }
 
-    public PickableNotPresent(String message) {
+    public PickableNotPresentException(String message) {
         super(message);
     }
 
-    public PickableNotPresent(String message, Throwable cause) {
+    public PickableNotPresentException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public PickableNotPresent(Throwable cause) {
+    public PickableNotPresentException(Throwable cause) {
         super(cause);
     }
 
-    protected PickableNotPresent(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected PickableNotPresentException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

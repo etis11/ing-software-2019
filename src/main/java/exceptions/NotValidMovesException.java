@@ -1,19 +1,19 @@
 package exceptions;
 
-public class NotValidMoves extends IllegalArgumentException {
-    public NotValidMoves() {
+public class NotValidMovesException extends IllegalArgumentException {
+    public NotValidMovesException() {
         super();
     }
 
-    public NotValidMoves(String s) {
+    public NotValidMovesException(String s) {
         super(s);
     }
 
-    public NotValidMoves(String message, Throwable cause) {
+    public NotValidMovesException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public NotValidMoves(Throwable cause) {
+    public NotValidMovesException(Throwable cause) {
         super(cause);
     }
 }

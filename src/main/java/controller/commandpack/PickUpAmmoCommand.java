@@ -24,6 +24,8 @@ public class PickUpAmmoCommand extends AbstractCommand{
         //put the card in the slush pile
         match.getAmmoSlushPile().addCard(ammoCard);
         //TODO notify
+
         //TODO match.getCurrentPlayer().getState().nextState(match.getCurrentPlayer().getState().getPossibleNextStates()., match.getCurrentPlayer());
+        match.getCurrentPlayer().setOldState(null);
     }
 }
