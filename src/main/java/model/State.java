@@ -99,6 +99,9 @@ public class State {
     }
 
 
+    /**
+     * Creates the list of adjacency in the map
+     */
     public void allocatePossibleNextState(){
         this.possibleNextState = new HashMap<>();
     }
