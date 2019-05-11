@@ -13,15 +13,14 @@
     "overKilled": false,
     "maxPossibleSteps": 0,
     "remainingSteps": 0,
-    "possibleNextState": [
+    "possibleNextState":
       {
         "PickUp":"PickUp",
         "Shoot": "Shoot",
         "Run": "Run",
         "Reload": "Reload",
-        "EndTurn": "EndTurn",
+        "EndTurn": "EndTurn"
       }
-    ]
   },
   {
     "name": "MoreAction",
@@ -37,15 +36,14 @@
     "overKilled": false,
     "maxPossibleSteps": 0,
     "remainingSteps": 0,
-    "possibleNextState": [
+    "possibleNextState":
       {
         "PickUp":"PickUpPlus",
         "Shoot": "Shoot",
         "Run": "Run",
         "Reload": "Reload",
-        "EndTurn": "EndTurn",
+        "EndTurn": "EndTurn"
       }
-    ]
   },
   {
     "name": "MostAction",
@@ -61,15 +59,14 @@
     "overKilled": false,
     "maxPossibleSteps": 0,
     "remainingSteps": 0,
-    "possibleNextState": [
+    "possibleNextState":
       {
         "PickUp":"PickUpPlus",
         "Shoot": "ShootPlus",
         "Run": "Run",
         "Reload": "Reload",
-        "EndTurn": "EndTurn",
+        "EndTurn": "EndTurn"
       }
-    ]
   },
   {
     "name": "Run",
@@ -85,13 +82,12 @@
     "overKilled": false,
     "maxPossibleSteps": 3,
     "remainingSteps": 3,
-    "possibleNextState": [
+    "possibleNextState":
       {
         "NormalAction": "NormalAction",
         "MoreAction": "NormalAction",
         "MostAction": "NormalAction"
       }
-    ]
   },
   {
     "name": "PickUp",
@@ -107,11 +103,10 @@
     "overKilled": false,
     "maxPossibleSteps": 1,
     "remainingSteps": 1,
-    "possibleNextState": [
+    "possibleNextState":
       {
         "NormalAction":"NormalAction"
       }
-    ]
   },
   {
     "name": "Shoot",
@@ -127,12 +122,11 @@
     "overKilled": false,
     "maxPossibleSteps": 0,
     "remainingSteps": 0,
-    "possibleNextState": [
+    "possibleNextState":
       {
         "NormalAction": "NormalAction",
         "MoreAction": "MoreAtion"
       }
-    ]
   },
   {
     "name": "PickUpPlus",
@@ -148,12 +142,11 @@
     "overKilled": false,
     "maxPossibleSteps": 2,
     "remainingSteps": 2,
-    "possibleNextState": [
+    "possibleNextState":
       {
         "MoreAction": "MoreAction",
         "MostAction": "MostAction"
       }
-    ]
   },
   {
     "name": "ShootPlus",
@@ -169,11 +162,10 @@
     "overKilled": false,
     "maxPossibleSteps": 1,
     "remainingSteps": 1,
-    "possibleNextState": [
+    "possibleNextState":
       {
         "MostAction": "MostAction"
       }
-    ]
   },
   {
     "name": "Reload",
@@ -189,11 +181,10 @@
     "overKilled": false,
     "maxPossibleSteps": 0,
     "remainingSteps": 0,
-    "possibleNextState": [
+    "possibleNextState":
       {
         "EndTurn": "EndTurn"
       }
-    ]
   },
   {
     "name": "EndTurn",
@@ -209,11 +200,10 @@
     "overKilled": false,
     "maxPossibleSteps": 0,
     "remainingSteps": 0,
-    "possibleNextState": [
+    "possibleNextState":
       {
         "Dead": "Dead"
       }
-    ]
   },
   {
     "name": "Dead",
@@ -229,11 +219,11 @@
     "overKilled": false,
     "maxPossibleSteps": 0,
     "remainingSteps": 0,
-    "possibleNextState": [
+    "possibleNextState":
       {
+        "EndTurn": "EndTurn",
         "Overkilled": "Overkilled"
       }
-    ]
   },
   {
     "name": "Overkilled",
@@ -249,10 +239,9 @@
     "overKilled": true,
     "maxPossibleSteps": 0,
     "remainingSteps": 0,
-    "possibleNextState": [
+    "possibleNextState":
       {
         "EndTurn": "EndTurn"
       }
-    ]
   }
 ]
