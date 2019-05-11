@@ -202,7 +202,10 @@
     "remainingSteps": 0,
     "possibleNextState":
       {
-        "Dead": "Dead"
+        "Dead": "Dead",
+        "NormalAction": "NormalAction",
+        "MoreAction": "MoreAction",
+        "MostAction": "MostAction"
       }
   },
   {

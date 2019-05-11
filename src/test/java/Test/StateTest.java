@@ -23,6 +23,7 @@ public class StateTest {
 
     @Test
     public void initTest(){
+        //TEST END TURN
         assertEquals("EndTurn", player.getState().getName(), "ERROR: bad initialization");
         assertFalse(player.getState().canPickUp(), "ERROR: you can't pick");
         assertFalse(player.getState().canReload(), "ERROR: you can't reload");
@@ -37,16 +38,18 @@ public class StateTest {
         assertSame(0, player.getState().getMaxPossibleSteps(), "ERROR: steps error");
         assertSame(player.getState().getMaxPossibleSteps(), player.getState().getRemainingSteps(), "ERROR: steps initialization error");
         assertTrue(player.getState().getPossibleNextStates().containsKey("Dead"), "ERROR: there are not a possible state");
-        assertSame(1,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
-        //player.getState().nextState("NormalAction", player);
-    }
+        assertTrue(player.getState().getPossibleNextStates().containsKey("NormalAction"), "ERROR: there are not a possible state");
+        assertTrue(player.getState().getPossibleNextStates().containsKey("MostAction"), "ERROR: there are not a possible state");
+        assertTrue(player.getState().getPossibleNextStates().containsKey("MoreAction"), "ERROR: there are not a possible state");
+        assertSame(4,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        player.getState().nextState("NormalAction", player);
 
-    /*@Test
-    public void normalActionTest(){
+
+        //TEST NORMAL ACTION
         assertEquals("NormalAction", player.getState().getName(), "ERROR: bad initialization");
         assertTrue(player.getState().canPickUp(), "ERROR: you can't pick");
         assertTrue(player.getState().canReload(), "ERROR: you can't reload");
-        assertFalse(player.getState().canRun(), "ERROR: you can't run");
+        assertTrue(player.getState().canRun(), "ERROR: you can't run");
         assertTrue(player.getState().canUsePowerUp(), "ERROR: you can't run");
         assertTrue(player.getState().canShoot(), "ERROR: you can't shoot");
         assertFalse(player.getState().isDead(), "ERROR: he is still alive");
@@ -64,7 +67,27 @@ public class StateTest {
         assertSame(5,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("PickUp", player);
 
-    }*/
+        //TEST PICKUP ACTION
+        assertEquals("PickUp", player.getState().getName(), "ERROR: bad initialization");
+        assertTrue(player.getState().canPickUp(), "ERROR: you can't pick");
+        assertFalse(player.getState().canReload(), "ERROR: you can't reload");
+        assertTrue(player.getState().canRun(), "ERROR: you can't run");
+        assertFalse(player.getState().canUsePowerUp(), "ERROR: you can't run");
+        assertFalse(player.getState().canShoot(), "ERROR: you can't shoot");
+        assertFalse(player.getState().isDead(), "ERROR: he is still alive");
+        assertFalse(player.getState().isOverKilled(), "ERROR: he is still alive");
+        assertFalse(player.getState().isNormalAction(), "ERROR: it's end turn");
+        assertFalse(player.getState().isMoreAction(), "ERROR: it's end turn");
+        assertFalse(player.getState().isMostAction(), "ERROR: it's end turn");
+        assertSame(1, player.getState().getMaxPossibleSteps(), "ERROR: steps error");
+        assertSame(player.getState().getMaxPossibleSteps(), player.getState().getRemainingSteps(), "ERROR: steps initialization error");
+        assertTrue(player.getState().getPossibleNextStates().containsKey("NormalAction"), "ERROR: there are not a possible state");
+        assertSame(1,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        player.getState().nextState("NormalAction", player);
+
+        //TODO gestire la diminuzione mosse
+
+    }
 
 
 }
