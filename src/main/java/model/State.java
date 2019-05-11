@@ -1,6 +1,14 @@
 package model;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParseException;
+import jsonParser.StateMachineDeserializer;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -99,13 +107,27 @@ public class State {
     }
 
 
-    /**
-     * Creates the list of adjacency in the map
-     */
-    public void allocatePossibleNextState(){
-        this.possibleNextState = new HashMap<>();
-    }
+    public static State fromJson(String path){
+        //creates a builder with the state machine deserializer
+        GsonBuilder gb = new GsonBuilder().registerTypeAdapter(State[].class, new StateMachineDeserializer());
+        State[] states;
+        Gson g = gb.create();
+        BufferedReader jsonStateMachine = null;
+        try {
+            jsonStateMachine = new BufferedReader(new FileReader(path));
+        }
+        catch (FileNotFoundException f){
+            System.out.println(f.getMessage());
+            f.printStackTrace();
+        }
 
+        states = g.fromJson(jsonStateMachine, State[].class);
+        for(State s: states){
+            if (s.getName().equals("EndTurn")) return s;
+        }
+
+        throw new JsonParseException("the json was not well built, the EndTurn state is not present");
+    }
     /**
      * tells the max number of step a player can do in this state
      * @return number of steps for this state
@@ -241,6 +263,13 @@ public class State {
         if (state == null) throw new IllegalArgumentException();
         if (!possibleNextState.containsKey(state)) throw  new IllegalStateException("Error: from "+ getName()+" state you can't go to "+state+" state");
         player.setState(possibleNextState.get(state));
+    }
+
+    /**
+     * Creates the list of adjacency in the map
+     */
+    public void allocatePossibleNextState(){
+        this.possibleNextState = new HashMap<>();
     }
 
     /**
