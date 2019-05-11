@@ -23,7 +23,7 @@ public class PickUpWeaponCommand extends AbstractCommand {
         if (weaponName == null) throw new IllegalArgumentException("can't insert null weapon");
         try {
             for (WeaponCard wpc : match.getCurrentPlayer().getTile().getWeapons()) {
-                if (wpc.getNAME().equals(weaponName)){
+                if (wpc.getName().equals(weaponName)){
                     //TODO weaponCard = match.getCurrentPlayer().getTile().getWeapons().prindilacarta
                 }
             }

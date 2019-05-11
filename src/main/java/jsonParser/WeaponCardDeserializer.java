@@ -29,7 +29,7 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
         for (JsonElement el: json){
             WeaponCard wcToAdd= new WeaponCard();
             JsonObject jsonCard = el.getAsJsonObject();
-            String name=jsonCard.get("NAME").getAsString();
+            String name=jsonCard.get("name").getAsString();
             System.out.println(name);
             JsonArray jsonCost=jsonCard.get("reloadCost").getAsJsonArray();
             List<String>costs= new ArrayList<>();
@@ -44,7 +44,7 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
 
             List<Effect> effectsListAdvanced=parseBaseEffects(advancedEffectsJson);
             wcToAdd.setAdvancedEffect(effectsListAdvanced);
-            wcToAdd.setNAME(name);
+            wcToAdd.setName(name);
             wcToAdd.setBaseEffect(effectsList);
             wcToAdd.setReloadCost(costs);
             wcToReturn.add(wcToAdd);
@@ -142,7 +142,7 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
                 toReturn = new LaserRifleStrategy();
                 break;
             case "MeleeStrategy":
-                toReturn = new MeleeStrategy(param, match);
+                toReturn = new MeleeStrategy( param, match);
                 break;
             default:
                 break;

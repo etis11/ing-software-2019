@@ -37,7 +37,7 @@ public class WeaponCard{
     /**
      * Each WeaponCard should contain a name to be distinguished by other cards
      * */
-    private String NAME;
+    private String name;
 
     public List<Effect> getBaseEffect() {
         return baseEffect;
@@ -54,7 +54,7 @@ public class WeaponCard{
     public WeaponCard(){
         this.reloadCost = new LinkedList<>();
         this.loaded = true;
-        this.NAME = "default";
+        this.name = "default";
         this.baseEffect = new LinkedList<>();
         this.optionalEffect = new LinkedList<>();
         this.advancedEffect = new LinkedList<>();
@@ -73,7 +73,7 @@ public class WeaponCard{
             this.baseEffect = null;
             this.advancedEffect = null;
             this.loaded = ref.loaded;
-            this.NAME = String.valueOf(ref.getNAME());
+            this.name = String.valueOf(ref.getName());
             this.reloadCost =new LinkedList<>();
         }
 
@@ -98,8 +98,8 @@ public class WeaponCard{
     /**
      * Method used to get the name of a WeaponCard
      * */
-    public String getNAME() {
-        return NAME;
+    public String getName() {
+        return name;
     }
 
     public void reload(Loader loader) throws InsufficientAmmoException {
@@ -183,7 +183,7 @@ public class WeaponCard{
             return false;
 
         WeaponCard w = (WeaponCard) o;
-        return w.getNAME().equals(this.getNAME());
+        return w.getName().equals(this.getName());
 
 
     }
@@ -196,8 +196,8 @@ public class WeaponCard{
         this.advancedEffect = advancedEffect;
     }
 
-    public void setNAME(String NAME) {
-        this.NAME = NAME;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setReloadCost(List<String> reloadCost) {
@@ -217,7 +217,7 @@ public class WeaponCard{
                 ", advancedEffect=" + advancedEffect.size() +
                 ", optionalEffect=" + optionalEffect.size() +
                 ", loaded=" + loaded +
-                ", NAME='" + NAME + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

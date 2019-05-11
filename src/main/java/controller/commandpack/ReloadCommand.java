@@ -20,7 +20,7 @@ public class ReloadCommand extends AbstractCommand {
     public void execute() {
         if (weaponName == null || weaponName.isEmpty()) throw new IllegalArgumentException("no weapon selected");
         for (WeaponCard wpc : match.getCurrentPlayer().getWeapons()){
-            if (wpc.getNAME().equals(weaponName)){
+            if (wpc.getName().equals(weaponName)){
                 try {
                     wpc.reload(match.getCurrentPlayer().getPlayerBoard().getLoader());
                     //TODO notify a tutti
