@@ -1,29 +1,42 @@
 package model;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.BufferedReader;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.GsonBuilder;
+import jsonParser.StateMachineDeserializer;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.Reader;
-import java.lang.reflect.Type;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 
 public class provaGson {
 
-    public static void main(String[] args) {
-        Gson g = new Gson();
-        State[] states = null;
-        String path = "./src/main/resources/stateMachine/stateMachine.json";
-        Reader inputJson = null;
-        Type listType = new TypeToken<Collection<State>>(){}.getType();
-        try{
-            inputJson = new BufferedReader(new FileReader(path));
-            states = g.fromJson(inputJson, State[].class);
+    private static ExclusionStrategy strategy = new ExclusionStrategy() {
+        @Override
+        public boolean shouldSkipField(FieldAttributes field) {
+            if (field.getName().equals("possibleNextState")) {
+                return true;
+            }
+            return false;
         }
-        catch (Exception e){ System.out.println(e.getMessage()); e.printStackTrace();}
-        System.out.println(states);
+
+        @Override
+        public boolean shouldSkipClass(Class<?> clazz) {
+            return false;
+        }
+    };
+
+    public static void main(String[] args) {
+        GsonBuilder gb = new GsonBuilder().registerTypeAdapter(State[].class, new StateMachineDeserializer());
+        State[] states = {};
+        try{
+
+            states = gb.create().fromJson(
+                            new FileReader("./src/main/resources/stateMachine/stateMachine.json"), State[].class);
+        }
+        catch (FileNotFoundException f){
+            System.out.println(f.getMessage());
+            f.printStackTrace();
+        }
+        for(State s: states) System.out.println(s.getName());
     }
+
 }

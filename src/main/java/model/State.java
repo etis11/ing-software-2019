@@ -1,6 +1,7 @@
 package model;
 
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -73,7 +74,7 @@ public class State {
     /**
      * possibleNextState contains a reference to the state which the owner can move from current state
      */
-    private final Map<String, State> possibleNextState;
+    private Map<String, State> possibleNextState;
 
     /**
      * remainingSteps are the number of steps
@@ -95,6 +96,11 @@ public class State {
         this.possibleNextState = possibleNextState;
         this.remainingSteps = maxPossibleSteps;
         this.reload =reload;
+    }
+
+
+    public void allocatePossibleNextState(){
+        this.possibleNextState = new HashMap<>();
     }
 
     /**
@@ -232,5 +238,15 @@ public class State {
         if (state == null) throw new IllegalArgumentException();
         if (!possibleNextState.containsKey(state)) throw  new IllegalStateException("Error: from "+ getName()+" state you can't go to "+state+" state");
         player.setState(possibleNextState.get(state));
+    }
+
+    /**
+     * Adds to the adjacency list the state with the given name
+     * @param name the name of the state
+     * @param s the state
+     */
+    public void addProxState(String name, State s){
+        if(name!= null && s != null)
+        possibleNextState.put(name, s);
     }
 }
