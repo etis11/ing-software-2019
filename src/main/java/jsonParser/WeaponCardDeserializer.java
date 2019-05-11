@@ -121,28 +121,28 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
                 toReturn=new RoomStrategy(match);
                 break;
             case "VortexCannonStrategy":
-                toReturn=new VortexCannonStrategy(param, match);
+                //toReturn=new VortexCannonStrategy(param, match);
                 break;
             case "DontSeeStrategy":
-                toReturn = new DontSeeStrategy(match);
+                //toReturn = new DontSeeStrategy(match);
                 break;
             case "FlameThrowerStrategy":
                 toReturn = new FlameThrowerStrategy();
                 break;
             case "BBQStrategy":
-                toReturn = new BBQStrategy(param,match);
+                //toReturn = new BBQStrategy(param,match);
                 break;
             case "TractorBeamStrategy":
-                toReturn = new TractorBeamStrategy(param, match);
+                //toReturn = new TractorBeamStrategy(param, match);
                 break;
             case "AdjacentStrategy":
-                toReturn = new AdjacentStrategy(param , match);
+                //toReturn = new AdjacentStrategy(param , match);
                 break;
             case "LaserRifleStrategy":
                 toReturn = new LaserRifleStrategy();
                 break;
             case "MeleeStrategy":
-                toReturn = new MeleeStrategy( param, match);
+                //toReturn = new MeleeStrategy( param, match);
                 break;
             default:
                 break;

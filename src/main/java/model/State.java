@@ -121,8 +121,10 @@ public class State {
 
         states = g.fromJson(jsonStateMachine, State[].class);
         for(State s: states){
-            if (s.getName().equals("EndTurn"))
-            {System.out.println(s.getName());return s;}
+            if (s.getName().equals("EndTurn")){
+                //System.out.println(s.getName());
+                return s;
+            }
         }
 
         throw new JsonParseException("the json was not well built, the EndTurn state is not present");

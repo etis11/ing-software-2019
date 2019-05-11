@@ -85,8 +85,8 @@
     "possibleNextState":
       {
         "NormalAction": "NormalAction",
-        "MoreAction": "NormalAction",
-        "MostAction": "NormalAction"
+        "MoreAction": "MoreAction",
+        "MostAction": "MostAction"
       }
   },
   {
@@ -125,7 +125,7 @@
     "possibleNextState":
       {
         "NormalAction": "NormalAction",
-        "MoreAction": "MoreAtion"
+        "MoreAction": "MoreAction"
       }
   },
   {

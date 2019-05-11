@@ -51,10 +51,10 @@ public class WeaponCardTest {
     @Test
     void jsonLoadTest(){
         JsonFileReader jsonFileReader = new JsonFileReader();
-        JsonArray cards = jsonFileReader.loadWeaponCards("cards/cards.json");
+        //TODO errore nel parametro JsonArray cards = jsonFileReader.loadWeaponCards("cards/cards.json");
 
-        WeaponCardDeserializer weaponCardDeserializer = new WeaponCardDeserializer();
-        List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
+        //TODO manca il parametro da passare WeaponCardDeserializer weaponCardDeserializer = new WeaponCardDeserializer();
+        //List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
         
 
     }
