@@ -6,9 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import jsonParser.StateMachineDeserializer;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -123,7 +121,8 @@ public class State {
 
         states = g.fromJson(jsonStateMachine, State[].class);
         for(State s: states){
-            if (s.getName().equals("EndTurn")) return s;
+            if (s.getName().equals("EndTurn"))
+            {System.out.println(s.getName());return s;}
         }
 
         throw new JsonParseException("the json was not well built, the EndTurn state is not present");
