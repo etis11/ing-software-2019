@@ -38,7 +38,7 @@
     "remainingSteps": 0,
     "possibleNextState":
       {
-        "PickUp":"PickUpPlus",
+        "PickUp": "PickUpPlus",
         "Shoot": "Shoot",
         "Run": "Run",
         "Reload": "Reload",

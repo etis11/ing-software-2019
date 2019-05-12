@@ -28,7 +28,7 @@ public class AskWalkCommand extends AbstractCommand {
             //TODO originView.onfailure();
         }
         else {
-            match.getCurrentPlayer().getState().nextState("Walk", match.getCurrentPlayer());
+            match.getCurrentPlayer().getState().nextState("Run", match.getCurrentPlayer());
             //TODO allViews.onfailure();
         }
     }
