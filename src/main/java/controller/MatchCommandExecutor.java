@@ -2,9 +2,7 @@ package controller;
 
 import exceptions.NotValidActionException;
 import model.Match;
-import model.Movement;
 import model.Player;
-import model.WeaponCard;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -142,7 +140,7 @@ public class MatchCommandExecutor extends AbstractCommandExecutor{
      * routine to the view player points
      */
     public void getPoints(){
-        //TODO
+        //probabilmente non serve più
     }
 
     /**
