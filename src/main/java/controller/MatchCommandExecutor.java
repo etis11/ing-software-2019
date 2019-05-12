@@ -28,7 +28,6 @@ public class MatchCommandExecutor extends AbstractCommandExecutor{
      * routine to shoot
      */
     public void shootRoutine() throws NotValidActionException{
-        //controllo se almeno un'arma è carica
         //chiedo con quali effetti sparare ed eventualmente verifico i costi aggiuntivi
         //controllo che la strategia dell'arma mi permetta di colpire almeno uno
         //pago i costi aggiuntivi

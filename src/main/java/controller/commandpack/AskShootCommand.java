@@ -1,5 +1,6 @@
 package controller.commandpack;
 
+import model.WeaponCard;
 import view.AbstractView;
 import model.Match;
 
@@ -24,7 +25,15 @@ public class AskShootCommand extends AbstractCommand{
      */
     @Override
     public void execute() {
-        if (!match.getCurrentPlayer().getState().canShoot() && match.getCurrentPlayer().getRemainingMoves()>0){
+        boolean loaded = false;
+        //verify if almost a weapon is loaded
+        for (WeaponCard wpc : match.getCurrentPlayer().getWeapons()){
+            if(wpc.isLoaded()){
+                loaded = true;
+            }
+        }
+        if (!match.getCurrentPlayer().getState().canShoot() && match.getCurrentPlayer().getRemainingMoves()>0 && loaded){
+
             //TODO originView.onfailure();
         }
         else {
