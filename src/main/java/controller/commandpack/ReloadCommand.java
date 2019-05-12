@@ -1,6 +1,6 @@
 package controller.commandpack;
 
-import View.AbstractView;
+import view.AbstractView;
 import exceptions.InsufficientAmmoException;
 import model.Match;
 import model.WeaponCard;

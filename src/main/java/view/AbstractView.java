@@ -1,4 +1,4 @@
-package View;
+package view;
 
 public  abstract class AbstractView implements LobbyListener, MapObserver, PlayerObserver {
 

@@ -1,6 +1,6 @@
 package controller.commandpack;
 
-import View.AbstractView;
+import view.AbstractView;
 import exceptions.PickableNotPresentException;
 import model.Match;
 import model.WeaponCard;
