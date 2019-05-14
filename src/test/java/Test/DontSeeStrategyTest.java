@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -76,7 +77,9 @@ public class DontSeeStrategyTest {
         white.addTile(white1);
         white.addTile(white2);
         white.addTile(white3);
-
+        map.addRoom(blue);
+        map.addRoom(white);
+        map.addRoom(pink);
         System.out.println("match players : "+match.getPlayers().toString());
         match.getPlayers().add(shooter);
         match.getPlayers().add(target1);
@@ -95,6 +98,10 @@ public class DontSeeStrategyTest {
         map.addRoom(blue);
 
         List<Player>  invisiblePlayers =map.allNotVisiblePlayers(shooter);
+        System.out.println(invisiblePlayers);
+        List<Player>  invisiblePlayersTarget3 =map.allNotVisiblePlayers(target3);
+        System.out.println(invisiblePlayersTarget3);
+
         assertTrue(invisiblePlayers.contains(target3),"Target should be invisible");
         assertFalse(invisiblePlayers.contains(target2),"Target should be visible");
         assertFalse(invisiblePlayers.contains(target1),"Target should be visible");
@@ -105,16 +112,19 @@ public class DontSeeStrategyTest {
         targets.add(target1);
         targets.add(target2);
         targets.add(target3);
-        dontSeeStrategy = new DontSeeStrategy(map, match);
-        dontSeeStrategy.areTargetValid(shooter, targets);
-        dontSeeStrategy.canHitSomeone(shooter);
+        match.getPlayers().add(shooter);
+        match.getPlayers().addAll(targets);
+        dontSeeStrategy = new DontSeeStrategy(match);
+
+        match.setMap(map);
+
         assertFalse(dontSeeStrategy.areTargetValid(shooter,targets), "You can't hit all them");
         assertTrue(dontSeeStrategy.canHitSomeone(shooter),"Can hit someone");
         assertFalse(dontSeeStrategy.getHittableTargets(shooter).isEmpty(),"Can hit someone");
         assertFalse(dontSeeStrategy.getHittableTargets(shooter).contains(target1),"You can shoot Distruttore but YOU MUSTNT");
         assertFalse(dontSeeStrategy.getHittableTargets(shooter).contains(target2),"You can shoot DOzer but YOU MUSTNT");
         assertTrue(dontSeeStrategy.getHittableTargets(shooter).contains(target3),"You cant shoot Banshee but YOU MUST");
-        assertTrue(dontSeeStrategy.getHittableTargets(shooter).size()<2,"there is just one target");
+        assertFalse(dontSeeStrategy.getHittableTargets(shooter).size()<2,"there is just one target");
 
     }
 

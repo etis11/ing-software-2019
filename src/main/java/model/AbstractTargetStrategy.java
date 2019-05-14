@@ -16,6 +16,7 @@ public abstract class AbstractTargetStrategy implements TargetStrategy{
      * */
     String type;
     int param;
+    Match match;
 
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
