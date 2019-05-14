@@ -8,28 +8,12 @@ public class LobbyCommandExecutor extends AbstractCommandExecutor{
         super(match);
     }
 
-
-    /**
-     * routine to set user Username
-     */
-    public void setUsername(){
-        //TODO
-    }
-
     /**
      * routine to set the player token
      */
     public void setPlayerToken(){
         //TODO
     }
-
-    /**
-     * routine to set the user effect phrase
-     */
-    public void setEffectPhrase(){
-        //TODO
-    }
-
     /**
      * return a list of command to set the match
      */
