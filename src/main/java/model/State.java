@@ -4,7 +4,7 @@ package model;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
-import jsonParser.StateMachineDeserializer;
+import jsonparser.StateMachineDeserializer;
 
 import java.io.*;
 import java.util.HashMap;
@@ -122,7 +122,6 @@ public class State {
         states = g.fromJson(jsonStateMachine, State[].class);
         for(State s: states){
             if (s.getName().equals("EndTurn")){
-                //System.out.println(s.getName());
                 return s;
             }
         }
@@ -281,7 +280,8 @@ public class State {
      * @param s the state
      */
     public void addProxState(String name, State s){
-        if(name!= null && s != null)
-        possibleNextState.put(name, s);
+        if(name!= null && s != null) {
+            possibleNextState.put(name, s);
+        }
     }
 }
