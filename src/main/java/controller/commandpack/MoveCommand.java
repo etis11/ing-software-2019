@@ -36,12 +36,15 @@ public class MoveCommand extends AbstractCommand {
     public void execute() {
         //TODO modificare condizione se ho superato i controlli dei sottostati precedenti
         if (match.getCurrentPlayer().getState().getRemainingSteps()<moves.size()){
-            //TODO originView.onfailure();
+            originView.notify("Non hai abbastanze mosse rimanenti");
         }
         else {
             match.getCurrentPlayer().getState().decrementReaminingSteps(moves.size());
             match.getCurrentPlayer().move(new Movement(new ArrayList<String>(moves)));
-            //TODO allViews
+            String message = "Il giocatore attuale si è spostato di: "+moves.size()+" mosse";
+            for (AbstractView view : allViews){
+                view.notify(message);
+            }
         }
     }
 }

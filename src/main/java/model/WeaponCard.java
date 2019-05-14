@@ -103,7 +103,7 @@ public class WeaponCard{
     }
 
     public void reload(Loader loader) throws InsufficientAmmoException {
-        if (getBlueCost() == loader.getNumBlueAmmo() && getRedCost() == loader.getNumRedAmmo() && getYellowCost() == loader.getNumYellowAmmo()) {
+        if (getBlueCost() <= loader.getNumBlueAmmo() && getRedCost() <= loader.getNumRedAmmo() && getYellowCost() <= loader.getNumYellowAmmo()) {
             loader.ammoToPool(getBlueCost(), getRedCost(), getYellowCost());
             loaded = true;
         }

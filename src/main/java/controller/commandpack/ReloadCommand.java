@@ -18,15 +18,18 @@ public class ReloadCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        if (weaponName == null || weaponName.isEmpty()) throw new IllegalArgumentException("no weapon selected");
+        if (weaponName == null) throw new IllegalArgumentException("no weapon selected");
         for (WeaponCard wpc : match.getCurrentPlayer().getWeapons()){
             if (wpc.getName().equals(weaponName)){
                 try {
                     wpc.reload(match.getCurrentPlayer().getPlayerBoard().getLoader());
-                    //TODO notify a tutti
+                    String message = "Il giocatore attuale ha ricaricato: "+wpc.getName();
+                    for (AbstractView view : allViews){
+                        view.notify(message);
+                    }
                 } catch (InsufficientAmmoException e) {
-                    e.printStackTrace();
-                    //TODO notify errore
+                    originView.notify("Non hai le munizioni necessarie per ricaricare ques'arma");
+                    //TODO notify richiesta azione alternativa?
                 }
             }
         }

@@ -23,9 +23,17 @@ public class PickUpAmmoCommand extends AbstractCommand{
         match.getCurrentPlayer().useAmmoCard(ammoCard, match.getPowerUpDeck());
         //put the card in the slush pile
         match.getAmmoSlushPile().addCard(ammoCard);
-        //TODO notify
 
-        //TODO match.getCurrentPlayer().getState().nextState(match.getCurrentPlayer().getState().getPossibleNextStates()., match.getCurrentPlayer());
+        //notify
+        String message = "Il giocatore attuale ha raccolto una carta munizioni";
+        for (AbstractView view : allViews){
+            view.notify(message);
+        }
+
+        //drecrement moves of player and return to action selector
+        match.getCurrentPlayer().decrementMoves();
+        match.getCurrentPlayer().getState().nextState(match.getCurrentPlayer().getOldState().getName(), match.getCurrentPlayer());
         match.getCurrentPlayer().setOldState(null);
+
     }
 }
