@@ -25,12 +25,15 @@ public class AskPickCommand extends AbstractCommand {
     @Override
     public void execute() {
         if (!match.getCurrentPlayer().getState().canPickUp() && match.getCurrentPlayer().getRemainingMoves()>0){
-            //TODO originView.onfailure();
+            originView.notify("Non puoi raccogliere");
         }
         else {
             match.getCurrentPlayer().setOldState(match.getCurrentPlayer().getState());
             match.getCurrentPlayer().getState().nextState("PickUp", match.getCurrentPlayer());
-            //TODO allViews
+            String message = "Il giocatore attuale sta raccogliendo";
+            for (AbstractView view : allViews){
+                view.notify(message);
+            }
 
         }
     }

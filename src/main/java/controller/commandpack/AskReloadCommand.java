@@ -25,12 +25,15 @@ public class AskReloadCommand extends AbstractCommand{
     @Override
     public void execute() {
         if (!match.getCurrentPlayer().getState().canReload()){
-            //TODO originView.onfailure();
+            originView.notify("non puoi ricaricare");
         }
         else {
             match.getCurrentPlayer().getState().nextState("Reload", match.getCurrentPlayer());
-            //TODO notify al player le armi che ha a disposizione
-            //TODO allViews
+            //TODO notify al player le armi che ha a disposizione, la notific a tutti va fatta anche al player che raccoglie
+            String message = "Il giocatore attuale sta ricaricando";
+            for (AbstractView view : allViews){
+                view.notify(message);
+            }
         }
     }
 }

@@ -26,11 +26,14 @@ public class AskEndTurnCommand extends AbstractCommand {
     public void execute() {
         //TODO rivedere la condizione
         if (!match.getCurrentPlayer().getState().isNormalAction() || !match.getCurrentPlayer().getState().isMoreAction() ||!match.getCurrentPlayer().getState().isMostAction() ){
-            //TODO originView.onfailure();
+            originView.notify("Non puoi terminare il tuo turno al momento");
         }
         else {
             match.getCurrentPlayer().getState().nextState("EndTurn", match.getCurrentPlayer());
-            //TODO allViews
+            String message = "Il giocatore attuale ha terminato il suo turno";
+            for (AbstractView view : allViews){
+                view.notify(message);
+            }
         }
     }
 }

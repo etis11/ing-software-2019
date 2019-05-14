@@ -24,12 +24,16 @@ public class AskUsePowerUpCommand extends AbstractCommand {
      */
     @Override
     public void execute() {
-        if (!match.getCurrentPlayer().getState().canUsePowerUp()){
-            //TODO originView.onfailure();
+        if (!match.getCurrentPlayer().getState().canUsePowerUp() && match.getCurrentPlayer().getPowerUps().isEmpty()){
+            originView.notify("Non puoi usare powerup");
         }
         else {
             match.getCurrentPlayer().getState().nextState("PowerUp", match.getCurrentPlayer());
-            //TODO allViews
+            String message = "Il giocatore attuale sta usando un power up";
+            for (AbstractView view : allViews){
+                view.notify(message);
+            }
+            //TODO notify dei power up disponibili
         }
     }
 }

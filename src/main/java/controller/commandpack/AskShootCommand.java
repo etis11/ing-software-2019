@@ -33,12 +33,15 @@ public class AskShootCommand extends AbstractCommand{
             }
         }
         if (!match.getCurrentPlayer().getState().canShoot() && match.getCurrentPlayer().getRemainingMoves()>0 && loaded){
-
-            //TODO originView.onfailure();
+            originView.notify("Non puoi sparare");
         }
         else {
             match.getCurrentPlayer().getState().nextState("Shoot", match.getCurrentPlayer());
-            //TODO allViews
+            String message = "Il giocatore attuale sta per sparare";
+            for (AbstractView view : allViews){
+                view.notify(message);
+            }
+            //TODO notifico già le armi?
         }
     }
 }

@@ -25,11 +25,14 @@ public class AskWalkCommand extends AbstractCommand {
     @Override
     public void execute() {
         if (!match.getCurrentPlayer().getState().canRun() && match.getCurrentPlayer().getRemainingMoves()>0){
-            //TODO originView.onfailure();
+            originView.notify("non puoi spostarti");
         }
         else {
             match.getCurrentPlayer().getState().nextState("Run", match.getCurrentPlayer());
-            //TODO allViews.onfailure();
+            String message = "Il giocatore attuale si sta spostando";
+            for (AbstractView view : allViews){
+                view.notify(message);
+            }
         }
     }
 }

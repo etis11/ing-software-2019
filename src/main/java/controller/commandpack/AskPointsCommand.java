@@ -19,6 +19,6 @@ public class AskPointsCommand extends AbstractCommand {
     public void execute() {
         if (player == null) throw new IllegalArgumentException("Player can't be null");
         int points = player.getPoints();
-        //TODO notify
+        originView.notify(match.getCurrentPlayer().getName()+ " hai: "+points+ "punti");
     }
 }
