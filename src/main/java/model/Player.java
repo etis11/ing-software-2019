@@ -97,6 +97,18 @@ public class Player {
         oldState=null;
     }
 
+    public Player(String name, State s) {
+        this.name = name;
+        points = 0;
+        state = s;
+        weapons = new LinkedList<>();
+        powerUps = new LinkedList<>();
+        tile = null;
+        playerBoard = new PlayerBoard();
+        remainingMoves = 0;
+        oldState=null;
+    }
+
     /**
      * This method returns the name of the player
      *

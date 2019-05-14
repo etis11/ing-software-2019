@@ -120,7 +120,7 @@ public class Match {
     /**
      * Method used to set list of players before game starting.
      * */
-    public void setPlayers(LinkedList<Player> players) {
+    public void setPlayers(List<Player> players) {
         this.players = players;
     }
 
