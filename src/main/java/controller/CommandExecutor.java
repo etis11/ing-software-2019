@@ -13,9 +13,4 @@ public interface CommandExecutor {
      * adds a command to a queue
      */
     void addCommand(Command c);
-
-    /**
-     * executes a secondary command
-     */
-    void executeSecondaryCommand();
 }

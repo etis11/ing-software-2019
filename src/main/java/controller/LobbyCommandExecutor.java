@@ -7,8 +7,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class LobbyCommandExecutor extends AbstractCommandExecutor{
 
     public LobbyCommandExecutor(Match match) {
-        this.match = match;
-        this.commandList = new ConcurrentLinkedQueue<>();
+        super(match);
     }
 
 
