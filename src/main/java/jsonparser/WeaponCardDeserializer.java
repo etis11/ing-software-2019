@@ -29,7 +29,7 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
         for (JsonElement el: json){
             WeaponCard wcToAdd= new WeaponCard();
             JsonObject jsonCard = el.getAsJsonObject();
-            String name=jsonCard.get("name").getAsString();
+            String name=jsonCard.get("NAME").getAsString();
             System.out.println(name);
             JsonArray jsonCost=jsonCard.get("reloadCost").getAsJsonArray();
             List<String>costs= new ArrayList<>();
