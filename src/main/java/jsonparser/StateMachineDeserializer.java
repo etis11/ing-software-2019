@@ -1,4 +1,4 @@
-package jsonParser;
+package jsonparser;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
@@ -7,7 +7,6 @@ import model.State;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class StateMachineDeserializer implements JsonDeserializer<State[]> {

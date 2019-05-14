@@ -3,7 +3,7 @@ package model;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import exceptions.DuplicateException;
-import jsonParser.GameMapDeserializer;
+import jsonparser.GameMapDeserializer;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

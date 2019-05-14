@@ -1,4 +1,4 @@
-package jsonParser;
+package jsonparser;
 
 import com.google.gson.*;
 import model.GameMap;
@@ -41,9 +41,9 @@ public class GameMapDeserializer implements JsonDeserializer<GameMap> {
         fillWithNull(tiles, initialCapacity);
 
         //at this point, all the rooms are created
-        int num_rooms = jsonGameMap.get("n_rooms").getAsInt();
-        List<Room> rooms = new ArrayList<>(num_rooms);
-        for(int i = 0; i < num_rooms; i++){
+        int numRooms = jsonGameMap.get("n_rooms").getAsInt();
+        List<Room> rooms = new ArrayList<>(numRooms);
+        for(int i = 0; i < numRooms; i++){
             rooms.add(i, new Room());
         }
 
@@ -67,7 +67,7 @@ public class GameMapDeserializer implements JsonDeserializer<GameMap> {
             for(Player p : players)
                 currentTile.addPlayer(p);
             tiles.set(jsonTile.get("ID").getAsInt(), currentTile );
-            //adds the tile to the room indicated in the json;
+            //adds the tile to the room indicated in the json
             rooms.get(currentRoom).addTile(currentTile);
 
             //if the tile has a regenPoint member, and the regenPoint is not an empty string, add the tile to the regen point list
@@ -143,7 +143,7 @@ public class GameMapDeserializer implements JsonDeserializer<GameMap> {
     }
 
     /**
-     * given a json array that contains some players, return the correspongin object. In future should call a player deserializer.
+     * given a json array that contains some players, return the corresponding object. In future should call a player deserializer.
      * @param jsonPlayers an array of json players
      * @return a list of players, can be empty, can't be null
      */

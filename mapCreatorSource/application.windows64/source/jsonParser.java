@@ -445,7 +445,7 @@ public void assignID(Tile t, int i, int j, String dir){
   
 }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "jsonParser" };
+    String[] appletArgs = new String[] {"jsonparser"};
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {

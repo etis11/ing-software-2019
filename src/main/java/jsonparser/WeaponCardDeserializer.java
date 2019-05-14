@@ -1,4 +1,4 @@
-package jsonParser;
+package jsonparser;
 
 import com.google.gson.*;
 import model.*;
