@@ -2,7 +2,7 @@
   {
     "NAME": "Lock Rifle",
     "reloadCost": [
-      "blue"
+      "blue","blue"
     ],
     "baseEffect": [
       {
@@ -31,7 +31,7 @@
   },
   {
     "NAME": "Machine Gun",
-    "reloadCost": [
+    "reloadCost": ["blue",
       "red"
     ],
     "baseEffect": [
@@ -51,7 +51,7 @@
   },
   {
     "NAME": "Thor",
-    "reloadCost": [
+    "reloadCost": ["blue",
       "red"
     ],
     "baseEffect": [
@@ -71,7 +71,7 @@
   },
   {
     "NAME": "Plasma Gun",
-    "reloadCost": [
+    "reloadCost": ["blue",
       "yellow"
     ],
     "baseEffect": [
@@ -91,7 +91,7 @@
   },
   {
     "NAME": "Whisper",
-    "reloadCost": [
+    "reloadCost": ["blue",
       "blue",
       "yellow"
     ],
@@ -214,7 +214,7 @@
   },
   {
     "NAME": "Vortex Cannon",
-    "reloadCost": [
+    "reloadCost": ["red",
       "blue"
     ],
     "baseEffect": [
@@ -245,7 +245,7 @@
   },
   {
     "NAME": "Furnace",
-    "reloadCost": [
+    "reloadCost": ["red",
       "blue"
     ],
     "baseEffect": [
@@ -287,7 +287,7 @@
   },
   {
     "NAME": "HeatSeeker",
-    "reloadCost": [
+    "reloadCost": ["red",
       "red",
       "yellow"
     ],
@@ -308,7 +308,7 @@
   },
   {
     "NAME": "Hellion",
-    "reloadCost": [
+    "reloadCost": ["red",
       "yellow"
     ],
     "baseEffect": [
@@ -443,7 +443,7 @@
   },
   {
     "NAME": "Rocket Launcher",
-    "reloadCost": [
+    "reloadCost": ["red",
       "red"
     ],
     "baseEffect": [
@@ -474,7 +474,7 @@
   },
   {
     "NAME": "RailGun",
-    "reloadCost": [
+    "reloadCost": ["yellow",
       "yellow",
       "blue"
     ],
@@ -510,7 +510,7 @@
   },
   {
     "NAME": "CyberBlade",
-    "reloadCost": [
+    "reloadCost": ["yellow",
       "red"
     ],
     "baseEffect": [
@@ -530,7 +530,7 @@
   },
   {
     "NAME": "ZX-2",
-    "reloadCost": [
+    "reloadCost": ["yellow",
       "red"
     ],
     "baseEffect": [
@@ -575,7 +575,7 @@
   },
   {
     "NAME": "Shotgun",
-    "reloadCost": [
+    "reloadCost": ["yellow",
       "yellow"
     ],
     "baseEffect": [
@@ -621,7 +621,7 @@
   },
   {
     "NAME": "Power Glove",
-    "reloadCost": [
+    "reloadCost": ["yellow",
       "blue"
     ],
     "baseEffect": [

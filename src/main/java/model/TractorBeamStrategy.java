@@ -20,8 +20,9 @@ public class TractorBeamStrategy extends AbstractTargetStrategy {
      * */
     private Match match;
 
-    public TractorBeamStrategy(int distance) {
+    public TractorBeamStrategy(int distance , Match match) {
         this.distance = distance;
+        this.match = match;
     }
 
     /**
@@ -46,7 +47,7 @@ public class TractorBeamStrategy extends AbstractTargetStrategy {
         List<Tile> visibleTiles = match.getMap().allVisibleTiles(shooter);
         List<Tile> destinations = new LinkedList<>();
         for(Tile tile : visibleTiles){
-            if(tile.distance(target, true, true, true, true)<3){
+            if(tile.distance(target, match.getMap())<3){
                 destinations.add(tile);
             }
         }
@@ -64,7 +65,7 @@ public class TractorBeamStrategy extends AbstractTargetStrategy {
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         super.areTargetValid(shooter, targets);
         List<Tile> visibleTiles = match.getMap().allVisibleTiles(shooter);
-        return visibleTiles.stream().anyMatch(tile ->  tile.distance(targets.get(0), true, true, true, true)<3 ) ;
+        return visibleTiles.stream().anyMatch(tile ->  tile.distance(targets.get(0),match.getMap())<3 ) ;
     }
 
     @Override
@@ -74,7 +75,7 @@ public class TractorBeamStrategy extends AbstractTargetStrategy {
 
     @Override
     public List<Player> getHittableTargets(Player shooter) {
-        return match.getPlayers().stream().filter(player -> match.getMap().allVisibleTiles(shooter).stream().anyMatch(tile -> tile.distance(player, true, true, true, true)<=2)&& !player.equals(shooter)).collect(Collectors.toList());
+        return match.getPlayers().stream().filter(player -> match.getMap().allVisibleTiles(shooter).stream().anyMatch(tile -> tile.distance(player, match.getMap())<=2)&& !player.equals(shooter)).collect(Collectors.toList());
     }
 
     /**

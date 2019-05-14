@@ -9,15 +9,17 @@ import java.util.stream.Collectors;
 public class BBQStrategy extends FlameThrowerStrategy {
 
     private int distance;
+    private Match match;
 
-    public BBQStrategy(int distance) {
+    public BBQStrategy(int distance, Match match) {
         this.distance = distance;
+        this.match = match ;
     }
 
     @Override
     public List<Player> getHittableTargets(Player shooter) {
         List<Player> hittableTargets = super.getHittableTargets(shooter);
-        return hittableTargets.stream().filter(p->p.getTile().distance(shooter)==distance).collect(Collectors.toList());
+        return hittableTargets.stream().filter(p->p.getTile().distance(shooter,match.getMap())==distance).collect(Collectors.toList());
     }
     /**
      *Checks if all the targets are in the same direction. The check is made on a cross centered in the shooter at a max distance

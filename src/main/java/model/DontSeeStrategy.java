@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -11,21 +12,14 @@ import java.util.List;
 public class DontSeeStrategy extends AbstractTargetStrategy {
 
     private Match match;
-
-    /**
-     * Attribute called to declare a private gameMap of GameMap type. Needed to interact with players position
-     * in the gameMap
-     * */
     private GameMap gameMap;
-
     public DontSeeStrategy() {
     }
 
     /**
      * This is the constructor of our class
      * */
-    public DontSeeStrategy(GameMap gameMap, Match match){
-       this.gameMap = gameMap;
+    public DontSeeStrategy(Match match){
         this.match = match;
     }
 
@@ -42,7 +36,7 @@ public class DontSeeStrategy extends AbstractTargetStrategy {
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         super.areTargetValid(shooter, targets);
-        List<Player> notVisiblePlayers = gameMap.allNotVisiblePlayers(shooter);
+        List<Player> notVisiblePlayers = match.getMap().allNotVisiblePlayers(shooter);
         for (Player p: targets) {
             if(!notVisiblePlayers.contains(p)){
                 return false;
@@ -78,7 +72,7 @@ public class DontSeeStrategy extends AbstractTargetStrategy {
 
     @Override
      public boolean canHitSomeone(Player shooter) {
-         List<Player> notVisiblePlayers = gameMap.allNotVisiblePlayers(shooter);
+         List<Player> notVisiblePlayers = match.getMap().allNotVisiblePlayers(shooter);
          return match.getPlayers().stream().anyMatch(p ->  notVisiblePlayers.contains(p) ) ;
      }
 
@@ -93,6 +87,6 @@ public class DontSeeStrategy extends AbstractTargetStrategy {
      * */
     @Override
     public List<Player> getHittableTargets(Player shooter) {
-        return new ArrayList<>(gameMap.allNotVisiblePlayers(shooter));
+        return new LinkedList<>(match.getMap().allNotVisiblePlayers(shooter));
     }
 }

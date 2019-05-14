@@ -1,6 +1,7 @@
 package model;
 
 import exceptions.PickableNotPresentException;
+import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 
 import java.util.*;
 
@@ -480,7 +481,7 @@ public class Tile {
      * @return copy of weapons
      * @throws Exception The tile is not a weapon tile
      */
-    public LinkedList<WeaponCard> getWeapons() throws PickableNotPresentException {
+    public LinkedList<WeaponCard> getWeapons(){
         if (!weaponTile) throw new PickableNotPresentException("This is tile is not a weapon tile");
         return weapons.stream().map(WeaponCard::new).collect(toCollection(LinkedList::new));
     }
@@ -549,6 +550,12 @@ public class Tile {
         return playerToRemove; //test
     }
 
+    public int distance (Player target , GameMap map){
+        // return distance(target,true,true,true,true);
+        DijkstraShortestPath dijkstraShortestPath = new DijkstraShortestPath(map.createGraph());
+        return (int) Math.round(dijkstraShortestPath.getPathWeight(target.getTile(),this));
+    }
+/*
     public int distance (Player target){
         return distance(target,true,true,true,true);
     }
@@ -574,6 +581,7 @@ public class Tile {
 
         return distance;
     }
+    */
     /**
      * Gives a list with the tiles around the current tile.
      * @return

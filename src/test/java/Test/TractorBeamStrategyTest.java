@@ -119,41 +119,32 @@ public class TractorBeamStrategyTest {
         List<Tile> tiles = map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).collect(Collectors.toList());
         System.out.println("tiles : "+tiles);
         System.out.println("allvisibtiles : "+allvisibtiles);
-        System.out.println("boolean Distance : "+(blue1.distance(target1)));
-        System.out.println("boolean Distance : "+(blue1.distance(target2)));
-        System.out.println("boolean Distance : "+(blue1.distance(target4)));
-        System.out.println("boolean Distance : "+(blue1.distance(target5)));
-        /** System.out.println("boolean Distance : "+(blue1.distance(shooter)<1));
-         System.out.println("boolean Distance2 : "+(blue2.distance(shooter)<=1));
-         System.out.println("distanza : "+blue1.distance(shooter));
-         System.out.println("boolean Distance2 : "+(pink1.distance(shooter)));
-         System.out.println("boolean Distance2 : "+(pink2.distance(shooter)));
-         System.out.println("distanza : "+white1.distance(shooter));
-         **/
+        System.out.println("boolean Distance : "+(blue1.distance(target1,map)));
+        System.out.println("boolean Distance : "+(blue1.distance(target2,map)));
+        System.out.println("boolean Distance : "+(blue1.distance(target4,map)));
+        System.out.println("boolean Distance : "+(blue1.distance(target5,map)));
+         System.out.println("boolean Distance : "+(blue1.distance(shooter,map)<1));
+         System.out.println("boolean Distance2 : "+(blue2.distance(shooter,map)<=1));
+         System.out.println("distanza : "+blue1.distance(shooter,map));
+         System.out.println("boolean Distance2 : "+(pink1.distance(shooter,map)));
+         System.out.println("boolean Distance2 : "+(pink2.distance(shooter,map)));
+         System.out.println("distanza : "+white1.distance(shooter,map));
 
-        System.out.println("boolean Distance2 : "+(white1.distance(shooter)));
+
+        System.out.println("boolean Distance2 : "+(white1.distance(shooter,map)));
 
         match.setMap(map);
 
+            System.out.println("boolean any match : "+map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(shooter,map)<=1)));
 
+              List<Player> playersss =match.getPlayers().stream().filter( playerr -> map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(playerr,map)<=1)) && !playerr.equals(shooter) ).collect(Collectors.toList());
 
+             System.out.println("players : "+playersss);
+             match.getPlayers().stream().filter( player -> map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(player,map)<=1)) && !player.equals(shooter) ).collect(Collectors.toList());
 
-        //     System.out.println("boolean any match : "+map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(player)<=1)));
-
-        //      List<Player> playersss =match.getPlayers().stream().filter( playerr -> map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(playerr)<=1)) && !playerr.equals(shooter) ).collect(Collectors.toList());
-
-        //     System.out.println("players : "+playersss);
-        //     match.getPlayers().stream().filter( player -> map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(player)<=1)) && !player.equals(shooter) ).collect(Collectors.toList());
-/*
         System.out.println("allVisibleTiles : "+map.allVisibleTiles(shooter));
 
-        System.out.println("getHittableTargets : "+vortex.getHittableTargets(shooter));
-        System.out.println("Are Targets valid : "+vortex.areTargetValid(shooter,targets));
-        vortex.areTargetValid(shooter,targets);
-        System.out.println("canHitSomeone : "+vortex.canHitSomeone(shooter));
-        vortex.canHitSomeone(shooter);
-        assertTrue(vortex.areTargetValid(shooter,targets),"but they should all be targets");
-        assertFalse(vortex.areTargetValid(shooter,enemies),"target3 is not a target!!!");
-*/
-//assertTrue(tractorBeam.canHitSomeone(shooter),"ERROR:he can hit!!!");
+
+
+assertTrue(tractorBeam.canHitSomeone(shooter),"ERROR:he can hit!!!");
 } }

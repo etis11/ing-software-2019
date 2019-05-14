@@ -3,6 +3,11 @@ package Test;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import model.*;
+import org.jgrapht.Graph;
+import org.jgrapht.GraphPath;
+import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
+import org.jgrapht.graph.DefaultDirectedGraph;
+import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -257,5 +262,105 @@ public class GameMapTest {
         }
 
         return true;
+    }
+
+    @Test
+    void jGraphTest(){
+        GameMap map = GameMap.loadMap(pathMap1);
+        System.out.println("size "+map.getRooms().size());
+
+        Graph<Tile, DefaultEdge> g =  map.createGraph();
+        System.out.println("map created");
+        System.out.println("vertex size "+g.vertexSet().size());
+        assertTrue(g.containsVertex(map.getRooms().get(0).getTiles().get(0)));
+        g.vertexSet().forEach( t -> System.out.println("id : "+t.getID()) );
+        List<Tile> allTiles = new LinkedList<>();
+        for(Room room : map.getRooms()){
+            allTiles.addAll(room.getTiles());
+        }
+        Tile t2 = allTiles.stream().filter(t -> t.getID()==2).findFirst().get();
+        Tile t6 = allTiles.stream().filter(t -> t.getID()==6).findFirst().get();
+        Tile t7 = allTiles.stream().filter(t -> t.getID()==7).findFirst().get();
+        Tile t5 = allTiles.stream().filter(t -> t.getID()==5).findFirst().get();
+        Tile t0 = allTiles.stream().filter(t -> t.getID()==0).findFirst().get();
+        Tile t1 = allTiles.stream().filter(t -> t.getID()==1).findFirst().get();
+        Tile t10 = allTiles.stream().filter(t -> t.getID()==10).findFirst().get();
+        Tile t4 = allTiles.stream().filter(t -> t.getID()==4).findFirst().get();
+
+        DijkstraShortestPath dijkstraShortestPath;
+        dijkstraShortestPath = new DijkstraShortestPath(g);
+
+        System.out.println("getAllEdges(t2, t6) "+g.getAllEdges(t2, t6).size());
+        System.out.println("getAllEdges(t6, t7) "+g.getAllEdges(t6, t7).size());
+        System.out.println("getAllEdges(t5, t6) "+g.getAllEdges(t5, t6).size());
+        System.out.println("getAllEdges  (t4, t5) "+g.getAllEdges(t4, t5).size());
+        System.out.println("getAllEdges(t5, t6) "+g.getAllEdges(t5, t6));
+        System.out.println("getAllEdges  (t4, t5) "+g.getAllEdges(t4, t5));
+        System.out.println("getAllEdges  (t4, t6) "+g.getAllEdges(t4, t6));
+
+        System.out.println("getAllEdges(t6, t5) "+g.getAllEdges(t6, t5));
+        System.out.println("getAllEdges(t5, t7) "+g.getAllEdges(t5, t7));
+        System.out.println("getAllEdges(t0, t1) "+g.getAllEdges(t0, t1));
+        System.out.println("getAllEdges(t6, t10) "+g.getAllEdges(t6, t10));
+        System.out.println("getAllEdges(t4, t5) "+g.getAllEdges(t4, t5));
+        System.out.println("getAllEdges(t4, t6) "+g.getAllEdges(t4, t6));
+        System.out.println("getAllEdges(t4, t6) "+g.getEdge(t4, t6));
+
+        System.out.println("From here we are using the good method ***********************************8");
+
+        List<Integer> ids = new LinkedList<>();
+        GraphPath<Tile, DefaultEdge> graphPath = dijkstraShortestPath.getPath(t1, t10);
+        for ( Tile tile : graphPath.getVertexList()){
+            ids.add(tile.getID());
+            System.out.println("id : "+ids);
+        }
+
+        System.out.println("dijkstraShortestPath.getPath(t4, t6) "+dijkstraShortestPath.getPath(t4, t6));
+        System.out.println("dijkstraShortestPath.getPath(t1, t6) "+dijkstraShortestPath.getPathWeight(t1,t6));
+        System.out.println("dijkstraShortestPath.getPath(t1, t6) "+dijkstraShortestPath.getPathWeight(t1,t10));
+
+
+    }
+
+    @Test
+    void graphTest(){
+
+            Graph<Tile, DefaultEdge> graph = new DefaultDirectedGraph<>(DefaultEdge.class);
+            Tile t1 = new Tile();
+            Tile t2 = new Tile ();
+            Tile t3 = new Tile( );
+            t1.setID(1);
+            t2.setID(2);
+            t3.setID(3);
+            graph.addVertex(t1);
+        graph.addVertex(t2);
+        graph.addVertex(t3);
+        graph.addEdge(t1,t2);
+        graph.addEdge(t2,t1);
+        graph.addEdge(t2,t3);
+        graph.addEdge(t3,t2);
+        System.out.println("All Edges 12 : "+graph.getAllEdges(t1,t2));
+        System.out.println("All Edges 12 : "+graph.getAllEdges(t1,t2).size());
+        System.out.println("All Edges 23 : "+graph.getAllEdges(t2,t3));
+
+        System.out.println("All Edges edgeSet : "+graph.edgeSet());
+
+        DijkstraShortestPath dijkstraShortestPath;
+        dijkstraShortestPath = new DijkstraShortestPath(graph);
+
+        System.out.println("dijkstraShortestPath "+ dijkstraShortestPath.toString());
+
+        System.out.println("outgoingEdgesOf(t1) : "+graph.outgoingEdgesOf(t1));
+        System.out.println("outgoingEdgesOf(t2) : "+graph.outgoingEdgesOf(t2));
+
+        System.out.println("getPaths : "+dijkstraShortestPath.getPaths(t1));
+
+        GraphPath graphPath = dijkstraShortestPath.getPath(t1,t3);
+        System.out.println("graphPath");
+
+        System.out.println(" dijkstraShortestPath All Edges 13 : "+graphPath.getEdgeList().size());
+
+        System.out.println(" dijkstraShortestPath All Edges 13 : "+graphPath.getEdgeList());
+
     }
 }
