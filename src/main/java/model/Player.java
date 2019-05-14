@@ -70,7 +70,7 @@ public class Player {
     public Player() {
         name = "";
         points = 0;
-        state = null; //TODO
+        state = null;
         weapons = new LinkedList<>();
         powerUps = new LinkedList<>();
         tile = null;
@@ -88,7 +88,7 @@ public class Player {
     public Player(String name) {
         this.name = name;
         points = 0;
-        state = null;   //TODO
+        state = null;
         weapons = new LinkedList<>();
         powerUps = new LinkedList<>();
         tile = null;
@@ -314,7 +314,7 @@ public class Player {
      * @param w
      */
     public void reloadWeapon(WeaponCard w) {
-        //TODO
+        //TODO probabilmente non necessario
     }
 
     /**
@@ -322,7 +322,7 @@ public class Player {
      * this method. The ammoCard is used (passed to the loader). The player draws a powerUp if the drawPowerUp is true
      */
     public void pickUpAmmoCard() throws Exception {
-        //TODO
+        //TODO forse non ci serve
     }
 
     /**
@@ -378,6 +378,19 @@ public class Player {
             }
         }
         newTile.addPlayer(this);
+    }
+
+    /**
+     * returns name of player weapons
+     * @return string of name of weapons
+     */
+    public String weaponsToString(){
+        //TODO forse meglio con buffer
+        String toreturn = "";
+        for (WeaponCard w:weapons){
+            toreturn = toreturn+ ", "+w.getName();
+        }
+        return toreturn;
     }
 }
 

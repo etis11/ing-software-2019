@@ -32,8 +32,11 @@ public class AskPickCommand extends AbstractCommand {
             match.getCurrentPlayer().getState().nextState("PickUp", match.getCurrentPlayer());
             String message = "Il giocatore attuale sta raccogliendo";
             for (MessageListener view : allViews){
-                view.notify(message);
+                if (view!=originView) {
+                    view.notify(message);
+                }
             }
+            originView.notify("Se vuoi spostarti inserisci la direzione, altrimenti inserisci cosa vuoi raccogliere? (Munizioni o armi)");
 
         }
     }

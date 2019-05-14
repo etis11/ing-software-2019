@@ -1,0 +1,7 @@
+"run":"AskRunCommand"
+"pickup":"AskPickCommand"
+"shoot":"AskShootCommand"
+"reload":"AskReloadCommand"
+"endturn":"AskEndTurnCommand"
+"usepowerup":"AskUsePowerUpCommand"
+

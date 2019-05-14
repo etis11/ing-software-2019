@@ -28,8 +28,7 @@ public class ReloadCommand extends AbstractCommand {
                         view.notify(message);
                     }
                 } catch (InsufficientAmmoException e) {
-                    originView.notify("Non hai le munizioni necessarie per ricaricare ques'arma");
-                    //TODO notify richiesta azione alternativa?
+                    originView.notify("Non hai le munizioni necessarie per ricaricare ques'arma, vouoi ricaricare un'altra arma oppure finire il turno?");
                 }
             }
         }

@@ -29,11 +29,13 @@ public class AskReloadCommand extends AbstractCommand{
         }
         else {
             match.getCurrentPlayer().getState().nextState("Reload", match.getCurrentPlayer());
-            //TODO notify al player le armi che ha a disposizione, la notific a tutti va fatta anche al player che raccoglie
             String message = "Il giocatore attuale sta ricaricando";
             for (MessageListener view : allViews){
-                view.notify(message);
+                if(view!=originView) {
+                    view.notify(message);
+                }
             }
+            originView.notify("Scegli quale arma ricaricare tra: "+match.getCurrentPlayer().weaponsToString());
         }
     }
 }
