@@ -38,8 +38,7 @@ public class StateMachineDeserializer implements JsonDeserializer<State[]> {
      * @throws JsonParseException
      */
     @Override
-    public State[] deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext)
-            throws JsonParseException {
+    public State[] deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext){
         GsonBuilder gb = new GsonBuilder();
         //this gson parser ignores the possible next state
         Gson gson = gb.addDeserializationExclusionStrategy(strategy).create();

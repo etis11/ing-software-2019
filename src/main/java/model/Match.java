@@ -30,7 +30,7 @@ public class Match {
      * List of players playing when game starts. Such list is longer no lesser then three and no bigger then five.
      * Each player has  his own playerboard and cards
      * */
-    private List<Player> players= new LinkedList<>();;
+    private List<Player> players= new LinkedList<>();
     /**
      * the index of the player that is currently playing
      */
