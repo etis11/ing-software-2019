@@ -46,7 +46,7 @@ public class PickUpWeaponCommand extends AbstractCommand {
         }
 
 
-        //TODO match.getCurrentPlayer().getState().nextState(match.getCurrentPlayer().getState().getPossibleNextStates()., match.getCurrentPlayer());
+        match.getCurrentPlayer().getState().nextState(match.getCurrentPlayer().getOldState().getName(), match.getCurrentPlayer());
         match.getCurrentPlayer().setOldState(null);
     }
 }

@@ -131,7 +131,7 @@ public class StateTest {
         assertEquals("Reload", player.getState().getName(), "ERROR: bad initialization");
         assertFalse(player.getState().canPickUp(), "ERROR: you can pick");
         assertTrue(player.getState().canReload(), "ERROR: you can reload");
-        assertTrue(player.getState().canRun(), "ERROR: you can' t run");
+        assertFalse(player.getState().canRun(), "ERROR: you can' t run");
         assertFalse(player.getState().canUsePowerUp(), "ERROR: you can't run");
         assertFalse(player.getState().canShoot(), "ERROR: you can't shoot");
         assertFalse(player.getState().isDead(), "ERROR: he is still alive");
@@ -207,7 +207,6 @@ public class StateTest {
         assertTrue(player.getState().getPossibleNextStates().containsKey("MoreAction"), "ERROR: there are not a possible state");
         assertSame(2,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("MoreAction", player);
-//        System.out.println(player.getState().getPossibleNextStates());
         player.getState().nextState("PickUp", player);
 
         //TEST MORE PICKUP ACTION
@@ -234,7 +233,7 @@ public class StateTest {
         assertEquals("Reload", player.getState().getName(), "ERROR: bad initialization");
         assertFalse(player.getState().canPickUp(), "ERROR: you can pick");
         assertTrue(player.getState().canReload(), "ERROR: you can reload");
-        assertTrue(player.getState().canRun(), "ERROR: you can' t run");
+        assertFalse(player.getState().canRun(), "ERROR: you can' t run");
         assertFalse(player.getState().canUsePowerUp(), "ERROR: you can't run");
         assertFalse(player.getState().canShoot(), "ERROR: you can't shoot");
         assertFalse(player.getState().isDead(), "ERROR: he is still alive");
@@ -296,7 +295,7 @@ public class StateTest {
         assertEquals("ShootPlus", player.getState().getName(), "ERROR: bad initialization");
         assertFalse(player.getState().canPickUp(), "ERROR: you can pick");
         assertFalse(player.getState().canReload(), "ERROR: you can't reload");
-        assertFalse(player.getState().canRun(), "ERROR: you can' t run");
+        assertTrue(player.getState().canRun(), "ERROR: you can' t run");
         assertTrue(player.getState().canUsePowerUp(), "ERROR: you can use powerup");
         assertTrue(player.getState().canShoot(), "ERROR: you can shoot");
         assertFalse(player.getState().isDead(), "ERROR: he is still alive");
@@ -335,7 +334,7 @@ public class StateTest {
         assertEquals("Reload", player.getState().getName(), "ERROR: bad initialization");
         assertFalse(player.getState().canPickUp(), "ERROR: you can't pick");
         assertTrue(player.getState().canReload(), "ERROR: you can reload");
-        assertTrue(player.getState().canRun(), "ERROR: you can't run");
+        assertFalse(player.getState().canRun(), "ERROR: you can't run");
         assertFalse(player.getState().canUsePowerUp(), "ERROR: you can't run");
         assertFalse(player.getState().canShoot(), "ERROR: you can't shoot");
         assertFalse(player.getState().isDead(), "ERROR: he is still alive");
@@ -352,12 +351,12 @@ public class StateTest {
         //TEST DEAD E OVERKILL
         player.getState().nextState("Dead", player);
         assertEquals("Dead", player.getState().getName(), "ERROR: bad initialization");
-        assertTrue(player.getState().canPickUp(), "ERROR: you can't pick");
+        assertFalse(player.getState().canPickUp(), "ERROR: you can't pick");
         assertFalse(player.getState().canReload(), "ERROR: you can't reload");
         assertFalse(player.getState().canRun(), "ERROR: you can't run");
         assertFalse(player.getState().canUsePowerUp(), "ERROR: you can't run");
         assertFalse(player.getState().canShoot(), "ERROR: you can't shoot");
-        assertFalse(player.getState().isDead(), "ERROR: he is dead");
+        assertTrue(player.getState().isDead(), "ERROR: he is dead");
         assertFalse(player.getState().isOverKilled(), "ERROR: he is dead");
         assertFalse(player.getState().isNormalAction(), "ERROR: it's end turn");
         assertFalse(player.getState().isMoreAction(), "ERROR: it's end turn");
@@ -375,7 +374,7 @@ public class StateTest {
         assertFalse(player.getState().canRun(), "ERROR: you can't run");
         assertFalse(player.getState().canUsePowerUp(), "ERROR: you can't run");
         assertFalse(player.getState().canShoot(), "ERROR: you can't shoot");
-        assertFalse(player.getState().isDead(), "ERROR: he is overkilled");
+        assertTrue(player.getState().isDead(), "ERROR: he is overkilled");
         assertTrue(player.getState().isOverKilled(), "ERROR: he is overkilled");
         assertFalse(player.getState().isNormalAction(), "ERROR: it's end turn");
         assertFalse(player.getState().isMoreAction(), "ERROR: it's end turn");

@@ -50,7 +50,6 @@ public class StateMachineDeserializer implements JsonDeserializer<State[]> {
 
         //now i create a map that creates a correlation between a state and his name
         Map<String, State> stateMap = createStateMap(statesArray);
-        System.out.println(stateMap.keySet());
 
         Gson gson2 = new Gson();
         //i need to know know the key for each state
