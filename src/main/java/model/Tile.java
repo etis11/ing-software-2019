@@ -480,7 +480,7 @@ public class Tile {
      * @return copy of weapons
      * @throws Exception The tile is not a weapon tile
      */
-    public LinkedList<WeaponCard> getWeapons() throws PickableNotPresentException {
+    public LinkedList<WeaponCard> getWeapons(){
         if (!weaponTile) throw new PickableNotPresentException("This is tile is not a weapon tile");
         return weapons.stream().map(WeaponCard::new).collect(toCollection(LinkedList::new));
     }
