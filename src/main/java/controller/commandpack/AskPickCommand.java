@@ -1,6 +1,6 @@
 package controller.commandpack;
 
-import view.AbstractView;
+import view.MessageListener;
 import model.Match;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class AskPickCommand extends AbstractCommand {
 
-    public AskPickCommand(Match match, AbstractView originView, List<AbstractView> allViews){
+    public AskPickCommand(Match match, MessageListener originView, List<MessageListener> allViews){
         super(match, originView, allViews);
     }
 
@@ -24,14 +24,14 @@ public class AskPickCommand extends AbstractCommand {
      */
     @Override
     public void execute() {
-        if (!match.getCurrentPlayer().getState().canPickUp() && match.getCurrentPlayer().getRemainingMoves()>0){
+        if (!match.getCurrentPlayer().getState().canPickUp() || match.getCurrentPlayer().getRemainingMoves()<1){
             originView.notify("Non puoi raccogliere");
         }
         else {
             match.getCurrentPlayer().setOldState(match.getCurrentPlayer().getState());
             match.getCurrentPlayer().getState().nextState("PickUp", match.getCurrentPlayer());
             String message = "Il giocatore attuale sta raccogliendo";
-            for (AbstractView view : allViews){
+            for (MessageListener view : allViews){
                 view.notify(message);
             }
 

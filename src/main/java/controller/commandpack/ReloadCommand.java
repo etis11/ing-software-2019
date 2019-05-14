@@ -1,6 +1,6 @@
 package controller.commandpack;
 
-import view.AbstractView;
+import view.MessageListener;
 import exceptions.InsufficientAmmoException;
 import model.Match;
 import model.WeaponCard;
@@ -11,7 +11,7 @@ public class ReloadCommand extends AbstractCommand {
 
     private String weaponName;
 
-    public ReloadCommand(Match match, AbstractView originView, List<AbstractView> allViews, String weaponName){
+    public ReloadCommand(Match match, MessageListener originView, List<MessageListener> allViews, String weaponName){
         super(match, originView, allViews);
         this.weaponName = weaponName;
     }
@@ -24,7 +24,7 @@ public class ReloadCommand extends AbstractCommand {
                 try {
                     wpc.reload(match.getCurrentPlayer().getPlayerBoard().getLoader());
                     String message = "Il giocatore attuale ha ricaricato: "+wpc.getName();
-                    for (AbstractView view : allViews){
+                    for (MessageListener view : allViews){
                         view.notify(message);
                     }
                 } catch (InsufficientAmmoException e) {

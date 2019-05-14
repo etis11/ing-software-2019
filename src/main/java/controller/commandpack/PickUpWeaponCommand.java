@@ -1,6 +1,6 @@
 package controller.commandpack;
 
-import view.AbstractView;
+import view.MessageListener;
 import exceptions.PickableNotPresentException;
 import model.Match;
 import model.WeaponCard;
@@ -11,7 +11,7 @@ public class PickUpWeaponCommand extends AbstractCommand {
 
     private String weaponName;
 
-    public PickUpWeaponCommand(Match match, AbstractView originView, List<AbstractView> allViews, String weaponName){
+    public PickUpWeaponCommand(Match match, MessageListener originView, List<MessageListener> allViews, String weaponName){
         super(match, originView, allViews);
         this.weaponName = weaponName;
     }
@@ -45,7 +45,7 @@ public class PickUpWeaponCommand extends AbstractCommand {
             }
             finally {
                 String message = "Il giocatore attuale ha raccolto: "+weaponCard.getName();
-                for (AbstractView view : allViews){
+                for (MessageListener view : allViews){
                     view.notify(message);
                 }
             }

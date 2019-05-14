@@ -1,6 +1,6 @@
 package controller.commandpack;
 
-import view.AbstractView;
+import view.MessageListener;
 import model.AmmoCard;
 import model.Match;
 
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PickUpAmmoCommand extends AbstractCommand{
 
-    public PickUpAmmoCommand(Match match, AbstractView originView, List<AbstractView> allViews){
+    public PickUpAmmoCommand(Match match, MessageListener originView, List<MessageListener> allViews){
         super(match, originView, allViews);
     }
 
@@ -26,7 +26,7 @@ public class PickUpAmmoCommand extends AbstractCommand{
 
         //notify
         String message = "Il giocatore attuale ha raccolto una carta munizioni";
-        for (AbstractView view : allViews){
+        for (MessageListener view : allViews){
             view.notify(message);
         }
 

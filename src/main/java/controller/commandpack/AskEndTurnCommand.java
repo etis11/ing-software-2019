@@ -1,6 +1,6 @@
 package controller.commandpack;
 
-import view.AbstractView;
+import view.MessageListener;
 import model.Match;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class AskEndTurnCommand extends AbstractCommand {
 
-    public AskEndTurnCommand(Match match, AbstractView originView, List<AbstractView> allViews){
+    public AskEndTurnCommand(Match match, MessageListener originView, List<MessageListener> allViews){
         super(match, originView, allViews);
     }
 
@@ -31,7 +31,7 @@ public class AskEndTurnCommand extends AbstractCommand {
         else {
             match.getCurrentPlayer().getState().nextState("EndTurn", match.getCurrentPlayer());
             String message = "Il giocatore attuale ha terminato il suo turno";
-            for (AbstractView view : allViews){
+            for (MessageListener view : allViews){
                 view.notify(message);
             }
         }

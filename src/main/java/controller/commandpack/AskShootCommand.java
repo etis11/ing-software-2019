@@ -1,7 +1,7 @@
 package controller.commandpack;
 
 import model.WeaponCard;
-import view.AbstractView;
+import view.MessageListener;
 import model.Match;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class AskShootCommand extends AbstractCommand{
 
-    public AskShootCommand(Match match, AbstractView originView, List<AbstractView> allViews){
+    public AskShootCommand(Match match, MessageListener originView, List<MessageListener> allViews){
         super(match, originView, allViews);
     }
 
@@ -38,7 +38,7 @@ public class AskShootCommand extends AbstractCommand{
         else {
             match.getCurrentPlayer().getState().nextState("Shoot", match.getCurrentPlayer());
             String message = "Il giocatore attuale sta per sparare";
-            for (AbstractView view : allViews){
+            for (MessageListener view : allViews){
                 view.notify(message);
             }
             //TODO notifico già le armi?

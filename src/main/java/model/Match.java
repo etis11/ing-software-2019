@@ -87,7 +87,7 @@ public class Match {
 
     /**
      * This method return the player that is currently actively playing
-     * @return
+     * @return the current player
      */
     public Player getCurrentPlayer(){
         return players.get(currentPlayer);

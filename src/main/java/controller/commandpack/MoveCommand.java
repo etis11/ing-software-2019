@@ -1,6 +1,6 @@
 package controller.commandpack;
 
-import view.AbstractView;
+import view.MessageListener;
 import model.Match;
 import model.Movement;
 
@@ -21,7 +21,7 @@ public class MoveCommand extends AbstractCommand {
      */
     private List<String> moves;
 
-    public MoveCommand(Match match, AbstractView originView, List<AbstractView> allViews, List<String> moves){
+    public MoveCommand(Match match, MessageListener originView, List<MessageListener> allViews, List<String> moves){
         super(match, originView, allViews);
         this.moves = moves;
         //TODO mancano controlli booleani
@@ -42,7 +42,7 @@ public class MoveCommand extends AbstractCommand {
             match.getCurrentPlayer().getState().decrementReaminingSteps(moves.size());
             match.getCurrentPlayer().move(new Movement(new ArrayList<String>(moves)));
             String message = "Il giocatore attuale si è spostato di: "+moves.size()+" mosse";
-            for (AbstractView view : allViews){
+            for (MessageListener view : allViews){
                 view.notify(message);
             }
         }

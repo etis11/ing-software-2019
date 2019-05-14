@@ -1,6 +1,6 @@
 package controller.commandpack;
 
-import view.AbstractView;
+import view.MessageListener;
 import model.Match;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class AskUsePowerUpCommand extends AbstractCommand {
 
-    public AskUsePowerUpCommand(Match match, AbstractView originView, List<AbstractView> allViews){
+    public AskUsePowerUpCommand(Match match, MessageListener originView, List<MessageListener> allViews){
         super(match, originView, allViews);
     }
 
@@ -30,7 +30,7 @@ public class AskUsePowerUpCommand extends AbstractCommand {
         else {
             match.getCurrentPlayer().getState().nextState("PowerUp", match.getCurrentPlayer());
             String message = "Il giocatore attuale sta usando un power up";
-            for (AbstractView view : allViews){
+            for (MessageListener view : allViews){
                 view.notify(message);
             }
             //TODO notify dei power up disponibili

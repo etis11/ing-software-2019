@@ -1,6 +1,6 @@
 package controller.commandpack;
 
-import view.AbstractView;
+import view.MessageListener;
 import model.Match;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class AskReloadCommand extends AbstractCommand{
 
-    public AskReloadCommand(Match match, AbstractView originView, List<AbstractView> allViews){
+    public AskReloadCommand(Match match, MessageListener originView, List<MessageListener> allViews){
         super(match, originView, allViews);
     }
 
@@ -31,7 +31,7 @@ public class AskReloadCommand extends AbstractCommand{
             match.getCurrentPlayer().getState().nextState("Reload", match.getCurrentPlayer());
             //TODO notify al player le armi che ha a disposizione, la notific a tutti va fatta anche al player che raccoglie
             String message = "Il giocatore attuale sta ricaricando";
-            for (AbstractView view : allViews){
+            for (MessageListener view : allViews){
                 view.notify(message);
             }
         }
