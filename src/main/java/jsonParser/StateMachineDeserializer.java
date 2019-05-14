@@ -50,19 +50,20 @@ public class StateMachineDeserializer implements JsonDeserializer<State[]> {
 
         //now i create a map that creates a correlation between a state and his name
         Map<String, State> stateMap = createStateMap(statesArray);
+        System.out.println(stateMap.keySet());
 
         Gson gson2 = new Gson();
         //i need to know know the key for each state
         for(JsonElement j : jsonElement.getAsJsonArray()){
-            //gets the type of the map for the json conversion
-            Type mapType = new TypeToken<Map<String,String >>(){}.getType();
             //gets the map in the state array. It's a string string maps
             final JsonObject jsonStateMap = j.getAsJsonObject().get("possibleNextState").getAsJsonObject();
             //gets the name of the current state parsed
             final String stateName = j.getAsJsonObject().get("name").getAsString();
+            //gets the type of the map for the json conversion
+            Type mapType = new TypeToken<Map<String,String >>(){}.getType();
             //creates the map
             Map<String, String> map = gson2.fromJson(jsonStateMap, mapType);
-            Collection<String> keys = map.values();
+            Collection<String> keys = map.keySet();
             State currentState = stateMap.get(stateName);
             currentState.allocatePossibleNextState();
             for(String key: keys){
