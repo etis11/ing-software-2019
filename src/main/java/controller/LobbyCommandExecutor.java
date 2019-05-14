@@ -2,8 +2,6 @@ package controller;
 
 import model.Match;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
-
 public class LobbyCommandExecutor extends AbstractCommandExecutor{
 
     public LobbyCommandExecutor(Match match) {
