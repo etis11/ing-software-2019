@@ -32,7 +32,7 @@ public class AskShootCommand extends AbstractCommand{
                 loaded = true;
             }
         }
-        if (!match.getCurrentPlayer().getState().canShoot() && match.getCurrentPlayer().getRemainingMoves()>0 && loaded){
+        if (!match.getCurrentPlayer().getState().canShoot() || match.getCurrentPlayer().getRemainingMoves()<1 || !loaded){
             originView.notify("Non puoi sparare");
         }
         else {

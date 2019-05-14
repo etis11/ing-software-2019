@@ -24,7 +24,7 @@ public class AskWalkCommand extends AbstractCommand {
      */
     @Override
     public void execute() {
-        if (!match.getCurrentPlayer().getState().canRun() && match.getCurrentPlayer().getRemainingMoves()>0){
+        if (!match.getCurrentPlayer().getState().canRun() || match.getCurrentPlayer().getRemainingMoves()<1){
             originView.notify("non puoi spostarti");
         }
         else {

@@ -24,7 +24,7 @@ public class AskUsePowerUpCommand extends AbstractCommand {
      */
     @Override
     public void execute() {
-        if (!match.getCurrentPlayer().getState().canUsePowerUp() && match.getCurrentPlayer().getPowerUps().isEmpty()){
+        if (!match.getCurrentPlayer().getState().canUsePowerUp() || match.getCurrentPlayer().getPowerUps().isEmpty()){
             originView.notify("Non puoi usare powerup");
         }
         else {
