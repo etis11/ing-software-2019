@@ -18,8 +18,9 @@ public class AdjacentStrategy extends AbstractTargetStrategy {
      * */
     private GameMap gameMap ;
 
-    public AdjacentStrategy(int distance) {
+    public AdjacentStrategy(int distance,  Match match) {
         this.distance = distance;
+        this.match = match;
     }
 
     /**
