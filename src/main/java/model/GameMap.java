@@ -1,5 +1,6 @@
 package model;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import exceptions.DuplicateException;
@@ -9,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
+
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
@@ -17,6 +19,7 @@ import org.jgrapht.graph.DefaultEdge;
  * There should be at least one regenPoint, The rooms should at least be an empty list.
  */
 public class GameMap {
+    private static final Logger LOGGER = Logger.getLogger(GameMap.class.getName());
 
     /**
      * List of the rooms in the GameMap
@@ -42,6 +45,7 @@ public class GameMap {
      * @return
      */
     public static GameMap loadMap(String mapPath){
+
         //creates the gson parser
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(GameMap.class, new GameMapDeserializer());
@@ -52,7 +56,7 @@ public class GameMap {
         }
         catch (FileNotFoundException f){
             System.out.println(f.getMessage());
-            f.printStackTrace();
+            LOGGER.log(Level.WARNING,f.getMessage(),f);
             return null;
         }
 
