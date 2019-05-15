@@ -11,7 +11,7 @@ public class JsonFileReader {
 
         //Gson gson = new Gson();
         // builder.create();
-        BufferedReader jsonFile;
+       BufferedReader jsonFile=null;
         String s = null;
         StringBuilder sb = new StringBuilder();
         try{
@@ -23,16 +23,23 @@ public class JsonFileReader {
         catch (FileNotFoundException f){
             System.out.println(cardsFilePath+" does not exist");
             return null;
-        }catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
+        }
+finally{
+            if(jsonFile!=null){
+                try {
+                    jsonFile.close();
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         //  Type listType = new TypeToken<List<String>>() {}.getType();
         //    List<WeaponCard>  javaArrayListFromGSON = gson.fromJson(jsonFile, new TypeToken<List<WeaponCard>>(){}.getType());
         // gson.fromJson(jsonFile,JsonArray.class);
         return sb.toString();
     }
-
-
-
 }
-

@@ -101,8 +101,9 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
             if(!strategy.get("param").isJsonNull()){
                 param=strategy.get("param").getAsInt();
             }
+            if(toAdd!=null){
             toAdd.setCost(costs);
-            toAdd.setStrategy(getStrategyByName(strategy.get("type").getAsString(),param));
+            toAdd.setStrategy(getStrategyByName(strategy.get("type").getAsString(),param));}
             toReturn.add(toAdd);
         }
         return toReturn;
