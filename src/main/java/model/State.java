@@ -9,6 +9,8 @@ import jsonparser.StateMachineDeserializer;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * represent player state during the game
@@ -17,6 +19,9 @@ import java.util.Map;
  * @version 1.0
  */
 public class State {
+
+    private static final Logger LOGGER = Logger.getLogger(State.class.getName());
+
     /**
      * maxPossibleSteps is the number of steps a player can do in this state
      */
@@ -116,7 +121,7 @@ public class State {
         }
         catch (FileNotFoundException f){
             System.out.println(f.getMessage());
-            f.printStackTrace();
+            LOGGER.log(Level.WARNING,f.getMessage(),f);
         }
 
         states = g.fromJson(jsonStateMachine, State[].class);

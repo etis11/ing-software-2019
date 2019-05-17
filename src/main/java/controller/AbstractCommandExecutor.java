@@ -4,13 +4,17 @@ import controller.commandpack.Command;
 import model.Match;
 
 import java.util.concurrent.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A class that implements a generic behavior for a command executor. Creates thread that executes the commands. If no commands
  * are put in the queue, the command executor is in a wait state
  */
-public abstract  class
-AbstractCommandExecutor implements CommandExecutor{
+public abstract  class AbstractCommandExecutor implements CommandExecutor{
+
+    private static final Logger LOGGER = Logger.getLogger(AbstractCommandExecutor.class.getName());
+
     /**
      * The match in which the players are playing
      */
@@ -52,7 +56,7 @@ AbstractCommandExecutor implements CommandExecutor{
             }
             catch (InterruptedException i){
                 System.out.println(i.getMessage());
-                i.printStackTrace();
+                LOGGER.log(Level.WARNING,i.getMessage(),i);
                 System.out.println("Unable to extract a command because the reading threas has been interrupted. " +
                                     "Stopping the command executor");
                 pool.shutdown();

@@ -1,11 +1,14 @@
 package jsonparser;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+
 public class JsonFileReader {
+    private static final Logger LOGGER = Logger.getLogger(JsonFileReader.class.getName());
 
     public String loadWeaponCards(String cardsFilePath){
 
@@ -25,7 +28,7 @@ public class JsonFileReader {
             return null;
         }
         catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.WARNING, "Exception occur", e);
         }
 finally{
             if(jsonFile!=null){
@@ -33,7 +36,7 @@ finally{
                     jsonFile.close();
                 }
                 catch (IOException e) {
-                    e.printStackTrace();
+                    LOGGER.log(Level.WARNING,"Exception qua", e);
                 }
             }
         }
