@@ -13,7 +13,7 @@ public class gameCreator {
 
     public static void main(String[] args) {
         Match match = new Match();
-        MessageListener m = (s) -> {System.out.println(s); return s;};
+        MessageListener m = (s) -> {System.out.println(s);};
         List<MessageListener> views =  new ArrayList<MessageListener>();
         views.add(m);
         Player p = new Player("Passoni", State.fromJson("./src/main/resources/stateMachine/stateMachine.json"));
