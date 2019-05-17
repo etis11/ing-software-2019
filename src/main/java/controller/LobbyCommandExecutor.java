@@ -14,20 +14,8 @@ public class LobbyCommandExecutor extends AbstractCommandExecutor{
     public void setPlayerToken(){
         //TODO
     }
-    /**
-     * return a list of command to set the match
-     */
-    public void commandHelp(){
-        //TODO
-    }
 
-    /**
-     * routine to set number of kills for the match
-     */
-    public void setNumberOfKills(){
-        //TODO
-    }
-
+    
     /**
      * routine to set the game mode
      */
