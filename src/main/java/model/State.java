@@ -256,8 +256,15 @@ public class State {
      * decrement the number of remaining steps by a number given
      * @param stepsToDecrement number of step to decrement remaining steps
      */
-    public void decrementReaminingSteps(int stepsToDecrement){
+    public void decrementRemainingSteps(int stepsToDecrement){
         this.remainingSteps -= stepsToDecrement;
+    }
+
+    /**
+     * decrement the number of remaining steps to zero
+     */
+    public void remainingStepsToZero(){
+        this.remainingSteps = 0;
     }
 
 

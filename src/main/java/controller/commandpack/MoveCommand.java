@@ -34,17 +34,20 @@ public class MoveCommand extends AbstractCommand {
      */
     @Override
     public void execute() {
-        //TODO modificare condizione se ho superato i controlli dei sottostati precedenti
         if (match.getCurrentPlayer().getState().getRemainingSteps()<moves.size()){
             originView.notify("Non hai abbastanze mosse rimanenti");
         }
         else {
-            match.getCurrentPlayer().getState().decrementReaminingSteps(moves.size());
+            match.getCurrentPlayer().getState().decrementRemainingSteps(moves.size());
             match.getCurrentPlayer().move(new Movement(new ArrayList<String>(moves)));
             String message = "Il giocatore attuale si è spostato di: "+moves.size()+" mosse";
             for (MessageListener view : allViews){
                 view.notify(message);
             }
+        }
+        //TODO impongo di dare una volta solo movimento o più volte? perche devo gestire il moviemnto nei vari casi e decidere in che stato portare il giocatore
+        if(match.getCurrentPlayer().getState().getName().equals("Run")){
+            endCommandToAction();//nel caso non puoi immetere più di una volta la coordinata
         }
     }
 }

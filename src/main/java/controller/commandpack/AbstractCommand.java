@@ -26,5 +26,12 @@ public abstract class AbstractCommand implements Command {
 
     }
 
+    protected void endCommandToAction(){
+        match.getCurrentPlayer().decrementMoves();
+        match.getCurrentPlayer().getState().resetRemainingSteps();
+        match.getCurrentPlayer().getState().nextState(match.getCurrentPlayer().getOldState().getName(), match.getCurrentPlayer());
+        match.getCurrentPlayer().setOldState(null);
+    }
+
 
 }

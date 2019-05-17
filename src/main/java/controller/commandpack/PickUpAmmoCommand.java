@@ -17,23 +17,31 @@ public class PickUpAmmoCommand extends AbstractCommand{
      */
     @Override
     public void execute() {
-        //TODO verifica sottostati precedenti
-        AmmoCard ammoCard = match.getCurrentPlayer().getTile().pickUpAmmoCard();
-        //draw
-        match.getCurrentPlayer().useAmmoCard(ammoCard, match.getPowerUpDeck());
-        //put the card in the slush pile
-        match.getAmmoSlushPile().addCard(ammoCard);
+        if (match.getCurrentPlayer().getState().getName().equals("PickUp")){
+            //TODO verifica tile giusto
+            //set remaining steps to zero
+            match.getCurrentPlayer().getState().remainingStepsToZero();
 
-        //notify
-        String message = "Il giocatore attuale ha raccolto una carta munizioni";
-        for (MessageListener view : allViews){
-            view.notify(message);
+            AmmoCard ammoCard = match.getCurrentPlayer().getTile().pickUpAmmoCard();
+            //draw
+            match.getCurrentPlayer().useAmmoCard(ammoCard, match.getPowerUpDeck());
+            //put the card in the slush pile
+            match.getAmmoSlushPile().addCard(ammoCard);
+
+            //notify
+            String message = "Il giocatore attuale ha raccolto una carta munizioni";
+            for (MessageListener view : allViews){
+                view.notify(message);
+            }
+            //decrement moves of player and return to action selector
+            endCommandToAction();
+        }
+        else{
+            originView.notify("Comando non valido");
+            //TODO o lancio exception??
         }
 
-        //drecrement moves of player and return to action selector
-        match.getCurrentPlayer().decrementMoves();
-        match.getCurrentPlayer().getState().nextState(match.getCurrentPlayer().getOldState().getName(), match.getCurrentPlayer());
-        match.getCurrentPlayer().setOldState(null);
+
 
     }
 }

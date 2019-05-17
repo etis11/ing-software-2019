@@ -385,12 +385,11 @@ public class Player {
      * @return string of name of weapons
      */
     public String weaponsToString(){
-        //TODO forse meglio con buffer
-        String toreturn = "";
+        StringBuilder toReturn = new StringBuilder();
         for (WeaponCard w:weapons){
-            toreturn = toreturn+ ", "+w.getName();
+            toReturn.append(" ").append(w.getName());
         }
-        return toreturn;
+        return toReturn.toString();
     }
 }
 

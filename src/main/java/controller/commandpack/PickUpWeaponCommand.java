@@ -18,43 +18,46 @@ public class PickUpWeaponCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        //TODO verifica sottostati precedenti
-        WeaponCard weaponCard = null;
-        int count=0;
-        if (weaponName == null) throw new IllegalArgumentException("can't insert null weapon");
-        try {
-            for (WeaponCard wpc : match.getCurrentPlayer().getTile().getWeapons()) {
-                if (wpc.getName().equals(weaponName)){
-                    weaponCard = match.getCurrentPlayer().getTile().getWeapons().remove(count);
+        if (match.getCurrentPlayer().getState().getName().equals("PickUp")) {
+            //set player remaining steps to zero
+            match.getCurrentPlayer().getState().remainingStepsToZero();
+
+            WeaponCard weaponCard = null;
+            int count = 0;
+            if (weaponName == null) throw new IllegalArgumentException("can't insert null weapon");
+            try {
+                for (WeaponCard wpc : match.getCurrentPlayer().getTile().getWeapons()) {
+                    if (wpc.getName().equals(weaponName)) {
+                        weaponCard = match.getCurrentPlayer().getTile().getWeapons().remove(count);
+                    }
+                    count++;
                 }
-                count++;
+            } catch (PickableNotPresentException e) {
+                originView.notify("non sei in un riquadro contenente armi");
             }
-        } catch (PickableNotPresentException e) {
-            originView.notify("non sei in un riquadro contenente armi");
-        }
-        //TODO come gestisco se voglio raccogleire arma ma non sono nel tile giusto?
-        if(weaponCard == null){
-            originView.notify(weaponName+" non è tra le armi presenti nel tuo riquadro");
+            //TODO come gestisco se voglio raccogleire arma ma non sono nel tile giusto?
+            if (weaponCard == null) {
+                originView.notify(weaponName + " non è tra le armi presenti nel tuo riquadro");
+            } else {
+                try {
+                    match.getCurrentPlayer().pickUpWeapon(weaponCard);
+                } catch (Exception e) {
+                    originView.notify("hai più armi di quante consentite, scegline una da scartare tra: "+match.getCurrentPlayer().weaponsToString());
+                } finally {
+                    String message = "Il giocatore attuale ha raccolto: " + weaponCard.getName();
+                    for (MessageListener view : allViews) {
+                        view.notify(message);
+                    }
+                }
+
+            }
+
+            //decrement moves of player and return to action selector
+            endCommandToAction();
         }
         else{
-            try {
-                match.getCurrentPlayer().pickUpWeapon(weaponCard);
-            } catch (Exception e) {
-                originView.notify("hai più armi di quante consentite, scegline una da scartare");
-                //TODO gestione eliminazione
-            }
-            finally {
-                String message = "Il giocatore attuale ha raccolto: "+weaponCard.getName();
-                for (MessageListener view : allViews){
-                    view.notify(message);
-                }
-            }
-
+            originView.notify("Comando non valido");
+            //TODO o lancio exception??
         }
-
-        //decrement moves of player and return to action selector
-        match.getCurrentPlayer().decrementMoves();
-        match.getCurrentPlayer().getState().nextState(match.getCurrentPlayer().getOldState().getName(), match.getCurrentPlayer());
-        match.getCurrentPlayer().setOldState(null);
     }
 }
