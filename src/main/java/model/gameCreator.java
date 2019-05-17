@@ -12,14 +12,15 @@ import java.util.List;
 public class gameCreator {
 
     public static void main(String[] args) {
-        Match match = new Match();
-        MessageListener m = (s) -> {System.out.println(s); return s;};
+        GameManager g = new GameManager();
+        MessageListener m = (s) -> {System.out.println(s);};
         List<MessageListener> views =  new ArrayList<MessageListener>();
         views.add(m);
         Player p = new Player("Passoni", State.fromJson("./src/main/resources/stateMachine/stateMachine.json"));
         p.getState().nextState("NormalAction", p);
         p.setRemainingMoves(1);
-        Command c = new AskPickCommand(match, m, views);
+        Command c = new AskPickCommand(g, m, views);
+        Match match = g.getMatch();
 
         List<Player> l = new LinkedList<>();
         l.add(p);
