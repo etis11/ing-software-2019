@@ -198,6 +198,13 @@ public class Player {
         return powerUps.size();
     }
 
+
+    public void pickUpPowerUp(PowerUpCard p){
+        //TODO mancano tutti i controlli e l'implementazione del metodo
+        powerUps.add(p);
+
+    }
+
     /**
      * This method return the current location of the player
      *
@@ -388,6 +395,18 @@ public class Player {
         StringBuilder toReturn = new StringBuilder();
         for (WeaponCard w:weapons){
             toReturn.append(" ").append(w.getName());
+        }
+        return toReturn.toString();
+    }
+
+    /**
+     * returns name of player powerUps
+     * @return string of name of powerUps
+     */
+    public String powerUpToString(){
+        StringBuilder toReturn = new StringBuilder();
+        for (PowerUpCard p:powerUps){
+            toReturn.append(" ").append(p.getPowerUpType());
         }
         return toReturn.toString();
     }

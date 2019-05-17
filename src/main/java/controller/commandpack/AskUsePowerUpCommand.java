@@ -28,12 +28,12 @@ public class AskUsePowerUpCommand extends AbstractCommand {
             originView.notify("Non puoi usare powerup");
         }
         else {
-            match.getCurrentPlayer().getState().nextState("PowerUp", match.getCurrentPlayer());
+            //match.getCurrentPlayer().getState().nextState("PowerUp", match.getCurrentPlayer());
             String message = "Il giocatore attuale sta usando un power up";
             for (MessageListener view : allViews){
                 view.notify(message);
             }
-            //TODO notify dei power up disponibili
+            originView.notify("Scegli quale power up usare tra: "+match.getCurrentPlayer().powerUpToString());
         }
     }
 }

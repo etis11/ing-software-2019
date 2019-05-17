@@ -27,8 +27,9 @@ public class ReloadCommand extends AbstractCommand {
                     for (MessageListener view : allViews){
                         view.notify(message);
                     }
+                    originView.notify("vuoi ricaricare un'altra arma oppure finire il turno?");
                 } catch (InsufficientAmmoException e) {
-                    originView.notify("Non hai le munizioni necessarie per ricaricare ques'arma, vouoi ricaricare un'altra arma oppure finire il turno?");
+                    originView.notify("Non hai le munizioni necessarie per ricaricare ques'arma, vuoi ricaricare un'altra arma oppure finire il turno?");
                 }
             }
         }

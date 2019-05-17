@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 import view.MessageListener;
 
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class AskCommandTest  {
 
@@ -19,6 +21,7 @@ public class AskCommandTest  {
     MessageListener messageListener2;
     List<MessageListener> views;
     WeaponCard w;
+    PowerUpCard p;
 
 
     @BeforeEach
@@ -39,6 +42,10 @@ public class AskCommandTest  {
         } catch (Exception e) {
             e.getMessage();
         }
+        p = new PowerUpCard(Color.RED, PowerUpType.TELEPORTER);
+        player.pickUpPowerUp(p);
+
+
     }
 
     @Test
@@ -65,6 +72,8 @@ public class AskCommandTest  {
         player.setRemainingMoves(1);
         command.execute();
         player.setRemainingMoves(0);
+        command = new AskUsePowerUpCommand(match, messageListener, views);
+        command.execute();
 
         player.getState().nextState("NormalAction", player);
 
