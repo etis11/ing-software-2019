@@ -121,9 +121,9 @@ public class FlameThrowerStrategyTest {
                                                                             " target should be the nearest to the shooter");
 
         //just one, the further
-        final List<Player>  finalPossibleTargets = new LinkedList<>();
+        possibleTargets = new LinkedList<>();
         possibleTargets.add(targetArray[1]);
-        assertThrows(IllegalArgumentException.class, ()->flameStrategy.areTargetValid(shooter, finalPossibleTargets));
+        assertTrue(flameStrategy.areTargetValid(shooter, possibleTargets));
         //just one, the nearer
         possibleTargets = new LinkedList<>();
         possibleTargets.add(targetArray[2]);
@@ -135,8 +135,8 @@ public class FlameThrowerStrategyTest {
         possibleTargets.add(targetArray[0]);
         assertFalse(flameStrategy.areTargetValid(shooter, possibleTargets), () ->"ERROR: the target are not allined!");
 
-        possibleTargets = new LinkedList<>();
-        assertFalse(flameStrategy.areTargetValid(shooter, possibleTargets), ()->"ERROR: there is no target in the list");
+        final List<Player> finalPossibleTargets = new LinkedList<>();
+        assertThrows(IllegalArgumentException.class, ()->flameStrategy.areTargetValid(shooter, finalPossibleTargets));
     }
 
 
