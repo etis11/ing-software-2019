@@ -33,11 +33,7 @@
       "weaponTile": false,
       "room": 1,
       "regenPoint": "",
-      "players": [
-        {
-          "name": "Banshee"
-        }
-      ]
+      "players": []
     },
     {
       "ID": 2,
@@ -117,11 +113,7 @@
       "weaponTile": false,
       "room": 2,
       "regenPoint": "",
-      "players": [
-        {
-          "name": "Dozer"
-        }
-      ]
+      "players": []
     },
     {
       "ID": 9,
@@ -153,11 +145,7 @@
       "weaponTile": false,
       "room": 3,
       "regenPoint": "",
-      "players": [
-        {
-          "name": "Distruttore"
-        }
-      ]
+      "players": []
     },
     {
       "ID": 11,

@@ -410,5 +410,13 @@ public class Player {
         }
         return toReturn.toString();
     }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", tile=" + tile +
+                '}';
+    }
 }
 
