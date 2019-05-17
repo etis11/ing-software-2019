@@ -60,11 +60,14 @@ public abstract  class AbstractCommandExecutor implements CommandExecutor{
                 System.out.println("Unable to extract a command because the reading threas has been interrupted. " +
                                     "Stopping the command executor");
                 pool.shutdown();
+                stop = true;
             }
 
             if (takenCommand != null){
 //                System.out.println("provo a runnare");
-                pool.submit(new RunnableCommand(takenCommand));
+                //multithread command management
+                //pool.submit(new RunnableCommand(takenCommand));
+                takenCommand.execute();
             }
         }
 
