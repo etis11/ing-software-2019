@@ -11,7 +11,7 @@ import java.util.*;
  * name)
  * @param <T> the type of the key used in the registry.
  */
-public class CommandParser<T> implements Registry<T> {
+public class CommandParser<T>{
 
     /**
      * registry in which the commands are held
@@ -24,7 +24,7 @@ public class CommandParser<T> implements Registry<T> {
      * @param c the command that has to be registered
      * @throws DuplicateException if the command is already in the registry or there is already a command with the given key
      */
-    @Override
+
     public void registerCommand(T commandName, Command c){
         if (commandName == null || c == null) throw new IllegalArgumentException("The key or the command are null");
         if(registry.containsKey(commandName)) throw new DuplicateException("There's already a command with this key");
@@ -38,8 +38,8 @@ public class CommandParser<T> implements Registry<T> {
      * @param commandName the key
      * @return a command, is never null
      */
-    @Override
-    public Command getCommand(T commandName) {
+
+    private Command getCommand(T commandName) {
         if(commandName == null) throw new  IllegalArgumentException("The key is null");
         if(!registry.containsKey(commandName)) throw new NoSuchElementException("There isnt a command associated to this key");
         return registry.get(commandName);
@@ -50,8 +50,16 @@ public class CommandParser<T> implements Registry<T> {
      * //TODO potrebbe essere meglio copiare anche i comandi?
      * @return
      */
-    @Override
+
+
     public List<Command> getCommandList() {
         return new ArrayList<>(registry.values());
+    }
+
+    public void start(){
+        //TODO while(notquit)  commandName =cli.getString()
+        //command = getCommand(commandName);
+        //copy(command);
+        //executor.addcommand(copia)
     }
 }
