@@ -15,7 +15,7 @@ public class LobbyCommandExecutor extends AbstractCommandExecutor{
         //TODO
     }
 
-    
+
     /**
      * routine to set the game mode
      */

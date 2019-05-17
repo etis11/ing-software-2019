@@ -5,26 +5,26 @@ import view.MessageListener;
 
 import java.util.List;
 
-public class SetNumberOfDeathCommand extends AbstractCommand{
+public class SetPlayerNumberCommand extends AbstractCommand {
 
-    private int death;
+    private int players;
 
-    public SetNumberOfDeathCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews, int num){
+    public SetPlayerNumberCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews, int players){
         super(gameManager, originView, allViews);
-        this.death = num;
+        this.players = players;
     }
 
     @Override
     public void execute() {
         //TODO manca codizione se è il primo user
-        if(death <9 && death>4){
-            gameManager.getMatch().setSkulls(death);
+        if(players <6 && players>2){
+            gameManager.getMatch().setPlayerNumber(players);
             for (MessageListener ml : allViews){
-                ml.notify("Il numero di uccisioni per la partita è stato cambiato a: "+death);
+                ml.notify("Il numero di uccisioni per la partita è stato cambiato a: "+players);
             }
         }
         else{
-            if(death >8 || death<5){
+            if(players >5 || players<3){
                 originView.notify("Numero uccisioni non nel target ammissibile");
             }
             else{

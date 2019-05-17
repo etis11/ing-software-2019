@@ -14,7 +14,7 @@ public class Match {
     /**
      * the number of player playing the game
      */
-    private final int playerNumber;
+    private int playerNumber;
 /**
  * Integer used to count number of lifes till GameOver.An integer that is between 5(included) and 8(included)
  * */
@@ -84,6 +84,20 @@ public class Match {
         this.skulls = skulls;
     }
 
+    /**
+     * Method that returns number of player chosen for the match
+     * */
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
+
+    /**
+     * Method called before gameplay. Used to store the number of players before gameplay so that each player
+     * before game starting, gets to know how many player plays.
+     * */
+    public void setPlayerNumber(int playerNumber) {
+        this.playerNumber = playerNumber;
+    }
 
     /**
      * This method return the player that is currently actively playing
