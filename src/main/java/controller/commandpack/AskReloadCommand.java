@@ -1,7 +1,7 @@
 package controller.commandpack;
 
+import model.GameManager;
 import view.MessageListener;
-import model.Match;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import java.util.List;
  */
 public class AskReloadCommand extends AbstractCommand{
 
-    public AskReloadCommand(Match match, MessageListener originView, List<MessageListener> allViews){
-        super(match, originView, allViews);
+    public AskReloadCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
+        super(gameManager, originView, allViews);
     }
 
     /**
@@ -24,18 +24,18 @@ public class AskReloadCommand extends AbstractCommand{
      */
     @Override
     public void execute() {
-        if (!match.getCurrentPlayer().getState().canReload()){
+        if (!gameManager.getMatch().getCurrentPlayer().getState().canReload()){
             originView.notify("non puoi ricaricare");
         }
         else {
-            match.getCurrentPlayer().getState().nextState("Reload", match.getCurrentPlayer());
+            gameManager.getMatch().getCurrentPlayer().getState().nextState("Reload", gameManager.getMatch().getCurrentPlayer());
             String message = "Il giocatore attuale sta ricaricando";
             for (MessageListener view : allViews){
                 if(view!=originView) {
                     view.notify(message);
                 }
             }
-            originView.notify("Scegli quale arma ricaricare tra: "+match.getCurrentPlayer().weaponsToString());
+            originView.notify("Scegli quale arma ricaricare tra: "+gameManager.getMatch().getCurrentPlayer().weaponsToString());
         }
     }
 }

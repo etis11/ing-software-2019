@@ -1,8 +1,8 @@
 package controller.commandpack;
 
+import model.GameManager;
 import view.MessageListener;
 import exceptions.PickableNotPresentException;
-import model.Match;
 import model.WeaponCard;
 
 import java.util.List;
@@ -11,24 +11,24 @@ public class PickUpWeaponCommand extends AbstractCommand {
 
     private String weaponName;
 
-    public PickUpWeaponCommand(Match match, MessageListener originView, List<MessageListener> allViews, String weaponName){
-        super(match, originView, allViews);
+    public PickUpWeaponCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews, String weaponName){
+        super(gameManager, originView, allViews);
         this.weaponName = weaponName;
     }
 
     @Override
     public void execute() {
-        if (match.getCurrentPlayer().getState().getName().equals("PickUp")) {
+        if (gameManager.getMatch().getCurrentPlayer().getState().getName().equals("PickUp")) {
             //set player remaining steps to zero
-            match.getCurrentPlayer().getState().remainingStepsToZero();
+            gameManager.getMatch().getCurrentPlayer().getState().remainingStepsToZero();
 
             WeaponCard weaponCard = null;
             int count = 0;
             if (weaponName == null) throw new IllegalArgumentException("can't insert null weapon");
             try {
-                for (WeaponCard wpc : match.getCurrentPlayer().getTile().getWeapons()) {
+                for (WeaponCard wpc : gameManager.getMatch().getCurrentPlayer().getTile().getWeapons()) {
                     if (wpc.getName().equals(weaponName)) {
-                        weaponCard = match.getCurrentPlayer().getTile().getWeapons().remove(count);
+                        weaponCard = gameManager.getMatch().getCurrentPlayer().getTile().getWeapons().remove(count);
                     }
                     count++;
                 }
@@ -40,9 +40,9 @@ public class PickUpWeaponCommand extends AbstractCommand {
                 originView.notify(weaponName + " non è tra le armi presenti nel tuo riquadro");
             } else {
                 try {
-                    match.getCurrentPlayer().pickUpWeapon(weaponCard);
+                    gameManager.getMatch().getCurrentPlayer().pickUpWeapon(weaponCard);
                 } catch (Exception e) {
-                    originView.notify("hai più armi di quante consentite, scegline una da scartare tra: "+match.getCurrentPlayer().weaponsToString());
+                    originView.notify("hai più armi di quante consentite, scegline una da scartare tra: "+gameManager.getMatch().getCurrentPlayer().weaponsToString());
                 } finally {
                     String message = "Il giocatore attuale ha raccolto: " + weaponCard.getName();
                     for (MessageListener view : allViews) {

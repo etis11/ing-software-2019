@@ -1,15 +1,15 @@
 package controller.commandpack;
 
+import model.GameManager;
 import view.MessageListener;
 import model.AmmoCard;
-import model.Match;
 
 import java.util.List;
 
 public class PickUpAmmoCommand extends AbstractCommand{
 
-    public PickUpAmmoCommand(Match match, MessageListener originView, List<MessageListener> allViews){
-        super(match, originView, allViews);
+    public PickUpAmmoCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
+        super(gameManager, originView, allViews);
     }
 
     /**
@@ -17,16 +17,16 @@ public class PickUpAmmoCommand extends AbstractCommand{
      */
     @Override
     public void execute() {
-        if (match.getCurrentPlayer().getState().getName().equals("PickUp")){
+        if (gameManager.getMatch().getCurrentPlayer().getState().getName().equals("PickUp")){
             //TODO verifica tile giusto
             //set remaining steps to zero
-            match.getCurrentPlayer().getState().remainingStepsToZero();
+            gameManager.getMatch().getCurrentPlayer().getState().remainingStepsToZero();
 
-            AmmoCard ammoCard = match.getCurrentPlayer().getTile().pickUpAmmoCard();
+            AmmoCard ammoCard = gameManager.getMatch().getCurrentPlayer().getTile().pickUpAmmoCard();
             //draw
-            match.getCurrentPlayer().useAmmoCard(ammoCard, match.getPowerUpDeck());
+            gameManager.getMatch().getCurrentPlayer().useAmmoCard(ammoCard, gameManager.getMatch().getPowerUpDeck());
             //put the card in the slush pile
-            match.getAmmoSlushPile().addCard(ammoCard);
+            gameManager.getMatch().getAmmoSlushPile().addCard(ammoCard);
 
             //notify
             String message = "Il giocatore attuale ha raccolto una carta munizioni";

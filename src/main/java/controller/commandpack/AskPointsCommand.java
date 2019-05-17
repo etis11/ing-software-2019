@@ -1,6 +1,6 @@
 package controller.commandpack;
 
-import model.Match;
+import model.GameManager;
 import model.Player;
 import view.MessageListener;
 
@@ -10,8 +10,8 @@ public class AskPointsCommand extends AbstractCommand {
 
     private Player player;
 
-    public AskPointsCommand(Match match, MessageListener originView, List<MessageListener> allViews, Player player){
-        super(match, originView, allViews);
+    public AskPointsCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews, Player player){
+        super(gameManager, originView, allViews);
         this.player = player;
     }
 
@@ -19,6 +19,6 @@ public class AskPointsCommand extends AbstractCommand {
     public void execute() {
         if (player == null) throw new IllegalArgumentException("Player can't be null");
         int points = player.getPoints();
-        originView.notify(match.getCurrentPlayer().getName()+ " hai: "+points+ "punti");
+        originView.notify(gameManager.getMatch().getCurrentPlayer().getName()+ " hai: "+points+ "punti");
     }
 }

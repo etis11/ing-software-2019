@@ -1,7 +1,7 @@
 package controller.commandpack;
 
+import model.GameManager;
 import view.MessageListener;
-import model.Match;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import java.util.List;
  */
 public class AskUsePowerUpCommand extends AbstractCommand {
 
-    public AskUsePowerUpCommand(Match match, MessageListener originView, List<MessageListener> allViews){
-        super(match, originView, allViews);
+    public AskUsePowerUpCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
+        super(gameManager, originView, allViews);
     }
 
     /**
@@ -24,7 +24,7 @@ public class AskUsePowerUpCommand extends AbstractCommand {
      */
     @Override
     public void execute() {
-        if (!match.getCurrentPlayer().getState().canUsePowerUp() || match.getCurrentPlayer().getPowerUps().isEmpty()){
+        if (!gameManager.getMatch().getCurrentPlayer().getState().canUsePowerUp() || gameManager.getMatch().getCurrentPlayer().getPowerUps().isEmpty()){
             originView.notify("Non puoi usare powerup");
         }
         else {
@@ -33,7 +33,7 @@ public class AskUsePowerUpCommand extends AbstractCommand {
             for (MessageListener view : allViews){
                 view.notify(message);
             }
-            originView.notify("Scegli quale power up usare tra: "+match.getCurrentPlayer().powerUpToString());
+            originView.notify("Scegli quale power up usare tra: "+gameManager.getMatch().getCurrentPlayer().powerUpToString());
         }
     }
 }

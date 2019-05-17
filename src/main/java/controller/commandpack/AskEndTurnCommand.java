@@ -1,7 +1,7 @@
 package controller.commandpack;
 
+import model.GameManager;
 import view.MessageListener;
-import model.Match;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import java.util.List;
  */
 public class AskEndTurnCommand extends AbstractCommand {
 
-    public AskEndTurnCommand(Match match, MessageListener originView, List<MessageListener> allViews){
-        super(match, originView, allViews);
+    public AskEndTurnCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
+        super(gameManager, originView, allViews);
     }
 
     /**
@@ -25,11 +25,11 @@ public class AskEndTurnCommand extends AbstractCommand {
     @Override
     public void execute() {
         //TODO rivedere la condizione
-        if (!match.getCurrentPlayer().getState().isNormalAction() || !match.getCurrentPlayer().getState().isMoreAction() ||!match.getCurrentPlayer().getState().isMostAction() ){
+        if (!gameManager.getMatch().getCurrentPlayer().getState().isNormalAction() || !gameManager.getMatch().getCurrentPlayer().getState().isMoreAction() ||!gameManager.getMatch().getCurrentPlayer().getState().isMostAction() ){
             originView.notify("Non puoi terminare il tuo turno al momento");
         }
         else {
-            match.getCurrentPlayer().getState().nextState("EndTurn", match.getCurrentPlayer());
+            gameManager.getMatch().getCurrentPlayer().getState().nextState("EndTurn", gameManager.getMatch().getCurrentPlayer());
             String message = "Il giocatore attuale ha terminato il suo turno";
             for (MessageListener view : allViews){
                 view.notify(message);

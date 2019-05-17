@@ -1,8 +1,8 @@
 package controller.commandpack;
 
+import model.GameManager;
 import model.WeaponCard;
 import view.MessageListener;
-import model.Match;
 
 import java.util.List;
 
@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class AskShootCommand extends AbstractCommand{
 
-    public AskShootCommand(Match match, MessageListener originView, List<MessageListener> allViews){
-        super(match, originView, allViews);
+    public AskShootCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
+        super(gameManager, originView, allViews);
     }
 
     /**
@@ -27,16 +27,16 @@ public class AskShootCommand extends AbstractCommand{
     public void execute() {
         boolean loaded = false;
         //verify if almost a weapon is loaded
-        for (WeaponCard wpc : match.getCurrentPlayer().getWeapons()){
+        for (WeaponCard wpc : gameManager.getMatch().getCurrentPlayer().getWeapons()){
             if(wpc.isLoaded()){
                 loaded = true;
             }
         }
-        if (!match.getCurrentPlayer().getState().canShoot() || match.getCurrentPlayer().getRemainingMoves()<1 || !loaded){
+        if (!gameManager.getMatch().getCurrentPlayer().getState().canShoot() || gameManager.getMatch().getCurrentPlayer().getRemainingMoves()<1 || !loaded){
             originView.notify("Non puoi sparare");
         }
         else {
-            match.getCurrentPlayer().getState().nextState("Shoot", match.getCurrentPlayer());
+            gameManager.getMatch().getCurrentPlayer().getState().nextState("Shoot", gameManager.getMatch().getCurrentPlayer());
             String message = "Il giocatore attuale sta per sparare";
             for (MessageListener view : allViews){
                 view.notify(message);

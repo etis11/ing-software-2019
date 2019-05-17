@@ -1,8 +1,8 @@
 package controller.commandpack;
 
+import model.GameManager;
 import view.MessageListener;
 import exceptions.InsufficientAmmoException;
-import model.Match;
 import model.WeaponCard;
 
 import java.util.List;
@@ -11,18 +11,18 @@ public class ReloadCommand extends AbstractCommand {
 
     private String weaponName;
 
-    public ReloadCommand(Match match, MessageListener originView, List<MessageListener> allViews, String weaponName){
-        super(match, originView, allViews);
+    public ReloadCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews, String weaponName){
+        super(gameManager, originView, allViews);
         this.weaponName = weaponName;
     }
 
     @Override
     public void execute() {
         if (weaponName == null) throw new IllegalArgumentException("no weapon selected");
-        for (WeaponCard wpc : match.getCurrentPlayer().getWeapons()){
+        for (WeaponCard wpc : gameManager.getMatch().getCurrentPlayer().getWeapons()){
             if (wpc.getName().equals(weaponName)){
                 try {
-                    wpc.reload(match.getCurrentPlayer().getPlayerBoard().getLoader());
+                    wpc.reload(gameManager.getMatch().getCurrentPlayer().getPlayerBoard().getLoader());
                     String message = "Il giocatore attuale ha ricaricato: "+wpc.getName();
                     for (MessageListener view : allViews){
                         view.notify(message);

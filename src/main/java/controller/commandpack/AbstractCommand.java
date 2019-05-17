@@ -1,7 +1,7 @@
 package controller.commandpack;
 
+import model.GameManager;
 import view.MessageListener;
-import model.Match;
 
 import java.util.List;
 
@@ -9,10 +9,10 @@ public abstract class AbstractCommand implements Command {
 
     protected MessageListener originView;
     protected List<MessageListener> allViews;
-    protected Match match;
+    protected GameManager gameManager;
 
-    public AbstractCommand(Match match, MessageListener originView, List<MessageListener> allViews){
-        this.match = match;
+    public AbstractCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
+        this.gameManager = gameManager;
         this.originView = originView;
         this.allViews = allViews;
     }
@@ -26,11 +26,11 @@ public abstract class AbstractCommand implements Command {
 
     }
 
-    protected void endCommandToAction(){
-        match.getCurrentPlayer().decrementMoves();
-        match.getCurrentPlayer().getState().resetRemainingSteps();
-        match.getCurrentPlayer().getState().nextState(match.getCurrentPlayer().getOldState().getName(), match.getCurrentPlayer());
-        match.getCurrentPlayer().setOldState(null);
+    void endCommandToAction(){
+        gameManager.getMatch().getCurrentPlayer().decrementMoves();
+        gameManager.getMatch().getCurrentPlayer().getState().resetRemainingSteps();
+        gameManager.getMatch().getCurrentPlayer().getState().nextState(gameManager.getMatch().getCurrentPlayer().getOldState().getName(), gameManager.getMatch().getCurrentPlayer());
+        gameManager.getMatch().getCurrentPlayer().setOldState(null);
     }
 
 

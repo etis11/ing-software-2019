@@ -1,7 +1,7 @@
 package controller.commandpack;
 
+import model.GameManager;
 import view.MessageListener;
-import model.Match;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import java.util.List;
  */
 public class AskWalkCommand extends AbstractCommand {
 
-    public AskWalkCommand(Match match, MessageListener originView, List<MessageListener> allViews){
-        super(match, originView, allViews);
+    public AskWalkCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
+        super(gameManager, originView, allViews);
     }
 
     /**
@@ -24,11 +24,11 @@ public class AskWalkCommand extends AbstractCommand {
      */
     @Override
     public void execute() {
-        if (!match.getCurrentPlayer().getState().canRun() || match.getCurrentPlayer().getRemainingMoves()<1){
+        if (!gameManager.getMatch().getCurrentPlayer().getState().canRun() || gameManager.getMatch().getCurrentPlayer().getRemainingMoves()<1){
             originView.notify("non puoi spostarti");
         }
         else {
-            match.getCurrentPlayer().getState().nextState("Run", match.getCurrentPlayer());
+            gameManager.getMatch().getCurrentPlayer().getState().nextState("Run", gameManager.getMatch().getCurrentPlayer());
             String message = "Il giocatore attuale si sta spostando";
             for (MessageListener view : allViews){
                 view.notify(message);
