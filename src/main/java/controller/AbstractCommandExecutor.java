@@ -9,7 +9,8 @@ import java.util.concurrent.*;
  * A class that implements a generic behavior for a command executor. Creates thread that executes the commands. If no commands
  * are put in the queue, the command executor is in a wait state
  */
-public abstract  class AbstractCommandExecutor implements CommandExecutor{
+public abstract  class
+AbstractCommandExecutor implements CommandExecutor{
     /**
      * The match in which the players are playing
      */
