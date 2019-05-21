@@ -61,6 +61,7 @@ public abstract  class AbstractCommandExecutor implements CommandExecutor{
                                     "Stopping the command executor");
                 pool.shutdown();
                 stop = true;
+                Thread.currentThread().interrupt();
             }
 
             if (takenCommand != null){
