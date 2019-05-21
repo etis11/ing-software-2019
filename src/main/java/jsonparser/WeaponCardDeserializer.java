@@ -139,7 +139,7 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
                 //toReturn = new AdjacentStrategy(param , match);
                 break;
             case "LaserRifleStrategy":
-                toReturn = new LaserRifleStrategy();
+                toReturn = new IgnoreWallStrategy();
                 break;
             case "MeleeStrategy":
                 //toReturn = new MeleeStrategy( param, match);

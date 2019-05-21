@@ -51,7 +51,7 @@ public class FlameThrowerStrategyTest {
     @ValueSource( strings = {
             "src/test/testingMaps/WrongTargets.json"
     })
-    void cantHitTests(String path){
+    void canNotHitTests(String path){
         GameMap map = GameMap.loadMap(path);
         Tile redRegenPoint = map.getRedRegenPoint();
         Player shooter = new Player("Giuseppe");

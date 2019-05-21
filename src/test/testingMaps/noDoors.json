@@ -1,0 +1,215 @@
+{
+  "n_rooms": 6,
+  "n_rows": 3,
+  "n_cols": 4,
+  "map": [
+    {
+      "ID": 0,
+      "north": -1,
+      "east": 1,
+      "south": 4,
+      "west": -1,
+      "northWalled": -1,
+      "eastWalled": -1,
+      "southWalled": -1,
+      "westWalled": -1,
+      "ammoTile": true,
+      "weaponTile": false,
+      "room": 5,
+      "regenPoint": "",
+      "players": []
+    },
+    {
+      "ID": 1,
+      "north": -1,
+      "east": 2,
+      "south": -1,
+      "west": 0,
+      "northWalled": -1,
+      "eastWalled": -1,
+      "southWalled": 5,
+      "westWalled": -1,
+      "ammoTile": true,
+      "weaponTile": false,
+      "room": 5,
+      "regenPoint": "",
+      "players": [
+        {
+          "name": "Sprog"
+        }
+      ]
+    },
+    {
+      "ID": 2,
+      "north": -1,
+      "east": 3,
+      "south": -1,
+      "west": 1,
+      "northWalled": -1,
+      "eastWalled": -1,
+      "southWalled": 6,
+      "westWalled": -1,
+      "ammoTile": true,
+      "weaponTile": false,
+      "room": 5,
+      "regenPoint": "",
+      "players": [
+        {
+          "name": "Distruttore"
+        }
+      ]
+    },
+    {
+      "ID": 3,
+      "north": -1,
+      "east": -1,
+      "south": -1,
+      "west": 2,
+      "northWalled": -1,
+      "eastWalled": -1,
+      "southWalled": 7,
+      "westWalled": -1,
+      "ammoTile": true,
+      "weaponTile": false,
+      "room": 5,
+      "regenPoint": "",
+      "players": []
+    },
+    {
+      "ID": 4,
+      "north": 0,
+      "east": -1,
+      "south": -1,
+      "west": -1,
+      "northWalled": -1,
+      "eastWalled": 5,
+      "southWalled": 8,
+      "westWalled": -1,
+      "ammoTile": true,
+      "weaponTile": false,
+      "room": 5,
+      "regenPoint": "",
+      "players": [
+        {
+          "name": "Dozer"
+        }
+      ]
+    },
+    {
+      "ID": 5,
+      "north": -1,
+      "east": -1,
+      "south": -1,
+      "west": -1,
+      "northWalled": 1,
+      "eastWalled": 6,
+      "southWalled": 9,
+      "westWalled": 4,
+      "ammoTile": false,
+      "weaponTile": true,
+      "room": 1,
+      "regenPoint": "blue",
+      "players": [
+        {
+          "name": "Banshee"
+        }
+      ]
+    },
+    {
+      "ID": 6,
+      "north": -1,
+      "east": -1,
+      "south": -1,
+      "west": -1,
+      "northWalled": 2,
+      "eastWalled": 7,
+      "southWalled": 10,
+      "westWalled": 5,
+      "ammoTile": false,
+      "weaponTile": true,
+      "room": 0,
+      "regenPoint": "red",
+      "players": []
+    },
+    {
+      "ID": 7,
+      "north": -1,
+      "east": -1,
+      "south": -1,
+      "west": -1,
+      "northWalled": 3,
+      "eastWalled": -1,
+      "southWalled": 11,
+      "westWalled": 6,
+      "ammoTile": false,
+      "weaponTile": true,
+      "room": 2,
+      "regenPoint": "yellow",
+      "players": []
+    },
+    {
+      "ID": 8,
+      "north": -1,
+      "east": 9,
+      "south": -1,
+      "west": -1,
+      "northWalled": 4,
+      "eastWalled": -1,
+      "southWalled": -1,
+      "westWalled": -1,
+      "ammoTile": true,
+      "weaponTile": false,
+      "room": 4,
+      "regenPoint": "",
+      "players": []
+    },
+    {
+      "ID": 9,
+      "north": -1,
+      "east": -1,
+      "south": -1,
+      "west": 8,
+      "northWalled": 5,
+      "eastWalled": 10,
+      "southWalled": -1,
+      "westWalled": -1,
+      "ammoTile": true,
+      "weaponTile": false,
+      "room": 4,
+      "regenPoint": "",
+      "players": []
+    },
+    {
+      "ID": 10,
+      "north": -1,
+      "east": 11,
+      "south": -1,
+      "west": -1,
+      "northWalled": 6,
+      "eastWalled": -1,
+      "southWalled": -1,
+      "westWalled": 9,
+      "ammoTile": true,
+      "weaponTile": false,
+      "room": 3,
+      "regenPoint": "",
+      "players": []
+    },
+    {
+      "ID": 11,
+      "north": -1,
+      "east": -1,
+      "south": -1,
+      "west": 10,
+      "northWalled": 7,
+      "eastWalled": -1,
+      "southWalled": -1,
+      "westWalled": -1,
+      "ammoTile": true,
+      "weaponTile": false,
+      "room": 3,
+      "regenPoint": "",
+      "players": []
+    }
+  ]
+}

@@ -5,9 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * A strategy used fror the rifle lasers and for all the weapons that can shoot through walls in one direction
+ * A strategy used for the rifle lasers and for all the weapons that can shoot through walls in one direction
  */
-public class LaserRifleStrategy extends AbstractTargetStrategy {
+public class IgnoreWallStrategy extends AbstractTargetStrategy {
 
     /**
      * Return true if all the players are in the same direction.
