@@ -8,19 +8,6 @@ import java.util.stream.Collectors;
  */
 public class BBQStrategy extends FlameThrowerStrategy {
 
-    private int distance;
-    private Match match;
-
-    public BBQStrategy(int distance, Match match) {
-        this.distance = distance;
-        this.match = match ;
-    }
-
-    @Override
-    public List<Player> getHittableTargets(Player shooter) {
-        List<Player> hittableTargets = super.getHittableTargets(shooter);
-        return hittableTargets.stream().filter(p->p.getTile().distance(shooter,match.getMap())==distance).collect(Collectors.toList());
-    }
     /**
      *Checks if all the targets are in the same direction. The check is made on a cross centered in the shooter at a max distance
      * of two. More players can be in the same tile
@@ -46,7 +33,6 @@ public class BBQStrategy extends FlameThrowerStrategy {
             Tile tile1;
             Tile tile2;
             boolean allPlayerRight = true;
-            //se If there's only 1 tile, this mean that the direction is not right for sure for the check
 
             //if there are 2 tiles, this mean that all the player should be in the same tile
             if (tiles.size() == 2){
