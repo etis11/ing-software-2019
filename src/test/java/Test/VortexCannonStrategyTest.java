@@ -8,8 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class VortexCannonStrategyTest {
     private GameMap map;
@@ -98,10 +97,11 @@ public class VortexCannonStrategyTest {
         match.getPlayers().addAll(enemies);
 
         System.out.println("match players : " + match.getPlayers());
+        assertNotNull(match.getPlayers());
         vortex = new VortexCannonStrategy(map, match);
         System.out.println("init tests");
         List<Tile> tiles = map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).collect(Collectors.toList());
-
+        assertNotNull(map.allVisibleTiles(shooter),"The shooter has some visible tiles");
         System.out.println("tiles : " + tiles);
 
         System.out.println("boolean Distance : " + (blue1.distance(shooter, map) < 1));
@@ -131,4 +131,6 @@ public class VortexCannonStrategyTest {
         vortex.canHitSomeone(shooter);
         assertTrue(vortex.areTargetValid(shooter,targets),"but they should all be targets");
           assertFalse(vortex.areTargetValid(shooter,enemies),"target3 is not a target!!!");
+          assertTrue(vortex.canHitSomeone(shooter),"He can hit one or more targets");
+          assertNotNull(vortex.getHittableTargets(shooter),"But he has some targets!");
     }}

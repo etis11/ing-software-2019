@@ -40,7 +40,6 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
             JsonArray baseEffectsJson=jsonCard.get("baseEffect").getAsJsonArray();
             JsonArray advancedEffectsJson=jsonCard.get("advancedEffect").getAsJsonArray();
             List<Effect> effectsList=parseBaseEffects(baseEffectsJson);
-            //  System.out.print("AAAAAAAAAAAA"+ advancedEffectsJson.size());
 
             List<Effect> effectsListAdvanced=parseBaseEffects(advancedEffectsJson);
             wcToAdd.setAdvancedEffect(effectsListAdvanced);
