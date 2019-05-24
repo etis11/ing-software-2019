@@ -1,5 +1,6 @@
 package view;
 
+import model.BloodToken;
 import model.GameMap;
 import model.Player;
 import model.User;
@@ -20,9 +21,10 @@ public class CommandLineInterface extends AbstractView {
     /**
      * Attribute needed to grab the input entered by the user/player
      **/
+
     Reader fromKeyBoard ;
 
-    /* It startst a new scanner needed to grab user input from keyboard*/
+    /* It starts a new scanner needed to grab user input from keyboard*/
     public static  Scanner scanner = new Scanner( System.in );
 
     /**
@@ -69,6 +71,13 @@ public class CommandLineInterface extends AbstractView {
     public void onHpChange(Player damagePlayer) {
         System.out.println(damagePlayer.getName()+" is damaged, so has left "+damagePlayer.getPlayerBoard().getNumDamagePoints()+" blood tokens.");
     }
+
+
+    //public void onHpChange(Player damagePlayer, Player shooter) {
+      //  System.out.println(damagePlayer.getName()+" is damaged, so has left "+damagePlayer.getPlayerBoard().getNumDamagePoints()+" blood tokens.");
+        //System.out.println("He was hit by"+ shooter.getPlayerBoard().dama + damagePlayer.getPlayerBoard() .calculateDamage(d);)
+
+    //}
 
     /**
      * Method needed to notify all players whenever a player gets one or more marks

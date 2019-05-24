@@ -265,10 +265,9 @@ public class Player {
      *
      * @param w weapon that has to be picked
      * @throws Exception            if the player has already 4 weapons
-     * @throws NullPointerException if the weapon is null
      */
     public void pickUpWeapon(WeaponCard w) throws Exception {
-        if (w == null) throw new NullPointerException("Passato un valore nullo");
+        if (w == null) throw new IllegalArgumentException("Passato un valore nullo");
         if (weapons.size() > 4) {
             throw new Exception("Il giocatore ha già 4 armi in mano");
         } else weapons.add(w);
