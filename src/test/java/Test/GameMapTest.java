@@ -3,11 +3,11 @@ package Test;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import model.*;
-import org.jgrapht.Graph;
-import org.jgrapht.GraphPath;
-import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
-import org.jgrapht.graph.DefaultDirectedGraph;
-import org.jgrapht.graph.DefaultEdge;
+//import org.jgrapht.Graph;
+//import org.jgrapht.GraphPath;
+//import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
+//import org.jgrapht.graph.DefaultDirectedGraph;
+//import org.jgrapht.graph.DefaultEdge;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -269,11 +269,13 @@ public class GameMapTest {
         GameMap map = GameMap.loadMap(pathMap1);
         System.out.println("size "+map.getRooms().size());
 
-        Graph<Tile, DefaultEdge> g =  map.createGraph();
+//duhet te shtohet kur te behen lidhjet e tile-ve gjate inicializimit te lojes
+        map.createGraph();
+        Graph g = map.getGraph();
         System.out.println("map created");
-        System.out.println("vertex size "+g.vertexSet().size());
-        assertTrue(g.containsVertex(map.getRooms().get(0).getTiles().get(0)));
-        g.vertexSet().forEach( t -> System.out.println("id : "+t.getID()) );
+        System.out.println("vertex size "+g.getVertexes().size());
+        assertTrue(g.getVertexes().contains(map.getRooms().get(0).getTiles().get(0)));
+        g.getVertexes().forEach( t -> System.out.println("id : "+t.getID()) );
         List<Tile> allTiles = new LinkedList<>();
         for(Room room : map.getRooms()){
             allTiles.addAll(room.getTiles());
@@ -287,8 +289,8 @@ public class GameMapTest {
         Tile t10 = allTiles.stream().filter(t -> t.getID()==10).findFirst().get();
         Tile t4 = allTiles.stream().filter(t -> t.getID()==4).findFirst().get();
 
-        DijkstraShortestPath dijkstraShortestPath;
-        dijkstraShortestPath = new DijkstraShortestPath(g);
+        DijkstraAlgorithm dijkstraShortestPath;
+        dijkstraShortestPath = new DijkstraAlgorithm(g);
 
 
         List<Integer> ids = new LinkedList<>();
@@ -298,71 +300,27 @@ public class GameMapTest {
    //         System.out.println("id : "+ids);
    //     }
 
-        for ( Tile tile : g.vertexSet()){
+        for ( Tile tile : g.getVertexes()){
             ids.add(tile.getID());
             System.out.println("id : "+ids);
-            for(Tile tile2 : g.vertexSet()){
+            for(Tile tile2 : g.getVertexes()){
                 if(!tile2.equals(tile)){
                     System.out.println("tile ID: "+tile.getID()+" tile2 ID: "+tile2.getID());
-                    assertTrue(dijkstraShortestPath.getPathWeight(tile,tile2)>=0,"dijkstraShortestPath.getPathWeight(tile,tile2)>=0");
+                    dijkstraShortestPath.execute(tile);
+                    assertTrue(dijkstraShortestPath.getPath(tile2).size()>=0,"dijkstraShortestPath.getPathWeight(tile,tile2)>=0");
                 }
             }
         }
 
+        dijkstraShortestPath.execute(t4);
+        System.out.println("dijkstraShortestPath.getPath(t4, t6) "+dijkstraShortestPath.getPath(t6));
+        dijkstraShortestPath.execute(t1);
+        System.out.println("dijkstraShortestPath.getPath(t1, t6) "+dijkstraShortestPath.getPath(t6).size());
+        System.out.println("dijkstraShortestPath.getPath(t1, t6) "+dijkstraShortestPath.getPath(t10));
 
-        System.out.println("dijkstraShortestPath.getPath(t4, t6) "+dijkstraShortestPath.getPath(t4, t6));
-        System.out.println("dijkstraShortestPath.getPath(t1, t6) "+dijkstraShortestPath.getPathWeight(t1,t6));
-        System.out.println("dijkstraShortestPath.getPath(t1, t6) "+dijkstraShortestPath.getPathWeight(t1,t10));
 
 
-
-assertNotNull(dijkstraShortestPath.getPath(t1,t6),"its not null dude");
+assertNotNull(dijkstraShortestPath.getPath(t6),"its not null dude");
     }
 
-    @Test
-    void graphTest(){
-
-            Graph<Tile, DefaultEdge> graph = new DefaultDirectedGraph<>(DefaultEdge.class);
-            Tile t1 = new Tile();
-            Tile t2 = new Tile ();
-            Tile t3 = new Tile( );
-            t1.setID(1);
-            t2.setID(2);
-            t3.setID(3);
-            List<Tile> tiles = new LinkedList<>();
-            tiles.add(t1);
-            tiles.add(t2);
-            assertTrue(tiles.contains(t1),"tiles.contains(t1)");
-            assertFalse(tiles.contains(t3),"tiles.contains(t3)");
-            graph.addVertex(t1);
-        graph.addVertex(t2);
-        graph.addVertex(t3);
-        graph.addEdge(t1,t2);
-        graph.addEdge(t2,t1);
-        graph.addEdge(t2,t3);
-        graph.addEdge(t3,t2);
-        System.out.println("All Edges 12 : "+graph.getAllEdges(t1,t2));
-        System.out.println("All Edges 12 : "+graph.getAllEdges(t1,t2).size());
-        System.out.println("All Edges 23 : "+graph.getAllEdges(t2,t3));
-
-        System.out.println("All Edges edgeSet : "+graph.edgeSet());
-
-        DijkstraShortestPath dijkstraShortestPath;
-        dijkstraShortestPath = new DijkstraShortestPath(graph);
-
-        System.out.println("dijkstraShortestPath "+ dijkstraShortestPath.toString());
-
-        System.out.println("outgoingEdgesOf(t1) : "+graph.outgoingEdgesOf(t1));
-        System.out.println("outgoingEdgesOf(t2) : "+graph.outgoingEdgesOf(t2));
-
-        System.out.println("getPaths : "+dijkstraShortestPath.getPaths(t1));
-
-        GraphPath graphPath = dijkstraShortestPath.getPath(t1,t3);
-        System.out.println("graphPath");
-
-        System.out.println(" dijkstraShortestPath All Edges 13 : "+graphPath.getEdgeList().size());
-
-        System.out.println(" dijkstraShortestPath All Edges 13 : "+graphPath.getEdgeList());
-
-    }
 }

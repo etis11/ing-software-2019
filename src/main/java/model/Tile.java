@@ -550,12 +550,18 @@ public class Tile {
         return playerToRemove; //test
     }
 
-    public int distance (Player target , GameMap map){
+  //  public int distance (Player target , GameMap map){
         // return distance(target,true,true,true,true);
-        DijkstraShortestPath dijkstraShortestPath = new DijkstraShortestPath(map.createGraph());
-        return (int) Math.round(dijkstraShortestPath.getPathWeight(target.getTile(),this));
-    }
+      //  DijkstraShortestPath dijkstraShortestPath = new DijkstraShortestPath(map.createGraph());
+      //  return (int) Math.round(dijkstraShortestPath.getPathWeight(target.getTile(),this));
+ //   }
+  public int distance (Player target , GameMap map){
+        DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(map.getGraph());
+        dijkstra.execute(this);
+        return dijkstra.getPath(target.getTile()).size();
+         }
 /*
+
     public int distance (Player target){
         return distance(target,true,true,true,true);
     }
