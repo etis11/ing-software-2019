@@ -38,10 +38,14 @@ public class CommandParser implements Runnable{
 
     private void init(){
         //TODO non mi convince
-        registerCommand("PickUp", new AskPickCommand(gm, originView, allView));
-        registerCommand("Shoot", new AskShootCommand(gm, originView, allView));
-        registerCommand("Reload", new AskReloadCommand(gm, originView, allView));
-        registerCommand("EndTurn", new AskEndTurnCommand(gm, originView, allView));
+        registerCommand("PickUp", new AskPickCommand(null, null, null));
+        registerCommand("Shoot", new AskShootCommand(null, null, null));
+        registerCommand("Reload", new AskReloadCommand(null, null, null));
+        registerCommand("EndTurn", new AskEndTurnCommand(null, null, null));
+        registerCommand("SetUsername", new SetUsernameCommand(null, null, null, null, null));
+        registerCommand("SetEffectPhrase", new SetEffectPhraseCommand(null, null, null, null, null));
+        registerCommand("SetDeath", new SetNumberOfDeathCommand(null, null,null, 8));
+
         //TODO come capisco se direzione o nome dell'arma o altro?
     }
 

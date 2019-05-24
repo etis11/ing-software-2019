@@ -9,14 +9,6 @@ public class LobbyCommandExecutor extends AbstractCommandExecutor{
     }
 
     /**
-     * routine to set the player token
-     */
-    public void setPlayerToken(){
-        //TODO
-    }
-
-
-    /**
      * routine to set the game mode
      */
     public void setMode(){
@@ -27,13 +19,6 @@ public class LobbyCommandExecutor extends AbstractCommandExecutor{
      * routine to set the game map for the match
      */
     public void setMap(){
-        //TODO
-    }
-
-    /**
-     * routine to set the max number of player for the match
-     */
-    public void setNumberOfPlayers(){
         //TODO
     }
 }
