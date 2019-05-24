@@ -59,6 +59,14 @@ public class PlayerBoard {
     }
 
     /**
+     * Returns the remaining hp
+     * @return
+     */
+    public int getRemainingHp(){
+        return MAX_DAMAGE_POINTS -getNumDamagePoints();
+    }
+
+    /**
      * This method returns the number of marks that a player had put on the playerBoard
      * @param p, the player that you are interested in
      * @return number of mark of that player
@@ -66,6 +74,7 @@ public class PlayerBoard {
     public int getNumMarksOfPlayer(Player p){
         return  (int) marks.stream().filter(mark -> mark.getOwner()==p).count();
     }
+
 
     /**
      * Returns the number of marks of the player, without distinguishing the owner
@@ -77,7 +86,7 @@ public class PlayerBoard {
 
 
     /**
-     * This method returns the number of damage that a player thit to the owner of the playerBoard
+     * This method returns the number of damage that a player dealt to the owner of the playerBoard
      * @param p the player that you want to know how much damage did
      * @return the damage did by that player
      */
@@ -96,7 +105,7 @@ public class PlayerBoard {
 
     /**
      * This method applies all the changes to the player board given a damageTransporter object.
-     * If the damage of the transporter is greater than0, all the old marks are converted to damage. then all the damage
+     * If the damage of the transporter is greater than 0, all the old marks are converted to damage. then all the damage
      * is added to the damagePoints list and then all the new marks are added to the marks list.
      * @param d contains all the information that regards the damage. It's supposed to be legal
      */

@@ -22,10 +22,6 @@ public class WeaponCard{
     private List<Effect> baseEffect;
     private List<Effect> advancedEffect;
 
-    public void setOptionalEffect(List<Effect> optionalEffect) {
-        this.optionalEffect = optionalEffect;
-    }
-
     private List<Effect> optionalEffect;
 
 
@@ -38,6 +34,10 @@ public class WeaponCard{
      * Each WeaponCard should contain a name to be distinguished by other cards
      * */
     private String name;
+
+    public void setOptionalEffect(List<Effect> optionalEffect) {
+        this.optionalEffect = optionalEffect;
+    }
 
     public List<Effect> getBaseEffect() {
         return baseEffect;
