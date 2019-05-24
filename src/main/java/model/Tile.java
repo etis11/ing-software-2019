@@ -550,44 +550,12 @@ public class Tile {
         return playerToRemove; //test
     }
 
-  //  public int distance (Player target , GameMap map){
-        // return distance(target,true,true,true,true);
-      //  DijkstraShortestPath dijkstraShortestPath = new DijkstraShortestPath(map.createGraph());
-      //  return (int) Math.round(dijkstraShortestPath.getPathWeight(target.getTile(),this));
- //   }
   public int distance (Player target , GameMap map){
         DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(map.getGraph());
         dijkstra.execute(this);
         return dijkstra.getPath(target.getTile()).size();
          }
-/*
 
-    public int distance (Player target){
-        return distance(target,true,true,true,true);
-    }
-    //TODO mi interessa sia minima la distanza???????
-    public int distance (Player target, boolean north, boolean west, boolean south, boolean east){
-        int distance=0;
-        if (target == null) throw new IllegalArgumentException("The given player from which calculate distance is null");
-        if (this.isPlayerIn(target)){
-            return 0;
-        }
-        if (northTile != null && north){
-            distance = 1 + northTile.distance(target, true, true, false, true);
-        }
-        if (eastTile != null && east && distance>1 + eastTile.distance(target, true, false, true, true)){
-            distance = 1 + eastTile.distance(target, true, false, true, true);
-        }
-        if (southTile!= null && south && distance>1 + southTile.distance(target, false, true, true, true)){
-            distance = 1 + southTile.distance(target, false, true, true, true);
-        }
-        if (westTile!=null && west && distance>1 + westTile.distance(target, true, true, true, false)){
-            distance = 1 + westTile.distance(target, true, true, true, false);
-        }
-
-        return distance;
-    }
-    */
     /**
      * Gives a list with the tiles around the current tile.
      * @return
