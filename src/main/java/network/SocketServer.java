@@ -1,5 +1,7 @@
 package network;
 
+import controller.CommandParser;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -17,11 +19,17 @@ public class SocketServer {
         threadPool = Executors.newFixedThreadPool(MAX_CLIENTS);
     }
 
+    /**
+     * Accepts a connection and creates a CommandParser associated to the Proxy view. The socket is bound to the proxy
+     * @throws IOException
+     */
     public void run() throws IOException {
         while(!stop){
             Socket clientSocket = serverSocket.accept();
             System.out.println(">>>New connection accepted: " + clientSocket.getRemoteSocketAddress());
-//            threadPool.submit();
+            //this part will change if we make the change
+
+            threadPool.submit(new CommandParser(new SocketViewProxy(clientSocket)));
 
         }
     }

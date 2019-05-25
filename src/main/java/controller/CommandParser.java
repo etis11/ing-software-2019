@@ -30,8 +30,16 @@ public class CommandParser implements Runnable{
     private MessageListener originView;
     private List<MessageListener> allView;
 
+    //TODO bisognerà renderlo più generale per tutte le gui, poi ne parliamo. OSCAR
     public CommandParser(){
         //TODo implementare
+        this.quit = true;
+        init();
+    }
+
+    public CommandParser(StringView view){
+        //TODo implementare
+        cli = view;
         this.quit = true;
         init();
     }
