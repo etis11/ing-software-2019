@@ -25,7 +25,8 @@ public class TractorBeamStrategyTest {
     private Tile white3;
     @BeforeEach
     void initGameMap() {map =new GameMap();
-        match = new Match();}
+        match = new Match();
+    map.createGraph();}
 
     @Test
     void TractorBramStrategy() {

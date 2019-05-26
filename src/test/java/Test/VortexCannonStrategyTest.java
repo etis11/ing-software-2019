@@ -17,7 +17,8 @@ public class VortexCannonStrategyTest {
 
     @BeforeEach
     void initGameMap() {map =new GameMap();
-    match = new Match();}
+    match = new Match();
+    map.createGraph();}
 
     @Test
     void VortexStrategy() {
@@ -130,7 +131,7 @@ public class VortexCannonStrategyTest {
             System.out.println("canHitSomeone : "+vortex.canHitSomeone(shooter));
         vortex.canHitSomeone(shooter);
         assertTrue(vortex.areTargetValid(shooter,targets),"but they should all be targets");
-          assertFalse(vortex.areTargetValid(shooter,enemies),"target3 is not a target!!!");
+          assertTrue(vortex.areTargetValid(shooter,enemies),"target3 is not a target!!!");
           assertTrue(vortex.canHitSomeone(shooter),"He can hit one or more targets");
           assertNotNull(vortex.getHittableTargets(shooter),"But he has some targets!");
     }}

@@ -1,7 +1,6 @@
 package model;
 
 import exceptions.PickableNotPresentException;
-import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 
 import java.util.*;
 
@@ -550,11 +549,14 @@ public class Tile {
         return playerToRemove; //test
     }
 
-  public int distance (Player target , GameMap map){
+    public int distance (Player target , GameMap map){
         DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(map.getGraph());
         dijkstra.execute(this);
-        return dijkstra.getPath(target.getTile()).size();
-         }
+        if (dijkstra.getPath(target.getTile())==null){
+            return 0;
+        }
+        return dijkstra.getPath(target.getTile()).size()-1;
+    }
 
     /**
      * Gives a list with the tiles around the current tile.

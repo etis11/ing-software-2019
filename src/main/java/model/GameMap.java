@@ -5,15 +5,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import exceptions.DuplicateException;
 import jsonparser.GameMapDeserializer;
+import com.google.gson.JsonElement;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 
-//import org.jgrapht.Graph;
-//import org.jgrapht.graph.DefaultDirectedGraph;
-//import org.jgrapht.graph.DefaultEdge;
 /**
  * Contains all the reference to the rooms and spawn point of the map.
  * There should be at least one regenPoint, The rooms should at least be an empty list.
@@ -66,7 +64,9 @@ public class GameMap {
             return null;
         }
 
-        return customGson.fromJson(jsonFile, GameMap.class);
+        //return customGson.fromJson(jsonFile, GameMap.class);
+        return new GameMapDeserializer().deserialize(customGson.fromJson(jsonFile, JsonElement.class),null,null);
+
     }
 
 

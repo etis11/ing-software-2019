@@ -65,6 +65,7 @@ public class FixedDistanceStrategyTest {
         players.add(target2);
         match.setPlayers(players);
         strategy = new FixedDistanceStrategy(2, match);
+        gameMap.createGraph();
     }
 
     @Test
