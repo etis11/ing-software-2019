@@ -1,16 +1,12 @@
 package controller;
 
 import controller.commandpack.Command;
+import controller.commandpack.CommandContainer;
 
-public interface CommandExecutor {
+public interface CommandExecutor extends CommandContainer {
 
     /**
      * executes a command and removes from a queue
      */
     void executeCommand();
-
-    /**
-     * adds a command to a queue
-     */
-    void addCommand(Command c);
 }
