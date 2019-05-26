@@ -268,7 +268,7 @@ public class GameMapTest {
         System.out.println("map created");
         System.out.println("vertex size "+g.getVertexes().size());
         assertTrue(g.getVertexes().contains(map.getRooms().get(0).getTiles().get(0)));
-        g.getVertexes().forEach( t -> System.out.println("id : "+t.getID()) );
+       // g.getVertexes().forEach( t -> System.out.println("id : "+t.getID()) );
         List<Tile> allTiles = new LinkedList<>();
         for(Room room : map.getRooms()){
             allTiles.addAll(room.getTiles());
@@ -295,10 +295,10 @@ public class GameMapTest {
 
         for ( Tile tile : g.getVertexes()){
             ids.add(tile.getID());
-            System.out.println("id : "+ids);
+           // System.out.println("id : "+ids);
             for(Tile tile2 : g.getVertexes()){
                 if(!tile2.equals(tile)){
-                    System.out.println("tile ID: "+tile.getID()+" tile2 ID: "+tile2.getID());
+             //       System.out.println("tile ID: "+tile.getID()+" tile2 ID: "+tile2.getID());
                     dijkstraShortestPath.execute(tile);
                     assertTrue(dijkstraShortestPath.getPath(tile2).size()>=0,"dijkstraShortestPath.getPathWeight(tile,tile2)>=0");
                 }
@@ -306,10 +306,12 @@ public class GameMapTest {
         }
 
         dijkstraShortestPath.execute(t4);
-        System.out.println("dijkstraShortestPath.getPath(t4, t6) "+dijkstraShortestPath.getPath(t6));
+        System.out.println("La distanza tra t4-t6 "+dijkstraShortestPath.getPath(t6).size());
+        int firstDist = dijkstraShortestPath.getPath(t6).size();
+        System.out.println(firstDist);
         dijkstraShortestPath.execute(t1);
-        System.out.println("dijkstraShortestPath.getPath(t1, t6) "+dijkstraShortestPath.getPath(t6).size());
-        System.out.println("dijkstraShortestPath.getPath(t1, t6) "+dijkstraShortestPath.getPath(t10));
+        assertTrue(dijkstraShortestPath.getPath(t6).size()==firstDist,"ERROR: Distances should be equal");
+        System.out.println("La distanza tra t1-t10 "+dijkstraShortestPath.getPath(t10).size());
 
 
 

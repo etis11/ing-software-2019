@@ -1,6 +1,6 @@
 [
   {
-    "NAME": "Lock Rifle",
+    "NAME": "Distruttore",
     "reloadCost": [
       "blue","blue"
     ],
@@ -30,7 +30,7 @@
     "optionalEffect": []
   },
   {
-    "NAME": "Machine Gun",
+    "NAME": "Mitragliatrice",
     "reloadCost": ["blue",
       "red"
     ],
@@ -50,7 +50,7 @@
     "optionalEffect": []
   },
   {
-    "NAME": "Thor",
+    "NAME": "Torpedine",
     "reloadCost": ["blue",
       "red"
     ],
@@ -70,7 +70,7 @@
     "optionalEffect": []
   },
   {
-    "NAME": "Plasma Gun",
+    "NAME": "Fucile al plasma",
     "reloadCost": ["blue",
       "yellow"
     ],
@@ -90,7 +90,7 @@
     "optionalEffect": []
   },
   {
-    "NAME": "Whisper",
+    "NAME": "Fucile di precisione",
     "reloadCost": ["blue",
       "blue",
       "yellow"
@@ -121,7 +121,7 @@
     "optionalEffect": []
   },
   {
-    "NAME": "Electroscythe",
+    "NAME": "Falce Protonica",
     "reloadCost": [],
     "baseEffect": [
       {
@@ -130,7 +130,7 @@
         "type": "Damage",
         "damage": 1,
         "strategy": {
-          "type": "FixedDistanceStrategy",
+          "type": "MeleeStrategy",
           "param": 0
         }
       }
@@ -146,7 +146,7 @@
         "type": "Damage",
         "damage": 2,
         "strategy": {
-          "type": "FixedDistanceStrategy",
+          "type": "MeleeStrategy",
           "param": 0
         }
       }
@@ -154,7 +154,7 @@
     "optionalEffect": []
   },
   {
-    "NAME": "Tractor Beam",
+    "NAME": "Raggio Traente",
     "reloadCost": [],
     "baseEffect": [
       {
@@ -213,7 +213,7 @@
     "optionalEffect": []
   },
   {
-    "NAME": "Vortex Cannon",
+    "NAME": "Cannone Vortex",
     "reloadCost": ["red",
       "blue"
     ],
@@ -244,7 +244,7 @@
     "optionalEffect": []
   },
   {
-    "NAME": "Furnace",
+    "NAME": "Vulcanizzatore",
     "reloadCost": ["red",
       "blue"
     ],
@@ -286,7 +286,7 @@
     ]
   },
   {
-    "NAME": "HeatSeeker",
+    "NAME": "Razzo Termico",
     "reloadCost": ["red",
       "red",
       "yellow"
@@ -307,7 +307,7 @@
     "optionalEffect": []
   },
   {
-    "NAME": "Hellion",
+    "NAME": "Raggio Solare",
     "reloadCost": ["red",
       "yellow"
     ],
@@ -366,7 +366,7 @@
     "optionalEffect": []
   },
   {
-    "NAME": "FlameThrower",
+    "NAME": "Lanciafiamme",
     "reloadCost": [],
     "baseEffect": [
       {
@@ -413,7 +413,7 @@
     "optionalEffect": []
   },
   {
-    "NAME": "Grenade Launcher",
+    "NAME": "Lanciagranate",
     "reloadCost": [],
     "baseEffect": [
       {
@@ -442,7 +442,7 @@
     "optionalEffect": []
   },
   {
-    "NAME": "Rocket Launcher",
+    "NAME": "Lanciarazzi",
     "reloadCost": ["red",
       "red"
     ],
@@ -473,7 +473,7 @@
     "optionalEffect": []
   },
   {
-    "NAME": "RailGun",
+    "NAME": "Fucile Laser",
     "reloadCost": ["yellow",
       "yellow",
       "blue"
@@ -509,7 +509,7 @@
     "optionalEffect": []
   },
   {
-    "NAME": "CyberBlade",
+    "NAME": "Spada Fotonica",
     "reloadCost": ["yellow",
       "red"
     ],
@@ -574,7 +574,7 @@
     "optionalEffect": []
   },
   {
-    "NAME": "Shotgun",
+    "NAME": "Fucile a pompa",
     "reloadCost": ["yellow",
       "yellow"
     ],
@@ -612,7 +612,7 @@
         "type": "Damage",
         "damage": 2,
         "strategy": {
-          "type": "FixedDistanceStrategy",
+          "type": "AdjacentStrategy",
           "param": 1
         }
       }
@@ -620,7 +620,7 @@
     "optionalEffect": []
   },
   {
-    "NAME": "Power Glove",
+    "NAME": "Cyberguanto",
     "reloadCost": ["yellow",
       "blue"
     ],
@@ -632,7 +632,7 @@
         "movementType": "fixedMovement",
         "steps": 1,
         "strategy": {
-          "type": "FixedDistanceStrategy",
+          "type": "MeleeStrategy",
           "param": 1
         }
       },
@@ -668,7 +668,7 @@
         "movementType": "fixedMovement",
         "steps": 1,
         "strategy": {
-          "type": "FixedDistanceStrategy",
+          "type": "MeleeStrategy",
           "param": 1
         }
       },
@@ -695,7 +695,7 @@
         "movementType": "fixedMovement",
         "steps": 1,
         "strategy": {
-          "type": "FixedDistanceStrategy",
+          "type": "MeleeStrategy",
           "param": 1
         }
       },
@@ -716,7 +716,7 @@
     "optionalEffect": []
   },
   {
-    "NAME": "Shockwave",
+    "NAME": "Onda d'urto",
     "reloadCost": [],
     "baseEffect": [
       {
@@ -748,7 +748,7 @@
     "optionalEffect": []
   },
   {
-    "NAME": "SledgeHammer",
+    "NAME": "Martello ionico",
     "reloadCost": [],
     "baseEffect": [
       {

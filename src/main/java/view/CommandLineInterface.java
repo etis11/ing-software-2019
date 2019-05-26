@@ -33,7 +33,7 @@ public class CommandLineInterface extends AbstractView {
     **/
     @Override
     public void onJoin(User joinedUser) {
-        System.out.println(joinedUser.getUsername()+" joined the lobby");
+        System.out.println(joinedUser.getUsername()+" si e' unito alla lobby");
     }
 
     /**
@@ -42,7 +42,7 @@ public class CommandLineInterface extends AbstractView {
     **/
     @Override
     public void onLeave(User leavingUser) {
-        System.out.println(leavingUser.getUsername()+" left the lobby");
+        System.out.println(leavingUser.getUsername()+" ha lasciato la lobby");
     }
 
     /**
@@ -51,7 +51,7 @@ public class CommandLineInterface extends AbstractView {
     **/
     @Override
     public void onMapCHange(GameMap m) {
-        System.out.println("Map changed!");
+        System.out.println("La posizione dei giocatori sulla mapps si e cambiata");
     }
 
     /**
@@ -69,15 +69,8 @@ public class CommandLineInterface extends AbstractView {
      **/
     @Override
     public void onHpChange(Player damagePlayer) {
-        System.out.println(damagePlayer.getName()+" is damaged, so has left "+damagePlayer.getPlayerBoard().getNumDamagePoints()+" blood tokens.");
+        System.out.println(damagePlayer.getName()+" ha subito danni e quindi e' remasto con "+damagePlayer.getPlayerBoard().getNumDamagePoints()+" vite.");
     }
-
-
-    //public void onHpChange(Player damagePlayer, Player shooter) {
-      //  System.out.println(damagePlayer.getName()+" is damaged, so has left "+damagePlayer.getPlayerBoard().getNumDamagePoints()+" blood tokens.");
-        //System.out.println("He was hit by"+ shooter.getPlayerBoard().dama + damagePlayer.getPlayerBoard() .calculateDamage(d);)
-
-    //}
 
     /**
      * Method needed to notify all players whenever a player gets one or more marks
@@ -85,7 +78,7 @@ public class CommandLineInterface extends AbstractView {
      **/
     @Override
     public void onMarksChange(Player markedPlayer) {
-        System.out.println(markedPlayer.getName()+" changed marks so now has "+markedPlayer.getPlayerBoard().getNumMarks()+" marks");
+        System.out.println("A"+ markedPlayer.getName()+" si e' cambiato il numero dei marchi in: "+markedPlayer.getPlayerBoard().getNumMarks()+" marks");
     }
 
     /**
@@ -94,10 +87,10 @@ public class CommandLineInterface extends AbstractView {
      **/
     @Override
     public void onAmmoChange(Player p) {
-        System.out.println(p.getName()+" changed ammos, the current ammos : \n" +
-                "Blue cards : "+p.getPlayerBoard().getLoader().getNumBlueAmmo()+"\n" +
-                "Red cards : "+p.getPlayerBoard().getLoader().getNumRedAmmo()+"\n" +
-                "Yellow cards : "+p.getPlayerBoard().getLoader().getNumYellowAmmo()+"\n"
+        System.out.println(p.getName()+" ha un numero diverso di ammo rispetto a prima:\n" +
+                "Ammo blu : "+p.getPlayerBoard().getLoader().getNumBlueAmmo()+"\n" +
+                "Ammo rosse : "+p.getPlayerBoard().getLoader().getNumRedAmmo()+"\n" +
+                "Ammo gialle : "+p.getPlayerBoard().getLoader().getNumYellowAmmo()+"\n"
         );
     }
     /**
@@ -106,7 +99,7 @@ public class CommandLineInterface extends AbstractView {
      **/
     @Override
     public void onPowerUpChange(Player p) {
-        System.out.println(p.getName()+" changed number of Power up cards on his hand, so now has "+p.getNumPowerUps());
+        System.out.println(p.getName()+" ha cambiato il numero di carte PowerUp nella mano, quindi ora ha: "+p.getNumPowerUps());
     }
 
     /**
