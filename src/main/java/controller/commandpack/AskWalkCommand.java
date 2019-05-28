@@ -12,7 +12,7 @@ import java.util.List;
  * @author Alessandro Passoni
  * @version 1.0
  */
-public class AskWalkCommand extends AbstractCommand {
+public class AskWalkCommand extends Command {
 
     public AskWalkCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
         super(gameManager, originView, allViews);

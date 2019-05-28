@@ -12,7 +12,7 @@ import java.util.List;
  * @author Alessandro Passoni
  * @version 1.0
  */
-public class AskReloadCommand extends AbstractCommand{
+public class AskReloadCommand extends Command {
 
     public AskReloadCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
         super(gameManager, originView, allViews);

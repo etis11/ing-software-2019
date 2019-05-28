@@ -5,7 +5,7 @@ import view.MessageListener;
 
 import java.util.List;
 
-public class SetPlayerNumberCommand extends AbstractCommand {
+public class SetPlayerNumberCommand extends Command {
 
     private int players;
 

@@ -7,7 +7,7 @@ import model.WeaponCard;
 
 import java.util.List;
 
-public class ReloadCommand extends AbstractCommand {
+public class ReloadCommand extends Command {
 
     private String weaponName;
 

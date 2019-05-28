@@ -16,7 +16,7 @@ public class AskCommandTest  {
     private GameManager gm;
     private Player player;
     LinkedList<Player> players;
-    AbstractCommand command;
+    Command command;
     MessageListener messageListener;
     MessageListener messageListener2;
     List<MessageListener> views;

@@ -6,7 +6,7 @@ import model.AmmoCard;
 
 import java.util.List;
 
-public class PickUpAmmoCommand extends AbstractCommand{
+public class PickUpAmmoCommand extends Command {
 
     public PickUpAmmoCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
         super(gameManager, originView, allViews);

@@ -1,13 +1,12 @@
 package controller.commandpack;
 
-import exceptions.NotValidActionException;
 import model.GameManager;
 import model.User;
 import view.MessageListener;
 
 import java.util.List;
 
-public class SetUsernameCommand extends AbstractCommand {
+public class SetUsernameCommand extends Command {
 
     private String username;
     private User user;

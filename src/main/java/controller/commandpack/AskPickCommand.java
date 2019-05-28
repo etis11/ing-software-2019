@@ -12,7 +12,7 @@ import java.util.List;
  * @author Alessandro Passoni
  * @version 1.0
  */
-public class AskPickCommand extends AbstractCommand {
+public class AskPickCommand extends Command {
 
     public AskPickCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
         super(gameManager, originView, allViews);

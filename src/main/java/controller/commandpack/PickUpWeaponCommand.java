@@ -7,7 +7,7 @@ import model.WeaponCard;
 
 import java.util.List;
 
-public class PickUpWeaponCommand extends AbstractCommand {
+public class PickUpWeaponCommand extends Command {
 
     private String weaponName;
 

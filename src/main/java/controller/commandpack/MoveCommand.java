@@ -14,7 +14,7 @@ import java.util.List;
  * @author Alessandro Passoni
  * @version 1.0
  */
-public class MoveCommand extends AbstractCommand {
+public class MoveCommand extends Command {
 
     /**
      * list containing moves to construct a movement

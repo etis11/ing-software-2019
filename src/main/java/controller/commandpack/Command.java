@@ -5,19 +5,19 @@ import view.MessageListener;
 
 import java.util.List;
 
-public abstract class AbstractCommand{
+public abstract class Command {
 
     protected MessageListener originView;
     protected List<MessageListener> allViews;
     protected GameManager gameManager;
 
-    public AbstractCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
+    public Command(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
         this.gameManager = gameManager;
         this.originView = originView;
         this.allViews = allViews;
     }
 
-    public AbstractCommand(){
+    public Command(){
 
     }
 

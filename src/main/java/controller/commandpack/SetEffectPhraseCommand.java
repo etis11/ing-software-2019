@@ -6,7 +6,7 @@ import view.MessageListener;
 
 import java.util.List;
 
-public class SetEffectPhraseCommand extends AbstractCommand {
+public class SetEffectPhraseCommand extends Command {
 
     private String phrase;
     private User user;

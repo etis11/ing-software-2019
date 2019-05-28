@@ -5,7 +5,7 @@ import view.MessageListener;
 
 import java.util.List;
 
-public class CommandHelpCommand extends AbstractCommand {
+public class CommandHelpCommand extends Command {
 
     private List<String> command;
 

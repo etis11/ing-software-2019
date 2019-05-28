@@ -12,7 +12,7 @@ import java.util.List;
  * @author Alessandro Passoni
  * @version 1.0
  */
-public class AskUsePowerUpCommand extends AbstractCommand {
+public class AskUsePowerUpCommand extends Command {
 
     public AskUsePowerUpCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
         super(gameManager, originView, allViews);

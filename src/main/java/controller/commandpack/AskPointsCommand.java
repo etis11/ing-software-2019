@@ -6,7 +6,7 @@ import view.MessageListener;
 
 import java.util.List;
 
-public class AskPointsCommand extends AbstractCommand {
+public class AskPointsCommand extends Command {
 
     private Player player;
 
