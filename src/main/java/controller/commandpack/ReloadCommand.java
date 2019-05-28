@@ -1,5 +1,6 @@
 package controller.commandpack;
 
+import controller.CommandExecutor;
 import model.GameManager;
 import view.MessageListener;
 import exceptions.InsufficientAmmoException;
@@ -17,7 +18,7 @@ public class ReloadCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
+    public void execute(CommandExecutor exe) {
         if (weaponName == null) throw new IllegalArgumentException("no weapon selected");
         for (WeaponCard wpc : gameManager.getMatch().getCurrentPlayer().getWeapons()){
             if (wpc.getName().equals(weaponName)){

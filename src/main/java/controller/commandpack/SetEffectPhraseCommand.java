@@ -1,5 +1,6 @@
 package controller.commandpack;
 
+import controller.CommandExecutor;
 import model.GameManager;
 import model.User;
 import view.MessageListener;
@@ -18,7 +19,7 @@ public class SetEffectPhraseCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
+    public void execute(CommandExecutor exe) {
         if (gameManager.getLobby().getUsers().contains(user)){
             user.setEffectPhrase(phrase);
             //TODO controllare non sia iniziata la partita?

@@ -1,5 +1,6 @@
 package controller.commandpack;
 
+import controller.CommandExecutor;
 import model.GameManager;
 import view.MessageListener;
 
@@ -23,7 +24,7 @@ public class AskUsePowerUpCommand extends AbstractCommand {
      * (only the player who calls if is not allowed, all if he is allowed)
      */
     @Override
-    public void execute() {
+    public void execute(CommandExecutor exe) {
         if (!gameManager.getMatch().getCurrentPlayer().getState().canUsePowerUp() || gameManager.getMatch().getCurrentPlayer().getPowerUps().isEmpty()){
             originView.notify("Non puoi usare powerup");
         }
