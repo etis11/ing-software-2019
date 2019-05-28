@@ -44,7 +44,7 @@ public abstract class Effect {
 
     private int numStepsTarget;
 
-    //TODO da settare
+    //TODO da settare. Fare l'azione inversa dell'apply
     private int redDamage;
     private int blueDamage;
     private int yellowDamage;

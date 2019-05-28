@@ -14,6 +14,10 @@ import java.util.List;
 
 public class WeaponCard{
     /**
+     * Each WeaponCard should contain a name to be distinguished by other cards
+     * */
+    private String name;
+    /**
      *List containing colorAmmo.
      */
     private List<String> reloadCost;
@@ -30,10 +34,6 @@ public class WeaponCard{
      * */
     private boolean loaded;
 
-    /**
-     * Each WeaponCard should contain a name to be distinguished by other cards
-     * */
-    private String name;
 
     public List<Effect> getBaseEffect() {
         return baseEffect;

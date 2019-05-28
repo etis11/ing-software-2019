@@ -5,6 +5,7 @@ import model.*;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
@@ -17,7 +18,11 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
 
     @Override
     public WeaponCard deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-        return null;
+        jsonObject obj = jsonElement.getAsJsonObject();
+        String name = obj.get("NAME").getAsString();
+        String[] reloadCost = jsonDeserializationContext.deserialize(obj.get("reloadCost"), String[].class);
+        Effect[] baseEffect = jsonDeserializationContext.deserialize(obj.get("baseEffect"), Effect[].class);
+        List<Effect> baseEffectLinked = new LinkedList<>(baseEffect);
     }
 
     public  List<WeaponCard> parseWeaponCards(String jsonFile){
