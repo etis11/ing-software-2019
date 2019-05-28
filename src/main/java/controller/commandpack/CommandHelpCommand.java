@@ -1,5 +1,6 @@
 package controller.commandpack;
 
+import controller.CommandExecutor;
 import model.GameManager;
 import view.MessageListener;
 
@@ -15,7 +16,7 @@ public class CommandHelpCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
+    public void execute(CommandExecutor exe) {
         originView.notify(command.toString());
     }
 }

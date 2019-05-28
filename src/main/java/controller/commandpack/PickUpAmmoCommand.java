@@ -1,5 +1,6 @@
 package controller.commandpack;
 
+import controller.CommandExecutor;
 import model.GameManager;
 import view.MessageListener;
 import model.AmmoCard;
@@ -16,7 +17,7 @@ public class PickUpAmmoCommand extends AbstractCommand {
      * pick the ammo in the tile and put it into the loader
      */
     @Override
-    public void execute() {
+    public void execute(CommandExecutor exe) {
         if (gameManager.getMatch().getCurrentPlayer().getState().getName().equals("PickUp")){
             //TODO verifica tile giusto
             //set remaining steps to zero

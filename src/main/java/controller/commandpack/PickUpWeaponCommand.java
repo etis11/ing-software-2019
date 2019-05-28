@@ -1,5 +1,6 @@
 package controller.commandpack;
 
+import controller.CommandExecutor;
 import model.GameManager;
 import view.MessageListener;
 import exceptions.PickableNotPresentException;
@@ -17,7 +18,7 @@ public class PickUpWeaponCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
+    public void execute(CommandExecutor exe) {
         if (gameManager.getMatch().getCurrentPlayer().getState().getName().equals("PickUp")) {
             //set player remaining steps to zero
             gameManager.getMatch().getCurrentPlayer().getState().remainingStepsToZero();

@@ -1,5 +1,6 @@
 package controller.commandpack;
 
+import controller.CommandExecutor;
 import model.GameManager;
 import view.MessageListener;
 import model.Movement;
@@ -32,7 +33,7 @@ public class MoveCommand extends AbstractCommand {
      * in case of positive validation provide to update the remaining moves and moves the player
      */
     @Override
-    public void execute() {
+    public void execute(CommandExecutor exe) {
         if (gameManager.getMatch().getCurrentPlayer().getState().getRemainingSteps()<moves.size()){
             originView.notify("Non hai abbastanze mosse rimanenti");
         }
