@@ -1,11 +1,10 @@
 package view;
 
-import model.BloodToken;
-import model.GameMap;
-import model.Player;
-import model.User;
-import java.io.Reader;
-import java.io.Writer;
+import model.*;
+
+import java.io.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -16,16 +15,16 @@ public class CommandLineInterface extends AbstractView {
     /**
      *  Attribute needed to output text from the console
      **/
-    Writer consoleOutput ;
+    public static   Writer consoleOutput = new OutputStreamWriter(System.out);
 
     /**
      * Attribute needed to grab the input entered by the user/player
      **/
 
-    Reader fromKeyBoard ;
+ public static  Reader fromKeyBoard = new InputStreamReader(System.in);
 
     /* It starts a new scanner needed to grab user input from keyboard*/
-    public static  Scanner scanner = new Scanner( System.in );
+   public static  Scanner scanner = new Scanner( System.in );
 
     /**
     * Method used to print out to the users waiting on lobby when a new user joins in the lobby
@@ -47,10 +46,19 @@ public class CommandLineInterface extends AbstractView {
 
     /**
      * Method used to notify all users when the gameMap changes in one of the four maps
-    * @param m is the new Gamemap that got chosen as the map to be used during the next gameplay
+    * @param match is the new Gamemap that got chosen as the map to be used during the next gameplay
     **/
     @Override
-    public void onMapCHange(GameMap m) {
+    public void onMapCHange(Match match) {
+
+        for(Player player : match.getPlayers()) {
+            if(player.getTile()==null){
+                System.out.println("is null");
+            }else{
+                System.out.println("position is "+player.getTile().getID());
+            }
+
+        }
         System.out.println("La posizione dei giocatori sulla mapps si e cambiata");
     }
 
@@ -109,6 +117,7 @@ public class CommandLineInterface extends AbstractView {
 
  //       Scanner scanner1 = new Scanner(System.in);
         System.out.println("Enter some words");
+
         String cc = scanner.nextLine();
         System.out.println("Enter some words2"+cc);
         return cc;
