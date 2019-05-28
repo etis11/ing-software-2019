@@ -26,6 +26,11 @@ public abstract class Effect {
      */
     private Map<String, Integer> marks;
 
+    /**
+     * the optional effect. Can be empty
+     */
+    private List<OptionalEffect> optionalEffects;
+
     private int redDamage;
     private int blueDamage;
     private int yellowDamage;
@@ -44,20 +49,68 @@ public abstract class Effect {
         marks.put("red", 0);
         marks.put("blue", 0);
         marks.put("yellow", 0);
+        optionalEffects = new LinkedList<>();
     }
 
     public TargetStrategy getStrategy() {
         return strategy;
     }
 
+    /**
+     * This method sums the damages and the marks of the optional effect in the current effect.
+     */
+    public void applyOptionalEffect(){
+        String[] colors = {"red", "blue", "yellow"};
+        for(OptionalEffect o: optionalEffects){
+            if(o.isActivated()){
+                Map<String, Integer> additionalDamage = o.getAdditionalDamage();
+                Map<String, Integer> additionalMarks = o.getAdditionalDamage();
+                for(String color: colors){
+                    int dmg = this.damage.get(color);
+                    int addDmg = additionalDamage.get(color);
+                    int marks = this.marks.get(color);
+                    int addMarks = additionalMarks.get(color);
+                    this.damage.put(color, dmg+addDmg);
+                    this.marks.put(color, marks +addMarks);
+                }
+            }
+        }
+    }
+
+    /**
+     * Reset the damage and the marks of the players
+     */
+    public void resetDmgAndMarks(){
+        this.damage.put("red", redDamage);
+        this.damage.put("blue", blueDamage);
+        this.damage.put("yellow", yellowDamage);
+    }
+
+    /**
+     * creates a damage transporter for the given target
+     * @param shooter the person that is shooting
+     * @param target the person that will receive the effect
+     * @param color the  corresponding color of the target on the card
+     * @return a damage transporter
+     */
     public DamageTransporter useEffect(Player shooter, Player target, String color){
         int damages = damage.get(color);
         int marks = this.marks.get(color);
         return new DamageTransporter(target, shooter, damages, marks);
     }
 
+    /**
+     * @return the cost of the effect
+     */
     public List<String> getCost() {
         return new LinkedList<>(cost);
     }
 
+    /**
+     * returns a copy of the optional effects
+     * @return
+     */
+    public List<OptionalEffect> getOptionalEffects() {
+        return new LinkedList<>(optionalEffects);
+    }
 }
