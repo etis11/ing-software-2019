@@ -12,7 +12,7 @@ public class CommandExecutor {
         //auxiliary variable
         Player currentPlayer = command.getGameManager().getMatch().getCurrentPlayer();
 
-        if (!currentPlayer.getState().isNormalAction() || !currentPlayer.getState().isMoreAction() ||!currentPlayer.getState().isMostAction() ){
+        if (!currentPlayer.getState().isNormalAction() && !currentPlayer.getState().isMoreAction() &&!currentPlayer.getState().isMostAction() ){
             command.getOriginView().notify("Non puoi terminare il tuo turno al momento");
         }
         else {
