@@ -13,7 +13,7 @@ public class OptionalEffect {
     private boolean activated;
     private boolean canMove;
     private int steps;
-    private Player p;
+    private boolean alreadyMoved;
 
 
     public Map<String, Integer> getAdditionalDamage() {
@@ -40,5 +40,11 @@ public class OptionalEffect {
     public int getSteps() {
         return steps;
     }
+    public boolean isAlreadyMoved() {
+        return alreadyMoved;
+    }
 
+    public void setAlreadyMoved(boolean alreadyMoved) {
+        this.alreadyMoved = alreadyMoved;
+    }
 }
