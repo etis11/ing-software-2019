@@ -1,5 +1,6 @@
 package controller.commandpack;
 
+import controller.CommandExecutor;
 import model.GameManager;
 import view.MessageListener;
 
@@ -18,4 +19,8 @@ public class AskReloadCommand extends AbstractCommand {
         super(gameManager, originView, allViews);
     }
 
+    @Override
+    public void execute(CommandExecutor exe) {
+        exe.execute(this);
+    }
 }

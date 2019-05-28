@@ -1,5 +1,6 @@
 package controller.commandpack;
 
+import controller.CommandExecutor;
 import model.GameManager;
 import view.MessageListener;
 
@@ -15,7 +16,7 @@ public class SetNumberOfDeathCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
+    public void execute(CommandExecutor exe) {
         //TODO manca codizione se è il primo user
         if(death <9 && death>4){
             gameManager.getMatch().setSkulls(death);

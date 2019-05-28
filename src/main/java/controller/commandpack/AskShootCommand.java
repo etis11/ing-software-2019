@@ -1,5 +1,6 @@
 package controller.commandpack;
 
+import controller.CommandExecutor;
 import model.GameManager;
 import model.WeaponCard;
 import view.MessageListener;
@@ -24,7 +25,7 @@ public class AskShootCommand extends AbstractCommand {
      * (only the player who calls if is not allowed, all if he is allowed)
      */
     @Override
-    public void execute() {
+    public void execute(CommandExecutor exe) {
         boolean loaded = false;
         //verify if almost a weapon is loaded
         for (WeaponCard wpc : gameManager.getMatch().getCurrentPlayer().getWeapons()){

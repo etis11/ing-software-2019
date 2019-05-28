@@ -1,5 +1,6 @@
 package controller.commandpack;
 
+import controller.CommandExecutor;
 import model.GameManager;
 import view.MessageListener;
 
@@ -15,7 +16,7 @@ public class SetPlayerNumberCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
+    public void execute(CommandExecutor exe) {
         //TODO manca codizione se è il primo user
         if(players <6 && players>2){
             gameManager.getMatch().setPlayerNumber(players);
