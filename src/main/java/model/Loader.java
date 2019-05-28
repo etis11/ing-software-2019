@@ -1,6 +1,6 @@
 package model;
 
-import java.awt.*;
+import javafx.scene.paint.Color;
 import java.util.LinkedList;
 import java.util.List;
 

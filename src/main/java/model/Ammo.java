@@ -1,6 +1,6 @@
 package model;
 
-import java.awt.*;
+import javafx.scene.paint.Color;
 
 /**
  * Ammo represent ammo to reload weaponCard, they are contained in ammoPool and in Loader

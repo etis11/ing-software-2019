@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 public class CommandExecutor {
 
+    /**
+     * gameManager is a reference to the model due to access to the match and lobby variables
+     */
     GameManager gameManager;
 
     public void CommandExecutor(GameManager gameManager){
