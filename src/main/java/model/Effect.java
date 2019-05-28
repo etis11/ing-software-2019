@@ -1,49 +1,63 @@
 package model;
 
+import java.lang.annotation.Target;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public abstract class Effect {
+    /**
+     * the cost of the effect
+     */
     private List<String> cost;
-    private boolean isOptional;
-    private boolean isGlobal;
+    /**
+     * Tells how the targets a re chosen
+     */
+    private TargetStrategy strategy ;
 
+    /**
+     * a map that correlates the color of the target with the damage that has to be dealt to him
+     */
+    private Map<String, Integer> damage;
 
-    private AbstractTargetStrategy strategy ;
+    /**
+     * a map that correlates color of the target with the given number of marks
+     */
+    private Map<String, Integer> marks;
 
+    private int redDamage;
+    private int blueDamage;
+    private int yellowDamage;
+    private int redMarks;
+    private int blueMarks;
+    private int yellowMarks;
 
-    public abstract void  useEffect(List<Player> p);
+    public Effect(List<String> cost, TargetStrategy strategy){
+        this.cost = cost;
+        this.strategy = strategy;
+        damage = new HashMap<>();
+        damage.put("red", 0);
+        damage.put("blue", 0);
+        damage.put("yellow", 0);
+        marks = new HashMap<>();
+        marks.put("red", 0);
+        marks.put("blue", 0);
+        marks.put("yellow", 0);
+    }
 
-    public AbstractTargetStrategy getStrategy() {
+    public TargetStrategy getStrategy() {
         return strategy;
     }
 
-    public void setStrategy(AbstractTargetStrategy strategy) {
-        this.strategy = strategy;
+    public DamageTransporter useEffect(Player shooter, Player target, String color){
+        int damages = damage.get(color);
+        int marks = this.marks.get(color);
+        return new DamageTransporter(target, shooter, damages, marks);
     }
-
 
     public List<String> getCost() {
-        return cost;
+        return new LinkedList<>(cost);
     }
 
-    public void setCost(List<String> cost) {
-        this.cost = cost;
-    }
-
-    public boolean isGlobal() {
-        return isGlobal;
-    }
-
-    public void setGlobal(boolean global) {
-        isGlobal = global;
-    }
-
-
-    public boolean isOptional() {
-        return isOptional;
-    }
-
-    public void setOptional(boolean optional) {
-        isOptional = optional;
-    }
 }

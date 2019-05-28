@@ -64,8 +64,8 @@ public class GameMap {
             return null;
         }
 
-        //return customGson.fromJson(jsonFile, GameMap.class);
-        return new GameMapDeserializer().deserialize(customGson.fromJson(jsonFile, JsonElement.class),null,null);
+        return customGson.fromJson(jsonFile, GameMap.class);
+        //return new GameMapDeserializer().deserialize(customGson.fromJson(jsonFile, JsonElement.class),null,null);
 
     }
 
