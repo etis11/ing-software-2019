@@ -5,7 +5,7 @@ import view.MessageListener;
 
 import java.util.List;
 
-public abstract class AbstractCommand implements Command {
+public abstract class AbstractCommand{
 
     protected MessageListener originView;
     protected List<MessageListener> allViews;
@@ -21,10 +21,10 @@ public abstract class AbstractCommand implements Command {
 
     }
 
-    @Override
-    public void execute() {
-
+    public GameManager getGameManager(){
+        return this.gameManager;
     }
+
 
     void endCommandToAction(){
         gameManager.getMatch().getCurrentPlayer().decrementMoves();

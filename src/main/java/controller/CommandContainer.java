@@ -1,4 +1,4 @@
-package controller.commandpack;
+package controller;
 
 public interface CommandContainer {
     /**

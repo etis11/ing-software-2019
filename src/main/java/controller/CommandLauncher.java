@@ -1,6 +1,5 @@
 package controller;
 
-import controller.commandpack.Command;
 import model.Match;
 
 import java.util.concurrent.*;
@@ -11,9 +10,9 @@ import java.util.logging.Logger;
  * A class that implements a generic behavior for a command executor. Creates thread that executes the commands. If no commands
  * are put in the queue, the command executor is in a wait state
  */
-public abstract  class AbstractCommandExecutor implements CommandExecutor{
+public class CommandLauncher implements CommandLauncherInterface {
 
-    private static final Logger LOGGER = Logger.getLogger(AbstractCommandExecutor.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(CommandLauncher.class.getName());
 
     /**
      * The match in which the players are playing
@@ -36,7 +35,7 @@ public abstract  class AbstractCommandExecutor implements CommandExecutor{
      * creates a command executor with the given match. Also the commandQueue is set empty and the pool is a cached pool
      * @param match the match in which the players are playing
      */
-    public AbstractCommandExecutor(Match match){
+    public CommandLauncher(Match match){
         this.match = match;
         commandQueue = new LinkedBlockingDeque<>();
         this.pool = Executors.newCachedThreadPool();
