@@ -12,21 +12,22 @@ public class SetUsernameCommand extends AbstractCommand {
     private String username;
     private User user;
 
-    public SetUsernameCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews, User user, String username){
-        super(gameManager, originView, allViews);
+    public SetUsernameCommand(MessageListener originView, List<MessageListener> allViews, User user, String username){
+        super(originView, allViews);
         this.username = username;
         this.user = user;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
     @Override
     public void execute(CommandExecutor exe) {
-        if (gameManager.getLobby().getUsers().contains(user)){
-            user.setUsername(username);
-            //TODO controllare non sia iniziata la partita?
-            originView.notify("Il tuo username è stato modificato in: "+username);
-        }
-        else{
-            originView.notify("Non puoi modificare il tuo username");
-        }
+        exe.execute(this);
     }
 }

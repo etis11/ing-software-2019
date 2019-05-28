@@ -1,10 +1,12 @@
 package controller;
 
 import controller.commandpack.*;
-import model.GameManager;
-import model.Player;
-import model.WeaponCard;
+import exceptions.InsufficientAmmoException;
+import exceptions.PickableNotPresentException;
+import model.*;
 import view.MessageListener;
+
+import java.util.ArrayList;
 
 public class CommandExecutor {
 
@@ -46,7 +48,7 @@ public class CommandExecutor {
                     view.notify(message);
                 }
             }
-            command.getOriginView().notify("Se vuoi spostarti inserisci la direzione, altrimenti inserisci cosa vuoi raccogliere? (Munizioni o armi)");
+            command.getOriginView().notify("Se vuoi spostarti inserisci la direzione, altrimenti inserisci cosa vuoi raccogliere. (Munizioni o armi)");
 
         }
     }
@@ -66,7 +68,12 @@ public class CommandExecutor {
                     view.notify(message);
                 }
             }
-            command.getOriginView().notify("Scegli quale arma ricaricare tra: "+currentPlayer.weaponsToString());
+            if (!currentPlayer.getWeapons().isEmpty()) {
+                command.getOriginView().notify("Scegli quale arma ricaricare tra: " + currentPlayer.weaponsToString());
+            }
+            else{
+                command.getOriginView().notify("Non hai armi");
+            }
         }
     }
 
@@ -129,6 +136,187 @@ public class CommandExecutor {
             for (MessageListener view : command.getAllViews()){
                 view.notify(message);
             }
+        }
+    }
+
+    public void execute(MoveCommand command){
+        //auxiliary variable
+        Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
+
+        if (currentPlayer.getState().getRemainingSteps()<command.getMoves().size()){
+            command.getOriginView().notify("Non hai abbastanze mosse rimanenti");
+        }
+        else {
+            currentPlayer.getState().decrementRemainingSteps(command.getMoves().size());
+            currentPlayer.move(new Movement(new ArrayList<>(command.getMoves())));
+            String message = "Il giocatore attuale si è spostato di: "+command.getMoves().size()+" mosse";
+            for (MessageListener view : command.getAllViews()){
+                view.notify(message);
+            }
+        }
+
+        if(currentPlayer.getState().getName().equals("Run")){
+            command.endCommandToAction(gameManager);
+        }
+    }
+
+    public void execute(PickUpAmmoCommand command){
+        //auxiliary variable
+        Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
+
+        if (currentPlayer.getState().getName().equals("PickUp")){
+            //TODO verifica tile giusto
+            //set remaining steps to zero
+            currentPlayer.getState().remainingStepsToZero();
+
+            AmmoCard ammoCard = currentPlayer.getTile().pickUpAmmoCard();
+            //draw
+            currentPlayer.useAmmoCard(ammoCard, gameManager.getMatch().getPowerUpDeck());
+            //put the card in the slush pile
+            gameManager.getMatch().getAmmoSlushPile().addCard(ammoCard);
+
+            //notify
+            String message = "Il giocatore attuale ha raccolto una carta munizioni";
+            for (MessageListener view : command.getAllViews()){
+                view.notify(message);
+            }
+            //decrement moves of player and return to action selector
+            command.endCommandToAction(gameManager);
+        }
+        else{
+            command.getOriginView().notify("Comando non valido");
+            //TODO o lancio exception??
+        }
+    }
+
+    public void execute(PickUpWeaponCommand command){
+        //auxiliary variable
+        Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
+
+        if (currentPlayer.getState().getName().equals("PickUp")) {
+            //set player remaining steps to zero
+            currentPlayer.getState().remainingStepsToZero();
+
+            WeaponCard weaponCard = null;
+            int count = 0;
+            if (command.getWeaponName() == null) throw new IllegalArgumentException("can't insert null weapon");
+            try {
+                for (WeaponCard wpc : currentPlayer.getTile().getWeapons()) {
+                    if (wpc.getName().equals(command.getWeaponName())) {
+                        weaponCard = currentPlayer.getTile().getWeapons().remove(count);
+                    }
+                    count++;
+                }
+            } catch (PickableNotPresentException e) {
+                command.getOriginView().notify("non sei in un riquadro contenente armi");
+            }
+            //TODO come gestisco se voglio raccogleire arma ma non sono nel tile giusto?
+            if (weaponCard == null) {
+                command.getOriginView().notify(command.getWeaponName() + " non è tra le armi presenti nel tuo riquadro");
+            } else {
+                try {
+                    currentPlayer.pickUpWeapon(weaponCard);
+                } catch (Exception e) {
+                    command.getOriginView().notify("hai più armi di quante consentite, scegline una da scartare tra: "+currentPlayer.weaponsToString());
+                } finally {
+                    String message = "Il giocatore attuale ha raccolto: " + weaponCard.getName();
+                    for (MessageListener view : command.getAllViews()) {
+                        view.notify(message);
+                    }
+                }
+
+            }
+
+            //decrement moves of player and return to action selector
+            command.endCommandToAction(gameManager);
+        }
+        else{
+            command.getOriginView().notify("Comando non valido");
+            //TODO o lancio exception??
+        }
+    }
+
+    public void execute(ReloadCommand command){
+        //auxiliary variable
+        Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
+
+        if (command.getWeaponName() == null) throw new IllegalArgumentException("no weapon selected");
+        for (WeaponCard wpc : currentPlayer.getWeapons()){
+            if (wpc.getName().equals(command.getWeaponName())){
+                if(!wpc.isLoaded()) {
+                    try {
+                        wpc.reload(currentPlayer.getPlayerBoard().getLoader());
+                        String message = "Il giocatore attuale ha ricaricato: " + wpc.getName();
+                        for (MessageListener view : command.getAllViews()) {
+                            view.notify(message);
+                        }
+                        command.getOriginView().notify("vuoi ricaricare un'altra arma oppure finire il turno?");
+                    } catch (InsufficientAmmoException e) {
+                        command.getOriginView().notify("Non hai le munizioni necessarie per ricaricare ques'arma, vuoi ricaricare un'altra arma oppure finire il turno?");
+                    }
+                }
+                else{
+                    command.getOriginView().notify("L'arma selezionata è già carica, vuoi ricaricare un'altra arma oppure finire il turno?");
+                }
+            }
+        }
+    }
+
+    public void execute(SetEffectPhraseCommand command){
+        if (gameManager.getLobby().getUsers().contains(command.getUser())){
+            command.getUser().setEffectPhrase(command.getPhrase());
+            //TODO controllare non sia iniziata la partita?
+            command.getOriginView().notify("La tua frase ad effetto è stata modificata");
+        }
+        else{
+            command.getOriginView().notify("Non puoi modificare la tua frase ad effetto");
+        }
+    }
+
+    public void execute(SetNumberOfDeathCommand command){
+        //TODO manca codizione se è il primo user
+        if(command.getDeath() <9 && command.getDeath()>4){
+            gameManager.getMatch().setSkulls(command.getDeath());
+            for (MessageListener ml : command.getAllViews()){
+                ml.notify("Il numero di uccisioni per la partita è stato cambiato a: "+command.getDeath());
+            }
+        }
+        else{
+            if(command.getDeath() >8 || command.getDeath()<5){
+                command.getOriginView().notify("Numero uccisioni non nel target ammissibile");
+            }
+            else{
+                command.getOriginView().notify("Operazione non consentita");
+            }
+        }
+    }
+
+    public void execute(SetPlayerNumberCommand command){
+        //TODO manca codizione se è il primo user
+        if(command.getPlayers() <6 && command.getPlayers()>2){
+            gameManager.getMatch().setPlayerNumber(command.getPlayers());
+            for (MessageListener ml : command.getAllViews()){
+                ml.notify("Il numero di uccisioni per la partita è stato cambiato a: "+command.getPlayers());
+            }
+        }
+        else{
+            if(command.getPlayers() >5 || command.getPlayers()<3){
+                command.getOriginView().notify("Numero uccisioni non nel target ammissibile");
+            }
+            else{
+                command.getOriginView().notify("Operazione non consentita");
+            }
+        }
+    }
+
+    public void execute(SetUsernameCommand command){
+        if (gameManager.getLobby().getUsers().contains(command.getUser())){
+            command.getUser().setUsername(command.getUsername());
+            //TODO controllare non sia iniziata la partita?
+            command.getOriginView().notify("Il tuo username è stato modificato in: "+command.getUsername());
+        }
+        else{
+            command.getOriginView().notify("Non puoi modificare il tuo username");
         }
     }
 }
