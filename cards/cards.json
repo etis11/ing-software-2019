@@ -2,14 +2,20 @@
   {
     "NAME": "Distruttore",
     "reloadCost": [
-      "blue","blue"
+      "blue",
+      "blue",
+      "blue"
     ],
     "baseEffect": [
       {
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 2,
+        "damage": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "SeeStrategy",
           "param": null
@@ -19,7 +25,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Mark",
-        "marks": 2,
+        "marks": {
+          "red": 1,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "SeeStrategy",
           "param": null
@@ -31,7 +41,8 @@
   },
   {
     "NAME": "Mitragliatrice",
-    "reloadCost": ["blue",
+    "reloadCost": [
+      "blue",
       "red"
     ],
     "baseEffect": [
@@ -39,7 +50,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 1,
+        "damage": {
+          "red": 1,
+          "blue": 2,
+          "green": 0
+        },
         "strategy": {
           "type": "SeeStrategy",
           "param": null
@@ -51,7 +66,8 @@
   },
   {
     "NAME": "Torpedine",
-    "reloadCost": ["blue",
+    "reloadCost": [
+      "blue",
       "red"
     ],
     "baseEffect": [
@@ -59,7 +75,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 2,
+        "damage": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "SeeStrategy",
           "param": null
@@ -71,7 +91,8 @@
   },
   {
     "NAME": "Fucile al plasma",
-    "reloadCost": ["blue",
+    "reloadCost": [
+      "blue",
       "yellow"
     ],
     "baseEffect": [
@@ -79,7 +100,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 2,
+        "damage": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "SeeStrategy",
           "param": null
@@ -91,7 +116,8 @@
   },
   {
     "NAME": "Fucile di precisione",
-    "reloadCost": ["blue",
+    "reloadCost": [
+      "blue",
       "blue",
       "yellow"
     ],
@@ -100,7 +126,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 3,
+        "damage": {
+          "red": 3,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "FixedDistanceStrategy",
           "param": 2
@@ -110,7 +140,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Mark",
-        "marks": 1,
+        "marks": {
+          "red": 1,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "FixedDistanceStrategy",
           "param": 2
@@ -128,7 +162,11 @@
         "isOptional": false,
         "isGlobal": true,
         "type": "Damage",
-        "damage": 1,
+        "damage": {
+          "red": 1,
+          "blue": 1,
+          "green": 1
+        },
         "strategy": {
           "type": "MeleeStrategy",
           "param": 0
@@ -144,7 +182,11 @@
         "isOptional": false,
         "isGlobal": true,
         "type": "Damage",
-        "damage": 2,
+        "damage": {
+          "red": 2,
+          "blue": 2,
+          "green": 2
+        },
         "strategy": {
           "type": "MeleeStrategy",
           "param": 0
@@ -172,7 +214,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 1,
+        "damage": {
+          "red": 1,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "TractorBeamStrategy",
           "param": null
@@ -203,7 +249,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 3,
+        "damage": {
+          "red": 3,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "FixedDistanceStrategy",
           "param": 2
@@ -214,7 +264,8 @@
   },
   {
     "NAME": "Cannone Vortex",
-    "reloadCost": ["red",
+    "reloadCost": [
+      "red",
       "blue"
     ],
     "baseEffect": [
@@ -233,7 +284,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 2,
+        "damage": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "VortexCannonStrategy",
           "param": null
@@ -245,7 +300,8 @@
   },
   {
     "NAME": "Vulcanizzatore",
-    "reloadCost": ["red",
+    "reloadCost": [
+      "red",
       "blue"
     ],
     "baseEffect": [
@@ -253,7 +309,11 @@
         "isOptional": false,
         "isGlobal": true,
         "type": "Damage",
-        "damage": 1,
+        "damage": {
+          "red": 1,
+          "blue": 1,
+          "green": 1
+        },
         "strategy": {
           "type": "RoomStrategy",
           "param": null
@@ -266,7 +326,11 @@
         "isOptional": false,
         "isGlobal": true,
         "type": "Damage",
-        "damage": 1,
+        "damage": {
+          "red": 1,
+          "blue": 1,
+          "green": 1
+        },
         "strategy": {
           "type": "AdjacentStrategy",
           "param": null
@@ -277,7 +341,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Mark",
-        "marks": 1,
+        "marks": {
+          "red": 1,
+          "blue": 1,
+          "green": 1
+        },
         "strategy": {
           "type": "AdjacentStrategy",
           "param": null
@@ -287,7 +355,8 @@
   },
   {
     "NAME": "Razzo Termico",
-    "reloadCost": ["red",
+    "reloadCost": [
+      "red",
       "red",
       "yellow"
     ],
@@ -296,7 +365,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 3,
+        "damage": {
+          "red": 3,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "DontSeeStrategy",
           "param": null
@@ -308,7 +381,8 @@
   },
   {
     "NAME": "Raggio Solare",
-    "reloadCost": ["red",
+    "reloadCost": [
+      "red",
       "yellow"
     ],
     "baseEffect": [
@@ -316,7 +390,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 1,
+        "damage": {
+          "red": 1,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "FixedDistanceStrategy",
           "param": 1
@@ -326,7 +404,11 @@
         "isOptional": false,
         "isGlobal": true,
         "type": "Mark",
-        "marks": 1,
+        "marks": {
+          "red": 1,
+          "blue": 1,
+          "green": 1
+        },
         "strategy": {
           "type": "FixedDistancceStrategy",
           "param": 1
@@ -342,7 +424,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 1,
+        "damage": {
+          "red": 1,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "FixedDistanceStrategy",
           "param": 1
@@ -356,7 +442,11 @@
         "isOptional": false,
         "isGlobal": true,
         "type": "Mark",
-        "marks": 2,
+        "marks": {
+          "red": 2,
+          "blue": 2,
+          "green": 2
+        },
         "strategy": {
           "type": "FixedDistanceStrategy",
           "param": 1
@@ -373,7 +463,11 @@
         "isOptional": true,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 1,
+        "damage": {
+          "red": 1,
+          "blue": 1,
+          "green": 0
+        },
         "strategy": {
           "type": "FlameThrowerStrategy",
           "param": null
@@ -389,7 +483,11 @@
         "isOptional": false,
         "isGlobal": true,
         "type": "Damage",
-        "damage": 2,
+        "damage": {
+          "red": 2,
+          "blue": 2,
+          "green": 2
+        },
         "strategy": {
           "type": "BBQStrategy",
           "param": 1
@@ -403,7 +501,11 @@
         "isOptional": false,
         "isGlobal": true,
         "type": "Damage",
-        "damage": 1,
+        "damage": {
+          "red": 1,
+          "blue": 1,
+          "green": 1
+        },
         "strategy": {
           "type": "BBQStrategy",
           "param": 2
@@ -420,7 +522,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 1,
+        "damage": {
+          "red": 1,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "SeeStrategy",
           "param": null
@@ -443,7 +549,8 @@
   },
   {
     "NAME": "Lanciarazzi",
-    "reloadCost": ["red",
+    "reloadCost": [
+      "red",
       "red"
     ],
     "baseEffect": [
@@ -451,7 +558,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 2,
+        "damage": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "SeeStrategy",
           "param": null
@@ -474,7 +585,8 @@
   },
   {
     "NAME": "Fucile Laser",
-    "reloadCost": ["yellow",
+    "reloadCost": [
+      "yellow",
       "yellow",
       "blue"
     ],
@@ -483,7 +595,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 3,
+        "damage": {
+          "red": 3,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "LaserRifleStrategy",
           "param": null
@@ -499,7 +615,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 2,
+        "damage": {
+          "red": 2,
+          "blue": 2,
+          "green": 0
+        },
         "strategy": {
           "type": "LaserRifleStrategy",
           "param": null
@@ -510,7 +630,8 @@
   },
   {
     "NAME": "Spada Fotonica",
-    "reloadCost": ["yellow",
+    "reloadCost": [
+      "yellow",
       "red"
     ],
     "baseEffect": [
@@ -518,7 +639,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 2,
+        "damage": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "MeleeStrategy",
           "param": null
@@ -530,7 +655,8 @@
   },
   {
     "NAME": "ZX-2",
-    "reloadCost": ["yellow",
+    "reloadCost": [
+      "yellow",
       "red"
     ],
     "baseEffect": [
@@ -538,7 +664,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 1,
+        "damage": {
+          "red": 1,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "SeeStrategy",
           "param": null
@@ -548,7 +678,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Mark",
-        "marks": 2,
+        "marks": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "SeeStrategy",
           "param": null
@@ -564,7 +698,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Mark",
-        "marks": 1,
+        "marks": {
+          "red": 1,
+          "blue": 1,
+          "green": 1
+        },
         "strategy": {
           "type": "SeeStrategy",
           "param": null
@@ -575,7 +713,8 @@
   },
   {
     "NAME": "Fucile a pompa",
-    "reloadCost": ["yellow",
+    "reloadCost": [
+      "yellow",
       "yellow"
     ],
     "baseEffect": [
@@ -583,7 +722,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 3,
+        "damage": {
+          "red": 3,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "MeleeStrategy",
           "param": null
@@ -610,7 +753,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 2,
+        "damage": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "AdjacentStrategy",
           "param": 1
@@ -621,7 +768,8 @@
   },
   {
     "NAME": "Cyberguanto",
-    "reloadCost": ["yellow",
+    "reloadCost": [
+      "yellow",
       "blue"
     ],
     "baseEffect": [
@@ -640,7 +788,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 1,
+        "damage": {
+          "red": 1,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "MeleeStrategy",
           "param": null
@@ -650,7 +802,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Mark",
-        "marks": 2,
+        "marks": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "MeleeStrategy",
           "param": null
@@ -679,7 +835,11 @@
         "isOptional": true,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 2,
+        "damage": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "MeleeStrategy",
           "param": null
@@ -706,7 +866,11 @@
         "isOptional": true,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 2,
+        "damage": {
+          "red": 0,
+          "blue": 2,
+          "green": 0
+        },
         "strategy": {
           "type": "MeleeStrategy",
           "param": null
@@ -723,7 +887,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 1,
+        "damage": {
+          "red": 1,
+          "blue": 1,
+          "green": 1
+        },
         "strategy": {
           "type": "AdjacentStrategy",
           "param": null
@@ -738,7 +906,11 @@
         "isOptional": false,
         "isGlobal": true,
         "type": "Damage",
-        "damage": 1,
+        "damage": {
+          "red": 1,
+          "blue": 1,
+          "green": 1
+        },
         "strategy": {
           "type": "AdjacentStrategy",
           "param": null
@@ -755,7 +927,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 2,
+        "damage": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "MeleeStrategy",
           "param": null
@@ -770,7 +946,11 @@
         "isOptional": false,
         "isGlobal": false,
         "type": "Damage",
-        "damage": 3,
+        "damage": {
+          "red": 3,
+          "blue": 0,
+          "green": 0
+        },
         "strategy": {
           "type": "MeleeStrategy",
           "param": null

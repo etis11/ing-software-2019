@@ -13,18 +13,18 @@ import java.util.List;
  * */
 
 public class WeaponCard{
-
-
     /**
      *List containing colorAmmo.
      */
     private List<String> reloadCost;
+    /**
+     * The first effect showed on the card. Cant be empty
+     */
     private List<Effect> baseEffect;
+    /**
+     * The second effect showed on the card, can be empty
+     */
     private List<Effect> advancedEffect;
-
-    private List<Effect> optionalEffect;
-
-
     /**
      * Boolean used to check if a Weapon is loaded or not
      * */
@@ -35,10 +35,6 @@ public class WeaponCard{
      * */
     private String name;
 
-    public void setOptionalEffect(List<Effect> optionalEffect) {
-        this.optionalEffect = optionalEffect;
-    }
-
     public List<Effect> getBaseEffect() {
         return baseEffect;
     }
@@ -47,24 +43,17 @@ public class WeaponCard{
         return advancedEffect;
     }
 
-    public List<Effect> getOptionalEffect() {
-        return optionalEffect;
-    }
-
     public WeaponCard(){
         this.reloadCost = new LinkedList<>();
         this.loaded = true;
         this.name = "default";
         this.baseEffect = new LinkedList<>();
-        this.optionalEffect = new LinkedList<>();
         this.advancedEffect = new LinkedList<>();
     }
 
     /**
      * This constructor creates an imperfect copy of a given weapon. This constructor is used when the weapon has to be copied
      * in order to be given to the client.
-     * L'inglese non è un gran che e contiene un po' di porcherie il codice, poi ne parliamo. Mi serve per la funzione
-     * getWeaponCards in player
      * @param ref weapon that  has to be copied.
      */
     public WeaponCard(WeaponCard ref){
@@ -84,7 +73,6 @@ public class WeaponCard{
      * Returns the cost for a WeaponCard effect to be used. It returns a string of colouredAmmo
      * */
     public List<String> getReloadCost() {
-        //TODO si può forse migliorare
         return new ArrayList<>(reloadCost);
     }
 
@@ -102,6 +90,11 @@ public class WeaponCard{
         return name;
     }
 
+    /**
+     * Loads the weapon
+     * @param loader the loader from where the ammos are taken
+     * @throws InsufficientAmmoException The player has not enough ammos
+     */
     public void reload(Loader loader) throws InsufficientAmmoException {
         if (getBlueCost() <= loader.getNumBlueAmmo() && getRedCost() <= loader.getNumRedAmmo() && getYellowCost() <= loader.getNumYellowAmmo()) {
             loader.ammoToPool(getBlueCost(), getRedCost(), getYellowCost());
@@ -215,7 +208,6 @@ public class WeaponCard{
                 "reloadCost=" + reloadCost.size() +
                 ", baseEffect=" + baseEffect.size() +
                 ", advancedEffect=" + advancedEffect.size() +
-                ", optionalEffect=" + optionalEffect.size() +
                 ", loaded=" + loaded +
                 ", name='" + name + '\'' +
                 '}';
