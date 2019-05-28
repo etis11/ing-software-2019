@@ -18,8 +18,10 @@ public class MainFrame extends Application {
         stage.setTitle("Adrenalina - the official game");
         stage.setResizable(false);
 
-        //Button startButton = new Button("Inizia");
+        Button startButton = new Button("Inizia");
         TextField userField = new TextField("Username");
+        userField.setMaxWidth(200);
+        startButton.setLayoutY(userField.getLayoutY()+100);
 
         String path = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
                 + File.separatorChar +"img"+File.separatorChar+"Adrenalina.png";
@@ -30,8 +32,9 @@ public class MainFrame extends Application {
 
         StackPane box = new StackPane();
         box.setBackground(new Background(myBI));
-        //box.getChildren().add(startButton);
+
         box.getChildren().add(userField);
+        box.getChildren().add(startButton);
         stage.setScene(new Scene(box, 1000, 600));
         stage.show();
     }
