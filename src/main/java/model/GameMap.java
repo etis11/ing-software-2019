@@ -145,6 +145,18 @@ public class GameMap {
        return  visibleTiles;
     }
 
+    public List<Tile> VisibleTiles(Player p)  {
+        List<Tile> visibleTiles = new ArrayList<>();
+
+        for(Room visibRoom: visibleRooms(p)){
+            if(!visibRoom.getTiles().contains(p.getTile())) {
+                visibleTiles.addAll(visibRoom.getTiles());
+            }
+        }
+
+        return  visibleTiles;
+    }
+
     /**
      * Returns the Rooms available to Action for the chosen player
      * @param p the player that checks which Rooms are available to him during his gameTurn
