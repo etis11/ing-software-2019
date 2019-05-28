@@ -31,6 +31,15 @@ public abstract class Effect {
      */
     private List<OptionalEffect> optionalEffects;
 
+    private boolean canMoveShooter;
+
+    private int numStepsShooter;
+
+    private boolean canMoveTarget;
+
+    private int numStepsTarget;
+
+    //TODO da settare
     private int redDamage;
     private int blueDamage;
     private int yellowDamage;
@@ -113,4 +122,39 @@ public abstract class Effect {
     public List<OptionalEffect> getOptionalEffects() {
         return new LinkedList<>(optionalEffects);
     }
+
+    /**
+     * tells if the player can move
+     * @return
+     */
+    public boolean canMoveShooter(){
+        return canMoveShooter;
+    }
+
+    /**
+     * num of steps the shooter can do
+     * @return
+     */
+    public int getNumStepsShooter(){
+        return numStepsShooter;
+    }
+
+    /**
+     * if the effect can move a target
+     * @return
+     */
+    public boolean canMoveTarget(){
+        return canMoveTarget;
+    }
+
+    /**
+     * returns the number of the steps u can make do the target
+     * @return
+     */
+    public int getNumStepsTarget(){
+        return numStepsTarget;
+    }
+
+
+
 }
