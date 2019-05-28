@@ -1,37 +1,33 @@
 package model;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public class OptionalEffect {
 
-
-
     private List<String> cost;
     private Map<String,Integer> additionalDamage;
     private Map<String,Integer> additionalMarks;
     private boolean activated;
     private boolean canMove;
-
-
-
     private int steps;
     private Player p;
 
 
     public Map<String, Integer> getAdditionalDamage() {
-        return additionalDamage;
+        return new HashMap<>(additionalDamage);
     }
 
     public Map<String, Integer> getAdditionalMarks() {
-        return additionalMarks;
+        return new HashMap<>(additionalMarks);
     }
     public boolean isActivated() {
         return activated;
     }
 
-    public boolean isCanMove() {
+    public boolean canMove() {
         return canMove;
     }
 
