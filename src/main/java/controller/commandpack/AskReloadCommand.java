@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class AskReloadCommand extends AbstractCommand {
 
-    public AskReloadCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
-        super(gameManager, originView, allViews);
+    public AskReloadCommand(MessageListener originView, List<MessageListener> allViews){
+        super(originView, allViews);
     }
 
     @Override

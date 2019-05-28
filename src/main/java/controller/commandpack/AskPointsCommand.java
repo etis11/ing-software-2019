@@ -1,7 +1,6 @@
 package controller.commandpack;
 
 import controller.CommandExecutor;
-import model.GameManager;
 import model.Player;
 import view.MessageListener;
 
@@ -11,15 +10,17 @@ public class AskPointsCommand extends AbstractCommand {
 
     private Player player;
 
-    public AskPointsCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews, Player player){
-        super(gameManager, originView, allViews);
+    public AskPointsCommand(MessageListener originView, List<MessageListener> allViews, Player player){
+        super(originView, allViews);
         this.player = player;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     @Override
     public void execute(CommandExecutor exe) {
-        if (player == null) throw new IllegalArgumentException("Player can't be null");
-        int points = player.getPoints();
-        originView.notify(gameManager.getMatch().getCurrentPlayer().getName()+ " hai: "+points+ "punti");
+        exe.execute(this);
     }
 }

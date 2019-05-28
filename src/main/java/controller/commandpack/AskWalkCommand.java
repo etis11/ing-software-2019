@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class AskWalkCommand extends AbstractCommand {
 
-    public AskWalkCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
-        super(gameManager, originView, allViews);
+    public AskWalkCommand(MessageListener originView, List<MessageListener> allViews){
+        super(originView, allViews);
     }
 
     /**
@@ -25,15 +25,6 @@ public class AskWalkCommand extends AbstractCommand {
      */
     @Override
     public void execute(CommandExecutor exe) {
-        if (!gameManager.getMatch().getCurrentPlayer().getState().canRun() || gameManager.getMatch().getCurrentPlayer().getRemainingMoves()<1){
-            originView.notify("non puoi spostarti");
-        }
-        else {
-            gameManager.getMatch().getCurrentPlayer().getState().nextState("Run", gameManager.getMatch().getCurrentPlayer());
-            String message = "Il giocatore attuale si sta spostando";
-            for (MessageListener view : allViews){
-                view.notify(message);
-            }
-        }
+        exe.execute(this);
     }
 }

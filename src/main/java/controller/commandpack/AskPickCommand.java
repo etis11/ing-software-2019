@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class AskPickCommand extends AbstractCommand {
 
-    public AskPickCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
-        super(gameManager, originView, allViews);
+    public AskPickCommand(MessageListener originView, List<MessageListener> allViews){
+        super(originView, allViews);
     }
 
     @Override
