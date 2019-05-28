@@ -1,7 +1,8 @@
 package view;
 
-import model.GameMap;
+
+import model.Match;
 
 public interface MapObserver {
-    public void onMapCHange(GameMap m);
+    public void onMapCHange(Match m);
 }
