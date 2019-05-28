@@ -22,9 +22,16 @@ public abstract class Command {
     }
 
     public GameManager getGameManager(){
-        return this.gameManager;
+        return gameManager;
     }
 
+    public MessageListener getOriginView() {
+        return originView;
+    }
+
+    public List<MessageListener> getAllViews() {
+        return allViews;
+    }
 
     void endCommandToAction(){
         gameManager.getMatch().getCurrentPlayer().decrementMoves();
