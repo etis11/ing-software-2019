@@ -5,7 +5,7 @@ import view.MessageListener;
 
 import java.util.List;
 
-public class SetNumberOfDeathCommand extends AbstractCommand{
+public class SetNumberOfDeathCommand extends AbstractCommand {
 
     private int death;
 

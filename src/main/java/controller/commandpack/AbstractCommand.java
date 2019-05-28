@@ -1,11 +1,12 @@
 package controller.commandpack;
 
+import controller.CommandExecutor;
 import model.GameManager;
 import view.MessageListener;
 
 import java.util.List;
 
-public abstract class AbstractCommand implements Command {
+public abstract class AbstractCommand implements Command{
 
     protected MessageListener originView;
     protected List<MessageListener> allViews;
@@ -21,9 +22,16 @@ public abstract class AbstractCommand implements Command {
 
     }
 
-    @Override
-    public void execute() {
+    public GameManager getGameManager(){
+        return gameManager;
+    }
 
+    public MessageListener getOriginView() {
+        return originView;
+    }
+
+    public List<MessageListener> getAllViews() {
+        return allViews;
     }
 
     void endCommandToAction(){
@@ -33,5 +41,8 @@ public abstract class AbstractCommand implements Command {
         gameManager.getMatch().getCurrentPlayer().setOldState(null);
     }
 
-
+    @Override
+    public void execute(CommandExecutor exe) {
+        System.out.println("ERRORE");
+    }
 }

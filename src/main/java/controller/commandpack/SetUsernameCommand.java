@@ -1,6 +1,5 @@
 package controller.commandpack;
 
-import exceptions.NotValidActionException;
 import model.GameManager;
 import model.User;
 import view.MessageListener;

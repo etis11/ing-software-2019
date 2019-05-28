@@ -1,6 +1,7 @@
 package controller;
 
-import controller.commandpack.*;
+
+import controller.commandpack.Command;
 import model.Match;
 
 import java.util.concurrent.*;
@@ -36,9 +37,10 @@ public class CommandLauncher implements CommandLauncherInterface {
 
     /**
      * creates a command executor with the given match. Also the commandQueue is set empty and the pool is a cached pool
+     *
      * @param match the match in which the players are playing
      */
-    public CommandLauncher(Match match){
+    public CommandLauncher(Match match) {
         this.match = match;
         commandQueue = new LinkedBlockingDeque<>();
         this.pool = Executors.newCachedThreadPool();
@@ -52,21 +54,20 @@ public class CommandLauncher implements CommandLauncherInterface {
     @Override
     public void executeCommand() {
         Command takenCommand = null;
-        while (!stop){
-            try{
+        while (!stop) {
+            try {
                 takenCommand = commandQueue.take();
-            }
-            catch (InterruptedException i){
+            } catch (InterruptedException i) {
                 System.out.println(i.getMessage());
-                LOGGER.log(Level.WARNING,i.getMessage(),i);
+                LOGGER.log(Level.WARNING, i.getMessage(), i);
                 System.out.println("Unable to extract a command because the reading threas has been interrupted. " +
-                                    "Stopping the command executor");
+                        "Stopping the command executor");
                 pool.shutdown();
                 stop = true;
                 Thread.currentThread().interrupt();
             }
 
-            if (takenCommand != null){
+            if (takenCommand != null) {
 //                System.out.println("provo a runnare");
                 //multithread command management
                 //pool.submit(new RunnableCommand(takenCommand));
@@ -77,8 +78,9 @@ public class CommandLauncher implements CommandLauncherInterface {
     }
 
     /**
-     * Adds a command to the queue.
-     * @param c the command to be added
+     * add the specified command to the commandList.
+     *
+     * @param c command to be added
      */
     @Override
     public void addCommand(Command c) {

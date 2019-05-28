@@ -1,8 +1,6 @@
 package model;
 
-import controller.MatchCommandExecutor;
 import controller.commandpack.AskPickCommand;
-import controller.commandpack.Command;
 import view.MessageListener;
 
 import java.util.ArrayList;
