@@ -29,8 +29,8 @@ public class MainFrame extends Application {
 
         userField.setMaxWidth(200);
         //positioning socket button
-        startButtonSocket.setTranslateX(200);
-        startButtonSocket.setTranslateY(600);
+        startButtonSocket.setTranslateX(-70);
+        startButtonSocket.setTranslateY(60);
         startButtonSocket.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -46,8 +46,8 @@ public class MainFrame extends Application {
             }
         });
         //positioning rmi button
-        startButtonRMI.setTranslateX(700);
-        startButtonRMI.setTranslateY(600);
+        startButtonRMI.setTranslateX(70);
+        startButtonRMI.setTranslateY(60);
         startButtonRMI.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
