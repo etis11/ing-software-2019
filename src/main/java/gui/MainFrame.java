@@ -1,12 +1,16 @@
 package gui;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import model.User;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,11 +22,47 @@ public class MainFrame extends Application {
         stage.setTitle("Adrenalina - the official game");
         stage.setResizable(false);
 
-        Button startButton = new Button("Inizia");
+        Button startButtonSocket = new Button("Inizia con socket");
+        Button startButtonRMI = new Button("Inizia con RMI");
         TextField userField = new TextField("Username");
-        userField.setMaxWidth(200);
-        startButton.setLayoutY(userField.getLayoutY()+100);
+        Label info = new Label();
 
+        userField.setMaxWidth(200);
+        //positioning socket button
+        startButtonSocket.setTranslateX(200);
+        startButtonSocket.setTranslateY(600);
+        startButtonSocket.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                info.setVisible(false);
+                if(crateUser(userField.getText().trim())){
+                    //TODO impostazione tipo connessione
+
+                }
+                else{
+                    info.setText("inserisci un username");
+                    info.setVisible(true);
+                }
+            }
+        });
+        //positioning rmi button
+        startButtonRMI.setTranslateX(700);
+        startButtonRMI.setTranslateY(600);
+        startButtonRMI.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                info.setVisible(false);
+                if(crateUser(userField.getText().trim())){
+                    //TODO impostazione tipo connessione
+                }
+                else{
+                    info.setText("inserisci un username");
+                    info.setVisible(true);
+                }
+            }
+        });
+
+        //path of background image
         String path = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
                 + File.separatorChar +"img"+File.separatorChar+"Adrenalina.png";
 
@@ -31,11 +71,25 @@ public class MainFrame extends Application {
                 BackgroundSize.DEFAULT);
 
         StackPane box = new StackPane();
+        //adding background image to box
         box.setBackground(new Background(myBI));
-
+        //adding components to box
         box.getChildren().add(userField);
-        box.getChildren().add(startButton);
+        box.getChildren().add(startButtonSocket);
+        box.getChildren().add(startButtonRMI);
+
         stage.setScene(new Scene(box, 1000, 600));
         stage.show();
+    }
+
+    private boolean crateUser(String username){
+        if(!username.equalsIgnoreCase("")){
+            User user = new User(username);
+            //TODO join the lobby
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
