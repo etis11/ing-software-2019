@@ -7,15 +7,13 @@ public class DamageEffect extends Effect {
 
 
     public DamageEffect(int damage,boolean isGlobal,boolean isOptional){
-        super(null, null); //TODO aggiunto
         this.damage=damage;
-        //TODO commenatato super.setGlobal(isGlobal);
-        //TODO commenatato super.setOptional(isOptional);
+        super.setGlobal(isGlobal);
+        super.setOptional(isOptional);
     }
 
-    //TODO commenatato
-    /*@Override
+    @Override
     public void useEffect(List<Player> p) {
 
-    }*/
+    }
 }

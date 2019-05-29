@@ -3,12 +3,14 @@ package gui;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.User;
 
@@ -16,6 +18,8 @@ import java.io.File;
 import java.io.FileInputStream;
 
 public class MainFrame extends Application {
+    final int buttonWidth = 150;
+
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -27,10 +31,15 @@ public class MainFrame extends Application {
         TextField userField = new TextField("Username");
         Label info = new Label();
 
+        info.setTranslateY(275);
+        info.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+
         userField.setMaxWidth(200);
         //positioning socket button
-        startButtonSocket.setTranslateX(-70);
+        startButtonSocket.setTranslateX(-80);
         startButtonSocket.setTranslateY(60);
+        startButtonSocket.setMinWidth(buttonWidth);
+        startButtonSocket.setMaxWidth(buttonWidth);
         startButtonSocket.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -46,8 +55,10 @@ public class MainFrame extends Application {
             }
         });
         //positioning rmi button
-        startButtonRMI.setTranslateX(70);
+        startButtonRMI.setTranslateX(80);
         startButtonRMI.setTranslateY(60);
+        startButtonRMI.setMinWidth(buttonWidth);
+        startButtonRMI.setMaxWidth(buttonWidth);
         startButtonRMI.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -77,13 +88,14 @@ public class MainFrame extends Application {
         box.getChildren().add(userField);
         box.getChildren().add(startButtonSocket);
         box.getChildren().add(startButtonRMI);
+        box.getChildren().add(info);
 
         stage.setScene(new Scene(box, 1000, 600));
         stage.show();
     }
 
     private boolean crateUser(String username){
-        if(!username.equalsIgnoreCase("")){
+        if(!username.equalsIgnoreCase("") && !username.equalsIgnoreCase("username")){
             User user = new User(username);
             //TODO join the lobby
             return true;
