@@ -6,6 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A effect of a weapon. Both base effects and advanced effects are made of this class, since there is no difference in
+ * behaviour. An effect can have a cost, a strategy that defines the possible targets,  how much damage and marks does,
+ * and the possibility of moving the player or some targets.
+ */
 public abstract class Effect {
     /**
      * the cost of the effect
@@ -39,7 +44,7 @@ public abstract class Effect {
 
     private int numStepsTarget;
 
-    //TODO da settare
+    //TODO da settare. Fare l'azione inversa dell'apply
     private int redDamage;
     private int blueDamage;
     private int yellowDamage;
