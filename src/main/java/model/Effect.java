@@ -97,6 +97,10 @@ public  class Effect {
     private boolean canMoveTarget;
 
     private int numStepsTarget;
+    
+    private boolean moveTargetAndHitAll;
+    private boolean alreadyMovedTarget;
+
 
     //TODO da settare. Fare l'azione inversa dell'apply
     private int redDamage;
