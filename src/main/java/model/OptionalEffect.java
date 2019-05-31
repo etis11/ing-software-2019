@@ -11,9 +11,9 @@ public class OptionalEffect {
     private Map<String,Integer> additionalDamage;
     private Map<String,Integer> additionalMarks;
     private boolean activated;
-    private boolean canMove;
-    private int steps;
-    private boolean alreadyMoved;
+    private boolean canMoveShooter;
+    private int shooterSteps;
+    private boolean ShooterAlreadyMoved;
 
 
     public Map<String, Integer> getAdditionalDamage() {
@@ -27,24 +27,24 @@ public class OptionalEffect {
         return activated;
     }
 
-    public boolean canMove() {
-        return canMove;
+    public boolean canShooterMove() {
+        return canMoveShooter;
     }
 
-    public void setActivated(boolean activated) {
+    public void activate(boolean activated) {
         this.activated = activated;
     }
     public List<String> getCost() {
         return new LinkedList<>(cost);
     }
-    public int getSteps() {
-        return steps;
+    public int getShooterSteps() {
+        return shooterSteps;
     }
-    public boolean isAlreadyMoved() {
-        return alreadyMoved;
+    public boolean hasShooterAlreadyMoved() {
+        return ShooterAlreadyMoved;
     }
 
-    public void setAlreadyMoved(boolean alreadyMoved) {
-        this.alreadyMoved = alreadyMoved;
+    public void setShooterAlreadyMoved(boolean alreadyMoved) {
+        this.ShooterAlreadyMoved = alreadyMoved;
     }
 }

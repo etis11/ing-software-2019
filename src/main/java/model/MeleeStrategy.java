@@ -1,5 +1,8 @@
 package model;
 
+import com.google.gson.GsonBuilder;
+import jsonparser.WeaponCardDeserializer;
+
 import java.util.ArrayList;
 import java.util.List;
 
