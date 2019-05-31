@@ -347,4 +347,8 @@ public class CommandExecutor {
             command.getOriginView().notify("Non puoi unirti alla partita perchè è già iniziata");
         }
     }
+
+    public void execute(SetTokenCommand command){
+
+    }
 }
