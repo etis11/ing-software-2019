@@ -1,7 +1,19 @@
-"run":"AskRunCommand"
-"pickup":"AskPickCommand"
-"shoot":"AskShootCommand"
-"reload":"AskReloadCommand"
-"endturn":"AskEndTurnCommand"
-"usepowerup":"AskUsePowerUpCommand"
+"muovi": "AskWalkCommand"
+"raccogli": "AskPickCommand"
+"spara": "AskShootCommand"
+"ricarica": "AskReloadCommand"
+"fineturno": "AskEndTurnCommand"
+"powerup": "AskUsePowerUpCommand"
+"setusername username": "SetUsernameCommand"
+"setfraseeffeto frase": "SetEffectPhraseCommand"
+"setuccisioni numerouccisioni": "SetNumberofDeathCommand"
+"setgiocatori numerogiocatori": "SetNumberOfPlayerCommand"
+"punti": "AskPointsCommand"
+"mosse movimento": "MoveCommand"	********	es. up, left, up -->vanno messi in una lista distringhe e passate al costruttore del comando, ipotizziamo che sia lo spazio il carattere separatore
+"setpersonaggio nomepersonaggio": "SetTokenCommand"
 
+mancano altri che potrebbero essere ambigui, cioè che i parametri passati potrebero sono adatti a più comandi 
+
+
+
+tutte le stringhe devono essere case unsensitive, quindi se scrivo con le iniziali maiuscole o no deve attivarsi comunque il comando voluto
