@@ -5,6 +5,7 @@ import model.*;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
@@ -17,7 +18,28 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
 
     @Override
     public WeaponCard deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-        return null;
+        Gson gson = new Gson();
+        WeaponCard wcToAdd= new WeaponCard();
+        JsonObject jsonCard = jsonElement.getAsJsonObject();
+        String name=jsonCard.get("NAME").getAsString();
+        System.out.println(name);
+        JsonArray jsonCost=jsonCard.get("reloadCost").getAsJsonArray();
+        List<String>costs= new ArrayList<>();
+        for(JsonElement cost:jsonCost){
+            costs.add(cost.getAsString());
+        }
+
+        JsonObject baseEffectsJson=jsonCard.get("baseEffect").getAsJsonObject();
+        JsonObject advancedEffectsJson=jsonCard.get("advancedEffect").getAsJsonObject();
+        Effect effectsList=parseBaseEffects(baseEffectsJson,gson);
+
+        Effect effectsListAdvanced=parseBaseEffects(advancedEffectsJson,gson);
+        wcToAdd.setAdvancedEffect(effectsListAdvanced);
+        wcToAdd.setName(name);
+        wcToAdd.setBaseEffect(effectsList);
+        wcToAdd.setReloadCost(costs);
+
+        return wcToAdd;
     }
 
     public  List<WeaponCard> parseWeaponCards(String jsonFile){
@@ -37,11 +59,11 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
                 costs.add(cost.getAsString());
             }
 
-            JsonArray baseEffectsJson=jsonCard.get("baseEffect").getAsJsonArray();
-            JsonArray advancedEffectsJson=jsonCard.get("advancedEffect").getAsJsonArray();
-            List<Effect> effectsList=parseBaseEffects(baseEffectsJson);
+            JsonObject baseEffectsJson=jsonCard.get("baseEffect").getAsJsonObject();
+            JsonObject advancedEffectsJson=jsonCard.get("advancedEffect").getAsJsonObject();
+            Effect effectsList=parseBaseEffects(baseEffectsJson,gson);
 
-            List<Effect> effectsListAdvanced=parseBaseEffects(advancedEffectsJson);
+            Effect effectsListAdvanced=parseBaseEffects(advancedEffectsJson,gson);
             wcToAdd.setAdvancedEffect(effectsListAdvanced);
             wcToAdd.setName(name);
             wcToAdd.setBaseEffect(effectsList);
@@ -50,64 +72,42 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
         }
         return wcToReturn;
     }
-    private List<Effect> parseBaseEffects(JsonArray effects) {
-        List<Effect> toReturn = new ArrayList<>();
-        for (JsonElement eff : effects) {
-            JsonObject effect = eff.getAsJsonObject();
-            System.out.println(effect);
-            String type = effect.get("type").getAsString();
-            List<String> costs = new ArrayList<>();
-            try {
-                JsonArray jsonCost = effect.get("cost").getAsJsonArray();
-                for (JsonElement cost : jsonCost) {
-                    costs.add(cost.getAsString());
-                }
-            } catch (Exception e) {
+    private Effect parseBaseEffects(JsonObject effect,Gson gson) {
+        Effect eff =new Effect();
 
+        System.out.println(effect);
+        eff.setGlobal(effect.get("isGlobal").getAsBoolean());
+
+
+        eff.setMarks(gson.fromJson(effect.get("marks"), HashMap.class));
+        eff.setDamage(gson.fromJson(effect.get("damage"),HashMap.class));
+        try {
+            for (JsonElement oe : effect.get("optionalEffects").getAsJsonArray()) {
+                eff.getOptionalEffects().add(gson.fromJson(effect.get("optionalEffects"), OptionalEffect.class));
             }
-            int damage = 0;
-            int mark = 0;
-            int steps = 0;
-            boolean global;
-            boolean optional;
-            String movType = "";
-            Effect toAdd = null;
-            switch (type) {
-                case "Damage":
-                    damage = effect.get("damage").getAsInt();
-                    //global = effect.get("isGlobal").getAsBoolean();
-                    //  optional =effect.get("isOptional").getAsBoolean();
-                    toAdd = new DamageEffect(damage, false, false);
-                    break;
-                case "Mark":
-                    mark = effect.get("marks").getAsInt();
-                    //    global = effect.get("isGlobal").getAsBoolean();
-                    //  optional =effect.get("isOptional").getAsBoolean();
-                    toAdd = new MarksEffect(mark, false, false);
-                    break;
-                case "Movement":
-                    movType = effect.get("movementType").getAsString();
-                    //      global = effect.get("isGlobal").getAsBoolean();
-                    //  optional =effect.get("isOptional").getAsBoolean();
-                    steps = effect.get("steps").getAsInt();
-                    toAdd = new MovementEffect(steps, movType, false, false);
-                    break;
-                default:
-                    break;
-            }
-            JsonObject strategy = effect.get("strategy").getAsJsonObject();
-            int param = 0;
-            if (!strategy.get("param").isJsonNull()) {
-                param = strategy.get("param").getAsInt();
-            }
-            if (toAdd != null) {
-                toAdd.setCost(costs);
-                toAdd.setStrategy(getStrategyByName(strategy.get("type").getAsString(),param));}
-                toReturn.add(toAdd);
-            }
+        }catch(Exception e){
+
         }
-            return toReturn;
+        eff.setCanMoveShooter(effect.get("isGlobal").getAsBoolean());
+        List<String> costs = new ArrayList<>();
+        try {
+            JsonArray jsonCost = effect.get("cost").getAsJsonArray();
+            for (JsonElement cost : jsonCost) {
+                costs.add(cost.getAsString());
+            }
+        } catch (Exception e) {
 
+        }
+
+        JsonObject strategy = effect.get("strategy").getAsJsonObject();
+        int param = 0;
+        if (!strategy.get("param").isJsonNull()) {
+            param = strategy.get("param").getAsInt();
+        }
+        if (eff != null) {
+            eff.setCost(costs);
+            eff.setStrategy(getStrategyByName(strategy.get("type").getAsString(),param));}
+        return eff;
 
     }
 
@@ -124,10 +124,10 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
                     toReturn = new RoomStrategy(match);
                     break;
                 case "VortexCannonStrategy":
-                    //toReturn=new VortexCannonStrategy(param, match);
+                    toReturn=new VortexCannonStrategy(param, match);
                     break;
                 case "DontSeeStrategy":
-                    //toReturn = new DontSeeStrategy(match);
+                    toReturn = new DontSeeStrategy(match);
                     break;
                 case "FlameThrowerStrategy":
                     toReturn = new FlameThrowerStrategy();
@@ -136,16 +136,22 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
                     //toReturn = new BBQStrategy(param,match);
                     break;
                 case "TractorBeamStrategy":
-                    //toReturn = new TractorBeamStrategy(param, match);
+                    toReturn = new TractorBeamStrategy(param, match);
                     break;
                 case "AdjacentStrategy":
-                    //toReturn = new AdjacentStrategy(param , match);
+                    toReturn = new AdjacentStrategy(param , match);
                     break;
                 case "LaserRifleStrategy":
                     toReturn = new IgnoreWallStrategy();
                     break;
                 case "MeleeStrategy":
                     //toReturn = new MeleeStrategy( param, match);
+                    break;
+                case "AdjacentDifferentTilesStrategy":
+                    toReturn = new AdjacentDifferentTilesStrategy(param,match);
+                    break;
+                case "HellionStrategy":
+                    toReturn = new HellionStrategy(param,match);
                     break;
                 default:
                     break;

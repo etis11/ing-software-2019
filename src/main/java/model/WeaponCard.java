@@ -24,22 +24,22 @@ public class WeaponCard{
     /**
      * The first effect showed on the card. Cant be empty
      */
-    private List<Effect> baseEffect;
+    private Effect baseEffect;
     /**
      * The second effect showed on the card, can be empty
      */
-    private List<Effect> advancedEffect;
+    private Effect advancedEffect;
     /**
      * Boolean used to check if a Weapon is loaded or not
      * */
     private boolean loaded;
 
 
-    public List<Effect> getBaseEffect() {
+    public Effect getBaseEffect() {
         return baseEffect;
     }
 
-    public List<Effect> getAdvancedEffect() {
+    public Effect getAdvancedEffect() {
         return advancedEffect;
     }
 
@@ -47,8 +47,7 @@ public class WeaponCard{
         this.reloadCost = new LinkedList<>();
         this.loaded = true;
         this.name = "default";
-        this.baseEffect = new LinkedList<>();
-        this.advancedEffect = new LinkedList<>();
+
     }
 
     /**
@@ -181,11 +180,11 @@ public class WeaponCard{
 
     }
 
-    public void setBaseEffect(List<Effect> baseEffect) {
+    public void setBaseEffect(Effect baseEffect) {
         this.baseEffect = baseEffect;
     }
 
-    public void setAdvancedEffect(List<Effect> advancedEffect) {
+    public void setAdvancedEffect(Effect advancedEffect) {
         this.advancedEffect = advancedEffect;
     }
 
@@ -206,8 +205,8 @@ public class WeaponCard{
     public String toString() {
         return "WeaponCard{" +
                 "reloadCost=" + reloadCost.size() +
-                ", baseEffect=" + baseEffect.size() +
-                ", advancedEffect=" + advancedEffect.size() +
+                ", baseEffect=" + baseEffect.getNumStepsShooter() +
+                ", advancedEffect=" + advancedEffect.getNumStepsShooter() +
                 ", loaded=" + loaded +
                 ", name='" + name + '\'' +
                 '}';
