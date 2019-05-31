@@ -1,5 +1,6 @@
 package controller.commandpack;
 
+import controller.CommandExecutor;
 import model.GameManager;
 import view.MessageListener;
 import model.Movement;
@@ -21,32 +22,17 @@ public class MoveCommand extends AbstractCommand {
      */
     private List<String> moves;
 
-    public MoveCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews, List<String> moves){
-        super(gameManager, originView, allViews);
+    public MoveCommand(MessageListener originView, List<MessageListener> allViews, List<String> moves){
+        super(originView, allViews);
         this.moves = moves;
     }
 
-    /**
-     * execute the validation of command and notify to views what happen
-     *(only the player who calls if is not allowed, all if he is allowed)
-     * in case of positive validation provide to update the remaining moves and moves the player
-     */
-    @Override
-    public void execute() {
-        if (gameManager.getMatch().getCurrentPlayer().getState().getRemainingSteps()<moves.size()){
-            originView.notify("Non hai abbastanze mosse rimanenti");
-        }
-        else {
-            gameManager.getMatch().getCurrentPlayer().getState().decrementRemainingSteps(moves.size());
-            gameManager.getMatch().getCurrentPlayer().move(new Movement(new ArrayList<>(moves)));
-            String message = "Il giocatore attuale si è spostato di: "+moves.size()+" mosse";
-            for (MessageListener view : allViews){
-                view.notify(message);
-            }
-        }
+    public List<String> getMoves() {
+        return moves;
+    }
 
-        if(gameManager.getMatch().getCurrentPlayer().getState().getName().equals("Run")){
-            endCommandToAction();
-        }
+    @Override
+    public void execute(CommandExecutor exe) {
+        exe.execute(this);
     }
 }

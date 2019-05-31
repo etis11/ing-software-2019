@@ -38,6 +38,15 @@ public class User {
         //listener
     }
 
+    public User(String username) {
+        this.username = username;
+        this.token = User.idToken;
+        User.idToken++;//increment id for token
+        this.effectPhrase = "I will survive";
+        this.player = null;
+        //listener
+    }
+
     /**
      * return the username chosen by the user
      * @return user username

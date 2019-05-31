@@ -1,18 +1,17 @@
 package controller.commandpack;
 
+import controller.CommandExecutor;
 import model.GameManager;
 import view.MessageListener;
 
 import java.util.List;
 
-public abstract class AbstractCommand implements Command {
+public abstract class AbstractCommand implements Command{
 
     protected MessageListener originView;
     protected List<MessageListener> allViews;
-    protected GameManager gameManager;
 
-    public AbstractCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
-        this.gameManager = gameManager;
+    public AbstractCommand(MessageListener originView, List<MessageListener> allViews){
         this.originView = originView;
         this.allViews = allViews;
     }
@@ -21,17 +20,23 @@ public abstract class AbstractCommand implements Command {
 
     }
 
-    @Override
-    public void execute() {
-
+    public MessageListener getOriginView() {
+        return originView;
     }
 
-    void endCommandToAction(){
+    public List<MessageListener> getAllViews() {
+        return allViews;
+    }
+
+    public void endCommandToAction(GameManager gameManager){
         gameManager.getMatch().getCurrentPlayer().decrementMoves();
         gameManager.getMatch().getCurrentPlayer().getState().resetRemainingSteps();
         gameManager.getMatch().getCurrentPlayer().getState().nextState(gameManager.getMatch().getCurrentPlayer().getOldState().getName(), gameManager.getMatch().getCurrentPlayer());
         gameManager.getMatch().getCurrentPlayer().setOldState(null);
     }
 
-
+    @Override
+    public void execute(CommandExecutor exe) {
+        System.out.println("ERRORE");
+    }
 }

@@ -1,35 +1,32 @@
 package controller.commandpack;
 
-import model.GameManager;
+import controller.CommandExecutor;
+import model.User;
 import view.MessageListener;
 
 import java.util.List;
 
-public class SetNumberOfDeathCommand extends AbstractCommand{
+public class SetNumberOfDeathCommand extends AbstractCommand {
 
     private int death;
+    private User owner;
 
-    public SetNumberOfDeathCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews, int num){
-        super(gameManager, originView, allViews);
+    public SetNumberOfDeathCommand(MessageListener originView, List<MessageListener> allViews, int num, User owner){
+        super(originView, allViews);
         this.death = num;
+        this.owner = owner;
+    }
+
+    public User getOwner(){
+        return owner;
+    }
+
+    public int getDeath() {
+        return death;
     }
 
     @Override
-    public void execute() {
-        //TODO manca codizione se è il primo user
-        if(death <9 && death>4){
-            gameManager.getMatch().setSkulls(death);
-            for (MessageListener ml : allViews){
-                ml.notify("Il numero di uccisioni per la partita è stato cambiato a: "+death);
-            }
-        }
-        else{
-            if(death >8 || death<5){
-                originView.notify("Numero uccisioni non nel target ammissibile");
-            }
-            else{
-                originView.notify("Operazione non consentita");
-            }
-        }
+    public void execute(CommandExecutor exe) {
+        exe.execute(this);
     }
 }

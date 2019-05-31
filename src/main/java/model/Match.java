@@ -57,9 +57,15 @@ public class Match {
      * */
     private Deck<AmmoCard> ammoSlushPile;
 
+    /**
+     * started represent if match is started
+     */
+    private boolean started;
+
 
     public Match() {
         this.playerNumber = 5;
+        this.started = false;
     }
 
     public Match(int playerNumber, int skulls, String mapPath) {
@@ -68,7 +74,17 @@ public class Match {
         this.map = GameMap.loadMap(mapPath);
         this.players = new ArrayList<>(playerNumber);
         currentPlayer = 0;
+        this.started = false;
     }
+
+    /**
+     * return if the match is started
+     * @return boolean representing if match is started
+     */
+    public boolean isStarted() {
+        return started;
+    }
+
     /**
      * Method that returns number of skulls left during gameplay.
      * */

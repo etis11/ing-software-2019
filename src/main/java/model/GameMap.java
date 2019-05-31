@@ -64,8 +64,8 @@ public class GameMap {
             return null;
         }
 
-        //return customGson.fromJson(jsonFile, GameMap.class);
-        return new GameMapDeserializer().deserialize(customGson.fromJson(jsonFile, JsonElement.class),null,null);
+        return customGson.fromJson(jsonFile, GameMap.class);
+        //return new GameMapDeserializer().deserialize(customGson.fromJson(jsonFile, JsonElement.class),null,null);
 
     }
 
@@ -143,6 +143,18 @@ public class GameMap {
         }
 
        return  visibleTiles;
+    }
+
+    public List<Tile> VisibleTiles(Player p)  {
+        List<Tile> visibleTiles = new ArrayList<>();
+
+        for(Room visibRoom: visibleRooms(p)){
+            if(!visibRoom.getTiles().contains(p.getTile())) {
+                visibleTiles.addAll(visibRoom.getTiles());
+            }
+        }
+
+        return  visibleTiles;
     }
 
     /**

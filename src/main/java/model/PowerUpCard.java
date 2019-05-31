@@ -1,6 +1,7 @@
 package model;
 
-import java.awt.*;
+
+import javafx.scene.paint.Color;
 
 public class PowerUpCard{
 

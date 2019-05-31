@@ -1,5 +1,6 @@
 package controller.commandpack;
 
+import controller.CommandExecutor;
 import model.GameManager;
 import model.WeaponCard;
 import view.MessageListener;
@@ -13,10 +14,10 @@ import java.util.List;
  * @author Alessandro Passoni
  * @version 1.0
  */
-public class AskShootCommand extends AbstractCommand{
+public class AskShootCommand extends AbstractCommand {
 
-    public AskShootCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
-        super(gameManager, originView, allViews);
+    public AskShootCommand(MessageListener originView, List<MessageListener> allViews){
+        super(originView, allViews);
     }
 
     /**
@@ -24,24 +25,7 @@ public class AskShootCommand extends AbstractCommand{
      * (only the player who calls if is not allowed, all if he is allowed)
      */
     @Override
-    public void execute() {
-        boolean loaded = false;
-        //verify if almost a weapon is loaded
-        for (WeaponCard wpc : gameManager.getMatch().getCurrentPlayer().getWeapons()){
-            if(wpc.isLoaded()){
-                loaded = true;
-            }
-        }
-        if (!gameManager.getMatch().getCurrentPlayer().getState().canShoot() || gameManager.getMatch().getCurrentPlayer().getRemainingMoves()<1 || !loaded){
-            originView.notify("Non puoi sparare");
-        }
-        else {
-            gameManager.getMatch().getCurrentPlayer().getState().nextState("Shoot", gameManager.getMatch().getCurrentPlayer());
-            String message = "Il giocatore attuale sta per sparare";
-            for (MessageListener view : allViews){
-                view.notify(message);
-            }
-            //TODO notifico già le armi?
-        }
+    public void execute(CommandExecutor exe) {
+        exe.execute(this);
     }
 }

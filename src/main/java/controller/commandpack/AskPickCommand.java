@@ -1,5 +1,6 @@
 package controller.commandpack;
 
+import controller.CommandExecutor;
 import model.GameManager;
 import view.MessageListener;
 
@@ -14,30 +15,12 @@ import java.util.List;
  */
 public class AskPickCommand extends AbstractCommand {
 
-    public AskPickCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
-        super(gameManager, originView, allViews);
+    public AskPickCommand(MessageListener originView, List<MessageListener> allViews){
+        super(originView, allViews);
     }
 
-    /**
-     * execute the validation of command and notify to views what happen
-     * (only the player who calls if is not allowed, all if he is allowed)
-     */
     @Override
-    public void execute() {
-        if (!gameManager.getMatch().getCurrentPlayer().getState().canPickUp() || gameManager.getMatch().getCurrentPlayer().getRemainingMoves()<1){
-            originView.notify("Non puoi raccogliere");
-        }
-        else {
-            gameManager.getMatch().getCurrentPlayer().setOldState(gameManager.getMatch().getCurrentPlayer().getState());
-            gameManager.getMatch().getCurrentPlayer().getState().nextState("PickUp", gameManager.getMatch().getCurrentPlayer());
-            String message = "Il giocatore attuale sta raccogliendo";
-            for (MessageListener view : allViews){
-                if (view!=originView) {
-                    view.notify(message);
-                }
-            }
-            originView.notify("Se vuoi spostarti inserisci la direzione, altrimenti inserisci cosa vuoi raccogliere? (Munizioni o armi)");
-
-        }
+    public void execute(CommandExecutor exe) {
+        exe.execute(this);
     }
 }

@@ -1,5 +1,7 @@
 package controller.commandpack;
 
-public interface Command {
-    void execute();
+import controller.CommandExecutor;
+
+public interface Command{
+    void execute(CommandExecutor exe);
 }

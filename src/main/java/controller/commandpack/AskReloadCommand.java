@@ -1,5 +1,6 @@
 package controller.commandpack;
 
+import controller.CommandExecutor;
 import model.GameManager;
 import view.MessageListener;
 
@@ -12,30 +13,14 @@ import java.util.List;
  * @author Alessandro Passoni
  * @version 1.0
  */
-public class AskReloadCommand extends AbstractCommand{
+public class AskReloadCommand extends AbstractCommand {
 
-    public AskReloadCommand(GameManager gameManager, MessageListener originView, List<MessageListener> allViews){
-        super(gameManager, originView, allViews);
+    public AskReloadCommand(MessageListener originView, List<MessageListener> allViews){
+        super(originView, allViews);
     }
 
-    /**
-     * execute the validation of command and notify to views what happen
-     * (only the player who calls if is not allowed, all if he is allowed)
-     */
     @Override
-    public void execute() {
-        if (!gameManager.getMatch().getCurrentPlayer().getState().canReload()){
-            originView.notify("non puoi ricaricare");
-        }
-        else {
-            gameManager.getMatch().getCurrentPlayer().getState().nextState("Reload", gameManager.getMatch().getCurrentPlayer());
-            String message = "Il giocatore attuale sta ricaricando";
-            for (MessageListener view : allViews){
-                if(view!=originView) {
-                    view.notify(message);
-                }
-            }
-            originView.notify("Scegli quale arma ricaricare tra: "+gameManager.getMatch().getCurrentPlayer().weaponsToString());
-        }
+    public void execute(CommandExecutor exe) {
+        exe.execute(this);
     }
 }
