@@ -44,8 +44,10 @@ public class MainFrame extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
-                if(crateUser(userField.getText().trim())){
+                if(checkUsername(userField.getText().trim())){
                     //TODO impostazione tipo connessione
+                    //TODO creazione comando
+                    openNextStage(stage);
 
                 }
                 else{
@@ -63,8 +65,10 @@ public class MainFrame extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
-                if(crateUser(userField.getText().trim())){
+                if(checkUsername(userField.getText().trim())){
                     //TODO impostazione tipo connessione
+                    //TODO creazione comando
+                    openNextStage(stage);
                 }
                 else{
                     info.setText("inserisci un username");
@@ -94,14 +98,18 @@ public class MainFrame extends Application {
         stage.show();
     }
 
-    private boolean crateUser(String username){
-        if(!username.equalsIgnoreCase("") && !username.equalsIgnoreCase("username")){
-            User user = new User(username);
-            //TODO join the lobby
-            return true;
+    public void openNextStage(Stage stage){
+        LobbyFrame lf = new LobbyFrame();
+        try {
+            lf.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        else{
-            return false;
-        }
+        stage.close();
     }
+
+    public boolean checkUsername(String username){
+        return !username.equalsIgnoreCase("") && !username.equalsIgnoreCase("username");
+    }
+
 }
