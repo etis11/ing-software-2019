@@ -7,6 +7,10 @@ public class HellionStrategy extends AbstractTargetStrategy {
     private Match match;
     private int distance;
 
+    public HellionStrategy(int distance,  Match match) {
+        this.distance = distance;
+        this.match = match;
+    }
     @Override
     public List<Player> getHittableTargets(Player shooter) {
         List<Player> toReturn =  super.getHittableTargets(shooter);

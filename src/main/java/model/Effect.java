@@ -11,7 +11,9 @@ import java.util.Map;
  * behaviour. An effect can have a cost, a strategy that defines the possible targets,  how much damage and marks does,
  * and the possibility of moving the player or some targets.
  */
-public abstract class Effect {
+public  class Effect {
+
+    private boolean isGlobal;
     /**
      * the cost of the effect
      */
@@ -19,12 +21,64 @@ public abstract class Effect {
     /**
      * Tells how the targets a re chosen
      */
-    private TargetStrategy strategy ;
+    private TargetStrategy strategy;
 
     /**
      * a map that correlates the color of the target with the damage that has to be dealt to him
      */
     private Map<String, Integer> damage;
+
+    public void setCost(List<String> cost) {
+        this.cost = cost;
+    }
+
+    public void setStrategy(TargetStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public Map<String, Integer> getDamage() {
+        return damage;
+    }
+
+    public void setDamage(Map<String, Integer> damage) {
+        this.damage = damage;
+    }
+
+    public Map<String, Integer> getMarks() {
+        return marks;
+    }
+
+    public void setMarks(Map<String, Integer> marks) {
+        this.marks = marks;
+    }
+
+    public void setOptionalEffects(List<OptionalEffect> optionalEffects) {
+        this.optionalEffects = optionalEffects;
+    }
+
+    public boolean isCanMoveShooter() {
+        return canMoveShooter;
+    }
+
+    public void setCanMoveShooter(boolean canMoveShooter) {
+        this.canMoveShooter = canMoveShooter;
+    }
+
+    public void setNumStepsShooter(int numStepsShooter) {
+        this.numStepsShooter = numStepsShooter;
+    }
+
+    public boolean isCanMoveTarget() {
+        return canMoveTarget;
+    }
+
+    public void setCanMoveTarget(boolean canMoveTarget) {
+        this.canMoveTarget = canMoveTarget;
+    }
+
+    public void setNumStepsTarget(int numStepsTarget) {
+        this.numStepsTarget = numStepsTarget;
+    }
 
     /**
      * a map that correlates color of the target with the given number of marks
@@ -63,6 +117,10 @@ public abstract class Effect {
         marks.put("red", 0);
         marks.put("blue", 0);
         marks.put("yellow", 0);
+        optionalEffects = new LinkedList<>();
+    }
+
+    public Effect(){
         optionalEffects = new LinkedList<>();
     }
 
@@ -117,7 +175,7 @@ public abstract class Effect {
      * @return the cost of the effect
      */
     public List<String> getCost() {
-        return new LinkedList<>(cost);
+        return cost;
     }
 
     /**
@@ -161,5 +219,11 @@ public abstract class Effect {
     }
 
 
+    public boolean isGlobal() {
+        return isGlobal;
+    }
 
+    public void setGlobal(boolean global) {
+        isGlobal = global;
+    }
 }
