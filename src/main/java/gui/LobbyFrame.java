@@ -3,6 +3,7 @@ package gui;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -43,6 +44,14 @@ public class LobbyFrame extends Application {
         Button buttonPlayer3 = new Button();
         Button buttonPlayer4 = new Button();
         Button buttonPlayer5 = new Button();
+        Button buttonUsername = new Button("Imposta username");
+        Button buttonPhrase = new Button("Imposta frase ad effetto");
+        Button buttonDeath = new Button("Imposta numero morti");
+        Button buttonPlayer = new Button("Imposta numero giocatori");
+        TextField usernameField = new TextField("Cambia username");
+        TextField effectPhraseField = new TextField("Cambia frase ad effetto");
+        TextField deathField = new TextField("Cambia numero morti");
+        TextField playerNumberField = new TextField("Cambia numero giocatori");
 
         buttonPlayer1.setLayoutY(300);
         buttonPlayer1.setLayoutX(50);
@@ -70,6 +79,38 @@ public class LobbyFrame extends Application {
         buttonPlayer5.setMinHeight(buttonWidth);
         buttonPlayer5.setGraphic(new ImageView(imageVioletta));
 
+        usernameField.setLayoutX(50);
+        usernameField.setLayoutY(200);
+        usernameField.setMinWidth(150);
+
+        effectPhraseField.setLayoutY(450);
+        effectPhraseField.setLayoutX(50);
+        effectPhraseField.setMinWidth(150);
+
+        deathField.setLayoutX(590);
+        deathField.setLayoutY(200);
+        deathField.setMinWidth(150);
+
+        playerNumberField.setLayoutX(590);
+        playerNumberField.setLayoutY(450);
+        playerNumberField.setMinWidth(150);
+
+        buttonUsername.setLayoutY(usernameField.getLayoutY());
+        buttonUsername.setLayoutX(usernameField.getLayoutX()+usernameField.getMinWidth()+50);
+        buttonUsername.setMinWidth(150);
+
+        buttonPhrase.setLayoutY(effectPhraseField.getLayoutY());
+        buttonPhrase.setLayoutX(effectPhraseField.getLayoutX()+effectPhraseField.getMinWidth()+50);
+        buttonPhrase.setMinWidth(150);
+
+        buttonDeath.setLayoutY(deathField.getLayoutY());
+        buttonDeath.setLayoutX(deathField.getLayoutX()+deathField.getMinWidth()+50);
+        buttonDeath.setMinWidth(150);
+
+        buttonPlayer.setLayoutY(playerNumberField.getLayoutY());
+        buttonPlayer.setLayoutX(playerNumberField.getLayoutX()+playerNumberField.getMinWidth()+50);
+        buttonPlayer.setMinWidth(150);
+
         //TODO rendere statici queste variabili?
         //path of background image
         String path = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
@@ -88,6 +129,14 @@ public class LobbyFrame extends Application {
         box.getChildren().add(buttonPlayer3);
         box.getChildren().add(buttonPlayer4);
         box.getChildren().add(buttonPlayer5);
+        box.getChildren().add(buttonPhrase);
+        box.getChildren().add(buttonUsername);
+        box.getChildren().add(buttonDeath);
+        box.getChildren().add(buttonPlayer);
+        box.getChildren().add(usernameField);
+        box.getChildren().add(effectPhraseField);
+        box.getChildren().add(deathField);
+        box.getChildren().add(playerNumberField);
 
 
         stage.setScene(new Scene(box, 1000, 600));
