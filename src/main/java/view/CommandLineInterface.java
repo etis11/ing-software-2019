@@ -1,17 +1,28 @@
 package view;
 
+import controller.CommandLauncher;
+import controller.commandpack.*;
 import model.*;
 
 import java.io.*;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  *  The classic CLI class needed to run the software without GUI
  **/
 public class CommandLineInterface extends AbstractView {
-
+    private  CommandLauncher commandLauncher;
+    private MessageListener originView;
+    private List<MessageListener> allViews;
+    private Player player;
+    private User user;
+    private String username;
+    private String phrase;
+    private int num;
+    private User owner;
+    private int players;
+    private String token;
     /**
      *  Attribute needed to output text from the console
      **/
@@ -123,7 +134,43 @@ public class CommandLineInterface extends AbstractView {
         return cc;
     }
 
+    public void parseCommand(String command){
+        switch(command.toLowerCase()) {
+            case "muovi": commandLauncher.addCommand(new AskWalkCommand(originView,allViews));
+                break;
+            case "raccogli": commandLauncher.addCommand(new AskPickCommand(originView,allViews));
+                break;
+            case "spara": commandLauncher.addCommand(new AskShootCommand(originView,allViews));
+                break;
+            case "ricarica": commandLauncher.addCommand(new AskReloadCommand(originView,allViews));
+                break;
+            case "fineturno": commandLauncher.addCommand(new AskEndTurnCommand(originView,allViews));
+                break;
+            case "powerup": commandLauncher.addCommand(new AskUsePowerUpCommand(originView,allViews));
+                break;
+            case "setusername username": commandLauncher.addCommand(new SetUsernameCommand(originView,allViews,user, username));
+                break;
+            case "setfraseeffeto effeto": commandLauncher.addCommand(new SetEffectPhraseCommand(originView,allViews,user,phrase));
+                break;
+            case "setuccisioni numerouccisioni": commandLauncher.addCommand(new SetNumberOfDeathCommand(originView,allViews,num,owner));
+                break;
+            case "setgiocatori numerogiocatori": commandLauncher.addCommand(new SetPlayerNumberCommand(originView,allViews,players,owner));
+                break;
+            case "punti": commandLauncher.addCommand(new AskPointsCommand(originView,allViews,player));
+                break;
+            case "setpersonaggio nomepersonaggio": commandLauncher.addCommand(new SetTokenCommand(originView,allViews,token));
+                break;
+            case "setpersonaggio nomepersonaggi":
+                List<String> toadd=new ArrayList<>();
+                toadd.addAll(Arrays.asList(command.split(",")));
+                new MoveCommand(originView,allViews,toadd);
+                break;
+        }
+    }
+
     public int getUserInputInt(){
+
+
       //  Scanner scanner = new Scanner(System.in);
         int input = scanner.nextInt();
       //  scanner.close();

@@ -18,7 +18,7 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
 
     @Override
     public WeaponCard deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-       /* Gson gson = new Gson();
+        Gson gson = new Gson();
         WeaponCard wcToAdd= new WeaponCard();
         JsonObject jsonCard = jsonElement.getAsJsonObject();
         String name=jsonCard.get("NAME").getAsString();
@@ -29,18 +29,18 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
             costs.add(cost.getAsString());
         }
 
-        JsonObject baseEffectsJson=jsonCard.get("baseEffect").getAsJsonObject();
-        JsonObject advancedEffectsJson=jsonCard.get("advancedEffect").getAsJsonObject();
-        Effect effectsList=parseBaseEffects(baseEffectsJson,gson);
+        JsonArray baseEffectsJson=jsonCard.get("baseEffect").getAsJsonArray();
+        JsonArray advancedEffectsJson=jsonCard.get("advancedEffect").getAsJsonArray();
+        List<Effect> effectsList=parseBaseEffects(baseEffectsJson,gson);
+        List<Effect> effectsListAdvanced=parseBaseEffects(advancedEffectsJson,gson);
+        WeaponCard wcToadd = new WeaponCard();
 
-        Effect effectsListAdvanced=parseBaseEffects(advancedEffectsJson,gson);
         wcToAdd.setAdvancedEffect(effectsListAdvanced);
         wcToAdd.setName(name);
         wcToAdd.setBaseEffect(effectsList);
         wcToAdd.setReloadCost(costs);
 
-        return wcToAdd;*/
-       return null;
+        return wcToAdd;
     }
 
     public  List<WeaponCard> parseWeaponCards(String jsonFile){
@@ -78,7 +78,7 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
         for(JsonElement eff:effects){
             Effect toAdd=new Effect();
             JsonObject effect = eff.getAsJsonObject();
-            System.out.println(effect);
+            //System.out.println(effect);
             List<String>costs= new ArrayList<>();
             try{
                 JsonArray jsonCost=effect.get("cost").getAsJsonArray();
@@ -88,7 +88,7 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
             }catch (Exception e){
 
             }
-            int steps=0;
+            //int steps=0;
             boolean global;
             boolean optional;
             String movType="";
