@@ -1,89 +1,1215 @@
-[{
-  "NAME": "Martello ionico",
-  "reloadCost": [
-    "yellow"
-  ],
-  "baseEffect":
+[
   {
-    "cost": [],
-    "isGlobal": false,
-    "damage": {
-      "red": 2,
-      "blue": 0,
-      "green": 0
-    },
-    "marks": {
-      "red": 0,
-      "blue": 0,
-      "green": 0
-    },
-    "canMoveShooter": false,
-
-    "strategy": {
-      "type": "MeleeStrategy",
-      "param": null
-    },
-    "optionalEffects": [
+    "NAME": "Distruttore",
+    "reloadCost": [
+      "blue",
+      "blue"
+    ],
+    "baseEffect": [
       {
         "cost": [],
-        "addtionalDamage": {
+        "isGlobal": false,
+        "damage": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 1,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        },
+        "optionalEffects": [
+          {
+            "cost": [
+              "red"
+            ],
+            "addtionalDamage": {
+              "red": 0,
+              "blue": 0,
+              "green": 0
+            },
+            "additionalMarks": {
+              "red": 0,
+              "blue": 1,
+              "green": 0
+            },
+            "activated": false,
+            "canMove": false,
+            "steps": 0,
+            "alreadyMoved": false
+          }
+        ]
+      }
+    ],
+    "advancedEffect": []
+  },
+  {
+    "NAME": "Mitragliatrice",
+    "reloadCost": [
+      "blue",
+      "red"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 1,
+          "blue": 1,
+          "green": 0
+        },
+        "marks": {
           "red": 0,
           "blue": 0,
           "green": 0
         },
-        "additionalMarks": {
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        },
+        "optionalEffects": [
+          {
+            "cost": [
+              "yellow"
+            ],
+            "addtionalDamage": {
+              "red": 1,
+              "blue": 0,
+              "green": 0
+            },
+            "additionalMarks": {
+              "red": 0,
+              "blue": 0,
+              "green": 0
+            },
+            "activated": false,
+            "canMove": false,
+            "steps": 0,
+            "alreadyMoved": false
+          },
+          {
+            "cost": [
+              "blue"
+            ],
+            "addtionalDamage": {
+              "red": 0,
+              "blue": 1,
+              "green": 0
+            },
+            "additionalMarks": {
+              "red": 0,
+              "blue": 0,
+              "green": 0
+            },
+            "activated": false,
+            "canMove": false,
+            "steps": 0,
+            "alreadyMoved": false
+          }
+        ]
+      }
+    ],
+    "advancedEffect": []
+  },
+  {
+    "NAME": "Torpedine",
+    "reloadCost": [
+      "blue",
+      "red"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
           "red": 0,
           "blue": 0,
           "green": 0
         },
-        "activated": false,
-        "canMove": true,
-        "steps": 1,
-        "alreadyMoved": false
-      },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        },
+        "optionalEffects": [
+          {
+            "cost": [
+              "blue"
+            ],
+            "addtionalDamage": {
+              "red": 0,
+              "blue": 1,
+              "green": 0
+            },
+            "additionalMarks": {
+              "red": 0,
+              "blue": 0,
+              "green": 0
+            },
+            "activated": false,
+            "canMove": false,
+            "steps": 0,
+            "alreadyMoved": false
+          },
+          {
+            "cost": [
+              "blue"
+            ],
+            "addtionalDamage": {
+              "red": 0,
+              "blue": 0,
+              "green": 2
+            },
+            "additionalMarks": {
+              "red": 0,
+              "blue": 0,
+              "green": 0
+            },
+            "activated": false,
+            "canMove": false,
+            "steps": 0,
+            "alreadyMoved": false
+          }
+        ]
+      }
+    ],
+    "advancedEffect": []
+  },
+  {
+    "NAME": "Fucile al plasma",
+    "reloadCost": [
+      "blue",
+      "yellow"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        },
+        "optionalEffects": [
+          {
+            "cost": [],
+            "addtionalDamage": {
+              "red": 0,
+              "blue": 0,
+              "green": 0
+            },
+            "additionalMarks": {
+              "red": 0,
+              "blue": 0,
+              "green": 0
+            },
+            "activated": false,
+            "canMove": true,
+            "steps": 2,
+            "alreadyMoved": false
+          },
+          {
+            "cost": [
+              "blue"
+            ],
+            "addtionalDamage": {
+              "red": 1,
+              "blue": 0,
+              "green": 0
+            },
+            "additionalMarks": {
+              "red": 0,
+              "blue": 0,
+              "green": 0
+            },
+            "activated": false,
+            "canMove": false,
+            "steps": 0,
+            "alreadyMoved": false
+          }
+        ]
+      }
+    ],
+    "advancedEffect": []
+  },
+  {
+    "NAME": "Fucile di precisione",
+    "reloadCost": [
+      "blue",
+      "blue",
+      "yellow"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 3,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 1,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "FixedDiStrategyStrategy",
+          "param": 2
+        },
+        "optionalEffects": []
+      }
+    ],
+    "advancedEffect": []
+  },
+  {
+    "NAME": "Falce protonica",
+    "reloadCost": [
+      "blue"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 1,
+          "blue": 1,
+          "green": 1
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": 2
+        },
+        "optionalEffects": []
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [
+          "blue",
+          "red"
+        ],
+        "isGlobal": false,
+        "damage": {
+          "red": 2,
+          "blue": 2,
+          "green": 2
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": 0
+        }
+      }
+    ]
+  },
+  {
+    "NAME": "Raggio traente",
+    "reloadCost": [
+      "blue"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 1,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": true,
+        "numStepsTarget": 2,
+        "strategy": {
+          "type": "TractorBeamStrategy",
+          "param": null
+        },
+        "optionalEffects": []
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [
+          "red",
+          "yellow"
+        ],
+        "isGlobal": false,
+        "damage": {
+          "red": 3,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": true,
+        "numStepsTarget": 2,
+        "strategy": {
+          "type": "TractorBeamAdvancedStrategy",
+          "param": null
+        }
+      }
+    ]
+  },
+  {
+    "NAME": "Cannone vortex",
+    "reloadCost": [
+      "red",
+      "blue"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": true,
+        "numStepsTarget": 1,
+        "strategy": {
+          "type": "VortexCannonStrategy",
+          "param": null
+        },
+        "optionalEffects": [
+          {
+            "cost": [
+              "red"
+            ],
+            "addtionalDamage": {
+              "red": 0,
+              "blue": 1,
+              "green": 1
+            },
+            "additionalMarks": {
+              "red": 0,
+              "blue": 0,
+              "green": 0
+            },
+            "activated": false,
+            "canMove": true,
+            "steps": 1,
+            "alreadyMoved": false
+          }
+        ]
+      }
+    ],
+    "advancedEffect": []
+  },
+  {
+    "NAME": "Vulcanizzatore",
+    "reloadCost": [
+      "red",
+      "blue"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": true,
+        "damage": {
+          "red": 1,
+          "blue": 1,
+          "green": 1
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        },
+        "optionalEffects": []
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [],
+        "isGlobal": true,
+        "damage": {
+          "red": 1,
+          "blue": 1,
+          "green": 1
+        },
+        "marks": {
+          "red": 1,
+          "blue": 1,
+          "green": 1
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "HellionStrategy",
+          "param": null
+        },
+        "optionalEffects": []
+      }
+    ]
+  },
+  {
+    "NAME": "Razzo termico",
+    "reloadCost": [
+      "red",
+      "red",
+      "yellow"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 3,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "DontSeeStrategy",
+          "param": null
+        },
+        "optionalEffects": []
+      }
+    ],
+    "advancedEffect": []
+  },
+  {
+    "NAME": "Raggio solare",
+    "reloadCost": [
+      "red",
+      "yellow"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 1,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 1,
+          "blue": 1,
+          "green": 1
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "FixedDistanceStrategy",
+          "param": null
+        },
+        "optionalEffects": []
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [
+          "red"
+        ],
+        "isGlobal": false,
+        "damage": {
+          "red": 1,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 2,
+          "blue": 2,
+          "green": 2
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "FixedDistanceStrategy",
+          "param": null
+        }
+      }
+    ]
+  },
+  {
+    "NAME": "Lanciafiamme",
+    "reloadCost": [
+      "red"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 1,
+          "blue": 1,
+          "green": 0
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "FlameThrowerStrategy",
+          "param": null
+        },
+        "optionalEffects": []
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [
+          "yellow",
+          "yellow"
+        ],
+        "isGlobal": false,
+        "damage": {
+          "red": 1,
+          "blue": 1,
+          "green": 0
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "BBQStrategy",
+          "param": null
+        }
+      }
+    ]
+  },
+  {
+    "NAME": "Lanciagranate",
+    "reloadCost": [
+      "red"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 1,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": true,
+        "numStepsTarget": 1,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        },
+        "optionalEffects": [
+          {
+            "cost": [
+              "red"
+            ],
+            "addtionalDamage": {
+              "red": 0,
+              "blue": 0,
+              "green": 0
+            },
+            "additionalMarks": {
+              "red": 0,
+              "blue": 0,
+              "green": 0
+            },
+            "activated": false,
+            "canMove": false,
+            "steps": 0,
+            "alreadyMoved": false
+          }
+        ]
+      }
+    ],
+    "advancedEffect": []
+  },
+  {
+    "NAME": "Lanciarazzi",
+    "reloadCost": [
+      "red",
+      "red"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": true,
+        "numStepsTarget": 1,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        },
+        "optionalEffects": [
+          {
+            "cost": [
+              "blue"
+            ],
+            "addtionalDamage": {
+              "red": 0,
+              "blue": 0,
+              "green": 0
+            },
+            "additionalMarks": {
+              "red": 0,
+              "blue": 0,
+              "green": 0
+            },
+            "activated": false,
+            "canMove": true,
+            "steps": 2,
+            "alreadyMoved": false
+          },
+          {
+            "cost": [
+              "yellow"
+            ],
+            "addtionalDamage": {
+              "red": 1,
+              "blue": 1,
+              "green": 1
+            },
+            "additionalMarks": {
+              "red": 0,
+              "blue": 0,
+              "green": 0
+            },
+            "activated": false,
+            "canMove": false,
+            "steps": 0,
+            "alreadyMoved": false
+          }
+        ]
+      }
+    ],
+    "advancedEffect": []
+  },
+  {
+    "NAME": "Fucile laser",
+    "reloadCost": [
+      "yellow",
+      "yellow",
+      "blue"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 3,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "LaserRifleStrategy",
+          "param": null
+        },
+        "optionalEffects": []
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 2,
+          "blue": 2,
+          "green": 0
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "LaserRifleStrategy",
+          "param": null
+        }
+      }
+    ]
+  },
+  {
+    "NAME": "Spada fotonica",
+    "reloadCost": [
+      "yellow",
+      "red"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": null
+        },
+        "optionalEffects": [
+          {
+            "cost": [],
+            "addtionalDamage": {
+              "red": 0,
+              "blue": 0,
+              "green": 0
+            },
+            "additionalMarks": {
+              "red": 0,
+              "blue": 0,
+              "green": 0
+            },
+            "activated": false,
+            "canMove": true,
+            "steps": 1,
+            "alreadyMoved": false
+          },
+          {
+            "cost": [
+              "yellow"
+            ],
+            "addtionalDamage": {
+              "red": 0,
+              "blue": 2,
+              "green": 0
+            },
+            "additionalMarks": {
+              "red": 0,
+              "blue": 0,
+              "green": 0
+            },
+            "activated": false,
+            "canMove": false,
+            "steps": 0,
+            "alreadyMoved": false
+          }
+        ]
+      }
+    ],
+    "advancedEffect": []
+  },
+  {
+    "NAME": "ZX-2",
+    "reloadCost": [
+      "yellow",
+      "red"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 1,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        },
+        "optionalEffects": []
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 1,
+          "blue": 1,
+          "green": 1
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        }
+      }
+    ]
+  },
+  {
+    "NAME": "Fucile a pompa",
+    "reloadCost": [
+      "yellow",
+      "yellow"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 3,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": true,
+        "numStepsTarget": 1,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": null
+        },
+        "optionalEffects": []
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "AdjacentStrategy",
+          "param": null
+        }
+      }
+    ]
+  },
+  {
+    "NAME": "Cyberguanto",
+    "reloadCost": [
+      "yellow",
+      "blue"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 1,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": true,
+        "numStepsShooter": 1,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": null
+        },
+        "optionalEffects": []
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [
+          "blue"
+        ],
+        "isGlobal": false,
+        "damage": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": true,
+        "numStepsShooter": 2,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": null
+        },
+        "optionalEffects": []
+      }
+    ]
+  },
+  {
+    "NAME": "Onda d'urto",
+    "reloadCost": [
+      "yellow"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 1,
+          "blue": 1,
+          "green": 1
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "AdjacentDifferentTilesStrategy",
+          "param": null
+        },
+        "optionalEffects": []
+      }
+    ],
+    "advancedEffect": [
       {
         "cost": [
           "yellow"
         ],
-        "addtionalDamage": {
-          "red": 0,
-          "blue": 2,
-          "green": 0
+        "isGlobal": false,
+        "damage": {
+          "red": 1,
+          "blue": 1,
+          "green": 1
         },
-        "additionalMarks": {
+        "marks": {
           "red": 0,
           "blue": 0,
           "green": 0
         },
-        "activated": false,
-        "canMove": false,
-        "steps": 0,
-        "alreadyMoved": false
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "AdjacentStrategy",
+          "param": null
+        }
+      }
+    ]
+  },
+  {
+    "NAME": "Martello ionico",
+    "reloadCost": [
+      "yellow"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "isGlobal": false,
+        "damage": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": null
+        },
+        "optionalEffects": []
+      }
+    ],
+    "advancedEffect": [
+      {
+        "cost": [
+          "red"
+        ],
+        "isGlobal": false,
+        "damage": {
+          "red": 3,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": true,
+        "numStepsTarget": 2,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": null
+        }
       }
     ]
   }
-,
-  "advancedEffect":
-  {
-    "cost": [
-      "red"
-    ],
-    "isGlobal": false,
-    "damage": {
-      "red": 3,
-      "blue": 0,
-      "green": 0
-    },
-    "marks": {
-      "red": 0,
-      "blue": 0,
-      "green": 0
-    },
-    "canMoveShooter": false,
-    "strategy": {
-      "type": "MeleeStrategy",
-      "param": null
-    }
-  }
-
-}]
+]

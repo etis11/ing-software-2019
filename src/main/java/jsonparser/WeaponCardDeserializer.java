@@ -18,7 +18,7 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
 
     @Override
     public WeaponCard deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-        Gson gson = new Gson();
+       /* Gson gson = new Gson();
         WeaponCard wcToAdd= new WeaponCard();
         JsonObject jsonCard = jsonElement.getAsJsonObject();
         String name=jsonCard.get("NAME").getAsString();
@@ -39,7 +39,8 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
         wcToAdd.setBaseEffect(effectsList);
         wcToAdd.setReloadCost(costs);
 
-        return wcToAdd;
+        return wcToAdd;*/
+       return null;
     }
 
     public  List<WeaponCard> parseWeaponCards(String jsonFile){
@@ -59,11 +60,11 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
                 costs.add(cost.getAsString());
             }
 
-            JsonObject baseEffectsJson=jsonCard.get("baseEffect").getAsJsonObject();
-            JsonObject advancedEffectsJson=jsonCard.get("advancedEffect").getAsJsonObject();
-            Effect effectsList=parseBaseEffects(baseEffectsJson,gson);
+            JsonArray baseEffectsJson=jsonCard.get("baseEffect").getAsJsonArray();
+            JsonArray advancedEffectsJson=jsonCard.get("advancedEffect").getAsJsonArray();
+            List<Effect> effectsList=parseBaseEffects(baseEffectsJson,gson);
 
-            Effect effectsListAdvanced=parseBaseEffects(advancedEffectsJson,gson);
+            List<Effect> effectsListAdvanced=parseBaseEffects(advancedEffectsJson,gson);
             wcToAdd.setAdvancedEffect(effectsListAdvanced);
             wcToAdd.setName(name);
             wcToAdd.setBaseEffect(effectsList);
@@ -72,42 +73,71 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
         }
         return wcToReturn;
     }
-    private Effect parseBaseEffects(JsonObject effect,Gson gson) {
-        Effect eff =new Effect();
+    private List<Effect> parseBaseEffects(JsonArray effects,Gson gson) {
+        List<Effect> toReturn =new ArrayList<>();
+        for(JsonElement eff:effects){
+            Effect toAdd=new Effect();
+            JsonObject effect = eff.getAsJsonObject();
+            System.out.println(effect);
+            List<String>costs= new ArrayList<>();
+            try{
+                JsonArray jsonCost=effect.get("cost").getAsJsonArray();
+                for(JsonElement cost:jsonCost){
+                    costs.add(cost.getAsString());
+                }
+            }catch (Exception e){
 
-        System.out.println(effect);
-        eff.setGlobal(effect.get("isGlobal").getAsBoolean());
-
-
-        eff.setMarks(gson.fromJson(effect.get("marks"), HashMap.class));
-        eff.setDamage(gson.fromJson(effect.get("damage"),HashMap.class));
-        try {
-            for (JsonElement oe : effect.get("optionalEffects").getAsJsonArray()) {
-                eff.getOptionalEffects().add(gson.fromJson(effect.get("optionalEffects"), OptionalEffect.class));
             }
-        }catch(Exception e){
+            int steps=0;
+            boolean global;
+            boolean optional;
+            String movType="";
+           // JsonObject strategy=effect.get("strategy").getAsJsonObject();
+            //int param=0;
+            //if(!strategy.get("param").isJsonNull()){
+              //  param=strategy.get("param").getAsInt();
+            //}
+          //  if(toAdd!=null){
+            //    toAdd.setCost(costs);
+              //  toAdd.setStrategy(getStrategyByName(strategy.get("type").getAsString(),param));}
+            System.out.println(effect);
+            toAdd.setGlobal(effect.get("isGlobal").getAsBoolean());
 
-        }
-        eff.setCanMoveShooter(effect.get("isGlobal").getAsBoolean());
-        List<String> costs = new ArrayList<>();
-        try {
-            JsonArray jsonCost = effect.get("cost").getAsJsonArray();
-            for (JsonElement cost : jsonCost) {
-                costs.add(cost.getAsString());
+
+            toAdd.setMarks(gson.fromJson(effect.get("marks"), HashMap.class));
+            toAdd.setDamage(gson.fromJson(effect.get("damage"),HashMap.class));
+            try {
+                for (JsonElement oe : effect.get("optionalEffects").getAsJsonArray()) {
+                    toAdd.getOptionalEffects().add(gson.fromJson(effect.get("optionalEffects"), OptionalEffect.class));
+                }
+            }catch(Exception e){
+
             }
-        } catch (Exception e) {
+            toAdd.setCanMoveShooter(effect.get("isGlobal").getAsBoolean());
+            //List<String> costs = new ArrayList<>();
+            try {
+                JsonArray jsonCost = effect.get("cost").getAsJsonArray();
+                for (JsonElement cost : jsonCost) {
+                    costs.add(cost.getAsString());
+                }
+            } catch (Exception e) {
 
-        }
+            }
 
-        JsonObject strategy = effect.get("strategy").getAsJsonObject();
-        int param = 0;
-        if (!strategy.get("param").isJsonNull()) {
-            param = strategy.get("param").getAsInt();
+            JsonObject strategy = effect.get("strategy").getAsJsonObject();
+            int param = 0;
+            if (!strategy.get("param").isJsonNull()) {
+                param = strategy.get("param").getAsInt();
+            }
+
+            if (eff != null) {
+                toAdd.setCost(costs);
+                toAdd.setStrategy(getStrategyByName(strategy.get("type").getAsString(),param));}
+
+            toReturn.add(toAdd);
         }
-        if (eff != null) {
-            eff.setCost(costs);
-            eff.setStrategy(getStrategyByName(strategy.get("type").getAsString(),param));}
-        return eff;
+        return toReturn;
+
 
     }
 

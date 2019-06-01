@@ -24,22 +24,22 @@ public class WeaponCard{
     /**
      * The first effect showed on the card. Cant be empty
      */
-    private Effect baseEffect;
+    private List<Effect> baseEffect;
     /**
      * The second effect showed on the card, can be empty
      */
-    private Effect advancedEffect;
+    private List<Effect> advancedEffect;
     /**
      * Boolean used to check if a Weapon is loaded or not
      * */
     private boolean loaded;
 
 
-    public Effect getBaseEffect() {
+    public List<Effect> getBaseEffect() {
         return baseEffect;
     }
 
-    public Effect getAdvancedEffect() {
+    public List<Effect> getAdvancedEffect() {
         return advancedEffect;
     }
 
@@ -180,11 +180,11 @@ public class WeaponCard{
 
     }
 
-    public void setBaseEffect(Effect baseEffect) {
+    public void setBaseEffect(List<Effect> baseEffect) {
         this.baseEffect = baseEffect;
     }
 
-    public void setAdvancedEffect(Effect advancedEffect) {
+    public void setAdvancedEffect(List<Effect> advancedEffect) {
         this.advancedEffect = advancedEffect;
     }
 
@@ -205,8 +205,8 @@ public class WeaponCard{
     public String toString() {
         return "WeaponCard{" +
                 "reloadCost=" + reloadCost.size() +
-                ", baseEffect=" + baseEffect.getNumStepsShooter() +
-                ", advancedEffect=" + advancedEffect.getNumStepsShooter() +
+                ", baseEffect=" + baseEffect.get(0).getNumStepsShooter() +
+                ", advancedEffect=" + advancedEffect.get(0).getNumStepsShooter() +
                 ", loaded=" + loaded +
                 ", name='" + name + '\'' +
                 '}';
