@@ -16,7 +16,7 @@ public class CommandExecutor {
      */
     GameManager gameManager;
 
-    public void CommandExecutor(GameManager gameManager){
+    public CommandExecutor(GameManager gameManager){
         this.gameManager=gameManager;
     }
 

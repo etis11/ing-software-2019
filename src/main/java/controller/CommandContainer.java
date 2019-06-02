@@ -2,9 +2,12 @@ package controller;
 
 import controller.commandpack.Command;
 
-public interface CommandContainer {
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+public interface CommandContainer extends Remote {
     /**
      * adds a command to a queue
      */
-    void addCommand(Command c);
+    void addCommand(Command c) throws RemoteException;
 }

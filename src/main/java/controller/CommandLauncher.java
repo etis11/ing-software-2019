@@ -2,6 +2,7 @@ package controller;
 
 
 import controller.commandpack.Command;
+import model.GameManager;
 import model.Match;
 
 import java.util.concurrent.*;
@@ -15,12 +16,6 @@ import java.util.logging.Logger;
 public class CommandLauncher implements CommandLauncherInterface {
 
     private static final Logger LOGGER = Logger.getLogger(CommandLauncher.class.getName());
-
-    /**
-     * The match in which the players are playing
-     */
-    protected final Match match;
-
     /**
      * A queue where the commands are placed. The queue is concurrent and the commands of the current player are
      */
@@ -38,13 +33,12 @@ public class CommandLauncher implements CommandLauncherInterface {
     /**
      * creates a command executor with the given match. Also the commandQueue is set empty and the pool is a cached pool
      *
-     * @param match the match in which the players are playing
+     * @param gameManager the game in which the players are playing
      */
-    public CommandLauncher(Match match) {
-        this.match = match;
+    public CommandLauncher(GameManager gameManager) {
         commandQueue = new LinkedBlockingDeque<>();
         this.pool = Executors.newCachedThreadPool();
-        commandExecutor = new CommandExecutor();
+        commandExecutor = new CommandExecutor(gameManager);
     }
 
     /**
