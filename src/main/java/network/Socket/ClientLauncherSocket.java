@@ -1,40 +1,38 @@
-package network;
+package network.Socket;
 
 import controller.commandpack.AskPickCommand;
 import controller.commandpack.AskWalkCommand;
-import controller.commandpack.Command;
 import controller.commandpack.MoveCommand;
+import network.CommandLauncherProxySocket;
 
 import java.io.IOException;
 import java.net.Socket;
 
 import static java.lang.Thread.sleep;
 
-public class ClientLauncher {
+public class ClientLauncherSocket {
 
     public static void main(String[] args) throws InterruptedException {
         Socket mySocket = null;
-        try{
+        try {
 
             mySocket = new Socket("localhost", 8000);
-        }
-        catch(IOException i){
+        } catch (IOException i) {
             System.out.println(">>> Errore nella connessione, probabilmente il server è down");
         }
 
         CommandLauncherProxySocket cr = null;
-        if (mySocket!= null){
-            try{
+        if (mySocket != null) {
+            try {
 
                 cr = new CommandLauncherProxySocket(mySocket);
-            }
-            catch (IOException i){
+            } catch (IOException i) {
                 System.out.println(i.getMessage());
                 i.printStackTrace();
                 System.out.println(">>> Problemi con il socket");
             }
 
-            if (cr!= null){
+            if (cr != null) {
                 AskPickCommand c = new AskPickCommand(null, null);
                 cr.addCommand(c);
                 MoveCommand m = new MoveCommand(null, null, null);

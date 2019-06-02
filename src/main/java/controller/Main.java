@@ -29,7 +29,7 @@ public class Main {
         List<Player> players = new LinkedList<>();
         players.add(p);
         m.setPlayers(players);
-        CommandLauncher launcher = new CommandLauncher(m);
+        CommandLauncher launcher = new CommandLauncher(gm);
         AskEndTurnCommand endCommand = new AskEndTurnCommand(messageView, listViews);
         AskReloadCommand reloadCommand = new AskReloadCommand(messageView, listViews);
         AskPickCommand pickCommand = new AskPickCommand(messageView, listViews);

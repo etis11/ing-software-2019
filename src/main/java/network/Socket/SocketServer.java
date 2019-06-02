@@ -1,6 +1,7 @@
-package network;
+package network.Socket;
 
 import controller.CommandLauncherInterface;
+import network.CommandReceiverSocket;
 
 import java.io.IOException;
 import java.net.ServerSocket;
