@@ -1,7 +1,7 @@
 package network;
 
+import controller.CommandContainer;
 import controller.commandpack.Command;
-import controller.commandpack.CommandContainer;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -45,7 +45,7 @@ public class CommandLauncherProxySocket implements CommandContainer {
     }
 
     /**
-     * close the socket. After this method, the command executor is not able to send commands on the net anymore
+     * close the socket. After this method, the copmmand executor is not able to send commands on the net anymore
      */
     public void close(){
         try {
