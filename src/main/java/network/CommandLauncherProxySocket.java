@@ -13,9 +13,9 @@ import java.net.Socket;
  */
 public class CommandLauncherProxySocket implements CommandContainer {
 
-    Socket socket;
-    ObjectInputStream in;
-    ObjectOutputStream out;
+    private final Socket socket;
+    //private ObjectInputStream in;
+    private final ObjectOutputStream out;
 
     /**
      * creates a socker
@@ -25,8 +25,12 @@ public class CommandLauncherProxySocket implements CommandContainer {
      */
     public CommandLauncherProxySocket(String host, int port) throws IOException {
         socket = new Socket(host, port);
-        in = new ObjectInputStream(socket.getInputStream());
         out = new ObjectOutputStream(socket.getOutputStream());
+    }
+
+    public CommandLauncherProxySocket(Socket s) throws IOException{
+        socket = s;
+        out = new ObjectOutputStream(s.getOutputStream());
     }
 
     /**

@@ -47,7 +47,7 @@ public class CommandReceiverSocket implements Runnable{
                 launcher.addCommand(c);
             }
         }
-        System.out.println("Stopping receiving");
+        System.out.println(">>>Stopping receiving");
         close();
     }
 

@@ -1,8 +1,6 @@
 package network;
 
-import controller.CommandLauncher;
 import controller.CommandLauncherInterface;
-import controller.CommandParser;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -10,11 +8,27 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Accept socket connections
+ */
 public class SocketServer {
+    /**
+     * the socket of the server
+     */
     private ServerSocket serverSocket;
-    private boolean stop = false;
+    /**
+     * if true, stops the server
+     */
+    private boolean stop;
+    /**
+     * a thread pool for launching the command receivers
+     */
     private ExecutorService threadPool;
+    /**
+     * num max of clients that can be served ad once
+     */
     private final static int MAX_CLIENTS = 5;
+
     private final CommandLauncherInterface commandLauncher;
 
     public SocketServer(int port, CommandLauncherInterface c) throws IOException{
@@ -35,5 +49,12 @@ public class SocketServer {
             threadPool.submit(new CommandReceiverSocket(clientSocket, commandLauncher));
 
         }
+    }
+
+    /**
+     * the server is putted in a stop state
+     */
+    public void stopReceiving(){
+        stop = true;
     }
 }
