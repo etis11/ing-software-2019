@@ -8,7 +8,7 @@ import java.net.Socket;
 
 /**
  * This class implements a  view proxy. It's placed on the server side of the application and is perceived as a real view.
- * Use the socket input stream and output string to communicate. All the notify are made through this component, and those
+ * Use the socket input stream and output stream to communicate. All the notify are made through this component, and those
  * are sent via socket.
  */
 public class SocketViewProxy implements MessageListener, StringView {
@@ -19,22 +19,22 @@ public class SocketViewProxy implements MessageListener, StringView {
     /**
      * input read, receive the string written from the client.
      */
-    private final BufferedReader input;
+    private final ObjectInputStream input;
     /**
      * The messages are put in this output and sent to the client
      */
-    private final Writer output;
+    private ObjectOutputStream output;
 
     /**
      * Creates a proxy linked to the client socket.
-     * The input e output stream are implemented as a buffered reader and a printWrite.
+     * The input e output stream are implemented as a ObjectInputRead and a printWrite.
      * @param socket the client socket.
      * @throws IOException if there are some error in getting the input stream or the output stream.
      */
     public SocketViewProxy(Socket socket) throws IOException {
         clientSocket = socket;
-        input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        output = new PrintWriter(socket.getOutputStream()); // put auto-flush?
+        input = new ObjectInputStream(socket.getInputStream());
+        output = new ObjectOutputStream(socket.getOutputStream()); // put auto-flush?
 
     }
 
@@ -42,11 +42,6 @@ public class SocketViewProxy implements MessageListener, StringView {
      * Close the socket and the streams.
      */
     public void close(){
-        try{
-            output.write("Chiusura della connessione col server");
-        } catch (IOException i){
-            System.err.println("Unable to notify the closing procedure to the client");
-        }
 
         if (input!=null){
             try{
@@ -81,7 +76,7 @@ public class SocketViewProxy implements MessageListener, StringView {
     @Override
     public void notify(String message) {
         try{
-            output.write(message);
+            output.writeObject(message);
         }
         catch( IOException i){
             System.err.println("Error in the delivering of the message");
