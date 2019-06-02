@@ -42,12 +42,14 @@ public class CommandReceiverSocket implements Runnable{
     @Override
     public void run(){
         while(!stop){
+            System.out.println(">>> Waiting for next command from "  + clientSocket +".");
             Command c = readCommand();
             if (c != null){
+                System.out.println(">>> Received command from "  + clientSocket +". Adding it to the launcher");
                 launcher.addCommand(c);
             }
         }
-        System.out.println(">>>Stopping receiving");
+        System.out.println(">>> Stopping receiving from " + clientSocket +".");
         close();
     }
 
@@ -62,8 +64,9 @@ public class CommandReceiverSocket implements Runnable{
 
         }
         catch (IOException  | ClassNotFoundException ioe){
-            System.out.println(ioe.getMessage());
-            ioe.printStackTrace();
+            //System.out.println(ioe.getMessage()); printa null
+            System.out.println(">>> The input stream of " + clientSocket + " is not working anymore. The client could have disconnected");
+            //ioe.printStackTrace();
             stopReceiving();
         }
         return c;
@@ -81,14 +84,30 @@ public class CommandReceiverSocket implements Runnable{
      */
     private void close(){
         try{
+            System.out.println(">>> Closing input stream");
             in.close();
+        }
+        catch (IOException ioe){
+            System.out.println(ioe.getMessage());
+            System.out.println(">>> Input stream maybe already closed");
+        }
+
+        try{
+            System.out.println(">>> Closing output stream");
             clientSocket.getOutputStream().close();
+        }
+        catch (IOException ioe){
+            System.out.println(">>> Closing output stream failed. " + ioe.getMessage());
+            //System.out.println(">>> Output stream maybe already closed"); redundant with the getMessage
+        }
+
+        try{
+            System.out.println(">>> Closing " + clientSocket);
             clientSocket.close();
         }
         catch (IOException ioe){
             System.out.println(ioe.getMessage());
-            ioe.printStackTrace();
-            System.out.println("maybe something is already closed in another part of the application");
+            System.out.println(">>> Socket maybe already closed");
         }
     }
 }

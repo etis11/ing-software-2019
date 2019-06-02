@@ -33,6 +33,7 @@ public class SocketServer {
 
     public SocketServer(int port, CommandLauncherInterface c) throws IOException{
         serverSocket = new ServerSocket(port);
+        System.out.println(">>> Server Launched on port:" + port +".");
         threadPool = Executors.newFixedThreadPool(MAX_CLIENTS);
         commandLauncher = c;
     }
@@ -43,10 +44,13 @@ public class SocketServer {
      */
     public void run() throws IOException {
         while(!stop){
+            System.out.println(">>> Waiting for connection.");
             Socket clientSocket = serverSocket.accept();
-            System.out.println(">>>New connection accepted: " + clientSocket.getRemoteSocketAddress());
+            System.out.println(">>> New connection accepted: " + clientSocket.getRemoteSocketAddress());
             //this part will change if we make the change
             threadPool.submit(new CommandReceiverSocket(clientSocket, commandLauncher));
+//            CommandReceiverSocket r = new CommandReceiverSocket(clientSocket, commandLauncher);
+//            r.run();
 
         }
     }

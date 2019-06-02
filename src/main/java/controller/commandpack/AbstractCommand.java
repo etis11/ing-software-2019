@@ -4,9 +4,10 @@ import controller.CommandExecutor;
 import model.GameManager;
 import view.MessageListener;
 
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class AbstractCommand implements Command{
+public abstract class AbstractCommand implements Command, Serializable {
 
     protected MessageListener originView;
     protected List<MessageListener> allViews;
@@ -39,4 +40,6 @@ public abstract class AbstractCommand implements Command{
     public void execute(CommandExecutor exe) {
         System.out.println("ERRORE");
     }
+
+
 }
