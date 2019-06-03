@@ -7,5 +7,5 @@ import java.rmi.RemoteException;
 
 public interface ServerRMIInterface extends Remote {
 
-    public CommandLauncherInterface getCurrentCommandLauncher() throws RemoteException;
+    CommandLauncherInterface getCurrentCommandLauncher() throws RemoteException;
 }

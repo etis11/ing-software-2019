@@ -1,7 +1,5 @@
 package controller;
 
-import java.rmi.RemoteException;
-
 public interface CommandLauncherInterface extends CommandContainer {
 
     /**

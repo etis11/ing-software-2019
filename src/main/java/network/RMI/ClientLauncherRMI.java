@@ -16,7 +16,7 @@ public class ClientLauncherRMI {
         try{
 
             Registry registry = LocateRegistry.getRegistry();
-            ServerRMI serverRMI = (ServerRMI) registry.lookup("serverRMI");
+            ServerRMIInterface serverRMI = (ServerRMIInterface) registry.lookup("serverRMI");
             launcher = serverRMI.getCurrentCommandLauncher();
         }
         catch (Exception r){
@@ -33,6 +33,7 @@ public class ClientLauncherRMI {
             launcher.addCommand(w);
             sleep(10000);
         }
+        System.out.println(">>> Chiudo RMI client");
 
 
     }
