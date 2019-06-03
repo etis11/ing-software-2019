@@ -135,36 +135,46 @@ public class CommandLineInterface extends AbstractView {
     }
 
     public void parseCommand(String command){
-        switch(command.toLowerCase()) {
+        String param="";
+        String realCommand="";
+
+        if(command.contains(" ")) {
+            realCommand = command.split(" ")[0];
+            param = command.split(" ")[1];
+        }else{
+            realCommand=command;
+        }
+        switch(realCommand.toLowerCase()) {
             case "muovi": commandLauncher.addCommand(new AskWalkCommand(originView,allViews));
-                break;
+                return;
             case "raccogli": commandLauncher.addCommand(new AskPickCommand(originView,allViews));
-                break;
+                return;
             case "spara": commandLauncher.addCommand(new AskShootCommand(originView,allViews));
-                break;
+                return;
             case "ricarica": commandLauncher.addCommand(new AskReloadCommand(originView,allViews));
-                break;
+                return;
             case "fineturno": commandLauncher.addCommand(new AskEndTurnCommand(originView,allViews));
-                break;
+                return;
             case "powerup": commandLauncher.addCommand(new AskUsePowerUpCommand(originView,allViews));
-                break;
-            case "setusername username": commandLauncher.addCommand(new SetUsernameCommand(originView,allViews,user, username));
-                break;
-            case "setfraseeffeto effeto": commandLauncher.addCommand(new SetEffectPhraseCommand(originView,allViews,user,phrase));
-                break;
-            case "setuccisioni numerouccisioni": commandLauncher.addCommand(new SetNumberOfDeathCommand(originView,allViews,num,owner));
-                break;
-            case "setgiocatori numerogiocatori": commandLauncher.addCommand(new SetPlayerNumberCommand(originView,allViews,players,owner));
-                break;
+                return;
+            case "setusername": commandLauncher.addCommand(new SetUsernameCommand(originView,allViews,user, param));
+                return;
+            case "setfraseeffeto": commandLauncher.addCommand(new SetEffectPhraseCommand(originView,allViews,user,param));
+                return;
+            case "setuccisioni": commandLauncher.addCommand(new SetNumberOfDeathCommand(originView,allViews,Integer.valueOf(param),owner));
+                return;
+            case "setgiocatori": commandLauncher.addCommand(new SetPlayerNumberCommand(originView,allViews,Integer.valueOf(param),owner));
+                return;
             case "punti": commandLauncher.addCommand(new AskPointsCommand(originView,allViews,player));
-                break;
-            case "setpersonaggio nomepersonaggio": commandLauncher.addCommand(new SetTokenCommand(originView,allViews,token));
-                break;
-            case "setpersonaggio nomepersonaggi":
-                List<String> toadd=new ArrayList<>();
-                toadd.addAll(Arrays.asList(command.split(",")));
-                new MoveCommand(originView,allViews,toadd);
-                break;
+                return;
+            case "setpersonaggio": commandLauncher.addCommand(new SetTokenCommand(originView,allViews,param));
+                return;
+         }
+
+        if(command.contains("up")||command.contains("right")||command.contains("left")||command.contains("down")){
+            List<String> toadd=new ArrayList<>();
+            toadd.addAll(Arrays.asList(command.split(",")));
+            commandLauncher.addCommand(new MoveCommand(originView,allViews,toadd));
         }
     }
 
