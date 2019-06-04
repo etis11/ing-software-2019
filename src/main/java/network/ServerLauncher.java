@@ -10,13 +10,14 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 public class ServerLauncher {
 
     public static void main(String[] args) throws RemoteException, AlreadyBoundException {
 
 
-        CommandLauncherInterface launcher = new CommandLauncherInterface() {
+        CommandLauncherInterface launcher = new CommandLauncherInterface()  {
             @Override
             public void executeCommand() {
                 System.out.println(">>> Eseguo");
@@ -27,6 +28,7 @@ public class ServerLauncher {
                 System.out.println(">>> Arrivato il comando: " + c.getClass());
             }
         };
+        UnicastRemoteObject.exportObject(launcher, 0);
 
         ServerRMI rmiServer = new ServerRMI(launcher);
         Registry registry = LocateRegistry.getRegistry();

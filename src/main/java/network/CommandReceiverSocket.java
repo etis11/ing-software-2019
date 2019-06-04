@@ -6,6 +6,7 @@ import controller.commandpack.Command;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.rmi.RemoteException;
 
 /**
  * A CommandReceiverSocket is an object placed in the server side of the application that receives a command through the net

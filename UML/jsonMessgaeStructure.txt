@@ -1,0 +1,18 @@
+json receiver structure
+
+message: ""
+error: "" //forse è inutile
+tilesChanged:[{tile}]
+playersCHanged[{player}]
+matchInfo:{}
+
+
+
+
+modello semplificato
+Map
+  è una griglia
+
+Tile
+  non ha riferimenti a quelli attorno a lui
+  riferimento al
