@@ -1,10 +1,6 @@
 package controller.commandpack;
 
 import controller.CommandExecutor;
-import model.GameManager;
-import view.MessageListener;
-
-import java.util.List;
 
 /**
  * AskWalkCommand is an instance of command pattern
@@ -15,8 +11,8 @@ import java.util.List;
  */
 public class AskWalkCommand extends AbstractCommand {
 
-    public AskWalkCommand(MessageListener originView, List<MessageListener> allViews){
-        super(originView, allViews);
+    public AskWalkCommand(long token){
+        super(token);
     }
 
     /**

@@ -1,16 +1,11 @@
 package controller.commandpack;
 
 import controller.CommandExecutor;
-import model.GameManager;
-import view.MessageListener;
-import model.AmmoCard;
-
-import java.util.List;
 
 public class PickUpAmmoCommand extends AbstractCommand {
 
-    public PickUpAmmoCommand(MessageListener originView, List<MessageListener> allViews){
-        super(originView, allViews);
+    public PickUpAmmoCommand(long token){
+        super(token);
     }
 
     /**

@@ -38,10 +38,9 @@ public class User {
         //listener
     }
 
-    public User(String username) {
+    public User(String username, long token) {
         this.username = username;
-        this.token = User.idToken;
-        User.idToken++;//increment id for token
+        this.token = token;
         this.effectPhrase = "I will survive";
         this.player = null;
         //listener

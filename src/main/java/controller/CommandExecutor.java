@@ -343,7 +343,7 @@ public class CommandExecutor {
 
     public void execute(CreateUserCommand command){
         if (!gameManager.getMatch().isStarted()) {
-            User user = new User(command.getUsername());
+            User user = new User(command.getUsername(), command.getToken());
             try {
                 gameManager.getLobby().join(user);
             } catch (NotValidActionException e) {

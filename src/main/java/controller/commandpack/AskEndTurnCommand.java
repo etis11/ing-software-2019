@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class AskEndTurnCommand extends AbstractCommand {
 
-    public AskEndTurnCommand(MessageListener originView, List<MessageListener> allViews){
-        super(originView, allViews);
+    public AskEndTurnCommand(long token){
+        super(token);
     }
 
     @Override

@@ -11,10 +11,15 @@ public abstract class AbstractCommand implements Command, Serializable {
 
     protected MessageListener originView;
     protected List<MessageListener> allViews;
+    protected long token;
 
     public AbstractCommand(MessageListener originView, List<MessageListener> allViews){
         this.originView = originView;
         this.allViews = allViews;
+    }
+
+    public AbstractCommand(long token){
+        this.token = token;
     }
 
     public AbstractCommand(){
@@ -28,6 +33,8 @@ public abstract class AbstractCommand implements Command, Serializable {
     public List<MessageListener> getAllViews() {
         return allViews;
     }
+
+    public long getToken(){return token;}
 
     public void endCommandToAction(GameManager gameManager){
         gameManager.getMatch().getCurrentPlayer().decrementMoves();

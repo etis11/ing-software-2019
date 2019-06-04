@@ -1,21 +1,18 @@
 package controller.commandpack;
 
 import controller.CommandExecutor;
-import view.MessageListener;
-
-import java.util.List;
 
 public class SetTokenCommand extends AbstractCommand {
 
-    String token;
+    String playerToken;
 
-    public SetTokenCommand(MessageListener originView, List<MessageListener> allViews, String token){
-        super(originView, allViews);
-        this.token = token;
+    public SetTokenCommand(long token, String playerToken){
+        super(token);
+        this.playerToken = playerToken;
     }
 
-    public String getToken() {
-        return token;
+    public String getPlayerToken() {
+        return playerToken;
     }
 
     @Override

@@ -14,15 +14,18 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import model.GameManager;
 
 import java.io.File;
 import java.io.FileInputStream;
 
 public class MainFrame extends Application {
     final int buttonWidth = 150;
-    private CommandLauncher cmdLauncher;
+    private CommandLauncher cmdLauncher = new CommandLauncher(new GameManager());//TODO togliere
 
-
+    public void init(CommandLauncher cmd){
+        this.cmdLauncher = cmd;
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -55,7 +58,7 @@ public class MainFrame extends Application {
 
                 }
                 else{
-                    info.setText("inserisci un username");
+                    info.setText("inserisci un username valido");
                     info.setVisible(true);
                 }
             }
@@ -75,7 +78,7 @@ public class MainFrame extends Application {
                     openNextStage(stage);
                 }
                 else{
-                    info.setText("inserisci un username");
+                    info.setText("inserisci un username valido");
                     info.setVisible(true);
                 }
             }
@@ -105,6 +108,7 @@ public class MainFrame extends Application {
     public void openNextStage(Stage stage){
         LobbyFrame lf = new LobbyFrame();
         try {
+            lf.init(cmdLauncher);
             lf.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,7 +116,7 @@ public class MainFrame extends Application {
         stage.close();
     }
 
-    public boolean checkUsername(String username){
+    private boolean checkUsername(String username){
         return !username.equalsIgnoreCase("") && !username.equalsIgnoreCase("username");
     }
 
