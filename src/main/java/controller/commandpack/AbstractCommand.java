@@ -34,6 +34,8 @@ public abstract class AbstractCommand implements Command, Serializable {
         return allViews;
     }
 
+    public long getToken(){return token;}
+
     public void endCommandToAction(GameManager gameManager){
         gameManager.getMatch().getCurrentPlayer().decrementMoves();
         gameManager.getMatch().getCurrentPlayer().getState().resetRemainingSteps();
