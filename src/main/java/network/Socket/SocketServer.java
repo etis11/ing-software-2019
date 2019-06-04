@@ -1,7 +1,6 @@
 package network.Socket;
 
 import controller.CommandLauncherInterface;
-import network.CommandReceiverSocket;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -47,6 +46,7 @@ public class SocketServer {
         while(!stop){
             System.out.println(">>> Waiting for connection.");
             Socket clientSocket = serverSocket.accept();
+            //clientSocket.getOutputStream().write(generateToken())
             System.out.println(">>> New connection accepted: " + clientSocket.getRemoteSocketAddress());
             //this part will change if we make the change
             threadPool.submit(new CommandReceiverSocket(clientSocket, commandLauncher));
