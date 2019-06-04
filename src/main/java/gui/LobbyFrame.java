@@ -3,6 +3,7 @@ package gui;
 import controller.CommandLauncher;
 import controller.commandpack.Command;
 import controller.commandpack.CreateUserCommand;
+import controller.commandpack.SetEffectPhraseCommand;
 import controller.commandpack.SetUsernameCommand;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -131,8 +132,8 @@ public class LobbyFrame extends Application {
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
                 if(checkUsername(usernameField.getText().trim())){
-                    //TODo sistemare user
-                    cmdLauncher.addCommand(new SetUsernameCommand(null, null, null, usernameField.getText().trim()));
+                    //TODo sistemare user e sistemare comando una volta disponibile il singleton
+                    cmdLauncher.addCommand(new SetUsernameCommand(0L, usernameField.getText().trim()));
                 }
                 else{
                     info.setText("inserisci un username valido");
@@ -144,6 +145,20 @@ public class LobbyFrame extends Application {
         buttonPhrase.setLayoutY(effectPhraseField.getLayoutY());
         buttonPhrase.setLayoutX(effectPhraseField.getLayoutX()+effectPhraseField.getMinWidth()+50);
         buttonPhrase.setMinWidth(150);
+        buttonPhrase.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                info.setVisible(false);
+                if(checkPhrase(effectPhraseField.getText())){
+                    //TODo sistemare user e sistemare comando una volta disponibile il singleton
+                    cmdLauncher.addCommand(new SetEffectPhraseCommand(0L, effectPhraseField.getText()));
+                }
+                else{
+                    info.setText("inserisci una frase");
+                    info.setVisible(true);
+                }
+            }
+        });
 
         buttonDeath.setLayoutY(deathField.getLayoutY());
         buttonDeath.setLayoutX(deathField.getLayoutX()+deathField.getMinWidth()+50);
@@ -188,5 +203,9 @@ public class LobbyFrame extends Application {
 
     private boolean checkUsername(String username){
         return !username.equalsIgnoreCase("") && !username.equalsIgnoreCase("username") &&!username.equalsIgnoreCase("Cambia username") ;
+    }
+
+    private boolean checkPhrase(String phrase){
+        return !phrase.equalsIgnoreCase("") &&!phrase.equalsIgnoreCase("Cambia frase ad effetto") ;
     }
 }
