@@ -1,0 +1,35 @@
+1) cambiare i comandi. ora accettano un token che rende più facile chi sta chiedendo cosa Ing. Passoni
+2) completare la network. Oscar (inizializzare il client Singleton)
+3) continuare la gui. Passoni e etis ?
+4) rincontrollare armi etis
+5) singleton passoni
+6) risolvere il string parser etis. (Passoni ha cambiato i comandi, modificare i parametri)
+7) specchiare immagine etis
+-----
+soft line)
+a) creare il modello semplificato Oscar
+
+
+
+cose da fare insieme venerdì
+1) mettere in piedi una CLI
+2) mettere in piedi la rete
+3) comando di sparo
+4) parlare del modello semplificato
+5) nella gui settare per bene il token (inserire il lancio del client RMI o socket)
+6) sistema command executor con tutta la storia del json receiver
+
+
+-------------------------
+1) json receiver
+2) la serializzazione e deserializzazione
+3) Finire la network
+4) Finire la GUI
+5) CLI: parser incompleto
+6) CLI: non è chiaro come interagisce con il resto del mondo
+7) ammo card
+8) power card
+9) inizializzazione partita
+10) gestione dei turni
+11) gestione fine partita
+12) testare in qualche modo lo shooting

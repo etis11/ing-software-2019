@@ -1,18 +1,20 @@
 package view;
 
 import controller.CommandLauncher;
+import controller.CommandLauncherInterface;
 import controller.commandpack.*;
 import model.*;
 
 import java.io.*;
 import java.lang.reflect.Array;
+import java.rmi.RemoteException;
 import java.util.*;
 
 /**
  *  The classic CLI class needed to run the software without GUI
  **/
 public class CommandLineInterface extends AbstractView {
-    private  CommandLauncher commandLauncher;
+    private CommandLauncherInterface commandLauncher;
     private MessageListener originView;
     private List<MessageListener> allViews;
     private Player player;
@@ -26,16 +28,32 @@ public class CommandLineInterface extends AbstractView {
     /**
      *  Attribute needed to output text from the console
      **/
-    public static   Writer consoleOutput = new OutputStreamWriter(System.out);
-
+    public Writer consoleOutput;
     /**
      * Attribute needed to grab the input entered by the user/player
      **/
+    public Scanner fromKeyBoard;
 
- public static  Reader fromKeyBoard = new InputStreamReader(System.in);
 
-    /* It starts a new scanner needed to grab user input from keyboard*/
-   public static  Scanner scanner = new Scanner( System.in );
+    /**
+     * creates a cli that receives on the system.in and writes on system.out
+     * @throws IOException
+     */
+   public CommandLineInterface() throws IOException{
+       consoleOutput = new PrintWriter(System.out);
+       fromKeyBoard = new Scanner(System.in);
+
+   }
+
+    /**
+     * creates a generic cli
+     * @param inputStream
+     * @param outputStream
+     */
+   public CommandLineInterface(InputStream inputStream,  PrintStream outputStream){
+       consoleOutput = new PrintWriter(outputStream);
+       fromKeyBoard = new Scanner(inputStream);
+   }
 
     /**
     * Method used to print out to the users waiting on lobby when a new user joins in the lobby
@@ -60,7 +78,7 @@ public class CommandLineInterface extends AbstractView {
     * @param match is the new Gamemap that got chosen as the map to be used during the next gameplay
     **/
     @Override
-    public void onMapCHange(Match match) {
+    public void onMapChange(Match match) {
 
         for(Player player : match.getPlayers()) {
             if(player.getTile()==null){
@@ -129,7 +147,7 @@ public class CommandLineInterface extends AbstractView {
  //       Scanner scanner1 = new Scanner(System.in);
         System.out.println("Enter some words");
 
-        String cc = scanner.nextLine();
+        String cc = fromKeyBoard.nextLine();
         System.out.println("Enter some words2"+cc);
         return cc;
     }
@@ -139,7 +157,7 @@ public class CommandLineInterface extends AbstractView {
     All cases should be case insensitive
      */
 
-    public void parseCommand(String command){
+    public void parseCommand(String command) throws RemoteException {
         String param="";
         String realCommand="";
 
@@ -187,7 +205,7 @@ public class CommandLineInterface extends AbstractView {
 
 
       //  Scanner scanner = new Scanner(System.in);
-        int input = scanner.nextInt();
+        int input = fromKeyBoard.nextInt();
       //  scanner.close();
         return input;
     }

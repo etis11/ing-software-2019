@@ -8,9 +8,15 @@ import model.*;
 import view.MessageListener;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 public class CommandExecutor {
 
+    ConcurrentMap<Long, JsonReceiver> listeners;
     /**
      * gameManager is a reference to the model due to access to the match and lobby variables
      */
@@ -18,6 +24,7 @@ public class CommandExecutor {
 
     public CommandExecutor(GameManager gameManager){
         this.gameManager=gameManager;
+        this.listeners = new ConcurrentHashMap<>();
     }
 
     public void execute(AskEndTurnCommand command){
