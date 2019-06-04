@@ -34,20 +34,21 @@ public class WeaponCard{
      * */
     private boolean loaded;
 
-
+/*
+Method returns list of base Effects(and advanced Effects considering the fact that both have the same structure
+@return list of effects
+ */
     public List<Effect> getBaseEffect() {
         return baseEffect;
     }
 
-    public List<Effect> getAdvancedEffect() {
-        return advancedEffect;
-    }
-
+    /*
+    Default constructor of our class
+     */
     public WeaponCard(){
         this.reloadCost = new LinkedList<>();
         this.loaded = true;
         this.name = "default";
-
     }
 
     /**
@@ -180,27 +181,47 @@ public class WeaponCard{
 
     }
 
+/*
+Method used to set a base effect
+@param baseEffect is a list of base effects
+ */
     public void setBaseEffect(List<Effect> baseEffect) {
         this.baseEffect = baseEffect;
     }
 
+    /*
+Method used to set an advanced effect
+@param advancedEffect is a list of base effects
+ */
     public void setAdvancedEffect(List<Effect> advancedEffect) {
         this.advancedEffect = advancedEffect;
     }
 
+    /*
+    Method used to set for the Weapon card
+    @param namee is a String type needed to set up a name for our card
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /*
+    Method neded to set the cost for our weaponcards
+    @param reloadCost is a List of strings containing the needed ammos so that our card can be used
+     */
     public void setReloadCost(List<String> reloadCost) {
         this.reloadCost = reloadCost;
     }
+
 
     @Override
     public int hashCode() {
         return super.hashCode();
     }
 
+    /*
+    Default method needed to connect our pre-defined strings to their values
+     */
     @Override
     public String toString() {
         return "WeaponCard{" +

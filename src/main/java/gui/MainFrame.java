@@ -1,5 +1,7 @@
 package gui;
 
+import controller.CommandLauncher;
+import controller.commandpack.CreateUserCommand;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,14 +14,15 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import model.Lobby;
-import model.User;
 
 import java.io.File;
 import java.io.FileInputStream;
 
 public class MainFrame extends Application {
     final int buttonWidth = 150;
+    private CommandLauncher cmdLauncher;
+
+
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -47,7 +50,7 @@ public class MainFrame extends Application {
                 info.setVisible(false);
                 if(checkUsername(userField.getText().trim())){
                     //TODO impostazione tipo connessione
-                    //TODO creazione comando
+                    cmdLauncher.addCommand(new CreateUserCommand(null, null, userField.getText().trim()));
                     openNextStage(stage);
 
                 }
@@ -68,7 +71,7 @@ public class MainFrame extends Application {
                 info.setVisible(false);
                 if(checkUsername(userField.getText().trim())){
                     //TODO impostazione tipo connessione
-                    //TODO creazione comando
+                    cmdLauncher.addCommand(new CreateUserCommand(null, null, userField.getText().trim()));
                     openNextStage(stage);
                 }
                 else{

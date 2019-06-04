@@ -1,5 +1,7 @@
 package gui;
 
+import controller.CommandLauncher;
+import controller.commandpack.Command;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,6 +16,8 @@ import java.io.FileInputStream;
 
 public class LobbyFrame extends Application {
     final int buttonWidth = 75;
+    private CommandLauncher cmdLauncher;
+
 
     @Override
     public void start(Stage stage) throws Exception {
