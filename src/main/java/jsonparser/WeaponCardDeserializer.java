@@ -8,14 +8,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/*
+Class used to deserialise all Weaponcards based on Effects,strategies and typology.
+ */
 public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
 
+ /*
+   Private attribute to be used when needed for the strategies
+  */
     private Match match;
 
+    /*
+    The default constructor
+     */
     public WeaponCardDeserializer (Match match){
         this.match = match;
     }
 
+    /*
+    The following method is based on gson library needed to deserialise a .jSON file .
+    In this case we needed it to deserialise our weaponcards!
+     */
     @Override
     public WeaponCard deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         Gson gson = new Gson();
@@ -42,6 +55,12 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
 
         return wcToAdd;
     }
+
+    /*
+    Method used to parse from the jSON file.
+    @param jsonFile is added as string
+    @return List of WeaponCards with all of their characteristics
+     */
 
     public  List<WeaponCard> parseWeaponCards(String jsonFile){
         //creates the gson parser
@@ -73,6 +92,13 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
         }
         return wcToReturn;
     }
+
+    /*
+    Method used to parse BaseEffects but AdvancedEffects also given the fact that we've treated both as same
+    @param effects is a list of jSON elements
+    @param gson is by default imported as needed for our method
+    @return List of base and advanced effects!
+     */
     private List<Effect> parseBaseEffects(JsonArray effects,Gson gson) {
         List<Effect> toReturn =new ArrayList<>();
         for(JsonElement eff:effects){
@@ -141,6 +167,12 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
 
     }
 
+    /*
+    Private method made by a switch-case where it select the strategy to be applied to a certain Weaponcard
+    @param name is the name of the Strategy class used
+    @param param is an integer used to determine the distance shooter-target needed for some strategies
+    @return strategu to be applied
+     */
         private AbstractTargetStrategy getStrategyByName (String name,int param){
             AbstractTargetStrategy toReturn = null;
             switch (name) {
@@ -188,7 +220,4 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
             }
             return toReturn;
         }
-
-
-
 }

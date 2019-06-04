@@ -88,7 +88,7 @@ public class CommandLineInterface extends AbstractView {
      **/
     @Override
     public void onHpChange(Player damagePlayer) {
-        System.out.println(damagePlayer.getName()+" ha subito danni e quindi e' remasto con "+damagePlayer.getPlayerBoard().getNumDamagePoints()+" vite.");
+        System.out.println(damagePlayer.getName()+" ha subito danni e quindi e' rimasto con "+damagePlayer.getPlayerBoard().getNumDamagePoints()+" vite.");
     }
 
     /**
@@ -133,6 +133,11 @@ public class CommandLineInterface extends AbstractView {
         System.out.println("Enter some words2"+cc);
         return cc;
     }
+
+    /*
+    Method used to parse the commands on CLI. It returns void and is based on a switch case.
+    All cases should be case insensitive
+     */
 
     public void parseCommand(String command){
         String param="";

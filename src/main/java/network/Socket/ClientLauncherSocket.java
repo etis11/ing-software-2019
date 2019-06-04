@@ -3,7 +3,6 @@ package network.Socket;
 import controller.commandpack.AskPickCommand;
 import controller.commandpack.AskWalkCommand;
 import controller.commandpack.MoveCommand;
-import network.CommandLauncherProxySocket;
 
 import java.io.IOException;
 import java.net.Socket;

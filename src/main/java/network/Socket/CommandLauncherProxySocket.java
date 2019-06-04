@@ -1,4 +1,4 @@
-package network;
+package network.Socket;
 
 import controller.CommandContainer;
 import controller.commandpack.Command;

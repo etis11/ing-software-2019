@@ -1,4 +1,4 @@
-package network;
+package network.RMI;
 
 import controller.CommandLauncherInterface;
 
