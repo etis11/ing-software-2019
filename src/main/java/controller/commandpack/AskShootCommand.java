@@ -1,11 +1,6 @@
 package controller.commandpack;
 
 import controller.CommandExecutor;
-import model.GameManager;
-import model.WeaponCard;
-import view.MessageListener;
-
-import java.util.List;
 
 /**
  * AskShootCommand is an instance of command pattern
@@ -16,8 +11,8 @@ import java.util.List;
  */
 public class AskShootCommand extends AbstractCommand {
 
-    public AskShootCommand(MessageListener originView, List<MessageListener> allViews){
-        super(originView, allViews);
+    public AskShootCommand(long token){
+        super(token);
     }
 
     /**

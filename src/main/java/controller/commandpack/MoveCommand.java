@@ -1,11 +1,6 @@
 package controller.commandpack;
 
 import controller.CommandExecutor;
-import model.GameManager;
-import view.MessageListener;
-import model.Movement;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,8 +17,8 @@ public class MoveCommand extends AbstractCommand {
      */
     private List<String> moves;
 
-    public MoveCommand(MessageListener originView, List<MessageListener> allViews, List<String> moves){
-        super(originView, allViews);
+    public MoveCommand(long token, List<String> moves){
+        super(token);
         this.moves = moves;
     }
 

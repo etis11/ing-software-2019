@@ -1,7 +1,6 @@
 package controller.commandpack;
 
 import controller.CommandExecutor;
-import model.GameManager;
 import model.User;
 import view.MessageListener;
 

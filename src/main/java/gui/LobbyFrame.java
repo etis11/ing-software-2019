@@ -2,13 +2,20 @@ package gui;
 
 import controller.CommandLauncher;
 import controller.commandpack.Command;
+import controller.commandpack.CreateUserCommand;
+import controller.commandpack.SetUsernameCommand;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -18,6 +25,10 @@ public class LobbyFrame extends Application {
     final int buttonWidth = 75;
     private CommandLauncher cmdLauncher;
 
+
+    public void init(CommandLauncher cmd){
+        this.cmdLauncher = cmd;
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -56,11 +67,24 @@ public class LobbyFrame extends Application {
         TextField effectPhraseField = new TextField("Cambia frase ad effetto");
         TextField deathField = new TextField("Cambia numero morti");
         TextField playerNumberField = new TextField("Cambia numero giocatori");
+        Label info = new Label();
+
+        info.setLayoutY(625);
+        info.setLayoutX(500);
+        info.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
         buttonPlayer1.setLayoutY(300);
         buttonPlayer1.setLayoutX(50);
         buttonPlayer1.setMinWidth(buttonWidth);
         buttonPlayer1.setMinHeight(buttonWidth);
+        buttonPlayer1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                //info.setVisible(false);
+
+            }
+        });
+
         buttonPlayer1.setGraphic(new ImageView(imageDistruttore));
         buttonPlayer2.setLayoutY(buttonPlayer1.getLayoutY());
         buttonPlayer2.setLayoutX(250);
@@ -102,6 +126,20 @@ public class LobbyFrame extends Application {
         buttonUsername.setLayoutY(usernameField.getLayoutY());
         buttonUsername.setLayoutX(usernameField.getLayoutX()+usernameField.getMinWidth()+50);
         buttonUsername.setMinWidth(150);
+        buttonUsername.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                info.setVisible(false);
+                if(checkUsername(usernameField.getText().trim())){
+                    //TODo sistemare user
+                    cmdLauncher.addCommand(new SetUsernameCommand(null, null, null, usernameField.getText().trim()));
+                }
+                else{
+                    info.setText("inserisci un username valido");
+                    info.setVisible(true);
+                }
+            }
+        });
 
         buttonPhrase.setLayoutY(effectPhraseField.getLayoutY());
         buttonPhrase.setLayoutX(effectPhraseField.getLayoutX()+effectPhraseField.getMinWidth()+50);
@@ -141,9 +179,14 @@ public class LobbyFrame extends Application {
         box.getChildren().add(effectPhraseField);
         box.getChildren().add(deathField);
         box.getChildren().add(playerNumberField);
+        box.getChildren().add(info);
 
 
         stage.setScene(new Scene(box, 1000, 600));
         stage.show();
+    }
+
+    private boolean checkUsername(String username){
+        return !username.equalsIgnoreCase("") && !username.equalsIgnoreCase("username") &&!username.equalsIgnoreCase("Cambia username") ;
     }
 }

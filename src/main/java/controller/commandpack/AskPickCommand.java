@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class AskPickCommand extends AbstractCommand {
 
-    public AskPickCommand(MessageListener originView, List<MessageListener> allViews){
-        super(originView, allViews);
+    public AskPickCommand(long token){
+        super(token);
     }
 
     @Override
