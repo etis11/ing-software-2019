@@ -47,7 +47,13 @@ public class CommandReceiverSocket implements Runnable{
             Command c = readCommand();
             if (c != null){
                 System.out.println(">>> Received command from "  + clientSocket +". Adding it to the launcher");
-                launcher.addCommand(c);
+                try{
+
+                    launcher.addCommand(c);
+                }
+                catch (RemoteException i){
+                    throw new RuntimeException("This exception should never occurs. A socket doesn't generate a Remote exception ");
+                }
             }
         }
         System.out.println(">>> Stopping receiving from " + clientSocket +".");
