@@ -5,6 +5,7 @@ open module project{
     requires java.management;
     requires gson;
     requires java.logging;
+    requires java.rmi;
 
     exports gui to javafx.graphics, javafx.fxml;
 }

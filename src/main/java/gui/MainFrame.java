@@ -14,6 +14,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+<<<<<<< HEAD
+=======
+import model.Lobby;
+import model.User;
+>>>>>>> c9f5dcf9a690148e01b7f25f75b0569d89ec86f1
 
 import java.io.File;
 import java.io.FileInputStream;

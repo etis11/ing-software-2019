@@ -51,7 +51,7 @@ public class WeaponCardTest {
         //List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
         WeaponCardDeserializer weaponCardDeserializer = new WeaponCardDeserializer(match);
         List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
-       // System.out.println(weaponCards.get(0).getBaseEffect().get(0).getMarks());
+        System.out.println(weaponCards.get(0).getBaseEffect().get(0).getMarks());
     }
 
 

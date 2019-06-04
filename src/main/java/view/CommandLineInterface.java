@@ -1,17 +1,28 @@
 package view;
 
+import controller.CommandLauncher;
+import controller.commandpack.*;
 import model.*;
 
 import java.io.*;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  *  The classic CLI class needed to run the software without GUI
  **/
 public class CommandLineInterface extends AbstractView {
-
+    private  CommandLauncher commandLauncher;
+    private MessageListener originView;
+    private List<MessageListener> allViews;
+    private Player player;
+    private User user;
+    private String username;
+    private String phrase;
+    private int num;
+    private User owner;
+    private int players;
+    private String token;
     /**
      *  Attribute needed to output text from the console
      **/
@@ -123,7 +134,53 @@ public class CommandLineInterface extends AbstractView {
         return cc;
     }
 
+    public void parseCommand(String command){
+        String param="";
+        String realCommand="";
+
+        if(command.contains(" ")) {
+            realCommand = command.split(" ")[0];
+            param = command.split(" ")[1];
+        }else{
+            realCommand=command;
+        }
+        switch(realCommand.toLowerCase()) {
+            case "muovi": commandLauncher.addCommand(new AskWalkCommand(originView,allViews));
+                return;
+            case "raccogli": commandLauncher.addCommand(new AskPickCommand(originView,allViews));
+                return;
+            case "spara": commandLauncher.addCommand(new AskShootCommand(originView,allViews));
+                return;
+            case "ricarica": commandLauncher.addCommand(new AskReloadCommand(originView,allViews));
+                return;
+            case "fineturno": commandLauncher.addCommand(new AskEndTurnCommand(originView,allViews));
+                return;
+            case "powerup": commandLauncher.addCommand(new AskUsePowerUpCommand(originView,allViews));
+                return;
+            case "setusername": commandLauncher.addCommand(new SetUsernameCommand(originView,allViews,user, param));
+                return;
+            case "setfraseeffeto": commandLauncher.addCommand(new SetEffectPhraseCommand(originView,allViews,user,param));
+                return;
+            case "setuccisioni": commandLauncher.addCommand(new SetNumberOfDeathCommand(originView,allViews,Integer.valueOf(param),owner));
+                return;
+            case "setgiocatori": commandLauncher.addCommand(new SetPlayerNumberCommand(originView,allViews,Integer.valueOf(param),owner));
+                return;
+            case "punti": commandLauncher.addCommand(new AskPointsCommand(originView,allViews,player));
+                return;
+            case "setpersonaggio": commandLauncher.addCommand(new SetTokenCommand(originView,allViews,param));
+                return;
+         }
+
+        if(command.contains("up")||command.contains("right")||command.contains("left")||command.contains("down")){
+            List<String> toadd=new ArrayList<>();
+            toadd.addAll(Arrays.asList(command.split(",")));
+            commandLauncher.addCommand(new MoveCommand(originView,allViews,toadd));
+        }
+    }
+
     public int getUserInputInt(){
+
+
       //  Scanner scanner = new Scanner(System.in);
         int input = scanner.nextInt();
       //  scanner.close();
