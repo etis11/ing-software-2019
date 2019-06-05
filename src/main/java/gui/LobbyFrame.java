@@ -1,8 +1,6 @@
 package gui;
 
 import controller.CommandLauncher;
-import controller.commandpack.Command;
-import controller.commandpack.CreateUserCommand;
 import controller.commandpack.SetEffectPhraseCommand;
 import controller.commandpack.SetUsernameCommand;
 import javafx.application.Application;

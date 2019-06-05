@@ -7,6 +7,7 @@ import model.GameManager;
 import model.Match;
 import model.Player;
 import model.State;
+import view.ClientSingleton;
 import view.MessageListener;
 
 import java.io.File;
@@ -30,9 +31,9 @@ public class Main {
         players.add(p);
         m.setPlayers(players);
         CommandLauncher launcher = new CommandLauncher(gm);
-        AskEndTurnCommand endCommand = new AskEndTurnCommand(0);
-        AskReloadCommand reloadCommand = new AskReloadCommand(0);
-        AskPickCommand pickCommand = new AskPickCommand(0);
+        AskEndTurnCommand endCommand = new AskEndTurnCommand(ClientSingleton.getInstance().getToken());
+        AskReloadCommand reloadCommand = new AskReloadCommand(ClientSingleton.getInstance().getToken());
+        AskPickCommand pickCommand = new AskPickCommand(ClientSingleton.getInstance().getToken());
 
         launcher.addCommand(pickCommand);
         launcher.addCommand(reloadCommand);
