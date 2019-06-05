@@ -41,7 +41,7 @@ public class Tile {
      * list of all players that are in the tile. If the player is present, there is only one occurence.
      * Can't be null. Can be a empty list. All players in the list are different.
      */
-    private LinkedList<Player> players;
+    private List<Player> players;
 
     /**
      * Tells if the tile can contain ammo
@@ -401,7 +401,7 @@ public class Tile {
      * Gets the players that are present in this tile
      * @return list of players. can be null
      */
-    public LinkedList<Player> getPlayers() {
+    public List<Player> getPlayers() {
         return players;
     }
 
@@ -532,7 +532,7 @@ public class Tile {
      * @param playerToAdd player that has to be placed in
      */
     public void addPlayer(Player playerToAdd){
-        players.addLast(playerToAdd);
+        players.add(playerToAdd);
         playerToAdd.setTile(this);
     }
     public boolean isPlayerPresent(Player p){
