@@ -40,6 +40,7 @@ public class CommandLauncherProxySocket implements CommandContainer {
     public void addCommand(Command c){
         try{
             out.writeObject(c);
+            out.flush();
         }
         catch (IOException i){
             System.err.println(i.getMessage());

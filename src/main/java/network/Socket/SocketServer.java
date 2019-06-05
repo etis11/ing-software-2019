@@ -55,6 +55,7 @@ public class SocketServer {
             PrintWriter p = new PrintWriter(clientSocket.getOutputStream());
             serverLogger.log(Level.INFO,">>> Generating Token");
             p.write(UUID.randomUUID().toString());
+            p.flush();
             //clientSocket.getOutputStream().write(generateToken())
             serverLogger.log(Level.INFO,">>> New connection accepted: " + clientSocket.getRemoteSocketAddress());
             //this part will change if we make the change
