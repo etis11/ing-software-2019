@@ -33,3 +33,4 @@ cose da fare insieme venerdì
 10) gestione dei turni
 11) gestione fine partita
 12) testare in qualche modo lo shooting
+13) rendere i timer facilmente configurabili
