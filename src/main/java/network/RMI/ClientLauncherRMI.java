@@ -4,6 +4,7 @@ import controller.CommandLauncherInterface;
 import controller.commandpack.AskPickCommand;
 import controller.commandpack.AskWalkCommand;
 import controller.commandpack.MoveCommand;
+import view.ClientSingleton;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -19,6 +20,7 @@ public class ClientLauncherRMI {
             Registry registry = LocateRegistry.getRegistry();
             ServerRMIInterface serverRMI = (ServerRMIInterface) registry.lookup("serverRMI");
             token= serverRMI.getPersonalToken();
+            ClientSingleton.getInstance().setToken(token);
             launcher = serverRMI.getCurrentCommandLauncher();
         }
         catch (Exception r){

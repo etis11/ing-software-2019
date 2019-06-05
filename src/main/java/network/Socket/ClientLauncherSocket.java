@@ -3,8 +3,11 @@ package network.Socket;
 import controller.commandpack.AskPickCommand;
 import controller.commandpack.AskWalkCommand;
 import controller.commandpack.MoveCommand;
+import view.ClientSingleton;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
 
 import static java.lang.Thread.sleep;
@@ -16,6 +19,8 @@ public class ClientLauncherSocket {
         try {
 
             mySocket = new Socket("localhost", 8000);
+            BufferedReader input = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
+            ClientSingleton.getInstance().setToken(input.readLine());
         } catch (IOException i) {
             System.out.println(">>> Errore nella connessione, probabilmente il server è down");
         }
@@ -32,12 +37,12 @@ public class ClientLauncherSocket {
             }
 
             if (cr != null) {
-                AskPickCommand c = new AskPickCommand(0);
+                AskPickCommand c = new AskPickCommand(ClientSingleton.getInstance().getToken());
                 cr.addCommand(c);
-                MoveCommand m = new MoveCommand(0, null);
+                MoveCommand m = new MoveCommand(ClientSingleton.getInstance().getToken(), null);
                 cr.addCommand(m);
                 sleep(10000);
-                AskWalkCommand w = new AskWalkCommand(0);
+                AskWalkCommand w = new AskWalkCommand(ClientSingleton.getInstance().getToken());
                 cr.addCommand(w);
                 sleep(10000);
             }

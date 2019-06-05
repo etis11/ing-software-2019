@@ -15,6 +15,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.GameManager;
+import view.ClientSingleton;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -53,7 +54,7 @@ public class MainFrame extends Application {
                 info.setVisible(false);
                 if(checkUsername(userField.getText().trim())){
                     //TODO impostazione tipo connessione
-                    cmdLauncher.addCommand(new CreateUserCommand(null,  userField.getText().trim()));
+                    cmdLauncher.addCommand(new CreateUserCommand(ClientSingleton.getInstance().getToken(),  userField.getText().trim()));
                     openNextStage(stage);
 
                 }
@@ -74,7 +75,7 @@ public class MainFrame extends Application {
                 info.setVisible(false);
                 if(checkUsername(userField.getText().trim())){
                     //TODO impostazione tipo connessione
-                    cmdLauncher.addCommand(new CreateUserCommand(null,  userField.getText().trim()));
+                    cmdLauncher.addCommand(new CreateUserCommand(ClientSingleton.getInstance().getToken(),  userField.getText().trim()));
                     openNextStage(stage);
                 }
                 else{

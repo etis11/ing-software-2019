@@ -18,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import view.ClientSingleton;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -133,7 +134,7 @@ public class LobbyFrame extends Application {
                 info.setVisible(false);
                 if(checkUsername(usernameField.getText().trim())){
                     //TODo sistemare user e sistemare comando una volta disponibile il singleton
-                    cmdLauncher.addCommand(new SetUsernameCommand(0L, usernameField.getText().trim()));
+                    cmdLauncher.addCommand(new SetUsernameCommand(ClientSingleton.getInstance().getToken(), usernameField.getText().trim()));
                 }
                 else{
                     info.setText("inserisci un username valido");
@@ -151,7 +152,7 @@ public class LobbyFrame extends Application {
                 info.setVisible(false);
                 if(checkPhrase(effectPhraseField.getText())){
                     //TODo sistemare user e sistemare comando una volta disponibile il singleton
-                    cmdLauncher.addCommand(new SetEffectPhraseCommand(0L, effectPhraseField.getText()));
+                    cmdLauncher.addCommand(new SetEffectPhraseCommand(ClientSingleton.getInstance().getToken(), effectPhraseField.getText()));
                 }
                 else{
                     info.setText("inserisci una frase");

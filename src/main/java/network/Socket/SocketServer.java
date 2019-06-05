@@ -2,9 +2,13 @@ package network.Socket;
 
 import controller.CommandLauncherInterface;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -46,6 +50,9 @@ public class SocketServer {
         while(!stop){
             System.out.println(">>> Waiting for connection.");
             Socket clientSocket = serverSocket.accept();
+            PrintWriter p = new PrintWriter(clientSocket.getOutputStream());
+            System.out.println(">>> Generating Token");
+            p.write(UUID.randomUUID().toString());
             //clientSocket.getOutputStream().write(generateToken())
             System.out.println(">>> New connection accepted: " + clientSocket.getRemoteSocketAddress());
             //this part will change if we make the change
