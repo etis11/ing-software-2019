@@ -1,8 +1,7 @@
 package gui;
 
 import controller.CommandLauncher;
-import controller.commandpack.SetEffectPhraseCommand;
-import controller.commandpack.SetUsernameCommand;
+import controller.commandpack.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -69,7 +68,7 @@ public class LobbyFrame extends Application {
         TextField playerNumberField = new TextField("Cambia numero giocatori");
         Label info = new Label();
 
-        info.setLayoutY(625);
+        info.setLayoutY(550);
         info.setLayoutX(500);
         info.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
@@ -77,35 +76,101 @@ public class LobbyFrame extends Application {
         buttonPlayer1.setLayoutX(50);
         buttonPlayer1.setMinWidth(buttonWidth);
         buttonPlayer1.setMinHeight(buttonWidth);
+        buttonPlayer1.setGraphic(new ImageView(imageDistruttore));
         buttonPlayer1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                //info.setVisible(false);
+                info.setVisible(false);
+                if (checkToken("Distruttore")){
+                    cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Distruttore"));
+                }
+                else{
+                    info.setText("personaggio già scelto");
+                    info.setVisible(true);
+                }
 
             }
         });
 
-        buttonPlayer1.setGraphic(new ImageView(imageDistruttore));
         buttonPlayer2.setLayoutY(buttonPlayer1.getLayoutY());
         buttonPlayer2.setLayoutX(250);
         buttonPlayer2.setMinWidth(buttonWidth);
         buttonPlayer2.setMinHeight(buttonWidth);
         buttonPlayer2.setGraphic(new ImageView(imageBanshee));
+        buttonPlayer2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                info.setVisible(false);
+                if (checkToken("Banshee")){
+                    cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Banshee"));
+                }
+                else{
+                    info.setText("personaggio già scelto");
+                    info.setVisible(true);
+                }
+
+            }
+        });
+
         buttonPlayer3.setLayoutY(buttonPlayer1.getLayoutY());
         buttonPlayer3.setLayoutX(450);
         buttonPlayer3.setMinWidth(buttonWidth);
         buttonPlayer3.setMinHeight(buttonWidth);
         buttonPlayer3.setGraphic(new ImageView(imageDozer));
+        buttonPlayer3.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                info.setVisible(false);
+                if (checkToken("Dozer")){
+                    cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Dozer"));
+                }
+                else{
+                    info.setText("personaggio già scelto");
+                    info.setVisible(true);
+                }
+
+            }
+        });
+
         buttonPlayer4.setLayoutY(buttonPlayer1.getLayoutY());
         buttonPlayer4.setLayoutX(650);
         buttonPlayer4.setMinWidth(buttonWidth);
         buttonPlayer4.setMinHeight(buttonWidth);
         buttonPlayer4.setGraphic(new ImageView(imageSprog));
+        buttonPlayer4.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                info.setVisible(false);
+                if (checkToken("Sprog")){
+                    cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Sprog"));
+                }
+                else{
+                    info.setText("personaggio già scelto");
+                    info.setVisible(true);
+                }
+
+            }
+        });
+
         buttonPlayer5.setLayoutY(buttonPlayer1.getLayoutY());
         buttonPlayer5.setLayoutX(850);
         buttonPlayer5.setMinWidth(buttonWidth);
         buttonPlayer5.setMinHeight(buttonWidth);
         buttonPlayer5.setGraphic(new ImageView(imageVioletta));
+        buttonPlayer5.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                info.setVisible(false);
+                if (checkToken("Violetta")){
+                    cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Violetta"));
+                }
+                else{
+                    info.setText("personaggio già scelto");
+                    info.setVisible(true);
+                }
+
+            }
+        });
 
         usernameField.setLayoutX(50);
         usernameField.setLayoutY(200);
@@ -131,7 +196,6 @@ public class LobbyFrame extends Application {
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
                 if(checkUsername(usernameField.getText().trim())){
-                    //TODo sistemare user e sistemare comando una volta disponibile il singleton
                     cmdLauncher.addCommand(new SetUsernameCommand(ClientSingleton.getInstance().getToken(), usernameField.getText().trim()));
                 }
                 else{
@@ -149,7 +213,6 @@ public class LobbyFrame extends Application {
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
                 if(checkPhrase(effectPhraseField.getText())){
-                    //TODo sistemare user e sistemare comando una volta disponibile il singleton
                     cmdLauncher.addCommand(new SetEffectPhraseCommand(ClientSingleton.getInstance().getToken(), effectPhraseField.getText()));
                 }
                 else{
@@ -162,14 +225,42 @@ public class LobbyFrame extends Application {
         buttonDeath.setLayoutY(deathField.getLayoutY());
         buttonDeath.setLayoutX(deathField.getLayoutX()+deathField.getMinWidth()+50);
         buttonDeath.setMinWidth(150);
+        buttonDeath.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                info.setVisible(false);
+                if(checkDeath(deathField.getText())){
+                    cmdLauncher.addCommand(new SetNumberOfDeathCommand(ClientSingleton.getInstance().getToken(), Integer.parseInt(deathField.getText())));
+                }
+                else{
+                    //TODO messaggio
+                    info.setText("TODO");
+                    info.setVisible(true);
+                }
+            }
+        });
 
         buttonPlayer.setLayoutY(playerNumberField.getLayoutY());
         buttonPlayer.setLayoutX(playerNumberField.getLayoutX()+playerNumberField.getMinWidth()+50);
         buttonPlayer.setMinWidth(150);
+        buttonPlayer.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                info.setVisible(false);
+                if(checkPlayer(playerNumberField.getText())){
+                    cmdLauncher.addCommand(new SetPlayerNumberCommand(ClientSingleton.getInstance().getToken(), Integer.parseInt(playerNumberField.getText())));
+                }
+                else{
+                    //TODO messaggio
+                    info.setText("TODO");
+                    info.setVisible(true);
+                }
+            }
+        });
 
-        //TODO rendere statici queste variabili?
+
         //path of background image
-        String path = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+        final String path = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
                 + File.separatorChar +"img"+File.separatorChar+"Adrenalina.png";
 
         BackgroundImage myBI= new BackgroundImage(new Image(new FileInputStream(path),1000,600,false,true),
@@ -195,7 +286,6 @@ public class LobbyFrame extends Application {
         box.getChildren().add(playerNumberField);
         box.getChildren().add(info);
 
-
         stage.setScene(new Scene(box, 1000, 600));
         stage.show();
     }
@@ -206,5 +296,17 @@ public class LobbyFrame extends Application {
 
     private boolean checkPhrase(String phrase){
         return !phrase.equalsIgnoreCase("") &&!phrase.equalsIgnoreCase("Cambia frase ad effetto") ;
+    }
+
+    private boolean checkDeath(String phrase){
+        return !phrase.equalsIgnoreCase("") &&!phrase.equalsIgnoreCase("Cambia numero morti") ;
+    }
+
+    private boolean checkPlayer(String phrase){
+        return !phrase.equalsIgnoreCase("") &&!phrase.equalsIgnoreCase("Cambia numero giocatori") ;
+    }
+
+    private boolean checkToken(String name){
+        return false;
     }
 }

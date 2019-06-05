@@ -15,7 +15,7 @@ public class User {
     /**
      * token is the user identifier
      */
-    private final long token;
+    private final String token;
 
     /**
      * effectPhrase is the phrase chosen by the user to play
@@ -31,14 +31,13 @@ public class User {
 
     public User() {
         this.username = "user";
-        this.token = User.idToken;
-        User.idToken++;//increment id for token
+        this.token = "0";
         this.effectPhrase = "I will survive";
         this.player = null;
         //listener
     }
 
-    public User(String username, long token) {
+    public User(String username, String token) {
         this.username = username;
         this.token = token;
         this.effectPhrase = "I will survive";
@@ -66,7 +65,7 @@ public class User {
      * return the token which identify each user
      * @return user identifier
      */
-    public long getToken() {
+    public String getToken() {
         return token;
     }
 
