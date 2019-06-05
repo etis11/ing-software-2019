@@ -28,11 +28,11 @@ public class CommandLineInterface extends AbstractView {
     /**
      *  Attribute needed to output text from the console
      **/
-    public Writer consoleOutput;
+    private Writer consoleOutput;
     /**
      * Attribute needed to grab the input entered by the user/player
      **/
-    public Scanner fromKeyBoard;
+    private Scanner fromKeyBoard;
 
 
     /**

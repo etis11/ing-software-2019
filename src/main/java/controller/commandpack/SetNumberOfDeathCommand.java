@@ -6,7 +6,7 @@ public class SetNumberOfDeathCommand extends AbstractCommand {
 
     private int death;
 
-    public SetNumberOfDeathCommand(long token, int num){
+    public SetNumberOfDeathCommand(String token, int num){
         super(token);
         this.death = num;
     }

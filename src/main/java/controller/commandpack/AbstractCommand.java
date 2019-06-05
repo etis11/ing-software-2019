@@ -7,10 +7,10 @@ import java.io.Serializable;
 
 public abstract class AbstractCommand implements Command, Serializable {
 
-    protected long token;
+    protected String token;
 
 
-    public AbstractCommand(long token){
+    public AbstractCommand(String token){
         this.token = token;
     }
 
@@ -19,7 +19,7 @@ public abstract class AbstractCommand implements Command, Serializable {
     }
 
 
-    public long getToken(){return token;}
+    public String getToken(){return token;}
 
     public void endCommandToAction(GameManager gameManager){
         gameManager.getMatch().getCurrentPlayer().decrementMoves();

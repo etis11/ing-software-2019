@@ -11,7 +11,7 @@ import controller.CommandExecutor;
  */
 public class AskShootCommand extends AbstractCommand {
 
-    public AskShootCommand(long token){
+    public AskShootCommand(String token){
         super(token);
     }
 

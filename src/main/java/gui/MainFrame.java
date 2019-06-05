@@ -53,7 +53,7 @@ public class MainFrame extends Application {
                 info.setVisible(false);
                 if(checkUsername(userField.getText().trim())){
                     //TODO impostazione tipo connessione
-                    cmdLauncher.addCommand(new CreateUserCommand(null, null, userField.getText().trim()));
+                    cmdLauncher.addCommand(new CreateUserCommand(null,  userField.getText().trim()));
                     openNextStage(stage);
 
                 }
@@ -74,7 +74,7 @@ public class MainFrame extends Application {
                 info.setVisible(false);
                 if(checkUsername(userField.getText().trim())){
                     //TODO impostazione tipo connessione
-                    cmdLauncher.addCommand(new CreateUserCommand(null, null, userField.getText().trim()));
+                    cmdLauncher.addCommand(new CreateUserCommand(null,  userField.getText().trim()));
                     openNextStage(stage);
                 }
                 else{

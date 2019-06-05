@@ -5,7 +5,7 @@ public class CreateUserCommand extends AbstractCommand {
 
     private String username;
 
-    public CreateUserCommand(Long token, String username){
+    public CreateUserCommand(String token, String username){
         super(token);
         this.username = username;
     }

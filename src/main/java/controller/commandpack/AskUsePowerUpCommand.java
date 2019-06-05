@@ -11,7 +11,7 @@ import controller.CommandExecutor;
  */
 public class AskUsePowerUpCommand extends AbstractCommand {
 
-    public AskUsePowerUpCommand(long token){
+    public AskUsePowerUpCommand(String token){
         super(token);
     }
 

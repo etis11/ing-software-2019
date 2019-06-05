@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class AskPickCommand extends AbstractCommand {
 
-    public AskPickCommand(long token){
+    public AskPickCommand(String token){
         super(token);
     }
 

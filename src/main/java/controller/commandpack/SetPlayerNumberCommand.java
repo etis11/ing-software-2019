@@ -6,7 +6,7 @@ public class SetPlayerNumberCommand extends AbstractCommand {
 
     private int players;
 
-    public SetPlayerNumberCommand(long token, int players){
+    public SetPlayerNumberCommand(String token, int players){
         super(token);
         this.players = players;
     }

@@ -30,9 +30,9 @@ public class Main {
         players.add(p);
         m.setPlayers(players);
         CommandLauncher launcher = new CommandLauncher(gm);
-        AskEndTurnCommand endCommand = new AskEndTurnCommand(messageView, listViews);
-        AskReloadCommand reloadCommand = new AskReloadCommand(messageView, listViews);
-        AskPickCommand pickCommand = new AskPickCommand(messageView, listViews);
+        AskEndTurnCommand endCommand = new AskEndTurnCommand(0);
+        AskReloadCommand reloadCommand = new AskReloadCommand(0);
+        AskPickCommand pickCommand = new AskPickCommand(0);
 
         launcher.addCommand(pickCommand);
         launcher.addCommand(reloadCommand);

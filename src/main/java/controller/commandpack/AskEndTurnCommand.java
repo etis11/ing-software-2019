@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class AskEndTurnCommand extends AbstractCommand {
 
-    public AskEndTurnCommand(long token){
+    public AskEndTurnCommand(String token){
         super(token);
     }
 

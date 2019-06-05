@@ -4,7 +4,7 @@ public class ClientSingleton {
 
     private static ClientSingleton instance;
 
-    private long token;
+    private String token;
 
     private ClientSingleton(){}
 
@@ -15,11 +15,11 @@ public class ClientSingleton {
         return instance;
     }
 
-    public long getToken() {
+    public String getToken() {
         return token;
     }
 
-    public void setToken(long token) {
+    public void setToken(String token) {
         this.token = token;
     }
 }

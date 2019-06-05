@@ -32,12 +32,12 @@ public class ClientLauncherSocket {
             }
 
             if (cr != null) {
-                AskPickCommand c = new AskPickCommand(null, null);
+                AskPickCommand c = new AskPickCommand(0);
                 cr.addCommand(c);
-                MoveCommand m = new MoveCommand(null, null, null);
+                MoveCommand m = new MoveCommand(0, null);
                 cr.addCommand(m);
                 sleep(10000);
-                AskWalkCommand w = new AskWalkCommand(null, null);
+                AskWalkCommand w = new AskWalkCommand(0);
                 cr.addCommand(w);
                 sleep(10000);
             }

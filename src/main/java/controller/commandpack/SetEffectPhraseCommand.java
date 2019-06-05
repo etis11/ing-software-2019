@@ -6,7 +6,7 @@ public class SetEffectPhraseCommand extends AbstractCommand {
 
     private String phrase;
 
-    public SetEffectPhraseCommand(long token, String phrase){
+    public SetEffectPhraseCommand(String token, String phrase){
         super(token);
         this.phrase = phrase;
     }
