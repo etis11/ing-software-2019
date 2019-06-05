@@ -35,15 +35,15 @@ public class LobbyFrame extends Application {
         stage.setResizable(false);
 
         //path of button image
-        String pathDistruttore = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+        final String pathDistruttore = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
                 + File.separatorChar +"img"+File.separatorChar+"Distruttore.png";
-        String pathBanshee = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+        final String pathBanshee = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
                 + File.separatorChar +"img"+File.separatorChar+"Banshee.png";
-        String pathDozer = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+        final String pathDozer = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
                 + File.separatorChar +"img"+File.separatorChar+"Dozer.png";
-        String pathSprog = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+        final String pathSprog = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
                 + File.separatorChar +"img"+File.separatorChar+"Sprog.png";
-        String pathVioletta = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+        final String pathVioletta = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
                 + File.separatorChar +"img"+File.separatorChar+"Violetta.png";
 
         Image imageDistruttore = new Image(new FileInputStream(pathDistruttore),75,75,false, true);
@@ -307,6 +307,7 @@ public class LobbyFrame extends Application {
     }
 
     private boolean checkToken(String name){
+        //TODO implements control
         return false;
     }
 }
