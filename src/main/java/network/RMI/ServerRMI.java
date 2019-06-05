@@ -1,8 +1,8 @@
 package network.RMI;
 
 import controller.CommandLauncherInterface;
+import controller.JsonReceiver;
 
-import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
@@ -59,7 +59,7 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
      * @return the token
      */
     @Override
-    public String getPersonalToken(){
+    public String getPersonalToken(JsonReceiver jsonReceiver) {
         String token = UUID.randomUUID().toString();
         generatedTokens.add(token);
         return token;
