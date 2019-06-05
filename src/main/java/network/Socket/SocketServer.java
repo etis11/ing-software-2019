@@ -2,15 +2,15 @@ package network.Socket;
 
 import controller.CommandLauncherInterface;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Accept socket connections
@@ -35,9 +35,11 @@ public class SocketServer {
 
     private final CommandLauncherInterface commandLauncher;
 
+    private final static Logger serverLogger = Logger.getLogger(SocketServer.class.getName());
+
     public SocketServer(int port, CommandLauncherInterface c) throws IOException{
         serverSocket = new ServerSocket(port);
-        System.out.println(">>> Server Launched on port:" + port +".");
+        serverLogger.log(Level.INFO,">>> Server Launched on port:" + port +".");
         threadPool = Executors.newFixedThreadPool(MAX_CLIENTS);
         commandLauncher = c;
     }
@@ -48,13 +50,13 @@ public class SocketServer {
      */
     public void run() throws IOException {
         while(!stop){
-            System.out.println(">>> Waiting for connection.");
+            serverLogger.log(Level.INFO, ">>> Waiting for connection.");
             Socket clientSocket = serverSocket.accept();
             PrintWriter p = new PrintWriter(clientSocket.getOutputStream());
-            System.out.println(">>> Generating Token");
+            serverLogger.log(Level.INFO,">>> Generating Token");
             p.write(UUID.randomUUID().toString());
             //clientSocket.getOutputStream().write(generateToken())
-            System.out.println(">>> New connection accepted: " + clientSocket.getRemoteSocketAddress());
+            serverLogger.log(Level.INFO,">>> New connection accepted: " + clientSocket.getRemoteSocketAddress());
             //this part will change if we make the change
             threadPool.submit(new CommandReceiverSocket(clientSocket, commandLauncher));
 //            CommandReceiverSocket r = new CommandReceiverSocket(clientSocket, commandLauncher);
