@@ -69,11 +69,7 @@ public class SocketServer {
             clientOutput.flush();
             //creates a json Receiver and binds it to the client socket.
             TokenRegistry.associateTokenAndReceiver(clientToken, new JsonReceiverProxySocket(clientSocket));
-            //clientSocket.getOutputStream().write(generateToken())
-            //this part will change if we make the change
-            threadPool.submit(new CommandReceiverSocket(clientSocket, commandLauncher));
-//            CommandReceiverSocket r = new CommandReceiverSocket(clientSocket, commandLauncher);
-//            r.run();
+            threadPool.submit(new CommandReceiverSocket(clientSocket, commandLauncher));;
 
         }
     }

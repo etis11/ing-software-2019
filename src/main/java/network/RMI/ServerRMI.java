@@ -10,6 +10,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,8 +57,12 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
      * @return the token
      */
     @Override
-    public String getPersonalToken(JsonReceiver jsonReceiver) {
-        String token = UUID.randomUUID().toString();
+    public String getPersonalToken(JsonReceiver jsonReceiver, String token) {
+        String newToken = token;
+        if (!TokenRegistry.tokenAlreadyGenerated(token))
+        {
+            newToken = UUID.randomUUID().toString();
+        }
         try{
             TokenRegistry.associateTokenAndReceiver(token, jsonReceiver);
         }

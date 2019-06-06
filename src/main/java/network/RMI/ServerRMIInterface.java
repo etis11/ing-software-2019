@@ -10,5 +10,5 @@ public interface ServerRMIInterface extends Remote {
 
     CommandLauncherInterface getCurrentCommandLauncher() throws RemoteException;
 
-    String getPersonalToken(JsonReceiver jsonReceiver) throws RemoteException;
+    String getPersonalToken(JsonReceiver jsonReceiver, String token) throws RemoteException;
 }
