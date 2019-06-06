@@ -1,6 +1,8 @@
 package network.RMI;
 
 import controller.CommandLauncherInterface;
+import controller.JsonReceiver;
+import controller.JsonUnwrapper;
 import controller.commandpack.AskPickCommand;
 import controller.commandpack.AskWalkCommand;
 import controller.commandpack.MoveCommand;
@@ -18,8 +20,9 @@ public class ClientLauncherRMI {
         try{
 
             Registry registry = LocateRegistry.getRegistry();
+            JsonReceiver receiver = new JsonUnwrapper();
             ServerRMIInterface serverRMI = (ServerRMIInterface) registry.lookup("serverRMI");
-            token= serverRMI.getPersonalToken();
+            token= serverRMI.getPersonalToken(receiver, "");
             ClientSingleton.getInstance().setToken(token);
             launcher = serverRMI.getCurrentCommandLauncher();
         }
