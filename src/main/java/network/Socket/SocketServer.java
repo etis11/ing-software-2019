@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -53,12 +54,16 @@ public class SocketServer {
         while(!stop){
             serverLogger.log(Level.INFO, ">>> Waiting for connection.");
             Socket clientSocket = serverSocket.accept();
-            PrintWriter p = new PrintWriter(clientSocket.getOutputStream());
-            serverLogger.log(Level.INFO,">>> Generating Token");
-            String newToken = UUID.randomUUID().toString();
-            p.write(newToken);
-            p.flush();
-            TokenRegistry.associateTokenAndReceiver(newToken, new JsonReceiverProxySocket(clientSocket));
+            PrintWriter clientOutput = new PrintWriter(clientSocket.getOutputStream());
+            String clientToken = getClientToken(clientSocket);
+            if (clientToken.equals("")){
+                serverLogger.log(Level.INFO,">>> Generating Token");
+                clientToken = UUID.randomUUID().toString();
+            }
+            //sends the token to the client
+            clientOutput.write(clientToken);
+            clientOutput.flush();
+            TokenRegistry.associateTokenAndReceiver(clientToken, new JsonReceiverProxySocket(clientSocket));
             //clientSocket.getOutputStream().write(generateToken())
             serverLogger.log(Level.INFO,">>> New connection accepted: " + clientSocket.getRemoteSocketAddress());
             //this part will change if we make the change
@@ -74,5 +79,11 @@ public class SocketServer {
      */
     public void stopReceiving(){
         stop = true;
+    }
+
+    private String getClientToken(Socket clientSocket) throws  IOException{
+        Scanner s = new Scanner(clientSocket.getInputStream());
+        return s.next();
+
     }
 }
