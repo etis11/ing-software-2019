@@ -44,4 +44,8 @@ public abstract class TokenRegistry {
     public  static void saveTokens(){
         throw new UnsupportedOperationException();
     }
+
+    public static boolean tokenAlreadyGenerated(String token){
+        return registeredTokens.contains(token);
+    }
 }

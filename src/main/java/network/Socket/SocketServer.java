@@ -54,18 +54,22 @@ public class SocketServer {
         while(!stop){
             serverLogger.log(Level.INFO, ">>> Waiting for connection.");
             Socket clientSocket = serverSocket.accept();
+            serverLogger.log(Level.INFO,">>> New connection accepted: " + clientSocket.getRemoteSocketAddress());
             PrintWriter clientOutput = new PrintWriter(clientSocket.getOutputStream());
             String clientToken = getClientToken(clientSocket);
-            if (clientToken.equals("")){
+            if (!TokenRegistry.tokenAlreadyGenerated(clientToken)){
                 serverLogger.log(Level.INFO,">>> Generating Token");
                 clientToken = UUID.randomUUID().toString();
+            }
+            else{
+                serverLogger.log(Level.INFO, ">>> Token sent valid");
             }
             //sends the token to the client
             clientOutput.write(clientToken);
             clientOutput.flush();
+            //creates a json Receiver and binds it to the client socket.
             TokenRegistry.associateTokenAndReceiver(clientToken, new JsonReceiverProxySocket(clientSocket));
             //clientSocket.getOutputStream().write(generateToken())
-            serverLogger.log(Level.INFO,">>> New connection accepted: " + clientSocket.getRemoteSocketAddress());
             //this part will change if we make the change
             threadPool.submit(new CommandReceiverSocket(clientSocket, commandLauncher));
 //            CommandReceiverSocket r = new CommandReceiverSocket(clientSocket, commandLauncher);
