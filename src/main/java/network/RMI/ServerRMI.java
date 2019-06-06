@@ -63,7 +63,7 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
             newToken = UUID.randomUUID().toString();
         }
         try{
-            TokenRegistry.associateTokenAndReceiver(token, jsonReceiver);
+            TokenRegistry.associateTokenAndReceiver(newToken, jsonReceiver);
         }
         catch (DuplicateException d){
             rmiServerLogger.log(Level.WARNING, ">>> A client already associated is trying to get another token");
