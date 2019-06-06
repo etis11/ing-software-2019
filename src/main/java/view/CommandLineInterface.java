@@ -13,10 +13,8 @@ import java.util.*;
 /**
  *  The classic CLI class needed to run the software without GUI
  **/
-public class CommandLineInterface  {
+public class CommandLineInterface extends AbstractView {
     private CommandLauncherInterface commandLauncher;
-    private MessageListener originView;
-    private List<MessageListener> allViews;
     private Player player;
     private User user;
     private String username;
@@ -39,26 +37,26 @@ public class CommandLineInterface  {
      * creates a cli that receives on the system.in and writes on system.out
      * @throws IOException
      */
-   public CommandLineInterface() throws IOException{
-       consoleOutput = new PrintWriter(System.out);
-       fromKeyBoard = new Scanner(System.in);
+    public CommandLineInterface() throws IOException{
+        consoleOutput = new PrintWriter(System.out);
+        fromKeyBoard = new Scanner(System.in);
 
-   }
+    }
 
     /**
      * creates a generic cli
      * @param inputStream
      * @param outputStream
      */
-   public CommandLineInterface(InputStream inputStream,  PrintStream outputStream){
-       consoleOutput = new PrintWriter(outputStream);
-       fromKeyBoard = new Scanner(inputStream);
-   }
+    public CommandLineInterface(InputStream inputStream,  PrintStream outputStream){
+        consoleOutput = new PrintWriter(outputStream);
+        fromKeyBoard = new Scanner(inputStream);
+    }
 
     /**
-    * Method used to print out to the users waiting on lobby when a new user joins in the lobby
-    * @param joinedUser refers to the user that just joined the lobby
-    **/
+     * Method used to print out to the users waiting on lobby when a new user joins in the lobby
+     * @param joinedUser refers to the user that just joined the lobby
+     **/
     @Override
     public void onJoin(User joinedUser) {
         System.out.println(joinedUser.getUsername()+" si e' unito alla lobby");
@@ -66,8 +64,8 @@ public class CommandLineInterface  {
 
     /**
      * *Method used to print out to the users waiting on lobby if a joined user left the lobby
-    * @param leavingUser refers to the user who just left the lobby
-    **/
+     * @param leavingUser refers to the user who just left the lobby
+     **/
     @Override
     public void onLeave(User leavingUser) {
         System.out.println(leavingUser.getUsername()+" ha lasciato la lobby");
@@ -75,8 +73,8 @@ public class CommandLineInterface  {
 
     /**
      * Method used to notify all users when the gameMap changes in one of the four maps
-    * @param match is the new Gamemap that got chosen as the map to be used during the next gameplay
-    **/
+     * @param match is the new Gamemap that got chosen as the map to be used during the next gameplay
+     **/
     @Override
     public void onMapChange(Match match) {
 
@@ -93,7 +91,7 @@ public class CommandLineInterface  {
 
     /**
      * Method used to notify all users with a string message
-    * @param message is a String tupe needed to notify all users printing out a string
+     * @param message is a String tupe needed to notify all users printing out a string
      **/
     @Override
     public void notify(String message) {
@@ -144,7 +142,8 @@ public class CommandLineInterface  {
      **/
     public String getUserInputString(){
 
- //       Scanner scanner1 = new Scanner(System.in);
+
+        //       Scanner scanner1 = new Scanner(System.in);
         System.out.println("Enter some words");
 
         String cc = fromKeyBoard.nextLine();
@@ -157,61 +156,19 @@ public class CommandLineInterface  {
     All cases should be case insensitive
      */
 
-    public void parseCommand(String command) throws RemoteException {
-        String param="";
-        String realCommand="";
 
-        if(command.contains(" ")) {
-            realCommand = command.split(" ")[0];
-            param = command.split(" ")[1];
-        }else{
-            realCommand=command;
-        }
-        switch(realCommand.toLowerCase()) {
-            case "muovi": commandLauncher.addCommand(new AskWalkCommand(originView,allViews));
-                return;
-            case "raccogli": commandLauncher.addCommand(new AskPickCommand(originView,allViews));
-                return;
-            case "spara": commandLauncher.addCommand(new AskShootCommand(originView,allViews));
-                return;
-            case "ricarica": commandLauncher.addCommand(new AskReloadCommand(originView,allViews));
-                return;
-            case "fineturno": commandLauncher.addCommand(new AskEndTurnCommand(originView,allViews));
-                return;
-            case "powerup": commandLauncher.addCommand(new AskUsePowerUpCommand(originView,allViews));
-                return;
-            case "setusername": commandLauncher.addCommand(new SetUsernameCommand(originView,allViews,user, param));
-                return;
-            case "setfraseeffeto": commandLauncher.addCommand(new SetEffectPhraseCommand(originView,allViews,user,param));
-                return;
-            case "setuccisioni": commandLauncher.addCommand(new SetNumberOfDeathCommand(originView,allViews,Integer.valueOf(param),owner));
-                return;
-            case "setgiocatori": commandLauncher.addCommand(new SetPlayerNumberCommand(originView,allViews,Integer.valueOf(param),owner));
-                return;
-            case "punti": commandLauncher.addCommand(new AskPointsCommand(originView,allViews,player));
-                return;
-            case "setpersonaggio": commandLauncher.addCommand(new SetTokenCommand(originView,allViews,param));
-                return;
-         }
-
-        if(command.contains("up")||command.contains("right")||command.contains("left")||command.contains("down")){
-            List<String> toadd=new ArrayList<>();
-            toadd.addAll(Arrays.asList(command.split(",")));
-            commandLauncher.addCommand(new MoveCommand(originView,allViews,toadd));
-        }
-    }
 
     public int getUserInputInt(){
 
 
-      //  Scanner scanner = new Scanner(System.in);
+        //  Scanner scanner = new Scanner(System.in);
         int input = fromKeyBoard.nextInt();
-      //  scanner.close();
+        //  scanner.close();
         return input;
     }
-/**
- * Displays text in the CLI to the users/players
- **/
+    /**
+     * Displays text in the CLI to the users/players
+     **/
     public void displayText(String text){
         System.out.println(text);
     }
