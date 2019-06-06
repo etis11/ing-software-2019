@@ -1,6 +1,7 @@
 package network.Socket;
 
 import controller.CommandLauncherInterface;
+import network.TokenRegistry;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -54,8 +55,10 @@ public class SocketServer {
             Socket clientSocket = serverSocket.accept();
             PrintWriter p = new PrintWriter(clientSocket.getOutputStream());
             serverLogger.log(Level.INFO,">>> Generating Token");
-            p.write(UUID.randomUUID().toString());
+            String newToken = UUID.randomUUID().toString();
+            p.write(newToken);
             p.flush();
+            TokenRegistry.associateTokenAndReceiver(newToken, new JsonReceiverProxySocket(clientSocket));
             //clientSocket.getOutputStream().write(generateToken())
             serverLogger.log(Level.INFO,">>> New connection accepted: " + clientSocket.getRemoteSocketAddress());
             //this part will change if we make the change

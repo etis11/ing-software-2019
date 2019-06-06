@@ -6,7 +6,6 @@ import controller.JsonReceiver;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.rmi.RemoteException;
 
 /**
  * Placed on the server side, pretends to be a jsonReceiver, but sends the json to the corresponding client
