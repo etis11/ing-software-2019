@@ -52,8 +52,8 @@ public class CommandLauncher implements CommandLauncherInterface {
         while (!stop) {
             try {
                 takenCommand = commandQueue.take();
-                String token = takenCommand.getToken();
-                takenCommand.setJsonReceiver(TokenRegistry.getJsonReceiver(token));
+//                String token = takenCommand.getToken();
+//                takenCommand.setJsonReceiver(TokenRegistry.getJsonReceiver(token));
             } catch (InterruptedException i) {
                 System.out.println(i.getMessage());
                 LOGGER.log(Level.WARNING, i.getMessage(), i);
