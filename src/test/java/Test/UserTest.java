@@ -24,13 +24,6 @@ public class UserTest {
     }
 
     @Test
-    public void tokenTest(){
-        user2 = new User();
-        assertNotSame(user1.getToken(), user2.getToken(), "ERROR: same token");
-
-    }
-
-    @Test
     public void settingTest(){
 
         assertSame(user1.getUsername(), "user", "ERROR: wrong deafult username");
