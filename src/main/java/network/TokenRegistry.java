@@ -2,6 +2,7 @@ package network;
 
 import controller.JsonReceiver;
 import exceptions.DuplicateException;
+import model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ public abstract class TokenRegistry {
 
     private static final ConcurrentMap<String, JsonReceiver> tokenAssociated = new ConcurrentHashMap<>();
     private static final List<String> registeredTokens = new ArrayList<>(10);
+    private static final ConcurrentMap<JsonReceiver, User> userReceiver = new ConcurrentHashMap<>();
     //private static final Object registeredTokensLock = new Object();
 
     /**
@@ -53,5 +55,11 @@ public abstract class TokenRegistry {
         JsonReceiver receiver = tokenAssociated.get(token);
         if (receiver == null) throw new NullPointerException("This token is not registered");
         return receiver;
+    }
+
+    public static User getJsonUserOwner(JsonReceiver receiver){
+        User owner= userReceiver.get(receiver);
+        if (owner == null) throw new NullPointerException("Non c'è nessun user associato a questo json receiver");
+        return owner;
     }
 }

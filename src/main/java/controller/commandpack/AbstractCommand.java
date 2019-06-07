@@ -3,6 +3,7 @@ package controller.commandpack;
 import controller.CommandExecutor;
 import controller.JsonReceiver;
 import model.GameManager;
+import model.User;
 import network.TokenRegistry;
 
 import java.io.Serializable;
@@ -44,5 +45,9 @@ public abstract class AbstractCommand implements Command {
     @Override
     public void setAllJsonReceivers(List<JsonReceiver> receivers) {
         allReceivers = new ArrayList<>(receivers);
+    }
+
+    public JsonReceiver getJsonReceiver(){
+        return receiver;
     }
 }

@@ -5,6 +5,7 @@ import exceptions.InsufficientAmmoException;
 import exceptions.NotValidActionException;
 import exceptions.PickableNotPresentException;
 import model.*;
+import network.TokenRegistry;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
@@ -15,30 +16,32 @@ import java.util.concurrent.ConcurrentMap;
 
 public class CommandExecutor {
 
-    ConcurrentMap<Long, JsonReceiver> listeners;
     /**
      * gameManager is a reference to the model due to access to the match and lobby variables
      */
-    GameManager gameManager;
+    private GameManager gameManager;
 
     public CommandExecutor(GameManager gameManager){
         this.gameManager=gameManager;
-        this.listeners = new ConcurrentHashMap<>();
     }
 
     public void execute(AskEndTurnCommand command){
-        //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-
-        if (!currentPlayer.getState().isNormalAction() && !currentPlayer.getState().isMoreAction() &&!currentPlayer.getState().isMostAction() ){
-            //command.getOriginView().notify("Non puoi terminare il tuo turno al momento");
+        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)){
+            //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
         }
-        else {
-            currentPlayer.getState().nextState("EndTurn", currentPlayer);
-            String message = "Il giocatore attuale ha terminato il suo turno";
+        else{
+            if (!currentPlayer.getState().isNormalAction() && !currentPlayer.getState().isMoreAction() &&!currentPlayer.getState().isMostAction() ){
+                //command.getOriginView().notify("Non puoi terminare il tuo turno al momento");
+            }
+            else {
+                currentPlayer.getState().nextState("EndTurn", currentPlayer);
+                String message = "Il giocatore attuale ha terminato il suo turno";
 //            for (MessageListener view : command.getAllViews()){
 //                view.notify(message);
 //            }
+            }
+
         }
     }
 
