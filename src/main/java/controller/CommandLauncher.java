@@ -4,7 +4,11 @@ package controller;
 import controller.commandpack.Command;
 import model.GameManager;
 import model.Match;
+import network.TokenRegistry;
 
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +20,7 @@ import java.util.logging.Logger;
 public class CommandLauncher implements CommandLauncherInterface {
 
     private static final Logger LOGGER = Logger.getLogger(CommandLauncher.class.getName());
+    private final List<JsonReceiver> allReceivers = new ArrayList<>(5);
     /**
      * A queue where the commands are placed. The queue is concurrent and the commands of the current player are
      */
@@ -51,6 +56,8 @@ public class CommandLauncher implements CommandLauncherInterface {
         while (!stop) {
             try {
                 takenCommand = commandQueue.take();
+                takenCommand.setJsonReceiver();
+                takenCommand.setAllJsonReceivers(allReceivers);
             } catch (InterruptedException i) {
                 System.out.println(i.getMessage());
                 LOGGER.log(Level.WARNING, i.getMessage(), i);
@@ -60,11 +67,7 @@ public class CommandLauncher implements CommandLauncherInterface {
                 stop = true;
                 Thread.currentThread().interrupt();
             }
-
             if (takenCommand != null) {
-//                System.out.println("provo a runnare");
-                //multithread command management
-                //pool.submit(new RunnableCommand(takenCommand));
                 takenCommand.execute(commandExecutor);
             }
         }
@@ -83,4 +86,10 @@ public class CommandLauncher implements CommandLauncherInterface {
         }
         commandQueue.offer(c);
     }
+
+    @Override
+    public void addJsonReceiver(JsonReceiver j) throws RemoteException {
+        allReceivers.add(j);
+    }
+
 }

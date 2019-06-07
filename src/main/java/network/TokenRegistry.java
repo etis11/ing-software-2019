@@ -48,4 +48,10 @@ public abstract class TokenRegistry {
     public static boolean tokenAlreadyGenerated(String token){
         return registeredTokens.contains(token);
     }
+
+    public static JsonReceiver getJsonReceiver(String token){
+        JsonReceiver receiver = tokenAssociated.get(token);
+        if (receiver == null) throw new NullPointerException("This token is not registered");
+        return receiver;
+    }
 }
