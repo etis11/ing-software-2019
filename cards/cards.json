@@ -8,6 +8,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 2,
@@ -61,6 +63,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 1,
@@ -133,6 +137,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 2,
@@ -205,6 +211,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 2,
@@ -276,6 +284,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 3,
@@ -308,6 +318,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 1,
@@ -336,6 +348,8 @@
           "blue",
           "red"
         ],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 2,
@@ -366,6 +380,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 1,
@@ -395,6 +411,8 @@
           "yellow"
         ],
         "isGlobal": false,
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "damage": {
           "red": 3,
           "blue": 0,
@@ -425,6 +443,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 2,
@@ -478,6 +498,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": true,
         "damage": {
           "red": 1,
@@ -504,6 +526,8 @@
       {
         "cost": [],
         "isGlobal": true,
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "damage": {
           "red": 1,
           "blue": 1,
@@ -536,6 +560,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 3,
@@ -569,6 +595,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 1,
@@ -597,6 +625,8 @@
           "red"
         ],
         "isGlobal": false,
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "damage": {
           "red": 1,
           "blue": 0,
@@ -626,6 +656,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 1,
@@ -655,6 +687,8 @@
           "yellow"
         ],
         "isGlobal": false,
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "damage": {
           "red": 1,
           "blue": 1,
@@ -684,6 +718,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 1,
@@ -737,6 +773,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 2,
@@ -810,6 +848,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 3,
@@ -836,6 +876,8 @@
       {
         "cost": [],
         "isGlobal": false,
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "damage": {
           "red": 2,
           "blue": 2,
@@ -866,6 +908,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 2,
@@ -936,6 +980,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 1,
@@ -961,6 +1007,8 @@
     "advancedEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 0,
@@ -992,6 +1040,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 3,
@@ -1017,6 +1067,8 @@
     "advancedEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 2,
@@ -1048,6 +1100,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 1,
@@ -1071,6 +1125,8 @@
       },
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 1,
@@ -1098,6 +1154,8 @@
         "cost": [
           "blue"
         ],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 2,
@@ -1129,6 +1187,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 1,
@@ -1157,6 +1217,8 @@
           "yellow"
         ],
         "isGlobal": false,
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "damage": {
           "red": 1,
           "blue": 1,
@@ -1186,6 +1248,8 @@
     "baseEffect": [
       {
         "cost": [],
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
           "red": 2,
@@ -1214,6 +1278,8 @@
           "red"
         ],
         "isGlobal": false,
+        "moveTargetAndHitAll;": false,
+        "alreadyMovedTarget": false,
         "damage": {
           "red": 3,
           "blue": 0,

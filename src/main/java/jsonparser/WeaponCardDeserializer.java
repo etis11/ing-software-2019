@@ -140,6 +140,8 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
 
             }
             toAdd.setCanMoveShooter(effect.get("isGlobal").getAsBoolean());
+            toAdd.setMoveTargetAndHitAll(effect.get("isGlobal").getAsBoolean());
+            toAdd.setAlreadyMovedTarget(effect.get("isGlobal").getAsBoolean());
             //List<String> costs = new ArrayList<>();
             try {
                 JsonArray jsonCost = effect.get("cost").getAsJsonArray();

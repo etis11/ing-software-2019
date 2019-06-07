@@ -97,7 +97,15 @@ public  class Effect {
     private boolean canMoveTarget;
 
     private int numStepsTarget;
-    
+
+    public void setMoveTargetAndHitAll(boolean moveTargetAndHitAll) {
+        this.moveTargetAndHitAll = moveTargetAndHitAll;
+    }
+
+    public void setAlreadyMovedTarget(boolean alreadyMovedTarget) {
+        this.alreadyMovedTarget = alreadyMovedTarget;
+    }
+
     private boolean moveTargetAndHitAll;
     private boolean alreadyMovedTarget;
 

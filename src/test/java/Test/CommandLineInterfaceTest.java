@@ -5,12 +5,13 @@ import model.User;
 import org.junit.jupiter.api.Test;
 import view.CommandLineInterface;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class CommandLineInterfaceTest {
 
 
-public static void main(String[] args) {
+public static void main(String[] args) throws IOException {
     //@Test
   //  void cliTest () {
         CommandLineInterface commandLineInterface = new CommandLineInterface();
