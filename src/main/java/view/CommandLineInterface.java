@@ -14,6 +14,7 @@ import java.util.*;
  *  The classic CLI class needed to run the software without GUI
  **/
 public class CommandLineInterface extends AbstractView {
+
     private CommandLauncherInterface commandLauncher;
     private Player player;
     private User user;
@@ -140,14 +141,11 @@ public class CommandLineInterface extends AbstractView {
     /**
      * Method used to get a keyboard input from the users
      **/
-    public String getUserInputString(){
-
-
+    public String getUserInputString() throws IOException{
         //       Scanner scanner1 = new Scanner(System.in);
-        System.out.println("Enter some words");
-
+        consoleOutput.write(AnsiColor.GREEN  + ">>> " + AnsiColor.RESET);
+        consoleOutput.flush();
         String cc = fromKeyBoard.nextLine();
-        System.out.println("Enter some words2"+cc);
         return cc;
     }
 

@@ -16,18 +16,25 @@ public class Parserator implements Runnable {
     private CommandContainer commandLauncher;
     private String token = ClientSingleton.getInstance().getToken();
     private CommandLineInterface CLI;
+    private boolean quit;
 
-    public Parserator(CommandContainer launcher){
+    public Parserator(CommandLineInterface cli,  CommandContainer launcher){
+        CLI = cli;
         commandLauncher = launcher;
+        quit = false;
     }
 
     @Override
     public void run() {
-        try {
-            this.parseCommand(CLI.getUserInputString());
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+        while (!quit) {
+            try {
+                this.parseCommand(CLI.getUserInputString());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            catch (IllegalArgumentException i){
+                CLI.displayText("Nessun comando esistente con questo formato");
+            }
         }
     }
 
@@ -36,12 +43,19 @@ public class Parserator implements Runnable {
         String param="";
         String realCommand="";
         if(command.contains(" ")) {
-            realCommand = command.split(" ")[0];
-            param = command.split(" ")[1];
+            String[] splittedCommand = command.split(" ");
+            if (splittedCommand.length >0){
+                realCommand = splittedCommand[0];
+            }
+            if(splittedCommand.length>1){
+                param = splittedCommand[1];
+            }
         }else{
             realCommand=command;
         }
         switch(realCommand.toLowerCase()) {
+            case "quit": quit = true;
+                return;
             case "muovi": commandLauncher.addCommand(new AskWalkCommand(token));
                 return;
             case "raccogli": commandLauncher.addCommand(new AskPickCommand(token));
@@ -54,7 +68,7 @@ public class Parserator implements Runnable {
                 return;
             case "powerup": commandLauncher.addCommand(new AskUsePowerUpCommand(token));
                 return;
-            case "setusername": commandLauncher.addCommand(new SetUsernameCommand(token,username));
+            case "setusername": commandLauncher.addCommand(new SetUsernameCommand(token,param));
                 return;
             case "setfraseeffeto": commandLauncher.addCommand(new SetEffectPhraseCommand(token,param));
                 return;

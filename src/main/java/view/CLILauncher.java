@@ -18,7 +18,7 @@ public class CLILauncher {
             }
         };
 
-        Parserator p = new Parserator(container);
+        Parserator p = new Parserator(CLI, container);
 
         Thread t = new Thread(p);
         t.start();
