@@ -341,17 +341,17 @@ public class CommandExecutor {
     }
 
     public void execute(CreateUserCommand command){
-        if (!gameManager.getMatch().isStarted()) {
-            User user = new User(command.getUsername(), command.getToken());
-            try {
-                gameManager.getLobby().join(user);
-            } catch (NotValidActionException e) {
-                e.printStackTrace();
-            }
-        }
-        else{
-//            command.getOriginView().notify("Non puoi unirti alla partita perchè è già iniziata");
-        }
+//        if (!gameManager.getMatch().isStarted()) {
+//            //User user = new User(command.getUsername(), command.getToken());
+//            try {
+//                gameManager.getLobby().join(user);
+//            } catch (NotValidActionException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        else{
+////            command.getOriginView().notify("Non puoi unirti alla partita perchè è già iniziata");
+//        }
     }
 
     public void execute(SetTokenCommand command){

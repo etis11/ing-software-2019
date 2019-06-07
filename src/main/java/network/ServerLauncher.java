@@ -1,6 +1,7 @@
 package network;
 
 import controller.CommandLauncherInterface;
+import controller.JsonReceiver;
 import controller.commandpack.Command;
 import network.RMI.ServerRMI;
 import network.Socket.SocketServer;
@@ -26,6 +27,11 @@ public class ServerLauncher {
             @Override
             public void addCommand(Command c) {
                 System.out.println(">>> Arrivato il comando: " + c.getClass());
+            }
+
+            @Override
+            public void addJsonReceiver(JsonReceiver j) throws RemoteException {
+                System.out.println("cose");
             }
         };
         UnicastRemoteObject.exportObject(launcher, 0);

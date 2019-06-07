@@ -4,7 +4,9 @@ import controller.CommandLauncherInterface;
 import controller.JsonReceiver;
 import network.TokenRegistry;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -38,11 +40,11 @@ public class SocketServer {
 
     private final CommandLauncherInterface commandLauncher;
 
-    private final static Logger serverLogger = Logger.getLogger(SocketServer.class.getName());
+    public final static Logger serverSocketLogger = Logger.getLogger(SocketServer.class.getName());
 
     public SocketServer(int port, CommandLauncherInterface c) throws IOException{
         serverSocket = new ServerSocket(port);
-        serverLogger.log(Level.INFO,">>> Server Launched on port:" + port +".");
+        serverSocketLogger.log(Level.INFO,">>> Server Launched on port:" + port +".");
         threadPool = Executors.newFixedThreadPool(MAX_CLIENTS);
         commandLauncher = c;
     }
@@ -53,19 +55,20 @@ public class SocketServer {
      */
     public void run() throws IOException {
         while(!stop){
-            serverLogger.log(Level.INFO, ">>> Waiting for connection.");
+            serverSocketLogger.log(Level.INFO, ">>> Waiting for connection.");
             Socket clientSocket = serverSocket.accept();
-            serverLogger.log(Level.INFO,">>> New connection accepted: " + clientSocket.getRemoteSocketAddress());
+            serverSocketLogger.log(Level.INFO,">>> New connection accepted: " + clientSocket.getRemoteSocketAddress());
             PrintWriter clientOutput = new PrintWriter(clientSocket.getOutputStream());
             String clientToken = getClientToken(clientSocket);
             if (!TokenRegistry.tokenAlreadyGenerated(clientToken)){
-                serverLogger.log(Level.INFO,">>> Generating Token");
+                serverSocketLogger.log(Level.INFO,">>> Generating Token");
                 clientToken = UUID.randomUUID().toString();
             }
             else{
-                serverLogger.log(Level.INFO, ">>> Token sent valid");
+                serverSocketLogger.log(Level.INFO, ">>> Token sent valid");
             }
             //sends the token to the client
+            clientToken += "\n";
             clientOutput.write(clientToken);
             clientOutput.flush();
             //creates a json Receiver and binds it to the client socket.
@@ -85,8 +88,9 @@ public class SocketServer {
     }
 
     private String getClientToken(Socket clientSocket) throws  IOException{
-        Scanner s = new Scanner(clientSocket.getInputStream());
-        return s.next();
+        BufferedReader b = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        String returnString = b.readLine();
+        return returnString;
 
     }
 }

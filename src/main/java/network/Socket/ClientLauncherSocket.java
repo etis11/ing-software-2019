@@ -8,6 +8,7 @@ import view.ClientSingleton;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 import static java.lang.Thread.sleep;
@@ -20,6 +21,9 @@ public class ClientLauncherSocket {
 
             mySocket = new Socket("localhost", 8000);
             BufferedReader input = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
+            PrintWriter output = new PrintWriter(mySocket.getOutputStream());
+            output.write("\n");
+            output.flush();
             ClientSingleton.getInstance().setToken(input.readLine());
         } catch (IOException i) {
             System.out.println(">>> Errore nella connessione, probabilmente il server è down");

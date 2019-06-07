@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
+import java.util.logging.Level;
 
 /**
  * A CommandReceiverSocket is an object placed in the server side of the application that receives a command through the net
@@ -91,30 +92,28 @@ public class CommandReceiverSocket implements Runnable{
      */
     private void close(){
         try{
-            System.out.println(">>> Closing input stream");
+            SocketServer.serverSocketLogger.log(Level.INFO,">>> Closing input stream");
             in.close();
         }
         catch (IOException ioe){
-            System.out.println(ioe.getMessage());
-            System.out.println(">>> Input stream maybe already closed");
+            SocketServer.serverSocketLogger.log(Level.WARNING, ioe.getMessage() + " . Input stream may be already closed");
         }
 
         try{
-            System.out.println(">>> Closing output stream");
+            SocketServer.serverSocketLogger.log(Level.INFO, ">>> Closing output stream");
             clientSocket.getOutputStream().close();
         }
         catch (IOException ioe){
-            System.out.println(">>> Closing output stream failed. " + ioe.getMessage());
+            SocketServer.serverSocketLogger.log(Level.WARNING,">>> Closing output stream failed. " + ioe.getMessage());
             //System.out.println(">>> Output stream maybe already closed"); redundant with the getMessage
         }
 
         try{
-            System.out.println(">>> Closing " + clientSocket);
+            SocketServer.serverSocketLogger.log(Level.WARNING, ">>> Closing " + clientSocket);
             clientSocket.close();
         }
         catch (IOException ioe){
-            System.out.println(ioe.getMessage());
-            System.out.println(">>> Socket maybe already closed");
+            SocketServer.serverSocketLogger.log(Level.WARNING, ioe.getMessage() + ". Socket maybe already closed");
         }
     }
 }
