@@ -327,16 +327,17 @@ public class CommandExecutor {
     }
 
     public void execute(SetUsernameCommand command){
-//        if (!gameManager.getMatch().isStarted()) {
-//            if (gameManager.getLobby().getUsers().contains(command.getUser())) {
-//                command.getUser().setUsername(command.getUsername());
-////                command.getOriginView().notify("Il tuo username è stato modificato in: " + command.getUsername());
-//            } else {
-////                command.getOriginView().notify("Non puoi modificare il tuo username");
+        if (!gameManager.getMatch().isStarted()) {
+//            if (gameManager.getLobby().getUserToken().contains(command.getToken())) {
+//                gameManager.getLobby().getUserFromToken(command.getToken()).setUsername(command.getUsername());
+//                command.getOriginView().notify("Il tuo username è stato modificato in: " + command.getUsername());
+            }
+//        else {
+//                command.getOriginView().notify("Non puoi modificare il tuo username");
 //            }
 //        }
 //        else{
-////            command.getOriginView().notify("Non puoi modificare il tuo username perchè la partita è già iniziata");
+//            command.getOriginView().notify("Non puoi modificare il tuo username perchè la partita è già iniziata");
 //        }
     }
 

@@ -24,7 +24,6 @@ public class LobbyFrame extends Application {
     final int buttonWidth = 75;
     private CommandLauncher cmdLauncher;
 
-
     public void init(CommandLauncher cmd){
         this.cmdLauncher = cmd;
     }

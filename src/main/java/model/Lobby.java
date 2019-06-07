@@ -37,6 +37,16 @@ public class Lobby {
         return users;
     }
 
+    public User getUserFromToken(String token){
+        for(User u: users){
+            if (u.getToken().equals(token)){
+                return u;
+            }
+        }
+        //TODO va lanciata eccezione vero;
+        return null;
+    }
+
     /**
      * allow a User to join the lobby if it is not full
      * @param u user to be added
