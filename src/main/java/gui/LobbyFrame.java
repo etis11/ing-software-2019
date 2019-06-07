@@ -1,5 +1,6 @@
 package gui;
 
+import controller.CommandContainer;
 import controller.CommandLauncher;
 import controller.commandpack.*;
 import javafx.application.Application;
@@ -19,12 +20,13 @@ import view.ClientSingleton;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.rmi.RemoteException;
 
 public class LobbyFrame extends Application {
     final int buttonWidth = 75;
-    private CommandLauncher cmdLauncher;
+    private CommandContainer cmdLauncher;
 
-    public void init(CommandLauncher cmd){
+    public void init(CommandContainer cmd){
         this.cmdLauncher = cmd;
     }
 
@@ -81,7 +83,11 @@ public class LobbyFrame extends Application {
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
                 if (checkToken("Distruttore")){
-                    cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Distruttore"));
+                    try {
+                        cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Distruttore"));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else{
                     info.setText("personaggio già scelto");
@@ -101,7 +107,11 @@ public class LobbyFrame extends Application {
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
                 if (checkToken("Banshee")){
-                    cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Banshee"));
+                    try {
+                        cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Banshee"));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else{
                     info.setText("personaggio già scelto");
@@ -121,7 +131,11 @@ public class LobbyFrame extends Application {
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
                 if (checkToken("Dozer")){
-                    cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Dozer"));
+                    try {
+                        cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Dozer"));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else{
                     info.setText("personaggio già scelto");
@@ -141,7 +155,11 @@ public class LobbyFrame extends Application {
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
                 if (checkToken("Sprog")){
-                    cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Sprog"));
+                    try {
+                        cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Sprog"));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else{
                     info.setText("personaggio già scelto");
@@ -161,7 +179,11 @@ public class LobbyFrame extends Application {
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
                 if (checkToken("Violetta")){
-                    cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Violetta"));
+                    try {
+                        cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Violetta"));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else{
                     info.setText("personaggio già scelto");
@@ -195,7 +217,11 @@ public class LobbyFrame extends Application {
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
                 if(checkUsername(usernameField.getText().trim())){
-                    cmdLauncher.addCommand(new SetUsernameCommand(ClientSingleton.getInstance().getToken(), usernameField.getText().trim()));
+                    try {
+                        cmdLauncher.addCommand(new SetUsernameCommand(ClientSingleton.getInstance().getToken(), usernameField.getText().trim()));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else{
                     info.setText("inserisci un username valido");
@@ -212,7 +238,11 @@ public class LobbyFrame extends Application {
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
                 if(checkPhrase(effectPhraseField.getText())){
-                    cmdLauncher.addCommand(new SetEffectPhraseCommand(ClientSingleton.getInstance().getToken(), effectPhraseField.getText()));
+                    try {
+                        cmdLauncher.addCommand(new SetEffectPhraseCommand(ClientSingleton.getInstance().getToken(), effectPhraseField.getText()));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else{
                     info.setText("inserisci una frase");
@@ -229,7 +259,11 @@ public class LobbyFrame extends Application {
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
                 if(checkDeath(deathField.getText())){
-                    cmdLauncher.addCommand(new SetNumberOfDeathCommand(ClientSingleton.getInstance().getToken(), Integer.parseInt(deathField.getText())));
+                    try {
+                        cmdLauncher.addCommand(new SetNumberOfDeathCommand(ClientSingleton.getInstance().getToken(), Integer.parseInt(deathField.getText())));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else{
                     //TODO messaggio
@@ -247,7 +281,11 @@ public class LobbyFrame extends Application {
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
                 if(checkPlayer(playerNumberField.getText())){
-                    cmdLauncher.addCommand(new SetPlayerNumberCommand(ClientSingleton.getInstance().getToken(), Integer.parseInt(playerNumberField.getText())));
+                    try {
+                        cmdLauncher.addCommand(new SetPlayerNumberCommand(ClientSingleton.getInstance().getToken(), Integer.parseInt(playerNumberField.getText())));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else{
                     //TODO messaggio

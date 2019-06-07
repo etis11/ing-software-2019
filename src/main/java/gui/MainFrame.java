@@ -85,11 +85,14 @@ public class MainFrame extends Application {
                             }
                         }
                     }
-                    else{
+                    if (cmdLauncher == null){
                         cmdLauncher = new CommandLauncher(new GameManager());
                     }
-                    //TODO togliere l'else e controllare che non sia null
-                    cmdLauncher.addCommand(new CreateUserCommand(ClientSingleton.getInstance().getToken(),  userField.getText().trim()));
+                    try {
+                        cmdLauncher.addCommand(new CreateUserCommand(ClientSingleton.getInstance().getToken(),  userField.getText().trim()));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                     openNextStage(stage);
 
                 }
@@ -136,7 +139,11 @@ public class MainFrame extends Application {
                     else{
                         cmdLauncher = new CommandLauncher(new GameManager());
                     }
-                    cmdLauncher.addCommand(new CreateUserCommand(ClientSingleton.getInstance().getToken(),  userField.getText().trim()));
+                    try {
+                        cmdLauncher.addCommand(new CreateUserCommand(ClientSingleton.getInstance().getToken(),  userField.getText().trim()));
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                     openNextStage(stage);
                 }
                 else{
