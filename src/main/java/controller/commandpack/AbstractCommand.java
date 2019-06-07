@@ -1,13 +1,19 @@
 package controller.commandpack;
 
 import controller.CommandExecutor;
+import controller.JsonReceiver;
 import model.GameManager;
+import network.TokenRegistry;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public abstract class AbstractCommand implements Command, Serializable {
+public abstract class AbstractCommand implements Command {
 
     protected String token;
+    protected JsonReceiver receiver;
+    protected List<JsonReceiver> allReceivers;
 
 
     public AbstractCommand(String token){
@@ -18,8 +24,10 @@ public abstract class AbstractCommand implements Command, Serializable {
 
     }
 
-
-    public String getToken(){return token;}
+    @Override
+    public void setJsonReceiver() {
+        receiver = TokenRegistry.getJsonReceiver(this.token);
+    }
 
     public void endCommandToAction(GameManager gameManager){
         gameManager.getMatch().getCurrentPlayer().decrementMoves();
@@ -33,5 +41,8 @@ public abstract class AbstractCommand implements Command, Serializable {
         System.out.println("ERRORE");
     }
 
-
+    @Override
+    public void setAllJsonReceivers(List<JsonReceiver> receivers) {
+        allReceivers = new ArrayList<>(receivers);
+    }
 }

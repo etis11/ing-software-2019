@@ -1,6 +1,7 @@
 package network.Socket;
 
 import controller.CommandLauncherInterface;
+import controller.JsonReceiver;
 import network.TokenRegistry;
 
 import java.io.IOException;
@@ -68,7 +69,9 @@ public class SocketServer {
             clientOutput.write(clientToken);
             clientOutput.flush();
             //creates a json Receiver and binds it to the client socket.
-            TokenRegistry.associateTokenAndReceiver(clientToken, new JsonReceiverProxySocket(clientSocket));
+            JsonReceiver receiverProxy = new JsonReceiverProxySocket(clientSocket);
+            commandLauncher.addJsonReceiver(receiverProxy);
+            TokenRegistry.associateTokenAndReceiver(clientToken, receiverProxy);
             threadPool.submit(new CommandReceiverSocket(clientSocket, commandLauncher));;
 
         }
