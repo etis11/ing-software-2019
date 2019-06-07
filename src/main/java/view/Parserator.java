@@ -1,5 +1,6 @@
 package view;
 
+import controller.CommandContainer;
 import controller.CommandLauncherInterface;
 import controller.commandpack.*;
 import model.Player;
@@ -12,24 +13,21 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Parserator implements Runnable {
-    private CommandLauncherInterface commandLauncher;
-    private Player player;
-    private User user;
-    private String username;
-    private String phrase;
-    private int num;
-    private User owner;
-    private int players;
-    private String token;
+    private CommandContainer commandLauncher;
+    private String token = ClientSingleton.getInstance().getToken();
+    private CommandLineInterface CLI;
 
+    public Parserator(CommandContainer launcher){
+        commandLauncher = launcher;
+    }
 
     @Override
     public void run() {
-
         try {
-            this.parseCommand(new CommandLineInterface().getUserInputString());
+            this.parseCommand(CLI.getUserInputString());
         } catch (IOException e) {
             e.printStackTrace();
+            throw new RuntimeException();
         }
     }
 
@@ -37,7 +35,6 @@ public class Parserator implements Runnable {
     public void parseCommand(String command) throws RemoteException {
         String param="";
         String realCommand="";
-        this.token = ClientSingleton.getInstance().getToken();
         if(command.contains(" ")) {
             realCommand = command.split(" ")[0];
             param = command.split(" ")[1];

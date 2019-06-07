@@ -1,4 +1,10 @@
 11 giugno
+
+LEGENDA
+* = fatto
+# = parzialmente fatto
+X = da fare
+
 1) modello semplificato etis
 2) serializzazione e deserializzazione oscar
 3) mappa di gioco sulla gui passoni
@@ -16,10 +22,10 @@ cose da fare  insieme l'11
 
 
 cosa fare adesso
-1) mettere in piedi la rete si può fare
-2) nella gui settare per bene il token (inserire il lancio del client RMI o socket) fato /da fare
-3) sistema command executor con tutta la storia del json receiver da fare
-4) creare una cli con string parser
+*1) mettere in piedi la rete si può fare
+*2) nella gui settare per bene il token (inserire il lancio del client RMI o socket) fato /da fare
+#3) sistema command executor con tutta la storia del json receiver da fare
+X4) creare una cli con string parser
 
 lungo periodo
 1) json receiver
@@ -35,6 +41,7 @@ lungo periodo
 11) testare in qualche modo lo shooting
 12) Rete con timer facilmente configurabili
 
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 7 giugno
 #1) cambiare i comandi. ora accettano un token che rende più facile chi sta chiedendo cosa Ing. Passoni parzialmente
