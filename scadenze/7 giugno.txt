@@ -1,36 +1,75 @@
-1) cambiare i comandi. ora accettano un token che rende più facile chi sta chiedendo cosa Ing. Passoni
-2) completare la network. Oscar (inizializzare il client Singleton)
-3) continuare la gui. Passoni e etis ?
-4) rincontrollare armi etis
-5) singleton passoni
-6) risolvere il string parser etis. (Passoni ha cambiato i comandi, modificare i parametri)
-7) specchiare immagine etis
+11 giugno
+1) modello semplificato etis
+2) serializzazione e deserializzazione oscar
+3) mappa di gioco sulla gui passoni
+4) finire comandi passoni
+5) mappa, player e player board sulla CLI etis
+6) json delle ammo card etis
+
+cose da fare  insieme l'11
+1) capire la cli e la gui come interagiscono con il modello
+2) definire come viene creato il modello sul client
+3) ammo card
+4) creare una partita lato modello
+5) comando di sparo impossibile
+6) parlare di una sessione di debugging
+
+
+cosa fare adesso
+1) mettere in piedi la rete si può fare
+2) nella gui settare per bene il token (inserire il lancio del client RMI o socket) fato /da fare
+3) sistema command executor con tutta la storia del json receiver da fare
+4) creare una cli con string parser
+
+lungo periodo
+1) json receiver
+2) la serializzazione e deserializzazione
+3) Finire la GUI
+4) CLI: parser incompleto
+5) CLI: non è chiaro come interagisce con il resto del mondo
+6) ammo card
+7) power card
+8) inizializzazione partita
+9) gestione dei turni
+10) gestione fine partita
+11) testare in qualche modo lo shooting
+12) Rete con timer facilmente configurabili
+
+
+7 giugno
+#1) cambiare i comandi. ora accettano un token che rende più facile chi sta chiedendo cosa Ing. Passoni parzialmente
+*2) completare la network. Oscar (inizializzare il client Singleton) fatto
+#3) continuare la gui. Passoni e etis ? fatto, sistemati i comandi della lobby. Scelta personaggio da fare
+*4) rincontrollare armi etis fatto
+*5) singleton passoni fatto
+*6) risolvere il string parser etis. (Passoni ha cambiato i comandi, modificare i parametri) fatto
+*7) specchiare immagine etis fatto
 -----
 soft line)
-a) creare il modello semplificato Oscar
+xa) creare il modello semplificato Oscar non ce l'ho fatta
 
 
 
 cose da fare insieme venerdì
-1) mettere in piedi una CLI
-2) mettere in piedi la rete
-3) comando di sparo
-4) parlare del modello semplificato
-5) nella gui settare per bene il token (inserire il lancio del client RMI o socket)
-6) sistema command executor con tutta la storia del json receiver
+x1) mettere in piedi una CLI impossibile
+#2) mettere in piedi la rete si può fare
+x3) comando di sparo impossibile
+*X4) parlare del modello semplificato da fare
+#5) nella gui settare per bene il token (inserire il lancio del client RMI o socket) fato /da fare
+x6) sistema command executor con tutta la storia del json receiver da fare
 
 
 -------------------------
-1) json receiver
-2) la serializzazione e deserializzazione
-3) Finire la network
-4) Finire la GUI
-5) CLI: parser incompleto
-6) CLI: non è chiaro come interagisce con il resto del mondo
-7) ammo card
-8) power card
-9) inizializzazione partita
-10) gestione dei turni
-11) gestione fine partita
-12) testare in qualche modo lo shooting
-13) rendere i timer facilmente configurabili
+x1) json receiver
+x2) la serializzazione e deserializzazione
+*3) Finire la network finita
+x4) Finire la GUI
+#5) CLI: parser incompleto
+x6) CLI: non è chiaro come interagisce con il resto del mondo
+x7) ammo card
+x8) power card
+x9) inizializzazione partita
+x10) gestione dei turni
+x11) gestione fine partita
+x12) testare in qualche modo lo shooting
+x13) rendere i timer facilmente configurabili
