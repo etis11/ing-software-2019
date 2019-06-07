@@ -4,6 +4,7 @@ package controller;
 import controller.commandpack.Command;
 import model.GameManager;
 import model.Match;
+import network.TokenRegistry;
 
 import java.util.concurrent.*;
 import java.util.logging.Level;
@@ -51,6 +52,8 @@ public class CommandLauncher implements CommandLauncherInterface {
         while (!stop) {
             try {
                 takenCommand = commandQueue.take();
+                String token = takenCommand.getToken();
+                takenCommand.setJsonReceiver(TokenRegistry.getJsonReceiver(token));
             } catch (InterruptedException i) {
                 System.out.println(i.getMessage());
                 LOGGER.log(Level.WARNING, i.getMessage(), i);
