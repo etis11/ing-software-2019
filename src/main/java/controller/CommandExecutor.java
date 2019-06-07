@@ -304,32 +304,33 @@ public class CommandExecutor {
 
     public void execute(SetEffectPhraseCommand command){
         if (!gameManager.getMatch().isStarted()) {
-//            if (gameManager.getLobby().getUsers().contains(command.getUser())) {
-//                command.getUser().setEffectPhrase(command.getPhrase());
-//                command.getOriginView().notify("La tua frase ad effetto è stata modificata");
-//            } else {
-//                command.getOriginView().notify("Non puoi modificare la tua frase ad effetto");
-//            }
+            if (gameManager.getLobby().getUsers().contains(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()))) {
+                TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).setEffectPhrase(command.getPhrase());
+//                command.getOriginView().notify("La tua frase ad effetto è stata modificata")
+            } else {
+//                command.getOriginView().notify("Non puoi modificare la tua frase ad effetto")
+            }
         }
         else{
-//            command.getOriginView().notify("Non puoi modificare la tua frase perchè la partita è iniziata");
+//            command.getOriginView().notify("Non puoi modificare la tua frase perchè la partita è iniziata")
         }
     }
 
     public void execute(SetNumberOfDeathCommand command){
         if (!gameManager.getMatch().isStarted()) {
-//            if (command.getDeath() < 9 && command.getDeath() > 4 && gameManager.getLobby().getUsers().get(0) == command.getOwner()) {
-//                gameManager.getMatch().setSkulls(command.getDeath());
+            if (command.getDeath() < 9 && command.getDeath() > 4 && gameManager.getLobby().getUsers().get(0) == TokenRegistry.getJsonUserOwner(command.getJsonReceiver())) {
+                gameManager.getMatch().setSkulls(command.getDeath());
 //                for (MessageListener ml : command.getAllViews()) {
-//                    ml.notify("Il numero di uccisioni per la partita è stato cambiato a: " + command.getDeath());
+//                    ml.notify("Il numero di uccisioni per la partita è stato cambiato a: " + command.getDeath())
 //                }
-//            } else {
-//                if (command.getDeath() > 8 || command.getDeath() < 5) {
-//                    command.getOriginView().notify("Numero uccisioni non nel target ammissibile");
-//                } else {
-//                    command.getOriginView().notify("Operazione non consentita");
-//                }
-//            }
+            }
+            else {
+                if (command.getDeath() > 8 || command.getDeath() < 5) {
+//                    command.getOriginView().notify("Numero uccisioni non nel target ammissibile")
+                } else {
+//                    command.getOriginView().notify("Operazione non consentita")
+                }
+            }
         }
         else{
 //            command.getOriginView().notify("Non puoi modificare il numero di morti perchè è iniziata la partita");
@@ -338,18 +339,19 @@ public class CommandExecutor {
 
     public void execute(SetPlayerNumberCommand command){
         if (!gameManager.getMatch().isStarted()) {
-//            if (command.getPlayers() < 6 && command.getPlayers() > 2 && gameManager.getLobby().getUsers().get(0) == command.getOwner()) {
-//                gameManager.getMatch().setPlayerNumber(command.getPlayers());
+            if (command.getPlayers() < 6 && command.getPlayers() > 2 && gameManager.getLobby().getUsers().get(0) == TokenRegistry.getJsonUserOwner(command.getJsonReceiver())) {
+                gameManager.getMatch().setPlayerNumber(command.getPlayers());
 //                for (MessageListener ml : command.getAllViews()) {
-//                    ml.notify("Il numero di uccisioni per la partita è stato cambiato a: " + command.getPlayers());
+//                    ml.notify("Il numero di uccisioni per la partita è stato cambiato a: " + command.getPlayers())
 //                }
-//            } else {
-//                if (command.getPlayers() > 5 || command.getPlayers() < 3) {
-//                    command.getOriginView().notify("Numero uccisioni non nel target ammissibile");
-//                } else {
-//                    command.getOriginView().notify("Operazione non consentita");
-//                }
-//            }
+            }
+            else {
+                if (command.getPlayers() > 5 || command.getPlayers() < 3) {
+//                    command.getOriginView().notify("Numero uccisioni non nel target ammissibile")
+                } else {
+//                    command.getOriginView().notify("Operazione non consentita")
+                }
+            }
         }
         else{
 //            command.getOriginView().notify("Non puoi modificare il numero di giocatori perchè la partita è già iniziata");
@@ -358,33 +360,33 @@ public class CommandExecutor {
 
     public void execute(SetUsernameCommand command){
         if (!gameManager.getMatch().isStarted()) {
-//            if (gameManager.getLobby().getUserToken().contains(command.getToken())) {
-//                gameManager.getLobby().getUserFromToken(command.getToken()).setUsername(command.getUsername());
-//                command.getOriginView().notify("Il tuo username è stato modificato in: " + command.getUsername());
+            if (gameManager.getLobby().getUsers().contains(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()))) {
+                TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).setUsername(command.getUsername());
+//                command.getOriginView().notify("Il tuo username è stato modificato in: " + command.getUsername())
             }
-//        else {
-//                command.getOriginView().notify("Non puoi modificare il tuo username");
-//            }
-//        }
-//        else{
-//            command.getOriginView().notify("Non puoi modificare il tuo username perchè la partita è già iniziata");
-//        }
+        else {
+//                command.getOriginView().notify("Non puoi modificare il tuo username")
+            }
+        }
+        else{
+//            command.getOriginView().notify("Non puoi modificare il tuo username perchè la partita è già iniziata")
+        }
     }
 
 
     public void execute(CreateUserCommand command){
-//        if (!gameManager.getMatch().isStarted()) {
-//            //User user = new User(command.getUsername(), command.getToken());
+        if (!gameManager.getMatch().isStarted()) {
+            User user = new User(command.getUsername());
 
-//            try {
-//                gameManager.getLobby().join(user);
-//            } catch (NotValidActionException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        else{
-////            command.getOriginView().notify("Non puoi unirti alla partita perchè è già iniziata");
-//        }
+            try {
+                gameManager.getLobby().join(user);
+            } catch (NotValidActionException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+//           command.getOriginView().notify("Non puoi unirti alla partita perchè è già iniziata")
+        }
 
     }
 
