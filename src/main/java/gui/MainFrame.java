@@ -1,6 +1,6 @@
 package gui;
 
-import controller.CommandLauncher;
+import controller.*;
 import controller.commandpack.CreateUserCommand;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -15,14 +15,21 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.GameManager;
+import network.RMI.ServerRMIInterface;
+import network.Socket.CommandLauncherProxySocket;
 import view.ClientSingleton;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.*;
+import java.net.Socket;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 public class MainFrame extends Application {
     final int buttonWidth = 150;
-    private CommandLauncher cmdLauncher = new CommandLauncher(new GameManager());//TODO togliere
+    private CommandContainer cmdLauncher;
+    private boolean networkActive = true;
 
     public void init(CommandLauncher cmd){
         this.cmdLauncher = cmd;
@@ -53,7 +60,35 @@ public class MainFrame extends Application {
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
                 if(checkUsername(userField.getText().trim())){
-                    //TODO impostazione tipo connessione
+                    if (networkActive){
+                        Socket mySocket = null;
+                        try {
+
+                            mySocket = new Socket("localhost", 8000);
+                            BufferedReader input = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
+                            PrintWriter output = new PrintWriter(mySocket.getOutputStream());
+                            output.write(ClientSingleton.getInstance().getToken() + "\n");
+                            output.flush();
+                            ClientSingleton.getInstance().setToken(input.readLine());
+                        }
+                        catch (IOException i){
+                            System.out.println(">>> Errore nella connessione. Probabilmente il server è down");
+                        }
+
+                        if (mySocket != null){
+                            try {
+                                cmdLauncher = new CommandLauncherProxySocket(mySocket);
+                            } catch (IOException i) {
+                                System.out.println(i.getMessage());
+                                i.printStackTrace();
+                                System.out.println(">>> Problemi con il socket");
+                            }
+                        }
+                    }
+                    else{
+                        cmdLauncher = new CommandLauncher(new GameManager());
+                    }
+                    //TODO togliere l'else e controllare che non sia null
                     cmdLauncher.addCommand(new CreateUserCommand(ClientSingleton.getInstance().getToken(),  userField.getText().trim()));
                     openNextStage(stage);
 
@@ -74,7 +109,33 @@ public class MainFrame extends Application {
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
                 if(checkUsername(userField.getText().trim())){
-                    //TODO impostazione tipo connessione
+                    if (networkActive){
+                        String token = "";
+                        JsonReceiver receiver = new JsonUnwrapper();
+                        try{
+                            //the json receiver now is exportable
+                            UnicastRemoteObject.exportObject(receiver, 0);
+                        }
+                        catch (RemoteException i){
+                            //TODO gestire il lancio della remote exception
+                            throw  new RuntimeException(i);
+                        }
+                        try{
+                            //gets the registry
+                            Registry registry = LocateRegistry.getRegistry();
+                            //asks fro the server stub
+                            ServerRMIInterface serverRMI = (ServerRMIInterface) registry.lookup("serverRMI");
+                            token= serverRMI.getPersonalToken(receiver, "");
+                            ClientSingleton.getInstance().setToken(token);
+                            cmdLauncher = serverRMI.getCurrentCommandLauncher();
+                        }
+                        catch (Exception r) {
+                            throw new RuntimeException(r);
+                        }
+                    }
+                    else{
+                        cmdLauncher = new CommandLauncher(new GameManager());
+                    }
                     cmdLauncher.addCommand(new CreateUserCommand(ClientSingleton.getInstance().getToken(),  userField.getText().trim()));
                     openNextStage(stage);
                 }

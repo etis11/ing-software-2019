@@ -4,7 +4,7 @@ public class ClientSingleton {
 
     private static ClientSingleton instance;
 
-    private String token;
+    private String token = "";
 
     private ClientSingleton(){}
 
