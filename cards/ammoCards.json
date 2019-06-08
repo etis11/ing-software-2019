@@ -1,0 +1,219 @@
+[
+  {
+    "numRed": 0,
+    "numBlue": 2,
+    "numYellow": 1,
+    "drawPowerUp": false
+  },
+  {
+    "numRed": 2,
+    "numBlue": 0,
+    "numYellow": 1,
+    "drawPowerUp": false
+  },
+  {
+    "numRed": 1,
+    "numBlue": 2,
+    "numYellow": 0,
+    "drawPowerUp": false
+  },
+  {
+    "numRed": 1,
+    "numBlue": 0,
+    "numYellow": 2,
+    "drawPowerUp": false
+  },
+  {
+    "numRed": 0,
+    "numBlue": 1,
+    "numYellow": 2,
+    "drawPowerUp": false
+  },
+  {
+    "numRed": 2,
+    "numBlue": 1,
+    "numYellow": 0,
+    "drawPowerUp": false
+  },
+  {
+    "numRed": 0,
+    "numBlue": 2,
+    "numYellow": 1,
+    "drawPowerUp": false
+  },
+  {
+    "numRed": 2,
+    "numBlue": 0,
+    "numYellow": 1,
+    "drawPowerUp": false
+  },
+  {
+    "numRed": 1,
+    "numBlue": 2,
+    "numYellow": 0,
+    "drawPowerUp": false
+  },
+  {
+    "numRed": 1,
+    "numBlue": 0,
+    "numYellow": 2,
+    "drawPowerUp": false
+  },
+  {
+    "numRed": 0,
+    "numBlue": 1,
+    "numYellow": 2,
+    "drawPowerUp": false
+  },
+  {
+    "numRed": 2,
+    "numBlue": 1,
+    "numYellow": 0,
+    "drawPowerUp": false
+  },
+  {
+    "numRed": 0,
+    "numBlue": 2,
+    "numYellow": 1,
+    "drawPowerUp": false
+  },
+  {
+    "numRed": 2,
+    "numBlue": 0,
+    "numYellow": 1,
+    "drawPowerUp": false
+  },
+  {
+    "numRed": 1,
+    "numBlue": 2,
+    "numYellow": 0,
+    "drawPowerUp": false
+  },
+  {
+    "numRed": 1,
+    "numBlue": 0,
+    "numYellow": 2,
+    "drawPowerUp": false
+  },
+  {
+    "numRed": 0,
+    "numBlue": 1,
+    "numYellow": 2,
+    "drawPowerUp": false
+  },
+  {
+    "numRed": 2,
+    "numBlue": 1,
+    "numYellow": 0,
+    "drawPowerUp": false
+  },
+  {
+    "numRed": 0,
+    "numBlue": 0,
+    "numYellow": 2,
+    "drawPowerUp": true
+  },
+  {
+    "numRed": 2,
+    "numBlue": 0,
+    "numYellow": 0,
+    "drawPowerUp": true
+  },
+  {
+    "numRed": 0,
+    "numBlue": 2,
+    "numYellow": 0,
+    "drawPowerUp": true
+  },
+  {
+    "numRed": 1,
+    "numBlue": 0,
+    "numYellow": 1,
+    "drawPowerUp": true
+  },
+  {
+    "numRed": 0,
+    "numBlue": 1,
+    "numYellow": 1,
+    "drawPowerUp": true
+  },
+  {
+    "numRed": 1,
+    "numBlue": 1,
+    "numYellow": 0,
+    "drawPowerUp": true
+  },
+  {
+    "numRed": 1,
+    "numBlue": 0,
+    "numYellow": 1,
+    "drawPowerUp": true
+  },
+  {
+    "numRed": 0,
+    "numBlue": 1,
+    "numYellow": 1,
+    "drawPowerUp": true
+  },
+  {
+    "numRed": 1,
+    "numBlue": 1,
+    "numYellow": 0,
+    "drawPowerUp": true
+  },
+  {
+    "numRed": 0,
+    "numBlue": 0,
+    "numYellow": 2,
+    "drawPowerUp": true
+  },
+  {
+    "numRed": 2,
+    "numBlue": 0,
+    "numYellow": 0,
+    "drawPowerUp": true
+  },
+  {
+    "numRed": 0,
+    "numBlue": 2,
+    "numYellow": 0,
+    "drawPowerUp": true
+  },
+  {
+    "numRed": 1,
+    "numBlue": 0,
+    "numYellow": 1,
+    "drawPowerUp": true
+  },
+  {
+    "numRed": 0,
+    "numBlue": 1,
+    "numYellow": 1,
+    "drawPowerUp": true
+  },
+  {
+    "numRed": 1,
+    "numBlue": 1,
+    "numYellow": 0,
+    "drawPowerUp": true
+  }
+,
+  {
+    "numRed": 1,
+    "numBlue": 0,
+    "numYellow": 1,
+    "drawPowerUp": true
+  },
+  {
+    "numRed": 0,
+    "numBlue": 1,
+    "numYellow": 1,
+    "drawPowerUp": true
+  },
+  {
+    "numRed": 1,
+    "numBlue": 1,
+    "numYellow": 0,
+    "drawPowerUp": true
+  }
+]
