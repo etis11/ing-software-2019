@@ -1,23 +1,32 @@
 package network;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import controller.CommandLauncherInterface;
 import controller.JsonReceiver;
 import controller.commandpack.Command;
+import jsonparser.JsonFileReader;
+import jsonparser.WeaponCardDeserializer;
+import model.Match;
+import model.WeaponCard;
 import network.RMI.ServerRMI;
 import network.Socket.SocketServer;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 public class ServerLauncher {
 
-    public static void main(String[] args) throws RemoteException, AlreadyBoundException {
-
-
+    public static void main(String[] args) throws RemoteException, AlreadyBoundException, FileNotFoundException {
+        
         CommandLauncherInterface launcher = new CommandLauncherInterface()  {
             @Override
             public void executeCommand() {
