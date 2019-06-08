@@ -4,11 +4,14 @@ import controller.CommandContainer;
 import controller.CommandLauncher;
 import controller.commandpack.*;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -37,15 +40,15 @@ public class LobbyFrame extends Application {
 
         //path of button image
         final String pathDistruttore = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"Distruttore.png";
+                + File.separatorChar +"img"+File.separatorChar+"Distruttore.PNG";
         final String pathBanshee = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"Banshee.png";
+                + File.separatorChar +"img"+File.separatorChar+"Banshee.PNG";
         final String pathDozer = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"Dozer.png";
+                + File.separatorChar +"img"+File.separatorChar+"Dozer.PNG";
         final String pathSprog = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"Sprog.png";
+                + File.separatorChar +"img"+File.separatorChar+"Sprog.PNG";
         final String pathVioletta = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"Violetta.png";
+                + File.separatorChar +"img"+File.separatorChar+"Violetta.PNG";
 
         Image imageDistruttore = new Image(new FileInputStream(pathDistruttore),75,75,false, true);
         Image imageBanshee = new Image(new FileInputStream(pathBanshee),75,75,false, true);
@@ -68,12 +71,20 @@ public class LobbyFrame extends Application {
         TextField deathField = new TextField("Cambia numero morti");
         TextField playerNumberField = new TextField("Cambia numero giocatori");
         Label info = new Label();
+        ObservableList<String> comboItems = FXCollections.observableArrayList(
+                "Scegli Mappa",
+                "Piccola",
+                "Media",
+                "Grande",
+                "Esagerata"
+        );
+        ComboBox comboBox = new ComboBox(comboItems);
 
         info.setLayoutY(550);
-        info.setLayoutX(500);
+        info.setLayoutX(425);
         info.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
-        buttonPlayer1.setLayoutY(300);
+        buttonPlayer1.setLayoutY(250);
         buttonPlayer1.setLayoutX(50);
         buttonPlayer1.setMinWidth(buttonWidth);
         buttonPlayer1.setMinHeight(buttonWidth);
@@ -194,19 +205,19 @@ public class LobbyFrame extends Application {
         });
 
         usernameField.setLayoutX(50);
-        usernameField.setLayoutY(200);
+        usernameField.setLayoutY(160);
         usernameField.setMinWidth(150);
 
-        effectPhraseField.setLayoutY(450);
+        effectPhraseField.setLayoutY(390);
         effectPhraseField.setLayoutX(50);
         effectPhraseField.setMinWidth(150);
 
         deathField.setLayoutX(590);
-        deathField.setLayoutY(200);
+        deathField.setLayoutY(usernameField.getLayoutY());
         deathField.setMinWidth(150);
 
         playerNumberField.setLayoutX(590);
-        playerNumberField.setLayoutY(450);
+        playerNumberField.setLayoutY(effectPhraseField.getLayoutY());
         playerNumberField.setMinWidth(150);
 
         buttonUsername.setLayoutY(usernameField.getLayoutY());
@@ -298,7 +309,7 @@ public class LobbyFrame extends Application {
 
         //path of background image
         final String path = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"Adrenalina.png";
+                + File.separatorChar +"img"+File.separatorChar+"Adrenalina.PNG";
 
         BackgroundImage myBI= new BackgroundImage(new Image(new FileInputStream(path),1000,600,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
