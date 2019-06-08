@@ -56,6 +56,7 @@ public class GameFrame extends Application {
         infoGame.setMaxHeight(500);
         infoGame.appendText("Benvenuto in Adrenalina! \n");
         infoGame.setEditable(false);
+        infoGame.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
 
         //path of background image
