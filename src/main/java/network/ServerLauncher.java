@@ -26,7 +26,7 @@ import java.util.List;
 public class ServerLauncher {
 
     public static void main(String[] args) throws RemoteException, AlreadyBoundException, FileNotFoundException {
-        
+
         CommandLauncherInterface launcher = new CommandLauncherInterface()  {
             @Override
             public void executeCommand() {
