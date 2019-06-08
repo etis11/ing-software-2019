@@ -4,6 +4,7 @@ import controller.CommandContainer;
 import controller.CommandLauncher;
 import controller.commandpack.*;
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -79,6 +80,13 @@ public class LobbyFrame extends Application {
                 "Esagerata"
         );
         ComboBox comboBox = new ComboBox(comboItems);
+        comboBox.getSelectionModel().select(0);
+        comboBox.valueProperty().addListener((ObservableValue observable, Object oldValue, Object newValue) -> {
+            //TODO comando set mappa
+            //valueLbl.setText(newValue.toString())
+        });
+        comboBox.setLayoutX(50);
+        comboBox.setLayoutY(480);
 
         info.setLayoutY(550);
         info.setLayoutX(425);
@@ -333,6 +341,7 @@ public class LobbyFrame extends Application {
         box.getChildren().add(deathField);
         box.getChildren().add(playerNumberField);
         box.getChildren().add(info);
+        box.getChildren().add(comboBox);
 
         stage.setScene(new Scene(box, 1000, 600));
         stage.show();
