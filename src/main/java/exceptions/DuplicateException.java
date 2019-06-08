@@ -1,6 +1,6 @@
 package exceptions;
 
-public class DuplicateException  extends RuntimeException{
+public class DuplicateException extends RuntimeException{
 
     public DuplicateException(){
 

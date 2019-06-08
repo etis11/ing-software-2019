@@ -1,5 +1,7 @@
 package model;
 
+
+
 import exceptions.NotValidMovesException;
 
 import java.util.LinkedList;
@@ -199,7 +201,7 @@ public class Player {
     }
 
 
-    public void pickUpPowerUp(PowerUpCard p){
+    public void pickUpPowerUp(PowerUpCard p)  {
         //TODO mancano tutti i controlli e l'implementazione del metodo
         powerUps.add(p);
 

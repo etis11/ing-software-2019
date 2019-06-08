@@ -4,6 +4,6 @@ import model.User;
 
 public interface LobbyListener {
 
-    public void onJoin(User joinedUser);
-    public void onLeave(User leavingUser);
+     void onJoin(User joinedUser);
+     void onLeave(User leavingUser);
 }
