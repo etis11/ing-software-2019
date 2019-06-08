@@ -33,7 +33,7 @@ public class Parserator implements Runnable {
                 throw new RuntimeException(e);
             }
             catch (IllegalArgumentException i){
-                CLI.displayText("Nessun comando esistente con questo formato");
+                CLI.displayText(AnsiColor.RED + "Nessun comando esistente con questo formato" + AnsiColor.RESET);
             }
         }
     }
