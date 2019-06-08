@@ -155,7 +155,7 @@ public class MainFrame extends Application {
 
         //path of background image
         String path = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"Adrenalina.png";
+                + File.separatorChar +"img"+File.separatorChar+"Adrenalina.PNG";
 
         BackgroundImage myBI= new BackgroundImage(new Image(new FileInputStream(path),1000,600,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
