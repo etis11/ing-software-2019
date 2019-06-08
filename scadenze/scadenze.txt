@@ -24,8 +24,8 @@ cose da fare  insieme l'11
 cosa fare adesso
 *1) mettere in piedi la rete si può fare
 *2) nella gui settare per bene il token (inserire il lancio del client RMI o socket) fato /da fare
-#3) sistema command executor con tutta la storia del json receiver da fare
-X4) creare una cli con string parser
+*3) sistema command executor con tutta la storia del json receiver da fare
+*4) creare una cli con string parser
 
 lungo periodo
 1) json receiver
