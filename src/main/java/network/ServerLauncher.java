@@ -1,21 +1,42 @@
 package network;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import controller.CommandLauncherInterface;
 import controller.JsonReceiver;
 import controller.commandpack.Command;
+import jsonparser.JsonFileReader;
+import jsonparser.WeaponCardDeserializer;
+import model.Match;
+import model.WeaponCard;
 import network.RMI.ServerRMI;
 import network.Socket.SocketServer;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 public class ServerLauncher {
 
-    public static void main(String[] args) throws RemoteException, AlreadyBoundException {
+    public static void main(String[] args) throws RemoteException, AlreadyBoundException, FileNotFoundException {
+        Gson g = new Gson();
+        JsonFileReader jsonFileReader = new JsonFileReader();
+        String cards = jsonFileReader.loadWeaponCards("cards/cards.json");
+        Match match = new Match();
+        //List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
+        WeaponCardDeserializer weaponCardDeserializer = new WeaponCardDeserializer(match);
+        List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
+        System.out.println(weaponCards);
+//        for(WeaponCard w : weaponCards){
+//            System.out.println(w);
+//        }
 
 
         CommandLauncherInterface launcher = new CommandLauncherInterface()  {

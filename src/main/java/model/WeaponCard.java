@@ -224,12 +224,17 @@ Method used to set an advanced effect
      */
     @Override
     public String toString() {
-        return "WeaponCard{" +
-                "reloadCost=" + reloadCost.size() +
-                ", baseEffect=" + baseEffect.get(0).getNumStepsShooter() +
-                ", advancedEffect=" + advancedEffect.get(0).getNumStepsShooter() +
-                ", loaded=" + loaded +
-                ", name='" + name + '\'' +
-                '}';
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("WeapondCard{name: ");
+        stringBuilder.append(this.name);
+        stringBuilder.append("}");
+        return stringBuilder.toString();
+//        return "WeaponCard{" +
+//                "reloadCost=" + reloadCost.size() +
+//                ", baseEffect=" + baseEffect.get(0).getNumStepsShooter() +
+//                ", advancedEffect=" + advancedEffect.get(0).getNumStepsShooter() +
+//                ", loaded=" + loaded +
+//                ", name='" + name + '\'' +
+//                '}';
     }
 }

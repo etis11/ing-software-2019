@@ -35,7 +35,7 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
         WeaponCard wcToAdd= new WeaponCard();
         JsonObject jsonCard = jsonElement.getAsJsonObject();
         String name=jsonCard.get("NAME").getAsString();
-        System.out.println(name);
+        //System.out.println(name);
         JsonArray jsonCost=jsonCard.get("reloadCost").getAsJsonArray();
         List<String>costs= new ArrayList<>();
         for(JsonElement cost:jsonCost){
@@ -72,7 +72,7 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
             WeaponCard wcToAdd= new WeaponCard();
             JsonObject jsonCard = el.getAsJsonObject();
             String name=jsonCard.get("NAME").getAsString();
-            System.out.println(name);
+            //System.out.println(name);
             JsonArray jsonCost=jsonCard.get("reloadCost").getAsJsonArray();
             List<String>costs= new ArrayList<>();
             for(JsonElement cost:jsonCost){
@@ -126,7 +126,7 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
           //  if(toAdd!=null){
             //    toAdd.setCost(costs);
               //  toAdd.setStrategy(getStrategyByName(strategy.get("type").getAsString(),param));}
-            System.out.println(effect);
+            //System.out.println(effect);
             toAdd.setGlobal(effect.get("isGlobal").getAsBoolean());
 
 
