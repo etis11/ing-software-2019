@@ -137,7 +137,7 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
                     toAdd.getOptionalEffects().add(gson.fromJson(effect.get("optionalEffects"), OptionalEffect.class));
                 }
             }catch(Exception e){
-                throw new RuntimeException(e);
+                System.out.println("qua devo aggiungere qualcosa se no sonar si imppapa");
             }
             toAdd.setCanMoveShooter(effect.get("isGlobal").getAsBoolean());
             toAdd.setMoveTargetAndHitAll(effect.get("isGlobal").getAsBoolean());
