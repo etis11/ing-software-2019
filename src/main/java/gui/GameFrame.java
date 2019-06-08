@@ -38,7 +38,18 @@ public class GameFrame extends Application {
 
         infoGame.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
-
+        walkButton.setLayoutY(10);
+        walkButton.setMinWidth(100);
+        pickButton.setLayoutY(walkButton.getLayoutY()+30);
+        pickButton.setMinWidth(100);
+        shootButton.setLayoutY(pickButton.getLayoutY()+30);
+        shootButton.setMinWidth(100);
+        powerUpButton.setLayoutY(shootButton.getLayoutY()+30);
+        powerUpButton.setMinWidth(100);
+        reloadButton.setLayoutY(powerUpButton.getLayoutY()+30);
+        reloadButton.setMinWidth(100);
+        endTurnButton.setLayoutY(reloadButton.getLayoutY()+30);
+        endTurnButton.setMinWidth(100);
 
         //setting gamelog
         gameLog.getChildren().add(infoGame);
@@ -50,6 +61,8 @@ public class GameFrame extends Application {
         buttonPane.getChildren().add(powerUpButton);
         buttonPane.getChildren().add(reloadButton);
         buttonPane.getChildren().add(endTurnButton);
+
+        buttonPane.setTranslateX(900);
 
         //setting mainpane
         mainPane.getChildren().add(gameLog);
