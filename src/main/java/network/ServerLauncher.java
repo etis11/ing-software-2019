@@ -26,19 +26,7 @@ import java.util.List;
 public class ServerLauncher {
 
     public static void main(String[] args) throws RemoteException, AlreadyBoundException, FileNotFoundException {
-        Gson g = new Gson();
-        JsonFileReader jsonFileReader = new JsonFileReader();
-        String cards = jsonFileReader.loadWeaponCards("cards/cards.json");
-        Match match = new Match();
-        //List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
-        WeaponCardDeserializer weaponCardDeserializer = new WeaponCardDeserializer(match);
-        List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
-        System.out.println(weaponCards);
-//        for(WeaponCard w : weaponCards){
-//            System.out.println(w);
-//        }
-
-
+        
         CommandLauncherInterface launcher = new CommandLauncherInterface()  {
             @Override
             public void executeCommand() {
