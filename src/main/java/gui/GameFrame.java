@@ -49,6 +49,7 @@ public class GameFrame extends Application {
         Button powerUpButton = new Button("Usa Powerup");
         Button reloadButton = new Button("Ricarica");
         Button endTurnButton = new Button("Fine Turno");
+        Button pointsButton = new Button("Punti");
 
         infoGame.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         infoGame.setMaxWidth(300);
@@ -60,14 +61,28 @@ public class GameFrame extends Application {
 
 
         //path of background image
-        final String path = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+        final String pathSmall = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
                 + File.separatorChar +"img"+File.separatorChar+"SmallMap.png";
+        final String pathMedium = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar +"img"+File.separatorChar+"MediumMap.png";
+        final String pathBig = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar +"img"+File.separatorChar+"BigMap.png";
+        final String pathExtra = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar +"img"+File.separatorChar+"ExtraLargeMap.png";
 
-        BackgroundImage myBI= new BackgroundImage(new Image(new FileInputStream(path),845,500,false,true),
+        final String pathDistruttoreBoard = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar +"img"+File.separatorChar+"DistruttoreBoard.png";
+
+        BackgroundImage myBI= new BackgroundImage(new Image(new FileInputStream(pathSmall),845,500,false,true),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+
+        BackgroundImage myBIB= new BackgroundImage(new Image(new FileInputStream(pathDistruttoreBoard),845,200,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
         mapPane.setBackground(new Background(myBI));
+        playerBoardPane.setBackground(new Background(myBIB));
 
         walkButton.setLayoutY(10);
         walkButton.setMinWidth(100);
@@ -147,6 +162,19 @@ public class GameFrame extends Application {
             }
         });
 
+        pointsButton.setLayoutY(endTurnButton.getLayoutY()+30);
+        pointsButton.setMinWidth(100);
+        pointsButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                try {
+                    cmdLauncher.addCommand(new AskPointsCommand(ClientSingleton.getInstance().getToken()));
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         //setting gamelog
         gameLog.getChildren().add(infoGame);
 
@@ -157,9 +185,12 @@ public class GameFrame extends Application {
         buttonPane.getChildren().add(powerUpButton);
         buttonPane.getChildren().add(reloadButton);
         buttonPane.getChildren().add(endTurnButton);
+        buttonPane.getChildren().add(pointsButton);
 
         buttonPane.setTranslateX(1175);
         mapPane.setTranslateX(305);
+        playerBoardPane.setTranslateY(510);
+        playerBoardPane.setTranslateX(50);
 
         //setting mainpane
         mainPane.getChildren().add(gameLog);
