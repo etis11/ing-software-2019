@@ -109,7 +109,7 @@ public class GameFrame extends Application {
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
-        BackgroundImage weap1Img= new BackgroundImage(new Image(new FileInputStream(pathMartelloIonico),845,190,false,true),
+        BackgroundImage weap1Img= new BackgroundImage(new Image(new FileInputStream(pathMartelloIonico),110,190,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
@@ -261,13 +261,18 @@ public class GameFrame extends Application {
         weapon1.setBackground(new Background(weap1Img));
         weapon2.setBackground(new Background(weaponBack));
         weapon3.setBackground(new Background(weaponBack));
-
-        weapon1.setTranslateX(850);
-        weapon2.setTranslateX(965);
-        weapon3.setTranslateX(1080);
-        weapon1.setTranslateY(505);
-        weapon2.setTranslateY(505);
-        weapon3.setTranslateY(505);
+        weapon1.setMinWidth(110);
+        weapon1.setMinHeight(190);
+        weapon2.setMinWidth(110);
+        weapon2.setMinHeight(190);
+        weapon3.setMinWidth(110);
+        weapon3.setMinHeight(190);
+        weapon1.setLayoutX(850);
+        weapon2.setLayoutX(965);
+        weapon3.setLayoutX(1080);
+        weapon1.setLayoutY(5);
+        weapon2.setLayoutY(5);
+        weapon3.setLayoutY(5);
 
 
 
@@ -285,6 +290,9 @@ public class GameFrame extends Application {
         playerBoardPane.getChildren().add(blueAmmmo);
         playerBoardPane.getChildren().add(redAmmmo);
         playerBoardPane.getChildren().add(yellowAmmmo);
+        playerBoardPane.getChildren().add(weapon1);
+        playerBoardPane.getChildren().add(weapon2);
+        playerBoardPane.getChildren().add(weapon3);
 
         //setting position of pane
         buttonPane.setSpacing(10);
@@ -294,14 +302,12 @@ public class GameFrame extends Application {
         playerBoardPane.setTranslateY(505);
         playerBoardPane.setTranslateX(25);
 
+
         //setting mainpane
         mainPane.getChildren().add(gameLog);
         mainPane.getChildren().add(mapPane);
         mainPane.getChildren().add(playerBoardPane);
         mainPane.getChildren().add(buttonPane);
-        mainPane.getChildren().add(weapon1);
-        mainPane.getChildren().add(weapon2);
-        mainPane.getChildren().add(weapon3);
 
         //set scene
         Scene scene = new Scene(mainPane, 1300, 700);
