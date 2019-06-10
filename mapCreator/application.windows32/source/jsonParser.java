@@ -1,28 +1,9 @@
-import processing.core.*; 
-import processing.data.*; 
-import processing.event.*; 
-import processing.opengl.*; 
+import processing.core.*;
+import processing.data.*;
+import processing.event.*;
+import processing.opengl.*;
 
-import com.google.gson.*; 
-import java.util.*; 
-
-import com.google.gson.*; 
-import com.google.gson.stream.*; 
-import com.google.gson.reflect.*; 
-import com.google.gson.internal.*; 
-import com.google.gson.internal.reflect.*; 
-import com.google.gson.internal.bind.*; 
-import com.google.gson.internal.bind.util.*; 
-import com.google.gson.annotations.*; 
-
-import java.util.HashMap; 
-import java.util.ArrayList; 
-import java.io.File; 
-import java.io.BufferedReader; 
-import java.io.PrintWriter; 
-import java.io.InputStream; 
-import java.io.OutputStream; 
-import java.io.IOException; 
+import java.io.PrintWriter;
 
 public class jsonParser extends PApplet {
 

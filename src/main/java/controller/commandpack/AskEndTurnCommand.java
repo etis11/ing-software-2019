@@ -1,10 +1,6 @@
 package controller.commandpack;
 
 import controller.CommandExecutor;
-import model.GameManager;
-import view.MessageListener;
-
-import java.util.List;
 
 /**
  * AskEndTurnCommand is an instance of command pattern

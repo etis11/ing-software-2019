@@ -1,10 +1,7 @@
 package view;
 
 import controller.CommandContainer;
-import controller.CommandLauncherInterface;
 import controller.commandpack.*;
-import model.Player;
-import model.User;
 
 import java.io.IOException;
 import java.rmi.RemoteException;

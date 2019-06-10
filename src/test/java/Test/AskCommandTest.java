@@ -1,16 +1,5 @@
 package Test;
 
-import controller.commandpack.*;
-import model.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import view.MessageListener;
-
-
-import java.awt.*;
-import java.util.*;
-import java.util.List;
-
 public class AskCommandTest  {
 
 //    private GameManager gm;

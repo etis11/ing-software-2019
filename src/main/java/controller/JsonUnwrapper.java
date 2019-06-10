@@ -2,9 +2,6 @@ package controller;
 
 import com.google.gson.JsonElement;
 
-import java.io.IOException;
-import java.rmi.RemoteException;
-
 public class JsonUnwrapper implements JsonReceiver {
 
 

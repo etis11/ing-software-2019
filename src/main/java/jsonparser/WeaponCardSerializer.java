@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import model.Effect;
-import model.Match;
 import model.Player;
 import model.WeaponCard;
 

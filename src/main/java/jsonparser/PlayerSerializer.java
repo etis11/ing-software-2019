@@ -1,6 +1,9 @@
 package jsonparser;
 
-import com.google.gson.*;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import model.Player;
 import model.PlayerBoard;
 import model.PowerUpCard;

@@ -1,13 +1,11 @@
 package Test;
 
+import javafx.scene.paint.Color;
 import model.Ammo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
-import javafx.scene.paint.Color;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AmmoTest {
 

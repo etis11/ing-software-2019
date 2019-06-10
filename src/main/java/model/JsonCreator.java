@@ -2,7 +2,6 @@ package model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import jsonparser.*;
 
 import java.util.LinkedList;
