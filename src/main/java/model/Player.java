@@ -169,7 +169,7 @@ public class Player {
      *
      * @return the list of all weapons in the hand of the player
      */
-    public LinkedList<WeaponCard> getWeapons() {
+    public List<WeaponCard> getWeapons() {
         return weapons.stream().map(WeaponCard::new).collect(Collectors.toCollection(LinkedList::new));
     }
 
@@ -187,7 +187,7 @@ public class Player {
      *
      * @return the list of all power ups in the player's hand
      */
-    public LinkedList<PowerUpCard> getPowerUps() {
+    public List<PowerUpCard> getPowerUps() {
         return powerUps.stream().map(PowerUpCard::new).collect(Collectors.toCollection(LinkedList::new));
     }
 

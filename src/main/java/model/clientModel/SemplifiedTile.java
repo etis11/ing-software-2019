@@ -2,7 +2,6 @@ package model.clientModel;
 
 import model.AmmoCard;
 import model.Player;
-import model.Room;
 import model.WeaponCard;
 
 import java.util.List;

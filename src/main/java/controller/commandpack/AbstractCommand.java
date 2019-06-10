@@ -3,10 +3,8 @@ package controller.commandpack;
 import controller.CommandExecutor;
 import controller.JsonReceiver;
 import model.GameManager;
-import model.User;
 import network.TokenRegistry;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,14 +1,12 @@
 package view;
 
-import controller.CommandLauncher;
 import controller.CommandLauncherInterface;
-import controller.commandpack.*;
-import model.*;
+import model.Match;
+import model.Player;
+import model.User;
 
 import java.io.*;
-import java.lang.reflect.Array;
-import java.rmi.RemoteException;
-import java.util.*;
+import java.util.Scanner;
 
 /**
  *  The classic CLI class needed to run the software without GUI

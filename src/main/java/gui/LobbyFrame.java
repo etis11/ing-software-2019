@@ -1,7 +1,6 @@
 package gui;
 
 import controller.CommandContainer;
-import controller.CommandLauncher;
 import controller.commandpack.*;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;

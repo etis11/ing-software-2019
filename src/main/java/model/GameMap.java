@@ -1,16 +1,16 @@
 package model;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import exceptions.DuplicateException;
 import jsonparser.GameMapDeserializer;
-import com.google.gson.JsonElement;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Contains all the reference to the rooms and spawn point of the map.

@@ -6,7 +6,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import jsonparser.StateMachineDeserializer;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;

@@ -2,7 +2,6 @@ package Test;
 
 import model.Player;
 import model.User;
-import org.junit.jupiter.api.Test;
 import view.CommandLineInterface;
 
 import java.io.IOException;
