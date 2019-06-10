@@ -59,7 +59,7 @@ public class Tile {
     /**
      * weapons that can be picked in the tile
      */
-    private LinkedList<WeaponCard> weapons;
+    private List<WeaponCard> weapons;
 
     /**
      * room in which the tile is placed
@@ -98,7 +98,7 @@ public class Tile {
         ammoTile = false;
         ammoCard = null;
         weaponTile = false;
-        weapons = null;
+        weapons = new LinkedList<>();
         room = null;
     }
 
@@ -133,7 +133,7 @@ public class Tile {
         this.ammoTile = ammoTile;
         ammoCard = null;
         this.weaponTile = weaponTile;
-        weapons = null;
+        weapons = new LinkedList<>();
         room = null;
     }
 
@@ -147,7 +147,7 @@ public class Tile {
         this.ammoTile = ammoTile;
         ammoCard = null;
         this.weaponTile = weaponTile;
-        weapons = null;
+        weapons = new LinkedList<>();
         room = null;
     }
 
@@ -428,6 +428,7 @@ public class Tile {
     }
 
     public AmmoCard getCopyAmmoCard(){
+        if (ammoCard == null) return null;
         return new AmmoCard(ammoCard);
     }
 

@@ -49,10 +49,21 @@ public class JsonCreatorTest {
     void correctTileFormat(){
         Player gigino = new Player("Gigino");
         Player pinotto = new Player("Pinotto");
-        Tile t = new Tile();
-//        t.setTile("north", new Tile());
+        Tile t = new Tile(null, null, null, null, true, false);
+        Tile t2 = new Tile(null, null, null, null, false, true);
+        t2.setID(1);
+
+        try {
+            WeaponCard w = new WeaponCard();
+            w.setName("broccolator");
+            t2.putWeaponCard(w);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            fail("Error: problems while putting the weapon");
+        }
         t.addPlayer(gigino);
         jsonCreator.notifyTileChange(t);
+        jsonCreator.notifyTileChange(t2);
         System.out.println(jsonCreator.createJsonWithMessage(null));
     }
 }
