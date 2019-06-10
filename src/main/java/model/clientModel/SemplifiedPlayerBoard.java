@@ -1,32 +1,32 @@
 package model.clientModel;
 
-import model.SemplifiedBloodToken;
+import model.BloodToken;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 public class SemplifiedPlayerBoard {
-    private List<SemplifiedBloodToken> damageTokens;
-    private List<SemplifiedBloodToken> marksTokens;
+    private List<BloodToken> damageTokens;
+    private List<BloodToken> marksTokens;
     private List<Integer> killValue;
     private int numBlueAmmo;
     private int numRedAmmo;
     private int numYellowAmmo;
 
-    public List<SemplifiedBloodToken> getDamageTokens() {
+    public List<BloodToken> getDamageTokens() {
         return damageTokens;
     }
 
-    public void setDamageTokens(SemplifiedBloodToken[] damageTokens) {
+    public void setDamageTokens(BloodToken[] damageTokens) {
         this.damageTokens = new LinkedList<>(Arrays.asList(damageTokens));
     }
 
-    public List<SemplifiedBloodToken> getMarksTokens() {
+    public List<BloodToken> getMarksTokens() {
         return marksTokens;
     }
 
-    public void setMarksTokens(SemplifiedBloodToken[] marksTokens) {
+    public void setMarksTokens(BloodToken[] marksTokens) {
         this.marksTokens = new LinkedList<>(Arrays.asList(marksTokens));
     }
 

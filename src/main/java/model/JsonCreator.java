@@ -19,7 +19,7 @@ public class JsonCreator implements ChangesObserver {
 
     public JsonCreator(){
         GsonBuilder gb = new GsonBuilder();
-        gb.registerTypeAdapter(SemplifiedBloodToken.class, new BloodTokenSerializer());
+        gb.registerTypeAdapter(BloodToken.class, new BloodTokenSerializer());
         gb.registerTypeAdapter(PlayerBoard.class, new PlayerBoardSerializer());
         gb.registerTypeAdapter(Player.class, new PlayerSerializer());
         gb.registerTypeAdapter(Tile.class, new TileSerializer());

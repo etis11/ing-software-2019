@@ -4,7 +4,7 @@ package model;
 /**
  * Class used for the blood tokens
  * */
-public class SemplifiedBloodToken {
+public class BloodToken {
 
     /**
      * owner is the Player
@@ -17,7 +17,7 @@ public class SemplifiedBloodToken {
      * @param p is used to choose the actual plauyer during the turn.
      * This way the owner of the blood tokens becomes the player whose turn is
      * */
-    public SemplifiedBloodToken(Player p){
+    public BloodToken(Player p){
         owner = p;
     }
 
