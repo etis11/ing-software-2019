@@ -21,7 +21,7 @@ public  class Effect {
     /**
      * Tells how the targets a re chosen
      */
-    private TargetStrategy strategy;
+    transient private TargetStrategy strategy;
 
     /**
      * a map that correlates the color of the target with the damage that has to be dealt to him
