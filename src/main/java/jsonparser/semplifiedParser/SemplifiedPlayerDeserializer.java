@@ -1,9 +1,8 @@
 package jsonparser.semplifiedParser;
 
 import com.google.gson.*;
-import model.BloodToken;
+import model.SemplifiedBloodToken;
 import model.PowerUpCard;
-import model.WeaponCard;
 import model.clientModel.SemplifiedGame;
 import model.clientModel.SemplifiedPlayer;
 import model.clientModel.SemplifiedPlayerBoard;
@@ -35,7 +34,7 @@ public class SemplifiedPlayerDeserializer implements JsonDeserializer<Semplified
         player.setTile(jsonPlayer.get("tile").getAsInt());
 
         SemplifiedWeaponCard[] weaponCards = jsonDeserializationContext.deserialize(
-                jsonPlayer.getAsJsonArray("weaponCards"), WeaponCard[].class);
+                jsonPlayer.getAsJsonArray("weaponCards"), SemplifiedWeaponCard[].class);
         player.setWeaponCards(weaponCards);
 
         //this could give problems on the gui for order
@@ -52,12 +51,12 @@ public class SemplifiedPlayerDeserializer implements JsonDeserializer<Semplified
 
         SemplifiedPlayerBoard playerBoard = player.getPlayerBoard();
 
-        BloodToken[] damageTokens = jsonDeserializationContext.deserialize(
-                jsonPlayerBoard.getAsJsonArray("damageTokens"), BloodToken[].class );
+        SemplifiedBloodToken[] damageTokens = jsonDeserializationContext.deserialize(
+                jsonPlayerBoard.getAsJsonArray("damageTokens"), SemplifiedBloodToken[].class );
         playerBoard.setDamageTokens(damageTokens);
 
-        BloodToken[] marksTokens = jsonDeserializationContext.deserialize(
-                jsonPlayerBoard.getAsJsonArray("marksTokens"), BloodToken[].class );
+        SemplifiedBloodToken[] marksTokens = jsonDeserializationContext.deserialize(
+                jsonPlayerBoard.getAsJsonArray("marksTokens"), SemplifiedBloodToken[].class );
         playerBoard.setMarksTokens(marksTokens);
 
         Integer[] killValue = jsonDeserializationContext.deserialize(

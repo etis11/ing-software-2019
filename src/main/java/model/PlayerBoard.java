@@ -16,12 +16,12 @@ public class PlayerBoard {
     /**
      * This list contains all the bloodTokens that indicates damage
      */
-    private List<BloodToken> damageTokens;
+    private List<SemplifiedBloodToken> damageTokens;
 
     /**
      * this list contains all the bloodTokens that indicates the marks on the current player
      */
-    private List<BloodToken> marks;
+    private List<SemplifiedBloodToken> marks;
     /**
      * It'is a constant that defines the max damage that a player can have
      */
@@ -44,11 +44,11 @@ public class PlayerBoard {
     }
 
 
-    public List<BloodToken> getDamageTokens() {
+    public List<SemplifiedBloodToken> getDamageTokens() {
         return new LinkedList<>(damageTokens);
     }
 
-    public List<BloodToken> getMarks() {
+    public List<SemplifiedBloodToken> getMarks() {
         return new LinkedList<>(marks);
     }
     /**
@@ -124,7 +124,7 @@ public class PlayerBoard {
         //add the damage in the list. a player can't have more then 12 damage points
         for(int i = 0; i < d.getNumDamage(); i++){
             if (getNumDamagePoints() < MAX_DAMAGE_POINTS){
-                damageTokens.add(new BloodToken(d.getOwner()));
+                damageTokens.add(new SemplifiedBloodToken(d.getOwner()));
             }
         }
 
@@ -137,7 +137,7 @@ public class PlayerBoard {
      * @param d contains all the information that regards the marks. It's supposed to be legal
      */
     private void markToDamage(DamageTransporter d){
-        for( BloodToken mark: marks){
+        for( SemplifiedBloodToken mark: marks){
             if(mark.getOwner() == d.getOwner()){
                 marks.remove(mark);
                 if (getNumDamagePoints()<MAX_DAMAGE_POINTS) {
@@ -156,7 +156,7 @@ public class PlayerBoard {
         int numMarks = d.getNumMark();
         for(int i = 0; i < numMarks; i++){
             if(getNumDamagePoints(d.getTarget()) < 3)
-                marks.add(new BloodToken(d.getOwner()));
+                marks.add(new SemplifiedBloodToken(d.getOwner()));
         }
     }
 }
