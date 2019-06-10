@@ -6,6 +6,7 @@ import controller.JsonReceiver;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.util.Scanner;
 
 /**
  * The socket class that receives from the network the response of the commands
@@ -15,11 +16,11 @@ public class JsonRouterSocket implements Runnable{
     /**
      * the socket of the client
      */
-    Socket clientSocket;
+    private Socket clientSocket;
     /**
      * input stream of the socket
      */
-    ObjectInputStream in;
+    private Scanner in;
     /**
      * the receiver that has to receive the json object
      */
@@ -35,7 +36,7 @@ public class JsonRouterSocket implements Runnable{
      */
     public JsonRouterSocket(Socket s, JsonReceiver receiver) throws IOException {
         clientSocket = s;
-        in = new ObjectInputStream(clientSocket.getInputStream());
+        in = new Scanner(clientSocket.getInputStream());
         this.receiver = receiver;
         stop = false;
     }
@@ -47,11 +48,11 @@ public class JsonRouterSocket implements Runnable{
     public void run() {
         while (!stop)
         try{
-            JsonElement changes = (JsonElement) in.readObject();
+            String changes =  in.nextLine();
             receiver.sendJson(changes);
 
         }
-        catch (IOException | ClassNotFoundException e){
+        catch (IOException e){
             stop();
             throw new RuntimeException(e.getMessage());
         }
@@ -59,5 +60,9 @@ public class JsonRouterSocket implements Runnable{
 
     public void stop(){
         this.stop = true;
+    }
+
+    public void close(){
+        //TODO
     }
 }
