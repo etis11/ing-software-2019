@@ -64,6 +64,9 @@ public class JsonCreatorTest {
         t.addPlayer(gigino);
         jsonCreator.notifyTileChange(t);
         jsonCreator.notifyTileChange(t2);
-        System.out.println(jsonCreator.createJsonWithMessage(null));
+        String expectedJson = "{\"changedPlayers\":[],\"changedTiles\":[{\"id\":0,\"players\":[\"Gigino\"]," +
+                "\"ammoTile\":true,\"weaponTile\":false},{\"id\":1,\"players\":[],\"ammoTile\":false,\"weaponTile\":true," +
+                "\"weapons\":[{\"name\":\"broccolator\",\"cost\":[],\"loaded\":true}]}]}";
+        assertEquals(expectedJson, jsonCreator.createJsonWithMessage(null));
     }
 }
