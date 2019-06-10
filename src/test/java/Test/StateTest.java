@@ -14,15 +14,15 @@ public class StateTest {
     private static Player player;
 
     @BeforeAll
-    public static void init(){
-        String path = "." + File.separatorChar + "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "stateMachine"+File.separatorChar+"stateMachine.json";
+    public static void init() {
+        String path = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar + "stateMachine" + File.separatorChar + "stateMachine.json";
         player = new Player();
         player.setState(fromJson(path));
     }
 
     @Test
-    public void initTest(){
+    public void initTest() {
         //TEST END TURN
         assertEquals("EndTurn", player.getState().getName(), "ERROR: bad initialization");
         assertFalse(player.getState().canPickUp(), "ERROR: you can't pick");
@@ -41,7 +41,7 @@ public class StateTest {
         assertTrue(player.getState().getPossibleNextStates().containsKey("NormalAction"), "ERROR: there are not a possible state");
         assertTrue(player.getState().getPossibleNextStates().containsKey("MostAction"), "ERROR: there are not a possible state");
         assertTrue(player.getState().getPossibleNextStates().containsKey("MoreAction"), "ERROR: there are not a possible state");
-        assertSame(4,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        assertSame(4, player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("NormalAction", player);
 
 
@@ -64,7 +64,7 @@ public class StateTest {
         assertTrue(player.getState().getPossibleNextStates().containsKey("Run"), "ERROR: there are not a possible state");
         assertTrue(player.getState().getPossibleNextStates().containsKey("Reload"), "ERROR: there are not a possible state");
         assertTrue(player.getState().getPossibleNextStates().containsKey("EndTurn"), "ERROR: there are not a possible state");
-        assertSame(5,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        assertSame(5, player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("PickUp", player);
 
         //TEST PICKUP ACTION
@@ -82,7 +82,7 @@ public class StateTest {
         assertSame(1, player.getState().getMaxPossibleSteps(), "ERROR: steps error");
         assertSame(player.getState().getMaxPossibleSteps(), player.getState().getRemainingSteps(), "ERROR: steps initialization error");
         assertTrue(player.getState().getPossibleNextStates().containsKey("NormalAction"), "ERROR: there are not a possible state");
-        assertSame(1,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        assertSame(1, player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("NormalAction", player);
         player.getState().nextState("Run", player);
 
@@ -103,7 +103,7 @@ public class StateTest {
         assertTrue(player.getState().getPossibleNextStates().containsKey("NormalAction"), "ERROR: there are not a possible state");
         assertTrue(player.getState().getPossibleNextStates().containsKey("MoreAction"), "ERROR: there are not a possible state");
         assertTrue(player.getState().getPossibleNextStates().containsKey("MostAction"), "ERROR: there are not a possible state");
-        assertSame(3,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        assertSame(3, player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("NormalAction", player);
         player.getState().nextState("Shoot", player);
 
@@ -123,7 +123,7 @@ public class StateTest {
         assertSame(player.getState().getMaxPossibleSteps(), player.getState().getRemainingSteps(), "ERROR: steps initialization error");
         assertTrue(player.getState().getPossibleNextStates().containsKey("NormalAction"), "ERROR: there are not a possible state");
         assertTrue(player.getState().getPossibleNextStates().containsKey("MoreAction"), "ERROR: there are not a possible state");
-        assertSame(2,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        assertSame(2, player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("NormalAction", player);
 
         //TEST RELOAD
@@ -142,7 +142,7 @@ public class StateTest {
         assertSame(0, player.getState().getMaxPossibleSteps(), "ERROR: steps error");
         assertSame(player.getState().getMaxPossibleSteps(), player.getState().getRemainingSteps(), "ERROR: steps initialization error");
         assertTrue(player.getState().getPossibleNextStates().containsKey("EndTurn"), "ERROR: there are not a possible state");
-        assertSame(1,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        assertSame(1, player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("EndTurn", player);
         player.getState().nextState("MoreAction", player);
 
@@ -165,7 +165,7 @@ public class StateTest {
         assertTrue(player.getState().getPossibleNextStates().containsKey("Run"), "ERROR: there are not a possible state");
         assertTrue(player.getState().getPossibleNextStates().containsKey("Reload"), "ERROR: there are not a possible state");
         assertTrue(player.getState().getPossibleNextStates().containsKey("EndTurn"), "ERROR: there are not a possible state");
-        assertSame(5,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        assertSame(5, player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("Run", player);
 
         //TEST MORE RUN ACTION
@@ -185,7 +185,7 @@ public class StateTest {
         assertTrue(player.getState().getPossibleNextStates().containsKey("NormalAction"), "ERROR: there are not a possible state");
         assertTrue(player.getState().getPossibleNextStates().containsKey("MoreAction"), "ERROR: there are not a possible state");
         assertTrue(player.getState().getPossibleNextStates().containsKey("MostAction"), "ERROR: there are not a possible state");
-        assertSame(3,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        assertSame(3, player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("MoreAction", player);
         player.getState().nextState("Shoot", player);
 
@@ -205,7 +205,7 @@ public class StateTest {
         assertSame(player.getState().getMaxPossibleSteps(), player.getState().getRemainingSteps(), "ERROR: steps initialization error");
         assertTrue(player.getState().getPossibleNextStates().containsKey("NormalAction"), "ERROR: there are not a possible state");
         assertTrue(player.getState().getPossibleNextStates().containsKey("MoreAction"), "ERROR: there are not a possible state");
-        assertSame(2,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        assertSame(2, player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("MoreAction", player);
         player.getState().nextState("PickUp", player);
 
@@ -225,7 +225,7 @@ public class StateTest {
         assertSame(player.getState().getMaxPossibleSteps(), player.getState().getRemainingSteps(), "ERROR: steps initialization error");
         assertTrue(player.getState().getPossibleNextStates().containsKey("MoreAction"), "ERROR: there are not a possible state");
         assertTrue(player.getState().getPossibleNextStates().containsKey("MostAction"), "ERROR: there are not a possible state");
-        assertSame(2,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        assertSame(2, player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("MoreAction", player);
 
         //TEST MORE RELOAD
@@ -244,7 +244,7 @@ public class StateTest {
         assertSame(0, player.getState().getMaxPossibleSteps(), "ERROR: steps error");
         assertSame(player.getState().getMaxPossibleSteps(), player.getState().getRemainingSteps(), "ERROR: steps initialization error");
         assertTrue(player.getState().getPossibleNextStates().containsKey("EndTurn"), "ERROR: there are not a possible state");
-        assertSame(1,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        assertSame(1, player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("EndTurn", player);
         player.getState().nextState("MostAction", player);
 
@@ -267,7 +267,7 @@ public class StateTest {
         assertTrue(player.getState().getPossibleNextStates().containsKey("Run"), "ERROR: there are not a possible state");
         assertTrue(player.getState().getPossibleNextStates().containsKey("Reload"), "ERROR: there are not a possible state");
         assertTrue(player.getState().getPossibleNextStates().containsKey("EndTurn"), "ERROR: there are not a possible state");
-        assertSame(5,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        assertSame(5, player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("Run", player);
 
         //TEST MOST RUN ACTION
@@ -287,7 +287,7 @@ public class StateTest {
         assertTrue(player.getState().getPossibleNextStates().containsKey("NormalAction"), "ERROR: there are not a possible state");
         assertTrue(player.getState().getPossibleNextStates().containsKey("MoreAction"), "ERROR: there are not a possible state");
         assertTrue(player.getState().getPossibleNextStates().containsKey("MostAction"), "ERROR: there are not a possible state");
-        assertSame(3,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        assertSame(3, player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("MostAction", player);
         player.getState().nextState("Shoot", player);
 
@@ -306,7 +306,7 @@ public class StateTest {
         assertSame(1, player.getState().getMaxPossibleSteps(), "ERROR: steps error");
         assertSame(player.getState().getMaxPossibleSteps(), player.getState().getRemainingSteps(), "ERROR: steps initialization error");
         assertTrue(player.getState().getPossibleNextStates().containsKey("MostAction"), "ERROR: there are not a possible state");
-        assertSame(1,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        assertSame(1, player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("MostAction", player);
         player.getState().nextState("PickUp", player);
 
@@ -326,7 +326,7 @@ public class StateTest {
         assertSame(player.getState().getMaxPossibleSteps(), player.getState().getRemainingSteps(), "ERROR: steps initialization error");
         assertTrue(player.getState().getPossibleNextStates().containsKey("MoreAction"), "ERROR: there are not a possible state");
         assertTrue(player.getState().getPossibleNextStates().containsKey("MostAction"), "ERROR: there are not a possible state");
-        assertSame(2,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        assertSame(2, player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("MostAction", player);
 
         //TEST MOST RELOAD
@@ -345,7 +345,7 @@ public class StateTest {
         assertSame(0, player.getState().getMaxPossibleSteps(), "ERROR: steps error");
         assertSame(player.getState().getMaxPossibleSteps(), player.getState().getRemainingSteps(), "ERROR: steps initialization error");
         assertTrue(player.getState().getPossibleNextStates().containsKey("EndTurn"), "ERROR: there are not a possible state");
-        assertSame(1,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        assertSame(1, player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("EndTurn", player);
 
         //TEST DEAD E OVERKILL
@@ -365,7 +365,7 @@ public class StateTest {
         assertSame(player.getState().getMaxPossibleSteps(), player.getState().getRemainingSteps(), "ERROR: steps initialization error");
         assertTrue(player.getState().getPossibleNextStates().containsKey("EndTurn"), "ERROR: there are not a possible state");
         assertTrue(player.getState().getPossibleNextStates().containsKey("Overkilled"), "ERROR: there are not a possible state");
-        assertSame(2,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        assertSame(2, player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("Overkilled", player);
 
         assertEquals("Overkilled", player.getState().getName(), "ERROR: bad initialization");
@@ -382,7 +382,7 @@ public class StateTest {
         assertSame(0, player.getState().getMaxPossibleSteps(), "ERROR: steps error");
         assertSame(player.getState().getMaxPossibleSteps(), player.getState().getRemainingSteps(), "ERROR: steps initialization error");
         assertTrue(player.getState().getPossibleNextStates().containsKey("EndTurn"), "ERROR: there are not a possible state");
-        assertSame(1,player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
+        assertSame(1, player.getState().getPossibleNextStates().size(), "ERROR: possibleNextState initialization error");
         player.getState().nextState("EndTurn", player);
 
         player.getState().nextState("Dead", player);

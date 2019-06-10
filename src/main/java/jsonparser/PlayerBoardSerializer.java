@@ -9,7 +9,7 @@ import model.PlayerBoard;
 
 import java.lang.reflect.Type;
 
-public class PlayerBoardSerializer  implements JsonSerializer<PlayerBoard> {
+public class PlayerBoardSerializer implements JsonSerializer<PlayerBoard> {
 
 
     @Override

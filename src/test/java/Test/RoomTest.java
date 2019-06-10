@@ -16,7 +16,7 @@ public class RoomTest {
      * Creates an empty room
      */
     @BeforeEach
-    void initRoom(){
+    void initRoom() {
         room = new Room();
     }
 
@@ -24,14 +24,13 @@ public class RoomTest {
      * Checks that the new tile is in the room and that the tile now contains a reference to that room
      */
     @Test
-    void correctInsertion(){
+    void correctInsertion() {
         Tile tileToAdd = new Tile();
         try {
             room.addTile(tileToAdd);
-        }
-        catch (NullPointerException n) {
+        } catch (NullPointerException n) {
             System.out.println(n.getMessage());
-            fail(()-> "Error in the insertion");
+            fail(() -> "Error in the insertion");
         }
         System.out.println(tileToAdd.getRoom());
         assertSame(room, tileToAdd.getRoom(), () -> "ERROR: the room and the room in the tile should be the same");
@@ -43,27 +42,26 @@ public class RoomTest {
      * test that the addTile method throws an exception if the given tile is null
      */
     @Test
-    void nullTileInsertion(){
+    void nullTileInsertion() {
         Tile tileToAdd = null;
-        assertThrows(IllegalArgumentException.class, () ->{
+        assertThrows(IllegalArgumentException.class, () -> {
             room.addTile(tileToAdd);
-        }, ()-> "ERROR: the method should have raised an exception, since the tile is null");
+        }, () -> "ERROR: the method should have raised an exception, since the tile is null");
     }
 
     /**
      * test the insertion of the player. the player inserted and the player in the room should be the same
      */
     @Test
-    void playerInsertion(){
+    void playerInsertion() {
         Player p = new Player();
         Tile t = new Tile();
         t.addPlayer(p);
-        try{
+        try {
             room.addTile(t);
-        }
-        catch (NullPointerException n) {
+        } catch (NullPointerException n) {
             System.out.println(n.getMessage());
-            fail(()-> "ERROR: something in the insertion went wrong");
+            fail(() -> "ERROR: something in the insertion went wrong");
         }
 
         assertSame(p, room.getPlayersInRoom().get(0), () -> "ERROR: the players should be the sam");

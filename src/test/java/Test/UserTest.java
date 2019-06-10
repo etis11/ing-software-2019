@@ -14,17 +14,17 @@ public class UserTest {
 
 
     @BeforeEach
-    public void init(){
+    public void init() {
         user1 = new User();
     }
 
     @Test
-    public void instanceTest(){
+    public void instanceTest() {
         assertTrue(user1 instanceof User, "ERROR: wrong instance");
     }
 
     @Test
-    public void settingTest(){
+    public void settingTest() {
 
         assertSame(user1.getUsername(), "user", "ERROR: wrong deafult username");
         assertSame(user1.getEffectPhrase(), "I will survive", "ERROR: wrong deafult effect phrase");

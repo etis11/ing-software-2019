@@ -108,11 +108,11 @@ public class State {
         this.overKilled = overKilled;
         this.possibleNextState = possibleNextState;
         this.remainingSteps = maxPossibleSteps;
-        this.reload =reload;
+        this.reload = reload;
     }
 
 
-    public static State fromJson(String path){
+    public static State fromJson(String path) {
         //creates a builder with the state machine deserializer
         GsonBuilder gb = new GsonBuilder().registerTypeAdapter(State[].class, new StateMachineDeserializer());
         State[] states;
@@ -120,23 +120,24 @@ public class State {
         BufferedReader jsonStateMachine = null;
         try {
             jsonStateMachine = new BufferedReader(new FileReader(path));
-        }
-        catch (FileNotFoundException f){
+        } catch (FileNotFoundException f) {
             System.out.println(f.getMessage());
-            LOGGER.log(Level.WARNING,f.getMessage(),f);
+            LOGGER.log(Level.WARNING, f.getMessage(), f);
         }
 
         states = g.fromJson(jsonStateMachine, State[].class);
-        for(State s: states){
-            if (s.getName().equals("EndTurn")){
+        for (State s : states) {
+            if (s.getName().equals("EndTurn")) {
                 return s;
             }
         }
 
         throw new JsonParseException("the json was not well built, the EndTurn state is not present");
     }
+
     /**
      * tells the max number of step a player can do in this state
+     *
      * @return number of steps for this state
      */
     public int getMaxPossibleSteps() {
@@ -145,14 +146,16 @@ public class State {
 
     /**
      * tells the name of the state
+     *
      * @return name of state
      */
-    public String getName(){
+    public String getName() {
         return name;
     }
 
     /**
      * tells if the owner could choose what to do in this state
+     *
      * @return if is in a normal type of action choice
      */
     public boolean isNormalAction() {
@@ -161,6 +164,7 @@ public class State {
 
     /**
      * tells if the owner could choose what to do in this state
+     *
      * @return if is in a more type of action choice (more than 3 damage)
      */
     public boolean isMoreAction() {
@@ -169,6 +173,7 @@ public class State {
 
     /**
      * tells if the owner could choose what to do in this state
+     *
      * @return if is in a most type of action choice (more than 6 damage)
      */
     public boolean isMostAction() {
@@ -177,6 +182,7 @@ public class State {
 
     /**
      * tells if the owner can run in this state
+     *
      * @return if the owner can run in this state
      */
     public boolean canRun() {
@@ -185,6 +191,7 @@ public class State {
 
     /**
      * tells if the owner can pickUp in this state
+     *
      * @return if the owner can pickUp in this state
      */
     public boolean canPickUp() {
@@ -193,6 +200,7 @@ public class State {
 
     /**
      * tells if the owner can shoot in this state
+     *
      * @return if the owner can shoot in this state
      */
     public boolean canShoot() {
@@ -201,6 +209,7 @@ public class State {
 
     /**
      * tells if the owner can use a powerUp in this state
+     *
      * @return if the owner can use a powerUp in this state
      */
     public boolean canUsePowerUp() {
@@ -209,14 +218,16 @@ public class State {
 
     /**
      * tells if the owner can reload in this state
+     *
      * @return if the owner can reload in this state
      */
-    public boolean canReload(){
+    public boolean canReload() {
         return reload;
     }
 
     /**
      * tells if the owner is dead
+     *
      * @return if the owner is dead
      */
     public boolean isDead() {
@@ -225,6 +236,7 @@ public class State {
 
     /**
      * tells if the owner is overkilled
+     *
      * @return if the owner is overkilled
      */
     public boolean isOverKilled() {
@@ -233,6 +245,7 @@ public class State {
 
     /**
      * tells which are reachable state from the current
+     *
      * @return a map of reachable state from the current
      */
     public Map<String, State> getPossibleNextStates() {
@@ -241,60 +254,64 @@ public class State {
 
     /**
      * tells how many steps the owner still can do
+     *
      * @return number of step the owner still can do
      */
-    public int getRemainingSteps(){
+    public int getRemainingSteps() {
         return remainingSteps;
     }
 
     /**
      * reset the number of remaining steps
      */
-    public void resetRemainingSteps(){
+    public void resetRemainingSteps() {
         remainingSteps = maxPossibleSteps;
     }
 
     /**
      * decrement the number of remaining steps by a number given
+     *
      * @param stepsToDecrement number of step to decrement remaining steps
      */
-    public void decrementRemainingSteps(int stepsToDecrement){
+    public void decrementRemainingSteps(int stepsToDecrement) {
         this.remainingSteps -= stepsToDecrement;
     }
 
     /**
      * decrement the number of remaining steps to zero
      */
-    public void remainingStepsToZero(){
+    public void remainingStepsToZero() {
         this.remainingSteps = 0;
     }
 
 
-
     /**
      * sets the nextState for the player by a given string
+     *
      * @param state string containing the wanted nextState
      */
-    public void nextState(String state, Player player){
+    public void nextState(String state, Player player) {
         if (state == null) throw new IllegalArgumentException();
-        if (!possibleNextState.containsKey(state)) throw  new IllegalStateException("Error: from "+ getName()+" state you can't go to "+state+" state");
+        if (!possibleNextState.containsKey(state))
+            throw new IllegalStateException("Error: from " + getName() + " state you can't go to " + state + " state");
         player.setState(possibleNextState.get(state));
     }
 
     /**
      * Creates the list of adjacency in the map
      */
-    public void allocatePossibleNextState(){
+    public void allocatePossibleNextState() {
         this.possibleNextState = new HashMap<>();
     }
 
     /**
      * Adds to the adjacency list the state with the given name
+     *
      * @param name the name of the state
-     * @param s the state
+     * @param s    the state
      */
-    public void addProxState(String name, State s){
-        if(name!= null && s != null) {
+    public void addProxState(String name, State s) {
+        if (name != null && s != null) {
             possibleNextState.put(name, s);
         }
     }

@@ -15,11 +15,11 @@ public abstract class AbstractCommand implements Command {
     protected List<JsonReceiver> allReceivers;
 
 
-    public AbstractCommand(String token){
+    public AbstractCommand(String token) {
         this.token = token;
     }
 
-    public AbstractCommand(){
+    public AbstractCommand() {
 
     }
 
@@ -28,7 +28,7 @@ public abstract class AbstractCommand implements Command {
         receiver = TokenRegistry.getJsonReceiver(this.token);
     }
 
-    public void endCommandToAction(GameManager gameManager){
+    public void endCommandToAction(GameManager gameManager) {
         gameManager.getMatch().getCurrentPlayer().decrementMoves();
         gameManager.getMatch().getCurrentPlayer().getState().resetRemainingSteps();
         gameManager.getMatch().getCurrentPlayer().getState().nextState(gameManager.getMatch().getCurrentPlayer().getOldState().getName(), gameManager.getMatch().getCurrentPlayer());
@@ -45,7 +45,7 @@ public abstract class AbstractCommand implements Command {
         allReceivers = new ArrayList<>(receivers);
     }
 
-    public JsonReceiver getJsonReceiver(){
+    public JsonReceiver getJsonReceiver() {
         return receiver;
     }
 }

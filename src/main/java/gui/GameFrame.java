@@ -25,14 +25,13 @@ import java.rmi.RemoteException;
 
 public class GameFrame extends Application {
 
+    final int ammoDimension = 30;
+    final int buttonWidth = 100;
     private CommandContainer cmdLauncher;
     private String mapPath;
     private String boardPath;
 
-    final int ammoDimension = 30;
-    final int buttonWidth = 100;
-
-    public void init(CommandContainer cmd, String board, int map){
+    public void init(CommandContainer cmd, String board, int map) {
         this.cmdLauncher = cmd;
         this.mapPath = mapParser(map);
         this.boardPath = boardParser(board);
@@ -87,29 +86,29 @@ public class GameFrame extends Application {
                 + File.separatorChar + "img" + File.separatorChar + "SmallMap.png";
 
         //path of PLayaboard image
-        final String pathDistruttoreBoard = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"DistruttoreBoard.png";
+        final String pathDistruttoreBoard = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar + "img" + File.separatorChar + "DistruttoreBoard.png";
 
-        final String pathBackWeapon = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"RetroArmi.png";
+        final String pathBackWeapon = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar + "img" + File.separatorChar + "RetroArmi.png";
 
-        final String pathMartelloIonico = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"MartelloIonico.png";
+        final String pathMartelloIonico = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar + "img" + File.separatorChar + "MartelloIonico.png";
 
         //TODO modificare assegnazione path
-        BackgroundImage myBI= new BackgroundImage(new Image(new FileInputStream(pathSmall),845,500,false,true),
+        BackgroundImage myBI = new BackgroundImage(new Image(new FileInputStream(pathSmall), 845, 500, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
-        BackgroundImage myBIB= new BackgroundImage(new Image(new FileInputStream(pathDistruttoreBoard),845,190,false,true),
+        BackgroundImage myBIB = new BackgroundImage(new Image(new FileInputStream(pathDistruttoreBoard), 845, 190, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
-        BackgroundImage weaponBack= new BackgroundImage(new Image(new FileInputStream(pathBackWeapon),110,190,false,true),
+        BackgroundImage weaponBack = new BackgroundImage(new Image(new FileInputStream(pathBackWeapon), 110, 190, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
-        BackgroundImage weap1Img= new BackgroundImage(new Image(new FileInputStream(pathMartelloIonico),110,190,false,true),
+        BackgroundImage weap1Img = new BackgroundImage(new Image(new FileInputStream(pathMartelloIonico), 110, 190, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
@@ -123,7 +122,7 @@ public class GameFrame extends Application {
         blueAmmmo.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
         blueAmmmo.setMinWidth(ammoDimension);
         blueAmmmo.setMinHeight(ammoDimension);
-        blueAmmmo.setFont(Font.font("System Regular", FontWeight.BOLD, ammoDimension-6));
+        blueAmmmo.setFont(Font.font("System Regular", FontWeight.BOLD, ammoDimension - 6));
         blueAmmmo.setAlignment(Pos.CENTER);
         blueAmmmo.setLayoutX(720);
         blueAmmmo.setLayoutY(20);
@@ -133,20 +132,20 @@ public class GameFrame extends Application {
         redAmmmo.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
         redAmmmo.setMinWidth(ammoDimension);
         redAmmmo.setMinHeight(ammoDimension);
-        redAmmmo.setFont(Font.font("System Regular", FontWeight.BOLD, ammoDimension-6));
+        redAmmmo.setFont(Font.font("System Regular", FontWeight.BOLD, ammoDimension - 6));
         redAmmmo.setAlignment(Pos.CENTER);
         redAmmmo.setLayoutX(740);
-        redAmmmo.setLayoutY(blueAmmmo.getLayoutY()+50);
+        redAmmmo.setLayoutY(blueAmmmo.getLayoutY() + 50);
         redAmmmo.setBorder(border);
         redAmmmo.setVisible(true);
         yellowAmmmo.setTextFill(Color.BLACK);
         yellowAmmmo.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
         yellowAmmmo.setMinWidth(ammoDimension);
         yellowAmmmo.setMinHeight(ammoDimension);
-        yellowAmmmo.setFont(Font.font("System Regular", FontWeight.BOLD, ammoDimension-6));
+        yellowAmmmo.setFont(Font.font("System Regular", FontWeight.BOLD, ammoDimension - 6));
         yellowAmmmo.setAlignment(Pos.CENTER);
         yellowAmmmo.setLayoutX(730);
-        yellowAmmmo.setLayoutY(redAmmmo.getLayoutY()+50);
+        yellowAmmmo.setLayoutY(redAmmmo.getLayoutY() + 50);
         yellowAmmmo.setBorder(border);
         yellowAmmmo.setVisible(true);
 
@@ -275,7 +274,6 @@ public class GameFrame extends Application {
         weapon3.setLayoutY(5);
 
 
-
         //setting buttonpane
         buttonPane.getChildren().add(walkButton);
         buttonPane.getChildren().add(pickButton);
@@ -335,26 +333,26 @@ public class GameFrame extends Application {
         }
     }
 
-    private String boardParser (String board){
-        switch (board){
+    private String boardParser(String board) {
+        switch (board) {
             case "Distruttore":
-                return "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar +"img"+File.separatorChar+"DistruttoreBoard.png";
+                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                        + File.separatorChar + "img" + File.separatorChar + "DistruttoreBoard.png";
             case "Sprog":
-                return "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar +"img"+File.separatorChar+"SprogBoard.png";
+                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                        + File.separatorChar + "img" + File.separatorChar + "SprogBoard.png";
             case "Dozer":
-                return "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar +"img"+File.separatorChar+"DozerBoard.png";
+                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                        + File.separatorChar + "img" + File.separatorChar + "DozerBoard.png";
             case "Violeta":
-                return "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar +"img"+File.separatorChar+"ViolettaBoard.png";
+                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                        + File.separatorChar + "img" + File.separatorChar + "ViolettaBoard.png";
             case "Banshee":
-                return "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar +"img"+File.separatorChar+"BansheeBoard.png";
+                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                        + File.separatorChar + "img" + File.separatorChar + "BansheeBoard.png";
             default:
-                return "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar +"img"+File.separatorChar+"DistruttoreBoard.png";
+                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                        + File.separatorChar + "img" + File.separatorChar + "DistruttoreBoard.png";
         }
     }
 

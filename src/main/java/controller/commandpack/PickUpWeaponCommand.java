@@ -6,7 +6,7 @@ public class PickUpWeaponCommand extends AbstractCommand {
 
     private String weaponName;
 
-    public PickUpWeaponCommand(String token, String weaponName){
+    public PickUpWeaponCommand(String token, String weaponName) {
         super(token);
         this.weaponName = weaponName;
     }

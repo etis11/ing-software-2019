@@ -16,10 +16,11 @@ public class AdjacentStrategyTest {
     private Match match;
 
     @BeforeEach
-    void initGameMap(){
+    void initGameMap() {
         map = new GameMap();
         match = new Match();
     }
+
     @Test
     void adjacentPlayersTesting() {
         Tile red = new Tile();
@@ -56,21 +57,21 @@ public class AdjacentStrategyTest {
 
         List<Player> adjacentPlayers = map.allAdjacentPlayers(shooter);
 
-        assertTrue(adjacentPlayers.contains(target),"Target should be in Adjacent");
-        assertFalse(adjacentPlayers.contains(shooter),"shooter should not be in Adjacent");
-        assertFalse(adjacentPlayers.contains(target2),"target2 should not be in Adjacent");
+        assertTrue(adjacentPlayers.contains(target), "Target should be in Adjacent");
+        assertFalse(adjacentPlayers.contains(shooter), "shooter should not be in Adjacent");
+        assertFalse(adjacentPlayers.contains(target2), "target2 should not be in Adjacent");
         adjacentStrategy = new AdjacentStrategy(map, match);
         List<Player> targets = new LinkedList<>();
         targets.add(target);
-        targets.add(target2) ;
+        targets.add(target2);
         match.getPlayers().add(shooter);
         match.getPlayers().addAll(targets);
 
-        assertFalse(adjacentStrategy.areTargetValid(shooter,targets),"Targets should not be valid");
-        assertTrue(adjacentStrategy.canHitSomeone(shooter),"Can't hit anyone");
-        assertFalse(adjacentStrategy.getHittableTargets(shooter).isEmpty(),"Can hit someone");
-        assertTrue(adjacentStrategy.getHittableTargets(shooter).contains(target),"Can hit Arlind");
-        assertFalse(adjacentStrategy.getHittableTargets(shooter).contains(target2),"Cannot hit Hamid");
+        assertFalse(adjacentStrategy.areTargetValid(shooter, targets), "Targets should not be valid");
+        assertTrue(adjacentStrategy.canHitSomeone(shooter), "Can't hit anyone");
+        assertFalse(adjacentStrategy.getHittableTargets(shooter).isEmpty(), "Can hit someone");
+        assertTrue(adjacentStrategy.getHittableTargets(shooter).contains(target), "Can hit Arlind");
+        assertFalse(adjacentStrategy.getHittableTargets(shooter).contains(target2), "Cannot hit Hamid");
 
     }
 }

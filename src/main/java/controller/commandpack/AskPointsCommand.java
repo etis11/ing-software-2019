@@ -5,7 +5,7 @@ import controller.CommandExecutor;
 public class AskPointsCommand extends AbstractCommand {
 
 
-    public AskPointsCommand(String token){
+    public AskPointsCommand(String token) {
         super(token);
     }
 

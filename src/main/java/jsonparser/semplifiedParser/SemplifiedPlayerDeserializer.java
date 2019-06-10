@@ -14,7 +14,7 @@ public class SemplifiedPlayerDeserializer implements JsonDeserializer<Semplified
 
     private final SemplifiedGame game;
 
-    public SemplifiedPlayerDeserializer(SemplifiedGame game){
+    public SemplifiedPlayerDeserializer(SemplifiedGame game) {
         this.game = game;
     }
 
@@ -22,8 +22,8 @@ public class SemplifiedPlayerDeserializer implements JsonDeserializer<Semplified
     public SemplifiedPlayer deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         JsonObject jsonPlayer = jsonElement.getAsJsonObject();
         if (!jsonPlayer.has("name") || !jsonPlayer.has("remainingMoves") || !jsonPlayer.has("numWeaponCard")
-            || !jsonPlayer.has("weaponCards") || !jsonPlayer.has("numPowerUps") || !jsonPlayer.has("powerUps")
-            ||   !jsonPlayer.has("tile") || !jsonPlayer.has("playerBoard") )
+                || !jsonPlayer.has("weaponCards") || !jsonPlayer.has("numPowerUps") || !jsonPlayer.has("powerUps")
+                || !jsonPlayer.has("tile") || !jsonPlayer.has("playerBoard"))
             throw new JsonParseException("This json player doesnt have a name");
 
         SemplifiedPlayer player = game.getPlayerByName(jsonPlayer.get("name").getAsString());
@@ -45,28 +45,28 @@ public class SemplifiedPlayerDeserializer implements JsonDeserializer<Semplified
         JsonObject jsonPlayerBoard = jsonPlayer.get("playerBoard").getAsJsonObject();
 
         if (!jsonPlayerBoard.has("damageTokens") || !jsonPlayerBoard.has("marksTokens")
-            || !jsonPlayerBoard.has("killValue") || !jsonPlayerBoard.has("numBlueAmmo")
-            || !jsonPlayerBoard.has("numRedAmmo") || !jsonPlayerBoard.has("numYellowAmmo"))
+                || !jsonPlayerBoard.has("killValue") || !jsonPlayerBoard.has("numBlueAmmo")
+                || !jsonPlayerBoard.has("numRedAmmo") || !jsonPlayerBoard.has("numYellowAmmo"))
             throw new JsonParseException("Player board json is missing some fields");
 
         SemplifiedPlayerBoard playerBoard = player.getPlayerBoard();
 
         BloodToken[] damageTokens = jsonDeserializationContext.deserialize(
-                jsonPlayerBoard.getAsJsonArray("damageTokens"), BloodToken[].class );
+                jsonPlayerBoard.getAsJsonArray("damageTokens"), BloodToken[].class);
         playerBoard.setDamageTokens(damageTokens);
 
         BloodToken[] marksTokens = jsonDeserializationContext.deserialize(
-                jsonPlayerBoard.getAsJsonArray("marksTokens"), BloodToken[].class );
+                jsonPlayerBoard.getAsJsonArray("marksTokens"), BloodToken[].class);
         playerBoard.setMarksTokens(marksTokens);
 
         Integer[] killValue = jsonDeserializationContext.deserialize(
-                jsonPlayerBoard.getAsJsonArray("killValue"), Integer[].class );
+                jsonPlayerBoard.getAsJsonArray("killValue"), Integer[].class);
         playerBoard.setKillValue(killValue);
 
         playerBoard.setNumBlueAmmo(jsonPlayerBoard.get("numBlueAmmo").getAsInt());
         playerBoard.setNumRedAmmo(jsonPlayerBoard.get("numRedAmmo").getAsInt());
         playerBoard.setNumYellowAmmo(jsonPlayerBoard.get("numYellowAmmo").getAsInt());
-        
+
         return null;
     }
 }

@@ -20,20 +20,21 @@ public class IgnoreWallTest {
     IgnoreWallStrategy wallStrategy;
 
     @BeforeEach
-    void initStrategy(){
+    void initStrategy() {
         wallStrategy = new IgnoreWallStrategy();
     }
 
     /**
      * Stress the canHitSomeone function in the case it returns true. (doors, no doors, both)
+     *
      * @param path path of the map
      */
     @ParameterizedTest
     @ValueSource(strings = {"src/test/testingMaps/NordSudEstOvest.json",
-                            "src/test/testingMaps/noDoors.json",
-                            "src/test/testingMaps/noDoors.json"}
-                            )
-    void canHitSomeoneTest(String path){
+            "src/test/testingMaps/noDoors.json",
+            "src/test/testingMaps/noDoors.json"}
+    )
+    void canHitSomeoneTest(String path) {
         GameMap g = GameMap.loadMap(path);
         Tile redRegenPoint = g.getRedRegenPoint();
         Player shooter = new Player("Shooter");
@@ -44,13 +45,13 @@ public class IgnoreWallTest {
 
     /**
      * stresses the canHitSomeone when no target is available
+     *
      * @param path
      */
     @ParameterizedTest
     @ValueSource(strings = {"src/test/testingMaps/cantHitIgnoreWall.json"}
     )
-
-    void canNotHitSomeoneTest(String path){
+    void canNotHitSomeoneTest(String path) {
         GameMap g = GameMap.loadMap(path);
         Tile redRegenPoint = g.getRedRegenPoint();
         Player shooter = new Player("Shooter");
@@ -63,7 +64,7 @@ public class IgnoreWallTest {
      * tests that the strategy is able to see both visible targets and targets hided behind a wall
      */
     @Test
-    void hittableTargets(){
+    void hittableTargets() {
         GameMap map = GameMap.loadMap("src/test/testingMaps/empty.json");
         Tile redRegenPoint = map.getRedRegenPoint();
         Tile yellowRegenPoint = map.getYellowRegenPoint();
@@ -71,7 +72,7 @@ public class IgnoreWallTest {
         Player[] targetArray = {
                 new Player("target1"),
                 new Player("target2"),
-                new Player("target3") ,
+                new Player("target3"),
                 new Player("target4")
         };
         List<Player> originalTargets = Arrays.asList(targetArray);
@@ -85,13 +86,12 @@ public class IgnoreWallTest {
         List<Player> correctTargets = new LinkedList<>();
         correctTargets.add(targetArray[0]);
         List<Player> possibleTargets = wallStrategy.getHittableTargets(shooter);
-        assertSame(correctTargets.get(0), possibleTargets.get(0), ()-> "ERROR: the two player are on the same direction");
+        assertSame(correctTargets.get(0), possibleTargets.get(0), () -> "ERROR: the two player are on the same direction");
 
-        try{
+        try {
 
-             redRegenPoint.removePlayer(shooter);
-        }
-        catch (Exception e){
+            redRegenPoint.removePlayer(shooter);
+        } catch (Exception e) {
             e.getMessage();
         }
 
@@ -102,8 +102,8 @@ public class IgnoreWallTest {
         assertSame(correctTargets.get(0), wallStrategy.getHittableTargets(shooter).get(0), () -> "ERROR: even if it's behind a wall, should be hitted");
     }
 
-    
-    void areTargetValidTest(){
+
+    void areTargetValidTest() {
         GameMap map = GameMap.loadMap("src/test/testingMaps/empty.json");
         Tile redRegenPoint = map.getRedRegenPoint();
         Tile yellowRegenPoint = map.getYellowRegenPoint();
@@ -111,7 +111,7 @@ public class IgnoreWallTest {
         Player[] targetArray = {
                 new Player("target1"),
                 new Player("target2"),
-                new Player("target3") ,
+                new Player("target3"),
                 new Player("target4")
         };
 

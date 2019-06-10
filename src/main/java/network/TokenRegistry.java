@@ -21,45 +21,48 @@ public abstract class TokenRegistry {
      * when a client disconnects and reconnects.
      * Then, creates an association between the token and the jsonReceiver of the client.
      * If a token is already associated with a json receiver, this method fails.
-     * @param token token of the client
+     *
+     * @param token        token of the client
      * @param jsonReceiver jsonReceiver of the client
      */
-    public static void associateTokenAndReceiver(String token, JsonReceiver jsonReceiver){
-        synchronized (registeredTokens){
-            if (tokenAssociated.containsKey(token)) throw new DuplicateException(">>> There is already a jsonReceiver associated to this token");
+    public static void associateTokenAndReceiver(String token, JsonReceiver jsonReceiver) {
+        synchronized (registeredTokens) {
+            if (tokenAssociated.containsKey(token))
+                throw new DuplicateException(">>> There is already a jsonReceiver associated to this token");
             if (!registeredTokens.contains(token)) registeredTokens.add(token);
             tokenAssociated.putIfAbsent(token, jsonReceiver);
         }
     }
 
     /**
-     * removes the association between the token and the json receiver. The token is not removed
-     * @param token
-     */
-    public void removeAssociation(String token){
-        tokenAssociated.remove(token);
-    }
-
-    /**
      * Saves all the tokens in the server. Still not implemented
      */
-    public  static void saveTokens(){
+    public static void saveTokens() {
         throw new UnsupportedOperationException();
     }
 
-    public static boolean tokenAlreadyGenerated(String token){
+    public static boolean tokenAlreadyGenerated(String token) {
         return registeredTokens.contains(token);
     }
 
-    public static JsonReceiver getJsonReceiver(String token){
+    public static JsonReceiver getJsonReceiver(String token) {
         JsonReceiver receiver = tokenAssociated.get(token);
         if (receiver == null) throw new NullPointerException("This token is not registered");
         return receiver;
     }
 
-    public static User getJsonUserOwner(JsonReceiver receiver){
-        User owner= userReceiver.get(receiver);
+    public static User getJsonUserOwner(JsonReceiver receiver) {
+        User owner = userReceiver.get(receiver);
         if (owner == null) throw new NullPointerException("Non c'è nessun user associato a questo json receiver");
         return owner;
+    }
+
+    /**
+     * removes the association between the token and the json receiver. The token is not removed
+     *
+     * @param token
+     */
+    public void removeAssociation(String token) {
+        tokenAssociated.remove(token);
     }
 }

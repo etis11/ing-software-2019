@@ -18,6 +18,7 @@ public class Movement {
 
     /**
      * this is the constructor method
+     *
      * @param steps number of moves to do
      */
     public Movement(List<String> steps) {
@@ -26,6 +27,7 @@ public class Movement {
 
     /**
      * return the list of steps
+     *
      * @return list of steps
      */
     public List<String> getSteps() {

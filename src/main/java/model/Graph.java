@@ -11,8 +11,9 @@ public class Graph {
         this.vertexes = vertexes;
         this.edges = edges;
     }
+
     public Graph() {
-        this.vertexes= new ArrayList<Tile>();
+        this.vertexes = new ArrayList<Tile>();
         this.edges = new ArrayList<Edge>();
     }
 
@@ -23,7 +24,6 @@ public class Graph {
     public List<Edge> getEdges() {
         return edges;
     }
-
 
 
 }

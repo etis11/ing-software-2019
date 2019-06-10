@@ -9,15 +9,14 @@ import java.util.List;
 
 public class JsonCreator implements ChangesObserver {
 
+    private static transient boolean prettyPrinting = false;
     private final List<Player> changedPlayers = new LinkedList<>();
     private final List<Tile> changedTiles = new LinkedList<>();
-    private String message;
-
-    private static transient boolean prettyPrinting = false;
     private transient final Gson gson;
     private transient final WeaponCardSerializer weaponCardSerializer;
+    private String message;
 
-    public JsonCreator(){
+    public JsonCreator() {
         GsonBuilder gb = new GsonBuilder();
         gb.registerTypeAdapter(BloodToken.class, new BloodTokenSerializer());
         gb.registerTypeAdapter(PlayerBoard.class, new PlayerBoardSerializer());
@@ -33,20 +32,20 @@ public class JsonCreator implements ChangesObserver {
     }
 
 
-    public void reset(){
+    public void reset() {
         changedPlayers.clear();
         changedTiles.clear();
     }
 
 
-    public String createJsonWithMessage(String s){
+    public String createJsonWithMessage(String s) {
         setMessage(s);
         String changes = gson.toJson(this);
         resetMessage();
-        return  changes;
+        return changes;
     }
 
-    public String createTargetPlayerJson(String s, Player player){
+    public String createTargetPlayerJson(String s, Player player) {
         weaponCardSerializer.setCurrentPlayer(player);
         setMessage(s);
         String changes = gson.toJson(this);
@@ -54,15 +53,19 @@ public class JsonCreator implements ChangesObserver {
         return changes;
     }
 
-    public String createJustMessage(String s){
+    public String createJustMessage(String s) {
         return gson.toJson(s, String.class);
     }
 
-    private void setMessage(String s){ message = s;}
+    private void setMessage(String s) {
+        message = s;
+    }
 
-    private  void resetMessage(){ message = null;}
+    private void resetMessage() {
+        message = null;
+    }
 
-/************************ Changes observer implementation *******************************************/
+    /************************ Changes observer implementation *******************************************/
 
     @Override
     public void notifyTileChange(Tile t) {

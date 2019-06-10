@@ -5,11 +5,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class AdjacentDifferentTilesStrategy extends  AbstractTargetStrategy {
+public class AdjacentDifferentTilesStrategy extends AbstractTargetStrategy {
     private Match match;
     private GameMap map;
 
-    public AdjacentDifferentTilesStrategy(int distance, Match match){
+    public AdjacentDifferentTilesStrategy(int distance, Match match) {
         this.map = map;
         this.match = match;
     }
@@ -28,10 +28,9 @@ public class AdjacentDifferentTilesStrategy extends  AbstractTargetStrategy {
             return false;
         } else if (adjacentPlayers.size() == 1) {
             return true;
-        } else if(set.size()<targetsTile.size()){
+        } else if (set.size() < targetsTile.size()) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
@@ -39,7 +38,7 @@ public class AdjacentDifferentTilesStrategy extends  AbstractTargetStrategy {
     @Override
     public boolean canHitSomeone(Player shooter) {
         List<Player> adjacentPlayers = map.allAdjacentPlayers(shooter);
-        return match.getPlayers().stream().anyMatch(p ->  adjacentPlayers.contains(p) ) ;
+        return match.getPlayers().stream().anyMatch(p -> adjacentPlayers.contains(p));
     }
 
 

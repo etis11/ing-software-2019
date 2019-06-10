@@ -2,8 +2,10 @@ package model.clientModel;
 
 import model.PowerUpCard;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SemplifiedPlayer {
 

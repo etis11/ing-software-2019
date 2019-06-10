@@ -15,11 +15,11 @@
     "remainingSteps": 0,
     "possibleNextState": [
       {
-        "PickUp":"PickUp",
+        "PickUp": "PickUp",
         "Shoot": "Shoot",
         "Run": "Run",
         "Reload": "Reload",
-        "EndTurn": "EndTurn",
+        "EndTurn": "EndTurn"
       }
     ]
   },
@@ -39,11 +39,11 @@
     "remainingSteps": 0,
     "possibleNextState": [
       {
-        "PickUp":"PickUpPlus",
+        "PickUp": "PickUpPlus",
         "Shoot": "Shoot",
         "Run": "Run",
         "Reload": "Reload",
-        "EndTurn": "EndTurn",
+        "EndTurn": "EndTurn"
       }
     ]
   },
@@ -63,11 +63,11 @@
     "remainingSteps": 0,
     "possibleNextState": [
       {
-        "PickUp":"PickUpPlus",
+        "PickUp": "PickUpPlus",
         "Shoot": "ShootPlus",
         "Run": "Run",
         "Reload": "Reload",
-        "EndTurn": "EndTurn",
+        "EndTurn": "EndTurn"
       }
     ]
   },
@@ -109,7 +109,7 @@
     "remainingSteps": 1,
     "possibleNextState": [
       {
-        "NormalAction":"NormalAction"
+        "NormalAction": "NormalAction"
       }
     ]
   },

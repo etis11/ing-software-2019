@@ -6,7 +6,7 @@ public class SetUsernameCommand extends AbstractCommand {
 
     private String username;
 
-    public SetUsernameCommand(String token, String username){
+    public SetUsernameCommand(String token, String username) {
         super(token);
         this.username = username;
     }

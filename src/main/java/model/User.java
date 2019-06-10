@@ -41,6 +41,7 @@ public class User {
 
     /**
      * return the username chosen by the user
+     *
      * @return user username
      */
     public String getUsername() {
@@ -49,6 +50,7 @@ public class User {
 
     /**
      * set the user username by one given
+     *
      * @param username to be set
      */
     public void setUsername(String username) {
@@ -57,6 +59,7 @@ public class User {
 
     /**
      * return the effect phrase chosen by the user or the one of default
+     *
      * @return return a string with the user effect phrase
      */
     public String getEffectPhrase() {
@@ -65,6 +68,7 @@ public class User {
 
     /**
      * allow to set the user effect phrase by the one given
+     *
      * @param effectPhrase to be set
      */
     public void setEffectPhrase(String effectPhrase) {
@@ -73,6 +77,7 @@ public class User {
 
     /**
      * return the player associated with the user
+     *
      * @return a player associated with the user
      */
     public Player getPlayer() {
@@ -81,6 +86,7 @@ public class User {
 
     /**
      * allow to associate a player to the user
+     *
      * @param player the player to associate
      */
     public void setPlayer(Player player) {

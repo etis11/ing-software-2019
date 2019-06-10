@@ -10,9 +10,9 @@ import java.util.Scanner;
 public class CommandLineInterfaceTest {
 
 
-public static void main(String[] args) throws IOException {
-    //@Test
-  //  void cliTest () {
+    public static void main(String[] args) throws IOException {
+        //@Test
+        //  void cliTest () {
         CommandLineInterface commandLineInterface = new CommandLineInterface();
 
         System.out.println("write something!!!");
@@ -51,6 +51,6 @@ public static void main(String[] args) throws IOException {
         commandLineInterface.onMarksChange(player);
         commandLineInterface.onPowerUpChange(player);
 
-    //}
-}
+        //}
+    }
 }

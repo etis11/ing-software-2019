@@ -12,12 +12,12 @@ public class AmmoTest {
     private Ammo ammo;
 
     @BeforeEach
-    public void initInstance(){
+    public void initInstance() {
         ammo = new Ammo(Color.BLUE);
     }
 
     @Test
-    public void testConstructor(){
+    public void testConstructor() {
         assertTrue(ammo instanceof Ammo, "ERROR of Instance");
 
         assertTrue(ammo.getColor() == Color.BLUE, "ERROR not blue ammo");

@@ -12,20 +12,21 @@ public class PlayerTest {
     private Player p;
 
     @BeforeEach
-    void initPlayer(){
+    void initPlayer() {
         p = new Player();
     }
 
     @Test
-    void weaponOneInsertionTest(){
+    void weaponOneInsertionTest() {
         WeaponCard w = new WeaponCard();
-        try{
+        try {
             p.pickUpWeapon(w);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        catch (Exception e) {System.out.println(e.getMessage());}
 
 
-       assertEquals(w, p.getWeapons().get(0), () -> "ERROR: the weapon returned is not the same that has been put in");
+        assertEquals(w, p.getWeapons().get(0), () -> "ERROR: the weapon returned is not the same that has been put in");
 
     }
 

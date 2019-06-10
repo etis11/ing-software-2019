@@ -7,7 +7,8 @@
       "blue"
     ],
     "baseEffect": [
-      { "cost": [],
+      {
+        "cost": [],
         "isOptional--->da togliere": false,
         "isGlobal": false,
         "type---->da togliere": "Damage",
@@ -31,12 +32,20 @@
         },
         "optionalEffects": [
           {
-            "cost": ["red","red","blue"],
+            "cost": [
+              "red",
+              "red",
+              "blue"
+            ],
             "addtionalDamage": {
-              "red": 0, "blue": 0, "green": 0
+              "red": 0,
+              "blue": 0,
+              "green": 0
             },
             "additionalMarks": {
-              "red": 0, "blue": 0, "green": 0
+              "red": 0,
+              "blue": 0,
+              "green": 0
             },
             "activated": false,
             "canMove": false,

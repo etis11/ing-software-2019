@@ -14,12 +14,13 @@ public class Room {
     /**
      * Creates a room with no tiles in it
      */
-    public Room(){
+    public Room() {
         tiles = new ArrayList<>();
     }
 
     /**
      * returns the tiles in the room
+     *
      * @return a list of tiles
      */
     public List<Tile> getTiles() {
@@ -28,23 +29,25 @@ public class Room {
 
     /**
      * adds a tile to the current room and assigns the given room to the tile
+     *
      * @param toAdd the tile that has to be added to the room
      */
-    public void addTile(Tile toAdd){
-        if (toAdd == null) throw  new IllegalArgumentException("The tile passed is null");
+    public void addTile(Tile toAdd) {
+        if (toAdd == null) throw new IllegalArgumentException("The tile passed is null");
         tiles.add(toAdd);
         toAdd.setRoom(this);
     }
 
     /**
      * returns all the players in the room
+     *
      * @return players that are in the same Room
      */
     public List<Player> getPlayersInRoom() {
 
         List<Player> players = new ArrayList<>();
 
-        for(Tile tile : this.getTiles()){
+        for (Tile tile : this.getTiles()) {
             players.addAll(tile.getPlayers());
         }
 

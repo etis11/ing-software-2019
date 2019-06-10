@@ -27,7 +27,7 @@ public class FixedDistanceStrategyTest {
     private Room room2;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         match = new Match();
         gameMap = new GameMap();
         room = new Room();
@@ -57,8 +57,8 @@ public class FixedDistanceStrategyTest {
         shooter = new Player("Shooter");
         oppositeTile.addPlayer(shooter);
         shooter.setTile(oppositeTile);
-        target1 = new Player("Target1") ;
-        target2 = new Player("Target2") ;
+        target1 = new Player("Target1");
+        target2 = new Player("Target2");
         LinkedList<Player> players = new LinkedList<>();
         players.add(shooter);
         players.add(target1);
@@ -69,49 +69,49 @@ public class FixedDistanceStrategyTest {
     }
 
     @Test
-    public void instanceTest(){
+    public void instanceTest() {
         assertTrue(strategy instanceof FixedDistanceStrategy, "ERROR: wrong instance");
     }
 
     @Test
-    public void noPlayer(){
+    public void noPlayer() {
         List<Player> target = new ArrayList<>();
 
         target.add(target1);
-        assertThrows(IllegalArgumentException.class, ()->strategy.areTargetValid(null, target));
-        assertThrows(IllegalArgumentException.class, ()->strategy.areTargetValid(shooter, null));
+        assertThrows(IllegalArgumentException.class, () -> strategy.areTargetValid(null, target));
+        assertThrows(IllegalArgumentException.class, () -> strategy.areTargetValid(shooter, null));
 
         target1.setTile(tile);
         target2.setTile(tile);
         assertFalse(strategy.canHitSomeone(shooter), "ERROR: there are no players");
-        assertSame(strategy.getHittableTargets(shooter).size(),0, "ERROR: there are no players");
+        assertSame(strategy.getHittableTargets(shooter).size(), 0, "ERROR: there are no players");
         assertFalse(strategy.areTargetValid(shooter, target), "ERROR: there are player near to the shooter");
 
         target.add(target2);
         assertFalse(strategy.canHitSomeone(shooter), "ERROR: there are no players");
-        assertSame(strategy.getHittableTargets(shooter).size(),0, "ERROR: there are no players");
+        assertSame(strategy.getHittableTargets(shooter).size(), 0, "ERROR: there are no players");
         assertFalse(strategy.areTargetValid(shooter, target), "ERROR: there are player near to the shooter");
     }
 
     @Test
-    public void onlyOnePlayer(){
+    public void onlyOnePlayer() {
         List<Player> target = new ArrayList<>();
 
         target.add(target2);
         tile.addPlayer(target1);
         otherTile.addPlayer(target2);
         assertTrue(strategy.canHitSomeone(shooter), "ERROR: there are players to be shot");
-        assertSame(strategy.getHittableTargets(shooter).size(),1, "ERROR: there are players to be shot");
+        assertSame(strategy.getHittableTargets(shooter).size(), 1, "ERROR: there are players to be shot");
         assertTrue(strategy.areTargetValid(shooter, target), "ERROR: there is a player to be shot by shooter");
 
         target.add(target1);
         assertTrue(strategy.canHitSomeone(shooter), "ERROR: there are players to be shot");
-        assertSame(strategy.getHittableTargets(shooter).size(),1, "ERROR: there are players to be shot");
+        assertSame(strategy.getHittableTargets(shooter).size(), 1, "ERROR: there are players to be shot");
         assertFalse(strategy.areTargetValid(shooter, target), "ERROR: there is one player near to the shooter");
     }
 
     @Test
-    public void twoPlayer(){
+    public void twoPlayer() {
         List<Player> target = new ArrayList<>();
 
         target.add(target1);
@@ -119,12 +119,12 @@ public class FixedDistanceStrategyTest {
         oppositeNotVisibleTile.addPlayer(target1);
         otherTile.addPlayer(target2);
         assertTrue(strategy.canHitSomeone(shooter), "ERROR: there are players to be shot");
-        assertSame(strategy.getHittableTargets(shooter).size(),2, "ERROR: there are players to be shot");
+        assertSame(strategy.getHittableTargets(shooter).size(), 2, "ERROR: there are players to be shot");
         assertTrue(strategy.areTargetValid(shooter, target), "ERROR: there is a player to be shot by shooter");
     }
 
     @Test
-    public void notVisiblePlayers(){
+    public void notVisiblePlayers() {
         List<Player> target = new ArrayList<>();
 
         target.add(target1);
@@ -133,7 +133,7 @@ public class FixedDistanceStrategyTest {
         adjacent.addPlayer(target2);
 
         assertFalse(strategy.canHitSomeone(shooter), "ERROR: there are no players");
-        assertSame(strategy.getHittableTargets(shooter).size(),0, "ERROR: there are no players");
+        assertSame(strategy.getHittableTargets(shooter).size(), 0, "ERROR: there are no players");
         assertFalse(strategy.areTargetValid(shooter, target), "ERROR: there are player near to the shooter");
     }
 }

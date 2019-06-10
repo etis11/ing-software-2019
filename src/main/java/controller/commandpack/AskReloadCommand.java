@@ -11,7 +11,7 @@ import controller.CommandExecutor;
  */
 public class AskReloadCommand extends AbstractCommand {
 
-    public AskReloadCommand(String token){
+    public AskReloadCommand(String token) {
         super(token);
     }
 

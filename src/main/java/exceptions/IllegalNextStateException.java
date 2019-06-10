@@ -1,6 +1,6 @@
 package exceptions;
 
-public class IllegalNextStateException extends Exception{
+public class IllegalNextStateException extends Exception {
 
     public IllegalNextStateException() {
         super();

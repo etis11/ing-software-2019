@@ -6,10 +6,11 @@ public class ClientSingleton {
 
     private String token = "";
 
-    private ClientSingleton(){}
+    private ClientSingleton() {
+    }
 
-    public static ClientSingleton getInstance(){
-        if (instance == null){
+    public static ClientSingleton getInstance() {
+        if (instance == null) {
             instance = new ClientSingleton();
         }
         return instance;

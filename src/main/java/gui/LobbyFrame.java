@@ -29,7 +29,7 @@ public class LobbyFrame extends Application {
     final int buttonWidth = 75;
     private CommandContainer cmdLauncher;
 
-    public void init(CommandContainer cmd){
+    public void init(CommandContainer cmd) {
         this.cmdLauncher = cmd;
     }
 
@@ -39,22 +39,22 @@ public class LobbyFrame extends Application {
         stage.setResizable(false);
 
         //path of button image
-        final String pathDistruttore = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"Distruttore.PNG";
-        final String pathBanshee = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"Banshee.PNG";
-        final String pathDozer = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"Dozer.PNG";
-        final String pathSprog = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"Sprog.PNG";
-        final String pathVioletta = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"Violetta.PNG";
+        final String pathDistruttore = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar + "img" + File.separatorChar + "Distruttore.PNG";
+        final String pathBanshee = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar + "img" + File.separatorChar + "Banshee.PNG";
+        final String pathDozer = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar + "img" + File.separatorChar + "Dozer.PNG";
+        final String pathSprog = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar + "img" + File.separatorChar + "Sprog.PNG";
+        final String pathVioletta = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar + "img" + File.separatorChar + "Violetta.PNG";
 
-        Image imageDistruttore = new Image(new FileInputStream(pathDistruttore),75,75,false, true);
-        Image imageBanshee = new Image(new FileInputStream(pathBanshee),75,75,false, true);
-        Image imageDozer = new Image(new FileInputStream(pathDozer),75,75,false, true);
-        Image imageSprog = new Image(new FileInputStream(pathSprog),75,75,false, true);
-        Image imageVioletta = new Image(new FileInputStream(pathVioletta),75,75,false, true);
+        Image imageDistruttore = new Image(new FileInputStream(pathDistruttore), 75, 75, false, true);
+        Image imageBanshee = new Image(new FileInputStream(pathBanshee), 75, 75, false, true);
+        Image imageDozer = new Image(new FileInputStream(pathDozer), 75, 75, false, true);
+        Image imageSprog = new Image(new FileInputStream(pathSprog), 75, 75, false, true);
+        Image imageVioletta = new Image(new FileInputStream(pathVioletta), 75, 75, false, true);
 
 
         Button buttonPlayer1 = new Button();
@@ -100,14 +100,13 @@ public class LobbyFrame extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
-                if (checkToken("Distruttore")){
+                if (checkToken("Distruttore")) {
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Distruttore"));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-                }
-                else{
+                } else {
                     info.setText("personaggio già scelto");
                     info.setVisible(true);
                 }
@@ -124,14 +123,13 @@ public class LobbyFrame extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
-                if (checkToken("Banshee")){
+                if (checkToken("Banshee")) {
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Banshee"));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-                }
-                else{
+                } else {
                     info.setText("personaggio già scelto");
                     info.setVisible(true);
                 }
@@ -148,14 +146,13 @@ public class LobbyFrame extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
-                if (checkToken("Dozer")){
+                if (checkToken("Dozer")) {
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Dozer"));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-                }
-                else{
+                } else {
                     info.setText("personaggio già scelto");
                     info.setVisible(true);
                 }
@@ -172,14 +169,13 @@ public class LobbyFrame extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
-                if (checkToken("Sprog")){
+                if (checkToken("Sprog")) {
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Sprog"));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-                }
-                else{
+                } else {
                     info.setText("personaggio già scelto");
                     info.setVisible(true);
                 }
@@ -196,14 +192,13 @@ public class LobbyFrame extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
-                if (checkToken("Violetta")){
+                if (checkToken("Violetta")) {
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Violetta"));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-                }
-                else{
+                } else {
                     info.setText("personaggio già scelto");
                     info.setVisible(true);
                 }
@@ -228,20 +223,19 @@ public class LobbyFrame extends Application {
         playerNumberField.setMinWidth(150);
 
         buttonUsername.setLayoutY(usernameField.getLayoutY());
-        buttonUsername.setLayoutX(usernameField.getLayoutX()+usernameField.getMinWidth()+50);
+        buttonUsername.setLayoutX(usernameField.getLayoutX() + usernameField.getMinWidth() + 50);
         buttonUsername.setMinWidth(150);
         buttonUsername.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
-                if(checkUsername(usernameField.getText().trim())){
+                if (checkUsername(usernameField.getText().trim())) {
                     try {
                         cmdLauncher.addCommand(new SetUsernameCommand(ClientSingleton.getInstance().getToken(), usernameField.getText().trim()));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-                }
-                else{
+                } else {
                     info.setText("inserisci un username valido");
                     info.setVisible(true);
                 }
@@ -249,20 +243,19 @@ public class LobbyFrame extends Application {
         });
 
         buttonPhrase.setLayoutY(effectPhraseField.getLayoutY());
-        buttonPhrase.setLayoutX(effectPhraseField.getLayoutX()+effectPhraseField.getMinWidth()+50);
+        buttonPhrase.setLayoutX(effectPhraseField.getLayoutX() + effectPhraseField.getMinWidth() + 50);
         buttonPhrase.setMinWidth(150);
         buttonPhrase.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
-                if(checkPhrase(effectPhraseField.getText())){
+                if (checkPhrase(effectPhraseField.getText())) {
                     try {
                         cmdLauncher.addCommand(new SetEffectPhraseCommand(ClientSingleton.getInstance().getToken(), effectPhraseField.getText()));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-                }
-                else{
+                } else {
                     info.setText("inserisci una frase");
                     info.setVisible(true);
                 }
@@ -270,20 +263,19 @@ public class LobbyFrame extends Application {
         });
 
         buttonDeath.setLayoutY(deathField.getLayoutY());
-        buttonDeath.setLayoutX(deathField.getLayoutX()+deathField.getMinWidth()+50);
+        buttonDeath.setLayoutX(deathField.getLayoutX() + deathField.getMinWidth() + 50);
         buttonDeath.setMinWidth(150);
         buttonDeath.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
-                if(checkDeath(deathField.getText())){
+                if (checkDeath(deathField.getText())) {
                     try {
                         cmdLauncher.addCommand(new SetNumberOfDeathCommand(ClientSingleton.getInstance().getToken(), Integer.parseInt(deathField.getText())));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-                }
-                else{
+                } else {
                     //TODO messaggio
                     info.setText("TODO");
                     info.setVisible(true);
@@ -292,20 +284,19 @@ public class LobbyFrame extends Application {
         });
 
         buttonPlayer.setLayoutY(playerNumberField.getLayoutY());
-        buttonPlayer.setLayoutX(playerNumberField.getLayoutX()+playerNumberField.getMinWidth()+50);
+        buttonPlayer.setLayoutX(playerNumberField.getLayoutX() + playerNumberField.getMinWidth() + 50);
         buttonPlayer.setMinWidth(150);
         buttonPlayer.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
-                if(checkPlayer(playerNumberField.getText())){
+                if (checkPlayer(playerNumberField.getText())) {
                     try {
                         cmdLauncher.addCommand(new SetPlayerNumberCommand(ClientSingleton.getInstance().getToken(), Integer.parseInt(playerNumberField.getText())));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-                }
-                else{
+                } else {
                     //TODO messaggio
                     info.setText("TODO");
                     info.setVisible(true);
@@ -315,10 +306,10 @@ public class LobbyFrame extends Application {
 
 
         //path of background image
-        final String path = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"Adrenalina.PNG";
+        final String path = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar + "img" + File.separatorChar + "Adrenalina.PNG";
 
-        BackgroundImage myBI= new BackgroundImage(new Image(new FileInputStream(path),1000,600,false,true),
+        BackgroundImage myBI = new BackgroundImage(new Image(new FileInputStream(path), 1000, 600, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
@@ -346,23 +337,23 @@ public class LobbyFrame extends Application {
         stage.show();
     }
 
-    private boolean checkUsername(String username){
-        return !username.equalsIgnoreCase("") && !username.equalsIgnoreCase("username") &&!username.equalsIgnoreCase("Cambia username") ;
+    private boolean checkUsername(String username) {
+        return !username.equalsIgnoreCase("") && !username.equalsIgnoreCase("username") && !username.equalsIgnoreCase("Cambia username");
     }
 
-    private boolean checkPhrase(String phrase){
-        return !phrase.equalsIgnoreCase("") &&!phrase.equalsIgnoreCase("Cambia frase ad effetto") ;
+    private boolean checkPhrase(String phrase) {
+        return !phrase.equalsIgnoreCase("") && !phrase.equalsIgnoreCase("Cambia frase ad effetto");
     }
 
-    private boolean checkDeath(String phrase){
-        return !phrase.equalsIgnoreCase("") &&!phrase.equalsIgnoreCase("Cambia numero morti") ;
+    private boolean checkDeath(String phrase) {
+        return !phrase.equalsIgnoreCase("") && !phrase.equalsIgnoreCase("Cambia numero morti");
     }
 
-    private boolean checkPlayer(String phrase){
-        return !phrase.equalsIgnoreCase("") &&!phrase.equalsIgnoreCase("Cambia numero giocatori") ;
+    private boolean checkPlayer(String phrase) {
+        return !phrase.equalsIgnoreCase("") && !phrase.equalsIgnoreCase("Cambia numero giocatori");
     }
 
-    private boolean checkToken(String name){
+    private boolean checkToken(String name) {
         //TODO implements control
         return false;
     }

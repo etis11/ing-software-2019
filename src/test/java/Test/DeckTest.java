@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 public class DeckTest {
 
     @Test
-    void testBlala(){
+    void testBlala() {
         Deck deck = new Deck<>();
         WeaponCard card1 = new WeaponCard();
         card1.setName("nameBlaBla");
         deck.addCard(card1);
         WeaponCard cardDraw = (WeaponCard) deck.draw();
-        System.out.println("name of Draw Card is : "+cardDraw.getName() );
+        System.out.println("name of Draw Card is : " + cardDraw.getName());
     }
 }

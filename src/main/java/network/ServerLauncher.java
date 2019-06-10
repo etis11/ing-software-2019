@@ -18,7 +18,7 @@ public class ServerLauncher {
 
     public static void main(String[] args) throws RemoteException, AlreadyBoundException, FileNotFoundException {
 
-        CommandLauncherInterface launcher = new CommandLauncherInterface()  {
+        CommandLauncherInterface launcher = new CommandLauncherInterface() {
             @Override
             public void executeCommand() {
                 System.out.println(">>> Eseguo");

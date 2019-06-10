@@ -10,7 +10,7 @@ import java.util.Map;
  * behaviour. An effect can have a cost, a strategy that defines the possible targets,  how much damage and marks does,
  * and the possibility of moving the player or some targets.
  */
-public  class Effect {
+public class Effect {
 
     private boolean isGlobal;
     /**
@@ -26,13 +26,44 @@ public  class Effect {
      * a map that correlates the color of the target with the damage that has to be dealt to him
      */
     private Map<String, Integer> damage;
+    /**
+     * a map that correlates color of the target with the given number of marks
+     */
+    private Map<String, Integer> marks;
+    /**
+     * the optional effect. Can be empty
+     */
+    private List<OptionalEffect> optionalEffects;
+    private boolean canMoveShooter;
+    private int numStepsShooter;
+    private boolean canMoveTarget;
+    private int numStepsTarget;
+    private boolean moveTargetAndHitAll;
+    private boolean alreadyMovedTarget;
+    //TODO da settare. Fare l'azione inversa dell'apply
+    private int redDamage;
+    private int blueDamage;
+    private int yellowDamage;
+    private int redMarks;
+    private int blueMarks;
+    private int yellowMarks;
 
-    public void setCost(List<String> cost) {
+    public Effect(List<String> cost, TargetStrategy strategy) {
         this.cost = cost;
+        this.strategy = strategy;
+        damage = new HashMap<>();
+        damage.put("red", 0);
+        damage.put("blue", 0);
+        damage.put("yellow", 0);
+        marks = new HashMap<>();
+        marks.put("red", 0);
+        marks.put("blue", 0);
+        marks.put("yellow", 0);
+        optionalEffects = new LinkedList<>();
     }
 
-    public void setStrategy(TargetStrategy strategy) {
-        this.strategy = strategy;
+    public Effect() {
+        optionalEffects = new LinkedList<>();
     }
 
     public Map<String, Integer> getDamage() {
@@ -51,20 +82,12 @@ public  class Effect {
         this.marks = marks;
     }
 
-    public void setOptionalEffects(List<OptionalEffect> optionalEffects) {
-        this.optionalEffects = optionalEffects;
-    }
-
     public boolean isCanMoveShooter() {
         return canMoveShooter;
     }
 
     public void setCanMoveShooter(boolean canMoveShooter) {
         this.canMoveShooter = canMoveShooter;
-    }
-
-    public void setNumStepsShooter(int numStepsShooter) {
-        this.numStepsShooter = numStepsShooter;
     }
 
     public boolean isCanMoveTarget() {
@@ -75,28 +98,6 @@ public  class Effect {
         this.canMoveTarget = canMoveTarget;
     }
 
-    public void setNumStepsTarget(int numStepsTarget) {
-        this.numStepsTarget = numStepsTarget;
-    }
-
-    /**
-     * a map that correlates color of the target with the given number of marks
-     */
-    private Map<String, Integer> marks;
-
-    /**
-     * the optional effect. Can be empty
-     */
-    private List<OptionalEffect> optionalEffects;
-
-    private boolean canMoveShooter;
-
-    private int numStepsShooter;
-
-    private boolean canMoveTarget;
-
-    private int numStepsTarget;
-
     public void setMoveTargetAndHitAll(boolean moveTargetAndHitAll) {
         this.moveTargetAndHitAll = moveTargetAndHitAll;
     }
@@ -105,56 +106,30 @@ public  class Effect {
         this.alreadyMovedTarget = alreadyMovedTarget;
     }
 
-    private boolean moveTargetAndHitAll;
-    private boolean alreadyMovedTarget;
-
-
-    //TODO da settare. Fare l'azione inversa dell'apply
-    private int redDamage;
-    private int blueDamage;
-    private int yellowDamage;
-    private int redMarks;
-    private int blueMarks;
-    private int yellowMarks;
-
-    public Effect(List<String> cost, TargetStrategy strategy){
-        this.cost = cost;
-        this.strategy = strategy;
-        damage = new HashMap<>();
-        damage.put("red", 0);
-        damage.put("blue", 0);
-        damage.put("yellow", 0);
-        marks = new HashMap<>();
-        marks.put("red", 0);
-        marks.put("blue", 0);
-        marks.put("yellow", 0);
-        optionalEffects = new LinkedList<>();
-    }
-
-    public Effect(){
-        optionalEffects = new LinkedList<>();
-    }
-
     public TargetStrategy getStrategy() {
         return strategy;
+    }
+
+    public void setStrategy(TargetStrategy strategy) {
+        this.strategy = strategy;
     }
 
     /**
      * This method sums the damages and the marks of the optional effect in the current effect.
      */
-    public void applyOptionalEffect(){
+    public void applyOptionalEffect() {
         String[] colors = {"red", "blue", "yellow"};
-        for(OptionalEffect o: optionalEffects){
-            if(o.isActivated()){
+        for (OptionalEffect o : optionalEffects) {
+            if (o.isActivated()) {
                 Map<String, Integer> additionalDamage = o.getAdditionalDamage();
                 Map<String, Integer> additionalMarks = o.getAdditionalDamage();
-                for(String color: colors){
+                for (String color : colors) {
                     int dmg = this.damage.get(color);
                     int addDmg = additionalDamage.get(color);
                     int marks = this.marks.get(color);
                     int addMarks = additionalMarks.get(color);
-                    this.damage.put(color, dmg+addDmg);
-                    this.marks.put(color, marks +addMarks);
+                    this.damage.put(color, dmg + addDmg);
+                    this.marks.put(color, marks + addMarks);
                 }
             }
         }
@@ -163,7 +138,7 @@ public  class Effect {
     /**
      * Reset the damage and the marks of the players
      */
-    public void resetDmgAndMarks(){
+    public void resetDmgAndMarks() {
         this.damage.put("red", redDamage);
         this.damage.put("blue", blueDamage);
         this.damage.put("yellow", yellowDamage);
@@ -171,12 +146,13 @@ public  class Effect {
 
     /**
      * creates a damage transporter for the given target
+     *
      * @param shooter the person that is shooting
-     * @param target the person that will receive the effect
-     * @param color the  corresponding color of the target on the card
+     * @param target  the person that will receive the effect
+     * @param color   the  corresponding color of the target on the card
      * @return a damage transporter
      */
-    public DamageTransporter useEffect(Player shooter, Player target, String color){
+    public DamageTransporter useEffect(Player shooter, Player target, String color) {
         int damages = damage.get(color);
         int marks = this.marks.get(color);
         return new DamageTransporter(target, shooter, damages, marks);
@@ -189,46 +165,66 @@ public  class Effect {
         return cost;
     }
 
+    public void setCost(List<String> cost) {
+        this.cost = cost;
+    }
+
     /**
      * returns a copy of the optional effects
+     *
      * @return
      */
     public List<OptionalEffect> getOptionalEffects() {
         return new LinkedList<>(optionalEffects);
     }
 
+    public void setOptionalEffects(List<OptionalEffect> optionalEffects) {
+        this.optionalEffects = optionalEffects;
+    }
+
     /**
      * tells if the player can move
+     *
      * @return
      */
-    public boolean canMoveShooter(){
+    public boolean canMoveShooter() {
         return canMoveShooter;
     }
 
     /**
      * num of steps the shooter can do
+     *
      * @return
      */
-    public int getNumStepsShooter(){
+    public int getNumStepsShooter() {
         return numStepsShooter;
+    }
+
+    public void setNumStepsShooter(int numStepsShooter) {
+        this.numStepsShooter = numStepsShooter;
     }
 
     /**
      * if the effect can move a target
+     *
      * @return
      */
-    public boolean canMoveTarget(){
+    public boolean canMoveTarget() {
         return canMoveTarget;
     }
 
     /**
      * returns the number of the steps u can make do the target
+     *
      * @return
      */
-    public int getNumStepsTarget(){
+    public int getNumStepsTarget() {
         return numStepsTarget;
     }
 
+    public void setNumStepsTarget(int numStepsTarget) {
+        this.numStepsTarget = numStepsTarget;
+    }
 
     public boolean isGlobal() {
         return isGlobal;

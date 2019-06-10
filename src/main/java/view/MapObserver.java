@@ -4,5 +4,5 @@ package view;
 import model.Match;
 
 public interface MapObserver {
-     void onMapChange(Match m);
+    void onMapChange(Match m);
 }

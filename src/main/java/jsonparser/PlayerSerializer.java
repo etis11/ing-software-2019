@@ -28,7 +28,7 @@ public class PlayerSerializer implements JsonSerializer<Player> {
         final JsonElement powerUps = jsonSerializationContext.serialize(player.getPowerUps().toArray(new PowerUpCard[0]), PowerUpCard[].class);
         jsonObject.add("powerUps", powerUps);
 
-        if (player.getTile()!= null)
+        if (player.getTile() != null)
             jsonObject.addProperty("tile", player.getTile().getID());
 
         final JsonElement playerBoard = jsonSerializationContext.serialize(player.getPlayerBoard(), PlayerBoard.class);

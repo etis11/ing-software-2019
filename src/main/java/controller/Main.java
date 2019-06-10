@@ -21,8 +21,8 @@ public class Main {
         listViews.add(messageView);
         GameManager gm = new GameManager();
         Match m = gm.getMatch();
-        String path = "." + File.separatorChar + "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "stateMachine"+File.separatorChar+"stateMachine.json";
+        String path = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar + "stateMachine" + File.separatorChar + "stateMachine.json";
         State s = State.fromJson(path);
         Player p = new Player("Oscar", s);
         p.setRemainingMoves(2);

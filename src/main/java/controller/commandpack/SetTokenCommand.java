@@ -6,7 +6,7 @@ public class SetTokenCommand extends AbstractCommand {
 
     String playerToken;
 
-    public SetTokenCommand(String token, String playerToken){
+    public SetTokenCommand(String token, String playerToken) {
         super(token);
         this.playerToken = playerToken;
     }

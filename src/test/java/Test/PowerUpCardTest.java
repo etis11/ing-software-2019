@@ -15,17 +15,17 @@ public class PowerUpCardTest {
     private PowerUpCard card;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         card = new PowerUpCard(Color.RED, PowerUpType.TARGETING_SCOPE);
     }
 
     @Test
-    public void constructorTest(){
+    public void constructorTest() {
         assertTrue(card instanceof PowerUpCard, "ERROR of Instance");
     }
 
     @Test
-    public void redPowerUpCardTest(){
+    public void redPowerUpCardTest() {
         assertSame(card.getColor(), Color.RED, "ERROR: not red powerUp");
         assertSame(card.getPowerUpType(), PowerUpType.TARGETING_SCOPE, "ERROR: not red gunsight");
 
@@ -43,7 +43,7 @@ public class PowerUpCardTest {
     }
 
     @Test
-    public void bluePowerUpCardTest(){
+    public void bluePowerUpCardTest() {
         card = new PowerUpCard(Color.BLUE, PowerUpType.TARGETING_SCOPE);
         assertSame(card.getColor(), Color.BLUE, "ERROR: not blue powerUp");
         assertSame(card.getPowerUpType(), PowerUpType.TARGETING_SCOPE, "ERROR: not blue gunsight");
@@ -62,7 +62,7 @@ public class PowerUpCardTest {
     }
 
     @Test
-    public void yellowPowerUpCardTest(){
+    public void yellowPowerUpCardTest() {
         card = new PowerUpCard(Color.YELLOW, PowerUpType.TARGETING_SCOPE);
         assertSame(card.getColor(), Color.YELLOW, "ERROR: not yellow powerUp");
         assertSame(card.getPowerUpType(), PowerUpType.TARGETING_SCOPE, "ERROR: not yellow gunsight");
@@ -81,7 +81,7 @@ public class PowerUpCardTest {
     }
 
     @Test
-    public void copyConstructorTest(){
+    public void copyConstructorTest() {
         PowerUpCard card2 = new PowerUpCard(card);
         assertTrue(card2 instanceof PowerUpCard, "ERROR of Instance");
         assertSame(card.getColor(), card2.getColor(), "ERROR: wrong color");

@@ -27,6 +27,7 @@ public class RoomStrategy extends AbstractTargetStrategy {
 
     /**
      * verify if all players in target are in the same room of shooter
+     *
      * @param shooter player who wants to shoot
      * @param targets player to be shot
      * @return true if all targets are correctly selected, false otherwise
@@ -35,8 +36,8 @@ public class RoomStrategy extends AbstractTargetStrategy {
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         super.areTargetValid(shooter, targets);
         List<Player> roomPlayer = shooter.getTile().getRoom().getPlayersInRoom();
-        for (Player p : targets){
-            if (!roomPlayer.contains(p)){
+        for (Player p : targets) {
+            if (!roomPlayer.contains(p)) {
                 return false;
             }
         }
@@ -45,14 +46,15 @@ public class RoomStrategy extends AbstractTargetStrategy {
 
     /**
      * verify if someone can be shot by this type of strategy particular if there is someone in the shooter room
+     *
      * @param shooter player who wants to shoot
      * @return true if there are someone, false otherwise
      */
     @Override
     public boolean canHitSomeone(Player shooter) {
         List<Player> roomPlayer = shooter.getTile().getRoom().getPlayersInRoom();
-        for (Player p : match.getPlayers()){
-            if (roomPlayer.contains(p) && p!=shooter){
+        for (Player p : match.getPlayers()) {
+            if (roomPlayer.contains(p) && p != shooter) {
                 return true;
             }
         }
@@ -61,14 +63,15 @@ public class RoomStrategy extends AbstractTargetStrategy {
 
     /**
      * produce a list of player shootable by this type of strategy, particular player in the shooter room
+     *
      * @param shooter player who wants to shoot
      * @return list of player hittable
      */
     @Override
     public List<Player> getHittableTargets(Player shooter) {
         List<Player> toReturn = new ArrayList<>();
-        for (Player p:shooter.getTile().getRoom().getPlayersInRoom()){
-            if (p!=shooter){
+        for (Player p : shooter.getTile().getRoom().getPlayersInRoom()) {
+            if (p != shooter) {
                 toReturn.add(p);
             }
         }

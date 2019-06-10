@@ -20,6 +20,12 @@ import java.util.logging.Logger;
  * Accept socket connections
  */
 public class SocketServer {
+    public final static Logger serverSocketLogger = Logger.getLogger(SocketServer.class.getName());
+    /**
+     * num max of clients that can be served ad once
+     */
+    private final static int MAX_CLIENTS = 5;
+    private final CommandLauncherInterface commandLauncher;
     /**
      * the socket of the server
      */
@@ -32,38 +38,30 @@ public class SocketServer {
      * a thread pool for launching the command receivers
      */
     private ExecutorService threadPool;
-    /**
-     * num max of clients that can be served ad once
-     */
-    private final static int MAX_CLIENTS = 5;
 
-    private final CommandLauncherInterface commandLauncher;
-
-    public final static Logger serverSocketLogger = Logger.getLogger(SocketServer.class.getName());
-
-    public SocketServer(int port, CommandLauncherInterface c) throws IOException{
+    public SocketServer(int port, CommandLauncherInterface c) throws IOException {
         serverSocket = new ServerSocket(port);
-        serverSocketLogger.log(Level.INFO,">>> Server Launched on port:" + port +".");
+        serverSocketLogger.log(Level.INFO, ">>> Server Launched on port:" + port + ".");
         threadPool = Executors.newFixedThreadPool(MAX_CLIENTS);
         commandLauncher = c;
     }
 
     /**
      * Accepts a connection and creates a CommandParser associated to the Proxy view. The socket is bound to the proxy
+     *
      * @throws IOException throws an IOException if something is wrong with the connection.
      */
     public void run() throws IOException {
-        while(!stop){
+        while (!stop) {
             serverSocketLogger.log(Level.INFO, ">>> Waiting for connection.");
             Socket clientSocket = serverSocket.accept();
-            serverSocketLogger.log(Level.INFO,">>> New connection accepted: " + clientSocket.getRemoteSocketAddress());
+            serverSocketLogger.log(Level.INFO, ">>> New connection accepted: " + clientSocket.getRemoteSocketAddress());
             PrintWriter clientOutput = new PrintWriter(clientSocket.getOutputStream());
             String clientToken = getClientToken(clientSocket);
-            if (!TokenRegistry.tokenAlreadyGenerated(clientToken)){
-                serverSocketLogger.log(Level.INFO,">>> Generating Token");
+            if (!TokenRegistry.tokenAlreadyGenerated(clientToken)) {
+                serverSocketLogger.log(Level.INFO, ">>> Generating Token");
                 clientToken = UUID.randomUUID().toString();
-            }
-            else{
+            } else {
                 serverSocketLogger.log(Level.INFO, ">>> Token sent valid");
             }
             //sends the token to the client
@@ -74,7 +72,8 @@ public class SocketServer {
             JsonReceiver receiverProxy = new JsonReceiverProxySocket(clientSocket);
             commandLauncher.addJsonReceiver(receiverProxy);
             TokenRegistry.associateTokenAndReceiver(clientToken, receiverProxy);
-            threadPool.submit(new CommandReceiverSocket(clientSocket, commandLauncher));;
+            threadPool.submit(new CommandReceiverSocket(clientSocket, commandLauncher));
+            ;
 
         }
     }
@@ -82,11 +81,11 @@ public class SocketServer {
     /**
      * the server is putted in a stop state
      */
-    public void stopReceiving(){
+    public void stopReceiving() {
         stop = true;
     }
 
-    private String getClientToken(Socket clientSocket) throws  IOException{
+    private String getClientToken(Socket clientSocket) throws IOException {
         BufferedReader b = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         String returnString = b.readLine();
         return returnString;

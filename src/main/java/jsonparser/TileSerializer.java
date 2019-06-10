@@ -18,19 +18,19 @@ public class TileSerializer implements JsonSerializer<Tile> {
         //creates a list of names of players
         List<Player> playerList = tile.getPlayers();
         JsonArray playerArray = new JsonArray();
-        for (Player p: playerList)
+        for (Player p : playerList)
             playerArray.add(p.getName());
         jsonTile.add("players", playerArray);
 
         jsonTile.addProperty("ammoTile", tile.canContainAmmo());
-        if (tile.canContainAmmo()){
+        if (tile.canContainAmmo()) {
             JsonElement jsonAmmo = jsonSerializationContext.serialize(tile.getCopyAmmoCard());
             jsonTile.add("ammoCard", jsonAmmo);
         }
 
         jsonTile.addProperty("weaponTile", tile.canContainWeapons());
 
-        if (tile.canContainWeapons()){
+        if (tile.canContainWeapons()) {
             JsonElement weapons = jsonSerializationContext.serialize(tile.getWeapons().toArray(new WeaponCard[0]), WeaponCard[].class);
             jsonTile.add("weapons", weapons);
         }

@@ -16,20 +16,18 @@ public class CommandExecutor {
      */
     private GameManager gameManager;
 
-    public CommandExecutor(GameManager gameManager){
-        this.gameManager=gameManager;
+    public CommandExecutor(GameManager gameManager) {
+        this.gameManager = gameManager;
     }
 
-    public void execute(AskEndTurnCommand command){
+    public void execute(AskEndTurnCommand command) {
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)){
+        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
-        }
-        else{
-            if (!currentPlayer.getState().isNormalAction() && !currentPlayer.getState().isMoreAction() &&!currentPlayer.getState().isMostAction() ){
+        } else {
+            if (!currentPlayer.getState().isNormalAction() && !currentPlayer.getState().isMoreAction() && !currentPlayer.getState().isMostAction()) {
                 //command.getOriginView().notify("Non puoi terminare il tuo turno al momento")
-            }
-            else {
+            } else {
                 currentPlayer.getState().nextState("EndTurn", currentPlayer);
                 String message = "Il giocatore attuale ha terminato il suo turno";
 //            for (MessageListener view : command.getAllViews()){
@@ -40,13 +38,12 @@ public class CommandExecutor {
         }
     }
 
-    public void execute (AskPickCommand command){
+    public void execute(AskPickCommand command) {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)){
+        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
-        }
-        else {
+        } else {
             if (!currentPlayer.getState().canPickUp() || currentPlayer.getRemainingMoves() < 1) {
 //            command.getOriginView().notify("Non puoi raccogliere")
             } else {
@@ -64,13 +61,12 @@ public class CommandExecutor {
         }
     }
 
-    public void execute(AskReloadCommand command){
+    public void execute(AskReloadCommand command) {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)){
+        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
-        }
-        else {
+        } else {
             if (!currentPlayer.getState().canReload()) {
 //            command.getOriginView().notify("non puoi ricaricare")
             } else {
@@ -82,28 +78,26 @@ public class CommandExecutor {
 //                }
 //            }
                 if (!currentPlayer.getWeapons().isEmpty()) {
-    //                command.getOriginView().notify("Scegli quale arma ricaricare tra: " + currentPlayer.weaponsToString())
-                }
-                else{
-    //                command.getOriginView().notify("Non hai armi")
+                    //                command.getOriginView().notify("Scegli quale arma ricaricare tra: " + currentPlayer.weaponsToString())
+                } else {
+                    //                command.getOriginView().notify("Non hai armi")
                 }
             }
         }
     }
 
-    public void execute (AskPointsCommand command){
+    public void execute(AskPointsCommand command) {
 //        if (command.getPlayer() == null) throw new IllegalArgumentException("Player can't be null");
 //        int points = command.getPlayer().getPoints();
 //        command.getOriginView().notify(gameManager.getMatch().getCurrentPlayer().getName()+ " hai: "+points+ "punti");
     }
 
-    public void execute (AskShootCommand command){
+    public void execute(AskShootCommand command) {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)){
+        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
-        }
-        else {
+        } else {
             boolean loaded = false;
             //verify if almost a weapon is loaded
             for (WeaponCard wpc : currentPlayer.getWeapons()) {
@@ -124,13 +118,12 @@ public class CommandExecutor {
         }
     }
 
-    public void execute(AskUsePowerUpCommand command){
+    public void execute(AskUsePowerUpCommand command) {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)){
+        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
-        }
-        else {
+        } else {
             if (!currentPlayer.getState().canUsePowerUp() || currentPlayer.getPowerUps().isEmpty()) {
 //            command.getOriginView().notify("Non puoi usare powerup")
             } else {
@@ -143,13 +136,12 @@ public class CommandExecutor {
         }
     }
 
-    public void execute(AskWalkCommand command){
+    public void execute(AskWalkCommand command) {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)){
+        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
-        }
-        else {
+        } else {
             if (!currentPlayer.getState().canRun() || currentPlayer.getRemainingMoves() < 1) {
 //            command.getOriginView().notify("non puoi spostarti")
             } else {
@@ -162,13 +154,12 @@ public class CommandExecutor {
         }
     }
 
-    public void execute(MoveCommand command){
+    public void execute(MoveCommand command) {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)){
+        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
-        }
-        else {
+        } else {
             if (currentPlayer.getState().getRemainingSteps() < command.getMoves().size()) {
 //            command.getOriginView().notify("Non hai abbastanze mosse rimanenti")
             } else {
@@ -186,13 +177,12 @@ public class CommandExecutor {
         }
     }
 
-    public void execute(PickUpAmmoCommand command){
+    public void execute(PickUpAmmoCommand command) {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)){
+        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
-        }
-        else {
+        } else {
             if (currentPlayer.getState().getName().equals("PickUp")) {
                 //TODO verifica tile giusto
                 //set remaining steps to zero
@@ -218,13 +208,12 @@ public class CommandExecutor {
         }
     }
 
-    public void execute(PickUpWeaponCommand command){
+    public void execute(PickUpWeaponCommand command) {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)){
+        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
-        }
-        else {
+        } else {
             if (currentPlayer.getState().getName().equals("PickUp")) {
                 //set player remaining steps to zero
                 currentPlayer.getState().remainingStepsToZero();
@@ -268,13 +257,12 @@ public class CommandExecutor {
         }
     }
 
-    public void execute(ReloadCommand command){
+    public void execute(ReloadCommand command) {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)){
+        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
-        }
-        else {
+        } else {
             if (command.getWeaponName() == null) throw new IllegalArgumentException("no weapon selected");
             for (WeaponCard wpc : currentPlayer.getWeapons()) {
                 if (wpc.getName().equals(command.getWeaponName())) {
@@ -297,7 +285,7 @@ public class CommandExecutor {
         }
     }
 
-    public void execute(SetEffectPhraseCommand command){
+    public void execute(SetEffectPhraseCommand command) {
         if (!gameManager.getMatch().isStarted()) {
             if (gameManager.getLobby().getUsers().contains(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()))) {
                 TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).setEffectPhrase(command.getPhrase());
@@ -305,71 +293,64 @@ public class CommandExecutor {
             } else {
 //                command.getOriginView().notify("Non puoi modificare la tua frase ad effetto")
             }
-        }
-        else{
+        } else {
 //            command.getOriginView().notify("Non puoi modificare la tua frase perchè la partita è iniziata")
         }
     }
 
-    public void execute(SetNumberOfDeathCommand command){
+    public void execute(SetNumberOfDeathCommand command) {
         if (!gameManager.getMatch().isStarted()) {
             if (command.getDeath() < 9 && command.getDeath() > 4 && gameManager.getLobby().getUsers().get(0) == TokenRegistry.getJsonUserOwner(command.getJsonReceiver())) {
                 gameManager.getMatch().setSkulls(command.getDeath());
 //                for (MessageListener ml : command.getAllViews()) {
 //                    ml.notify("Il numero di uccisioni per la partita è stato cambiato a: " + command.getDeath())
 //                }
-            }
-            else {
+            } else {
                 if (command.getDeath() > 8 || command.getDeath() < 5) {
 //                    command.getOriginView().notify("Numero uccisioni non nel target ammissibile")
                 } else {
 //                    command.getOriginView().notify("Operazione non consentita")
                 }
             }
-        }
-        else{
+        } else {
 //            command.getOriginView().notify("Non puoi modificare il numero di morti perchè è iniziata la partita");
         }
     }
 
-    public void execute(SetPlayerNumberCommand command){
+    public void execute(SetPlayerNumberCommand command) {
         if (!gameManager.getMatch().isStarted()) {
             if (command.getPlayers() < 6 && command.getPlayers() > 2 && gameManager.getLobby().getUsers().get(0) == TokenRegistry.getJsonUserOwner(command.getJsonReceiver())) {
                 gameManager.getMatch().setPlayerNumber(command.getPlayers());
 //                for (MessageListener ml : command.getAllViews()) {
 //                    ml.notify("Il numero di uccisioni per la partita è stato cambiato a: " + command.getPlayers())
 //                }
-            }
-            else {
+            } else {
                 if (command.getPlayers() > 5 || command.getPlayers() < 3) {
 //                    command.getOriginView().notify("Numero uccisioni non nel target ammissibile")
                 } else {
 //                    command.getOriginView().notify("Operazione non consentita")
                 }
             }
-        }
-        else{
+        } else {
 //            command.getOriginView().notify("Non puoi modificare il numero di giocatori perchè la partita è già iniziata");
         }
     }
 
-    public void execute(SetUsernameCommand command){
+    public void execute(SetUsernameCommand command) {
         if (!gameManager.getMatch().isStarted()) {
             if (gameManager.getLobby().getUsers().contains(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()))) {
                 TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).setUsername(command.getUsername());
 //                command.getOriginView().notify("Il tuo username è stato modificato in: " + command.getUsername())
-            }
-        else {
+            } else {
 //                command.getOriginView().notify("Non puoi modificare il tuo username")
             }
-        }
-        else{
+        } else {
 //            command.getOriginView().notify("Non puoi modificare il tuo username perchè la partita è già iniziata")
         }
     }
 
 
-    public void execute(CreateUserCommand command){
+    public void execute(CreateUserCommand command) {
         if (!gameManager.getMatch().isStarted()) {
             User user = new User(command.getUsername());
 
@@ -378,14 +359,13 @@ public class CommandExecutor {
             } catch (NotValidActionException e) {
                 e.printStackTrace();
             }
-        }
-        else{
+        } else {
 //           command.getOriginView().notify("Non puoi unirti alla partita perchè è già iniziata")
         }
 
     }
 
-    public void execute(SetTokenCommand command){
+    public void execute(SetTokenCommand command) {
 
     }
 }

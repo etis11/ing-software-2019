@@ -18,12 +18,12 @@ public class WeaponCardTest {
     private WeaponCard card;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         card = new WeaponCard();
     }
 
     @Test
-    public void constructorTest(){
+    public void constructorTest() {
         assertTrue(card instanceof WeaponCard, "ERROR of instance");
 
         WeaponCard card2 = new WeaponCard(card);
@@ -32,13 +32,13 @@ public class WeaponCardTest {
     }
 
     @Test
-    public void equalsTest(){
+    public void equalsTest() {
         assertFalse(card.equals(null), "ERROR: must be false card not equals with null");
 
         WeaponCard card2 = card;
         assertTrue(card.equals(card2), "ERROR: must be true cards are the same object");
 
-        AmmoCard card3= new AmmoCard();
+        AmmoCard card3 = new AmmoCard();
         assertFalse(card.equals(card3), "ERROR: must be false, they are different classes");
 
         //TODO
@@ -46,7 +46,7 @@ public class WeaponCardTest {
     }
 
     @Test
-    void jsonLoadTest(){
+    void jsonLoadTest() {
         JsonFileReader jsonFileReader = new JsonFileReader();
         String cards = jsonFileReader.loadWeaponCards("cards/cards.json");
         Match match = new Match();

@@ -11,7 +11,7 @@ import controller.CommandExecutor;
  */
 public class AskWalkCommand extends AbstractCommand {
 
-    public AskWalkCommand(String token){
+    public AskWalkCommand(String token) {
         super(token);
     }
 

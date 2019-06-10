@@ -11,6 +11,7 @@ public class IgnoreWallStrategy extends AbstractTargetStrategy {
 
     /**
      * Return true if all the players are in the same direction.
+     *
      * @param shooter the player shooting
      * @param targets the list of possible targets
      * @return true if the list is correct
@@ -24,15 +25,15 @@ public class IgnoreWallStrategy extends AbstractTargetStrategy {
         List<Player> playerInDirection;
         boolean allPlayerCorrect = true;
 
-        for(String d: directions){
+        for (String d : directions) {
             playerInDirection = new LinkedList<>();
             tiles = shooter.getTile().getTilesDirectionBehindWall(d);
-            for(Tile t: tiles){
+            for (Tile t : tiles) {
                 playerInDirection.addAll(t.getPlayers());
             }
 
-            for(Player p: targets){
-                if(!playerInDirection.contains(p)) allPlayerCorrect = false;
+            for (Player p : targets) {
+                if (!playerInDirection.contains(p)) allPlayerCorrect = false;
             }
             if (allPlayerCorrect) return true;
 
@@ -42,6 +43,7 @@ public class IgnoreWallStrategy extends AbstractTargetStrategy {
 
     /**
      * This target returns true if there is a target in one of the cardinal direction, on a cross centered on the shooter
+     *
      * @param shooter the player that is shooting
      * @return true if there is an available target
      */
@@ -50,12 +52,12 @@ public class IgnoreWallStrategy extends AbstractTargetStrategy {
         String[] directions = {"north", "east", "south", "west"};
         List<Tile> tiles;
         //if there is a target in the same tile of the shooter, then he can be hit
-        if(shooter.getTile().getPlayers().size() >1 ) return true;
+        if (shooter.getTile().getPlayers().size() > 1) return true;
 
         //else i have to check every tile in a given direction, ignoring the shooter's tile
-        for(String dir: directions){
+        for (String dir : directions) {
             tiles = shooter.getTile().getTilesDirectionBehindWall(dir);
-            for(int i = 1; i < tiles.size(); i++)
+            for (int i = 1; i < tiles.size(); i++)
                 if (!tiles.get(i).getPlayers().isEmpty()) return true;
         }
 
@@ -64,6 +66,7 @@ public class IgnoreWallStrategy extends AbstractTargetStrategy {
 
     /**
      * Returns a list of all the players (except for the shooter) in the four cardinal directions
+     *
      * @param shooter the player that is shooting
      * @return a list of players
      */
@@ -77,11 +80,11 @@ public class IgnoreWallStrategy extends AbstractTargetStrategy {
         possibleTargets.addAll(shooter.getTile().getPlayers());
         possibleTargets.remove(shooter);
 
-        for(String dir: directions){
+        for (String dir : directions) {
             tiles = shooter.getTile().getTilesDirectionBehindWall(dir);
             //removes the cell where the player is
             tiles.remove(0);
-            for(Tile t: tiles){
+            for (Tile t : tiles) {
                 possibleTargets.addAll(t.getPlayers());
             }
         }

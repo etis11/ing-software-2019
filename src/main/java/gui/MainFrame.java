@@ -34,7 +34,7 @@ public class MainFrame extends Application {
     private CommandContainer cmdLauncher;
     private boolean networkActive = true;
 
-    public void init(CommandLauncher cmd){
+    public void init(CommandLauncher cmd) {
         this.cmdLauncher = cmd;
     }
 
@@ -62,8 +62,8 @@ public class MainFrame extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
-                if(checkUsername(userField.getText().trim())){
-                    if (networkActive){
+                if (checkUsername(userField.getText().trim())) {
+                    if (networkActive) {
                         Socket mySocket = null;
                         try {
 
@@ -73,12 +73,11 @@ public class MainFrame extends Application {
                             output.write(ClientSingleton.getInstance().getToken() + "\n");
                             output.flush();
                             ClientSingleton.getInstance().setToken(input.readLine());
-                        }
-                        catch (IOException i){
+                        } catch (IOException i) {
                             System.out.println(">>> Errore nella connessione. Probabilmente il server è down");
                         }
 
-                        if (mySocket != null){
+                        if (mySocket != null) {
                             try {
                                 cmdLauncher = new CommandLauncherProxySocket(mySocket);
                             } catch (IOException i) {
@@ -88,18 +87,17 @@ public class MainFrame extends Application {
                             }
                         }
                     }
-                    if (cmdLauncher == null){
+                    if (cmdLauncher == null) {
                         cmdLauncher = new CommandLauncher(new GameManager());
                     }
                     try {
-                        cmdLauncher.addCommand(new CreateUserCommand(ClientSingleton.getInstance().getToken(),  userField.getText().trim()));
+                        cmdLauncher.addCommand(new CreateUserCommand(ClientSingleton.getInstance().getToken(), userField.getText().trim()));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
                     openNextStage(stage);
 
-                }
-                else{
+                } else {
                     info.setText("inserisci un username valido");
                     info.setVisible(true);
                 }
@@ -114,42 +112,38 @@ public class MainFrame extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
-                if(checkUsername(userField.getText().trim())){
-                    if (networkActive){
+                if (checkUsername(userField.getText().trim())) {
+                    if (networkActive) {
                         String token = "";
                         JsonReceiver receiver = new JsonUnwrapper();
-                        try{
+                        try {
                             //the json receiver now is exportable
                             UnicastRemoteObject.exportObject(receiver, 0);
-                        }
-                        catch (RemoteException i){
+                        } catch (RemoteException i) {
                             //TODO gestire il lancio della remote exception
-                            throw  new RuntimeException(i);
+                            throw new RuntimeException(i);
                         }
-                        try{
+                        try {
                             //gets the registry
                             Registry registry = LocateRegistry.getRegistry();
                             //asks fro the server stub
                             ServerRMIInterface serverRMI = (ServerRMIInterface) registry.lookup("serverRMI");
-                            token= serverRMI.getPersonalToken(receiver, "");
+                            token = serverRMI.getPersonalToken(receiver, "");
                             ClientSingleton.getInstance().setToken(token);
                             cmdLauncher = serverRMI.getCurrentCommandLauncher();
-                        }
-                        catch (Exception r) {
+                        } catch (Exception r) {
                             throw new RuntimeException(r);
                         }
-                    }
-                    else{
+                    } else {
                         cmdLauncher = new CommandLauncher(new GameManager());
                     }
                     try {
-                        cmdLauncher.addCommand(new CreateUserCommand(ClientSingleton.getInstance().getToken(),  userField.getText().trim()));
+                        cmdLauncher.addCommand(new CreateUserCommand(ClientSingleton.getInstance().getToken(), userField.getText().trim()));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
                     openNextStage(stage);
-                }
-                else{
+                } else {
                     info.setText("inserisci un username valido");
                     info.setVisible(true);
                 }
@@ -157,10 +151,10 @@ public class MainFrame extends Application {
         });
 
         //path of background image
-        String path = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"Adrenalina.PNG";
+        String path = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar + "img" + File.separatorChar + "Adrenalina.PNG";
 
-        BackgroundImage myBI= new BackgroundImage(new Image(new FileInputStream(path),1000,600,false,true),
+        BackgroundImage myBI = new BackgroundImage(new Image(new FileInputStream(path), 1000, 600, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
@@ -177,7 +171,7 @@ public class MainFrame extends Application {
         stage.show();
     }
 
-    public void openNextStage(Stage stage){
+    public void openNextStage(Stage stage) {
         LobbyFrame lf = new LobbyFrame();
         try {
             lf.init(cmdLauncher);
@@ -188,7 +182,7 @@ public class MainFrame extends Application {
         stage.close();
     }
 
-    private boolean checkUsername(String username){
+    private boolean checkUsername(String username) {
         return !username.equalsIgnoreCase("") && !username.equalsIgnoreCase("username");
     }
 

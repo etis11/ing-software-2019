@@ -3,7 +3,7 @@ package model;
 
 import javafx.scene.paint.Color;
 
-public class PowerUpCard{
+public class PowerUpCard {
 
     /**
      * color is the color of the PowerUpCard, it is used to identify the first regen point or to pay ammo cost
@@ -13,10 +13,11 @@ public class PowerUpCard{
     /**
      * powerUpType is the type a power up for the card, this is related to the effect of the card
      */
-    private PowerUpType powerUpType ;
+    private PowerUpType powerUpType;
 
     /**
      * create a powerUpCard by a PowerUpCard given
+     *
      * @param p card to copy
      */
     public PowerUpCard(PowerUpCard p) {
@@ -27,7 +28,8 @@ public class PowerUpCard{
 
     /**
      * create powerUpCard by parameters given
-     * @param color color of the powerUpCard
+     *
+     * @param color       color of the powerUpCard
      * @param powerUpType type of powerUp
      */
     public PowerUpCard(Color color, PowerUpType powerUpType) {
@@ -37,6 +39,7 @@ public class PowerUpCard{
 
     /**
      * return the color of power up
+     *
      * @return color of powerUp
      */
     public Color getColor() {
@@ -45,6 +48,7 @@ public class PowerUpCard{
 
     /**
      * return the type of the powerUp
+     *
      * @return type of powerUp
      */
     public PowerUpType getPowerUpType() {

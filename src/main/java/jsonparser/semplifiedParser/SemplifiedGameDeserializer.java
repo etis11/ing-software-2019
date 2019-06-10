@@ -11,7 +11,7 @@ public class SemplifiedGameDeserializer implements JsonDeserializer<SemplifiedGa
 
     private final SemplifiedGame game;
 
-    public SemplifiedGameDeserializer(SemplifiedGame game){
+    public SemplifiedGameDeserializer(SemplifiedGame game) {
         this.game = game;
     }
 
@@ -29,11 +29,11 @@ public class SemplifiedGameDeserializer implements JsonDeserializer<SemplifiedGa
             jsonDeserializationContext.deserialize(jsonGame.get("changedPlayers").getAsJsonArray(), SemplifiedPlayer[].class);
         }
 
-        if (jsonGame.has("changedTiles")){
+        if (jsonGame.has("changedTiles")) {
             jsonDeserializationContext.deserialize(jsonGame.get("changedTiles").getAsJsonArray(), SemplifiedTile[].class);
         }
 
         return null;
-        }
+    }
 }
 

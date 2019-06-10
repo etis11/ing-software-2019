@@ -1,7 +1,6 @@
 package jsonparser.semplifiedParser;
 
 import com.google.gson.*;
-import model.BloodToken;
 import model.clientModel.SemplifiedBloodToken;
 import model.clientModel.SemplifiedGame;
 import model.clientModel.SemplifiedPlayer;
@@ -12,7 +11,7 @@ public class SemplifiedBloodTokenDeserializer implements JsonDeserializer<Sempli
 
     private final SemplifiedGame game;
 
-    public SemplifiedBloodTokenDeserializer(SemplifiedGame game){
+    public SemplifiedBloodTokenDeserializer(SemplifiedGame game) {
         this.game = game;
     }
 

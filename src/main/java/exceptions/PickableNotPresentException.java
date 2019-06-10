@@ -1,6 +1,6 @@
 package exceptions;
 
-public class PickableNotPresentException extends  RuntimeException{
+public class PickableNotPresentException extends RuntimeException {
     public PickableNotPresentException() {
         super();
     }

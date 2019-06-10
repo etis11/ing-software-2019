@@ -13,7 +13,7 @@ import java.util.logging.Level;
  * A CommandReceiverSocket is an object placed in the server side of the application that receives a command through the net
  * and add it to a command Launcher. This object should be launched within a thread.
  */
-public class CommandReceiverSocket implements Runnable{
+public class CommandReceiverSocket implements Runnable {
     /**
      * The socket that is sending commands
      */
@@ -42,36 +42,35 @@ public class CommandReceiverSocket implements Runnable{
      * Reads a command from the input stream. If is read a null value, the client stops receiving
      */
     @Override
-    public void run(){
-        while(!stop){
-            System.out.println(">>> Waiting for next command from "  + clientSocket +".");
+    public void run() {
+        while (!stop) {
+            System.out.println(">>> Waiting for next command from " + clientSocket + ".");
             Command c = readCommand();
-            if (c != null){
-                System.out.println(">>> Received command from "  + clientSocket +". Adding it to the launcher");
-                try{
+            if (c != null) {
+                System.out.println(">>> Received command from " + clientSocket + ". Adding it to the launcher");
+                try {
 
                     launcher.addCommand(c);
-                }
-                catch (RemoteException i){
+                } catch (RemoteException i) {
                     throw new RuntimeException("This exception should never occurs. A socket doesn't generate a Remote exception ");
                 }
             }
         }
-        System.out.println(">>> Stopping receiving from " + clientSocket +".");
+        System.out.println(">>> Stopping receiving from " + clientSocket + ".");
         close();
     }
 
     /**
      * read  a command from the input stream
+     *
      * @return
      */
-    private Command readCommand(){
+    private Command readCommand() {
         Command c = null;
-        try{
+        try {
             c = (Command) in.readObject();
 
-        }
-        catch (IOException  | ClassNotFoundException ioe){
+        } catch (IOException | ClassNotFoundException ioe) {
             //System.out.println(ioe.getMessage()); printa null
             System.out.println(">>> The input stream of " + clientSocket + " is not working anymore. The client could have disconnected");
             //ioe.printStackTrace();
@@ -83,36 +82,33 @@ public class CommandReceiverSocket implements Runnable{
     /**
      * sets stop to true, so that the run method stops running
      */
-    private void stopReceiving(){
+    private void stopReceiving() {
         stop = true;
     }
 
     /**
      * close all the streams and the socket
      */
-    private void close(){
-        try{
-            SocketServer.serverSocketLogger.log(Level.INFO,">>> Closing input stream");
+    private void close() {
+        try {
+            SocketServer.serverSocketLogger.log(Level.INFO, ">>> Closing input stream");
             in.close();
-        }
-        catch (IOException ioe){
+        } catch (IOException ioe) {
             SocketServer.serverSocketLogger.log(Level.WARNING, ioe.getMessage() + " . Input stream may be already closed");
         }
 
-        try{
+        try {
             SocketServer.serverSocketLogger.log(Level.INFO, ">>> Closing output stream");
             clientSocket.getOutputStream().close();
-        }
-        catch (IOException ioe){
-            SocketServer.serverSocketLogger.log(Level.WARNING,">>> Closing output stream failed. " + ioe.getMessage());
+        } catch (IOException ioe) {
+            SocketServer.serverSocketLogger.log(Level.WARNING, ">>> Closing output stream failed. " + ioe.getMessage());
             //System.out.println(">>> Output stream maybe already closed"); redundant with the getMessage
         }
 
-        try{
+        try {
             SocketServer.serverSocketLogger.log(Level.WARNING, ">>> Closing " + clientSocket);
             clientSocket.close();
-        }
-        catch (IOException ioe){
+        } catch (IOException ioe) {
             SocketServer.serverSocketLogger.log(Level.WARNING, ioe.getMessage() + ". Socket maybe already closed");
         }
     }

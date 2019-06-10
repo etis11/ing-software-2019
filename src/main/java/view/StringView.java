@@ -6,6 +6,7 @@ package view;
 public interface StringView {
     /**
      * return a string from the input file
+     *
      * @return the string given by a input source, such as the stdin.
      */
     public String getInput();

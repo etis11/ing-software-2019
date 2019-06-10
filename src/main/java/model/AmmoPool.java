@@ -35,7 +35,7 @@ public class AmmoPool {
     /**
      * initializes pool with two ammo for each color
      */
-    public AmmoPool(){
+    public AmmoPool() {
         this.redAmmo = new LinkedList<>();
         this.yellowAmmo = new LinkedList<>();
         this.blueAmmo = new LinkedList<>();
@@ -50,12 +50,13 @@ public class AmmoPool {
 
     /**
      * this method gives, if possible, blue ammo as requested by a parameter
+     *
      * @param ammoNum number of blue ammo requested
      * @return list of blue ammo requested
      */
-    public List<Ammo> getBlueAmmo(int ammoNum){
-        List<Ammo> toReturn= new LinkedList<>();
-        for (int i = 0; i < ammoNum; i++){
+    public List<Ammo> getBlueAmmo(int ammoNum) {
+        List<Ammo> toReturn = new LinkedList<>();
+        for (int i = 0; i < ammoNum; i++) {
             toReturn.add(blueAmmo.remove(0));
         }
         return toReturn;
@@ -63,12 +64,13 @@ public class AmmoPool {
 
     /**
      * this method gives, if possible, yellow ammo as requested by a parameter
+     *
      * @param ammoNum number of yellow ammo requested
      * @return list of yellow ammo requested
      */
-    public List<Ammo> getYellowAmmo(int ammoNum){
-        List<Ammo> toReturn= new LinkedList<>();
-        for (int i = 0; i < ammoNum; i++){
+    public List<Ammo> getYellowAmmo(int ammoNum) {
+        List<Ammo> toReturn = new LinkedList<>();
+        for (int i = 0; i < ammoNum; i++) {
             toReturn.add(yellowAmmo.remove(0));
         }
         return toReturn;
@@ -76,12 +78,13 @@ public class AmmoPool {
 
     /**
      * this method gives, if possible, red ammo as requested by a parameter
+     *
      * @param ammoNum number of red ammo requested
      * @return list of red ammo requested
      */
-    public List<Ammo> getNumRedAmmo(int ammoNum){
-        List<Ammo> toReturn= new LinkedList<>();
-        for (int i = 0; i < ammoNum; i++){
+    public List<Ammo> getNumRedAmmo(int ammoNum) {
+        List<Ammo> toReturn = new LinkedList<>();
+        for (int i = 0; i < ammoNum; i++) {
             toReturn.add(redAmmo.remove(0));
         }
         return toReturn;
@@ -89,20 +92,18 @@ public class AmmoPool {
 
     /**
      * this method insert used ammo in the pool
+     *
      * @param ammoToInsert List of ammo to insert in the pool
      */
-    public void insertAmmo(List<Ammo> ammoToInsert){
+    public void insertAmmo(List<Ammo> ammoToInsert) {
         Ammo tempAmmo;
-        while(!ammoToInsert.isEmpty()){
+        while (!ammoToInsert.isEmpty()) {
             tempAmmo = ammoToInsert.remove(0);
-            if (tempAmmo.getColor()== Color.BLUE)
-            {
+            if (tempAmmo.getColor() == Color.BLUE) {
                 blueAmmo.add(tempAmmo);
-            }
-            else if (tempAmmo.getColor()== Color.RED){
+            } else if (tempAmmo.getColor() == Color.RED) {
                 redAmmo.add(tempAmmo);
-            }
-            else if (tempAmmo.getColor() == Color.YELLOW){
+            } else if (tempAmmo.getColor() == Color.YELLOW) {
                 yellowAmmo.add(tempAmmo);
             }
         }

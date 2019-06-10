@@ -18,6 +18,7 @@ import java.util.logging.Logger;
  * An exportable object that provides some functionality to a RMI client
  */
 public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface {
+    private static final Logger rmiServerLogger = Logger.getLogger(ServerRMI.class.getName());
     /**
      * Lists of all the command launchers. Each Command Launcher is associated to a single match
      */
@@ -27,10 +28,9 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
      */
     private int currentLauncer = 0;
 
-    private static final Logger rmiServerLogger = Logger.getLogger(ServerRMI.class.getName());
-
     /**
      * Creates a server with a launcher and the RMI registry.
+     *
      * @param firstLauncher the first launcher ever created in this run.
      * @throws RemoteException If there are problem initializing the rmi registry.
      */
@@ -44,31 +44,31 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
 
     /**
      * returns a command launcher
+     *
      * @return the  stub of the command launcher
      */
     @Override
-    public CommandLauncherInterface getCurrentCommandLauncher(){
+    public CommandLauncherInterface getCurrentCommandLauncher() {
         return launchers.get(currentLauncer);
     }
 
     /**
      * creates a token and adds it to the list of tokens
+     *
      * @return the token
      */
     @Override
-    public String getPersonalToken(JsonReceiver jsonReceiver, String token) throws RemoteException{
+    public String getPersonalToken(JsonReceiver jsonReceiver, String token) throws RemoteException {
         String newToken = token;
-        if (!TokenRegistry.tokenAlreadyGenerated(token))
-        {
+        if (!TokenRegistry.tokenAlreadyGenerated(token)) {
             newToken = UUID.randomUUID().toString();
         }
-        try{
+        try {
             TokenRegistry.associateTokenAndReceiver(newToken, jsonReceiver);
             getCurrentCommandLauncher().addJsonReceiver(jsonReceiver);
-        }
-        catch (DuplicateException d){
+        } catch (DuplicateException d) {
             rmiServerLogger.log(Level.WARNING, ">>> A client already associated is trying to get another token");
-            throw  new DuplicateException(d);
+            throw new DuplicateException(d);
         }
         return token;
     }

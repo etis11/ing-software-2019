@@ -11,33 +11,29 @@ import java.util.logging.Logger;
 public class JsonFileReader {
     private static final Logger LOGGER = Logger.getLogger(JsonFileReader.class.getName());
 
-    public String loadWeaponCards(String cardsFilePath){
+    public String loadWeaponCards(String cardsFilePath) {
 
         //Gson gson = new Gson();
         // builder.create();
-       BufferedReader jsonFile=null;
+        BufferedReader jsonFile = null;
         String s = null;
         StringBuilder sb = new StringBuilder();
-        try{
-            jsonFile = new BufferedReader( new FileReader(cardsFilePath));
+        try {
+            jsonFile = new BufferedReader(new FileReader(cardsFilePath));
             while ((s = jsonFile.readLine()) != null) {
                 sb.append(s).append("\n");
             }
-        }
-        catch (FileNotFoundException f){
-            System.out.println(cardsFilePath+" does not exist");
+        } catch (FileNotFoundException f) {
+            System.out.println(cardsFilePath + " does not exist");
             return null;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOGGER.log(Level.WARNING, "Exception occur", e);
-        }
-finally{
-            if(jsonFile!=null){
+        } finally {
+            if (jsonFile != null) {
                 try {
                     jsonFile.close();
-                }
-                catch (IOException e) {
-                    LOGGER.log(Level.WARNING,"Exception qua", e);
+                } catch (IOException e) {
+                    LOGGER.log(Level.WARNING, "Exception qua", e);
                 }
             }
         }

@@ -4,7 +4,7 @@ import controller.CommandExecutor;
 
 public class PickUpAmmoCommand extends AbstractCommand {
 
-    public PickUpAmmoCommand(String token){
+    public PickUpAmmoCommand(String token) {
         super(token);
     }
 

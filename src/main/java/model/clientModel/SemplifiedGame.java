@@ -1,7 +1,5 @@
 package model.clientModel;
 
-import model.Player;
-
 import java.util.List;
 
 public class SemplifiedGame {
@@ -19,8 +17,8 @@ public class SemplifiedGame {
         return currentPlayer;
     }
 
-    public SemplifiedPlayer getPlayerByName(String name){
-        for(SemplifiedPlayer p: players){
+    public SemplifiedPlayer getPlayerByName(String name) {
+        for (SemplifiedPlayer p : players) {
             if (p.getName().equals(name))
                 return p;
         }

@@ -18,7 +18,7 @@ public class MoveCommand extends AbstractCommand {
      */
     private List<String> moves;
 
-    public MoveCommand(String token, List<String> moves){
+    public MoveCommand(String token, List<String> moves) {
         super(token);
         this.moves = moves;
     }

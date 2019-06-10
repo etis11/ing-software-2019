@@ -16,21 +16,21 @@ public class WeaponCardSerializer implements JsonSerializer<WeaponCard> {
     private boolean playerMode;
     private boolean tileMode;
 
-    public WeaponCardSerializer(){
+    public WeaponCardSerializer() {
         playerMode = true;
         tileMode = false;
     }
 
-    public void setCurrentPlayer(Player p){
+    public void setCurrentPlayer(Player p) {
         currentPlayer = p;
     }
 
-    public void setPlayerModeTrue(){
+    public void setPlayerModeTrue() {
         playerMode = true;
         tileMode = false;
     }
 
-    public void setTileModeTrue(){
+    public void setTileModeTrue() {
         playerMode = false;
         tileMode = true;
     }
@@ -43,12 +43,11 @@ public class WeaponCardSerializer implements JsonSerializer<WeaponCard> {
      */
     public JsonElement serialize(WeaponCard weaponCard, Type type, JsonSerializationContext jsonSerializationContext) {
         final JsonObject jsonWeaponCard = new JsonObject();
-        if (playerMode && currentPlayer != null){
-            if (currentPlayer.getWeapons().contains(weaponCard) || !weaponCard.isLoaded()){
+        if (playerMode && currentPlayer != null) {
+            if (currentPlayer.getWeapons().contains(weaponCard) || !weaponCard.isLoaded()) {
                 serializeWeaponCard(weaponCard, jsonWeaponCard, jsonSerializationContext);
             }
-        }
-        else{
+        } else {
             serializeWeaponCard(weaponCard, jsonWeaponCard, jsonSerializationContext);
         }
 
@@ -59,19 +58,19 @@ public class WeaponCardSerializer implements JsonSerializer<WeaponCard> {
 
     }
 
-    public void serializeWeaponCard(WeaponCard weaponCard, JsonObject jsonWeaponCard, JsonSerializationContext jsonSerializationContext){
+    public void serializeWeaponCard(WeaponCard weaponCard, JsonObject jsonWeaponCard, JsonSerializationContext jsonSerializationContext) {
         jsonWeaponCard.addProperty("name", weaponCard.getName());
 
-        final JsonElement weaponCost= jsonSerializationContext.serialize(weaponCard.getReloadCost().toArray(new String[0]), String[].class);
+        final JsonElement weaponCost = jsonSerializationContext.serialize(weaponCard.getReloadCost().toArray(new String[0]), String[].class);
         jsonWeaponCard.add("cost", weaponCost);
 
         jsonWeaponCard.addProperty("loaded", weaponCard.isLoaded());
 
         //no need to know how to serialize an effect, gson is already able to do it, since the strategies are transient
-        final JsonElement baseEffects= jsonSerializationContext.serialize(weaponCard.getBaseEffect(), Effect[].class);
+        final JsonElement baseEffects = jsonSerializationContext.serialize(weaponCard.getBaseEffect(), Effect[].class);
         jsonWeaponCard.add("baseEffect", baseEffects);
 
-        final JsonElement advancedEffects= jsonSerializationContext.serialize(weaponCard.getAdvancedEffect(), Effect[].class);
+        final JsonElement advancedEffects = jsonSerializationContext.serialize(weaponCard.getAdvancedEffect(), Effect[].class);
         jsonWeaponCard.add("baseEffect", advancedEffects);
     }
 }

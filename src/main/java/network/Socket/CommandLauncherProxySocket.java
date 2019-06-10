@@ -18,6 +18,7 @@ public class CommandLauncherProxySocket implements CommandContainer {
 
     /**
      * creates a socker
+     *
      * @param host IP of the host
      * @param port port on which is listening
      * @throws IOException problems while getting the input and output stream
@@ -27,22 +28,22 @@ public class CommandLauncherProxySocket implements CommandContainer {
         out = new ObjectOutputStream(socket.getOutputStream());
     }
 
-    public CommandLauncherProxySocket(Socket s) throws IOException{
+    public CommandLauncherProxySocket(Socket s) throws IOException {
         socket = s;
         out = new ObjectOutputStream(s.getOutputStream());
     }
 
     /**
      * sends the command on the net
+     *
      * @param c the command that has to be sent
      */
     @Override
-    public void addCommand(Command c){
-        try{
+    public void addCommand(Command c) {
+        try {
             out.writeObject(c);
             out.flush();
-        }
-        catch (IOException i){
+        } catch (IOException i) {
             System.err.println(i.getMessage());
             i.printStackTrace();
         }
@@ -51,11 +52,10 @@ public class CommandLauncherProxySocket implements CommandContainer {
     /**
      * close the socket. After this method, the copmmand executor is not able to send commands on the net anymore
      */
-    public void close(){
+    public void close() {
         try {
             socket.close();
-        }
-        catch (IOException i ){
+        } catch (IOException i) {
             System.err.println(i.getMessage());
             i.printStackTrace();
         }

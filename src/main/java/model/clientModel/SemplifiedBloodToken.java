@@ -4,11 +4,11 @@ public class SemplifiedBloodToken {
 
     SemplifiedPlayer owner;
 
-    public SemplifiedBloodToken(SemplifiedPlayer owner){
+    public SemplifiedBloodToken(SemplifiedPlayer owner) {
         this.owner = owner;
     }
 
-    public SemplifiedPlayer getOwner(){
+    public SemplifiedPlayer getOwner() {
         return owner;
     }
 

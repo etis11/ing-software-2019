@@ -15,7 +15,7 @@ public class Parserator implements Runnable {
     private CommandLineInterface CLI;
     private boolean quit;
 
-    public Parserator(CommandLineInterface cli,  CommandContainer launcher){
+    public Parserator(CommandLineInterface cli, CommandContainer launcher) {
         CLI = cli;
         commandLauncher = launcher;
         quit = false;
@@ -28,8 +28,7 @@ public class Parserator implements Runnable {
                 this.parseCommand(CLI.getUserInputString());
             } catch (IOException e) {
                 throw new RuntimeException(e);
-            }
-            catch (IllegalArgumentException i){
+            } catch (IllegalArgumentException i) {
                 CLI.displayText(AnsiColor.RED + "Nessun comando esistente con questo formato" + AnsiColor.RESET);
             }
         }
@@ -37,52 +36,65 @@ public class Parserator implements Runnable {
 
 
     public void parseCommand(String command) throws RemoteException {
-        String param="";
-        String realCommand="";
-        if(command.contains(" ")) {
+        String param = "";
+        String realCommand = "";
+        if (command.contains(" ")) {
             String[] splittedCommand = command.split(" ");
-            if (splittedCommand.length >0){
+            if (splittedCommand.length > 0) {
                 realCommand = splittedCommand[0];
             }
-            if(splittedCommand.length>1){
+            if (splittedCommand.length > 1) {
                 param = splittedCommand[1];
             }
-        }else{
-            realCommand=command;
+        } else {
+            realCommand = command;
         }
-        switch(realCommand.toLowerCase()) {
-            case "quit": quit = true;
+        switch (realCommand.toLowerCase()) {
+            case "quit":
+                quit = true;
                 return;
-            case "muovi": commandLauncher.addCommand(new AskWalkCommand(token));
+            case "muovi":
+                commandLauncher.addCommand(new AskWalkCommand(token));
                 return;
-            case "raccogli": commandLauncher.addCommand(new AskPickCommand(token));
+            case "raccogli":
+                commandLauncher.addCommand(new AskPickCommand(token));
                 return;
-            case "spara": commandLauncher.addCommand(new AskShootCommand(token));
+            case "spara":
+                commandLauncher.addCommand(new AskShootCommand(token));
                 return;
-            case "ricarica": commandLauncher.addCommand(new AskReloadCommand(token));
+            case "ricarica":
+                commandLauncher.addCommand(new AskReloadCommand(token));
                 return;
-            case "fineturno": commandLauncher.addCommand(new AskEndTurnCommand(token));
+            case "fineturno":
+                commandLauncher.addCommand(new AskEndTurnCommand(token));
                 return;
-            case "powerup": commandLauncher.addCommand(new AskUsePowerUpCommand(token));
+            case "powerup":
+                commandLauncher.addCommand(new AskUsePowerUpCommand(token));
                 return;
-            case "setusername": commandLauncher.addCommand(new SetUsernameCommand(token,param));
+            case "setusername":
+                commandLauncher.addCommand(new SetUsernameCommand(token, param));
                 return;
-            case "setfraseeffeto": commandLauncher.addCommand(new SetEffectPhraseCommand(token,param));
+            case "setfraseeffeto":
+                commandLauncher.addCommand(new SetEffectPhraseCommand(token, param));
                 return;
-            case "setuccisioni": commandLauncher.addCommand(new SetNumberOfDeathCommand(token,Integer.valueOf(param)));
+            case "setuccisioni":
+                commandLauncher.addCommand(new SetNumberOfDeathCommand(token, Integer.valueOf(param)));
                 return;
-            case "setgiocatori": commandLauncher.addCommand(new SetPlayerNumberCommand(token,Integer.valueOf(param)));
+            case "setgiocatori":
+                commandLauncher.addCommand(new SetPlayerNumberCommand(token, Integer.valueOf(param)));
                 return;
-            case "punti": commandLauncher.addCommand(new AskPointsCommand(token));
+            case "punti":
+                commandLauncher.addCommand(new AskPointsCommand(token));
                 return;
-            case "setpersonaggio": commandLauncher.addCommand(new SetTokenCommand(token,param));
+            case "setpersonaggio":
+                commandLauncher.addCommand(new SetTokenCommand(token, param));
                 return;
         }
 
-        if(command.contains("up")||command.contains("right")||command.contains("left")||command.contains("down")){
-            List<String> toadd=new ArrayList<>();
+        if (command.contains("up") || command.contains("right") || command.contains("left") || command.contains("down")) {
+            List<String> toadd = new ArrayList<>();
             toadd.addAll(Arrays.asList(command.split(",")));
-            commandLauncher.addCommand(new MoveCommand(token,toadd));
+            commandLauncher.addCommand(new MoveCommand(token, toadd));
             return;
         }
         throw new IllegalArgumentException();

@@ -10,7 +10,7 @@ public class Lobby {
     /**
      * MAX_PLAYER_IN_LOBBY are the maximum of player allowed in the lobby
      */
-    public static final int MAX_PLAYER_IN_LOBBY =5;
+    public static final int MAX_PLAYER_IN_LOBBY = 5;
 
     /**
      * users are the User contained in the Lobby
@@ -23,6 +23,7 @@ public class Lobby {
 
     /**
      * tells maximum number of player for the lobby
+     *
      * @return constant of max player
      */
     public static int getMaxPlayerInLobby() {
@@ -31,6 +32,7 @@ public class Lobby {
 
     /**
      * give players in the lobby
+     *
      * @return list of players in the lobby
      */
     public List<User> getUsers() {
@@ -39,11 +41,12 @@ public class Lobby {
 
     /**
      * allow a User to join the lobby if it is not full
+     *
      * @param u user to be added
      * @throws Exception thrown if the lobby is already full
      */
     public void join(User u) throws NotValidActionException {
-        if(!canJoin()) {
+        if (!canJoin()) {
             throw new NotValidActionException("Lobby full");
         }
         users.add(u);
@@ -51,23 +54,24 @@ public class Lobby {
 
     /**
      * tell if a lobby is full or not
+     *
      * @return true if the lobby is not already full, false otherwise
      */
-    public boolean canJoin(){
-        return users.size()<MAX_PLAYER_IN_LOBBY;
+    public boolean canJoin() {
+        return users.size() < MAX_PLAYER_IN_LOBBY;
     }
 
     /**
      * allow to remove a User from the Lobby by giving it
+     *
      * @param u user to be removed
      * @return user to be removed
      */
-    public User removeUser (User u){
+    public User removeUser(User u) {
         if (u == null) throw new IllegalArgumentException("not inserted an user");
         if (users.contains(u)) {
             return users.remove(users.indexOf(u));
-        }
-        else{
+        } else {
             return null;
         }
     }

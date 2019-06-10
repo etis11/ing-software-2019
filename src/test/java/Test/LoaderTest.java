@@ -11,7 +11,7 @@ public class LoaderTest {
     private Loader loader;
 
     @BeforeEach
-    public  void initInstance(){
+    public void initInstance() {
 
         loader = new Loader();
     }
@@ -41,22 +41,22 @@ public class LoaderTest {
     }
 
     @Test
-    void testAskingReload(){
+    void testAskingReload() {
 
         int ammoToAsk = 1;
 
         loader.askReload(ammoToAsk, ammoToAsk, ammoToAsk);
 
-        assertTrue(loader.getNumBlueAmmo() == 1+ ammoToAsk, "ERROR wrong blue ammo loaded");
+        assertTrue(loader.getNumBlueAmmo() == 1 + ammoToAsk, "ERROR wrong blue ammo loaded");
 
-        assertTrue(loader.getNumRedAmmo() == 1+ ammoToAsk, "ERROR wrong red ammo loaded");
+        assertTrue(loader.getNumRedAmmo() == 1 + ammoToAsk, "ERROR wrong red ammo loaded");
 
-        assertTrue(loader.getNumYellowAmmo() == 1+ ammoToAsk, "ERROR wrong yellow ammo loaded");
+        assertTrue(loader.getNumYellowAmmo() == 1 + ammoToAsk, "ERROR wrong yellow ammo loaded");
 
     }
 
     @Test
-    void testAskingReloadOverMaxAmmo(){
+    void testAskingReloadOverMaxAmmo() {
 
         int ammoToAsk = 3;
 
@@ -71,7 +71,7 @@ public class LoaderTest {
     }
 
     @Test
-    void testFull(){
+    void testFull() {
 
         int ammoToAsk = 3;
 
@@ -86,7 +86,7 @@ public class LoaderTest {
     }
 
     @Test
-    void testReloadButFull(){
+    void testReloadButFull() {
 
         int ammoToAsk = 3;
 
@@ -102,13 +102,13 @@ public class LoaderTest {
     }
 
     @Test
-    void testPutToAmmo(){
+    void testPutToAmmo() {
 
         int ammoToAsk = 3;
 
         loader.askReload(ammoToAsk, ammoToAsk, ammoToAsk);
 
-        loader.ammoToPool(ammoToAsk, ammoToAsk, ammoToAsk );
+        loader.ammoToPool(ammoToAsk, ammoToAsk, ammoToAsk);
 
         assertTrue(loader.getNumBlueAmmo() == 0, "ERROR blue ammo not thrown");
 

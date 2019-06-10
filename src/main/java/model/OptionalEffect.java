@@ -8,8 +8,8 @@ import java.util.Map;
 public class OptionalEffect {
 
     private List<String> cost;
-    private Map<String,Integer> additionalDamage;
-    private Map<String,Integer> additionalMarks;
+    private Map<String, Integer> additionalDamage;
+    private Map<String, Integer> additionalMarks;
     private boolean activated;
     private boolean canMoveShooter;
     private int shooterSteps;
@@ -23,6 +23,7 @@ public class OptionalEffect {
     public Map<String, Integer> getAdditionalMarks() {
         return new HashMap<>(additionalMarks);
     }
+
     public boolean isActivated() {
         return activated;
     }
@@ -34,12 +35,15 @@ public class OptionalEffect {
     public void activate(boolean activated) {
         this.activated = activated;
     }
+
     public List<String> getCost() {
         return new LinkedList<>(cost);
     }
+
     public int getShooterSteps() {
         return shooterSteps;
     }
+
     public boolean hasShooterAlreadyMoved() {
         return ShooterAlreadyMoved;
     }

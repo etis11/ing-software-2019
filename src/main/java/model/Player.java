@@ -1,7 +1,6 @@
 package model;
 
 
-
 import exceptions.NotValidMovesException;
 
 import java.util.LinkedList;
@@ -11,30 +10,33 @@ import java.util.stream.Collectors;
 
 public class Player {
     /**
+     * max number of weapons that can be in the player's hand
+     */
+    private static final int MAX_WEAPON_CARDS = 3;
+    /**
+     * max number of power ups that can be in the player's hand
+     */
+    private static final int MAX_POWERUP_CARDS = 3;
+    /**
      * name of the player
      */
     private final String name;
-
     /**
      * current points of the player
      */
     private int points;
-
     /**
      * current state of the player
      */
     private State state;
-
     /**
      * remainingStep are moves remaining for playing turn
      */
     private int remainingMoves;
-
     /**
      * list of weapons owned by the player
      */
     private List<WeaponCard> weapons;
-
     /**
      * list of power ups in the hand of the player
      */
@@ -43,26 +45,14 @@ public class Player {
      * tile where the player token is located
      */
     private Tile tile;
-
     /**
      * board that contains all the "public" information of the player. this informations can be obtained by the others player too.
      */
     private PlayerBoard playerBoard;
-
     /**
      * oldState is the previous state of the player
      */
     private State oldState;
-
-    /**
-     * max number of weapons that can be in the player's hand
-     */
-    private static final int MAX_WEAPON_CARDS = 3;
-
-    /**
-     * max number of power ups that can be in the player's hand
-     */
-    private static final int MAX_POWERUP_CARDS = 3;
 
 
     /**
@@ -96,7 +86,7 @@ public class Player {
         tile = null;
         playerBoard = new PlayerBoard();
         remainingMoves = 0;
-        oldState=null;
+        oldState = null;
     }
 
     public Player(String name, State s) {
@@ -108,7 +98,7 @@ public class Player {
         tile = null;
         playerBoard = new PlayerBoard();
         remainingMoves = 0;
-        oldState=null;
+        oldState = null;
     }
 
     /**
@@ -139,6 +129,15 @@ public class Player {
     }
 
     /**
+     * This method change the state of the player
+     *
+     * @param s new state where the player should be
+     */
+    public void setState(State s) {
+        state = s;
+    }
+
+    /**
      * returns the number of remaining moves for playing turn
      *
      * @return the number of remaining moves for playing turn
@@ -156,11 +155,10 @@ public class Player {
         this.remainingMoves = remainingMoves;
     }
 
-
     /**
      * decrements number of moves after an action has chosen
      */
-    public void decrementMoves(){
+    public void decrementMoves() {
         this.remainingMoves--;
     }
 
@@ -200,8 +198,7 @@ public class Player {
         return powerUps.size();
     }
 
-
-    public void pickUpPowerUp(PowerUpCard p)  {
+    public void pickUpPowerUp(PowerUpCard p) {
         //TODO mancano tutti i controlli e l'implementazione del metodo
         powerUps.add(p);
 
@@ -217,6 +214,13 @@ public class Player {
     }
 
     /**
+     * THis is the constructor of tile,needed later on other classes to grab players or visible tiles.
+     */
+    public void setTile(Tile tile) {
+        this.tile = tile;
+    }
+
+    /**
      * This method returns the playerBoard, where all his public information are stored
      *
      * @return a reference of the player's playerBoard
@@ -227,6 +231,7 @@ public class Player {
 
     /**
      * tells which was the player previous state
+     *
      * @return player previous state
      */
     public State getOldState() {
@@ -235,6 +240,7 @@ public class Player {
 
     /**
      * allows to set the player previous state
+     *
      * @param oldState state to be set
      */
     public void setOldState(State oldState) {
@@ -250,23 +256,12 @@ public class Player {
         this.points += points;
     }
 
-
-    /**
-     * This method change the state of the player
-     *
-     * @param s new state where the player should be
-     */
-    public void setState(State s) {
-        state = s;
-    }
-
-
     /**
      * Add the weapon to the player hand if he has less then 3 weapons. If the player has more than three weapons, this
      * method throws an exception
      *
      * @param w weapon that has to be picked
-     * @throws Exception            if the player has already 4 weapons
+     * @throws Exception if the player has already 4 weapons
      */
     public void pickUpWeapon(WeaponCard w) throws Exception {
         if (w == null) throw new IllegalArgumentException("Passato un valore nullo");
@@ -274,7 +269,6 @@ public class Player {
             throw new Exception("Il giocatore ha già 4 armi in mano");
         } else weapons.add(w);
     }
-
 
     /**
      * Throws away the power up. The power up will be no longer in the hand of the player.
@@ -299,14 +293,15 @@ public class Player {
 
     /**
      * useAmmoCard reload the loader and if necessary or possible draw a PowerUp
+     *
      * @param card AmmoCard to use
      * @param deck PowerUp deck of the match
      */
-    public void useAmmoCard(AmmoCard card, Deck<PowerUpCard> deck){
+    public void useAmmoCard(AmmoCard card, Deck<PowerUpCard> deck) {
         //put ammo in the loader
         getPlayerBoard().getLoader().askReload(card.getNumBlue(), card.getNumRed(), card.getNumYellow());
 //        verify if the card allow to draw a PowerUp and if the player has less than 3 PowerUp
-        if (card.isDrawPowerUp() && getNumPowerUps() < MAX_POWERUP_CARDS){
+        if (card.isDrawPowerUp() && getNumPowerUps() < MAX_POWERUP_CARDS) {
             powerUps.add(deck.draw());
         }
     }
@@ -334,50 +329,40 @@ public class Player {
     }
 
     /**
-     * THis is the constructor of tile,needed later on other classes to grab players or visible tiles.
-     * */
-    public void setTile(Tile tile){
-        this.tile = tile;
-    }
-
-    /**
      * moves a player of a given path if it is possible
+     *
      * @param movement Movement containing the list of moves to do
      */
-    public void move(Movement movement){
+    public void move(Movement movement) {
         Tile newTile = getTile();
         if (movement == null) throw new IllegalArgumentException("null movement");
-        for (String str : movement.getSteps()){
-            switch (str){
+        for (String str : movement.getSteps()) {
+            switch (str) {
                 case "up":
-                    if(newTile.getNorthTile()!=null){
+                    if (newTile.getNorthTile() != null) {
                         newTile = newTile.getNorthTile();
-                    }
-                    else{
+                    } else {
                         throw new NotValidMovesException("not valid moves");
                     }
                     break;
                 case "right":
-                    if(newTile.getEastTile()!=null){
+                    if (newTile.getEastTile() != null) {
                         newTile = newTile.getEastTile();
-                    }
-                    else{
+                    } else {
                         throw new NotValidMovesException("not valid moves");
                     }
                     break;
                 case "down":
-                    if(newTile.getSouthTile()!=null){
+                    if (newTile.getSouthTile() != null) {
                         newTile = newTile.getSouthTile();
-                    }
-                    else{
+                    } else {
                         throw new NotValidMovesException("not valid moves");
                     }
                     break;
                 case "left":
-                    if(newTile.getWestTile()!=null){
+                    if (newTile.getWestTile() != null) {
                         newTile = newTile.getWestTile();
-                    }
-                    else{
+                    } else {
                         throw new NotValidMovesException("not valid moves");
                     }
                     break;
@@ -390,11 +375,12 @@ public class Player {
 
     /**
      * returns name of player weapons
+     *
      * @return string of name of weapons
      */
-    public String weaponsToString(){
+    public String weaponsToString() {
         StringBuilder toReturn = new StringBuilder();
-        for (WeaponCard w:weapons){
+        for (WeaponCard w : weapons) {
             toReturn.append(" ").append(w.getName());
         }
         return toReturn.toString();
@@ -402,11 +388,12 @@ public class Player {
 
     /**
      * returns name of player powerUps
+     *
      * @return string of name of powerUps
      */
-    public String powerUpToString(){
+    public String powerUpToString() {
         StringBuilder toReturn = new StringBuilder();
-        for (PowerUpCard p:powerUps){
+        for (PowerUpCard p : powerUps) {
             toReturn.append(" ").append(p.getPowerUpType());
         }
         return toReturn.toString();

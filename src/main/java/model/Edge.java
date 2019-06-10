@@ -1,6 +1,6 @@
 package model;
 
-public class Edge  {
+public class Edge {
     private final String id;
     private final Tile source;
     private final Tile destination;
@@ -16,6 +16,7 @@ public class Edge  {
     public String getId() {
         return id;
     }
+
     public Tile getDestination() {
         return destination;
     }
@@ -23,6 +24,7 @@ public class Edge  {
     public Tile getSource() {
         return source;
     }
+
     public int getWeight() {
         return weight;
     }

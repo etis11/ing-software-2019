@@ -11,7 +11,7 @@ import controller.CommandExecutor;
  */
 public class AskPickCommand extends AbstractCommand {
 
-    public AskPickCommand(String token){
+    public AskPickCommand(String token) {
         super(token);
     }
 

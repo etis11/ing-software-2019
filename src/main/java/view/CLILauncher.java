@@ -7,11 +7,11 @@ import java.rmi.RemoteException;
 
 public class CLILauncher {
 
-    public static void main(String[] args)  throws Exception{
+    public static void main(String[] args) throws Exception {
 
         CommandLineInterface CLI = new CommandLineInterface();
 
-        CommandContainer container = new CommandContainer(){
+        CommandContainer container = new CommandContainer() {
             @Override
             public void addCommand(Command c) throws RemoteException {
                 System.out.println(c.getClass());

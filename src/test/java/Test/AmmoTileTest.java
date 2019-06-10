@@ -11,9 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AmmoTileTest {
 
     private Tile tile;
-    
+
     @BeforeEach
-    void initTile(){
+    void initTile() {
         tile = new Tile(null, null, null, null, true, false);
     }
 
@@ -22,7 +22,7 @@ public class AmmoTileTest {
      * the ammo
      */
     @Test
-    void correctInit(){
+    void correctInit() {
         tile = new Tile();
 
         assertNull(tile.getNorthTile(), () -> "ERROR: the north tile should be null");
@@ -36,7 +36,7 @@ public class AmmoTileTest {
      * The tile should not contain any ammo.
      */
     @Test
-    void correctInit2(){
+    void correctInit2() {
         Tile north = new Tile();
         Tile east = new Tile();
         Tile south = new Tile();
@@ -50,7 +50,7 @@ public class AmmoTileTest {
         assertSame(west, tile.getWestTile(), () -> "ERROR: the tiles should be the same. Probably is null or is in another field");
         assertFalse(tile.isPresentAmmoCard(), () -> "ERROR: Should not be present");
         assertTrue(tile.canContainAmmo(), () -> "The tile should be able to contain ammos");
-     //   assertFalse(tile.canContainWeapons(), () -> "ERROR: The tile should not be able to contain weapons");
+        //   assertFalse(tile.canContainWeapons(), () -> "ERROR: The tile should not be able to contain weapons");
 
 
     }
@@ -59,20 +59,18 @@ public class AmmoTileTest {
      * Test if the ammo that is put in the tile is the same that will be picked up
      */
     @Test
-    void insertionTest(){
+    void insertionTest() {
         AmmoCard ammo = new AmmoCard();
-        try{
+        try {
             tile.putAmmoCard(ammo);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
-        try{
+        try {
             assertSame(ammo, tile.pickUpAmmoCard(), () -> "ERROR: the tile that has been picked up is not the same that has been put in");
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage() );
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             fail("ha lanciato un'eccezione");
         }
     }
@@ -81,33 +79,34 @@ public class AmmoTileTest {
      * Tests that a double insertion rises an exception.
      */
     @Test
-    void doubleInsertionTest(){
+    void doubleInsertionTest() {
         AmmoCard ammo1 = new AmmoCard();
         AmmoCard ammo2 = new AmmoCard();
-        try{
+        try {
             tile.putAmmoCard(ammo1);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             fail("errore nell'inserimento");
         }
 
-        assertThrows(Exception.class, () -> {tile.putAmmoCard(ammo2);}, () -> "ERROR: Should throw an exception since there is already an ammo card in the tile");
+        assertThrows(Exception.class, () -> {
+            tile.putAmmoCard(ammo2);
+        }, () -> "ERROR: Should throw an exception since there is already an ammo card in the tile");
     }
 
     /**
      * Controls that is not possible to get weapons from an ammo tile
      */
     @Test
-    void tryTopGetWeapons(){
-        assertThrows(Exception.class, () -> tile.getWeapons(), ()-> "ERROR: Should throw an exception because it's not a weapon tile");
+    void tryTopGetWeapons() {
+        assertThrows(Exception.class, () -> tile.getWeapons(), () -> "ERROR: Should throw an exception because it's not a weapon tile");
     }
 
     /**
      * Checks that is not possible to pick up weapon in an ammo tile
      */
     @Test
-    void tryToPickUpWeapon(){
+    void tryToPickUpWeapon() {
         WeaponCard w = new WeaponCard();
         assertThrows(Exception.class, () -> tile.pickUpWeaponCard(w), () -> "ERROR:Should throw an exception because it's not a weapon tile");
     }

@@ -6,7 +6,7 @@ public class ReloadCommand extends AbstractCommand {
 
     private String weaponName;
 
-    public ReloadCommand(String token, String weaponName){
+    public ReloadCommand(String token, String weaponName) {
         super(token);
         this.weaponName = weaponName;
     }

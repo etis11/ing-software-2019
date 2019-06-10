@@ -20,7 +20,7 @@ public class Ammo {
      *
      * @param ammoColor Color for the ammo
      */
-    public Ammo(Color ammoColor){
+    public Ammo(Color ammoColor) {
         this.color = ammoColor;
     }
 
@@ -30,7 +30,7 @@ public class Ammo {
      *
      * @return color of the ammo
      */
-    public Color getColor(){
+    public Color getColor() {
         return this.color;
     }
 

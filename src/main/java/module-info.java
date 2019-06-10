@@ -1,4 +1,4 @@
-open module project{
+open module project {
     requires javafx.fxml;
     requires javafx.controls;
     requires java.naming;

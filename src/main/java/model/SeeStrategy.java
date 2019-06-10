@@ -16,14 +16,16 @@ public class SeeStrategy extends AbstractTargetStrategy {
     /**
      * creates a seeStrategy
      */
-    public SeeStrategy(Match match){
+    public SeeStrategy(Match match) {
         this.match = match;
     }
-    public SeeStrategy(){
+
+    public SeeStrategy() {
     }
 
     /**
      * verify if all players in target are visible by shooter
+     *
      * @param shooter player who wants to shoot
      * @param targets player to be shot
      * @return true if all targets are correctly selected, false otherwise
@@ -32,8 +34,8 @@ public class SeeStrategy extends AbstractTargetStrategy {
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         super.areTargetValid(shooter, targets);
         List<Player> visiblePlayer = match.getMap().allVisiblePlayers(shooter);
-        for (Player p: targets){
-            if (!visiblePlayer.contains(p)){
+        for (Player p : targets) {
+            if (!visiblePlayer.contains(p)) {
                 return false;
             }
         }
@@ -42,14 +44,15 @@ public class SeeStrategy extends AbstractTargetStrategy {
 
     /**
      * verify if someone can be shot by this type of strategy particular if there is someone visible by shooter
+     *
      * @param shooter player who wants to shoot
      * @return true if there are someone, false otherwise
      */
     @Override
     public boolean canHitSomeone(Player shooter) {
         List<Player> visiblePlayer = match.getMap().allVisiblePlayers(shooter);
-        for (Player p: match.getPlayers()){
-            if (visiblePlayer.contains(p) && p!=shooter){
+        for (Player p : match.getPlayers()) {
+            if (visiblePlayer.contains(p) && p != shooter) {
                 return true;
             }
         }
@@ -58,14 +61,15 @@ public class SeeStrategy extends AbstractTargetStrategy {
 
     /**
      * produce a list of player shootable by this type of strategy, particular player visible by shooter
+     *
      * @param shooter player who wants to shoot
      * @return list of player hittable
      */
     @Override
     public List<Player> getHittableTargets(Player shooter) {
         List<Player> toReturn = new ArrayList<>();
-        for (Player p: match.getMap().allVisiblePlayers(shooter)){
-            if (p!=shooter){
+        for (Player p : match.getMap().allVisiblePlayers(shooter)) {
+            if (p != shooter) {
                 toReturn.add(p);
             }
         }

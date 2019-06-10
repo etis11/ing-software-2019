@@ -1,6 +1,6 @@
 package Test;
 
-public class AskCommandTest  {
+public class AskCommandTest {
 
 //    private GameManager gm;
 //    private Player player;

@@ -20,22 +20,19 @@ public class ClientLauncherRMI {
         String token = "";
         JsonReceiver receiver = new JsonUnwrapper();
         UnicastRemoteObject.exportObject(receiver, 0);
-        try{
+        try {
 
             Registry registry = LocateRegistry.getRegistry();
 
 
-
             ServerRMIInterface serverRMI = (ServerRMIInterface) registry.lookup("serverRMI");
-            token= serverRMI.getPersonalToken(receiver, "");
+            token = serverRMI.getPersonalToken(receiver, "");
             ClientSingleton.getInstance().setToken(token);
             launcher = serverRMI.getCurrentCommandLauncher();
-        }
-        catch (Exception r){
+        } catch (Exception r) {
             System.out.println(r.getMessage());
             r.printStackTrace();
-        }
-        finally {
+        } finally {
             if (launcher != null) {
                 AskPickCommand c = new AskPickCommand(token);
                 launcher.addCommand(c);

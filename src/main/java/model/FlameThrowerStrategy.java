@@ -54,6 +54,7 @@ public class FlameThrowerStrategy extends AbstractTargetStrategy {
     /**
      * Tells if the shooter has an available target with the current weapon.
      * Being a flamethrower, checks if there is an available target on a cross centered on the shooter position.
+     *
      * @param shooter the player that wants to shoot
      * @return true if there is at least one player in a direction.s
      */

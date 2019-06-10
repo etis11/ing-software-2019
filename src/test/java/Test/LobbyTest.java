@@ -16,7 +16,7 @@ public class LobbyTest {
     private User user5;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         lobby = new Lobby();
         user1 = new User();
         user2 = new User();
@@ -26,45 +26,46 @@ public class LobbyTest {
     }
 
     @Test
-    public void instanceTest(){
+    public void instanceTest() {
         assertTrue(lobby instanceof Lobby, "ERROR: wrong instance");
     }
 
     @Test
-    public void maxUser(){
+    public void maxUser() {
         assertSame(Lobby.getMaxPlayerInLobby(), 5, "ERROR: wrong costant");
     }
 
     @Test
-    public void joinTest(){
+    public void joinTest() {
         assertTrue(lobby.getUsers().isEmpty(), "ERROR: not empty");
 
-        assertDoesNotThrow(()->lobby.join(user1), "ERROR: lobby not full");
+        assertDoesNotThrow(() -> lobby.join(user1), "ERROR: lobby not full");
         assertSame(lobby.getUsers().size(), 1, "ERROR: not inserted user");
 
-        assertDoesNotThrow(()->lobby.join(user2), "ERROR: lobby not full");
+        assertDoesNotThrow(() -> lobby.join(user2), "ERROR: lobby not full");
         assertSame(lobby.getUsers().size(), 2, "ERROR: not inserted user");
 
-        assertDoesNotThrow(()->lobby.join(user3), "ERROR: lobby not full");
+        assertDoesNotThrow(() -> lobby.join(user3), "ERROR: lobby not full");
         assertSame(lobby.getUsers().size(), 3, "ERROR: not inserted user");
 
-        assertDoesNotThrow(()->lobby.join(user4), "ERROR: lobby not full");
+        assertDoesNotThrow(() -> lobby.join(user4), "ERROR: lobby not full");
         assertSame(lobby.getUsers().size(), 4, "ERROR: not inserted user");
 
-        assertDoesNotThrow(()->lobby.join(user5), "ERROR: lobby not full");
+        assertDoesNotThrow(() -> lobby.join(user5), "ERROR: lobby not full");
         assertSame(lobby.getUsers().size(), 5, "ERROR: not inserted user");
 
         User user6 = new User();
-        assertThrows(Exception.class, ()->lobby.join(user6));
+        assertThrows(Exception.class, () -> lobby.join(user6));
         assertSame(lobby.getUsers().size(), 5, "ERROR: inserted player in a full lobby");
     }
-    @Test
-    public void removeTest(){
-        assertThrows(IllegalArgumentException.class, ()->lobby.removeUser(null));
 
-        assertDoesNotThrow(()->lobby.join(user1), "ERROR: lobby not full");
-        assertDoesNotThrow(()->lobby.join(user2), "ERROR: lobby not full");
-        assertDoesNotThrow(()->lobby.join(user3), "ERROR: lobby not full");
+    @Test
+    public void removeTest() {
+        assertThrows(IllegalArgumentException.class, () -> lobby.removeUser(null));
+
+        assertDoesNotThrow(() -> lobby.join(user1), "ERROR: lobby not full");
+        assertDoesNotThrow(() -> lobby.join(user2), "ERROR: lobby not full");
+        assertDoesNotThrow(() -> lobby.join(user3), "ERROR: lobby not full");
         assertSame(lobby.getUsers().size(), 3, "ERROR: not inserted all users");
 
         assertNull(lobby.removeUser(user4));

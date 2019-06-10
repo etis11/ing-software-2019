@@ -11,7 +11,7 @@ import controller.CommandExecutor;
  */
 public class AskEndTurnCommand extends AbstractCommand {
 
-    public AskEndTurnCommand(String token){
+    public AskEndTurnCommand(String token) {
         super(token);
     }
 
