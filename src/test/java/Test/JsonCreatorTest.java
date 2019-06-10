@@ -67,6 +67,37 @@ public class JsonCreatorTest {
         String expectedJson = "{\"changedPlayers\":[],\"changedTiles\":[{\"id\":0,\"players\":[\"Gigino\"]," +
                 "\"ammoTile\":true,\"weaponTile\":false},{\"id\":1,\"players\":[],\"ammoTile\":false,\"weaponTile\":true," +
                 "\"weapons\":[{\"name\":\"broccolator\",\"cost\":[],\"loaded\":true}]}]}";
-        assertEquals(expectedJson, jsonCreator.createJsonWithMessage(null));
+        assertEquals(expectedJson, jsonCreator.createJsonWithMessage(null), ()->"Error: the two json file should be the same");
+    }
+
+    @Test
+    void correctTileAndPlayer(){
+        Player gigino = new Player("Gigino");
+        Player pinotto = new Player("Pinotto");
+        Tile t = new Tile(null, null, null, null, true, false);
+        Tile t2 = new Tile(null, null, null, null, false, true);
+        t2.setID(1);
+        try {
+            WeaponCard w = new WeaponCard();
+            w.setName("broccolator");
+            t2.putWeaponCard(w);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            fail("Error: problems while putting the weapon");
+        }
+        t.addPlayer(gigino);
+        jsonCreator.notifyPlayerChange(gigino);
+        jsonCreator.notifyPlayerChange(pinotto);
+        jsonCreator.notifyTileChange(t);
+        jsonCreator.notifyTileChange(t2);
+        String expectedJson = "{\"changedPlayers\":[{\"name\":\"Gigino\",\"remainingMoves\":0,\"numWeaponCard\":0," +
+                "\"weaponCards\":[],\"numPowerUps\":0,\"powerUps\":[],\"tile\":0,\"playerBoard\":{\"damageTokens\":[]," +
+                "\"marksTokens\":[],\"killValue\":[8,6,4,2,1,1,1,1,1],\"numBlueAmmo\":1,\"numRedAmmo\":1,\"numYellowAmmo\":1}}," +
+                "{\"name\":\"Pinotto\",\"remainingMoves\":0,\"numWeaponCard\":0,\"weaponCards\":[],\"numPowerUps\":0" +
+                ",\"powerUps\":[],\"playerBoard\":{\"damageTokens\":[],\"marksTokens\":[],\"killValue\":[8,6,4,2,1,1,1,1,1]," +
+                "\"numBlueAmmo\":1,\"numRedAmmo\":1,\"numYellowAmmo\":1}}],\"changedTiles\":[{\"id\":0,\"players\":[\"Gigino\"]," +
+                "\"ammoTile\":true,\"weaponTile\":false},{\"id\":1,\"players\":[],\"ammoTile\":false,\"weaponTile\":true," +
+                "\"weapons\":[{\"name\":\"broccolator\",\"cost\":[],\"loaded\":true}]}]}";
+        assertEquals(expectedJson, jsonCreator.createJsonWithMessage(null), () ->"ERROR:the two json should be the same");
     }
 }
