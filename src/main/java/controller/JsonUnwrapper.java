@@ -13,7 +13,7 @@ public class JsonUnwrapper implements JsonReceiver {
     }
 
     @Override
-    public void sendJson(JsonElement changes){
+    public void sendJson(String changes){
 
     }
 }
