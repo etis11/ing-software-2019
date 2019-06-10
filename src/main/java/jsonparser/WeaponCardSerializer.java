@@ -13,13 +13,11 @@ import java.lang.reflect.Type;
 
 public class WeaponCardSerializer implements JsonSerializer<WeaponCard> {
 
-    private final Match match;
     private Player currentPlayer;
     private boolean playerMode;
     private boolean tileMode;
 
-    public WeaponCardSerializer(Match m){
-        this.match = m;
+    public WeaponCardSerializer(){
         playerMode = true;
         tileMode = false;
     }
@@ -46,7 +44,7 @@ public class WeaponCardSerializer implements JsonSerializer<WeaponCard> {
      */
     public JsonElement serialize(WeaponCard weaponCard, Type type, JsonSerializationContext jsonSerializationContext) {
         final JsonObject jsonWeaponCard = new JsonObject();
-        if (playerMode){
+        if (playerMode && currentPlayer != null){
             if (currentPlayer.getWeapons().contains(weaponCard) || !weaponCard.isLoaded()){
                 serializeWeaponCard(weaponCard, jsonWeaponCard, jsonSerializationContext);
             }
@@ -55,6 +53,9 @@ public class WeaponCardSerializer implements JsonSerializer<WeaponCard> {
             serializeWeaponCard(weaponCard, jsonWeaponCard, jsonSerializationContext);
         }
 
+
+        //at the end , the player is set back to null
+        currentPlayer = null;
         return jsonWeaponCard;
 
     }
