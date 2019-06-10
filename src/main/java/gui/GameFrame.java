@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +15,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import view.ClientSingleton;
 
@@ -26,6 +29,9 @@ public class GameFrame extends Application {
     private CommandContainer cmdLauncher;
     private String mapPath;
     private String boardPath;
+
+    final int ammoDimension = 30;
+    final int buttonWidth = 100;
 
     public void init(CommandContainer cmd, String board, int map){
         this.cmdLauncher = cmd;
@@ -40,9 +46,11 @@ public class GameFrame extends Application {
         stage.setTitle("Adrenalina - on game");
         stage.setResizable(false);
 
+        Border border = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT));
+
         StackPane mainPane = new StackPane();
         Pane gameLog = new Pane();
-        Pane buttonPane = new Pane();
+        VBox buttonPane = new VBox();
         Pane mapPane = new Pane();
         Pane playerBoardPane = new Pane();
 
@@ -55,6 +63,8 @@ public class GameFrame extends Application {
         Button reloadButton = new Button("Ricarica");
         Button endTurnButton = new Button("Fine Turno");
         Button pointsButton = new Button("Punti");
+        Button showWeapon = new Button("Mostra Armi");
+        Button showPowerUp = new Button("Mostra PU");
 
         infoGame.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         infoGame.setMaxWidth(300);
@@ -62,11 +72,15 @@ public class GameFrame extends Application {
         infoGame.setMaxHeight(500);
         infoGame.appendText("Benvenuto in Adrenalina! \n");
         infoGame.setEditable(false);
-        infoGame.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        infoGame.setBorder(border);
 
         Label blueAmmmo = new Label("1");
         Label redAmmmo = new Label("1");
         Label yellowAmmmo = new Label("1");
+
+        Label weapon1 = new Label();
+        Label weapon2 = new Label();
+        Label weapon3 = new Label();
 
         //path of map image
         //TODO da eliminare
@@ -82,15 +96,50 @@ public class GameFrame extends Application {
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
-        BackgroundImage myBIB= new BackgroundImage(new Image(new FileInputStream(pathDistruttoreBoard),845,200,false,true),
+        BackgroundImage myBIB= new BackgroundImage(new Image(new FileInputStream(pathDistruttoreBoard),845,190,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
+        //map setting
         mapPane.setBackground(new Background(myBI));
+
+        //playerboard setting
         playerBoardPane.setBackground(new Background(myBIB));
 
-        walkButton.setLayoutY(10);
-        walkButton.setMinWidth(100);
+        blueAmmmo.setTextFill(Color.WHITE);
+        blueAmmmo.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        blueAmmmo.setMinWidth(ammoDimension);
+        blueAmmmo.setMinHeight(ammoDimension);
+        blueAmmmo.setFont(Font.font("System Regular", FontWeight.BOLD, ammoDimension-6));
+        blueAmmmo.setAlignment(Pos.CENTER);
+        blueAmmmo.setLayoutX(720);
+        blueAmmmo.setLayoutY(20);
+        blueAmmmo.setBorder(border);
+        blueAmmmo.setVisible(true);
+        redAmmmo.setTextFill(Color.WHITE);
+        redAmmmo.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+        redAmmmo.setMinWidth(ammoDimension);
+        redAmmmo.setMinHeight(ammoDimension);
+        redAmmmo.setFont(Font.font("System Regular", FontWeight.BOLD, ammoDimension-6));
+        redAmmmo.setAlignment(Pos.CENTER);
+        redAmmmo.setLayoutX(740);
+        redAmmmo.setLayoutY(blueAmmmo.getLayoutY()+50);
+        redAmmmo.setBorder(border);
+        redAmmmo.setVisible(true);
+        yellowAmmmo.setTextFill(Color.BLACK);
+        yellowAmmmo.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+        yellowAmmmo.setMinWidth(ammoDimension);
+        yellowAmmmo.setMinHeight(ammoDimension);
+        yellowAmmmo.setFont(Font.font("System Regular", FontWeight.BOLD, ammoDimension-6));
+        yellowAmmmo.setAlignment(Pos.CENTER);
+        yellowAmmmo.setLayoutX(730);
+        yellowAmmmo.setLayoutY(redAmmmo.getLayoutY()+50);
+        yellowAmmmo.setBorder(border);
+        yellowAmmmo.setVisible(true);
+
+
+        //button setting
+        walkButton.setMinWidth(buttonWidth);
         walkButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -102,8 +151,7 @@ public class GameFrame extends Application {
             }
         });
 
-        pickButton.setLayoutY(walkButton.getLayoutY()+30);
-        pickButton.setMinWidth(100);
+        pickButton.setMinWidth(buttonWidth);
         pickButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -115,8 +163,7 @@ public class GameFrame extends Application {
             }
         });
 
-        shootButton.setLayoutY(pickButton.getLayoutY()+30);
-        shootButton.setMinWidth(100);
+        shootButton.setMinWidth(buttonWidth);
         shootButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -128,8 +175,7 @@ public class GameFrame extends Application {
             }
         });
 
-        powerUpButton.setLayoutY(shootButton.getLayoutY()+30);
-        powerUpButton.setMinWidth(100);
+        powerUpButton.setMinWidth(buttonWidth);
         powerUpButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -141,8 +187,7 @@ public class GameFrame extends Application {
             }
         });
 
-        reloadButton.setLayoutY(powerUpButton.getLayoutY()+30);
-        reloadButton.setMinWidth(100);
+        reloadButton.setMinWidth(buttonWidth);
         reloadButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -154,8 +199,7 @@ public class GameFrame extends Application {
             }
         });
 
-        endTurnButton.setLayoutY(reloadButton.getLayoutY()+30);
-        endTurnButton.setMinWidth(100);
+        endTurnButton.setMinWidth(buttonWidth);
         endTurnButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -167,8 +211,7 @@ public class GameFrame extends Application {
             }
         });
 
-        pointsButton.setLayoutY(endTurnButton.getLayoutY()+30);
-        pointsButton.setMinWidth(100);
+        pointsButton.setMinWidth(buttonWidth);
         pointsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -180,8 +223,22 @@ public class GameFrame extends Application {
             }
         });
 
+        showWeapon.setMinWidth(buttonWidth);
+
+        showPowerUp.setMinWidth(buttonWidth);
+
         //setting gamelog
         gameLog.getChildren().add(infoGame);
+
+        //setting card
+        weapon1.setVisible(false);
+        weapon2.setVisible(false);
+        weapon3.setVisible(false);
+        weapon1.setBorder(border);
+        weapon2.setBorder(border);
+        weapon3.setBorder(border);
+
+
 
         //setting buttonpane
         buttonPane.getChildren().add(walkButton);
@@ -191,11 +248,20 @@ public class GameFrame extends Application {
         buttonPane.getChildren().add(reloadButton);
         buttonPane.getChildren().add(endTurnButton);
         buttonPane.getChildren().add(pointsButton);
+        buttonPane.getChildren().add(showWeapon);
+        buttonPane.getChildren().add(showPowerUp);
 
+        playerBoardPane.getChildren().add(blueAmmmo);
+        playerBoardPane.getChildren().add(redAmmmo);
+        playerBoardPane.getChildren().add(yellowAmmmo);
+
+        //setting position of pane
+        buttonPane.setSpacing(10);
         buttonPane.setTranslateX(1175);
+        buttonPane.setTranslateY(10);
         mapPane.setTranslateX(305);
-        playerBoardPane.setTranslateY(510);
-        playerBoardPane.setTranslateX(50);
+        playerBoardPane.setTranslateY(505);
+        playerBoardPane.setTranslateX(25);
 
         //setting mainpane
         mainPane.getChildren().add(gameLog);
