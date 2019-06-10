@@ -17,7 +17,8 @@ public class PlayerSerializer implements JsonSerializer<Player> {
 
         jsonObject.addProperty("numWeaponCard", player.getNumWeapons());
 
-        final JsonElement weaponCards = jsonSerializationContext.serialize(player.getWeapons(), WeaponCard[].class);
+        System.out.println(player.getWeapons());
+        final JsonElement weaponCards = jsonSerializationContext.serialize(player.getWeapons().toArray(new WeaponCard[0]), WeaponCard[].class);
         jsonObject.add("weaponCards", weaponCards);
 
         jsonObject.addProperty("numPowerUps", player.getNumPowerUps());

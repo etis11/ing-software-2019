@@ -20,7 +20,7 @@ public class JsonCreator implements ChangesObserver {
     private transient final Gson gson;
     private transient final WeaponCardSerializer weaponCardSerializer;
 
-    public JsonCreator(Match m){
+    public JsonCreator(){
         GsonBuilder gb = new GsonBuilder();
         gb.registerTypeAdapter(BloodToken.class, new BloodTokenSerializer());
         gb.registerTypeAdapter(PlayerBoard.class, new PlayerBoardSerializer());
