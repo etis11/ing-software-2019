@@ -34,14 +34,6 @@ public class WeaponCard{
      * */
     private boolean loaded;
 
-/*
-Method returns list of base Effects(and advanced Effects considering the fact that both have the same structure
-@return list of effects
- */
-    public List<Effect> getBaseEffect() {
-        return baseEffect;
-    }
-
     /*
     Default constructor of our class
      */
@@ -68,6 +60,18 @@ Method returns list of base Effects(and advanced Effects considering the fact th
 
     }
 
+    /*
+    Method returns list of base Effects(and advanced Effects considering the fact that both have the same structure
+    @return list of effects
+     */
+    public List<Effect> getBaseEffect() {
+        return baseEffect;
+    }
+
+
+    public List<Effect> getAdvancedEffect() {
+        return advancedEffect;
+    }
 
     /**
      * Returns the cost for a WeaponCard effect to be used. It returns a string of colouredAmmo
