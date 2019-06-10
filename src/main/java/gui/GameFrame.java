@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
@@ -23,9 +24,13 @@ import java.rmi.RemoteException;
 public class GameFrame extends Application {
 
     private CommandContainer cmdLauncher;
+    private String mapPath;
+    private String boardPath;
 
-    public void init(CommandContainer cmd){
+    public void init(CommandContainer cmd, String board, int map){
         this.cmdLauncher = cmd;
+        this.mapPath = mapParser(map);
+        this.boardPath = boardParser(board);
     }
 
     @Override
@@ -59,20 +64,20 @@ public class GameFrame extends Application {
         infoGame.setEditable(false);
         infoGame.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
+        Label blueAmmmo = new Label("1");
+        Label redAmmmo = new Label("1");
+        Label yellowAmmmo = new Label("1");
 
-        //path of background image
-        final String pathSmall = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"SmallMap.png";
-        final String pathMedium = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"MediumMap.png";
-        final String pathBig = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"BigMap.png";
-        final String pathExtra = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar +"img"+File.separatorChar+"ExtraLargeMap.png";
+        //path of map image
+        //TODO da eliminare
+        final String pathSmall = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar + "img" + File.separatorChar + "SmallMap.png";
 
+        //path of PLayaboard image
         final String pathDistruttoreBoard = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
                 + File.separatorChar +"img"+File.separatorChar+"DistruttoreBoard.png";
 
+        //TODO modificare assegnazione path
         BackgroundImage myBI= new BackgroundImage(new Image(new FileInputStream(pathSmall),845,500,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
@@ -194,13 +199,57 @@ public class GameFrame extends Application {
 
         //setting mainpane
         mainPane.getChildren().add(gameLog);
-        mainPane.getChildren().add(buttonPane);
         mainPane.getChildren().add(mapPane);
         mainPane.getChildren().add(playerBoardPane);
+        mainPane.getChildren().add(buttonPane);
 
         //set scene
         Scene scene = new Scene(mainPane, 1300, 700);
         stage.setScene(scene);
         stage.show();
     }
+
+    private String mapParser(int map) {
+        switch (map) {
+            case 1:
+                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                        + File.separatorChar + "img" + File.separatorChar + "SmallMap.png";
+            case 2:
+                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                        + File.separatorChar + "img" + File.separatorChar + "MediumMap.png";
+            case 3:
+                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                        + File.separatorChar + "img" + File.separatorChar + "BigMap.png";
+            case 4:
+                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                        + File.separatorChar + "img" + File.separatorChar + "ExtraLargeMap.png";
+            default:
+                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                        + File.separatorChar + "img" + File.separatorChar + "SmallMap.png";
+        }
+    }
+
+    private String boardParser (String board){
+        switch (board){
+            case "Distruttore":
+                return "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+                        + File.separatorChar +"img"+File.separatorChar+"DistruttoreBoard.png";
+            case "Sprog":
+                return "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+                        + File.separatorChar +"img"+File.separatorChar+"SprogBoard.png";
+            case "Dozer":
+                return "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+                        + File.separatorChar +"img"+File.separatorChar+"DozerBoard.png";
+            case "Violeta":
+                return "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+                        + File.separatorChar +"img"+File.separatorChar+"ViolettaBoard.png";
+            case "Banshee":
+                return "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+                        + File.separatorChar +"img"+File.separatorChar+"BansheeBoard.png";
+            default:
+                return "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+                        + File.separatorChar +"img"+File.separatorChar+"DistruttoreBoard.png";
+        }
+    }
+
 }
