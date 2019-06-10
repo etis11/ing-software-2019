@@ -91,12 +91,26 @@ public class GameFrame extends Application {
         final String pathDistruttoreBoard = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
                 + File.separatorChar +"img"+File.separatorChar+"DistruttoreBoard.png";
 
+        final String pathBackWeapon = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar +"img"+File.separatorChar+"RetroArmi.png";
+
+        final String pathMartelloIonico = "."+ File.separatorChar+ "src"+ File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar +"img"+File.separatorChar+"MartelloIonico.png";
+
         //TODO modificare assegnazione path
         BackgroundImage myBI= new BackgroundImage(new Image(new FileInputStream(pathSmall),845,500,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
         BackgroundImage myBIB= new BackgroundImage(new Image(new FileInputStream(pathDistruttoreBoard),845,190,false,true),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+
+        BackgroundImage weaponBack= new BackgroundImage(new Image(new FileInputStream(pathBackWeapon),110,190,false,true),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+
+        BackgroundImage weap1Img= new BackgroundImage(new Image(new FileInputStream(pathMartelloIonico),845,190,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
@@ -224,6 +238,14 @@ public class GameFrame extends Application {
         });
 
         showWeapon.setMinWidth(buttonWidth);
+        showWeapon.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                weapon1.setVisible(true);
+                weapon2.setVisible(true);
+                weapon3.setVisible(true);
+            }
+        });
 
         showPowerUp.setMinWidth(buttonWidth);
 
@@ -237,6 +259,16 @@ public class GameFrame extends Application {
         weapon1.setBorder(border);
         weapon2.setBorder(border);
         weapon3.setBorder(border);
+        weapon1.setBackground(new Background(weap1Img));
+        weapon2.setBackground(new Background(weaponBack));
+        weapon3.setBackground(new Background(weaponBack));
+
+        weapon1.setTranslateX(850);
+        weapon2.setTranslateX(965);
+        weapon3.setTranslateX(1080);
+        weapon1.setTranslateY(505);
+        weapon2.setTranslateY(505);
+        weapon3.setTranslateY(505);
 
 
 
@@ -268,6 +300,9 @@ public class GameFrame extends Application {
         mainPane.getChildren().add(mapPane);
         mainPane.getChildren().add(playerBoardPane);
         mainPane.getChildren().add(buttonPane);
+        mainPane.getChildren().add(weapon1);
+        mainPane.getChildren().add(weapon2);
+        mainPane.getChildren().add(weapon3);
 
         //set scene
         Scene scene = new Scene(mainPane, 1300, 700);
