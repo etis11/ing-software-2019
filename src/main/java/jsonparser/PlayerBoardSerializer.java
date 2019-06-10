@@ -16,13 +16,13 @@ public class PlayerBoardSerializer  implements JsonSerializer<PlayerBoard> {
     public JsonElement serialize(PlayerBoard playerBoard, Type type, JsonSerializationContext jsonSerializationContext) {
         final JsonObject jsonPlayerBoard = new JsonObject();
 
-        final JsonElement damageTokens = jsonSerializationContext.serialize(playerBoard.getDamageTokens(), BloodToken[].class);
+        final JsonElement damageTokens = jsonSerializationContext.serialize(playerBoard.getDamageTokens().toArray(new BloodToken[0]), BloodToken[].class);
         jsonPlayerBoard.add("damageTokens", damageTokens);
 
-        final JsonElement marksTokens = jsonSerializationContext.serialize(playerBoard.getMarks(), BloodToken[].class);
+        final JsonElement marksTokens = jsonSerializationContext.serialize(playerBoard.getMarks().toArray(new BloodToken[0]), BloodToken[].class);
         jsonPlayerBoard.add("marksTokens", marksTokens);
 
-        final JsonElement killValue = jsonSerializationContext.serialize(playerBoard.getKillValue(), Integer[].class);
+        final JsonElement killValue = jsonSerializationContext.serialize(playerBoard.getKillValue().toArray(new Integer[0]), Integer[].class);
         jsonPlayerBoard.add("killValue", killValue);
 
         jsonPlayerBoard.addProperty("numBlueAmmo", playerBoard.getLoader().getNumBlueAmmo());

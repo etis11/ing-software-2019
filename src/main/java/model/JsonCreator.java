@@ -17,6 +17,7 @@ public class JsonCreator implements ChangesObserver {
     private final List<Tile> changedTiles = new LinkedList<>();
     private String message;
 
+    private static transient boolean prettyPrinting = false;
     private transient final Gson gson;
     private transient final WeaponCardSerializer weaponCardSerializer;
 
@@ -29,6 +30,7 @@ public class JsonCreator implements ChangesObserver {
         weaponCardSerializer.setPlayerModeTrue();
         weaponCardSerializer.setCurrentPlayer(null);
         gb.registerTypeAdapter(WeaponCard.class, weaponCardSerializer);
+        if (prettyPrinting) gb.setPrettyPrinting();
         gson = gb.create();
 
     }
