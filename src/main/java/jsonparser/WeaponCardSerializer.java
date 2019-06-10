@@ -6,6 +6,7 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import model.Effect;
 import model.Match;
+import model.Player;
 import model.WeaponCard;
 
 import java.lang.reflect.Type;
@@ -13,9 +14,14 @@ import java.lang.reflect.Type;
 public class WeaponCardSerializer implements JsonSerializer<WeaponCard> {
 
     private final Match match;
+    private Player currentPlayer;
 
     public WeaponCardSerializer(Match m){
         this.match = m;
+    }
+
+    public void setCurrentPlayer(Player p){
+        currentPlayer = p;
     }
 
     @Override
@@ -25,7 +31,7 @@ public class WeaponCardSerializer implements JsonSerializer<WeaponCard> {
      */
     public JsonElement serialize(WeaponCard weaponCard, Type type, JsonSerializationContext jsonSerializationContext) {
         final JsonObject jsonWeaponCard = new JsonObject();
-        if (match.getCurrentPlayer().getWeapons().contains(weaponCard) || !weaponCard.isLoaded()){
+        if (currentPlayer.getWeapons().contains(weaponCard) || !weaponCard.isLoaded()){
             jsonWeaponCard.addProperty("name", weaponCard.getName());
 
             final JsonElement weaponCost= jsonSerializationContext.serialize(weaponCard.getReloadCost(), String[].class);
