@@ -19,6 +19,10 @@ public class WeaponCardSerializer implements JsonSerializer<WeaponCard> {
     }
 
     @Override
+    /**
+     * This method serialize a weapon. A weapon can be seen only if it's not loaded or if the player is the same that
+     * is requesting them.
+     */
     public JsonElement serialize(WeaponCard weaponCard, Type type, JsonSerializationContext jsonSerializationContext) {
         final JsonObject jsonWeaponCard = new JsonObject();
         if (match.getCurrentPlayer().getWeapons().contains(weaponCard) || !weaponCard.isLoaded()){
