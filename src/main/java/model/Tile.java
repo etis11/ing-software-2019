@@ -427,6 +427,10 @@ public class Tile {
         return ammoCard!=null;
     }
 
+    public AmmoCard getCopyAmmoCard(){
+        return new AmmoCard(ammoCard);
+    }
+
     /**
      * Says if an ammo che be put in the tile
      * @return True if it's an ammo tile, false if not.

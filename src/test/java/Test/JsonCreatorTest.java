@@ -50,7 +50,7 @@ public class JsonCreatorTest {
         Player gigino = new Player("Gigino");
         Player pinotto = new Player("Pinotto");
         Tile t = new Tile();
-        t.setTile("north", new Tile());
+//        t.setTile("north", new Tile());
         t.addPlayer(gigino);
         jsonCreator.notifyTileChange(t);
         System.out.println(jsonCreator.createJsonWithMessage(null));

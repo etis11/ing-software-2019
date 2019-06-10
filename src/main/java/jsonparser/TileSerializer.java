@@ -23,10 +23,17 @@ public class TileSerializer implements JsonSerializer<Tile> {
         jsonTile.add("players", playerArray);
 
         jsonTile.addProperty("ammoTile", tile.canContainAmmo());
+        if (tile.canContainAmmo()){
+            JsonElement jsonAmmo = jsonSerializationContext.serialize(tile.getCopyAmmoCard());
+            jsonTile.add("ammoCard", jsonAmmo);
+        }
+
         jsonTile.addProperty("weaponTile", tile.canContainWeapons());
 
-        JsonElement weapons = jsonSerializationContext.serialize(tile.getWeapons().toArray(new WeaponCard[0]), WeaponCard[].class);
-        jsonTile.add("weapons", weapons);
+        if (tile.canContainWeapons()){
+            JsonElement weapons = jsonSerializationContext.serialize(tile.getWeapons().toArray(new WeaponCard[0]), WeaponCard[].class);
+            jsonTile.add("weapons", weapons);
+        }
 
         return jsonTile;
     }

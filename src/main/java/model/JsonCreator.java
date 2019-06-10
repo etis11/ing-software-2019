@@ -3,10 +3,7 @@ package model;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-import jsonparser.BloodTokenSerializer;
-import jsonparser.PlayerBoardSerializer;
-import jsonparser.PlayerSerializer;
-import jsonparser.WeaponCardSerializer;
+import jsonparser.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -26,6 +23,7 @@ public class JsonCreator implements ChangesObserver {
         gb.registerTypeAdapter(BloodToken.class, new BloodTokenSerializer());
         gb.registerTypeAdapter(PlayerBoard.class, new PlayerBoardSerializer());
         gb.registerTypeAdapter(Player.class, new PlayerSerializer());
+        gb.registerTypeAdapter(Tile.class, new TileSerializer());
         weaponCardSerializer = new WeaponCardSerializer();
         weaponCardSerializer.setPlayerModeTrue();
         weaponCardSerializer.setCurrentPlayer(null);

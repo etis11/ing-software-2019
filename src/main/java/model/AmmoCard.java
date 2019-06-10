@@ -47,6 +47,13 @@ public class AmmoCard {
     public AmmoCard(){
     }
 
+    public AmmoCard(AmmoCard card){
+        numBlue = card.getNumBlue();
+        numRed = card.getNumRed();
+        numYellow= card.getNumYellow();
+        drawPowerUp= card.isDrawPowerUp();
+    }
+
     /**Method that returns number of blue ammo in an Ammo Card
      * @return numBlue
      * */
