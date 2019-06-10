@@ -2,8 +2,8 @@ package model.clientModel;
 
 import model.PowerUpCard;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class SemplifiedPlayer {
 
@@ -45,8 +45,8 @@ public class SemplifiedPlayer {
         return weaponCards;
     }
 
-    public void setWeaponCards(List<SemplifiedWeaponCard> weaponCards) {
-        this.weaponCards = weaponCards;
+    public void setWeaponCards(SemplifiedWeaponCard[] weaponCards) {
+        this.weaponCards = new LinkedList<>(Arrays.asList(weaponCards));
     }
 
     public int getNumPowerUps() {
@@ -61,8 +61,8 @@ public class SemplifiedPlayer {
         return powerUpCards;
     }
 
-    public void setPowerUpCards(List<PowerUpCard> powerUpCards) {
-        this.powerUpCards = powerUpCards;
+    public void setPowerUpCards(PowerUpCard[] powerUpCards) {
+        this.powerUpCards = new ArrayList<>(Arrays.asList(powerUpCards));
     }
 
     public int getTile() {

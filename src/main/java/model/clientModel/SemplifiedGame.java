@@ -19,6 +19,14 @@ public class SemplifiedGame {
         return currentPlayer;
     }
 
+    public SemplifiedPlayer getPlayerByName(String name){
+        for(SemplifiedPlayer p: players){
+            if (p.getName().equals(name))
+                return p;
+        }
+        throw new IllegalArgumentException("No player found with this name");
+    }
+
     public SemplifiedMap getMap() {
         return map;
     }
