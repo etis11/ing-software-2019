@@ -21,23 +21,20 @@ public class WeaponCardSerializer implements JsonSerializer<WeaponCard> {
     @Override
     public JsonElement serialize(WeaponCard weaponCard, Type type, JsonSerializationContext jsonSerializationContext) {
         final JsonObject jsonWeaponCard = new JsonObject();
-        jsonWeaponCard.addProperty("name", weaponCard.getName());
+        if (match.getCurrentPlayer().getWeapons().contains(weaponCard) || !weaponCard.isLoaded()){
+            jsonWeaponCard.addProperty("name", weaponCard.getName());
 
-        final JsonElement weaponCost= jsonSerializationContext.serialize(weaponCard.getReloadCost(), String[].class);
-        jsonWeaponCard.add("cost", weaponCost);
+            final JsonElement weaponCost= jsonSerializationContext.serialize(weaponCard.getReloadCost(), String[].class);
+            jsonWeaponCard.add("cost", weaponCost);
 
-        jsonWeaponCard.addProperty("loaded", weaponCard.isLoaded());
+            jsonWeaponCard.addProperty("loaded", weaponCard.isLoaded());
 
-        final JsonElement baseEffects= jsonSerializationContext.serialize(weaponCard.getBaseEffect(), Effect[].class);
-        jsonWeaponCard.add("baseEffect", baseEffects);
+            final JsonElement baseEffects= jsonSerializationContext.serialize(weaponCard.getBaseEffect(), Effect[].class);
+            jsonWeaponCard.add("baseEffect", baseEffects);
 
-        final JsonElement advancedEffects= jsonSerializationContext.serialize(weaponCard.getAdvancedEffect(), Effect[].class);
-        jsonWeaponCard.add("baseEffect", advancedEffects);
-
+            final JsonElement advancedEffects= jsonSerializationContext.serialize(weaponCard.getAdvancedEffect(), Effect[].class);
+            jsonWeaponCard.add("baseEffect", advancedEffects);
+        }
         return jsonWeaponCard;
-
-
-
-
     }
 }
