@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import model.BloodToken;
+import model.SemplifiedBloodToken;
 import model.PlayerBoard;
 
 import java.lang.reflect.Type;
@@ -16,10 +16,10 @@ public class PlayerBoardSerializer  implements JsonSerializer<PlayerBoard> {
     public JsonElement serialize(PlayerBoard playerBoard, Type type, JsonSerializationContext jsonSerializationContext) {
         final JsonObject jsonPlayerBoard = new JsonObject();
 
-        final JsonElement damageTokens = jsonSerializationContext.serialize(playerBoard.getDamageTokens().toArray(new BloodToken[0]), BloodToken[].class);
+        final JsonElement damageTokens = jsonSerializationContext.serialize(playerBoard.getDamageTokens().toArray(new SemplifiedBloodToken[0]), SemplifiedBloodToken[].class);
         jsonPlayerBoard.add("damageTokens", damageTokens);
 
-        final JsonElement marksTokens = jsonSerializationContext.serialize(playerBoard.getMarks().toArray(new BloodToken[0]), BloodToken[].class);
+        final JsonElement marksTokens = jsonSerializationContext.serialize(playerBoard.getMarks().toArray(new SemplifiedBloodToken[0]), SemplifiedBloodToken[].class);
         jsonPlayerBoard.add("marksTokens", marksTokens);
 
         final JsonElement killValue = jsonSerializationContext.serialize(playerBoard.getKillValue().toArray(new Integer[0]), Integer[].class);
