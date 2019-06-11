@@ -5,7 +5,6 @@ import controller.CommandLauncher;
 import controller.JsonReceiver;
 import controller.JsonUnwrapper;
 import controller.commandpack.CreateUserCommand;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -29,17 +28,21 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-public class MainFrame extends Application {
-    final int buttonWidth = 150;
+public class MainFrame{
+    private static final int BUTTON_WIDTH = 150;
     private CommandContainer cmdLauncher;
     private boolean networkActive = true;
+    private Stage stage;
 
-    public void init(CommandLauncher cmd) {
-        this.cmdLauncher = cmd;
+    private final InputStream pathAdrenaline = getClass().getResourceAsStream("img" + File.separatorChar + "Adrenalina.PNG");
+
+
+    public MainFrame() {
+        this.stage = new Stage();
+        generate();
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
+    public void generate(){
 
         stage.setTitle("Adrenalina - the official game");
         stage.setResizable(false);
@@ -56,8 +59,8 @@ public class MainFrame extends Application {
         //positioning socket button
         startButtonSocket.setTranslateX(-80);
         startButtonSocket.setTranslateY(60);
-        startButtonSocket.setMinWidth(buttonWidth);
-        startButtonSocket.setMaxWidth(buttonWidth);
+        startButtonSocket.setMinWidth(BUTTON_WIDTH);
+        startButtonSocket.setMaxWidth(BUTTON_WIDTH);
         startButtonSocket.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -95,7 +98,7 @@ public class MainFrame extends Application {
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-                    openNextStage(stage);
+                    //openNextStage(stage);
 
                 } else {
                     info.setText("inserisci un username valido");
@@ -106,8 +109,8 @@ public class MainFrame extends Application {
         //positioning rmi button
         startButtonRMI.setTranslateX(80);
         startButtonRMI.setTranslateY(60);
-        startButtonRMI.setMinWidth(buttonWidth);
-        startButtonRMI.setMaxWidth(buttonWidth);
+        startButtonRMI.setMinWidth(BUTTON_WIDTH);
+        startButtonRMI.setMaxWidth(BUTTON_WIDTH);
         startButtonRMI.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -142,7 +145,7 @@ public class MainFrame extends Application {
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-                    openNextStage(stage);
+                    //openNextStage(stage);
                 } else {
                     info.setText("inserisci un username valido");
                     info.setVisible(true);
@@ -150,11 +153,7 @@ public class MainFrame extends Application {
             }
         });
 
-        //path of background image
-        String path = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "img" + File.separatorChar + "Adrenalina.PNG";
-
-        BackgroundImage myBI = new BackgroundImage(new Image(new FileInputStream(path), 1000, 600, false, true),
+        BackgroundImage myBI = new BackgroundImage(new Image(pathAdrenaline, 1000, 600, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
@@ -171,16 +170,25 @@ public class MainFrame extends Application {
         stage.show();
     }
 
-    public void openNextStage(Stage stage) {
-        LobbyFrame lf = new LobbyFrame();
-        try {
-            lf.init(cmdLauncher);
-            lf.start(new Stage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void show(){
+        stage.show();
+    }
+
+    public void close(){
         stage.close();
     }
+
+    //TODO da rivedere
+//    public void openNextStage(Stage stage) {
+//        LobbyFrame lf = new LobbyFrame();
+//        try {
+//            lf.init(cmdLauncher);
+//            lf.start(new Stage());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        stage.close();
+//    }
 
     private boolean checkUsername(String username) {
         return !username.equalsIgnoreCase("") && !username.equalsIgnoreCase("username");

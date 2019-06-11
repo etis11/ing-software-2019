@@ -14,32 +14,55 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import model.Match;
+import model.Player;
 import view.ClientSingleton;
+import view.MapObserver;
+import view.MessageListener;
+import view.PlayerObserver;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
-public class GameFrame extends Application {
+public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     final int ammoDimension = 30;
     final int buttonWidth = 100;
     private CommandContainer cmdLauncher;
-    private String mapPath;
-    private String boardPath;
+    private InputStream mapPath;
+    private InputStream boardPath;
+    private Stage stage;
 
-    public void init(CommandContainer cmd, String board, int map) {
+    private final InputStream pathBackWeapon = getClass().getResourceAsStream("/img/RetroArmi.png");
+    private final InputStream pathBackPu = getClass().getResourceAsStream("/img/RetroPu.png");
+    private final InputStream pathMartelloIonico = getClass().getResourceAsStream("/img/MartelloIonico.png");
+
+    private List<Color> color;
+
+    public GameFrame(CommandContainer cmd, String board, int map) {
         this.cmdLauncher = cmd;
         this.mapPath = mapParser(map);
+        this.color = new ArrayList<>();
+        this.color.add(Color.GREY);
+        this.color.add(Color.YELLOW);
+        this.color.add(Color.BLUEVIOLET);
+        this.color.add(Color.DARKGREEN);
+        this.color.add(Color.TEAL);
         this.boardPath = boardParser(board);
+        stage = new Stage();
+        generate();
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
+    public void generate() {
         //TODO da implementare
 
         stage.setTitle("Adrenalina - on game");
@@ -64,6 +87,7 @@ public class GameFrame extends Application {
         Button pointsButton = new Button("Punti");
         Button showWeapon = new Button("Mostra Armi");
         Button showPowerUp = new Button("Mostra PU");
+        Button showPlBoard = new Button("Mostra PB");
 
         infoGame.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         infoGame.setMaxWidth(300);
@@ -84,34 +108,59 @@ public class GameFrame extends Application {
         Label pu1 = new Label();
         Label pu2 = new Label();
 
-        //path of map image
-        //TODO da eliminare
-        InputStream pathSmall = getClass().getResourceAsStream("/img/SmallMap.png");
+        Circle damage1 = new Circle();
+        Circle damage2 = new Circle();
+        Circle damage3 = new Circle();
+        Circle damage4 = new Circle();
+        Circle damage5 = new Circle();
+        Circle damage6 = new Circle();
+        Circle damage7 = new Circle();
+        Circle damage8 = new Circle();
+        Circle damage9 = new Circle();
+        Circle damage10 = new Circle();
+        Circle damage11= new Circle();
+        Circle damage12 = new Circle();
+        Circle mark1 = new Circle();
+        Circle mark2 = new Circle();
+        Circle mark3 = new Circle();
+        Circle mark4 = new Circle();
+        List<Circle> damage= new LinkedList<>();
+        List<Circle> mark= new LinkedList<>();
+        damage.add(damage1);
+        damage.add(damage2);
+        damage.add(damage3);
+        damage.add(damage4);
+        damage.add(damage5);
+        damage.add(damage6);
+        damage.add(damage7);
+        damage.add(damage8);
+        damage.add(damage9);
+        damage.add(damage10);
+        damage.add(damage11);
+        damage.add(damage12);
+        mark.add(mark1);
+        mark.add(mark2);
+        mark.add(mark3);
+        mark.add(mark4);
 
-        //path of PLayaboard image
-        final String pathDistruttoreBoard = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "img" + File.separatorChar + "DistruttoreBoard.png";
-
-        final String pathBackWeapon = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "img" + File.separatorChar + "RetroArmi.png";
-
-        final String pathMartelloIonico = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "img" + File.separatorChar + "MartelloIonico.png";
-
-        //TODO modificare assegnazione path
-        BackgroundImage myBI= new BackgroundImage(new Image(pathSmall,845,500,false,true),
+        //setting background image
+        BackgroundImage myBI= new BackgroundImage(new Image(mapPath,845,500,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
-        BackgroundImage myBIB = new BackgroundImage(new Image(new FileInputStream(pathDistruttoreBoard), 845, 190, false, true),
+        BackgroundImage myBIB = new BackgroundImage(new Image(boardPath, 845, 190, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
-        BackgroundImage weaponBack = new BackgroundImage(new Image(new FileInputStream(pathBackWeapon), 110, 190, false, true),
+        BackgroundImage weaponBack = new BackgroundImage(new Image(pathBackWeapon, 110, 190, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
-        BackgroundImage weap1Img = new BackgroundImage(new Image(new FileInputStream(pathMartelloIonico), 110, 190, false, true),
+        BackgroundImage weap1Img = new BackgroundImage(new Image(pathMartelloIonico, 110, 190, false, true),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+
+        BackgroundImage puBack = new BackgroundImage(new Image(pathBackPu, 110, 190, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
@@ -281,12 +330,12 @@ public class GameFrame extends Application {
         weapon2.setMinHeight(190);
         weapon3.setMinWidth(110);
         weapon3.setMinHeight(190);
-        weapon1.setLayoutX(850);
-        weapon2.setLayoutX(965);
-        weapon3.setLayoutX(1080);
-        weapon1.setLayoutY(5);
-        weapon2.setLayoutY(5);
-        weapon3.setLayoutY(5);
+        weapon1.setLayoutX(860);
+        weapon2.setLayoutX(975);
+        weapon3.setLayoutX(1090);
+        weapon1.setLayoutY(0);
+        weapon2.setLayoutY(0);
+        weapon3.setLayoutY(0);
         pu1.setVisible(false);
         pu2.setVisible(false);
         pu1.setBorder(border);
@@ -299,7 +348,44 @@ public class GameFrame extends Application {
         pu2.setLayoutX(975);
         pu1.setLayoutY(0);
         pu2.setLayoutY(0);
+        pu1.setBackground(new Background(puBack));
+        pu2.setBackground(new Background(puBack));
 
+        //set damage
+        for (Circle c : damage){
+            //c.setVisible(false);
+            c.setRadius(15);
+            c.setLayoutY(95);
+            c.setStroke(Color.BLACK);
+            playerBoardPane.getChildren().add(c);
+        }
+        damage1.setLayoutX(95);
+        damage2.setLayoutX(damage1.getLayoutX()+50);
+        damage3.setLayoutX(damage2.getLayoutX()+50);
+        damage4.setLayoutX(damage3.getLayoutX()+45);
+        damage5.setLayoutX(damage4.getLayoutX()+45);
+        damage6.setLayoutX(damage5.getLayoutX()+55);
+        damage7.setLayoutX(damage6.getLayoutX()+45);
+        damage8.setLayoutX(damage7.getLayoutX()+45);
+        damage9.setLayoutX(damage8.getLayoutX()+45);
+        damage10.setLayoutX(damage9.getLayoutX()+50);
+        damage11.setLayoutX(damage10.getLayoutX()+50);
+        damage12.setLayoutX(damage11.getLayoutX()+45);
+        for (Circle c : mark){
+            //c.setVisible(false);
+            c.setRadius(15);
+            c.setLayoutY(20);
+            c.setStroke(Color.BLACK);
+            playerBoardPane.getChildren().add(c);
+        }
+        mark1.setLayoutX(450);
+        mark2.setLayoutX(mark1.getLayoutX()+40);
+        mark3.setLayoutX(mark2.getLayoutX()+40);
+        mark4.setLayoutX(mark3.getLayoutX()+40);
+        mark1.setFill(color.get(0));
+        mark2.setFill(color.get(1));
+        mark3.setFill(color.get(2));
+        mark4.setFill(color.get(3));
 
 
         //setting buttonpane
@@ -312,6 +398,7 @@ public class GameFrame extends Application {
         buttonPane.getChildren().add(pointsButton);
         buttonPane.getChildren().add(showWeapon);
         buttonPane.getChildren().add(showPowerUp);
+        buttonPane.getChildren().add(showPlBoard);
 
         playerBoardPane.getChildren().add(blueAmmmo);
         playerBoardPane.getChildren().add(redAmmmo);
@@ -341,50 +428,81 @@ public class GameFrame extends Application {
         //set scene
         Scene scene = new Scene(mainPane, 1300, 700);
         stage.setScene(scene);
+    }
+
+    public void show(){
         stage.show();
     }
 
-    private String mapParser(int map) {
+    public void close(){
+        stage.close();
+    }
+
+    private InputStream mapParser(int map) {
         switch (map) {
             case 1:
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "SmallMap.png";
+                return getClass().getResourceAsStream("/img/SmallMap.png");
             case 2:
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "MediumMap.png";
+                return getClass().getResourceAsStream("/img/MediumMap.png");
             case 3:
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "BigMap.png";
+                return getClass().getResourceAsStream("/img/LargeMap.png");
             case 4:
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "ExtraLargeMap.png";
+                return getClass().getResourceAsStream("/img/ExtraLargeMap.png");
             default:
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "SmallMap.png";
+                return getClass().getResourceAsStream("/img/SmallMap.png");
         }
     }
 
-    private String boardParser(String board) {
+    private InputStream boardParser(String board) {
         switch (board) {
             case "Distruttore":
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "DistruttoreBoard.png";
+                color.remove(1);
+                return getClass().getResourceAsStream("/img/DistruttoreBoard.png");
             case "Sprog":
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "SprogBoard.png";
+                color.remove(3);
+                return getClass().getResourceAsStream("/img/SprogBoard.png");
             case "Dozer":
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "DozerBoard.png";
+                color.remove(0);
+                return getClass().getResourceAsStream("/img/DozerBoard.png");
             case "Violeta":
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "ViolettaBoard.png";
+                color.remove(2);
+                return getClass().getResourceAsStream("/img/ViolettaBoard.png");
             case "Banshee":
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "BansheeBoard.png";
+                color.remove(4);
+                return getClass().getResourceAsStream("/img/BansheeBoard.png");
             default:
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "DistruttoreBoard.png";
+                color.remove(1);
+                return getClass().getResourceAsStream("/img/DistruttoreBoard.png");
         }
     }
 
+    @Override
+    public void onMapChange(Match m) {
+
+    }
+
+    @Override
+    public void notify(String message) {
+
+    }
+
+    @Override
+    public void onHpChange(Player damagePlayer) {
+
+    }
+
+    @Override
+    public void onMarksChange(Player markedPlayer) {
+
+    }
+
+    @Override
+    public void onAmmoChange(Player p) {
+
+    }
+
+    @Override
+    public void onPowerUpChange(Player p) {
+
+    }
 }

@@ -1,4 +1,4 @@
-package jsonparser.semplifiedParser;
+/*package jsonparser.semplifiedParser;
 
 import com.google.gson.*;
 import model.BloodToken;
@@ -53,7 +53,7 @@ public class SemplifiedPlayerDeserializer implements JsonDeserializer<Semplified
 
         BloodToken[] damageTokens = jsonDeserializationContext.deserialize(
                 jsonPlayerBoard.getAsJsonArray("damageTokens"), BloodToken[].class);
-        playerBoard.setDamageTokens(damageTokens);
+        //playerBoard.setDamageTokens(damageTokens);
 
         BloodToken[] marksTokens = jsonDeserializationContext.deserialize(
                 jsonPlayerBoard.getAsJsonArray("marksTokens"), BloodToken[].class);
@@ -69,3 +69,4 @@ public class SemplifiedPlayerDeserializer implements JsonDeserializer<Semplified
         return null;
     }
 }
+*/
