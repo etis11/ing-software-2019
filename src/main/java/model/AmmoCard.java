@@ -1,5 +1,5 @@
 package model;
-
+import view.AnsiColor;
 /**
  * AmmoCard refers to the Ammunition Cards that are to be used during play for certain tasks
  * like Weapon reloading or as a way of paying for a WeaponCard. There are 36 cards and each
@@ -88,5 +88,29 @@ public class AmmoCard {
     public boolean isDrawPowerUp() {
         return drawPowerUp;
     }
-
+    @Override
+    public String toString() {
+        String blue = "";
+        String yellow = "";
+        String red = "";
+        for(int i=0 ; i<numBlue ; i++ ){
+            blue= blue+ AnsiColor.BLUE +"YOUR SHITTY CHARACTER"+AnsiColor.RESET;
+        }
+        for(int i=0 ; i<numYellow ; i++ ){
+            yellow= yellow+AnsiColor.YELLOW +"YOUR SHITTY CHARACTER"+AnsiColor.RESET;
+        }
+        for(int i=0 ; i<numRed; i++ ){
+            red= red+AnsiColor.RED +"YOUR SHITTY CHARACTER"+AnsiColor.RESET;
+        }
+        String drawPowerUpCharacter = "";
+        if(drawPowerUp){
+            drawPowerUpCharacter= drawPowerUpCharacter+"Another Shitty Character";
+        }
+        return "AmmoCard{" +
+                "numBlue=" + blue +
+                ", numYellow=" + yellow +
+                ", numRed=" + red +
+                ", drawPowerUp=" + drawPowerUpCharacter +
+                '}';
+    }
 }
