@@ -1,11 +1,9 @@
 package Test;
 
 import model.*;
-import model.clientModel.SemplifiedMap;
 import model.clientModel.SemplifiedTile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import view.AnsiColor;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -20,5 +20,28 @@ public class SemplifiedTile {
         this.weaponTile = weaponTile;
     }
 
+    @Override
+    public String toString() {
+
+        String weaponCardsString = "";
+        if(this.weaponCards !=null && this.weaponCards.size()>0){
+            for(SemplifiedWeaponCard weaponCard : this.weaponCards){
+                weaponCardsString= weaponCardsString +" "+weaponCard.toString();
+            }
+        }
+
+
+        String playersString = "";
+        if(this.players !=null && this.players.size()>0){
+            for(SemplifiedPlayer player : this.players){
+                playersString= playersString+" "+player.getName();
+            }
+        }
+        return "SemplifiedTile{" +
+                "id=" + id +
+                " , players=" + playersString +
+                ", weaponCards=" + weaponCardsString +
+                '}';
+    }
 
 }
