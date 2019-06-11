@@ -14,32 +14,51 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import model.Match;
+import model.Player;
 import view.ClientSingleton;
+import view.MapObserver;
+import view.MessageListener;
+import view.PlayerObserver;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.rmi.RemoteException;
+import java.util.LinkedList;
+import java.util.List;
 
-public class GameFrame extends Application {
+public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     final int ammoDimension = 30;
     final int buttonWidth = 100;
     private CommandContainer cmdLauncher;
-    private String mapPath;
-    private String boardPath;
+    private InputStream mapPath;
+    private InputStream boardPath;
+    private Stage stage;
 
-    public void init(CommandContainer cmd, String board, int map) {
+    final String pathDistruttoreBoard = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+            + File.separatorChar + "img" + File.separatorChar + "DistruttoreBoard.png";
+
+    final String pathBackWeapon = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+            + File.separatorChar + "img" + File.separatorChar + "RetroArmi.png";
+
+    final String pathMartelloIonico = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+            + File.separatorChar + "img" + File.separatorChar + "MartelloIonico.png";
+
+    public GameFrame(CommandContainer cmd, String board, int map) {
         this.cmdLauncher = cmd;
         this.mapPath = mapParser(map);
         this.boardPath = boardParser(board);
+        stage = new Stage();
+        generate();
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
+    public void generate() {
         //TODO da implementare
 
         stage.setTitle("Adrenalina - on game");
@@ -84,34 +103,56 @@ public class GameFrame extends Application {
         Label pu1 = new Label();
         Label pu2 = new Label();
 
+        Circle damage1 = new Circle();
+        Circle damage2 = new Circle();
+        Circle damage3 = new Circle();
+        Circle damage4 = new Circle();
+        Circle damage5 = new Circle();
+        Circle damage6 = new Circle();
+        Circle damage7 = new Circle();
+        Circle damage8 = new Circle();
+        Circle damage9 = new Circle();
+        Circle damage10 = new Circle();
+        Circle damage11= new Circle();
+        Circle damage12 = new Circle();
+        List<Circle> damage= new LinkedList<>();
+        damage.add(damage1);
+        damage.add(damage2);
+        damage.add(damage3);
+        damage.add(damage4);
+        damage.add(damage5);
+        damage.add(damage6);
+        damage.add(damage7);
+        damage.add(damage8);
+        damage.add(damage9);
+        damage.add(damage10);
+        damage.add(damage11);
+        damage.add(damage12);
+
         //path of map image
         //TODO da eliminare
         InputStream pathSmall = getClass().getResourceAsStream("/img/SmallMap.png");
 
-        //path of PLayaboard image
-        final String pathDistruttoreBoard = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "img" + File.separatorChar + "DistruttoreBoard.png";
-
-        final String pathBackWeapon = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "img" + File.separatorChar + "RetroArmi.png";
-
-        final String pathMartelloIonico = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "img" + File.separatorChar + "MartelloIonico.png";
+        InputStream pathBackPu = getClass().getResourceAsStream("/img/RetroPu.png");
 
         //TODO modificare assegnazione path
         BackgroundImage myBI= new BackgroundImage(new Image(pathSmall,845,500,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
-        BackgroundImage myBIB = new BackgroundImage(new Image(new FileInputStream(pathDistruttoreBoard), 845, 190, false, true),
+        BackgroundImage myBIB = new BackgroundImage(new Image(pathDistruttoreBoard, 845, 190, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
-        BackgroundImage weaponBack = new BackgroundImage(new Image(new FileInputStream(pathBackWeapon), 110, 190, false, true),
+        BackgroundImage weaponBack = new BackgroundImage(new Image(pathBackWeapon, 110, 190, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
-        BackgroundImage weap1Img = new BackgroundImage(new Image(new FileInputStream(pathMartelloIonico), 110, 190, false, true),
+        BackgroundImage weap1Img = new BackgroundImage(new Image(pathMartelloIonico, 110, 190, false, true),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+
+        BackgroundImage puBack = new BackgroundImage(new Image(pathBackPu, 110, 190, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
@@ -299,6 +340,28 @@ public class GameFrame extends Application {
         pu2.setLayoutX(975);
         pu1.setLayoutY(0);
         pu2.setLayoutY(0);
+        pu1.setBackground(new Background(puBack));
+        pu2.setBackground(new Background(puBack));
+
+        //set damage
+        for (Circle c : damage){
+            //c.setVisible(false);
+            c.setRadius(15);
+            c.setLayoutY(95);
+            playerBoardPane.getChildren().add(c);
+        }
+        damage1.setLayoutX(95);
+        damage2.setLayoutX(damage1.getLayoutX()+50);
+        damage3.setLayoutX(damage2.getLayoutX()+50);
+        damage4.setLayoutX(damage3.getLayoutX()+45);
+        damage5.setLayoutX(damage4.getLayoutX()+45);
+        damage6.setLayoutX(damage5.getLayoutX()+50);
+        damage7.setLayoutX(damage6.getLayoutX()+50);
+        damage8.setLayoutX(damage7.getLayoutX()+50);
+        damage9.setLayoutX(damage8.getLayoutX()+50);
+        damage10.setLayoutX(damage9.getLayoutX()+50);
+        damage11.setLayoutX(damage10.getLayoutX()+45);
+        damage12.setLayoutX(damage11.getLayoutX()+45);
 
 
 
@@ -341,50 +404,75 @@ public class GameFrame extends Application {
         //set scene
         Scene scene = new Scene(mainPane, 1300, 700);
         stage.setScene(scene);
+    }
+
+    public void show(){
         stage.show();
     }
 
-    private String mapParser(int map) {
+    public void close(){
+        stage.close();
+    }
+
+    private InputStream mapParser(int map) {
         switch (map) {
             case 1:
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "SmallMap.png";
+                return getClass().getResourceAsStream("img" + File.separatorChar + "SmallMap.png");
             case 2:
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "MediumMap.png";
+                return getClass().getResourceAsStream("img" + File.separatorChar + "MediumMap.png");
             case 3:
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "BigMap.png";
+                return getClass().getResourceAsStream("img" + File.separatorChar + "BigMap.png");
             case 4:
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "ExtraLargeMap.png";
+                return getClass().getResourceAsStream("img" + File.separatorChar + "ExtraLargeMap.png");
             default:
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "SmallMap.png";
+                return getClass().getResourceAsStream("img" + File.separatorChar + "SmallMap.png");
         }
     }
 
-    private String boardParser(String board) {
+    private InputStream boardParser(String board) {
         switch (board) {
             case "Distruttore":
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "DistruttoreBoard.png";
+                return getClass().getResourceAsStream("img" + File.separatorChar + "DistruttoreBoard.png");
             case "Sprog":
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "SprogBoard.png";
+                return getClass().getResourceAsStream("img" + File.separatorChar + "SprogBoard.png");
             case "Dozer":
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "DozerBoard.png";
+                return getClass().getResourceAsStream("img" + File.separatorChar + "DozerBoard.png");
             case "Violeta":
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "ViolettaBoard.png";
+                return getClass().getResourceAsStream("img" + File.separatorChar + "ViolettaBoard.png");
             case "Banshee":
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "BansheeBoard.png";
+                return getClass().getResourceAsStream("img" + File.separatorChar + "BansheeBoard.png");
             default:
-                return "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                        + File.separatorChar + "img" + File.separatorChar + "DistruttoreBoard.png";
+                return getClass().getResourceAsStream("img" + File.separatorChar + "DistruttoreBoard.png");
         }
     }
 
+    @Override
+    public void onMapChange(Match m) {
+
+    }
+
+    @Override
+    public void notify(String message) {
+
+    }
+
+    @Override
+    public void onHpChange(Player damagePlayer) {
+
+    }
+
+    @Override
+    public void onMarksChange(Player markedPlayer) {
+
+    }
+
+    @Override
+    public void onAmmoChange(Player p) {
+
+    }
+
+    @Override
+    public void onPowerUpChange(Player p) {
+
+    }
 }

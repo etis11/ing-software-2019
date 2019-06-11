@@ -2,7 +2,6 @@ package gui;
 
 import controller.CommandContainer;
 import controller.commandpack.*;
-import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,38 +22,39 @@ import view.ClientSingleton;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.rmi.RemoteException;
 
-public class LobbyFrame extends Application {
+public class LobbyFrame {
     final int buttonWidth = 75;
     private CommandContainer cmdLauncher;
+    private Stage stage;
 
-    public void init(CommandContainer cmd) {
+    final InputStream pathDistruttore = getClass().getResourceAsStream( "img" + File.separatorChar + "Distruttore.PNG");
+    final InputStream pathBanshee = getClass().getResourceAsStream( "img" + File.separatorChar + "Banshee.PNG");
+    final InputStream pathDozer = getClass().getResourceAsStream( "img" + File.separatorChar + "Dozer.PNG");
+    final InputStream pathSprog = getClass().getResourceAsStream( "img" + File.separatorChar + "Sprog.PNG");
+    final InputStream pathVioletta = getClass().getResourceAsStream( "img" + File.separatorChar + "Violetta.PNG");
+
+    public LobbyFrame(CommandContainer cmd) {
         this.cmdLauncher = cmd;
+        this.stage = new Stage();
+        generate();
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
+
+    private void generate(){
         stage.setTitle("Adrenalina - Lobby d'attesa");
         stage.setResizable(false);
 
         //path of button image
-        final String pathDistruttore = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "img" + File.separatorChar + "Distruttore.PNG";
-        final String pathBanshee = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "img" + File.separatorChar + "Banshee.PNG";
-        final String pathDozer = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "img" + File.separatorChar + "Dozer.PNG";
-        final String pathSprog = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "img" + File.separatorChar + "Sprog.PNG";
-        final String pathVioletta = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "img" + File.separatorChar + "Violetta.PNG";
 
-        Image imageDistruttore = new Image(new FileInputStream(pathDistruttore), 75, 75, false, true);
-        Image imageBanshee = new Image(new FileInputStream(pathBanshee), 75, 75, false, true);
-        Image imageDozer = new Image(new FileInputStream(pathDozer), 75, 75, false, true);
-        Image imageSprog = new Image(new FileInputStream(pathSprog), 75, 75, false, true);
-        Image imageVioletta = new Image(new FileInputStream(pathVioletta), 75, 75, false, true);
+
+        Image imageDistruttore = new Image(pathDistruttore, 75, 75, false, true);
+        Image imageBanshee = new Image(pathBanshee, 75, 75, false, true);
+        Image imageDozer = new Image(pathDozer, 75, 75, false, true);
+        Image imageSprog = new Image(pathSprog, 75, 75, false, true);
+        Image imageVioletta = new Image(pathVioletta, 75, 75, false, true);
 
 
         Button buttonPlayer1 = new Button();
@@ -306,10 +306,9 @@ public class LobbyFrame extends Application {
 
 
         //path of background image
-        final String path = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "img" + File.separatorChar + "Adrenalina.PNG";
+        final InputStream pathAdreanline = getClass().getResourceAsStream("img" + File.separatorChar + "Adrenalina.PNG");
 
-        BackgroundImage myBI = new BackgroundImage(new Image(new FileInputStream(path), 1000, 600, false, true),
+        BackgroundImage myBI = new BackgroundImage(new Image(pathAdreanline, 1000, 600, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
@@ -334,7 +333,15 @@ public class LobbyFrame extends Application {
         box.getChildren().add(comboBox);
 
         stage.setScene(new Scene(box, 1000, 600));
+
+    }
+
+    public void show(){
         stage.show();
+    }
+
+    public void close(){
+        stage.close();
     }
 
     private boolean checkUsername(String username) {
