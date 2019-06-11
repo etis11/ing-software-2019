@@ -7,8 +7,5 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="ing-sw-2019-44" scope="TEST" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.4.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.openjfx:javafx-graphics:win:12" level="project" />
   </component>
 </module>
