@@ -13,9 +13,9 @@ public class BloodToken {
     private Player owner;
 
     /**
-     * The constructor of BloodTOken
+     * The constructor of BloodToken
      *
-     * @param p is used to choose the actual plauyer during the turn.
+     * @param p is used to choose the actual player during the turn.
      *          This way the owner of the blood tokens becomes the player whose turn is
      */
     public BloodToken(Player p) {
