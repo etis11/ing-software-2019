@@ -13,7 +13,7 @@ public class OptionalEffect {
     private boolean activated;
     private boolean canMoveShooter;
     private int shooterSteps;
-    private boolean ShooterAlreadyMoved;
+    private boolean shooterAlreadyMoved;
 
 
     public Map<String, Integer> getAdditionalDamage() {
@@ -45,10 +45,10 @@ public class OptionalEffect {
     }
 
     public boolean hasShooterAlreadyMoved() {
-        return ShooterAlreadyMoved;
+        return shooterAlreadyMoved;
     }
 
     public void setShooterAlreadyMoved(boolean alreadyMoved) {
-        this.ShooterAlreadyMoved = alreadyMoved;
+        this.shooterAlreadyMoved = alreadyMoved;
     }
 }

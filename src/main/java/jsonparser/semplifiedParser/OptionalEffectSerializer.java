@@ -30,6 +30,8 @@ public class OptionalEffectSerializer implements JsonSerializer<OptionalEffect> 
 
         jsonOptionalEffect.addProperty("canMoveShooter", optionalEffect.canShooterMove());
         jsonOptionalEffect.addProperty("shooterSteps", optionalEffect.getShooterSteps());
+        jsonOptionalEffect.addProperty("shooterAlreadyMoved", optionalEffect.hasShooterAlreadyMoved());
 
+        return jsonOptionalEffect;
     }
 }
