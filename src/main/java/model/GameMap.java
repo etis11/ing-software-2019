@@ -20,6 +20,9 @@ public class GameMap {
 
     private static final Logger LOGGER = Logger.getLogger(GameMap.class.getName());
     private Graph graph;
+
+
+    private static  String filePath;
     /**
      * List of the rooms in the GameMap
      */
@@ -318,7 +321,13 @@ public class GameMap {
         }
         return g;
     }*/
+public static String getFilePath() {
+    return filePath;
+}
 
+    public static void setFilePath(String filePath) {
+        GameMap.filePath = filePath;
+    }
     public void createGraph() {
         this.graph = new Graph();
         int idEdge = 1;
@@ -345,6 +354,7 @@ public class GameMap {
                     idEdge = idEdge + 1;
                     //System.out.println(" done g.addEdge(tile,adjacent) "+adjacent.getID());
                 }
+
             }
         }
 

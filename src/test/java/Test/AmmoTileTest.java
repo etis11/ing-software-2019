@@ -1,8 +1,8 @@
 package Test;
 
-import model.AmmoCard;
-import model.Tile;
-import model.WeaponCard;
+import model.*;
+import model.clientModel.SemplifiedMap;
+import model.clientModel.SemplifiedTile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -108,6 +108,12 @@ public class AmmoTileTest {
     @Test
     void tryToPickUpWeapon() {
         WeaponCard w = new WeaponCard();
+        SemplifiedTile semplifiedTile = new SemplifiedTile(1,false,false);
+        Match match = new Match();
+        GameMap map = GameMap.loadMap("maps/map4.json");
+        match.setMap(map);
+        SemplifiedMap semplifiedMap = new SemplifiedMap();
+        System.out.println(semplifiedMap.toString());
         assertThrows(Exception.class, () -> tile.pickUpWeaponCard(w), () -> "ERROR:Should throw an exception because it's not a weapon tile");
     }
 

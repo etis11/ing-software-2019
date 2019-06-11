@@ -5,9 +5,9 @@ LEGENDA
 # = parzialmente fatto
 X = da fare
 
-1) modello semplificato etis
-2) serializzazione e deserializzazione oscar
-3) mappa di gioco sulla gui passoni
+1) # modello semplificato etis
+2) # serializzazione e deserializzazione oscar
+3) *mappa di gioco sulla gui passoni -- teniamo solo la mappa?
 4) finire comandi passoni
 5) mappa, player e player board sulla CLI etis
 6) json delle ammo card etis

@@ -1,6 +1,8 @@
 package model.clientModel;
 
+import model.PlayerBoard;
 import model.PowerUpCard;
+import model.Tile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -85,7 +87,11 @@ public class SemplifiedPlayer {
 
     @Override
     public String toString() {
-        return "stringa del player";
+        return "Giocatore: " + name
+                +"posizionato in : "+tile
+                +"con marks: "+ playerBoard.getMarksTokens().size()
+                +"con damagePoints : "+ playerBoard.getDamageTokens().size();
+
     }
 
 

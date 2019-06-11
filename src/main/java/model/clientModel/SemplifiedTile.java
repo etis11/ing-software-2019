@@ -10,9 +10,9 @@ public class SemplifiedTile {
     private final int id;
     private final boolean ammoTile;
     private final boolean weaponTile;
-    private List<Player> players;
+    private List<SemplifiedPlayer> players;
     private AmmoCard ammoCard;
-    private List<WeaponCard> weaponCards;
+    private List<SemplifiedWeaponCard> weaponCards;
 
     public SemplifiedTile(int id, boolean ammoTile, boolean weaponTile) {
         this.id = id;
@@ -20,5 +20,28 @@ public class SemplifiedTile {
         this.weaponTile = weaponTile;
     }
 
+    @Override
+    public String toString() {
+
+        String weaponCardsString = "";
+        if(this.weaponCards !=null && this.weaponCards.size()>0){
+            for(SemplifiedWeaponCard weaponCard : this.weaponCards){
+                weaponCardsString= weaponCardsString +" "+weaponCard.toString();
+            }
+        }
+
+
+        String playersString = "";
+        if(this.players !=null && this.players.size()>0){
+            for(SemplifiedPlayer player : this.players){
+                playersString= playersString+" "+player.getName();
+            }
+        }
+        return "SemplifiedTile{" +
+                "id=" + id +
+                " , players=" + playersString +
+                ", weaponCards=" + weaponCardsString +
+                '}';
+    }
 
 }

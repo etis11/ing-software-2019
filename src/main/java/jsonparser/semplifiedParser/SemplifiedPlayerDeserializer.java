@@ -66,7 +66,6 @@ public class SemplifiedPlayerDeserializer implements JsonDeserializer<Semplified
         playerBoard.setNumBlueAmmo(jsonPlayerBoard.get("numBlueAmmo").getAsInt());
         playerBoard.setNumRedAmmo(jsonPlayerBoard.get("numRedAmmo").getAsInt());
         playerBoard.setNumYellowAmmo(jsonPlayerBoard.get("numYellowAmmo").getAsInt());
-
         return null;
     }
 }
