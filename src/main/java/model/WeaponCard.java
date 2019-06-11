@@ -52,11 +52,11 @@ public class WeaponCard {
     public WeaponCard(WeaponCard ref) {
         super();
         if (ref != null) {
-            this.baseEffect = null;
-            this.advancedEffect = null;
+            this.baseEffect =ref.getBaseEffect();
+            this.advancedEffect =ref.getAdvancedEffect();
             this.loaded = ref.loaded;
             this.name = String.valueOf(ref.getName());
-            this.reloadCost = new LinkedList<>();
+            this.reloadCost = (ref.getReloadCost());
         }
 
     }
@@ -133,7 +133,6 @@ Method used to set an advanced effect
             throw new InsufficientAmmoException("you don't have ammo");
         }
     }
-
     /**
      * The following method is used to return the number of blue ammo that needed for the WeaponCard to be used
      * Each weaponCard has its own cost based on ammo
@@ -235,6 +234,8 @@ Method used to set an advanced effect
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("WeapondCard{name: ");
         stringBuilder.append(this.name);
+        stringBuilder.append(", reloadCost: ");
+        stringBuilder.append(reloadCost);
         stringBuilder.append("}");
         return stringBuilder.toString();
 //        return "WeaponCard{" +

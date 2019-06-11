@@ -60,8 +60,11 @@ public class WeaponCardSerializer implements JsonSerializer<WeaponCard> {
 
     public void serializeWeaponCard(WeaponCard weaponCard, JsonObject jsonWeaponCard, JsonSerializationContext jsonSerializationContext) {
         jsonWeaponCard.addProperty("name", weaponCard.getName());
+        System.out.println(weaponCard);
 
         final JsonElement weaponCost = jsonSerializationContext.serialize(weaponCard.getReloadCost().toArray(new String[0]), String[].class);
+        System.out.println("weapon cost" + weaponCost);
+        System.out.println("reload cost" + weaponCard.getReloadCost());
         jsonWeaponCard.add("cost", weaponCost);
 
         jsonWeaponCard.addProperty("loaded", weaponCard.isLoaded());
