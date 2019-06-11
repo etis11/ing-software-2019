@@ -123,9 +123,7 @@ public class JsonCreatorTest {
             List<String> cost = new LinkedList<>();
             cost.add("yellow");
             broccolator.setReloadCost(cost);
-            System.out.println("broccolator prima di pickupparlo " + broccolator);
             pinotto.pickUpWeapon(broccolator);
-            System.out.println("Broccolator dopo il pick up " + pinotto.getWeapons());
             gigino.pickUpWeapon(w);
             w.setLoaded(true);
             t2.putWeaponCard(weaponCards.get(1));
@@ -138,7 +136,6 @@ public class JsonCreatorTest {
         jsonCreator.notifyPlayerChange(pinotto);
         jsonCreator.notifyTileChange(t);
         jsonCreator.notifyTileChange(t2);
-        System.out.println("in the test " + w.getReloadCost());
 
         System.out.println(jsonCreator.createTargetPlayerJson("Apelle figlio di apollo", pinotto));
     }
