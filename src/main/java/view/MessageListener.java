@@ -6,5 +6,4 @@ package view;
 public interface MessageListener {
 
     void notify(String message);
-
 }

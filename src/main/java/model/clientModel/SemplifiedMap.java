@@ -4,8 +4,8 @@ import view.AnsiColor;
 
 
 public class SemplifiedMap {
-
     private SemplifiedTile[][] map;
+
 
 
     public static String hash1 = "╔══════════╦══════════╦══════════╦══════════╗\n" +
