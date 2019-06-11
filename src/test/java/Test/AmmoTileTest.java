@@ -112,7 +112,7 @@ public class AmmoTileTest {
         Match match = new Match();
         GameMap map = GameMap.loadMap("maps/map4.json");
         match.setMap(map);
-        SemplifiedMap semplifiedMap = new SemplifiedMap(match);
+        SemplifiedMap semplifiedMap = new SemplifiedMap();
         System.out.println(semplifiedMap.toString());
         assertThrows(Exception.class, () -> tile.pickUpWeaponCard(w), () -> "ERROR:Should throw an exception because it's not a weapon tile");
     }
