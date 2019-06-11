@@ -71,6 +71,6 @@ public class WeaponCardSerializer implements JsonSerializer<WeaponCard> {
         jsonWeaponCard.add("baseEffect", baseEffects);
 
         final JsonElement advancedEffects = jsonSerializationContext.serialize(weaponCard.getAdvancedEffect(), Effect[].class);
-        jsonWeaponCard.add("baseEffect", advancedEffects);
+        jsonWeaponCard.add("advancedEffect", advancedEffects);
     }
 }
