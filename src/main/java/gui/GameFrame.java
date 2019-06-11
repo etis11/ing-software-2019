@@ -21,6 +21,7 @@ import view.ClientSingleton;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.rmi.RemoteException;
 
 public class GameFrame extends Application {
@@ -80,10 +81,12 @@ public class GameFrame extends Application {
         Label weapon2 = new Label();
         Label weapon3 = new Label();
 
+        Label pu1 = new Label();
+        Label pu2 = new Label();
+
         //path of map image
         //TODO da eliminare
-        final String pathSmall = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "img" + File.separatorChar + "SmallMap.png";
+        InputStream pathSmall = getClass().getResourceAsStream("/img/SmallMap.png");
 
         //path of PLayaboard image
         final String pathDistruttoreBoard = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
@@ -96,7 +99,7 @@ public class GameFrame extends Application {
                 + File.separatorChar + "img" + File.separatorChar + "MartelloIonico.png";
 
         //TODO modificare assegnazione path
-        BackgroundImage myBI = new BackgroundImage(new Image(new FileInputStream(pathSmall), 845, 500, false, true),
+        BackgroundImage myBI= new BackgroundImage(new Image(pathSmall,845,500,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
@@ -242,10 +245,22 @@ public class GameFrame extends Application {
                 weapon1.setVisible(true);
                 weapon2.setVisible(true);
                 weapon3.setVisible(true);
+                pu1.setVisible(false);
+                pu2.setVisible(false);
             }
         });
 
         showPowerUp.setMinWidth(buttonWidth);
+        showPowerUp.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                weapon1.setVisible(false);
+                weapon2.setVisible(false);
+                weapon3.setVisible(false);
+                pu1.setVisible(true);
+                pu2.setVisible(true);
+            }
+        });
 
         //setting gamelog
         gameLog.getChildren().add(infoGame);
@@ -272,6 +287,19 @@ public class GameFrame extends Application {
         weapon1.setLayoutY(5);
         weapon2.setLayoutY(5);
         weapon3.setLayoutY(5);
+        pu1.setVisible(false);
+        pu2.setVisible(false);
+        pu1.setBorder(border);
+        pu2.setBorder(border);
+        pu1.setMinWidth(110);
+        pu1.setMinHeight(190);
+        pu2.setMinWidth(110);
+        pu2.setMinHeight(190);
+        pu1.setLayoutX(860);
+        pu2.setLayoutX(975);
+        pu1.setLayoutY(0);
+        pu2.setLayoutY(0);
+
 
 
         //setting buttonpane
@@ -291,6 +319,9 @@ public class GameFrame extends Application {
         playerBoardPane.getChildren().add(weapon1);
         playerBoardPane.getChildren().add(weapon2);
         playerBoardPane.getChildren().add(weapon3);
+        playerBoardPane.getChildren().add(pu1);
+        playerBoardPane.getChildren().add(pu2);
+
 
         //setting position of pane
         buttonPane.setSpacing(10);
