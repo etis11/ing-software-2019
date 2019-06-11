@@ -4,5 +4,5 @@ import model.Tile;
 
 public class SemplifiedMap {
 
-    private Tile[][] map;
+    private SemplifiedTile[][] map;
 }

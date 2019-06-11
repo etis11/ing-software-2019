@@ -1,5 +1,6 @@
 package Test;
 
+import javafx.scene.paint.Color;
 import jsonparser.JsonFileReader;
 import jsonparser.WeaponCardDeserializer;
 import model.*;
@@ -110,6 +111,7 @@ public class JsonCreatorTest {
         Tile t = new Tile(null, null, null, null, true, false);
         Tile t2 = new Tile(null, null, null, null, false, true);
         t2.setID(1);
+        PowerUpCard pc = new PowerUpCard(Color.RED, PowerUpType.NEWTON);
         JsonFileReader jsonFileReader = new JsonFileReader();
         String cards = jsonFileReader.loadWeaponCards("cards/cards.json");
         Match match = new Match();
@@ -124,6 +126,7 @@ public class JsonCreatorTest {
             cost.add("yellow");
             broccolator.setReloadCost(cost);
             pinotto.pickUpWeapon(broccolator);
+            pinotto.pickUpPowerUp(pc);
             gigino.pickUpWeapon(w);
             w.setLoaded(true);
             t2.putWeaponCard(weaponCards.get(1));

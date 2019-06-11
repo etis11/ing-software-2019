@@ -10,9 +10,9 @@ public class SemplifiedTile {
     private final int id;
     private final boolean ammoTile;
     private final boolean weaponTile;
-    private List<Player> players;
+    private List<SemplifiedPlayer> players;
     private AmmoCard ammoCard;
-    private List<WeaponCard> weaponCards;
+    private List<SemplifiedWeaponCard> weaponCards;
 
     public SemplifiedTile(int id, boolean ammoTile, boolean weaponTile) {
         this.id = id;
