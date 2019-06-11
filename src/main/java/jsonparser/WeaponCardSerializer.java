@@ -70,10 +70,13 @@ public class WeaponCardSerializer implements JsonSerializer<WeaponCard> {
         jsonWeaponCard.addProperty("loaded", weaponCard.isLoaded());
 
         //no need to know how to serialize an effect, gson is already able to do it, since the strategies are transient
-        final JsonElement baseEffects = jsonSerializationContext.serialize(weaponCard.getBaseEffect(), Effect[].class);
+        System.out.println(weaponCard.getBaseEffect());
+        final JsonElement baseEffects = jsonSerializationContext.serialize(
+                weaponCard.getBaseEffect().toArray(new Effect[0]), Effect[].class);
         jsonWeaponCard.add("baseEffect", baseEffects);
 
-        final JsonElement advancedEffects = jsonSerializationContext.serialize(weaponCard.getAdvancedEffect(), Effect[].class);
+        final JsonElement advancedEffects = jsonSerializationContext.serialize(
+                weaponCard.getAdvancedEffect().toArray(new Effect[0]), Effect[].class);
         jsonWeaponCard.add("advancedEffect", advancedEffects);
     }
 }
