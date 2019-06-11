@@ -37,8 +37,7 @@ public class MainFrame{
     private final InputStream pathAdrenaline = getClass().getResourceAsStream("img" + File.separatorChar + "Adrenalina.PNG");
 
 
-    public MainFrame(CommandLauncher cmd) {
-        this.cmdLauncher = cmd;
+    public MainFrame() {
         this.stage = new Stage();
         generate();
     }

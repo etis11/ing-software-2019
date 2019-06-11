@@ -29,6 +29,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,18 +42,21 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private InputStream boardPath;
     private Stage stage;
 
-    final String pathDistruttoreBoard = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-            + File.separatorChar + "img" + File.separatorChar + "DistruttoreBoard.png";
+    private final InputStream pathBackWeapon = getClass().getResourceAsStream("/img/RetroArmi.png");
+    private final InputStream pathBackPu = getClass().getResourceAsStream("/img/RetroPu.png");
+    private final InputStream pathMartelloIonico = getClass().getResourceAsStream("/img/MartelloIonico.png");
 
-    final String pathBackWeapon = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-            + File.separatorChar + "img" + File.separatorChar + "RetroArmi.png";
-
-    final String pathMartelloIonico = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-            + File.separatorChar + "img" + File.separatorChar + "MartelloIonico.png";
+    private List<Color> color;
 
     public GameFrame(CommandContainer cmd, String board, int map) {
         this.cmdLauncher = cmd;
         this.mapPath = mapParser(map);
+        this.color = new ArrayList<>();
+        this.color.add(Color.GREY);
+        this.color.add(Color.YELLOW);
+        this.color.add(Color.BLUEVIOLET);
+        this.color.add(Color.DARKGREEN);
+        this.color.add(Color.TEAL);
         this.boardPath = boardParser(board);
         stage = new Stage();
         generate();
@@ -83,6 +87,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         Button pointsButton = new Button("Punti");
         Button showWeapon = new Button("Mostra Armi");
         Button showPowerUp = new Button("Mostra PU");
+        Button showPlBoard = new Button("Mostra PB");
 
         infoGame.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         infoGame.setMaxWidth(300);
@@ -115,7 +120,12 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         Circle damage10 = new Circle();
         Circle damage11= new Circle();
         Circle damage12 = new Circle();
+        Circle mark1 = new Circle();
+        Circle mark2 = new Circle();
+        Circle mark3 = new Circle();
+        Circle mark4 = new Circle();
         List<Circle> damage= new LinkedList<>();
+        List<Circle> mark= new LinkedList<>();
         damage.add(damage1);
         damage.add(damage2);
         damage.add(damage3);
@@ -128,19 +138,17 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         damage.add(damage10);
         damage.add(damage11);
         damage.add(damage12);
+        mark.add(mark1);
+        mark.add(mark2);
+        mark.add(mark3);
+        mark.add(mark4);
 
-        //path of map image
-        //TODO da eliminare
-        InputStream pathSmall = getClass().getResourceAsStream("/img/SmallMap.png");
-
-        InputStream pathBackPu = getClass().getResourceAsStream("/img/RetroPu.png");
-
-        //TODO modificare assegnazione path
-        BackgroundImage myBI= new BackgroundImage(new Image(pathSmall,845,500,false,true),
+        //setting background image
+        BackgroundImage myBI= new BackgroundImage(new Image(mapPath,845,500,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
-        BackgroundImage myBIB = new BackgroundImage(new Image(pathDistruttoreBoard, 845, 190, false, true),
+        BackgroundImage myBIB = new BackgroundImage(new Image(boardPath, 845, 190, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
@@ -322,12 +330,12 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         weapon2.setMinHeight(190);
         weapon3.setMinWidth(110);
         weapon3.setMinHeight(190);
-        weapon1.setLayoutX(850);
-        weapon2.setLayoutX(965);
-        weapon3.setLayoutX(1080);
-        weapon1.setLayoutY(5);
-        weapon2.setLayoutY(5);
-        weapon3.setLayoutY(5);
+        weapon1.setLayoutX(860);
+        weapon2.setLayoutX(975);
+        weapon3.setLayoutX(1090);
+        weapon1.setLayoutY(0);
+        weapon2.setLayoutY(0);
+        weapon3.setLayoutY(0);
         pu1.setVisible(false);
         pu2.setVisible(false);
         pu1.setBorder(border);
@@ -348,6 +356,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
             //c.setVisible(false);
             c.setRadius(15);
             c.setLayoutY(95);
+            c.setStroke(Color.BLACK);
             playerBoardPane.getChildren().add(c);
         }
         damage1.setLayoutX(95);
@@ -355,14 +364,28 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         damage3.setLayoutX(damage2.getLayoutX()+50);
         damage4.setLayoutX(damage3.getLayoutX()+45);
         damage5.setLayoutX(damage4.getLayoutX()+45);
-        damage6.setLayoutX(damage5.getLayoutX()+50);
-        damage7.setLayoutX(damage6.getLayoutX()+50);
-        damage8.setLayoutX(damage7.getLayoutX()+50);
-        damage9.setLayoutX(damage8.getLayoutX()+50);
+        damage6.setLayoutX(damage5.getLayoutX()+55);
+        damage7.setLayoutX(damage6.getLayoutX()+45);
+        damage8.setLayoutX(damage7.getLayoutX()+45);
+        damage9.setLayoutX(damage8.getLayoutX()+45);
         damage10.setLayoutX(damage9.getLayoutX()+50);
-        damage11.setLayoutX(damage10.getLayoutX()+45);
+        damage11.setLayoutX(damage10.getLayoutX()+50);
         damage12.setLayoutX(damage11.getLayoutX()+45);
-
+        for (Circle c : mark){
+            //c.setVisible(false);
+            c.setRadius(15);
+            c.setLayoutY(20);
+            c.setStroke(Color.BLACK);
+            playerBoardPane.getChildren().add(c);
+        }
+        mark1.setLayoutX(450);
+        mark2.setLayoutX(mark1.getLayoutX()+40);
+        mark3.setLayoutX(mark2.getLayoutX()+40);
+        mark4.setLayoutX(mark3.getLayoutX()+40);
+        mark1.setFill(color.get(0));
+        mark2.setFill(color.get(1));
+        mark3.setFill(color.get(2));
+        mark4.setFill(color.get(3));
 
 
         //setting buttonpane
@@ -375,6 +398,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         buttonPane.getChildren().add(pointsButton);
         buttonPane.getChildren().add(showWeapon);
         buttonPane.getChildren().add(showPowerUp);
+        buttonPane.getChildren().add(showPlBoard);
 
         playerBoardPane.getChildren().add(blueAmmmo);
         playerBoardPane.getChildren().add(redAmmmo);
@@ -417,32 +441,38 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private InputStream mapParser(int map) {
         switch (map) {
             case 1:
-                return getClass().getResourceAsStream("img" + File.separatorChar + "SmallMap.png");
+                return getClass().getResourceAsStream("/img/SmallMap.png");
             case 2:
-                return getClass().getResourceAsStream("img" + File.separatorChar + "MediumMap.png");
+                return getClass().getResourceAsStream("/img/MediumMap.png");
             case 3:
-                return getClass().getResourceAsStream("img" + File.separatorChar + "BigMap.png");
+                return getClass().getResourceAsStream("/img/LargeMap.png");
             case 4:
-                return getClass().getResourceAsStream("img" + File.separatorChar + "ExtraLargeMap.png");
+                return getClass().getResourceAsStream("/img/ExtraLargeMap.png");
             default:
-                return getClass().getResourceAsStream("img" + File.separatorChar + "SmallMap.png");
+                return getClass().getResourceAsStream("/img/SmallMap.png");
         }
     }
 
     private InputStream boardParser(String board) {
         switch (board) {
             case "Distruttore":
-                return getClass().getResourceAsStream("img" + File.separatorChar + "DistruttoreBoard.png");
+                color.remove(1);
+                return getClass().getResourceAsStream("/img/DistruttoreBoard.png");
             case "Sprog":
-                return getClass().getResourceAsStream("img" + File.separatorChar + "SprogBoard.png");
+                color.remove(3);
+                return getClass().getResourceAsStream("/img/SprogBoard.png");
             case "Dozer":
-                return getClass().getResourceAsStream("img" + File.separatorChar + "DozerBoard.png");
+                color.remove(0);
+                return getClass().getResourceAsStream("/img/DozerBoard.png");
             case "Violeta":
-                return getClass().getResourceAsStream("img" + File.separatorChar + "ViolettaBoard.png");
+                color.remove(2);
+                return getClass().getResourceAsStream("/img/ViolettaBoard.png");
             case "Banshee":
-                return getClass().getResourceAsStream("img" + File.separatorChar + "BansheeBoard.png");
+                color.remove(4);
+                return getClass().getResourceAsStream("/img/BansheeBoard.png");
             default:
-                return getClass().getResourceAsStream("img" + File.separatorChar + "DistruttoreBoard.png");
+                color.remove(1);
+                return getClass().getResourceAsStream("/img/DistruttoreBoard.png");
         }
     }
 
