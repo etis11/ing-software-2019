@@ -9,7 +9,7 @@ import java.util.List;
 
 public class JsonCreator implements ChangesObserver {
 
-    private static transient boolean prettyPrinting = false;
+    private static transient boolean prettyPrinting = true;
     private final List<Player> changedPlayers = new LinkedList<>();
     private final List<Tile> changedTiles = new LinkedList<>();
     private transient final Gson gson;

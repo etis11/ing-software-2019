@@ -2,6 +2,7 @@ package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import model.clientModel.SemplifiedBloodToken;
 import model.clientModel.SemplifiedGame;
 
 public class JsonUnwrapper implements JsonReceiver {
@@ -18,7 +19,6 @@ public class JsonUnwrapper implements JsonReceiver {
     }
 
     @Override
-    public void sendJson(String changes) {
-        gson.fromJson(changes, SemplifiedGame.class);
+    public void sendJson(String changes) { gson.fromJson(changes, SemplifiedGame.class);
     }
 }
