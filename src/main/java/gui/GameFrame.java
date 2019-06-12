@@ -43,6 +43,8 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     final int ammoDimension = 30;
     final int buttonWidth = 100;
 
+    private PbFrame pbFrame;
+
     private CommandContainer cmdLauncher;
 
     private InputStream mapPath;
@@ -98,6 +100,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         this.players.add("Sprog");
         this.players.add("Banshee");
         this.boardPath = boardParser(board);
+        pbFrame = new PbFrame(this.players);
         stage = new Stage();
         generate();
     }
@@ -361,6 +364,12 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         });
 
         showPlBoard.setMinWidth(buttonWidth);
+        showPlBoard.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                pbFrame.show();
+            }
+        });
 
         //setting gamelog
         gameLog.getChildren().add(infoGame);

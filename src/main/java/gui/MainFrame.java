@@ -42,7 +42,7 @@ public class MainFrame{
         generate();
     }
 
-    public void generate(){
+    private void generate(){
 
         stage.setTitle("Adrenalina - the official game");
         stage.setResizable(false);
@@ -167,7 +167,6 @@ public class MainFrame{
         box.getChildren().add(info);
 
         stage.setScene(new Scene(box, 1000, 600));
-        stage.show();
     }
 
     public void show(){
