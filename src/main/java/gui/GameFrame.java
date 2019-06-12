@@ -18,8 +18,11 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import model.BloodToken;
+import model.DamageTransporter;
 import model.Match;
 import model.Player;
+import model.clientModel.SemplifiedMap;
 import view.ClientSingleton;
 import view.MapObserver;
 import view.MessageListener;
@@ -37,16 +40,35 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     final int ammoDimension = 30;
     final int buttonWidth = 100;
+
     private CommandContainer cmdLauncher;
+
     private InputStream mapPath;
     private InputStream boardPath;
+
     private Stage stage;
+    private StackPane mainPane;
+    private Pane gameLog;
+    private VBox buttonPane;
+    private Pane mapPane;
+    private Pane playerBoardPane;
+    private TextArea infoGame;
+
+    Label blueAmmmo;
+    Label redAmmmo;
+    Label yellowAmmmo;
+
+    private Circle mark1;
+    private Circle mark2;
+    private Circle mark3;
+    private Circle mark4;
 
     private final InputStream pathBackWeapon = getClass().getResourceAsStream("/img/RetroArmi.png");
     private final InputStream pathBackPu = getClass().getResourceAsStream("/img/RetroPu.png");
     private final InputStream pathMartelloIonico = getClass().getResourceAsStream("/img/MartelloIonico.png");
 
     private List<Color> color;
+    private List<String> players;
 
     public GameFrame(CommandContainer cmd, String board, int map) {
         this.cmdLauncher = cmd;
@@ -58,6 +80,12 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         this.color.add(Color.DARKGREEN);
         this.color.add(Color.TEAL);
         this.boardPath = boardParser(board);
+        this.players = new ArrayList<>();
+        this.players.add("Dozer");
+        this.players.add("Distruttore");
+        this.players.add("Violetta");
+        this.players.add("Sprog");
+        this.players.add("Banshee");
         stage = new Stage();
         generate();
     }
@@ -70,13 +98,13 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
         Border border = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT));
 
-        StackPane mainPane = new StackPane();
-        Pane gameLog = new Pane();
-        VBox buttonPane = new VBox();
-        Pane mapPane = new Pane();
-        Pane playerBoardPane = new Pane();
+        mainPane = new StackPane();
+        gameLog = new Pane();
+        buttonPane = new VBox();
+        mapPane = new Pane();
+        playerBoardPane = new Pane();
 
-        TextArea infoGame = new TextArea();
+        infoGame = new TextArea();
 
         Button walkButton = new Button("Spostati");
         Button pickButton = new Button("Raccogli");
@@ -97,9 +125,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         infoGame.setEditable(false);
         infoGame.setBorder(border);
 
-        Label blueAmmmo = new Label("1");
-        Label redAmmmo = new Label("1");
-        Label yellowAmmmo = new Label("1");
+        blueAmmmo = new Label("1");
+        redAmmmo = new Label("1");
+        yellowAmmmo = new Label("1");
 
         Label weapon1 = new Label();
         Label weapon2 = new Label();
@@ -120,10 +148,10 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         Circle damage10 = new Circle();
         Circle damage11= new Circle();
         Circle damage12 = new Circle();
-        Circle mark1 = new Circle();
-        Circle mark2 = new Circle();
-        Circle mark3 = new Circle();
-        Circle mark4 = new Circle();
+        mark1 = new Circle();
+        mark2 = new Circle();
+        mark3 = new Circle();
+        mark4 = new Circle();
         List<Circle> damage= new LinkedList<>();
         List<Circle> mark= new LinkedList<>();
         damage.add(damage1);
@@ -457,33 +485,54 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         switch (board) {
             case "Distruttore":
                 color.remove(1);
+                players.remove(1);
                 return getClass().getResourceAsStream("/img/DistruttoreBoard.png");
             case "Sprog":
                 color.remove(3);
+                players.remove(3);
                 return getClass().getResourceAsStream("/img/SprogBoard.png");
             case "Dozer":
                 color.remove(0);
+                players.remove(0);
                 return getClass().getResourceAsStream("/img/DozerBoard.png");
-            case "Violeta":
+            case "Violetta":
                 color.remove(2);
+                players.remove(2);
                 return getClass().getResourceAsStream("/img/ViolettaBoard.png");
             case "Banshee":
                 color.remove(4);
+                players.remove(4);
                 return getClass().getResourceAsStream("/img/BansheeBoard.png");
             default:
                 color.remove(1);
+                players.remove(1);
                 return getClass().getResourceAsStream("/img/DistruttoreBoard.png");
         }
     }
 
+    private Circle parseMark(int i){
+        switch(i){
+            case 0:
+                return mark1;
+            case 1:
+                return mark2;
+            case 2:
+                return mark3;
+            case 3:
+                return mark4;
+            default:
+                return mark1;
+        }
+    }
+
     @Override
-    public void onMapChange(Match m) {
+    public void onMapChange(SemplifiedMap map) {
 
     }
 
     @Override
     public void notify(String message) {
-
+        infoGame.appendText(message+"\n");
     }
 
     @Override
@@ -493,12 +542,24 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     @Override
     public void onMarksChange(Player markedPlayer) {
+        if (players.contains(markedPlayer.getName())){
+            List<BloodToken> marks = markedPlayer.getPlayerBoard().getDamageTokens();
+            for (BloodToken b : marks){
+                Circle toUpdate = parseMark(players.indexOf(b.getOwner().getName()));
+                toUpdate.setVisible(true);
+                toUpdate.setAccessibleText(""+Integer.parseInt(toUpdate.getAccessibleText())+1);
+            }
+        }
 
     }
 
     @Override
     public void onAmmoChange(Player p) {
-
+        if (!players.contains(p.getName())) {
+            blueAmmmo.setText(""+p.getPlayerBoard().getLoader().getNumBlueAmmo());
+            redAmmmo.setText(""+p.getPlayerBoard().getLoader().getNumRedAmmo());
+            yellowAmmmo.setText(""+p.getPlayerBoard().getLoader().getNumYellowAmmo());
+        }
     }
 
     @Override
