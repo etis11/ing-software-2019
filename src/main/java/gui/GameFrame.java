@@ -564,6 +564,55 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         }
     }
 
+    private InputStream weaponParser(String weapon) {
+        switch (weapon) {
+            case "CannoneVortex":
+                return getClass().getResourceAsStream("/img/CannoneVortex.png");
+            case "CyberGuanto":
+                return getClass().getResourceAsStream("/img/CyberGuanto.png");
+            case "Distruttore":
+                return getClass().getResourceAsStream("/img/DistruttoreWeap.png");
+            case "FalceProtonica":
+                return getClass().getResourceAsStream("/img/FalceProtonica.png");
+            case "FucileAlPlasma":
+                return getClass().getResourceAsStream("/img/FucileAlPlasma.png");
+            case "FucileAPompa":
+                return getClass().getResourceAsStream("/img/FucileAPompa.png");
+            case "FucileDiPrecisione":
+                return getClass().getResourceAsStream("/img/FucileDiPrecisione.png");
+            case "FucileLaser":
+                return getClass().getResourceAsStream("/img/FucileLaser.png");
+            case "LanciaFiamme":
+                return getClass().getResourceAsStream("/img/LanciaFiamme.png");
+            case "LanciaGranate":
+                return getClass().getResourceAsStream("/img/LanciaGranate.png");
+            case "LanciaRazzi":
+                return getClass().getResourceAsStream("/img/LanciaRazzi.png");
+            case "MartelloIonico":
+                return getClass().getResourceAsStream("/img/MartelloIonico.png");
+            case "Mitragliatrice":
+                return getClass().getResourceAsStream("/img/Mitragliatrice.png");
+            case "OndaDurto":
+                return getClass().getResourceAsStream("/img/OndaDurto.png");
+            case "RaggioSolare":
+                return getClass().getResourceAsStream("/img/RaggioSolare.png");
+            case "RaggioTraente":
+                return getClass().getResourceAsStream("/img/RaggioTraente.png");
+            case "RazzoTermico":
+                return getClass().getResourceAsStream("/img/RazzoTermico.png");
+            case "SpadaFotonica":
+                return getClass().getResourceAsStream("/img/SpadaFotonica.png");
+            case "Torpedine":
+                return getClass().getResourceAsStream("/img/Torpedine.png");
+            case "Vulcanizzatore":
+                return getClass().getResourceAsStream("/img/Vulcanizzatore.png");
+            case "ZxZ":
+                return getClass().getResourceAsStream("/img/ZxZ.png");
+            default:
+                return getClass().getResourceAsStream("/img/RetroArmi.png");
+        }
+    }
+
 
     @Override
     public void onMapChange(SemplifiedMap map) {
