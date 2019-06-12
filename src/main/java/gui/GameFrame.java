@@ -65,6 +65,11 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private Circle mark3;
     private Circle mark4;
 
+    private Label markT1;
+    private Label markT2;
+    private Label markT3;
+    private Label markT4;
+
 
     private final InputStream pathBackWeapon = getClass().getResourceAsStream("/img/RetroArmi.png");
     private final InputStream pathBackPu = getClass().getResourceAsStream("/img/RetroPu.png");
@@ -72,6 +77,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     private List<Color> color;
     private List<String> players;
+    private List<Label> marksT;
+    private List<Circle> damage= new LinkedList<>();
+    private List<Circle> mark= new LinkedList<>();
 
     public GameFrame(CommandContainer cmd, String board, int map) {
         this.cmdLauncher = cmd;
@@ -83,6 +91,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         this.color.add(Color.DARKGREEN);
         this.color.add(Color.TEAL);
         this.players = new ArrayList<>();
+        this.marksT = new ArrayList<>();
         this.players.add("Dozer");
         this.players.add("Distruttore");
         this.players.add("Violetta");
@@ -156,16 +165,12 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         mark2 = new Circle();
         mark3 = new Circle();
         mark4 = new Circle();
-        markT1 = new Text("0");
-        markT1.setBoundsType(TextBoundsType.VISUAL);
-        markT2 = new Text("0");
-        markT2.setBoundsType(TextBoundsType.VISUAL);
-        markT3 = new Text("0");
-        markT3.setBoundsType(TextBoundsType.VISUAL);
-        markT4 = new Text("0");
-        markT4.setBoundsType(TextBoundsType.VISUAL);
-        List<Circle> damage= new LinkedList<>();
-        List<Circle> mark= new LinkedList<>();
+        markT1 = new Label("0");
+        markT2 = new Label("0");
+        markT3 = new Label("0");
+        markT4 = new Label("0");
+        damage= new LinkedList<>();
+        mark= new LinkedList<>();
         damage.add(damage1);
         damage.add(damage2);
         damage.add(damage3);
@@ -182,6 +187,10 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         mark.add(mark2);
         mark.add(mark3);
         mark.add(mark4);
+        marksT.add(markT1);
+        marksT.add(markT2);
+        marksT.add(markT3);
+        marksT.add(markT4);
 
         //setting background image
         BackgroundImage myBI= new BackgroundImage(new Image(mapPath,845,500,false,true),
@@ -351,6 +360,8 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
             }
         });
 
+        showPlBoard.setMinWidth(buttonWidth);
+
         //setting gamelog
         gameLog.getChildren().add(infoGame);
 
@@ -393,7 +404,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
         //set damage
         for (Circle c : damage){
-            //c.setVisible(false);
+            c.setVisible(false);
             c.setRadius(15);
             c.setLayoutY(95);
             c.setStroke(Color.BLACK);
@@ -411,9 +422,8 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         damage10.setLayoutX(damage9.getLayoutX()+50);
         damage11.setLayoutX(damage10.getLayoutX()+50);
         damage12.setLayoutX(damage11.getLayoutX()+45);
-        for (int i = 0; i<mark.size(); i++){
-            Circle c = mark.get(i);
-            //c.setVisible(false);
+        for (Circle c : mark){
+            c.setVisible(false);
             c.setRadius(15);
             c.setLayoutY(20);
             c.setStroke(Color.BLACK);
@@ -427,6 +437,24 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         mark2.setFill(color.get(1));
         mark3.setFill(color.get(2));
         mark4.setFill(color.get(3));
+
+        //setting label for marks text
+        for(Label l : marksT){
+            l.setVisible(false);
+            l.setMaxHeight(15);
+            l.setMaxWidth(15);
+            l.setFont(Font.font("System Regular", FontWeight.BOLD, 15));
+            l.setLayoutY(mark1.getLayoutY()-10);
+        }
+        markT1.setBackground(new Background(new BackgroundFill(color.get(0), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT2.setBackground(new Background(new BackgroundFill(color.get(1), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT3.setBackground(new Background(new BackgroundFill(color.get(2), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT4.setBackground(new Background(new BackgroundFill(color.get(3), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT1.setLayoutX(mark1.getLayoutX()-5);
+        markT2.setLayoutX(mark2.getLayoutX()-5);
+        markT3.setLayoutX(mark3.getLayoutX()-5);
+        markT4.setLayoutX(mark4.getLayoutX()-5);
+
 
 
         //setting buttonpane
@@ -449,6 +477,10 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         playerBoardPane.getChildren().add(weapon3);
         playerBoardPane.getChildren().add(pu1);
         playerBoardPane.getChildren().add(pu2);
+        playerBoardPane.getChildren().add(markT1);
+        playerBoardPane.getChildren().add(markT2);
+        playerBoardPane.getChildren().add(markT3);
+        playerBoardPane.getChildren().add(markT4);
 
 
         //setting position of pane
@@ -523,20 +555,6 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         }
     }
 
-    private Circle parseMark(int i){
-        switch(i){
-            case 0:
-                return mark1;
-            case 1:
-                return mark2;
-            case 2:
-                return mark3;
-            case 3:
-                return mark4;
-            default:
-                return mark1;
-        }
-    }
 
     @Override
     public void onMapChange(SemplifiedMap map) {
@@ -550,17 +568,35 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     @Override
     public void onHpChange(Player damagePlayer) {
-
+        if (!players.contains(damagePlayer.getName())) {
+            for(Circle c :damage){
+                c.setVisible(false);
+            }
+            List<BloodToken> damageToken = damagePlayer.getPlayerBoard().getDamageTokens();
+            for (int i = 0; i<damageToken.size();i++){
+                int index = players.indexOf(damageToken.get(i).getOwner().getName());
+                damage.get(i).setFill(color.get(index));
+                damage.get(i).setVisible(true);
+            }
+        }
     }
 
     @Override
     public void onMarksChange(Player markedPlayer) {
-        if (players.contains(markedPlayer.getName())){
+        if (!players.contains(markedPlayer.getName())){
+            for(Circle c :mark){
+                c.setVisible(false);
+            }
+            for (Label l : marksT){
+                l.setText("0");
+                l.setVisible(false);
+            }
             List<BloodToken> marks = markedPlayer.getPlayerBoard().getDamageTokens();
             for (BloodToken b : marks){
-                Circle toUpdate = parseMark(players.indexOf(b.getOwner().getName()));
-                toUpdate.setVisible(true);
-                toUpdate.setAccessibleText(""+Integer.parseInt(toUpdate.getAccessibleText())+1);
+                int index = players.indexOf(b.getOwner().getName());
+                mark.get(index).setVisible(true);
+                marksT.get(index).setVisible(true);
+                marksT.get(index).setText(""+Integer.parseInt(marksT.get(index).getText())+1);
             }
         }
 
