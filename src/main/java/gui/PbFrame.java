@@ -35,10 +35,39 @@ public class PbFrame {
     private Circle damage12;
     private List<Circle> firstDamage;
 
+    private Circle damage13;
+    private Circle damage14;
+    private Circle damage15;
+    private Circle damage16;
+    private Circle damage17;
+    private Circle damage18;
+    private Circle damage19;
+    private Circle damage20;
+    private Circle damage21;
+    private Circle damage22;
+    private Circle damage23;
+    private Circle damage24;
+    private List<Circle> secondDamage;
+
+    private Circle damage25;
+    private Circle damage26;
+    private Circle damage27;
+    private Circle damage28;
+    private Circle damage29;
+    private Circle damage30;
+    private Circle damage31;
+    private Circle damage32;
+    private Circle damage33;
+    private Circle damage34;
+    private Circle damage35;
+    private Circle damage36;
+    private List<Circle> thirdDamage;
+
     public PbFrame(List<String> players) {
         this.stage = new Stage();
         this.players = players;
         this.firstDamage = new ArrayList<>();
+        this.secondDamage = new ArrayList<>();
         generate();
     }
 
@@ -54,7 +83,7 @@ public class PbFrame {
         damage1 = new Circle();
         damage2 = new Circle();
         damage3 = new Circle();
-         damage4 = new Circle();
+        damage4 = new Circle();
         damage5 = new Circle();
         damage6 = new Circle();
         damage7 = new Circle();
@@ -92,8 +121,52 @@ public class PbFrame {
         damage8.setLayoutX(damage7.getLayoutX()+44);
         damage9.setLayoutX(damage8.getLayoutX()+44);
         damage10.setLayoutX(damage9.getLayoutX()+45);
-        damage11.setLayoutX(damage10.getLayoutX()+45);
-        damage12.setLayoutX(damage11.getLayoutX()+40);
+        damage11.setLayoutX(damage10.getLayoutX()+49);
+        damage12.setLayoutX(damage11.getLayoutX()+44);
+
+        damage13 = new Circle();
+        damage14 = new Circle();
+        damage15 = new Circle();
+        damage16 = new Circle();
+        damage17 = new Circle();
+        damage18 = new Circle();
+        damage19 = new Circle();
+        damage20 = new Circle();
+        damage21 = new Circle();
+        damage22 = new Circle();
+        damage23= new Circle();
+        damage24 = new Circle();
+        secondDamage.add(damage13);
+        secondDamage.add(damage14);
+        secondDamage.add(damage15);
+        secondDamage.add(damage16);
+        secondDamage.add(damage17);
+        secondDamage.add(damage18);
+        secondDamage.add(damage19);
+        secondDamage.add(damage20);
+        secondDamage.add(damage21);
+        secondDamage.add(damage22);
+        secondDamage.add(damage23);
+        secondDamage.add(damage24);
+        for (Circle c: secondDamage){
+//            c.setVisible(false);
+            c.setRadius(12);
+            c.setLayoutY(90);
+            c.setStroke(Color.BLACK);
+            pb2.getChildren().add(c);
+        }
+        damage13.setLayoutX(damage1.getLayoutX());
+        damage14.setLayoutX(damage2.getLayoutX());
+        damage15.setLayoutX(damage3.getLayoutX());
+        damage16.setLayoutX(damage4.getLayoutX());
+        damage17.setLayoutX(damage5.getLayoutX());
+        damage18.setLayoutX(damage6.getLayoutX());
+        damage19.setLayoutX(damage7.getLayoutX());
+        damage20.setLayoutX(damage8.getLayoutX());
+        damage21.setLayoutX(damage9.getLayoutX());
+        damage22.setLayoutX(damage10.getLayoutX());
+        damage23.setLayoutX(damage11.getLayoutX());
+        damage24.setLayoutX(damage12.getLayoutX());
 
         pb1.setTranslateY(2);
         pb1.setTranslateX(17);
