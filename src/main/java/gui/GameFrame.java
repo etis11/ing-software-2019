@@ -78,8 +78,8 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private List<Color> color;
     private List<String> players;
     private List<Label> marksT;
-    private List<Circle> damage= new LinkedList<>();
-    private List<Circle> mark= new LinkedList<>();
+    private List<Circle> damage;
+    private List<Circle> mark;
 
     public GameFrame(CommandContainer cmd, String board, int map) {
         this.cmdLauncher = cmd;
@@ -193,7 +193,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         marksT.add(markT4);
 
         //setting background image
-        BackgroundImage myBI= new BackgroundImage(new Image(mapPath,845,500,false,true),
+        BackgroundImage myBI= new BackgroundImage(new Image(mapPath, 600,500,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
@@ -489,7 +489,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         buttonPane.setTranslateY(10);
         mapPane.setTranslateX(305);
         playerBoardPane.setTranslateY(505);
-        playerBoardPane.setTranslateX(25);
+        playerBoardPane.setTranslateX(60);
 
 
         //setting mainpane
@@ -514,15 +514,15 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private InputStream mapParser(int map) {
         switch (map) {
             case 1:
-                return getClass().getResourceAsStream("/img/SmallMap.png");
+                return getClass().getResourceAsStream("/img/SmallMapDef.png");
             case 2:
-                return getClass().getResourceAsStream("/img/MediumMap.png");
+                return getClass().getResourceAsStream("/img/MediumMapDef.png");
             case 3:
-                return getClass().getResourceAsStream("/img/LargeMap.png");
+                return getClass().getResourceAsStream("/img/LargeMapDef.png");
             case 4:
-                return getClass().getResourceAsStream("/img/ExtraLargeMap.png");
+                return getClass().getResourceAsStream("/img/ExtraLargeMapDef.png");
             default:
-                return getClass().getResourceAsStream("/img/SmallMap.png");
+                return getClass().getResourceAsStream("/img/SmallMapDef.png");
         }
     }
 
