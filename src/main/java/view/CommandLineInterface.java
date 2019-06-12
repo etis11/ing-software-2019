@@ -78,7 +78,7 @@ public class CommandLineInterface extends AbstractView  {
     /**
      * Method used to notify all users when the gameMap changes in one of the four maps
      *
-     * @param match is the new Gamemap that got chosen as the map to be used during the next gameplay
+     * @param mappa is the new Gamemap that got chosen as the map to be used during the next gameplay
      **/
     @Override
     public void onMapChange(SemplifiedMap mappa) {
@@ -100,15 +100,16 @@ public class CommandLineInterface extends AbstractView  {
 
 
         displayText(hash4);
-        for (Player player : match.getPlayers()) {
-            if (player.getTile() == null) {
-                System.out.println("is null");
-            } else {
-                System.out.println("position is " + player.getTile().getID());
-            }
-
-        }
-        System.out.println("La posizione dei giocatori sulla mapps si e cambiata");
+        //TODO da verificare
+//        for (Player player : match.getPlayers()) {
+//            if (player.getTile() == null) {
+//                System.out.println("is null");
+//            } else {
+//                System.out.println("position is " + player.getTile().getID());
+//            }
+//
+//        }
+        System.out.println("La posizione dei giocatori sulla mappa è cambiata");
     }
 
     /**
@@ -163,6 +164,11 @@ public class CommandLineInterface extends AbstractView  {
     @Override
     public void onPowerUpChange(Player p) {
         System.out.println(p.getName() + " ha cambiato il numero di carte PowerUp nella mano, quindi ora ha: " + p.getNumPowerUps());
+    }
+
+    @Override
+    public void onWeaponChange(Player p) {
+        //TODO implementare
     }
 
     /**

@@ -10,4 +10,6 @@ public interface PlayerObserver {
     void onAmmoChange(Player p);
 
     void onPowerUpChange(Player p);
+
+    void onWeaponChange(Player p);
 }

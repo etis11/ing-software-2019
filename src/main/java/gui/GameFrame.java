@@ -17,6 +17,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextBoundsType;
 import javafx.stage.Stage;
 import model.BloodToken;
 import model.DamageTransporter;
@@ -63,6 +65,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private Circle mark3;
     private Circle mark4;
 
+
     private final InputStream pathBackWeapon = getClass().getResourceAsStream("/img/RetroArmi.png");
     private final InputStream pathBackPu = getClass().getResourceAsStream("/img/RetroPu.png");
     private final InputStream pathMartelloIonico = getClass().getResourceAsStream("/img/MartelloIonico.png");
@@ -79,16 +82,17 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         this.color.add(Color.BLUEVIOLET);
         this.color.add(Color.DARKGREEN);
         this.color.add(Color.TEAL);
-        this.boardPath = boardParser(board);
         this.players = new ArrayList<>();
         this.players.add("Dozer");
         this.players.add("Distruttore");
         this.players.add("Violetta");
         this.players.add("Sprog");
         this.players.add("Banshee");
+        this.boardPath = boardParser(board);
         stage = new Stage();
         generate();
     }
+
 
     public void generate() {
         //TODO da implementare
@@ -152,6 +156,14 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         mark2 = new Circle();
         mark3 = new Circle();
         mark4 = new Circle();
+        markT1 = new Text("0");
+        markT1.setBoundsType(TextBoundsType.VISUAL);
+        markT2 = new Text("0");
+        markT2.setBoundsType(TextBoundsType.VISUAL);
+        markT3 = new Text("0");
+        markT3.setBoundsType(TextBoundsType.VISUAL);
+        markT4 = new Text("0");
+        markT4.setBoundsType(TextBoundsType.VISUAL);
         List<Circle> damage= new LinkedList<>();
         List<Circle> mark= new LinkedList<>();
         damage.add(damage1);
@@ -399,7 +411,8 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         damage10.setLayoutX(damage9.getLayoutX()+50);
         damage11.setLayoutX(damage10.getLayoutX()+50);
         damage12.setLayoutX(damage11.getLayoutX()+45);
-        for (Circle c : mark){
+        for (int i = 0; i<mark.size(); i++){
+            Circle c = mark.get(i);
             //c.setVisible(false);
             c.setRadius(15);
             c.setLayoutY(20);
@@ -564,6 +577,11 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     @Override
     public void onPowerUpChange(Player p) {
+
+    }
+
+    @Override
+    public void onWeaponChange(Player p) {
 
     }
 }
