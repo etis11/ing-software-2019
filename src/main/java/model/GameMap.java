@@ -41,7 +41,7 @@ public class GameMap {
     }
 
     /**
-     * returns the map as a list.
+     * returns the map as a list. The list is not ordered
      * @return
      */
     public List<Tile> mapAsList(){

@@ -143,10 +143,10 @@ public class Match {
 
 
     /**
-     * This method returns the list of players that are going to/will play when game starts
+     * This method returns a copy of the list of players that are going to/will play when game starts
      */
     public List<Player> getPlayers() {
-        return this.players;
+        return new LinkedList<>(this.players);
     }
 
     /**
