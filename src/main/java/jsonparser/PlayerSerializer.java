@@ -64,7 +64,7 @@ public class PlayerSerializer implements JsonSerializer<Player> {
 
     }
 
-    public static void resetSet(){
+    public void resetSet(){
         cache.get().clear();
     }
 }

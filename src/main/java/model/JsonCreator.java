@@ -10,13 +10,15 @@ public class JsonCreator implements ChangesObserver {
     private boolean prettyPrinting = false;
     private CommandResponse response;
     private final WeaponCardSerializer weaponCardSerializer;
+    private final PlayerSerializer playerSerializer;
     private transient final Gson gson;
 
     public JsonCreator(Match match) {
         GsonBuilder gb = new GsonBuilder();
         gb.registerTypeAdapter(BloodToken.class, new BloodTokenSerializer());
         gb.registerTypeAdapter(PlayerBoard.class, new PlayerBoardSerializer());
-        gb.registerTypeAdapter(Player.class, new PlayerSerializer());
+        playerSerializer = new PlayerSerializer();
+        gb.registerTypeAdapter(Player.class, playerSerializer);
         gb.registerTypeAdapter(Tile.class, new TileSerializer());
         weaponCardSerializer = new WeaponCardSerializer();
         weaponCardSerializer.setPlayerModeTrue();
@@ -33,7 +35,9 @@ public class JsonCreator implements ChangesObserver {
         response.resetMessage();
         response.resetErrorMessage();
         response.resetChangedPlayers();
+        response.setPlayerChanged(false);
         response.setMapChanged(false);
+        playerSerializer.resetSet();
     }
 
 
@@ -46,6 +50,7 @@ public class JsonCreator implements ChangesObserver {
         response.setMessage(s);
         String changes = gson.toJson(response);
         response.resetMessage();
+        playerSerializer.resetSet();
         return changes;
     }
 
@@ -58,6 +63,7 @@ public class JsonCreator implements ChangesObserver {
         response.setErrorMessage(s);
         String changes = gson.toJson(response);
         response.resetErrorMessage();
+        playerSerializer.resetSet();
         return changes;
     }
 
@@ -72,6 +78,7 @@ public class JsonCreator implements ChangesObserver {
         response.setMessage(s);
         String changes = gson.toJson(response);
         response.resetMessage();
+        playerSerializer.resetSet();
         return changes;
     }
 
