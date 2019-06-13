@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class JsonCreatorTest {
-
+    
     private JsonCreator jsonCreator;
     private Player gigino;
     private Player pinotto;
@@ -119,7 +119,7 @@ public class JsonCreatorTest {
      * This test checks if the player and weapons are shown correctly. Pipino should not be able to see the gigino's weaposn
      */
     @Test
-    void withRealWeapons(){
+    void withRealWeapons() {
         Tile t = new Tile(null, null, null, null, true, false);
         Tile t2 = new Tile(null, null, null, null, false, true);
         t2.setID(1);
@@ -152,7 +152,7 @@ public class JsonCreatorTest {
         jsonCreator.notifyTileChange(t);
         jsonCreator.notifyTileChange(t2);
 
-        String expectedString ="{\"message\":\"Apelle figlio di apollo\",\"errorOccurred\":false," +
+        String expectedString = "{\"message\":\"Apelle figlio di apollo\",\"errorOccurred\":false," +
                 "\"allPlayers\":[{\"name\":\"gigino\",\"remainingMoves\":0,\"numWeaponCard\":1,\"weaponCards\":[{}]," +
                 "\"numPowerUps\":0,\"powerUps\":[],\"tile\":0,\"playerBoard\":{\"damageTokens\":[],\"marksTokens\":[]," +
                 "\"killValue\":[8,6,4,2,1,1,1,1,1],\"numBlueAmmo\":1,\"numRedAmmo\":1,\"numYellowAmmo\":1}},{\"name\":\"pinotto\"," +
@@ -161,6 +161,6 @@ public class JsonCreatorTest {
                 "\"killValue\":[8,6,4,2,1,1,1,1,1],\"numBlueAmmo\":1,\"numRedAmmo\":1,\"numYellowAmmo\":1}}],\"playerChanged\":true," +
                 "\"changedPlayers\":[{\"name\":\"gigino\"},{\"name\":\"pinotto\"}],\"mapChanged\":true,\"allTiles\":[{\"id\":0,\"players\":[]," +
                 "\"ammoTile\":true,\"weaponTile\":false}]}";
-        assertEquals(expectedString, jsonCreator.createTargetPlayerJson("Apelle figlio di apollo", pinotto), ()->"ERROR: the json should be the same");
+        assertEquals(expectedString, jsonCreator.createTargetPlayerJson("Apelle figlio di apollo", pinotto), () -> "ERROR: the json should be the same");
     }
 }

@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -9,12 +10,14 @@ import javafx.stage.Stage;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class PbFrame {
 
     private Stage stage;
     private List<String> players;
+    private List<Color> gameColor;
 
     private Pane pb1;
     private Pane pb2;
@@ -33,7 +36,18 @@ public class PbFrame {
     private Circle damage10;
     private Circle damage11;
     private Circle damage12;
+    private Circle mark11;
+    private Circle mark12;
+    private Circle mark13;
+    private Circle mark14;
+    private Label markT11;
+    private Label markT12;
+    private Label markT13;
+    private Label markT14;
     private List<Circle> firstDamage;
+    private List<Circle> firstMark;
+    private List<Label> firstMarkT;
+    private List<Color> firstColor;
 
     private Circle damage13;
     private Circle damage14;
@@ -47,7 +61,14 @@ public class PbFrame {
     private Circle damage22;
     private Circle damage23;
     private Circle damage24;
+    private Circle mark21;
+    private Circle mark22;
+    private Circle mark23;
+    private Circle mark24;
     private List<Circle> secondDamage;
+    private List<Circle> secondMark;
+    private List<Label> secondMarkT;
+    private List<Color> secondColor;
 
     private Circle damage25;
     private Circle damage26;
@@ -61,13 +82,41 @@ public class PbFrame {
     private Circle damage34;
     private Circle damage35;
     private Circle damage36;
+    private Circle mark31;
+    private Circle mark32;
+    private Circle mark33;
+    private Circle mark34;
     private List<Circle> thirdDamage;
+    private List<Circle> thirdMark;
+    private List<Circle> thirdMarkT;
+    private List<Color> thirdColor;
 
-    public PbFrame(List<String> players) {
+    private Circle damage37;
+    private Circle damage38;
+    private Circle damage39;
+    private Circle damage40;
+    private Circle damage41;
+    private Circle damage42;
+    private Circle damage43;
+    private Circle damage44;
+    private Circle damage45;
+    private Circle damage46;
+    private Circle damage47;
+    private Circle damage48;
+    private Circle mark41;
+    private Circle mark42;
+    private Circle mark43;
+    private Circle mark44;
+    private List<Circle> fourthDamage;
+    private List<Circle> fourthMark;
+    private List<Label> fourthmarkT;
+    private List<Color> fourthColor;
+
+    public PbFrame(List<String> players, List<Color> gameColor) {
         this.stage = new Stage();
         this.players = players;
-        this.firstDamage = new ArrayList<>();
-        this.secondDamage = new ArrayList<>();
+        this.gameColor = gameColor;
+        fillColorList();
         generate();
     }
 
@@ -75,10 +124,82 @@ public class PbFrame {
         stage.setTitle("Adrenalina - PlayerBoard avversari");
         stage.setResizable(false);
 
+        generateFirst();
+        generateSecond();
+        generateThird();
+        generateFourth();
+
+        StackPane box = new StackPane();
+        box.getChildren().add(pb1);
+        box.getChildren().add(pb2);
+        box.getChildren().add(pb3);
+        box.getChildren().add(pb4);
+
+        stage.setScene(new Scene(box, 850, 700));
+    }
+
+    public void show(){
+        //TODO update dati board
+        stage.show();
+    }
+
+    public void close(){
+        stage.close();
+    }
+
+    private InputStream boardParser(String board) {
+        switch (board) {
+            case "Distruttore":
+                return getClass().getResourceAsStream("/img/DistruttoreBoard.png");
+            case "Sprog":
+                return getClass().getResourceAsStream("/img/SprogBoard.png");
+            case "Dozer":
+                return getClass().getResourceAsStream("/img/DozerBoard.png");
+            case "Violetta":
+                return getClass().getResourceAsStream("/img/ViolettaBoard.png");
+            case "Banshee":
+                return getClass().getResourceAsStream("/img/BansheeBoard.png");
+            default:
+                return getClass().getResourceAsStream("/img/DistruttoreBoard.png");
+        }
+    }
+
+    private void fillColorList(){
+        this.firstColor = new LinkedList<>();
+        this.secondColor = new LinkedList<>();
+        this.thirdColor = new LinkedList<>();
+        this.fourthColor = new LinkedList<>();
+        firstColor.add(Color.GREY);
+        firstColor.add(Color.YELLOW);
+        firstColor.add(Color.BLUEVIOLET);
+        firstColor.add(Color.DARKGREEN);
+        firstColor.add(Color.TEAL);
+        secondColor.add(Color.GREY);
+        secondColor.add(Color.YELLOW);
+        secondColor.add(Color.BLUEVIOLET);
+        secondColor.add(Color.DARKGREEN);
+        secondColor.add(Color.TEAL);
+        thirdColor.add(Color.GREY);
+        thirdColor.add(Color.YELLOW);
+        thirdColor.add(Color.BLUEVIOLET);
+        thirdColor.add(Color.DARKGREEN);
+        thirdColor.add(Color.TEAL);
+        fourthColor.add(Color.GREY);
+        fourthColor.add(Color.YELLOW);
+        fourthColor.add(Color.BLUEVIOLET);
+        fourthColor.add(Color.DARKGREEN);
+        fourthColor.add(Color.TEAL);
+        firstColor.remove(gameColor.get(0));
+        secondColor.remove(gameColor.get(1));
+        thirdColor.remove(gameColor.get(2));
+        fourthColor.remove(gameColor.get(3));
+    }
+
+    private void generateFirst(){
+        firstDamage = new ArrayList<>();
+        firstMark = new ArrayList<>();
+        firstMarkT = new ArrayList<>();
         pb1 = new Pane();
-        pb2 = new Pane();
-        pb3 = new Pane();
-        pb4 = new Pane();
 
         damage1 = new Circle();
         damage2 = new Circle();
@@ -124,6 +245,44 @@ public class PbFrame {
         damage11.setLayoutX(damage10.getLayoutX()+49);
         damage12.setLayoutX(damage11.getLayoutX()+44);
 
+        mark11 = new Circle();
+        mark12 = new Circle();
+        mark13 = new Circle();
+        mark14 = new Circle();
+        firstMark.add(mark11);
+        firstMark.add(mark12);
+        firstMark.add(mark13);
+        firstMark.add(mark14);
+        for (Circle c : firstMark){
+//            c.setVisible(false);
+            c.setRadius(15);
+            c.setLayoutY(20);
+            c.setStroke(Color.BLACK);
+            pb1.getChildren().add(c);
+        }
+        mark11.setLayoutX(450);
+        mark12.setLayoutX(mark11.getLayoutX()+40);
+        mark13.setLayoutX(mark12.getLayoutX()+40);
+        mark14.setLayoutX(mark13.getLayoutX()+40);
+        mark11.setFill(firstColor.get(0));
+        mark12.setFill(firstColor.get(1));
+        mark13.setFill(firstColor.get(2));
+        mark14.setFill(firstColor.get(3));
+
+
+        pb1.setTranslateY(2);
+        pb1.setTranslateX(17);
+        pb1.setBackground(new Background(new BackgroundImage(new Image(boardParser(players.get(0)), 815,170,false,true),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT)));
+    }
+
+    private void generateSecond(){
+        secondDamage = new ArrayList<>();
+        secondMark = new ArrayList<>();
+        secondMarkT = new ArrayList<>();
+        pb2 = new Pane();
+
         damage13 = new Circle();
         damage14 = new Circle();
         damage15 = new Circle();
@@ -167,62 +326,199 @@ public class PbFrame {
         damage22.setLayoutX(damage10.getLayoutX());
         damage23.setLayoutX(damage11.getLayoutX());
         damage24.setLayoutX(damage12.getLayoutX());
+        mark21 = new Circle();
+        mark22 = new Circle();
+        mark23 = new Circle();
+        mark24 = new Circle();
+        secondMark.add(mark21);
+        secondMark.add(mark22);
+        secondMark.add(mark23);
+        secondMark.add(mark24);
+        for (Circle c : secondMark){
+//            c.setVisible(false);
+            c.setRadius(15);
+            c.setLayoutY(20);
+            c.setStroke(Color.BLACK);
+            pb2.getChildren().add(c);
+        }
+        mark21.setLayoutX(mark11.getLayoutX());
+        mark22.setLayoutX(mark12.getLayoutX());
+        mark23.setLayoutX(mark13.getLayoutX());
+        mark24.setLayoutX(mark14.getLayoutX());
+        mark21.setFill(secondColor.get(0));
+        mark22.setFill(secondColor.get(1));
+        mark23.setFill(secondColor.get(2));
+        mark24.setFill(secondColor.get(3));
 
-        pb1.setTranslateY(2);
-        pb1.setTranslateX(17);
-        pb1.setBackground(new Background(new BackgroundImage(new Image(boardParser(players.get(0)), 815,170,false,true),
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT)));
 
         pb2.setTranslateX(pb1.getTranslateX());
         pb2.setTranslateY(pb1.getTranslateY()+175);
         pb2.setBackground(new Background(new BackgroundImage(new Image(boardParser(players.get(1)), 815,170,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT)));
+    }
+
+    private void generateThird(){
+        thirdDamage = new ArrayList<>();
+        thirdMark = new ArrayList<>();
+        thirdMarkT = new ArrayList<>();
+        pb3 = new Pane();
+
+        damage25 = new Circle();
+        damage26 = new Circle();
+        damage27 = new Circle();
+        damage28 = new Circle();
+        damage29 = new Circle();
+        damage30 = new Circle();
+        damage31 = new Circle();
+        damage32 = new Circle();
+        damage33 = new Circle();
+        damage34 = new Circle();
+        damage35= new Circle();
+        damage36 = new Circle();
+        thirdDamage.add(damage25);
+        thirdDamage.add(damage26);
+        thirdDamage.add(damage27);
+        thirdDamage.add(damage28);
+        thirdDamage.add(damage29);
+        thirdDamage.add(damage30);
+        thirdDamage.add(damage31);
+        thirdDamage.add(damage32);
+        thirdDamage.add(damage33);
+        thirdDamage.add(damage34);
+        thirdDamage.add(damage35);
+        thirdDamage.add(damage36);
+        for (Circle c: thirdDamage){
+//            c.setVisible(false);
+            c.setRadius(12);
+            c.setLayoutY(90);
+            c.setStroke(Color.BLACK);
+            pb3.getChildren().add(c);
+        }
+        damage25.setLayoutX(damage1.getLayoutX());
+        damage26.setLayoutX(damage2.getLayoutX());
+        damage27.setLayoutX(damage3.getLayoutX());
+        damage28.setLayoutX(damage4.getLayoutX());
+        damage29.setLayoutX(damage5.getLayoutX());
+        damage30.setLayoutX(damage6.getLayoutX());
+        damage31.setLayoutX(damage7.getLayoutX());
+        damage32.setLayoutX(damage8.getLayoutX());
+        damage33.setLayoutX(damage9.getLayoutX());
+        damage34.setLayoutX(damage10.getLayoutX());
+        damage35.setLayoutX(damage11.getLayoutX());
+        damage36.setLayoutX(damage12.getLayoutX());
+
+        mark31 = new Circle();
+        mark32 = new Circle();
+        mark33 = new Circle();
+        mark34 = new Circle();
+        thirdMark.add(mark31);
+        thirdMark.add(mark32);
+        thirdMark.add(mark33);
+        thirdMark.add(mark34);
+        for (Circle c : thirdMark){
+//            c.setVisible(false);
+            c.setRadius(15);
+            c.setLayoutY(20);
+            c.setStroke(Color.BLACK);
+            pb3.getChildren().add(c);
+        }
+        mark31.setLayoutX(mark11.getLayoutX());
+        mark32.setLayoutX(mark12.getLayoutX());
+        mark33.setLayoutX(mark13.getLayoutX());
+        mark34.setLayoutX(mark14.getLayoutX());
+        mark31.setFill(thirdColor.get(0));
+        mark32.setFill(thirdColor.get(1));
+        mark33.setFill(thirdColor.get(2));
+        mark34.setFill(thirdColor.get(3));
+
 
         pb3.setTranslateX(pb1.getTranslateX());
         pb3.setTranslateY(pb2.getTranslateY()+175);
         pb3.setBackground(new Background(new BackgroundImage(new Image(boardParser(players.get(2)), 815,170,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT)));
+    }
+
+    private void generateFourth(){
+        fourthDamage = new ArrayList<>();
+        fourthMark = new ArrayList<>();
+        fourthmarkT = new ArrayList<>();
+        pb4 = new Pane();
+
+        damage37 = new Circle();
+        damage38 = new Circle();
+        damage39 = new Circle();
+        damage40 = new Circle();
+        damage41 = new Circle();
+        damage42 = new Circle();
+        damage43 = new Circle();
+        damage44 = new Circle();
+        damage45 = new Circle();
+        damage46 = new Circle();
+        damage47= new Circle();
+        damage48 = new Circle();
+        fourthDamage.add(damage37);
+        fourthDamage.add(damage38);
+        fourthDamage.add(damage39);
+        fourthDamage.add(damage40);
+        fourthDamage.add(damage41);
+        fourthDamage.add(damage42);
+        fourthDamage.add(damage43);
+        fourthDamage.add(damage44);
+        fourthDamage.add(damage45);
+        fourthDamage.add(damage46);
+        fourthDamage.add(damage47);
+        fourthDamage.add(damage48);
+        for (Circle c: fourthDamage){
+//            c.setVisible(false);
+            c.setRadius(12);
+            c.setLayoutY(90);
+            c.setStroke(Color.BLACK);
+            pb4.getChildren().add(c);
+        }
+        damage37.setLayoutX(damage1.getLayoutX());
+        damage38.setLayoutX(damage2.getLayoutX());
+        damage39.setLayoutX(damage3.getLayoutX());
+        damage40.setLayoutX(damage4.getLayoutX());
+        damage41.setLayoutX(damage5.getLayoutX());
+        damage42.setLayoutX(damage6.getLayoutX());
+        damage43.setLayoutX(damage7.getLayoutX());
+        damage44.setLayoutX(damage8.getLayoutX());
+        damage45.setLayoutX(damage9.getLayoutX());
+        damage46.setLayoutX(damage10.getLayoutX());
+        damage47.setLayoutX(damage11.getLayoutX());
+        damage48.setLayoutX(damage12.getLayoutX());
+
+        mark41 = new Circle();
+        mark42 = new Circle();
+        mark43 = new Circle();
+        mark44 = new Circle();
+        fourthMark.add(mark41);
+        fourthMark.add(mark42);
+        fourthMark.add(mark43);
+        fourthMark.add(mark44);
+        for (Circle c : fourthMark){
+//            c.setVisible(false);
+            c.setRadius(15);
+            c.setLayoutY(20);
+            c.setStroke(Color.BLACK);
+            pb4.getChildren().add(c);
+        }
+        mark41.setLayoutX(mark11.getLayoutX());
+        mark42.setLayoutX(mark12.getLayoutX());
+        mark43.setLayoutX(mark13.getLayoutX());
+        mark44.setLayoutX(mark14.getLayoutX());
+        mark41.setFill(fourthColor.get(0));
+        mark42.setFill(fourthColor.get(1));
+        mark43.setFill(fourthColor.get(2));
+        mark44.setFill(fourthColor.get(3));
+
 
         pb4.setTranslateX(pb1.getTranslateX());
         pb4.setTranslateY(pb3.getTranslateY()+175);
         pb4.setBackground(new Background(new BackgroundImage(new Image(boardParser(players.get(3)), 815,170,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT)));
-
-        StackPane box = new StackPane();
-        box.getChildren().add(pb1);
-        box.getChildren().add(pb2);
-        box.getChildren().add(pb3);
-        box.getChildren().add(pb4);
-
-        stage.setScene(new Scene(box, 850, 700));
-    }
-
-    public void show(){
-        stage.show();
-    }
-
-    public void close(){
-        stage.close();
-    }
-
-    private InputStream boardParser(String board) {
-        switch (board) {
-            case "Distruttore":
-                return getClass().getResourceAsStream("/img/DistruttoreBoard.png");
-            case "Sprog":
-                return getClass().getResourceAsStream("/img/SprogBoard.png");
-            case "Dozer":
-                return getClass().getResourceAsStream("/img/DozerBoard.png");
-            case "Violetta":
-                return getClass().getResourceAsStream("/img/ViolettaBoard.png");
-            case "Banshee":
-                return getClass().getResourceAsStream("/img/BansheeBoard.png");
-            default:
-                return getClass().getResourceAsStream("/img/DistruttoreBoard.png");
-        }
     }
 }

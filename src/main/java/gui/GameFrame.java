@@ -100,7 +100,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         this.players.add("Sprog");
         this.players.add("Banshee");
         this.boardPath = boardParser(board);
-        pbFrame = new PbFrame(this.players);
+        pbFrame = new PbFrame(this.players, this.color);
         stage = new Stage();
         generate();
     }
