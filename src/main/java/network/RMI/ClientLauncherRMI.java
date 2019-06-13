@@ -6,6 +6,7 @@ import controller.JsonUnwrapper;
 import controller.commandpack.AskPickCommand;
 import controller.commandpack.AskWalkCommand;
 import controller.commandpack.MoveCommand;
+import model.clientModel.SemplifiedGame;
 import view.ClientSingleton;
 
 import java.rmi.registry.LocateRegistry;

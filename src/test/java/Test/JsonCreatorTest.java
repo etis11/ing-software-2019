@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class JsonCreatorTest {
-    
+
     private JsonCreator jsonCreator;
     private Player gigino;
     private Player pinotto;

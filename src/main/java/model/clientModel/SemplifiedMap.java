@@ -2,6 +2,8 @@ package model.clientModel;
 
 import view.AnsiColor;
 
+import java.util.List;
+
 
 public class SemplifiedMap {
     private SemplifiedTile[][] map;
@@ -72,6 +74,10 @@ public class SemplifiedMap {
         map[row][col] = tile;
     }
 
+    public void updateTiles(List<SemplifiedTile> tiles){
+
+    }
+
     /**
      * Prints each tile
      *
@@ -87,6 +93,5 @@ public class SemplifiedMap {
             }
         }
         return builder.toString();
-
     }
 }

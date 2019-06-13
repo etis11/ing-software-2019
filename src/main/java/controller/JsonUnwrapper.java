@@ -2,11 +2,9 @@ package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import controller.commandpack.Command;
 import jsonparser.semplifiedParser.SemplifiedPlayerDeserializer;
-import model.clientModel.CommandResponse;
-import model.clientModel.SemplifiedBloodToken;
 import model.clientModel.SemplifiedGame;
+import model.clientModel.SemplifiedMap;
 import model.clientModel.SemplifiedPlayer;
 import view.*;
 
@@ -21,19 +19,26 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
     private final List<MessageListener> messageListeners;
     private final List<PlayerObserver> playerObservers;
     private final List<MapObserver> mapObservers;
+    private final SemplifiedGame game;
 
     /**
      * creates  a json wrapper. If used with RMI, should be exported
      */
-    public JsonUnwrapper() {
+    public JsonUnwrapper(SemplifiedGame game) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         playerDeserializer = new SemplifiedPlayerDeserializer();
         gsonBuilder.registerTypeAdapter(SemplifiedPlayer.class, playerDeserializer);
         gson = gsonBuilder.create();
 
+        this.game = game;
         messageListeners = new LinkedList<>();
         playerObservers = new LinkedList<>();
         mapObservers = new LinkedList<>();
+    }
+
+    private void notifyAllMessageListeners(String message){
+        for(MessageListener listener : messageListeners)
+            listener.notify(message);
     }
 
     /*********************** Json receiver interface *********************/
@@ -41,7 +46,14 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
     @Override
     public void sendJson(String changes) {
         CommandResponse response = gson.fromJson(changes, CommandResponse.class);
+        String message = response.getMessage();
+        if(response!= null) notifyAllMessageListeners(message);
+        SemplifiedMap map = game.getMap();
+        map.updateTiles(response.getAllTiles());
 
+
+
+;
 
         playerDeserializer.resetMap();
     }

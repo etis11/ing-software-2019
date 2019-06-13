@@ -1,4 +1,4 @@
-package model.clientModel;
+package controller;
 
 import com.google.gson.Gson;
 import model.Player;
@@ -60,4 +60,35 @@ public class CommandResponse {
         changedPlayers.add(p);
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public boolean hasErrorOccurred() {
+        return errorOccurred;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public List<Player> getAllPlayers() {
+        return allPlayers;
+    }
+
+    public boolean isPlayerChanged() {
+        return playerChanged;
+    }
+
+    public List<Player> getChangedPlayers() {
+        return changedPlayers;
+    }
+
+    public boolean isMapChanged() {
+        return mapChanged;
+    }
+
+    public List<Tile> getAllTiles() {
+        return allTiles;
+    }
 }
