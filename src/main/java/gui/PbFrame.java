@@ -1,11 +1,15 @@
 package gui;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.InputStream;
@@ -14,6 +18,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PbFrame {
+
+    final int ammoDimension = 30;
+    final Border border = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT));
+
 
     private Stage stage;
     private List<String> players;
@@ -44,9 +52,13 @@ public class PbFrame {
     private Label markT12;
     private Label markT13;
     private Label markT14;
+    private Label blueAmmmo1;
+    private Label redAmmmo1;
+    private Label yellowAmmmo1;
     private List<Circle> firstDamage;
     private List<Circle> firstMark;
     private List<Label> firstMarkT;
+    private List<Label> firstAmmo;
     private List<Color> firstColor;
 
     private Circle damage13;
@@ -65,9 +77,17 @@ public class PbFrame {
     private Circle mark22;
     private Circle mark23;
     private Circle mark24;
+    private Label markT21;
+    private Label markT22;
+    private Label markT23;
+    private Label markT24;
+    private Label blueAmmmo2;
+    private Label redAmmmo2;
+    private Label yellowAmmmo2;
     private List<Circle> secondDamage;
     private List<Circle> secondMark;
     private List<Label> secondMarkT;
+    private List<Label> secondAmmo;
     private List<Color> secondColor;
 
     private Circle damage25;
@@ -86,9 +106,17 @@ public class PbFrame {
     private Circle mark32;
     private Circle mark33;
     private Circle mark34;
+    private Label markT31;
+    private Label markT32;
+    private Label markT33;
+    private Label markT34;
+    private Label blueAmmmo3;
+    private Label redAmmmo3;
+    private Label yellowAmmmo3;
     private List<Circle> thirdDamage;
     private List<Circle> thirdMark;
-    private List<Circle> thirdMarkT;
+    private List<Label> thirdMarkT;
+    private List<Label> thirdAmmo;
     private List<Color> thirdColor;
 
     private Circle damage37;
@@ -107,9 +135,17 @@ public class PbFrame {
     private Circle mark42;
     private Circle mark43;
     private Circle mark44;
+    private Label markT41;
+    private Label markT42;
+    private Label markT43;
+    private Label markT44;
+    private Label blueAmmmo4;
+    private Label redAmmmo4;
+    private Label yellowAmmmo4;
     private List<Circle> fourthDamage;
     private List<Circle> fourthMark;
     private List<Label> fourthmarkT;
+    private List<Label> fourthAmmo;
     private List<Color> fourthColor;
 
     public PbFrame(List<String> players, List<Color> gameColor) {
@@ -139,12 +175,10 @@ public class PbFrame {
     }
 
     public void show(){
-        //TODO update dati board
+        updateAmmo();
+        updateMarks();
+        updateDamage();
         stage.show();
-    }
-
-    public void close(){
-        stage.close();
     }
 
     private InputStream boardParser(String board) {
@@ -199,6 +233,7 @@ public class PbFrame {
         firstDamage = new ArrayList<>();
         firstMark = new ArrayList<>();
         firstMarkT = new ArrayList<>();
+        firstAmmo = new ArrayList<>();
         pb1 = new Pane();
 
         damage1 = new Circle();
@@ -269,6 +304,59 @@ public class PbFrame {
         mark13.setFill(firstColor.get(2));
         mark14.setFill(firstColor.get(3));
 
+        markT11 = new Label("0");
+        markT12 = new Label("0");
+        markT13 = new Label("0");
+        markT14 = new Label("0");
+        firstMarkT.add(markT11);
+        firstMarkT.add(markT12);
+        firstMarkT.add(markT13);
+        firstMarkT.add(markT14);
+        //setting label for marks text
+        for(Label l : firstMarkT){
+//            l.setVisible(false);
+            l.setMaxHeight(15);
+            l.setMaxWidth(15);
+            l.setFont(Font.font("System Regular", FontWeight.BOLD, 15));
+            l.setLayoutY(mark11.getLayoutY()-10);
+            pb1.getChildren().add(l);
+        }
+        markT11.setBackground(new Background(new BackgroundFill(firstColor.get(0), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT12.setBackground(new Background(new BackgroundFill(firstColor.get(1), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT13.setBackground(new Background(new BackgroundFill(firstColor.get(2), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT14.setBackground(new Background(new BackgroundFill(firstColor.get(3), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT11.setLayoutX(mark11.getLayoutX()-5);
+        markT12.setLayoutX(mark12.getLayoutX()-5);
+        markT13.setLayoutX(mark13.getLayoutX()-5);
+        markT14.setLayoutX(mark14.getLayoutX()-5);
+
+        blueAmmmo1 = new Label("1");
+        redAmmmo1 = new Label("1");
+        yellowAmmmo1 = new Label("1");
+        firstAmmo.add(blueAmmmo1);
+        firstAmmo.add(redAmmmo1);
+        firstAmmo.add(yellowAmmmo1);
+        for (Label a : firstAmmo){
+            a.setVisible(true);
+            a.setMinWidth(ammoDimension);
+            a.setMinHeight(ammoDimension);
+            a.setFont(Font.font("System Regular", FontWeight.BOLD, ammoDimension - 6));
+            a.setAlignment(Pos.CENTER);
+            a.setBorder(border);
+            pb1.getChildren().add(a);
+        }
+        blueAmmmo1.setTextFill(Color.WHITE);
+        blueAmmmo1.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        blueAmmmo1.setLayoutX(720);
+        blueAmmmo1.setLayoutY(20);
+        redAmmmo1.setTextFill(Color.WHITE);
+        redAmmmo1.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+        redAmmmo1.setLayoutX(blueAmmmo1.getLayoutX()+20);
+        redAmmmo1.setLayoutY(blueAmmmo1.getLayoutY() + 50);
+        yellowAmmmo1.setTextFill(Color.BLACK);
+        yellowAmmmo1.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+        yellowAmmmo1.setLayoutX(blueAmmmo1.getLayoutX()+10);
+        yellowAmmmo1.setLayoutY(redAmmmo1.getLayoutY() + 50);
 
         pb1.setTranslateY(2);
         pb1.setTranslateX(17);
@@ -281,6 +369,7 @@ public class PbFrame {
         secondDamage = new ArrayList<>();
         secondMark = new ArrayList<>();
         secondMarkT = new ArrayList<>();
+        secondAmmo = new ArrayList<>();
         pb2 = new Pane();
 
         damage13 = new Circle();
@@ -350,6 +439,59 @@ public class PbFrame {
         mark23.setFill(secondColor.get(2));
         mark24.setFill(secondColor.get(3));
 
+        markT21 = new Label("0");
+        markT22 = new Label("0");
+        markT23 = new Label("0");
+        markT24 = new Label("0");
+        secondMarkT.add(markT21);
+        secondMarkT.add(markT22);
+        secondMarkT.add(markT23);
+        secondMarkT.add(markT24);
+        //setting label for marks text
+        for(Label l : secondMarkT){
+//            l.setVisible(false);
+            l.setMaxHeight(15);
+            l.setMaxWidth(15);
+            l.setFont(Font.font("System Regular", FontWeight.BOLD, 15));
+            l.setLayoutY(mark21.getLayoutY()-10);
+            pb2.getChildren().add(l);
+        }
+        markT21.setBackground(new Background(new BackgroundFill(secondColor.get(0), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT22.setBackground(new Background(new BackgroundFill(secondColor.get(1), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT23.setBackground(new Background(new BackgroundFill(secondColor.get(2), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT24.setBackground(new Background(new BackgroundFill(secondColor.get(3), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT21.setLayoutX(mark21.getLayoutX()-5);
+        markT22.setLayoutX(mark22.getLayoutX()-5);
+        markT23.setLayoutX(mark23.getLayoutX()-5);
+        markT24.setLayoutX(mark24.getLayoutX()-5);
+
+        blueAmmmo2 = new Label("1");
+        redAmmmo2 = new Label("1");
+        yellowAmmmo2 = new Label("1");
+        secondAmmo.add(blueAmmmo2);
+        secondAmmo.add(redAmmmo2);
+        secondAmmo.add(yellowAmmmo2);
+        for (Label a : secondAmmo){
+            a.setVisible(true);
+            a.setMinWidth(ammoDimension);
+            a.setMinHeight(ammoDimension);
+            a.setFont(Font.font("System Regular", FontWeight.BOLD, ammoDimension - 6));
+            a.setAlignment(Pos.CENTER);
+            a.setBorder(border);
+            pb2.getChildren().add(a);
+        }
+        blueAmmmo2.setTextFill(Color.WHITE);
+        blueAmmmo2.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        blueAmmmo2.setLayoutX(720);
+        blueAmmmo2.setLayoutY(20);
+        redAmmmo2.setTextFill(Color.WHITE);
+        redAmmmo2.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+        redAmmmo2.setLayoutX(blueAmmmo2.getLayoutX()+20);
+        redAmmmo2.setLayoutY(blueAmmmo2.getLayoutY() + 50);
+        yellowAmmmo2.setTextFill(Color.BLACK);
+        yellowAmmmo2.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+        yellowAmmmo2.setLayoutX(blueAmmmo2.getLayoutX()+10);
+        yellowAmmmo2.setLayoutY(redAmmmo2.getLayoutY() + 50);
 
         pb2.setTranslateX(pb1.getTranslateX());
         pb2.setTranslateY(pb1.getTranslateY()+175);
@@ -362,6 +504,7 @@ public class PbFrame {
         thirdDamage = new ArrayList<>();
         thirdMark = new ArrayList<>();
         thirdMarkT = new ArrayList<>();
+        thirdAmmo = new ArrayList<>();
         pb3 = new Pane();
 
         damage25 = new Circle();
@@ -432,6 +575,59 @@ public class PbFrame {
         mark33.setFill(thirdColor.get(2));
         mark34.setFill(thirdColor.get(3));
 
+        markT31 = new Label("0");
+        markT32 = new Label("0");
+        markT33 = new Label("0");
+        markT34 = new Label("0");
+        thirdMarkT.add(markT31);
+        thirdMarkT.add(markT32);
+        thirdMarkT.add(markT33);
+        thirdMarkT.add(markT34);
+        //setting label for marks text
+        for(Label l : thirdMarkT){
+//            l.setVisible(false);
+            l.setMaxHeight(15);
+            l.setMaxWidth(15);
+            l.setFont(Font.font("System Regular", FontWeight.BOLD, 15));
+            l.setLayoutY(mark31.getLayoutY()-10);
+            pb3.getChildren().add(l);
+        }
+        markT31.setBackground(new Background(new BackgroundFill(thirdColor.get(0), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT32.setBackground(new Background(new BackgroundFill(thirdColor.get(1), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT33.setBackground(new Background(new BackgroundFill(thirdColor.get(2), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT34.setBackground(new Background(new BackgroundFill(thirdColor.get(3), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT31.setLayoutX(mark31.getLayoutX()-5);
+        markT32.setLayoutX(mark32.getLayoutX()-5);
+        markT33.setLayoutX(mark33.getLayoutX()-5);
+        markT34.setLayoutX(mark34.getLayoutX()-5);
+
+        blueAmmmo3 = new Label("1");
+        redAmmmo3 = new Label("1");
+        yellowAmmmo3 = new Label("1");
+        thirdAmmo.add(blueAmmmo3);
+        thirdAmmo.add(redAmmmo3);
+        thirdAmmo.add(yellowAmmmo3);
+        for (Label a : thirdAmmo){
+            a.setVisible(true);
+            a.setMinWidth(ammoDimension);
+            a.setMinHeight(ammoDimension);
+            a.setFont(Font.font("System Regular", FontWeight.BOLD, ammoDimension - 6));
+            a.setAlignment(Pos.CENTER);
+            a.setBorder(border);
+            pb3.getChildren().add(a);
+        }
+        blueAmmmo3.setTextFill(Color.WHITE);
+        blueAmmmo3.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        blueAmmmo3.setLayoutX(720);
+        blueAmmmo3.setLayoutY(20);
+        redAmmmo3.setTextFill(Color.WHITE);
+        redAmmmo3.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+        redAmmmo3.setLayoutX(blueAmmmo3.getLayoutX()+20);
+        redAmmmo3.setLayoutY(blueAmmmo3.getLayoutY() + 50);
+        yellowAmmmo3.setTextFill(Color.BLACK);
+        yellowAmmmo3.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+        yellowAmmmo3.setLayoutX(blueAmmmo3.getLayoutX()+10);
+        yellowAmmmo3.setLayoutY(redAmmmo3.getLayoutY() + 50);
 
         pb3.setTranslateX(pb1.getTranslateX());
         pb3.setTranslateY(pb2.getTranslateY()+175);
@@ -444,6 +640,7 @@ public class PbFrame {
         fourthDamage = new ArrayList<>();
         fourthMark = new ArrayList<>();
         fourthmarkT = new ArrayList<>();
+        fourthAmmo = new ArrayList<>();
         pb4 = new Pane();
 
         damage37 = new Circle();
@@ -514,11 +711,75 @@ public class PbFrame {
         mark43.setFill(fourthColor.get(2));
         mark44.setFill(fourthColor.get(3));
 
+        markT41 = new Label("0");
+        markT42 = new Label("0");
+        markT43 = new Label("0");
+        markT44 = new Label("0");
+        fourthmarkT.add(markT41);
+        fourthmarkT.add(markT42);
+        fourthmarkT.add(markT43);
+        fourthmarkT.add(markT44);
+        //setting label for marks text
+        for(Label l : fourthmarkT){
+//            l.setVisible(false);
+            l.setMaxHeight(15);
+            l.setMaxWidth(15);
+            l.setFont(Font.font("System Regular", FontWeight.BOLD, 15));
+            l.setLayoutY(mark41.getLayoutY()-10);
+            pb4.getChildren().add(l);
+        }
+        markT41.setBackground(new Background(new BackgroundFill(fourthColor.get(0), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT42.setBackground(new Background(new BackgroundFill(fourthColor.get(1), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT43.setBackground(new Background(new BackgroundFill(fourthColor.get(2), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT44.setBackground(new Background(new BackgroundFill(fourthColor.get(3), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT41.setLayoutX(mark41.getLayoutX()-5);
+        markT42.setLayoutX(mark42.getLayoutX()-5);
+        markT43.setLayoutX(mark43.getLayoutX()-5);
+        markT44.setLayoutX(mark44.getLayoutX()-5);
+
+        blueAmmmo4 = new Label("1");
+        redAmmmo4 = new Label("1");
+        yellowAmmmo4 = new Label("1");
+        fourthAmmo.add(blueAmmmo4);
+        fourthAmmo.add(redAmmmo4);
+        fourthAmmo.add(yellowAmmmo4);
+        for (Label a : fourthAmmo){
+            a.setVisible(true);
+            a.setMinWidth(ammoDimension);
+            a.setMinHeight(ammoDimension);
+            a.setFont(Font.font("System Regular", FontWeight.BOLD, ammoDimension - 6));
+            a.setAlignment(Pos.CENTER);
+            a.setBorder(border);
+            pb4.getChildren().add(a);
+        }
+        blueAmmmo4.setTextFill(Color.WHITE);
+        blueAmmmo4.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        blueAmmmo4.setLayoutX(720);
+        blueAmmmo4.setLayoutY(20);
+        redAmmmo4.setTextFill(Color.WHITE);
+        redAmmmo4.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+        redAmmmo4.setLayoutX(blueAmmmo4.getLayoutX()+20);
+        redAmmmo4.setLayoutY(blueAmmmo4.getLayoutY() + 50);
+        yellowAmmmo4.setTextFill(Color.BLACK);
+        yellowAmmmo4.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+        yellowAmmmo4.setLayoutX(blueAmmmo4.getLayoutX()+10);
+        yellowAmmmo4.setLayoutY(redAmmmo4.getLayoutY() + 50);
 
         pb4.setTranslateX(pb1.getTranslateX());
         pb4.setTranslateY(pb3.getTranslateY()+175);
         pb4.setBackground(new Background(new BackgroundImage(new Image(boardParser(players.get(3)), 815,170,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT)));
+    }
+
+    private void updateDamage(){
+        //TODO
+    }
+    private void updateMarks(){
+        //TODO
+    }
+
+    private void updateAmmo(){
+        //TODO
     }
 }
