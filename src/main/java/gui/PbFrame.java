@@ -63,11 +63,27 @@ public class PbFrame {
     private Circle damage36;
     private List<Circle> thirdDamage;
 
+    private Circle damage37;
+    private Circle damage38;
+    private Circle damage39;
+    private Circle damage40;
+    private Circle damage41;
+    private Circle damage42;
+    private Circle damage43;
+    private Circle damage44;
+    private Circle damage45;
+    private Circle damage46;
+    private Circle damage47;
+    private Circle damage48;
+    private List<Circle> fourthDamage;
+
     public PbFrame(List<String> players) {
         this.stage = new Stage();
         this.players = players;
         this.firstDamage = new ArrayList<>();
         this.secondDamage = new ArrayList<>();
+        this.thirdDamage = new ArrayList<>();
+        this.fourthDamage = new ArrayList<>();
         generate();
     }
 
@@ -167,6 +183,50 @@ public class PbFrame {
         damage22.setLayoutX(damage10.getLayoutX());
         damage23.setLayoutX(damage11.getLayoutX());
         damage24.setLayoutX(damage12.getLayoutX());
+
+        damage25 = new Circle();
+        damage26 = new Circle();
+        damage27 = new Circle();
+        damage28 = new Circle();
+        damage29 = new Circle();
+        damage30 = new Circle();
+        damage31 = new Circle();
+        damage32 = new Circle();
+        damage33 = new Circle();
+        damage34 = new Circle();
+        damage35= new Circle();
+        damage36 = new Circle();
+        thirdDamage.add(damage25);
+        thirdDamage.add(damage26);
+        thirdDamage.add(damage27);
+        thirdDamage.add(damage28);
+        thirdDamage.add(damage29);
+        thirdDamage.add(damage30);
+        thirdDamage.add(damage31);
+        thirdDamage.add(damage32);
+        thirdDamage.add(damage33);
+        thirdDamage.add(damage34);
+        thirdDamage.add(damage35);
+        thirdDamage.add(damage36);
+        for (Circle c: thirdDamage){
+//            c.setVisible(false);
+            c.setRadius(12);
+            c.setLayoutY(90);
+            c.setStroke(Color.BLACK);
+            pb3.getChildren().add(c);
+        }
+        damage25.setLayoutX(damage1.getLayoutX());
+        damage26.setLayoutX(damage2.getLayoutX());
+        damage27.setLayoutX(damage3.getLayoutX());
+        damage28.setLayoutX(damage4.getLayoutX());
+        damage29.setLayoutX(damage5.getLayoutX());
+        damage30.setLayoutX(damage6.getLayoutX());
+        damage31.setLayoutX(damage7.getLayoutX());
+        damage32.setLayoutX(damage8.getLayoutX());
+        damage33.setLayoutX(damage9.getLayoutX());
+        damage34.setLayoutX(damage10.getLayoutX());
+        damage35.setLayoutX(damage11.getLayoutX());
+        damage36.setLayoutX(damage12.getLayoutX());
 
         pb1.setTranslateY(2);
         pb1.setTranslateX(17);
