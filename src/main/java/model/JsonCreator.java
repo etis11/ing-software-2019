@@ -5,9 +5,6 @@ import com.google.gson.GsonBuilder;
 import jsonparser.*;
 import model.clientModel.CommandResponse;
 
-import java.util.LinkedList;
-import java.util.List;
-
 public class JsonCreator implements ChangesObserver {
 
     private boolean prettyPrinting = false;

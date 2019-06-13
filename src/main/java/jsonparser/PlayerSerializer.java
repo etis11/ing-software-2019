@@ -8,14 +8,32 @@ import model.Player;
 import model.PlayerBoard;
 import model.PowerUpCard;
 import model.WeaponCard;
+import model.clientModel.SemplifiedPlayer;
 
 import java.lang.reflect.Type;
 
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 public class PlayerSerializer implements JsonSerializer<Player> {
+
+    private static final ThreadLocal<Set<Player>> cache = new ThreadLocal<Set<Player>>() {
+        @Override
+        protected Set<Player> initialValue() {
+            return new HashSet<>();
+        }
+    };
+
+
     @Override
     public JsonElement serialize(Player player, Type type, JsonSerializationContext jsonSerializationContext) {
         final JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("name", player.getName());
+        if (isPresent(player))
+            return jsonObject;
+
+
         jsonObject.addProperty("remainingMoves", player.getRemainingMoves());
 
         jsonObject.addProperty("numWeaponCard", player.getNumWeapons());
@@ -35,5 +53,18 @@ public class PlayerSerializer implements JsonSerializer<Player> {
         jsonObject.add("playerBoard", playerBoard);
 
         return jsonObject;
+    }
+
+
+    private boolean isPresent(final Player p) {
+        if(cache.get().contains(p))
+            return true;
+        cache.get().add(p);
+        return false;
+
+    }
+
+    public static void resetSet(){
+        cache.get().clear();
     }
 }
