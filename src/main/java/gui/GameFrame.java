@@ -833,4 +833,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     }
 
+    @Override
+    public void onPlayerChange(Player p) {
+        //TODO
+    }
+
 }
