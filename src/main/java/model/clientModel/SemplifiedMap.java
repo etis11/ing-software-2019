@@ -6,6 +6,10 @@ import java.util.List;
 
 
 public class SemplifiedMap {
+
+    private final int rows = 3;
+    private final int cols = 4;
+
     private SemplifiedTile[][] map;
 
 
@@ -75,7 +79,11 @@ public class SemplifiedMap {
     }
 
     public void updateTiles(List<SemplifiedTile> tiles){
-
+        for(SemplifiedTile tile: tiles){
+            int row = tile.getId()/cols;
+            int col = tile.getId()%cols;
+            setTile(tile, row, col);
+        }
     }
 
     /**

@@ -8,6 +8,7 @@ import model.clientModel.SemplifiedMap;
 import model.clientModel.SemplifiedPlayer;
 import view.*;
 
+import javax.naming.OperationNotSupportedException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,19 +42,33 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
             listener.notify(message);
     }
 
+    private void notifyAllMapObservers(SemplifiedMap map){
+        for(MapObserver ob: mapObservers){
+            ob.onMapChange(map);
+        }
+    }
+
+    private void notifyAllPlayerObserver(SemplifiedPlayer player){
+        for(PlayerObserver ob: playerObservers){
+            notifyAllPlayerObserver(player);
+        }
+    }
+
     /*********************** Json receiver interface *********************/
 
     @Override
     public void sendJson(String changes) {
-        CommandResponse response = gson.fromJson(changes, CommandResponse.class);
+        CommandResponseClient response = gson.fromJson(changes, CommandResponseClient.class);
         String message = response.getMessage();
         if(response!= null) notifyAllMessageListeners(message);
         SemplifiedMap map = game.getMap();
         map.updateTiles(response.getAllTiles());
+        //sono le stesse
+        if(response.isMapChanged()) notifyAllMapObservers(game.getMap());
+        game.setPlayers(response.getAllPlayers());
+        if(response.arePlayersChanged()){
 
-
-
-;
+        }
 
         playerDeserializer.resetMap();
     }
