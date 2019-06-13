@@ -58,9 +58,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private Pane playerBoardPane;
     private TextArea infoGame;
 
-    Label blueAmmmo;
-    Label redAmmmo;
-    Label yellowAmmmo;
+    private Label blueAmmmo;
+    private Label redAmmmo;
+    private Label yellowAmmmo;
 
     private Circle mark1;
     private Circle mark2;
