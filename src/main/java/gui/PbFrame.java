@@ -175,12 +175,10 @@ public class PbFrame {
     }
 
     public void show(){
-        //TODO update dati board
+        updateAmmo();
+        updateMarks();
+        updateDamage();
         stage.show();
-    }
-
-    public void close(){
-        stage.close();
     }
 
     private InputStream boardParser(String board) {
@@ -772,5 +770,16 @@ public class PbFrame {
         pb4.setBackground(new Background(new BackgroundImage(new Image(boardParser(players.get(3)), 815,170,false,true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT)));
+    }
+
+    private void updateDamage(){
+        //TODO
+    }
+    private void updateMarks(){
+        //TODO
+    }
+
+    private void updateAmmo(){
+        //TODO
     }
 }

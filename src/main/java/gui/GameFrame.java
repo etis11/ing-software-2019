@@ -20,10 +20,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 import javafx.stage.Stage;
-import model.BloodToken;
-import model.DamageTransporter;
-import model.Match;
-import model.Player;
+import model.*;
 import model.clientModel.SemplifiedMap;
 import view.ClientSingleton;
 import view.MapObserver;
@@ -42,6 +39,11 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     final int ammoDimension = 30;
     final int buttonWidth = 100;
+    private final InputStream pathBackWeapon = getClass().getResourceAsStream("/img/RetroArmi.png");
+    private final InputStream pathBackPu = getClass().getResourceAsStream("/img/RetroPu.png");
+    final BackgroundImage weaponBack = new BackgroundImage(new Image(pathBackWeapon, 110, 190, false, true),
+            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+            BackgroundSize.DEFAULT);
 
     private PbFrame pbFrame;
 
@@ -58,6 +60,10 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private Pane playerBoardPane;
     private TextArea infoGame;
 
+    private Label weapon1;
+    private Label weapon2;
+    private Label weapon3;
+
     private Label blueAmmmo;
     private Label redAmmmo;
     private Label yellowAmmmo;
@@ -72,10 +78,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private Label markT3;
     private Label markT4;
 
-
-    private final InputStream pathBackWeapon = getClass().getResourceAsStream("/img/RetroArmi.png");
-    private final InputStream pathBackPu = getClass().getResourceAsStream("/img/RetroPu.png");
-    private final InputStream pathMartelloIonico = getClass().getResourceAsStream("/img/MartelloIonico.png");
+    private BackgroundImage weap1Img;
+    private BackgroundImage weap2Img;
+    private BackgroundImage weap3Img;
 
     private List<Color> color;
     private List<String> players;
@@ -145,9 +150,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         redAmmmo = new Label("1");
         yellowAmmmo = new Label("1");
 
-        Label weapon1 = new Label();
-        Label weapon2 = new Label();
-        Label weapon3 = new Label();
+        weapon1 = new Label();
+        weapon2 = new Label();
+        weapon3 = new Label();
 
         Label pu1 = new Label();
         Label pu2 = new Label();
@@ -204,11 +209,15 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
-        BackgroundImage weaponBack = new BackgroundImage(new Image(pathBackWeapon, 110, 190, false, true),
+
+
+        weap1Img = new BackgroundImage(new Image(pathBackWeapon, 110, 190, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
-
-        BackgroundImage weap1Img = new BackgroundImage(new Image(pathMartelloIonico, 110, 190, false, true),
+        weap2Img = new BackgroundImage(new Image(pathBackWeapon, 110, 190, false, true),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+        weap3Img = new BackgroundImage(new Image(pathBackWeapon, 110, 190, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
@@ -382,8 +391,8 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         weapon2.setBorder(border);
         weapon3.setBorder(border);
         weapon1.setBackground(new Background(weap1Img));
-        weapon2.setBackground(new Background(weaponBack));
-        weapon3.setBackground(new Background(weaponBack));
+        weapon2.setBackground(new Background(weap2Img));
+        weapon3.setBackground(new Background(weap3Img));
         weapon1.setMinWidth(110);
         weapon1.setMinHeight(190);
         weapon2.setMinWidth(110);
@@ -676,6 +685,52 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     @Override
     public void onWeaponChange(Player p) {
+        if (!players.contains(p.getName())){
+            List<WeaponCard> weapons = p.getWeapons();
+            int index = 0;
+            while ( index < p.getNumWeapons()){
+                switch (index) {
+                    case 0:
+                        weap1Img = new BackgroundImage(new Image(weaponParser(weapons.get(index).getName()), 110, 190, false, true),
+                                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                                BackgroundSize.DEFAULT);
+                        weapon1.setBackground(new Background(weap1Img));
+                        break;
+                    case 1:
+                        weap2Img = new BackgroundImage(new Image(weaponParser(weapons.get(index).getName()), 110, 190, false, true),
+                                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                                BackgroundSize.DEFAULT);
+                        weapon2.setBackground(new Background(weap2Img));
+                        break;
+                    case 2:
+                        weap1Img = new BackgroundImage(new Image(weaponParser(weapons.get(index).getName()), 110, 190, false, true),
+                                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                                BackgroundSize.DEFAULT);
+                        weapon3.setBackground(new Background(weap3Img));
+                        break;
+                    default:
+                        break;
+                }
+                index++;
+            }
+            while (index <3){
+                switch (index){
+                    case 0:
+                        weapon1.setBackground(new Background(weaponBack));
+                        break;
+                    case 1:
+                        weapon2.setBackground(new Background(weaponBack));
+                        break;
+                    case 2:
+                        weapon3.setBackground(new Background(weaponBack));
+                        break;
+                    default:
+                        break;
+                }
+                index++;
+            }
+        }
 
     }
+
 }
