@@ -1,5 +1,7 @@
 package model.clientModel;
 
+import model.Player;
+
 import java.util.List;
 
 public class SemplifiedGame {
@@ -11,6 +13,10 @@ public class SemplifiedGame {
 
     public List<SemplifiedPlayer> getPlayers() {
         return players;
+    }
+
+    public void setPlayers(List<SemplifiedPlayer> players) {
+        this.players = players;
     }
 
     public SemplifiedPlayer getCurrentPlayer() {
@@ -29,7 +35,15 @@ public class SemplifiedGame {
         return map;
     }
 
+    public void setMap(SemplifiedMap map) {
+        this.map = map;
+    }
+
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

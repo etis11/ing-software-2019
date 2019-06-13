@@ -1,26 +1,13 @@
-package model.clientModel;
+package controller;
 
-import com.google.gson.Gson;
-import model.Player;
-import model.Tile;
-
-import java.util.LinkedList;
-import java.util.List;
-
-public class CommandResponse {
+public  abstract class AbstractCommandResponse {
     private String message;
     private boolean errorOccurred;
     private String error;
-    private final List<Player> allPlayers;
     private boolean playerChanged;
-    private final List<Player> changedPlayers;
     private boolean mapChanged;
-    private final List<Tile> allTiles;
 
-    public CommandResponse(List<Player> allPlayers, List<Tile> allTiles){
-        this.allPlayers = allPlayers;
-        this.allTiles = allTiles;
-        changedPlayers = new LinkedList<>();
+    public AbstractCommandResponse(){
         mapChanged = false;
     }
 
@@ -41,11 +28,6 @@ public class CommandResponse {
         error = s;
         errorOccurred = true;
     }
-
-    public void resetChangedPlayers(){
-        changedPlayers.clear();
-    }
-
     public void setMapChanged(boolean value){
         mapChanged = value;
     }
@@ -54,10 +36,24 @@ public class CommandResponse {
         playerChanged = value;
     }
 
+    public String getMessage() {
+        return message;
+    }
 
-    public void addChangedPlayer(Player p){
-        changedPlayers.remove(p);
-        changedPlayers.add(p);
+    public boolean hasErrorOccurred() {
+        return errorOccurred;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public boolean arePlayersChanged() {
+        return playerChanged;
+    }
+
+    public boolean isMapChanged() {
+        return mapChanged;
     }
 
 }

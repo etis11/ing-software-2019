@@ -17,6 +17,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.GameManager;
+import model.clientModel.SemplifiedGame;
 import network.RMI.ServerRMIInterface;
 import network.Socket.CommandLauncherProxySocket;
 import view.ClientSingleton;
@@ -118,6 +119,7 @@ public class MainFrame{
                 if (checkUsername(userField.getText().trim())) {
                     if (networkActive) {
                         String token = "";
+                        //todo
                         JsonReceiver receiver = new JsonUnwrapper();
                         try {
                             //the json receiver now is exportable

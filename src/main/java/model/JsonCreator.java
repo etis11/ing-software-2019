@@ -3,7 +3,7 @@ package model;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import jsonparser.*;
-import model.clientModel.CommandResponse;
+import controller.CommandResponse;
 
 public class JsonCreator implements ChangesObserver {
 
