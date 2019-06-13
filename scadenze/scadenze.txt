@@ -1,105 +1,82 @@
-/usr/lib/jvm/jdk-11/bin/java -ea -Didea.test.cyclic.buffer.size=1048576 -javaagent:/home/oscar/Scrivania/idea-IC-182.4892.20/lib/idea_rt.jar=44084:/home/oscar/Scrivania/idea-IC-182.4892.20/bin -Dfile.encoding=UTF-8 -classpath /home/oscar/Scrivania/idea-IC-182.4892.20/lib/idea_rt.jar:/home/oscar/Scrivania/idea-IC-182.4892.20/plugins/junit/lib/junit-rt.jar:/home/oscar/Scrivania/idea-IC-182.4892.20/plugins/junit/lib/junit5-rt.jar:/home/oscar/.m2/repository/org/junit/platform/junit-platform-launcher/1.4.1/junit-platform-launcher-1.4.1.jar:/home/oscar/.m2/repository/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar:/home/oscar/.m2/repository/org/junit/platform/junit-platform-engine/1.4.1/junit-platform-engine-1.4.1.jar:/home/oscar/.m2/repository/org/opentest4j/opentest4j/1.1.1/opentest4j-1.1.1.jar:/home/oscar/.m2/repository/org/junit/platform/junit-platform-commons/1.4.1/junit-platform-commons-1.4.1.jar:/home/oscar/Scrivania/progettoIDS/ing-sw-2019-44/target/test-classes:/home/oscar/Scrivania/progettoIDS/ing-sw-2019-44/target/classes:/home/oscar/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.4.1/junit-jupiter-api-5.4.1.jar:/home/oscar/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.4.1/junit-jupiter-params-5.4.1.jar:/home/oscar/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.4.1/junit-jupiter-engine-5.4.1.jar:/home/oscar/.m2/repository/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar:/home/oscar/.m2/repository/org/jgrapht/jgrapht-core/1.3.0/jgrapht-core-1.3.0.jar:/home/oscar/.m2/repository/org/jheaps/jheaps/0.9/jheaps-0.9.jar:/home/oscar/.m2/repository/org/openjfx/javafx-graphics/12/javafx-graphics-12.jar:/home/oscar/.m2/repository/org/openjfx/javafx-graphics/12/javafx-graphics-12-linux.jar:/home/oscar/.m2/repository/org/openjfx/javafx-base/12/javafx-base-12.jar:/home/oscar/.m2/repository/org/openjfx/javafx-base/12/javafx-base-12-linux.jar:/home/oscar/.m2/repository/org/openjfx/javafx-controls/12/javafx-controls-12.jar:/home/oscar/.m2/repository/org/openjfx/javafx-controls/12/javafx-controls-12-linux.jar:/home/oscar/.m2/repository/org/openjfx/javafx-fxml/11.0.2/javafx-fxml-11.0.2.jar:/home/oscar/.m2/repository/org/openjfx/javafx-fxml/11.0.2/javafx-fxml-11.0.2-linux.jar com.intellij.rt.execution.junit.JUnitStarter -ideVersion5 -junit5 Test.JsonCreatorTest,withRealWeapons
-qua devo aggiungere qualcosa se no sonar si imppapa
-qua devo aggiungere qualcosa se no sonar si imppapa
-qua devo aggiungere qualcosa se no sonar si imppapa
-qua devo aggiungere qualcosa se no sonar si imppapa
-qua devo aggiungere qualcosa se no sonar si imppapa
-qua devo aggiungere qualcosa se no sonar si imppapa
-qua devo aggiungere qualcosa se no sonar si imppapa
-qua devo aggiungere qualcosa se no sonar si imppapa
-qua devo aggiungere qualcosa se no sonar si imppapa
-qua devo aggiungere qualcosa se no sonar si imppapa
-qua devo aggiungere qualcosa se no sonar si imppapa
-qua devo aggiungere qualcosa se no sonar si imppapa
-qua devo aggiungere qualcosa se no sonar si imppapa
-qua devo aggiungere qualcosa se no sonar si imppapa
-qua devo aggiungere qualcosa se no sonar si imppapa
-qua devo aggiungere qualcosa se no sonar si imppapa
-qua devo aggiungere qualcosa se no sonar si imppapa
-{
-  "message": "Apelle figlio di apollo",
-  "errorOccurred": false,
-  "allPlayers": [
-    {
-      "name": "gigino",
-      "remainingMoves": 0,
-      "numWeaponCard": 1,
-      "weaponCards": [
-        {}
-      ],
-      "numPowerUps": 0,
-      "powerUps": [],
-      "tile": 0,
-      "playerBoard": {
-        "damageTokens": [],
-        "marksTokens": [],
-        "killValue": [
-          8,
-          6,
-          4,
-          2,
-          1,
-          1,
-          1,
-          1,
-          1
-        ],
-        "numBlueAmmo": 1,
-        "numRedAmmo": 1,
-        "numYellowAmmo": 1
-      }
-    },
-    {
-      "name": "pinotto",
-      "remainingMoves": 0,
-      "numWeaponCard": 1,
-      "weaponCards": [
-        {
-          "name": "broccolator",
-          "cost": [
-            "yellow"
-          ],
-          "loaded": true
-        }
-      ],
-      "numPowerUps": 0,
-      "powerUps": [],
-      "playerBoard": {
-        "damageTokens": [],
-        "marksTokens": [],
-        "killValue": [
-          8,
-          6,
-          4,
-          2,
-          1,
-          1,
-          1,
-          1,
-          1
-        ],
-        "numBlueAmmo": 1,
-        "numRedAmmo": 1,
-        "numYellowAmmo": 1
-      }
-    }
-  ],
-  "playerChanged": true,
-  "changedPlayers": [
-    {
-      "name": "gigino"
-    },
-    {
-      "name": "pinotto"
-    }
-  ],
-  "mapChanged": true,
-  "allTiles": [
-    {
-      "id": 0,
-      "players": [],
-      "ammoTile": true,
-      "weaponTile": false
-    }
-  ]
-}
+11 giugno
+
+LEGENDA
+* = fatto
+# = parzialmente fatto
+X = da fare
+
+1) modello semplificato etis
+2) serializzazione e deserializzazione oscar
+3) mappa di gioco sulla gui passoni
+4) finire comandi passoni
+5) mappa, player e player board sulla CLI etis
+6) json delle ammo card etis
+
+cose da fare  insieme l'11
+1) capire la cli e la gui come interagiscono con il modello
+2) definire come viene creato il modello sul client
+3) ammo card
+4) creare una partita lato modello
+5) comando di sparo impossibile
+6) parlare di una sessione di debugging
+
+
+cosa fare adesso
+*1) mettere in piedi la rete si può fare
+*2) nella gui settare per bene il token (inserire il lancio del client RMI o socket) fato /da fare
+*3) sistema command executor con tutta la storia del json receiver da fare
+*4) creare una cli con string parser
+
+lungo periodo
+1) json receiver
+2) la serializzazione e deserializzazione
+3) Finire la GUI
+4) CLI: parser incompleto
+5) CLI: non è chiaro come interagisce con il resto del mondo
+6) ammo card
+7) power card
+8) inizializzazione partita
+9) gestione dei turni
+10) gestione fine partita
+11) testare in qualche modo lo shooting
+12) Rete con timer facilmente configurabili
+
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+7 giugno
+#1) cambiare i comandi. ora accettano un token che rende più facile chi sta chiedendo cosa Ing. Passoni parzialmente
+*2) completare la network. Oscar (inizializzare il client Singleton) fatto
+#3) continuare la gui. Passoni e etis ? fatto, sistemati i comandi della lobby. Scelta personaggio da fare
+*4) rincontrollare armi etis fatto
+*5) singleton passoni fatto
+*6) risolvere il string parser etis. (Passoni ha cambiato i comandi, modificare i parametri) fatto
+*7) specchiare immagine etis fatto
+-----
+soft line)
+xa) creare il modello semplificato Oscar non ce l'ho fatta
+
+
+
+cose da fare insieme venerdì
+x1) mettere in piedi una CLI impossibile
+#2) mettere in piedi la rete si può fare
+x3) comando di sparo impossibile
+*X4) parlare del modello semplificato da fare
+#5) nella gui settare per bene il token (inserire il lancio del client RMI o socket) fato /da fare
+x6) sistema command executor con tutta la storia del json receiver da fare
+
+
+-------------------------
+x1) json receiver
+x2) la serializzazione e deserializzazione
+*3) Finire la network finita
+x4) Finire la GUI
+#5) CLI: parser incompleto
+x6) CLI: non è chiaro come interagisce con il resto del mondo
+x7) ammo card
+x8) power card
+x9) inizializzazione partita
+x10) gestione dei turni
+x11) gestione fine partita
+x12) testare in qualche modo lo shooting
+x13) rendere i timer facilmente configurabili
