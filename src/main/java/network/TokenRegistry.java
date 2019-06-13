@@ -9,12 +9,28 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-public abstract class TokenRegistry {
+public class TokenRegistry {
 
-    private static final ConcurrentMap<String, JsonReceiver> tokenAssociated = new ConcurrentHashMap<>();
-    private static final List<String> registeredTokens = new ArrayList<>(10);
-    private static final ConcurrentMap<JsonReceiver, User> userReceiver = new ConcurrentHashMap<>();
+    private static TokenRegistry registry;
+
+    private  final ConcurrentMap<String, JsonReceiver> tokenAssociated;
+    private  final List<String> registeredTokens;
+    private  final ConcurrentMap<JsonReceiver, User> userReceiver;
     //private static final Object registeredTokensLock = new Object();
+
+    private TokenRegistry(){
+        tokenAssociated  = new ConcurrentHashMap<>();
+        registeredTokens = new ArrayList<>(10);
+        userReceiver = new ConcurrentHashMap<>();
+    }
+
+    public static  TokenRegistry getInstance(){
+        if (registry== null) {
+            registry= new TokenRegistry();
+        }
+        return  registry;
+
+    }
 
     /**
      * Adds a token to a token registry. If the token has already sent, is not added, because it's already there. This happens
@@ -25,7 +41,7 @@ public abstract class TokenRegistry {
      * @param token        token of the client
      * @param jsonReceiver jsonReceiver of the client
      */
-    public static void associateTokenAndReceiver(String token, JsonReceiver jsonReceiver) {
+    public void associateTokenAndReceiver(String token, JsonReceiver jsonReceiver) {
         synchronized (registeredTokens) {
             if (tokenAssociated.containsKey(token))
                 throw new DuplicateException(">>> There is already a jsonReceiver associated to this token");
@@ -37,21 +53,21 @@ public abstract class TokenRegistry {
     /**
      * Saves all the tokens in the server. Still not implemented
      */
-    public static void saveTokens() {
+    public void saveTokens() {
         throw new UnsupportedOperationException();
     }
 
-    public static boolean tokenAlreadyGenerated(String token) {
+    public boolean tokenAlreadyGenerated(String token) {
         return registeredTokens.contains(token);
     }
 
-    public static JsonReceiver getJsonReceiver(String token) {
+    public JsonReceiver getJsonReceiver(String token) {
         JsonReceiver receiver = tokenAssociated.get(token);
         if (receiver == null) throw new NullPointerException("This token is not registered");
         return receiver;
     }
 
-    public static User getJsonUserOwner(JsonReceiver receiver) {
+    public User getJsonUserOwner(JsonReceiver receiver) {
         User owner = userReceiver.get(receiver);
         if (owner == null) throw new NullPointerException("Non c'è nessun user associato a questo json receiver");
         return owner;
