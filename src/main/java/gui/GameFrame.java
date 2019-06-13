@@ -44,6 +44,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     final BackgroundImage weaponBack = new BackgroundImage(new Image(pathBackWeapon, 110, 190, false, true),
             BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
             BackgroundSize.DEFAULT);
+    final BackgroundImage puBack = new BackgroundImage(new Image(pathBackPu, 110, 190, false, true),
+            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+            BackgroundSize.DEFAULT);
 
     private PbFrame pbFrame;
 
@@ -63,6 +66,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private Label weapon1;
     private Label weapon2;
     private Label weapon3;
+
+    private Label pu1;
+    private Label pu2;
 
     private Label blueAmmmo;
     private Label redAmmmo;
@@ -154,8 +160,8 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         weapon2 = new Label();
         weapon3 = new Label();
 
-        Label pu1 = new Label();
-        Label pu2 = new Label();
+        pu1 = new Label();
+        pu2 = new Label();
 
         Circle damage1 = new Circle();
         Circle damage2 = new Circle();
@@ -211,19 +217,6 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
 
 
-        weap1Img = new BackgroundImage(new Image(pathBackWeapon, 110, 190, false, true),
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
-        weap2Img = new BackgroundImage(new Image(pathBackWeapon, 110, 190, false, true),
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
-        weap3Img = new BackgroundImage(new Image(pathBackWeapon, 110, 190, false, true),
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
-
-        BackgroundImage puBack = new BackgroundImage(new Image(pathBackPu, 110, 190, false, true),
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
 
         //map setting
         mapPane.setBackground(new Background(myBI));
@@ -390,9 +383,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         weapon1.setBorder(border);
         weapon2.setBorder(border);
         weapon3.setBorder(border);
-        weapon1.setBackground(new Background(weap1Img));
-        weapon2.setBackground(new Background(weap2Img));
-        weapon3.setBackground(new Background(weap3Img));
+        weapon1.setBackground(new Background(weaponBack));
+        weapon2.setBackground(new Background(weaponBack));
+        weapon3.setBackground(new Background(weaponBack));
         weapon1.setMinWidth(110);
         weapon1.setMinHeight(190);
         weapon2.setMinWidth(110);
@@ -622,6 +615,53 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         }
     }
 
+    private InputStream powerUpParser(PowerUpCard pc){
+        switch (pc.getPowerUpType()){
+            case NEWTON:
+                if (pc.getColor().equals(Color.YELLOW)){
+                    return getClass().getResourceAsStream("/img/RaggioCineticoG.png");
+                }
+                else if (pc.getColor().equals(Color.BLUE)){
+                    return getClass().getResourceAsStream("/img/RaggioCineticoB.png");
+                }
+                else{
+                    return getClass().getResourceAsStream("/img/RaggioCineticoR.png");
+                }
+            case TELEPORTER:
+                if (pc.getColor().equals(Color.YELLOW)){
+                    return getClass().getResourceAsStream("/img/TeletrasportoG.png");
+                }
+                else if (pc.getColor().equals(Color.BLUE)){
+                    return getClass().getResourceAsStream("/img/TeletrasportoB.png");
+                }
+                else{
+                    return getClass().getResourceAsStream("/img/TeletrasportoR.png");
+                }
+            case TAGBACK_GRANADE:
+                if (pc.getColor().equals(Color.YELLOW)){
+                    return getClass().getResourceAsStream("/img/GranataVenomG.png");
+                }
+                else if (pc.getColor().equals(Color.BLUE)){
+                    return getClass().getResourceAsStream("/img/GranataVenomB.png");
+                }
+                else{
+                    return getClass().getResourceAsStream("/img/GranataVenomR.png");
+                }
+            case TARGETING_SCOPE:
+                if (pc.getColor().equals(Color.YELLOW)){
+                    return getClass().getResourceAsStream("/img/MirinoG.png");
+                }
+                else if (pc.getColor().equals(Color.BLUE)){
+                    return getClass().getResourceAsStream("/img/MirinoB.png");
+                }
+                else{
+                    return getClass().getResourceAsStream("/img/MirinoR.png");
+                }
+            default:
+                return getClass().getResourceAsStream("/img/RetroPu.png");
+        }
+    }
+
 
     @Override
     public void onMapChange(SemplifiedMap map) {
@@ -680,7 +720,40 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     @Override
     public void onPowerUpChange(Player p) {
-
+        if (!players.contains(p.getName())){
+            List<PowerUpCard> powerUp = p.getPowerUps();
+            int index = 0;
+            while ( index < p.getNumPowerUps()){
+                switch (index) {
+                    case 0:
+                        pu1.setBackground(new Background(new BackgroundImage(new Image(powerUpParser(powerUp.get(index)), 110, 190, false, true),
+                                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                                BackgroundSize.DEFAULT)));
+                        break;
+                    case 1:
+                        pu2.setBackground(new Background(new BackgroundImage(new Image(powerUpParser(powerUp.get(index)), 110, 190, false, true),
+                                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                                BackgroundSize.DEFAULT)));
+                        break;
+                    default:
+                        break;
+                }
+                index++;
+            }
+            while (index <2){
+                switch (index){
+                    case 0:
+                        pu1.setBackground(new Background(puBack));
+                        break;
+                    case 1:
+                        pu2.setBackground(new Background(puBack));
+                        break;
+                    default:
+                        break;
+                }
+                index++;
+            }
+        }
     }
 
     @Override
@@ -691,22 +764,19 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
             while ( index < p.getNumWeapons()){
                 switch (index) {
                     case 0:
-                        weap1Img = new BackgroundImage(new Image(weaponParser(weapons.get(index).getName()), 110, 190, false, true),
+                        weapon1.setBackground(new Background(new BackgroundImage(new Image(weaponParser(weapons.get(index).getName()), 110, 190, false, true),
                                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                                BackgroundSize.DEFAULT);
-                        weapon1.setBackground(new Background(weap1Img));
+                                BackgroundSize.DEFAULT)));
                         break;
                     case 1:
-                        weap2Img = new BackgroundImage(new Image(weaponParser(weapons.get(index).getName()), 110, 190, false, true),
+                        weapon2.setBackground(new Background(new BackgroundImage(new Image(weaponParser(weapons.get(index).getName()), 110, 190, false, true),
                                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                                BackgroundSize.DEFAULT);
-                        weapon2.setBackground(new Background(weap2Img));
+                                BackgroundSize.DEFAULT)));
                         break;
                     case 2:
-                        weap1Img = new BackgroundImage(new Image(weaponParser(weapons.get(index).getName()), 110, 190, false, true),
+                        weapon3.setBackground(new Background(new BackgroundImage(new Image(weaponParser(weapons.get(index).getName()), 110, 190, false, true),
                                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                                BackgroundSize.DEFAULT);
-                        weapon3.setBackground(new Background(weap3Img));
+                                BackgroundSize.DEFAULT)));
                         break;
                     default:
                         break;
