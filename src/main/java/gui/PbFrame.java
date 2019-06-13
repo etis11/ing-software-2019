@@ -104,7 +104,6 @@ public class PbFrame {
         this.stage = new Stage();
         this.players = players;
         this.gameColor = gameColor;
-        this.secondDamage = new ArrayList<>();
         this.thirdDamage = new ArrayList<>();
         this.fourthDamage = new ArrayList<>();
 
@@ -116,55 +115,11 @@ public class PbFrame {
         stage.setTitle("Adrenalina - PlayerBoard avversari");
         stage.setResizable(false);
 
-        pb2 = new Pane();
         pb3 = new Pane();
         pb4 = new Pane();
 
         generateFirst();
-
-        damage13 = new Circle();
-        damage14 = new Circle();
-        damage15 = new Circle();
-        damage16 = new Circle();
-        damage17 = new Circle();
-        damage18 = new Circle();
-        damage19 = new Circle();
-        damage20 = new Circle();
-        damage21 = new Circle();
-        damage22 = new Circle();
-        damage23= new Circle();
-        damage24 = new Circle();
-        secondDamage.add(damage13);
-        secondDamage.add(damage14);
-        secondDamage.add(damage15);
-        secondDamage.add(damage16);
-        secondDamage.add(damage17);
-        secondDamage.add(damage18);
-        secondDamage.add(damage19);
-        secondDamage.add(damage20);
-        secondDamage.add(damage21);
-        secondDamage.add(damage22);
-        secondDamage.add(damage23);
-        secondDamage.add(damage24);
-        for (Circle c: secondDamage){
-//            c.setVisible(false);
-            c.setRadius(12);
-            c.setLayoutY(90);
-            c.setStroke(Color.BLACK);
-            pb2.getChildren().add(c);
-        }
-        damage13.setLayoutX(damage1.getLayoutX());
-        damage14.setLayoutX(damage2.getLayoutX());
-        damage15.setLayoutX(damage3.getLayoutX());
-        damage16.setLayoutX(damage4.getLayoutX());
-        damage17.setLayoutX(damage5.getLayoutX());
-        damage18.setLayoutX(damage6.getLayoutX());
-        damage19.setLayoutX(damage7.getLayoutX());
-        damage20.setLayoutX(damage8.getLayoutX());
-        damage21.setLayoutX(damage9.getLayoutX());
-        damage22.setLayoutX(damage10.getLayoutX());
-        damage23.setLayoutX(damage11.getLayoutX());
-        damage24.setLayoutX(damage12.getLayoutX());
+        generateSecond();
 
         damage25 = new Circle();
         damage26 = new Circle();
@@ -344,7 +299,7 @@ public class PbFrame {
         fourthColor.remove(gameColor.get(3));
     }
 
-    public void generateFirst(){
+    private void generateFirst(){
         firstDamage = new ArrayList<>();
         firstMark = new ArrayList<>();
         firstMarkT = new ArrayList<>();
@@ -417,5 +372,80 @@ public class PbFrame {
         mark12.setFill(firstColor.get(1));
         mark13.setFill(firstColor.get(2));
         mark14.setFill(firstColor.get(3));
+    }
+
+    private void generateSecond(){
+        secondDamage = new ArrayList<>();
+        secondMark = new ArrayList<>();
+        secondMarkT = new ArrayList<>();
+        pb2 = new Pane();
+
+        damage13 = new Circle();
+        damage14 = new Circle();
+        damage15 = new Circle();
+        damage16 = new Circle();
+        damage17 = new Circle();
+        damage18 = new Circle();
+        damage19 = new Circle();
+        damage20 = new Circle();
+        damage21 = new Circle();
+        damage22 = new Circle();
+        damage23= new Circle();
+        damage24 = new Circle();
+        secondDamage.add(damage13);
+        secondDamage.add(damage14);
+        secondDamage.add(damage15);
+        secondDamage.add(damage16);
+        secondDamage.add(damage17);
+        secondDamage.add(damage18);
+        secondDamage.add(damage19);
+        secondDamage.add(damage20);
+        secondDamage.add(damage21);
+        secondDamage.add(damage22);
+        secondDamage.add(damage23);
+        secondDamage.add(damage24);
+        for (Circle c: secondDamage){
+//            c.setVisible(false);
+            c.setRadius(12);
+            c.setLayoutY(90);
+            c.setStroke(Color.BLACK);
+            pb2.getChildren().add(c);
+        }
+        damage13.setLayoutX(damage1.getLayoutX());
+        damage14.setLayoutX(damage2.getLayoutX());
+        damage15.setLayoutX(damage3.getLayoutX());
+        damage16.setLayoutX(damage4.getLayoutX());
+        damage17.setLayoutX(damage5.getLayoutX());
+        damage18.setLayoutX(damage6.getLayoutX());
+        damage19.setLayoutX(damage7.getLayoutX());
+        damage20.setLayoutX(damage8.getLayoutX());
+        damage21.setLayoutX(damage9.getLayoutX());
+        damage22.setLayoutX(damage10.getLayoutX());
+        damage23.setLayoutX(damage11.getLayoutX());
+        damage24.setLayoutX(damage12.getLayoutX());
+        mark21 = new Circle();
+        mark22 = new Circle();
+        mark23 = new Circle();
+        mark24 = new Circle();
+        secondMark.add(mark21);
+        secondMark.add(mark22);
+        secondMark.add(mark23);
+        secondMark.add(mark24);
+        for (Circle c : secondMark){
+//            c.setVisible(false);
+            c.setRadius(15);
+            c.setLayoutY(20);
+            c.setStroke(Color.BLACK);
+            pb2.getChildren().add(c);
+        }
+        mark21.setLayoutX(mark11.getLayoutX());
+        mark22.setLayoutX(mark12.getLayoutX());
+        mark23.setLayoutX(mark13.getLayoutX());
+        mark24.setLayoutX(mark14.getLayoutX());
+        mark21.setFill(secondColor.get(0));
+        mark22.setFill(secondColor.get(1));
+        mark23.setFill(secondColor.get(2));
+        mark24.setFill(secondColor.get(3));
+
     }
 }
