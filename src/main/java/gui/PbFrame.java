@@ -1,11 +1,14 @@
 package gui;
 
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.InputStream;
@@ -65,6 +68,10 @@ public class PbFrame {
     private Circle mark22;
     private Circle mark23;
     private Circle mark24;
+    private Label markT21;
+    private Label markT22;
+    private Label markT23;
+    private Label markT24;
     private List<Circle> secondDamage;
     private List<Circle> secondMark;
     private List<Label> secondMarkT;
@@ -86,9 +93,13 @@ public class PbFrame {
     private Circle mark32;
     private Circle mark33;
     private Circle mark34;
+    private Label markT31;
+    private Label markT32;
+    private Label markT33;
+    private Label markT34;
     private List<Circle> thirdDamage;
     private List<Circle> thirdMark;
-    private List<Circle> thirdMarkT;
+    private List<Label> thirdMarkT;
     private List<Color> thirdColor;
 
     private Circle damage37;
@@ -269,6 +280,31 @@ public class PbFrame {
         mark13.setFill(firstColor.get(2));
         mark14.setFill(firstColor.get(3));
 
+        markT11 = new Label("0");
+        markT12 = new Label("0");
+        markT13 = new Label("0");
+        markT14 = new Label("0");
+        firstMarkT.add(markT11);
+        firstMarkT.add(markT12);
+        firstMarkT.add(markT13);
+        firstMarkT.add(markT14);
+        //setting label for marks text
+        for(Label l : firstMarkT){
+//            l.setVisible(false);
+            l.setMaxHeight(15);
+            l.setMaxWidth(15);
+            l.setFont(Font.font("System Regular", FontWeight.BOLD, 15));
+            l.setLayoutY(mark11.getLayoutY()-10);
+            pb1.getChildren().add(l);
+        }
+        markT11.setBackground(new Background(new BackgroundFill(firstColor.get(0), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT12.setBackground(new Background(new BackgroundFill(firstColor.get(1), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT13.setBackground(new Background(new BackgroundFill(firstColor.get(2), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT14.setBackground(new Background(new BackgroundFill(firstColor.get(3), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT11.setLayoutX(mark11.getLayoutX()-5);
+        markT12.setLayoutX(mark12.getLayoutX()-5);
+        markT13.setLayoutX(mark13.getLayoutX()-5);
+        markT14.setLayoutX(mark14.getLayoutX()-5);
 
         pb1.setTranslateY(2);
         pb1.setTranslateX(17);
@@ -350,6 +386,31 @@ public class PbFrame {
         mark23.setFill(secondColor.get(2));
         mark24.setFill(secondColor.get(3));
 
+        markT21 = new Label("0");
+        markT22 = new Label("0");
+        markT23 = new Label("0");
+        markT24 = new Label("0");
+        secondMarkT.add(markT21);
+        secondMarkT.add(markT22);
+        secondMarkT.add(markT23);
+        secondMarkT.add(markT24);
+        //setting label for marks text
+        for(Label l : secondMarkT){
+//            l.setVisible(false);
+            l.setMaxHeight(15);
+            l.setMaxWidth(15);
+            l.setFont(Font.font("System Regular", FontWeight.BOLD, 15));
+            l.setLayoutY(mark21.getLayoutY()-10);
+            pb2.getChildren().add(l);
+        }
+        markT21.setBackground(new Background(new BackgroundFill(secondColor.get(0), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT22.setBackground(new Background(new BackgroundFill(secondColor.get(1), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT23.setBackground(new Background(new BackgroundFill(secondColor.get(2), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT24.setBackground(new Background(new BackgroundFill(secondColor.get(3), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT21.setLayoutX(mark21.getLayoutX()-5);
+        markT22.setLayoutX(mark22.getLayoutX()-5);
+        markT23.setLayoutX(mark23.getLayoutX()-5);
+        markT24.setLayoutX(mark24.getLayoutX()-5);
 
         pb2.setTranslateX(pb1.getTranslateX());
         pb2.setTranslateY(pb1.getTranslateY()+175);
@@ -432,6 +493,31 @@ public class PbFrame {
         mark33.setFill(thirdColor.get(2));
         mark34.setFill(thirdColor.get(3));
 
+        markT31 = new Label("0");
+        markT32 = new Label("0");
+        markT33 = new Label("0");
+        markT34 = new Label("0");
+        thirdMarkT.add(markT31);
+        thirdMarkT.add(markT32);
+        thirdMarkT.add(markT33);
+        thirdMarkT.add(markT34);
+        //setting label for marks text
+        for(Label l : thirdMarkT){
+//            l.setVisible(false);
+            l.setMaxHeight(15);
+            l.setMaxWidth(15);
+            l.setFont(Font.font("System Regular", FontWeight.BOLD, 15));
+            l.setLayoutY(mark31.getLayoutY()-10);
+            pb3.getChildren().add(l);
+        }
+        markT31.setBackground(new Background(new BackgroundFill(thirdColor.get(0), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT32.setBackground(new Background(new BackgroundFill(thirdColor.get(1), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT33.setBackground(new Background(new BackgroundFill(thirdColor.get(2), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT34.setBackground(new Background(new BackgroundFill(thirdColor.get(3), CornerRadii.EMPTY, Insets.EMPTY)));
+        markT31.setLayoutX(mark31.getLayoutX()-5);
+        markT32.setLayoutX(mark32.getLayoutX()-5);
+        markT33.setLayoutX(mark33.getLayoutX()-5);
+        markT34.setLayoutX(mark34.getLayoutX()-5);
 
         pb3.setTranslateX(pb1.getTranslateX());
         pb3.setTranslateY(pb2.getTranslateY()+175);
