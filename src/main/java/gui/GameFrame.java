@@ -84,20 +84,24 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private Label markT3;
     private Label markT4;
 
-    private BackgroundImage weap1Img;
-    private BackgroundImage weap2Img;
-    private BackgroundImage weap3Img;
+    private Circle distruttoreToken;
+    private Circle dozerToken;
+    private Circle sprogToken;
+    private Circle violettaToken;
+    private Circle bansheeToken;
 
     private List<Color> color;
     private List<String> players;
     private List<Label> marksT;
     private List<Circle> damage;
     private List<Circle> mark;
+    private List<Circle> token;
 
     public GameFrame(CommandContainer cmd, String board, int map) {
         this.cmdLauncher = cmd;
         this.mapPath = mapParser(map);
         this.color = new ArrayList<>();
+        this.token = new ArrayList<>();
         this.color.add(Color.GREY);
         this.color.add(Color.YELLOW);
         this.color.add(Color.BLUEVIOLET);
@@ -142,7 +146,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         Button pointsButton = new Button("Punti");
         Button showWeapon = new Button("Mostra Armi");
         Button showPowerUp = new Button("Mostra PU");
-        Button showPlBoard = new Button("Mostra PB");
+        Button showPlBoard = new Button("Mostra PB av");
+        Button showPuCard = new Button("Mostra Armi av");
+        Button showWeaponCard = new Button("Mostra PU av");
 
         infoGame.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         infoGame.setMaxWidth(300);
@@ -214,9 +220,6 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         BackgroundImage myBIB = new BackgroundImage(new Image(boardPath, 845, 190, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
-
-
-
 
         //map setting
         mapPane.setBackground(new Background(myBI));
@@ -373,6 +376,10 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
             }
         });
 
+        showPuCard.setMinWidth(buttonWidth);
+
+        showWeaponCard.setMinWidth(buttonWidth);
+
         //setting gamelog
         gameLog.getChildren().add(infoGame);
 
@@ -479,6 +486,8 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         buttonPane.getChildren().add(showWeapon);
         buttonPane.getChildren().add(showPowerUp);
         buttonPane.getChildren().add(showPlBoard);
+        buttonPane.getChildren().add(showPuCard);
+        buttonPane.getChildren().add(showWeaponCard);
 
         playerBoardPane.getChildren().add(blueAmmmo);
         playerBoardPane.getChildren().add(redAmmmo);
@@ -493,6 +502,27 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         playerBoardPane.getChildren().add(markT3);
         playerBoardPane.getChildren().add(markT4);
 
+        distruttoreToken = new Circle();
+        dozerToken = new Circle();
+        sprogToken = new Circle();
+        violettaToken = new Circle();
+        bansheeToken = new Circle();
+        token.add(distruttoreToken);
+        token.add(dozerToken);
+        token.add(sprogToken);
+        token.add(violettaToken);
+        token.add(bansheeToken);
+        for (Circle c : token){
+            c.setVisible(false);
+            c.setRadius(15);
+            c.setStroke(Color.BLACK);
+            mapPane.getChildren().add(c);
+        }
+        distruttoreToken.setFill(Color.YELLOW);
+        dozerToken.setFill(Color.GREY);
+        sprogToken.setFill(Color.DARKGREEN);
+        violettaToken.setFill(Color.BLUEVIOLET);
+        bansheeToken.setFill(Color.TEAL);
 
         //setting position of pane
         buttonPane.setSpacing(10);
