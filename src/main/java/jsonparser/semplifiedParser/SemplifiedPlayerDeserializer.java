@@ -1,22 +1,21 @@
-/*package jsonparser.semplifiedParser;
+package jsonparser.semplifiedParser;
 
 import com.google.gson.*;
-import model.BloodToken;
 import model.PowerUpCard;
-import model.clientModel.SemplifiedGame;
-import model.clientModel.SemplifiedPlayer;
-import model.clientModel.SemplifiedPlayerBoard;
-import model.clientModel.SemplifiedWeaponCard;
+import model.clientModel.*;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SemplifiedPlayerDeserializer implements JsonDeserializer<SemplifiedPlayer> {
 
-    private final SemplifiedGame game;
-
-    public SemplifiedPlayerDeserializer(SemplifiedGame game) {
-        this.game = game;
-    }
+    private static final ThreadLocal<Map<String, SemplifiedPlayer>> cache = new ThreadLocal<Map<String,SemplifiedPlayer>>() {
+        @Override
+        protected Map<String, SemplifiedPlayer> initialValue() {
+            return new HashMap<>();
+        }
+    };
 
     @Override
     public SemplifiedPlayer deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
@@ -26,8 +25,7 @@ public class SemplifiedPlayerDeserializer implements JsonDeserializer<Semplified
                 || !jsonPlayer.has("tile") || !jsonPlayer.has("playerBoard"))
             throw new JsonParseException("This json player doesnt have a name");
 
-        SemplifiedPlayer player = game.getPlayerByName(jsonPlayer.get("name").getAsString());
-        //simple assignment
+        SemplifiedPlayer player = new SemplifiedPlayer();
         player.setRemainingMoves(jsonPlayer.get("remainingMoves").getAsInt());
         player.setNumWeaponCard(jsonPlayer.get("numWeaponCard").getAsInt());
         player.setNumPowerUps(jsonPlayer.get("numPowerUps").getAsInt());
@@ -42,31 +40,25 @@ public class SemplifiedPlayerDeserializer implements JsonDeserializer<Semplified
                 jsonPlayer.getAsJsonArray("powerUps"), PowerUpCard[].class);
         player.setPowerUpCards(powerUpCards);
 
-        JsonObject jsonPlayerBoard = jsonPlayer.get("playerBoard").getAsJsonObject();
+        SemplifiedPlayerBoard playerBoard = jsonDeserializationContext.deserialize(
+                jsonPlayer.get("playerBoard").getAsJsonObject(), SemplifiedPlayerBoard.class);
 
-        if (!jsonPlayerBoard.has("damageTokens") || !jsonPlayerBoard.has("marksTokens")
-                || !jsonPlayerBoard.has("killValue") || !jsonPlayerBoard.has("numBlueAmmo")
-                || !jsonPlayerBoard.has("numRedAmmo") || !jsonPlayerBoard.has("numYellowAmmo"))
-            throw new JsonParseException("Player board json is missing some fields");
+        player.setPlayerBoard(playerBoard);
 
-        SemplifiedPlayerBoard playerBoard = player.getPlayerBoard();
+        return player;
+    }
 
-        BloodToken[] damageTokens = jsonDeserializationContext.deserialize(
-                jsonPlayerBoard.getAsJsonArray("damageTokens"), BloodToken[].class);
-        //playerBoard.setDamageTokens(damageTokens);
+    private SemplifiedPlayer getOrCreate(final String name) {
+        SemplifiedPlayer player = cache.get().get(name);
+        if (player == null) {
+            player = new SemplifiedPlayer();
+            player.setName(name);
+            cache.get().put(name, player);
+        }
+        return player;
+    }
 
-        BloodToken[] marksTokens = jsonDeserializationContext.deserialize(
-                jsonPlayerBoard.getAsJsonArray("marksTokens"), BloodToken[].class);
-        playerBoard.setMarksTokens(marksTokens);
-
-        Integer[] killValue = jsonDeserializationContext.deserialize(
-                jsonPlayerBoard.getAsJsonArray("killValue"), Integer[].class);
-        playerBoard.setKillValue(killValue);
-
-        playerBoard.setNumBlueAmmo(jsonPlayerBoard.get("numBlueAmmo").getAsInt());
-        playerBoard.setNumRedAmmo(jsonPlayerBoard.get("numRedAmmo").getAsInt());
-        playerBoard.setNumYellowAmmo(jsonPlayerBoard.get("numYellowAmmo").getAsInt());
-        return null;
+    public static void resetMap(){
+        cache.get().clear();
     }
 }
-*/

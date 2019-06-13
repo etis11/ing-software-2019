@@ -16,7 +16,7 @@ import static java.util.stream.Collectors.toCollection;
  * store this reference, and can be null (for example, if the wall is one of the edges of the map, of course there isn't a
  * tile in the wall),
  */
-public class Tile {
+public class Tile implements ChangesObservable {
 
     private int ID;
 
@@ -89,6 +89,11 @@ public class Tile {
     private Tile westWalledTile;
 
     /**
+     * a list of observer interested in the change of the map
+     */
+    private List<ChangesObserver> mapObservers;
+
+    /**
      * creates a tile with all the values set to null
      */
     public Tile() {
@@ -102,6 +107,7 @@ public class Tile {
         weaponTile = false;
         weapons = new LinkedList<>();
         room = null;
+        mapObservers = new LinkedList<>();
     }
 
     /**
@@ -125,6 +131,7 @@ public class Tile {
         this.weaponTile = weaponTile;
         weapons = new LinkedList<>();
         room = null;
+        mapObservers = new LinkedList<>();
     }
 
     public Tile(boolean ammoTile, boolean weaponTile) {
@@ -138,6 +145,7 @@ public class Tile {
         this.weaponTile = weaponTile;
         weapons = new LinkedList<>();
         room = null;
+        mapObservers = new LinkedList<>();
     }
 
     public Tile(int id, boolean ammoTile, boolean weaponTile) {
@@ -152,6 +160,7 @@ public class Tile {
         this.weaponTile = weaponTile;
         weapons = new LinkedList<>();
         room = null;
+        mapObservers = new LinkedList<>();
     }
 
     public int getID() {
@@ -508,6 +517,7 @@ public class Tile {
 
         AmmoCard toBePicked = ammoCard;
         ammoCard = null;
+        notifyAllObserver();
         return toBePicked;
     }
 
@@ -523,6 +533,7 @@ public class Tile {
         if (ammo == null) throw new NullPointerException("The argument passed is null");
         if (ammoCard != null) throw new Exception("Can't add an ammoCard card in a tile that has already an ammo card");
         this.ammoCard = ammo;
+        notifyAllObserver();
     }
 
     /**
@@ -575,6 +586,7 @@ public class Tile {
 
         if (!found) throw new Exception("The weapon was not in the list");
 
+        notifyAllObserver();
         return desired;
     }
 
@@ -589,6 +601,7 @@ public class Tile {
         if (toBePut == null) throw new NullPointerException("The argument passed is null");
 
         weapons.add(toBePut);
+        notifyAllObserver();
     }
 
     /**
@@ -612,6 +625,7 @@ public class Tile {
     public void addPlayer(Player playerToAdd) {
         players.add(playerToAdd);
         playerToAdd.setTile(this);
+        notifyAllObserver();
     }
 
     public boolean isPlayerPresent(Player p) {
@@ -627,6 +641,7 @@ public class Tile {
      */
     public Player removePlayer(Player playerToRemove) throws Exception {
         if (!players.remove(playerToRemove)) throw new Exception("The player should have been present");
+        notifyAllObserver();
         return playerToRemove; //test
     }
 
@@ -654,5 +669,16 @@ public class Tile {
         if (adj.isEmpty())
             throw new IllegalStateException("This tile is not well built, it's not connected with the map");
         return adj;
+    }
+
+    /* ---------------------------- interface change observable -----------------------------------*/
+
+    @Override
+    public void attach(ChangesObserver observer) {
+        mapObservers.add(observer);
+    }
+
+    private void notifyAllObserver(){
+        for(ChangesObserver ob : mapObservers) ob.notifyTileChange(this);
     }
 }

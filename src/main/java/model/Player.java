@@ -3,12 +3,13 @@ package model;
 
 import exceptions.NotValidMovesException;
 
+import javax.naming.OperationNotSupportedException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class Player {
+public class Player implements ChangesObservable{
     /**
      * max number of weapons that can be in the player's hand
      */
@@ -53,6 +54,10 @@ public class Player {
      * oldState is the previous state of the player
      */
     private State oldState;
+    /**
+     * a list of observer interested in the change of the map
+     */
+    private List<ChangesObserver> playerObservers;
 
 
     /**
@@ -69,6 +74,7 @@ public class Player {
         playerBoard = new PlayerBoard();
         remainingMoves = 0;
         oldState = null;
+        playerObservers = new LinkedList<>();
     }
 
     /**
@@ -87,6 +93,7 @@ public class Player {
         playerBoard = new PlayerBoard();
         remainingMoves = 0;
         oldState = null;
+        playerObservers = new LinkedList<>();
     }
 
     public Player(String name, State s) {
@@ -99,6 +106,7 @@ public class Player {
         playerBoard = new PlayerBoard();
         remainingMoves = 0;
         oldState = null;
+        playerObservers = new LinkedList<>();
     }
 
     /**
@@ -135,6 +143,7 @@ public class Player {
      */
     public void setState(State s) {
         state = s;
+        notifyAllObservers();
     }
 
     /**
@@ -153,6 +162,7 @@ public class Player {
      */
     public void setRemainingMoves(int remainingMoves) {
         this.remainingMoves = remainingMoves;
+        notifyAllObservers();
     }
 
     /**
@@ -160,6 +170,7 @@ public class Player {
      */
     public void decrementMoves() {
         this.remainingMoves--;
+        notifyAllObservers();
     }
 
     /**
@@ -201,7 +212,8 @@ public class Player {
     public void pickUpPowerUp(PowerUpCard p) {
         //TODO mancano tutti i controlli e l'implementazione del metodo
         powerUps.add(p);
-
+        notifyAllObservers();
+        throw  new RuntimeException("da implementare per bene");
     }
 
     /**
@@ -218,6 +230,7 @@ public class Player {
      */
     public void setTile(Tile tile) {
         this.tile = tile;
+        notifyAllObservers();
     }
 
     /**
@@ -254,6 +267,7 @@ public class Player {
      */
     public void addPoints(int points) {
         this.points += points;
+        notifyAllObservers();
     }
 
     /**
@@ -268,6 +282,7 @@ public class Player {
         if (weapons.size() > 4) {
             throw new Exception("Il giocatore ha già 4 armi in mano");
         } else weapons.add(w);
+        notifyAllObservers();
     }
 
     /**
@@ -288,6 +303,7 @@ public class Player {
                 }
             }
         }
+        notifyAllObservers();
         return retCard;
     }
 
@@ -304,6 +320,7 @@ public class Player {
         if (card.isDrawPowerUp() && getNumPowerUps() < MAX_POWERUP_CARDS) {
             powerUps.add(deck.draw());
         }
+        notifyAllObservers();
     }
 
     /**
@@ -311,6 +328,7 @@ public class Player {
      */
     public void usePowerUp(PowerUpCard c) {
         //TODO
+        notifyAllObservers();
     }
 
     /**
@@ -318,6 +336,7 @@ public class Player {
      */
     public void reloadWeapon(WeaponCard w) {
         //TODO probabilmente non necessario
+        notifyAllObservers();
     }
 
     /**
@@ -326,6 +345,7 @@ public class Player {
      */
     public void pickUpAmmoCard() throws Exception {
         //TODO forse non ci serve
+        notifyAllObservers();
     }
 
     /**
@@ -405,6 +425,16 @@ public class Player {
                 "name='" + name + '\'' +
                 ", tile=" + tile +
                 '}';
+    }
+
+    /********************** changes observable **************************/
+    @Override
+    public void attach(ChangesObserver observer) {
+        playerObservers.add(observer);
+    }
+
+    private void notifyAllObservers(){
+        for(ChangesObserver ob : playerObservers) ob.notifyPlayerChange(this);
     }
 }
 

@@ -140,6 +140,22 @@ public class JsonCreatorTest {
         jsonCreator.notifyTileChange(t);
         jsonCreator.notifyTileChange(t2);
 
-        System.out.println(jsonCreator.createTargetPlayerJson("Apelle figlio di apollo", pinotto));
+        String expectedString = "{\"changedPlayers\":[{\"name\":\"Gigino\",\"remainingMoves\":0,\"numWeaponCard\":1," +
+                "\"weaponCards\":[{}],\"numPowerUps\":0,\"powerUps\":[],\"tile\":0,\"playerBoard\":{\"damageTokens\":[]," +
+                "\"marksTokens\":[],\"killValue\":[8,6,4,2,1,1,1,1,1],\"numBlueAmmo\":1,\"numRedAmmo\":1,\"numYellowAmmo\":1}}" +
+                ",{\"name\":\"Pinotto\",\"remainingMoves\":0,\"numWeaponCard\":1,\"weaponCards\":[{\"name\":\"broccolator\"," +
+                "\"cost\":[\"yellow\"],\"loaded\":true}],\"numPowerUps\":1,\"powerUps\":[{\"color\":{\"red\":1.0,\"green\":0.0," +
+                "\"blue\":0.0,\"opacity\":1.0},\"powerUpType\":\"NEWTON\"}],\"playerBoard\":{\"damageTokens\":[]," +
+                "\"marksTokens\":[],\"killValue\":[8,6,4,2,1,1,1,1,1],\"numBlueAmmo\":1,\"numRedAmmo\":1,\"numYellowAmmo\":1}}]," +
+                "\"changedTiles\":[{\"id\":0,\"players\":[\"Gigino\"],\"ammoTile\":true,\"weaponTile\":false},{\"id\":1," +
+                "\"players\":[],\"ammoTile\":false,\"weaponTile\":true,\"weapons\":[{\"name\":\"Mitragliatrice\"," +
+                "\"cost\":[\"blue\",\"red\"],\"loaded\":true,\"baseEffect\":[{\"isGlobal\":false,\"cost\":[]," +
+                "\"damage\":{\"red\":1.0,\"green\":0.0,\"blue\":1.0},\"marks\":{\"red\":0.0,\"green\":0.0,\"blue\":0.0}," +
+                "\"optionalEffects\":[],\"canMoveShooter\":false,\"numStepsShooter\":0,\"canMoveTarget\":false," +
+                "\"numStepsTarget\":0,\"moveTargetAndHitAll\":false,\"alreadyMovedTarget\":false,\"redDamage\":0," +
+                "\"blueDamage\":0,\"yellowDamage\":0,\"redMarks\":0,\"blueMarks\":0,\"yellowMarks\":0}]," +
+                "\"advancedEffect\":[]}]}],\"message\":\"Apelle figlio di apollo\"}";
+
+        assertEquals(expectedString, jsonCreator.createTargetPlayerJson("Apelle figlio di apollo", pinotto), ()->"ERROR: the json should be the same");
     }
 }

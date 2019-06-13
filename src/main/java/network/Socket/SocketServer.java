@@ -52,13 +52,14 @@ public class SocketServer {
      * @throws IOException throws an IOException if something is wrong with the connection.
      */
     public void run() throws IOException {
+        TokenRegistry registry = TokenRegistry.getInstance();
         while (!stop) {
             serverSocketLogger.log(Level.INFO, ">>> Waiting for connection.");
             Socket clientSocket = serverSocket.accept();
             serverSocketLogger.log(Level.INFO, ">>> New connection accepted: " + clientSocket.getRemoteSocketAddress());
             PrintWriter clientOutput = new PrintWriter(clientSocket.getOutputStream());
             String clientToken = getClientToken(clientSocket);
-            if (!TokenRegistry.tokenAlreadyGenerated(clientToken)) {
+            if (!registry.tokenAlreadyGenerated(clientToken)) {
                 serverSocketLogger.log(Level.INFO, ">>> Generating Token");
                 clientToken = UUID.randomUUID().toString();
             } else {
@@ -71,7 +72,7 @@ public class SocketServer {
             //creates a json Receiver and binds it to the client socket.
             JsonReceiver receiverProxy = new JsonReceiverProxySocket(clientSocket);
             commandLauncher.addJsonReceiver(receiverProxy);
-            TokenRegistry.associateTokenAndReceiver(clientToken, receiverProxy);
+            registry.associateTokenAndReceiver(clientToken, receiverProxy);
             threadPool.submit(new CommandReceiverSocket(clientSocket, commandLauncher));
             ;
 

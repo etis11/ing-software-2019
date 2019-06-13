@@ -60,11 +60,12 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
     @Override
     public String getPersonalToken(JsonReceiver jsonReceiver, String token) throws RemoteException {
         String newToken = token;
-        if (!TokenRegistry.tokenAlreadyGenerated(token)) {
+        TokenRegistry registry = TokenRegistry.getInstance();
+        if (registry.tokenAlreadyGenerated(token)) {
             newToken = UUID.randomUUID().toString();
         }
         try {
-            TokenRegistry.associateTokenAndReceiver(newToken, jsonReceiver);
+            registry.associateTokenAndReceiver(newToken, jsonReceiver);
             getCurrentCommandLauncher().addJsonReceiver(jsonReceiver);
         } catch (DuplicateException d) {
             rmiServerLogger.log(Level.WARNING, ">>> A client already associated is trying to get another token");

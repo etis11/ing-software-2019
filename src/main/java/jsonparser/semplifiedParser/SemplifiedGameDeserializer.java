@@ -26,11 +26,11 @@ public class SemplifiedGameDeserializer implements JsonDeserializer<SemplifiedGa
         game.setMessage(message);
 
         if (jsonGame.has("changedPlayers")) {
-            jsonDeserializationContext.deserialize(jsonGame.get("changedPlayers").getAsJsonArray(), SemplifiedPlayer[].class);
+            SemplifiedPlayer[] players = jsonDeserializationContext.deserialize(jsonGame.get("changedPlayers").getAsJsonArray(), SemplifiedPlayer[].class);
         }
 
         if (jsonGame.has("changedTiles")) {
-            jsonDeserializationContext.deserialize(jsonGame.get("changedTiles").getAsJsonArray(), SemplifiedTile[].class);
+            SemplifiedTile[] changedTiles = jsonDeserializationContext.deserialize(jsonGame.get("changedTiles").getAsJsonArray(), SemplifiedTile[].class);
         }
 
         return null;
