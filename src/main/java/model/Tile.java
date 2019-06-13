@@ -517,6 +517,7 @@ public class Tile implements ChangesObservable {
 
         AmmoCard toBePicked = ammoCard;
         ammoCard = null;
+        notifyAllObserver();
         return toBePicked;
     }
 
@@ -532,6 +533,7 @@ public class Tile implements ChangesObservable {
         if (ammo == null) throw new NullPointerException("The argument passed is null");
         if (ammoCard != null) throw new Exception("Can't add an ammoCard card in a tile that has already an ammo card");
         this.ammoCard = ammo;
+        notifyAllObserver();
     }
 
     /**
@@ -584,6 +586,7 @@ public class Tile implements ChangesObservable {
 
         if (!found) throw new Exception("The weapon was not in the list");
 
+        notifyAllObserver();
         return desired;
     }
 
@@ -598,6 +601,7 @@ public class Tile implements ChangesObservable {
         if (toBePut == null) throw new NullPointerException("The argument passed is null");
 
         weapons.add(toBePut);
+        notifyAllObserver();
     }
 
     /**
@@ -621,6 +625,7 @@ public class Tile implements ChangesObservable {
     public void addPlayer(Player playerToAdd) {
         players.add(playerToAdd);
         playerToAdd.setTile(this);
+        notifyAllObserver();
     }
 
     public boolean isPlayerPresent(Player p) {
@@ -636,6 +641,7 @@ public class Tile implements ChangesObservable {
      */
     public Player removePlayer(Player playerToRemove) throws Exception {
         if (!players.remove(playerToRemove)) throw new Exception("The player should have been present");
+        notifyAllObserver();
         return playerToRemove; //test
     }
 
