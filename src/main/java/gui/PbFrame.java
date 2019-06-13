@@ -81,9 +81,13 @@ public class PbFrame {
     private Label markT22;
     private Label markT23;
     private Label markT24;
+    private Label blueAmmmo2;
+    private Label redAmmmo2;
+    private Label yellowAmmmo2;
     private List<Circle> secondDamage;
     private List<Circle> secondMark;
     private List<Label> secondMarkT;
+    private List<Label> secondAmmo;
     private List<Color> secondColor;
 
     private Circle damage25;
@@ -106,9 +110,13 @@ public class PbFrame {
     private Label markT32;
     private Label markT33;
     private Label markT34;
+    private Label blueAmmmo3;
+    private Label redAmmmo3;
+    private Label yellowAmmmo3;
     private List<Circle> thirdDamage;
     private List<Circle> thirdMark;
     private List<Label> thirdMarkT;
+    private List<Label> thirdAmmo;
     private List<Color> thirdColor;
 
     private Circle damage37;
@@ -131,9 +139,13 @@ public class PbFrame {
     private Label markT42;
     private Label markT43;
     private Label markT44;
+    private Label blueAmmmo4;
+    private Label redAmmmo4;
+    private Label yellowAmmmo4;
     private List<Circle> fourthDamage;
     private List<Circle> fourthMark;
     private List<Label> fourthmarkT;
+    private List<Label> fourthAmmo;
     private List<Color> fourthColor;
 
     public PbFrame(List<String> players, List<Color> gameColor) {
@@ -359,6 +371,7 @@ public class PbFrame {
         secondDamage = new ArrayList<>();
         secondMark = new ArrayList<>();
         secondMarkT = new ArrayList<>();
+        secondAmmo = new ArrayList<>();
         pb2 = new Pane();
 
         damage13 = new Circle();
@@ -454,6 +467,34 @@ public class PbFrame {
         markT23.setLayoutX(mark23.getLayoutX()-5);
         markT24.setLayoutX(mark24.getLayoutX()-5);
 
+        blueAmmmo2 = new Label("1");
+        redAmmmo2 = new Label("1");
+        yellowAmmmo2 = new Label("1");
+        secondAmmo.add(blueAmmmo2);
+        secondAmmo.add(redAmmmo2);
+        secondAmmo.add(yellowAmmmo2);
+        for (Label a : secondAmmo){
+            a.setVisible(true);
+            a.setMinWidth(ammoDimension);
+            a.setMinHeight(ammoDimension);
+            a.setFont(Font.font("System Regular", FontWeight.BOLD, ammoDimension - 6));
+            a.setAlignment(Pos.CENTER);
+            a.setBorder(border);
+            pb2.getChildren().add(a);
+        }
+        blueAmmmo2.setTextFill(Color.WHITE);
+        blueAmmmo2.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        blueAmmmo2.setLayoutX(720);
+        blueAmmmo2.setLayoutY(20);
+        redAmmmo2.setTextFill(Color.WHITE);
+        redAmmmo2.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+        redAmmmo2.setLayoutX(blueAmmmo2.getLayoutX()+20);
+        redAmmmo2.setLayoutY(blueAmmmo2.getLayoutY() + 50);
+        yellowAmmmo2.setTextFill(Color.BLACK);
+        yellowAmmmo2.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+        yellowAmmmo2.setLayoutX(blueAmmmo2.getLayoutX()+10);
+        yellowAmmmo2.setLayoutY(redAmmmo2.getLayoutY() + 50);
+
         pb2.setTranslateX(pb1.getTranslateX());
         pb2.setTranslateY(pb1.getTranslateY()+175);
         pb2.setBackground(new Background(new BackgroundImage(new Image(boardParser(players.get(1)), 815,170,false,true),
@@ -465,6 +506,7 @@ public class PbFrame {
         thirdDamage = new ArrayList<>();
         thirdMark = new ArrayList<>();
         thirdMarkT = new ArrayList<>();
+        thirdAmmo = new ArrayList<>();
         pb3 = new Pane();
 
         damage25 = new Circle();
@@ -561,6 +603,34 @@ public class PbFrame {
         markT33.setLayoutX(mark33.getLayoutX()-5);
         markT34.setLayoutX(mark34.getLayoutX()-5);
 
+        blueAmmmo3 = new Label("1");
+        redAmmmo3 = new Label("1");
+        yellowAmmmo3 = new Label("1");
+        thirdAmmo.add(blueAmmmo3);
+        thirdAmmo.add(redAmmmo3);
+        thirdAmmo.add(yellowAmmmo3);
+        for (Label a : thirdAmmo){
+            a.setVisible(true);
+            a.setMinWidth(ammoDimension);
+            a.setMinHeight(ammoDimension);
+            a.setFont(Font.font("System Regular", FontWeight.BOLD, ammoDimension - 6));
+            a.setAlignment(Pos.CENTER);
+            a.setBorder(border);
+            pb3.getChildren().add(a);
+        }
+        blueAmmmo3.setTextFill(Color.WHITE);
+        blueAmmmo3.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        blueAmmmo3.setLayoutX(720);
+        blueAmmmo3.setLayoutY(20);
+        redAmmmo3.setTextFill(Color.WHITE);
+        redAmmmo3.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+        redAmmmo3.setLayoutX(blueAmmmo3.getLayoutX()+20);
+        redAmmmo3.setLayoutY(blueAmmmo3.getLayoutY() + 50);
+        yellowAmmmo3.setTextFill(Color.BLACK);
+        yellowAmmmo3.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+        yellowAmmmo3.setLayoutX(blueAmmmo3.getLayoutX()+10);
+        yellowAmmmo3.setLayoutY(redAmmmo3.getLayoutY() + 50);
+
         pb3.setTranslateX(pb1.getTranslateX());
         pb3.setTranslateY(pb2.getTranslateY()+175);
         pb3.setBackground(new Background(new BackgroundImage(new Image(boardParser(players.get(2)), 815,170,false,true),
@@ -572,6 +642,7 @@ public class PbFrame {
         fourthDamage = new ArrayList<>();
         fourthMark = new ArrayList<>();
         fourthmarkT = new ArrayList<>();
+        fourthAmmo = new ArrayList<>();
         pb4 = new Pane();
 
         damage37 = new Circle();
@@ -667,6 +738,34 @@ public class PbFrame {
         markT42.setLayoutX(mark42.getLayoutX()-5);
         markT43.setLayoutX(mark43.getLayoutX()-5);
         markT44.setLayoutX(mark44.getLayoutX()-5);
+
+        blueAmmmo4 = new Label("1");
+        redAmmmo4 = new Label("1");
+        yellowAmmmo4 = new Label("1");
+        fourthAmmo.add(blueAmmmo4);
+        fourthAmmo.add(redAmmmo4);
+        fourthAmmo.add(yellowAmmmo4);
+        for (Label a : fourthAmmo){
+            a.setVisible(true);
+            a.setMinWidth(ammoDimension);
+            a.setMinHeight(ammoDimension);
+            a.setFont(Font.font("System Regular", FontWeight.BOLD, ammoDimension - 6));
+            a.setAlignment(Pos.CENTER);
+            a.setBorder(border);
+            pb4.getChildren().add(a);
+        }
+        blueAmmmo4.setTextFill(Color.WHITE);
+        blueAmmmo4.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        blueAmmmo4.setLayoutX(720);
+        blueAmmmo4.setLayoutY(20);
+        redAmmmo4.setTextFill(Color.WHITE);
+        redAmmmo4.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+        redAmmmo4.setLayoutX(blueAmmmo4.getLayoutX()+20);
+        redAmmmo4.setLayoutY(blueAmmmo4.getLayoutY() + 50);
+        yellowAmmmo4.setTextFill(Color.BLACK);
+        yellowAmmmo4.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+        yellowAmmmo4.setLayoutX(blueAmmmo4.getLayoutX()+10);
+        yellowAmmmo4.setLayoutY(redAmmmo4.getLayoutY() + 50);
 
         pb4.setTranslateX(pb1.getTranslateX());
         pb4.setTranslateY(pb3.getTranslateY()+175);
