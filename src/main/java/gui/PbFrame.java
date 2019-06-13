@@ -82,7 +82,13 @@ public class PbFrame {
     private Circle damage34;
     private Circle damage35;
     private Circle damage36;
+    private Circle mark31;
+    private Circle mark32;
+    private Circle mark33;
+    private Circle mark34;
     private List<Circle> thirdDamage;
+    private List<Circle> thirdMark;
+    private List<Circle> thirdMarkT;
     private List<Color> thirdColor;
 
     private Circle damage37;
@@ -104,7 +110,6 @@ public class PbFrame {
         this.stage = new Stage();
         this.players = players;
         this.gameColor = gameColor;
-        this.thirdDamage = new ArrayList<>();
         this.fourthDamage = new ArrayList<>();
 
         fillColorList();
@@ -115,55 +120,10 @@ public class PbFrame {
         stage.setTitle("Adrenalina - PlayerBoard avversari");
         stage.setResizable(false);
 
-        pb3 = new Pane();
         pb4 = new Pane();
-
         generateFirst();
         generateSecond();
-
-        damage25 = new Circle();
-        damage26 = new Circle();
-        damage27 = new Circle();
-        damage28 = new Circle();
-        damage29 = new Circle();
-        damage30 = new Circle();
-        damage31 = new Circle();
-        damage32 = new Circle();
-        damage33 = new Circle();
-        damage34 = new Circle();
-        damage35= new Circle();
-        damage36 = new Circle();
-        thirdDamage.add(damage25);
-        thirdDamage.add(damage26);
-        thirdDamage.add(damage27);
-        thirdDamage.add(damage28);
-        thirdDamage.add(damage29);
-        thirdDamage.add(damage30);
-        thirdDamage.add(damage31);
-        thirdDamage.add(damage32);
-        thirdDamage.add(damage33);
-        thirdDamage.add(damage34);
-        thirdDamage.add(damage35);
-        thirdDamage.add(damage36);
-        for (Circle c: thirdDamage){
-//            c.setVisible(false);
-            c.setRadius(12);
-            c.setLayoutY(90);
-            c.setStroke(Color.BLACK);
-            pb3.getChildren().add(c);
-        }
-        damage25.setLayoutX(damage1.getLayoutX());
-        damage26.setLayoutX(damage2.getLayoutX());
-        damage27.setLayoutX(damage3.getLayoutX());
-        damage28.setLayoutX(damage4.getLayoutX());
-        damage29.setLayoutX(damage5.getLayoutX());
-        damage30.setLayoutX(damage6.getLayoutX());
-        damage31.setLayoutX(damage7.getLayoutX());
-        damage32.setLayoutX(damage8.getLayoutX());
-        damage33.setLayoutX(damage9.getLayoutX());
-        damage34.setLayoutX(damage10.getLayoutX());
-        damage35.setLayoutX(damage11.getLayoutX());
-        damage36.setLayoutX(damage12.getLayoutX());
+        generateThird();
 
         damage37 = new Circle();
         damage38 = new Circle();
@@ -447,5 +407,80 @@ public class PbFrame {
         mark23.setFill(secondColor.get(2));
         mark24.setFill(secondColor.get(3));
 
+    }
+
+    private void generateThird(){
+        thirdDamage = new ArrayList<>();
+        thirdMark = new ArrayList<>();
+        thirdMarkT = new ArrayList<>();
+        pb3 = new Pane();
+
+        damage25 = new Circle();
+        damage26 = new Circle();
+        damage27 = new Circle();
+        damage28 = new Circle();
+        damage29 = new Circle();
+        damage30 = new Circle();
+        damage31 = new Circle();
+        damage32 = new Circle();
+        damage33 = new Circle();
+        damage34 = new Circle();
+        damage35= new Circle();
+        damage36 = new Circle();
+        thirdDamage.add(damage25);
+        thirdDamage.add(damage26);
+        thirdDamage.add(damage27);
+        thirdDamage.add(damage28);
+        thirdDamage.add(damage29);
+        thirdDamage.add(damage30);
+        thirdDamage.add(damage31);
+        thirdDamage.add(damage32);
+        thirdDamage.add(damage33);
+        thirdDamage.add(damage34);
+        thirdDamage.add(damage35);
+        thirdDamage.add(damage36);
+        for (Circle c: thirdDamage){
+//            c.setVisible(false);
+            c.setRadius(12);
+            c.setLayoutY(90);
+            c.setStroke(Color.BLACK);
+            pb3.getChildren().add(c);
+        }
+        damage25.setLayoutX(damage1.getLayoutX());
+        damage26.setLayoutX(damage2.getLayoutX());
+        damage27.setLayoutX(damage3.getLayoutX());
+        damage28.setLayoutX(damage4.getLayoutX());
+        damage29.setLayoutX(damage5.getLayoutX());
+        damage30.setLayoutX(damage6.getLayoutX());
+        damage31.setLayoutX(damage7.getLayoutX());
+        damage32.setLayoutX(damage8.getLayoutX());
+        damage33.setLayoutX(damage9.getLayoutX());
+        damage34.setLayoutX(damage10.getLayoutX());
+        damage35.setLayoutX(damage11.getLayoutX());
+        damage36.setLayoutX(damage12.getLayoutX());
+
+        mark31 = new Circle();
+        mark32 = new Circle();
+        mark33 = new Circle();
+        mark34 = new Circle();
+        thirdMark.add(mark31);
+        thirdMark.add(mark32);
+        thirdMark.add(mark33);
+        thirdMark.add(mark34);
+        for (Circle c : thirdMark){
+//            c.setVisible(false);
+            c.setRadius(15);
+            c.setLayoutY(20);
+            c.setStroke(Color.BLACK);
+            pb3.getChildren().add(c);
+        }
+        mark31.setLayoutX(mark11.getLayoutX());
+        mark32.setLayoutX(mark12.getLayoutX());
+        mark33.setLayoutX(mark13.getLayoutX());
+        mark34.setLayoutX(mark14.getLayoutX());
+        mark31.setFill(thirdColor.get(0));
+        mark32.setFill(thirdColor.get(1));
+        mark33.setFill(thirdColor.get(2));
+        mark34.setFill(thirdColor.get(3));
     }
 }
