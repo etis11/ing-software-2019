@@ -10,6 +10,7 @@ import network.TokenRegistry;
 import java.util.ArrayList;
 
 public class CommandExecutor {
+    private final TokenRegistry registry = TokenRegistry.getInstance();
 
     /**
      * gameManager is a reference to the model due to access to the match and lobby variables
@@ -20,9 +21,11 @@ public class CommandExecutor {
         this.gameManager = gameManager;
     }
 
+
     public void execute(AskEndTurnCommand command) {
+
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
+        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
         } else {
             if (!currentPlayer.getState().isNormalAction() && !currentPlayer.getState().isMoreAction() && !currentPlayer.getState().isMostAction()) {
@@ -41,7 +44,7 @@ public class CommandExecutor {
     public void execute(AskPickCommand command) {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
+        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
         } else {
             if (!currentPlayer.getState().canPickUp() || currentPlayer.getRemainingMoves() < 1) {
@@ -64,7 +67,7 @@ public class CommandExecutor {
     public void execute(AskReloadCommand command) {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
+        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
         } else {
             if (!currentPlayer.getState().canReload()) {
@@ -95,7 +98,7 @@ public class CommandExecutor {
     public void execute(AskShootCommand command) {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
+        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
         } else {
             boolean loaded = false;
@@ -121,7 +124,7 @@ public class CommandExecutor {
     public void execute(AskUsePowerUpCommand command) {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
+        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
         } else {
             if (!currentPlayer.getState().canUsePowerUp() || currentPlayer.getPowerUps().isEmpty()) {
@@ -139,7 +142,7 @@ public class CommandExecutor {
     public void execute(AskWalkCommand command) {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
+        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
         } else {
             if (!currentPlayer.getState().canRun() || currentPlayer.getRemainingMoves() < 1) {
@@ -157,7 +160,7 @@ public class CommandExecutor {
     public void execute(MoveCommand command) {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
+        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
         } else {
             if (currentPlayer.getState().getRemainingSteps() < command.getMoves().size()) {
@@ -180,7 +183,7 @@ public class CommandExecutor {
     public void execute(PickUpAmmoCommand command) {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
+        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
         } else {
             if (currentPlayer.getState().getName().equals("PickUp")) {
@@ -211,7 +214,7 @@ public class CommandExecutor {
     public void execute(PickUpWeaponCommand command) {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
+        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
         } else {
             if (currentPlayer.getState().getName().equals("PickUp")) {
@@ -260,7 +263,7 @@ public class CommandExecutor {
     public void execute(ReloadCommand command) {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
+        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
             //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
         } else {
             if (command.getWeaponName() == null) throw new IllegalArgumentException("no weapon selected");
@@ -287,8 +290,8 @@ public class CommandExecutor {
 
     public void execute(SetEffectPhraseCommand command) {
         if (!gameManager.getMatch().isStarted()) {
-            if (gameManager.getLobby().getUsers().contains(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()))) {
-                TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).setEffectPhrase(command.getPhrase());
+            if (gameManager.getLobby().getUsers().contains(registry.getJsonUserOwner(command.getJsonReceiver()))) {
+                registry.getJsonUserOwner(command.getJsonReceiver()).setEffectPhrase(command.getPhrase());
 //                command.getOriginView().notify("La tua frase ad effetto è stata modificata")
             } else {
 //                command.getOriginView().notify("Non puoi modificare la tua frase ad effetto")
@@ -300,7 +303,7 @@ public class CommandExecutor {
 
     public void execute(SetNumberOfDeathCommand command) {
         if (!gameManager.getMatch().isStarted()) {
-            if (command.getDeath() < 9 && command.getDeath() > 4 && gameManager.getLobby().getUsers().get(0) == TokenRegistry.getJsonUserOwner(command.getJsonReceiver())) {
+            if (command.getDeath() < 9 && command.getDeath() > 4 && gameManager.getLobby().getUsers().get(0) == registry.getJsonUserOwner(command.getJsonReceiver())) {
                 gameManager.getMatch().setSkulls(command.getDeath());
 //                for (MessageListener ml : command.getAllViews()) {
 //                    ml.notify("Il numero di uccisioni per la partita è stato cambiato a: " + command.getDeath())
@@ -319,7 +322,7 @@ public class CommandExecutor {
 
     public void execute(SetPlayerNumberCommand command) {
         if (!gameManager.getMatch().isStarted()) {
-            if (command.getPlayers() < 6 && command.getPlayers() > 2 && gameManager.getLobby().getUsers().get(0) == TokenRegistry.getJsonUserOwner(command.getJsonReceiver())) {
+            if (command.getPlayers() < 6 && command.getPlayers() > 2 && gameManager.getLobby().getUsers().get(0) == registry.getJsonUserOwner(command.getJsonReceiver())) {
                 gameManager.getMatch().setPlayerNumber(command.getPlayers());
 //                for (MessageListener ml : command.getAllViews()) {
 //                    ml.notify("Il numero di uccisioni per la partita è stato cambiato a: " + command.getPlayers())
@@ -338,8 +341,8 @@ public class CommandExecutor {
 
     public void execute(SetUsernameCommand command) {
         if (!gameManager.getMatch().isStarted()) {
-            if (gameManager.getLobby().getUsers().contains(TokenRegistry.getJsonUserOwner(command.getJsonReceiver()))) {
-                TokenRegistry.getJsonUserOwner(command.getJsonReceiver()).setUsername(command.getUsername());
+            if (gameManager.getLobby().getUsers().contains(registry.getJsonUserOwner(command.getJsonReceiver()))) {
+                registry.getJsonUserOwner(command.getJsonReceiver()).setUsername(command.getUsername());
 //                command.getOriginView().notify("Il tuo username è stato modificato in: " + command.getUsername())
             } else {
 //                command.getOriginView().notify("Non puoi modificare il tuo username")

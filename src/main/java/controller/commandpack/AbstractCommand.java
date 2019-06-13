@@ -25,7 +25,7 @@ public abstract class AbstractCommand implements Command {
 
     @Override
     public void setJsonReceiver() {
-        receiver = TokenRegistry.getJsonReceiver(this.token);
+        receiver = TokenRegistry.getInstance().getJsonReceiver(this.token);
     }
 
     public void endCommandToAction(GameManager gameManager) {

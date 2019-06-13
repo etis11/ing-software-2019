@@ -1,4 +1,4 @@
-package jsonparser.semplifiedParser;
+package jsonparser;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
