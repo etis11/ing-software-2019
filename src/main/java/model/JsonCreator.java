@@ -11,7 +11,8 @@ public class JsonCreator implements ChangesObserver {
 
     private static transient boolean prettyPrinting = false;
     private final List<Player> changedPlayers = new LinkedList<>();
-    private final List<Tile> changedTiles = new LinkedList<>();
+//    private final List<Player> allPlayers;
+    private final List<Tile> allTiles = new LinkedList<>();
     private transient final Gson gson;
     private transient final WeaponCardSerializer weaponCardSerializer;
     private String message;

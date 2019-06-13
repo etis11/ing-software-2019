@@ -41,6 +41,41 @@ public class GameMap {
     }
 
     /**
+     * returns the map as a list.
+     * @return
+     */
+    public List<Tile> mapAsList(){
+        //current tile considered
+        Tile current;
+        Tile toPut;
+        //stack used to walk in the map
+        Stack<Tile> stack = new Stack<>();
+        //map that contains
+        Set<Tile> encounteredTiles = new HashSet<>();
+        String[] directions = {"north", "east", "south", "west"};
+
+        Tile startingTile = this.getRedRegenPoint();
+
+        //walking in the map
+        stack.push(startingTile);
+        encounteredTiles.add(startingTile);
+        while (!stack.empty()) {
+            current = stack.pop();
+            //for each direction, select a tile
+            for (String dir : directions) {
+                toPut = current.getTile(dir);
+                //if the tile is not null and the i didn't encountered it (so it's not in the map)
+                if (toPut != null && !encounteredTiles.contains(toPut)) {
+                    encounteredTiles.add(toPut);
+                    stack.push(toPut);
+                }
+            }
+        }
+
+        return new LinkedList<>(encounteredTiles);
+    }
+
+    /**
      * creates a game map associated to the json file given in the path
      *
      * @param mapPath path of the json file
