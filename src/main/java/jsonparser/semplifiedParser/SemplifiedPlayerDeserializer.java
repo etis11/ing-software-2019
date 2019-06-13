@@ -58,7 +58,7 @@ public class SemplifiedPlayerDeserializer implements JsonDeserializer<Semplified
         return player;
     }
 
-    public static void resetMap(){
+    public void resetMap(){
         cache.get().clear();
     }
 }

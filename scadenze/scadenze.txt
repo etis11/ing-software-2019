@@ -1,29 +1,3 @@
-14 giugno
-
-LEGENDA
-* = fatto
-# = parzialmente fatto
-X = da fare
-
-1) mettere a posto la deserializzazione e testare il ritorno dei json dalla rete. JsonReceiver Observer Oscar
-2) mappa su gui, marchi, playerboard degli altri, inserire tutte le immagini. Implementare gli observer  Alessandro
-3) mappa dinamica, implementare gli observer Etis
-
-
-insieme la prossima volta
-1) Mettere a posto i comandi esistenti
-2) Mettere a posto la routine di shoot
-3) Connetere la CLI ai server
-4) definire tutta la parte di pulizia dei code smeels e testing
-5) se si riesce, leggere Mokito
-
-
-
-
-
-
-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-
 11 giugno
 
 LEGENDA
@@ -31,17 +5,17 @@ LEGENDA
 # = parzialmente fatto
 X = da fare
 
-1) # modello semplificato etis
-2) # serializzazione e deserializzazione oscar
-3) * mappa di gioco sulla gui passoni -- teniamo solo la mappa?
-4) * finire comandi già presenti passoni
-5) # mappa, player e player board sulla CLI etis
+1) modello semplificato etis
+2) serializzazione e deserializzazione oscar
+3) mappa di gioco sulla gui passoni
+4) finire comandi passoni
+5) mappa, player e player board sulla CLI etis
 6) json delle ammo card etis
 
 cose da fare  insieme l'11
 1) capire la cli e la gui come interagiscono con il modello
 2) definire come viene creato il modello sul client
-3) * ammo card
+3) ammo card
 4) creare una partita lato modello
 5) comando di sparo impossibile
 6) parlare di una sessione di debugging

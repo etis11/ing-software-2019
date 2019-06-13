@@ -11,9 +11,9 @@ public class CommandResponse {
     private String message;
     private boolean errorOccurred;
     private String error;
+    private final List<Player> allPlayers;
     private boolean playerChanged;
     private final List<Player> changedPlayers;
-    private final List<Player> allPlayers;
     private boolean mapChanged;
     private final List<Tile> allTiles;
 
