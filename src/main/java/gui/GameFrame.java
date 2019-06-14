@@ -49,6 +49,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
             BackgroundSize.DEFAULT);
 
     private PbFrame pbFrame;
+    private WeaponFrame weaponFrame;
 
     private CommandContainer cmdLauncher;
 
@@ -116,6 +117,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         this.players.add("Banshee");
         this.boardPath = boardParser(board);
         pbFrame = new PbFrame(this.players, this.color);
+        weaponFrame = new WeaponFrame(this.players);
         stage = new Stage();
         generate();
     }
@@ -376,6 +378,12 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         });
 
         showWeaponCard.setMinWidth(buttonWidth);
+        showWeaponCard.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                weaponFrame.show();
+            }
+        });
 
         //setting gamelog
         gameLog.getChildren().add(infoGame);

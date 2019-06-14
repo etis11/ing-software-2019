@@ -30,11 +30,11 @@ public class LobbyFrame {
     private CommandContainer cmdLauncher;
     private Stage stage;
 
-    final InputStream pathDistruttore = getClass().getResourceAsStream( "img" + File.separatorChar + "Distruttore.PNG");
-    final InputStream pathBanshee = getClass().getResourceAsStream( "img" + File.separatorChar + "Banshee.PNG");
-    final InputStream pathDozer = getClass().getResourceAsStream( "img" + File.separatorChar + "Dozer.PNG");
-    final InputStream pathSprog = getClass().getResourceAsStream( "img" + File.separatorChar + "Sprog.PNG");
-    final InputStream pathVioletta = getClass().getResourceAsStream( "img" + File.separatorChar + "Violetta.PNG");
+    final InputStream pathDistruttore = getClass().getResourceAsStream( "/img/Distruttore.PNG");
+    final InputStream pathBanshee = getClass().getResourceAsStream( "/img/Banshee.PNG");
+    final InputStream pathDozer = getClass().getResourceAsStream( "/img/Dozer.PNG");
+    final InputStream pathSprog = getClass().getResourceAsStream( "/img/Sprog.PNG");
+    final InputStream pathVioletta = getClass().getResourceAsStream( "/img/Violetta.PNG");
 
     public LobbyFrame(CommandContainer cmd) {
         this.cmdLauncher = cmd;
@@ -306,7 +306,7 @@ public class LobbyFrame {
 
 
         //path of background image
-        final InputStream pathAdreanline = getClass().getResourceAsStream("img" + File.separatorChar + "Adrenalina.PNG");
+        final InputStream pathAdreanline = getClass().getResourceAsStream("/img/Adrenalina.PNG");
 
         BackgroundImage myBI = new BackgroundImage(new Image(pathAdreanline, 1000, 600, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
