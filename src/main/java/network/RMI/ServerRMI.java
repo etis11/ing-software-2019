@@ -59,6 +59,7 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
      */
     @Override
     public String getPersonalToken(JsonReceiver jsonReceiver, String token) throws RemoteException {
+        rmiServerLogger.log(Level.INFO , ">>>A client is asking a token");
         String newToken = token;
         TokenRegistry registry = TokenRegistry.getInstance();
         if (registry.tokenAlreadyGenerated(token)) {

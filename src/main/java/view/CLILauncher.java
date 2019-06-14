@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.rmi.NoSuchObjectException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -19,11 +20,14 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class CLILauncher {
 
+    private static JsonReceiver receiver;
+    private static CommandLineInterface CLI;
+
     public static void main(String[] args) throws IOException {
 
-        CommandLineInterface CLI = new CommandLineInterface();
+        CLI = new CommandLineInterface();
         SemplifiedGame game = new SemplifiedGame();
-        JsonReceiver receiver = new JsonUnwrapper(game);
+        receiver= new JsonUnwrapper(game);
         CommandContainer cmdLauncher = null;
         String token;
         String connectionType = "";
@@ -32,11 +36,13 @@ public class CLILauncher {
             CLI.displayText(">>> Scegliere connessione rmi o socket");
             connectionType = CLI.getUserInputString();
         }
-        if(connectionType.equals("RMI")){
+        if(connectionType.equals("rmi")){
             //exports the jsonUnwrapper
             try{
                 UnicastRemoteObject.exportObject(receiver,0);
             }catch(RemoteException i){
+                i.printStackTrace();
+                CLI.displayText(i.getMessage());
                 throw  new RuntimeException(i);
             }
             //gets the command container
@@ -48,6 +54,8 @@ public class CLILauncher {
                 cmdLauncher = serverRMI.getCurrentCommandLauncher();
             }
             catch (Exception r){
+                r.printStackTrace();
+                CLI.displayText(r.getMessage());
                 throw new RuntimeException(r);
             }
             startCLI(CLI, cmdLauncher);
@@ -90,10 +98,17 @@ public class CLILauncher {
 
 
     private static void startCLI(CommandLineInterface CLI, CommandContainer cmdLauncher){
-        CLI.displayText(">>> Inserisci il tuo nome utente");
-
         Parserator p = new Parserator(CLI, cmdLauncher);
         Thread t = new Thread(p);
         t.start();
+    }
+
+    public static void stopCLI(){
+        try{
+            UnicastRemoteObject.unexportObject(receiver, true);
+        }
+        catch (NoSuchObjectException s){
+            CLI.displayText(AnsiColor.BLUE + ">>>Chiusura della CLI" + AnsiColor.RESET);
+        }
     }
 }
