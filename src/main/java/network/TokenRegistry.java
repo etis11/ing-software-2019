@@ -5,6 +5,7 @@ import exceptions.DuplicateException;
 import model.User;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -80,5 +81,13 @@ public class TokenRegistry {
      */
     public void removeAssociation(String token) {
         tokenAssociated.remove(token);
+    }
+
+    public boolean usernameAlreadyPresent(String name){
+        List<User> users = new ArrayList<>(userReceiver.values());
+        for(User u: users){
+            if (u.getUsername().equals(name)) return true;
+        }
+        return false;
     }
 }
