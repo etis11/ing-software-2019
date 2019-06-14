@@ -9,7 +9,9 @@ import java.util.List;
 public interface Command extends Serializable {
     void execute(CommandExecutor exe);
 
-    void setJsonReceiver();
+    void setJsonReceiver(JsonReceiver jsonReceiver);
 
     void setAllJsonReceivers(List<JsonReceiver> receivers);
+
+    String getToken();
 }

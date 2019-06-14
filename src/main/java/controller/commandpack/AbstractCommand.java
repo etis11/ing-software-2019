@@ -3,6 +3,7 @@ package controller.commandpack;
 import controller.CommandExecutor;
 import controller.JsonReceiver;
 import model.GameManager;
+import model.JsonCreator;
 import network.TokenRegistry;
 
 import java.util.ArrayList;
@@ -23,9 +24,8 @@ public abstract class AbstractCommand implements Command {
 
     }
 
-    @Override
-    public void setJsonReceiver() {
-        receiver = TokenRegistry.getInstance().getJsonReceiver(this.token);
+    public void setJsonReceiver(JsonReceiver jsonReceiver) {
+        receiver = jsonReceiver;
     }
 
     public void endCommandToAction(GameManager gameManager) {
@@ -43,6 +43,11 @@ public abstract class AbstractCommand implements Command {
     @Override
     public void setAllJsonReceivers(List<JsonReceiver> receivers) {
         allReceivers = new ArrayList<>(receivers);
+    }
+
+    @Override
+    public String getToken() {
+        return token;
     }
 
     public JsonReceiver getJsonReceiver() {

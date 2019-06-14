@@ -7,6 +7,7 @@ import exceptions.PickableNotPresentException;
 import model.*;
 import network.TokenRegistry;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class CommandExecutor {
@@ -17,8 +18,11 @@ public class CommandExecutor {
      */
     private GameManager gameManager;
 
-    public CommandExecutor(GameManager gameManager) {
+    private JsonCreator jsonCreator;
+
+    public CommandExecutor(GameManager gameManager, JsonCreator jsonCreator) {
         this.gameManager = gameManager;
+        this.jsonCreator = jsonCreator;
     }
 
 
@@ -341,10 +345,15 @@ public class CommandExecutor {
 
     public void execute(SetUsernameCommand command) {
         if (!gameManager.getMatch().isStarted()) {
-            if (usernameAlreadyPresent(command.getUsername())) {
+            if (!registry.usernameAlreadyPresent(command.getUsername())) {
                 if (gameManager.getLobby().getUsers().contains(registry.getJsonUserOwner(command.getJsonReceiver()))) {
                     registry.getJsonUserOwner(command.getJsonReceiver()).setUsername(command.getUsername());
-//                command.getOriginView().notify("Il tuo username è stato modificato in: " + command.getUsername())
+                    try {
+                        command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Il tuo username è stato modificato in: " + command.getUsername()));
+                    } catch (IOException e) {
+                        //TODO gestire disconnessione
+                        throw new RuntimeException(e);
+                    }
                 } else {
                     User user = new User(command.getUsername());
                     try {
@@ -352,18 +361,16 @@ public class CommandExecutor {
                     } catch (NotValidActionException e) {
                         e.printStackTrace();
                     }
-//            command.getOriginView().notify("Non puoi modificare il tuo username")
                 }
             }
             else{
-//                command.getOriginView().notify("username già presente")
+                jsonCreator.createJsonWithError("username già presente");
             }
         }
         else {
-//            command.getOriginView().notify("Non puoi modificare il tuo username perchè la partita è già iniziata")
+            jsonCreator.createJsonWithError("Non puoi modificare il tuo username perchè la partita è già iniziata");
         }
-
-
+        jsonCreator.reset();
     }
 
     public void execute(SetTokenCommand command) {
