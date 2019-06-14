@@ -1,6 +1,6 @@
 package exceptions;
 
-public class NotValidMovesException extends IllegalArgumentException {
+public class NotValidMovesException extends Exception{
     public NotValidMovesException() {
         super();
     }

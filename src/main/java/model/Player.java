@@ -357,7 +357,12 @@ public class Player implements ChangesObservable{
      *
      * @param movement Movement containing the list of moves to do
      */
-    public void move(Movement movement) {
+    public void move(Movement movement) throws NotValidMovesException {
+        Tile newTile = explorePath(movement);
+        newTile.addPlayer(this);
+    }
+
+    private Tile explorePath(Movement movement) throws NotValidMovesException {
         Tile newTile = getTile();
         if (movement == null) throw new IllegalArgumentException("null movement");
         for (String str : movement.getSteps()) {
@@ -394,7 +399,12 @@ public class Player implements ChangesObservable{
                     throw new NotValidMovesException("not valid moves");
             }
         }
-        newTile.addPlayer(this);
+        return newTile;
+    }
+
+    public boolean checkMove(Movement movement) throws NotValidMovesException {
+        Tile newTile = explorePath(movement);
+        return newTile.isPresentAmmoCard() || !newTile.getWeapons().isEmpty();
     }
 
     /**
