@@ -2,6 +2,8 @@ package controller.commandpack;
 
 import controller.CommandExecutor;
 
+import java.io.IOException;
+
 /**
  * AskWalkCommand is an instance of command pattern
  * to ask if the player are allowed to walk somewhere in his state of game
@@ -20,7 +22,7 @@ public class AskWalkCommand extends AbstractCommand {
      * (only the player who calls if is not allowed, all if he is allowed)
      */
     @Override
-    public void execute(CommandExecutor exe) {
+    public void execute(CommandExecutor exe) throws IOException {
         exe.execute(this);
     }
 }

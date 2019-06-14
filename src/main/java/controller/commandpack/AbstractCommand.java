@@ -6,6 +6,7 @@ import model.GameManager;
 import model.JsonCreator;
 import network.TokenRegistry;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public abstract class AbstractCommand implements Command {
     }
 
     @Override
-    public void execute(CommandExecutor exe) {
+    public void execute(CommandExecutor exe) throws IOException {
         System.out.println("ERRORE");
     }
 

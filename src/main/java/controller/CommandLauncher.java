@@ -6,6 +6,7 @@ import model.GameManager;
 import model.JsonCreator;
 import network.TokenRegistry;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +74,11 @@ public class CommandLauncher implements CommandLauncherInterface {
                 Thread.currentThread().interrupt();
             }
             if (takenCommand != null) {
-                takenCommand.execute(commandExecutor);
+                try {
+                    takenCommand.execute(commandExecutor);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
