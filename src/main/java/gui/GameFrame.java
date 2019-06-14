@@ -21,7 +21,10 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 import javafx.stage.Stage;
 import model.*;
+import model.clientModel.SemplifiedBloodToken;
 import model.clientModel.SemplifiedMap;
+import model.clientModel.SemplifiedPlayer;
+import model.clientModel.SemplifiedWeaponCard;
 import view.ClientSingleton;
 import view.MapObserver;
 import view.MessageListener;
@@ -708,12 +711,12 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     }
 
     @Override
-    public void onHpChange(Player damagePlayer) {
+    public void onHpChange(SemplifiedPlayer damagePlayer) {
         if (!players.contains(damagePlayer.getName())) {
             for(Circle c :damage){
                 c.setVisible(false);
             }
-            List<BloodToken> damageToken = damagePlayer.getPlayerBoard().getDamageTokens();
+            List<SemplifiedBloodToken> damageToken = damagePlayer.getPlayerBoard().getDamageTokens();
             for (int i = 0; i<damageToken.size();i++){
                 int index = players.indexOf(damageToken.get(i).getOwner().getName());
                 damage.get(i).setFill(color.get(index));
@@ -723,7 +726,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     }
 
     @Override
-    public void onMarksChange(Player markedPlayer) {
+    public void onMarksChange(SemplifiedPlayer markedPlayer) {
         if (!players.contains(markedPlayer.getName())){
             for(Circle c :mark){
                 c.setVisible(false);
@@ -732,8 +735,8 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                 l.setText("0");
                 l.setVisible(false);
             }
-            List<BloodToken> marks = markedPlayer.getPlayerBoard().getDamageTokens();
-            for (BloodToken b : marks){
+            List<SemplifiedBloodToken> marks = markedPlayer.getPlayerBoard().getMarksTokens();
+            for (SemplifiedBloodToken b : marks){
                 int index = players.indexOf(b.getOwner().getName());
                 mark.get(index).setVisible(true);
                 marksT.get(index).setVisible(true);
@@ -744,7 +747,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     }
 
     @Override
-    public void onAmmoChange(Player p) {
+    public void onAmmoChange(SemplifiedPlayer p) {
         if (!players.contains(p.getName())) {
             blueAmmmo.setText(""+p.getPlayerBoard().getLoader().getNumBlueAmmo());
             redAmmmo.setText(""+p.getPlayerBoard().getLoader().getNumRedAmmo());
@@ -753,9 +756,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     }
 
     @Override
-    public void onPowerUpChange(Player p) {
+    public void onPowerUpChange(SemplifiedPlayer p) {
         if (!players.contains(p.getName())){
-            List<PowerUpCard> powerUp = p.getPowerUps();
+            List<PowerUpCard> powerUp = p.getPowerUpCards();
             int index = 0;
             while ( index < p.getNumPowerUps()){
                 switch (index) {
@@ -791,9 +794,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     }
 
     @Override
-    public void onWeaponChange(Player p) {
+    public void onWeaponChange(SemplifiedPlayer p) {
         if (!players.contains(p.getName())){
-            List<WeaponCard> weapons = p.getWeapons();
+            List<SemplifiedWeaponCard> weapons = p.getWeaponCards();
             int index = 0;
             while ( index < p.getNumWeapons()){
                 switch (index) {
@@ -838,7 +841,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     }
 
     @Override
-    public void onPlayerChange(Player p) {
+    public void onPlayerChange(SemplifiedPlayer p) {
         //TODO
     }
 
