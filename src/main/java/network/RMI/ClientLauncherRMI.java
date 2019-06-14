@@ -19,7 +19,8 @@ public class ClientLauncherRMI {
     public static void main(String[] args) throws Exception {
         CommandLauncherInterface launcher = null;
         String token = "";
-        JsonReceiver receiver = new JsonUnwrapper();
+        //todo
+        JsonReceiver receiver = new JsonUnwrapper(new SemplifiedGame());
         UnicastRemoteObject.exportObject(receiver, 0);
         try {
 

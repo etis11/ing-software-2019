@@ -21,7 +21,7 @@ public class Player implements ChangesObservable{
     /**
      * name of the player
      */
-    private final String name;
+    final String name;
     /**
      * current points of the player
      */

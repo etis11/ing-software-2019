@@ -35,7 +35,7 @@ public class MainFrame{
     private boolean networkActive = true;
     private Stage stage;
 
-    private final InputStream pathAdrenaline = getClass().getResourceAsStream("img" + File.separatorChar + "Adrenalina.PNG");
+    private final InputStream pathAdrenaline = getClass().getResourceAsStream("/img/Adrenalina.PNG");
 
 
     public MainFrame() {
@@ -120,7 +120,7 @@ public class MainFrame{
                     if (networkActive) {
                         String token = "";
                         //todo
-                        JsonReceiver receiver = new JsonUnwrapper();
+                        JsonReceiver receiver = new JsonUnwrapper(new SemplifiedGame());
                         try {
                             //the json receiver now is exportable
                             UnicastRemoteObject.exportObject(receiver, 0);
