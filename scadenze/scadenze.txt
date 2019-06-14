@@ -1,9 +1,28 @@
+18 giugno
+
+1) sistemare i comandi (controlli match e user) Alessandro passoni
+2) Su cli GameMap 100% completo Etis
+3) json creator deve poter gestire anche gli users. Per ora fa crashare un bel po'
+di roba Oscar
+
+
+
+DA FARE INSIEME
+4) vedere se la gui funziona
+5) assicurarsi che la creazione di una partita funzioni
+6) metodi per la partita
+7) timer
+
+
+
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
 14 giugno
 
 COSE DA FARE
-1) implementare multi partita con esecutori separati e all'interno una lobby
-2) nel json notifche per user
-3) esecutore che gestisce le disconnessioni
+1) *implementare multi partita con esecutori separati e all'interno una lobby
+2) Xnel json notifche per user
+3) Xesecutore che gestisce le disconnessioni
 
 
 COSE FATTE OGGI
