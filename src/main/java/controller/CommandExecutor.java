@@ -292,86 +292,69 @@ public class CommandExecutor {
         }
     }
 
-    public void execute(SetEffectPhraseCommand command) {
+    public void execute(SetEffectPhraseCommand command) throws IOException {
         if (!gameManager.getMatch().isStarted()) {
             if (gameManager.getLobby().getUsers().contains(registry.getJsonUserOwner(command.getJsonReceiver()))) {
                 registry.getJsonUserOwner(command.getJsonReceiver()).setEffectPhrase(command.getPhrase());
-//                command.getOriginView().notify("La tua frase ad effetto è stata modificata")
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("La tua frase ad effetto è stata modificata"));
             } else {
-//                command.getOriginView().notify("Non puoi modificare la tua frase ad effetto")
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare la tua frase ad effetto"));
             }
         } else {
-//            command.getOriginView().notify("Non puoi modificare la tua frase perchè la partita è iniziata")
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare la tua frase perchè la partita è iniziata"));
         }
+        jsonCreator.reset();
     }
 
-    public void execute(SetNumberOfDeathCommand command) {
+    public void execute(SetNumberOfDeathCommand command) throws IOException {
         if (!gameManager.getMatch().isStarted()) {
             if (command.getDeath() < 9 && command.getDeath() > 4 && gameManager.getLobby().getUsers().get(0) == registry.getJsonUserOwner(command.getJsonReceiver())) {
                 gameManager.getMatch().setSkulls(command.getDeath());
-//                for (MessageListener ml : command.getAllViews()) {
-//                    ml.notify("Il numero di uccisioni per la partita è stato cambiato a: " + command.getDeath())
-//                }
+                for (JsonReceiver js : command.getAllReceivers()) {
+                    js.sendJson(jsonCreator.createJsonWithMessage("Il numero di uccisioni per la partita è stato cambiato a: " + command.getDeath()));
+                }
             } else {
                 if (command.getDeath() > 8 || command.getDeath() < 5) {
-//                    command.getOriginView().notify("Numero uccisioni non nel target ammissibile")
+                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Numero uccisioni non nel range ammissibile"));
                 } else {
-//                    command.getOriginView().notify("Operazione non consentita")
+                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Operazione non consentita"));
                 }
             }
         } else {
-//            command.getOriginView().notify("Non puoi modificare il numero di morti perchè è iniziata la partita");
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare il numero di morti perchè è iniziata la partita"));
         }
+        jsonCreator.reset();
     }
 
-    public void execute(SetPlayerNumberCommand command) {
+    public void execute(SetPlayerNumberCommand command) throws IOException {
         if (!gameManager.getMatch().isStarted()) {
             if (command.getPlayers() < 6 && command.getPlayers() > 2 && gameManager.getLobby().getUsers().get(0) == registry.getJsonUserOwner(command.getJsonReceiver())) {
                 gameManager.getMatch().setPlayerNumber(command.getPlayers());
                 for (JsonReceiver jr : command.getAllReceivers()) {
-                    try {
                         jr.sendJson(jsonCreator.createJsonWithMessage("Il numero di uccisioni per la partita è stato cambiato a: " + command.getPlayers()));
-                    } catch (IOException e) {
-                        //TODO gestire
-                        throw new RuntimeException(e);
-                    }
                 }
             } else {
                 if (command.getPlayers() > 5 || command.getPlayers() < 3) {
-                    try {
-                        command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Numero uccisioni non nel range ammissibile"));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Numero uccisioni non nel range ammissibile"));
                 } else {
-                    try {
-                        command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Operazione non consentita"));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Operazione non consentita"));
+
                 }
             }
         } else {
-            try {
-                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare il numero di giocatori perchè la partita è già iniziata"));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare il numero di giocatori perchè la partita è già iniziata"));
         }
+        jsonCreator.reset();
     }
 
-    public void execute(SetUsernameCommand command) {
+    public void execute(SetUsernameCommand command) throws IOException {
         if (!gameManager.getMatch().isStarted()) {
             if (!registry.usernameAlreadyPresent(command.getUsername())) {
                 if (gameManager.getLobby().getUsers().contains(registry.getJsonUserOwner(command.getJsonReceiver()))) {
                     registry.getJsonUserOwner(command.getJsonReceiver()).setUsername(command.getUsername());
-                    try {
                         command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Il tuo username è stato modificato in: " + command.getUsername()));
-                    } catch (IOException e) {
-                        //TODO gestire disconnessione
-                        throw new RuntimeException(e);
-                    }
-                } else {
+                }
+                else {
                     User user = new User(command.getUsername());
                     try {
                         gameManager.getLobby().join(user);
@@ -381,24 +364,28 @@ public class CommandExecutor {
                 }
             }
             else{
-                try {
-                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("username già presente"));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("username già presente"));
             }
         }
         else {
-            try {
-                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare il tuo username perchè la partita è già iniziata"));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare il tuo username perchè la partita è già iniziata"));
         }
         jsonCreator.reset();
     }
 
-    public void execute(SetTokenCommand command) {
-
+    public void execute(SetTokenCommand command) throws IOException {
+        if (!gameManager.getMatch().isStarted()){
+            if(!gameManager.getLobby().getNameToken().contains(command.getPlayerToken())) {
+                registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer().setName(command.getPlayerToken());
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Personaggio modificato in "+command.getPlayerToken()));
+            }
+            else{
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Personaggio già scelto"));
+            }
+        }
+        else {
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare il tuo personaggio perchè la partita è già iniziata"));
+        }
+        jsonCreator.reset();
     }
 }
