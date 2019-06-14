@@ -3,6 +3,7 @@ package controller;
 
 import controller.commandpack.Command;
 import model.GameManager;
+import model.JsonCreator;
 import network.TokenRegistry;
 
 import java.rmi.RemoteException;
@@ -42,10 +43,10 @@ public class CommandLauncher implements CommandLauncherInterface {
      *
      * @param gameManager the game in which the players are playing
      */
-    public CommandLauncher(GameManager gameManager) {
+    public CommandLauncher(GameManager gameManager, JsonCreator jsonCreator) {
         commandQueue = new LinkedBlockingDeque<>();
         this.pool = Executors.newCachedThreadPool();
-        commandExecutor = new CommandExecutor(gameManager);
+        commandExecutor = new CommandExecutor(gameManager, jsonCreator);
     }
 
     /**
