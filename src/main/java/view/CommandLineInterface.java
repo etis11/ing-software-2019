@@ -1,10 +1,10 @@
 package view;
 
 import controller.CommandLauncherInterface;
-import model.Match;
-import model.Player;
 import model.User;
 import model.clientModel.SemplifiedMap;
+import model.clientModel.SemplifiedPlayer;
+import model.clientModel.SemplifiedPlayerBoard;
 
 import java.io.*;
 import java.util.Scanner;
@@ -15,7 +15,6 @@ import java.util.Scanner;
 public class CommandLineInterface extends AbstractView  {
 
     private CommandLauncherInterface commandLauncher;
-    private Player player;
     private User user;
     private String username;
     private String phrase;
@@ -23,6 +22,8 @@ public class CommandLineInterface extends AbstractView  {
     private User owner;
     private int players;
     private String token;
+    private SemplifiedPlayer player;
+    private SemplifiedPlayerBoard playerBoard;
     /**
      * Attribute needed to output text from the console
      **/
@@ -98,7 +99,6 @@ public class CommandLineInterface extends AbstractView  {
                 "╚══════════╩══════════╩══════════╩══════════╝";
 
 
-
         displayText(hash4);
         //TODO da verificare
 //        for (Player player : match.getPlayers()) {
@@ -128,7 +128,7 @@ public class CommandLineInterface extends AbstractView  {
      * @param damagePlayer is the player who got damaged
      **/
     @Override
-    public void onHpChange(Player damagePlayer) {
+    public void onHpChange(SemplifiedPlayer damagePlayer) {
         displayText(damagePlayer.getName() + " ha subito danni e quindi e' rimasto con " + damagePlayer.getPlayerBoard().getNumDamagePoints() + " vite.");
     }
 
@@ -138,7 +138,7 @@ public class CommandLineInterface extends AbstractView  {
      * @param markedPlayer is the player who got one or more marks
      **/
     @Override
-    public void onMarksChange(Player markedPlayer) {
+    public void onMarksChange(SemplifiedPlayer markedPlayer) {
         displayText("A" + markedPlayer.getName() + " si e' cambiato il numero dei marchi in: " + markedPlayer.getPlayerBoard().getNumMarks() + " marks");
     }
 
@@ -148,7 +148,7 @@ public class CommandLineInterface extends AbstractView  {
      * @param p is the player who used or picked up ammo-s
      **/
     @Override
-    public void onAmmoChange(Player p) {
+    public void onAmmoChange(SemplifiedPlayer p) {
         displayText(p.getName() + " ha un numero diverso di ammo rispetto a prima:\n" +
                 "Ammo blu : " + p.getPlayerBoard().getLoader().getNumBlueAmmo() + "\n" +
                 "Ammo rosse : " + p.getPlayerBoard().getLoader().getNumRedAmmo() + "\n" +
@@ -162,13 +162,13 @@ public class CommandLineInterface extends AbstractView  {
      * @param p is the player who either used or dropped or picked up a PowerUp card
      **/
     @Override
-    public void onPowerUpChange(Player p) {
+    public void onPowerUpChange(SemplifiedPlayer p) {
         displayText(p.getName() + " ha cambiato il numero di carte PowerUp nella mano, quindi ora ha: " + p.getNumPowerUps());
     }
 
     @Override
-    public void onWeaponChange(Player p) {
-        displayText(p.getName()+ "ha cambiato le armi e contiene " + p.getNumWeapons() + " carte armi, che sono: "+ p.getWeapons());
+    public void onWeaponChange(SemplifiedPlayer p) {
+        displayText(p.getName()+ "ha cambiato le armi e contiene " + p.getNumWeapons() + " carte armi, che sono: "+ p.getWeaponCards());
     }
 
     /**
@@ -205,7 +205,30 @@ public class CommandLineInterface extends AbstractView  {
     }
 
     @Override
-    public void onPlayerChange(Player p) {
+    public void onPlayerChange(SemplifiedPlayer p) {
         displayText(AnsiColor.RED + "DA IMPLEMENTARE" + AnsiColor.RESET);
+    }
+
+    public String playerColor(SemplifiedPlayer p) {
+        String playercolor = "";
+        p.getName();
+        switch(p.getName()) {
+            case "Dozer":
+                playercolor = AnsiColor.WHITE+"⬚"+AnsiColor.RESET;
+                break;
+            case "Sproger":
+                playercolor = AnsiColor.GREEN+"⬚"+AnsiColor.RESET;
+                break;
+            case "Distruttore":
+                playercolor = AnsiColor.YELLOW+"⬚"+AnsiColor.RESET;
+                break;
+            case "Banshee":
+                playercolor = AnsiColor.BLUE+"⬚"+AnsiColor.RESET;
+                break;
+            case "Violetta":
+                playercolor = AnsiColor.MAGENTA+"⬚"+AnsiColor.RESET;
+                break;
+        }
+        return playercolor;
     }
 }
