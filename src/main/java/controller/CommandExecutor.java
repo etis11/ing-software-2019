@@ -3,6 +3,7 @@ package controller;
 import controller.commandpack.*;
 import exceptions.InsufficientAmmoException;
 import exceptions.NotValidActionException;
+import exceptions.NotValidMovesException;
 import exceptions.PickableNotPresentException;
 import model.*;
 import network.TokenRegistry;
@@ -181,13 +182,19 @@ public class CommandExecutor {
             if (currentPlayer.getState().getRemainingSteps() < command.getMoves().size()) {
             command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non hai abbastanza mosse rimanenti"));
             } else {
-                currentPlayer.getState().decrementRemainingSteps(command.getMoves().size());
-                currentPlayer.move(new Movement(new ArrayList<>(command.getMoves())));
-                String message = "Il giocatore attuale si è spostato di: " + command.getMoves().size() + " mosse";
-                for (JsonReceiver js : command.getAllReceivers()){
-                    if (js!=command.getJsonReceiver()) {
-                        js.sendJson(jsonCreator.createJsonWithMessage(message));
+                try {
+                    currentPlayer.getState().decrementRemainingSteps(command.getMoves().size());
+                    currentPlayer.move(new Movement(new ArrayList<>(command.getMoves())));
+                    String message = "Il giocatore attuale si è spostato di: " + command.getMoves().size() + " mosse";
+                    for (JsonReceiver js : command.getAllReceivers()) {
+                        if (js != command.getJsonReceiver()) {
+                            js.sendJson(jsonCreator.createJsonWithMessage(message));
+                        }
                     }
+                }
+                catch (NotValidMovesException e){
+                    currentPlayer.getState().resetRemainingSteps();
+                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Movimento non valido"));
                 }
             }
 
@@ -198,84 +205,112 @@ public class CommandExecutor {
         jsonCreator.reset();
     }
 
-    public void execute(PickUpAmmoCommand command) {
+    public void execute(PickUpCommand command) throws IOException {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
-            //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
+        if (registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() != currentPlayer) {
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
         } else {
             if (currentPlayer.getState().getName().equals("PickUp")) {
-                //TODO verifica tile giusto
-                //set remaining steps to zero
-                currentPlayer.getState().remainingStepsToZero();
-
-                AmmoCard ammoCard = currentPlayer.getTile().pickUpAmmoCard();
-                //draw
-                currentPlayer.useAmmoCard(ammoCard, gameManager.getMatch().getPowerUpDeck());
-                //put the card in the slush pile
-                gameManager.getMatch().getAmmoSlushPile().addCard(ammoCard);
-
-                //notify
-                String message = "Il giocatore attuale ha raccolto una carta munizioni";
-//            for (MessageListener view : command.getAllViews()){
-//                view.notify(message)
-//            }
-                //decrement moves of player and return to action selector
-                command.endCommandToAction(gameManager);
-            } else {
-//            command.getOriginView().notify("Comando non valido")
-                //TODO o lancio exception??
-            }
-        }
-    }
-
-    public void execute(PickUpWeaponCommand command) {
-        //auxiliary variable
-        Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
-            //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
-        } else {
-            if (currentPlayer.getState().getName().equals("PickUp")) {
-                //set player remaining steps to zero
-                currentPlayer.getState().remainingStepsToZero();
-
-                WeaponCard weaponCard = null;
-                int count = 0;
-                if (command.getWeaponName() == null) throw new IllegalArgumentException("can't insert null weapon");
+                Tile oldTile = currentPlayer.getTile();
+                //player movement
                 try {
-                    for (WeaponCard wpc : currentPlayer.getTile().getWeapons()) {
-                        if (wpc.getName().equals(command.getWeaponName())) {
-                            weaponCard = currentPlayer.getTile().getWeapons().remove(count);
+                    currentPlayer.move(new Movement(command.getMoves()));
+                } catch (NotValidMovesException e) {
+                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Movimento non valido"));
+                }
+
+                //verify if it is an ammo tile
+                if (currentPlayer.getTile().canContainAmmo()) {
+                    if(currentPlayer.getTile().isPresentAmmoCard()) {
+                        currentPlayer.getState().remainingStepsToZero();
+
+                        AmmoCard ammoCard = currentPlayer.getTile().pickUpAmmoCard();
+                        //draw
+                        currentPlayer.useAmmoCard(ammoCard, gameManager.getMatch().getPowerUpDeck());
+                        //put the card in the slush pile
+                        gameManager.getMatch().getAmmoSlushPile().addCard(ammoCard);
+
+                        //notify
+                        String message = "Il giocatore attuale ha raccolto una carta munizioni";
+                        for (JsonReceiver js : command.getAllReceivers()) {
+                            if (js != command.getJsonReceiver()) {
+                                js.sendJson(jsonCreator.createJsonWithMessage(message));
+                            }
                         }
-                        count++;
+                        command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Hai raccolto una carta munizioni"));
+                        //decrement moves of player and return to action selector
+                        command.endCommandToAction(gameManager);
                     }
-                } catch (PickableNotPresentException e) {
-//                command.getOriginView().notify("non sei in un riquadro contenente armi")
-                }
-                //TODO come gestisco se voglio raccogleire arma ma non sono nel tile giusto?
-                if (weaponCard == null) {
-//                command.getOriginView().notify(command.getWeaponName() + " non è tra le armi presenti nel tuo riquadro")
-                } else {
-                    try {
-                        currentPlayer.pickUpWeapon(weaponCard);
-                    } catch (Exception e) {
-//                    command.getOriginView().notify("hai più armi di quante consentite, scegline una da scartare tra: "+currentPlayer.weaponsToString())
-                    } finally {
-                        String message = "Il giocatore attuale ha raccolto: " + weaponCard.getName();
-//                    for (MessageListener view : command.getAllViews()) {
-//                        view.notify(message)
-//                    }
+                    else{
+                        //return to old state
+                        oldTile.addPlayer(currentPlayer);
+                        command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Nel tuo tile non c'è niente da raccogliere"));
                     }
-
                 }
+                else{
+                    //TODO weapon
+                    if(!currentPlayer.getTile().getWeapons().isEmpty()){
+                        //set player remaining steps to zero
+                        currentPlayer.getState().remainingStepsToZero();
 
-                //decrement moves of player and return to action selector
-                command.endCommandToAction(gameManager);
+                        WeaponCard weaponCard = null;
+                        int count = 0;
+                        if (command.getWeaponName() == null) {
+                            //return to old state
+                            oldTile.addPlayer(currentPlayer);
+                            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non è presente l'arma da te inserita"));
+                        }
+                        else{
+                            try {
+                                for (WeaponCard wpc : currentPlayer.getTile().getWeapons()) {
+                                    if (wpc.getName().equals(command.getWeaponName())) {
+                                        weaponCard = currentPlayer.getTile().getWeapons().remove(count);
+                                    }
+                                    count++;
+                                }
+                            } catch (PickableNotPresentException e) {
+                                //return to old state
+                                oldTile.addPlayer(currentPlayer);
+                                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non sono presenti armi in questo tile"));
+                            }
+                            if (weaponCard == null) {
+                                //return to old state
+                                oldTile.addPlayer(currentPlayer);
+                                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non è presente l'arma da te inserita"));
+                            }
+                            else {
+                                try {
+                                    currentPlayer.pickUpWeapon(weaponCard);
+                                } catch (Exception e) {
+                                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("hai più armi di quante consentite, scegline una da scartare tra: "+currentPlayer.weaponsToString()));
+                                } finally {
+                                    String message = "Il giocatore attuale ha raccolto: " + weaponCard.getName();
+                                    for (JsonReceiver js : command.getAllReceivers()) {
+                                        if (js != command.getJsonReceiver()) {
+                                            js.sendJson(jsonCreator.createJsonWithMessage(message));
+                                        }
+                                    }
+                                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Hai raccolto "+weaponCard.getName()));
+                                }
+
+                            }
+                            //decrement moves of player and return to action selector
+                            command.endCommandToAction(gameManager);
+                        }
+                    }
+                    else{
+                        //return to old state
+                        oldTile.addPlayer(currentPlayer);
+                        command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Nel tuo tile non c'è niente da raccogliere"));
+                    }
+                }
             } else {
 //            command.getOriginView().notify("Comando non valido")
-                //TODO o lancio exception??
+                    //TODO o lancio exception??
             }
         }
+        jsonCreator.reset();
     }
 
     public void execute(ReloadCommand command) {
