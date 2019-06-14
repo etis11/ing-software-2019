@@ -1,5 +1,10 @@
 14 giugno
 
+
+COSE FATTE OGGI
+
+1) *cli connessa alla rete
+
 LEGENDA
 * = fatto
 # = parzialmente fatto
@@ -17,6 +22,7 @@ insieme la prossima volta
 4) definire tutta la parte di pulizia dei code smeels e testing
 5) se si riesce, leggere Mokito
 6) notifica di cambiamenti
+
 
 
 
