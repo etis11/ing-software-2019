@@ -2,6 +2,7 @@ package Test;
 
 import model.Player;
 import model.User;
+import model.clientModel.SemplifiedPlayer;
 import view.CommandLineInterface;
 
 import java.io.IOException;
@@ -43,7 +44,8 @@ public class CommandLineInterfaceTest {
         int n = numero + 3;
         System.out.println("numero = 3 : " + n);
 
-        Player player = new Player("Etis");
+        SemplifiedPlayer player = new SemplifiedPlayer();
+        player.setName("Etis");
         commandLineInterface.onAmmoChange(player);
         player.getPlayerBoard().getLoader().askReload(2, 0, 1);
         commandLineInterface.onAmmoChange(player);
