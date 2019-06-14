@@ -144,7 +144,7 @@ public class PbFrame {
     private Label yellowAmmmo4;
     private List<Circle> fourthDamage;
     private List<Circle> fourthMark;
-    private List<Label> fourthmarkT;
+    private List<Label> fourthMarkT;
     private List<Label> fourthAmmo;
     private List<Color> fourthColor;
 
@@ -639,7 +639,7 @@ public class PbFrame {
     private void generateFourth(){
         fourthDamage = new ArrayList<>();
         fourthMark = new ArrayList<>();
-        fourthmarkT = new ArrayList<>();
+        fourthMarkT = new ArrayList<>();
         fourthAmmo = new ArrayList<>();
         pb4 = new Pane();
 
@@ -715,12 +715,12 @@ public class PbFrame {
         markT42 = new Label("0");
         markT43 = new Label("0");
         markT44 = new Label("0");
-        fourthmarkT.add(markT41);
-        fourthmarkT.add(markT42);
-        fourthmarkT.add(markT43);
-        fourthmarkT.add(markT44);
+        fourthMarkT.add(markT41);
+        fourthMarkT.add(markT42);
+        fourthMarkT.add(markT43);
+        fourthMarkT.add(markT44);
         //setting label for marks text
-        for(Label l : fourthmarkT){
+        for(Label l : fourthMarkT){
 //            l.setVisible(false);
             l.setMaxHeight(15);
             l.setMaxWidth(15);
@@ -773,10 +773,44 @@ public class PbFrame {
     }
 
     private void updateDamage(){
-        //TODO
+        for (Circle c : firstDamage){
+            c.setVisible(false);
+        }
+        for (Circle c : secondDamage){
+            c.setVisible(false);
+        }
+        for (Circle c : thirdDamage){
+            c.setVisible(false);
+        }
+        for (Circle c : fourthDamage){
+            c.setVisible(false);
+        }
     }
     private void updateMarks(){
-        //TODO
+        for (Circle c : firstMark){
+            c.setVisible(false);
+        }
+        for (Circle c : secondMark){
+            c.setVisible(false);
+        }
+        for (Circle c : thirdMark){
+            c.setVisible(false);
+        }
+        for (Circle c : fourthMark){
+            c.setVisible(false);
+        }
+        for (Label l : firstMarkT){
+            l.setVisible(false);
+        }
+        for (Label l : secondMarkT){
+            l.setVisible(false);
+        }
+        for (Label l : thirdMarkT){
+            l.setVisible(false);
+        }
+        for (Label l : fourthMarkT){
+            l.setVisible(false);
+        }
     }
 
     private void updateAmmo(){

@@ -147,8 +147,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         Button showWeapon = new Button("Mostra Armi");
         Button showPowerUp = new Button("Mostra PU");
         Button showPlBoard = new Button("Mostra PB av");
-        Button showPuCard = new Button("Mostra Armi av");
-        Button showWeaponCard = new Button("Mostra PU av");
+        Button showWeaponCard = new Button("Mostra Armi av");
 
         infoGame.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         infoGame.setMaxWidth(300);
@@ -376,8 +375,6 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
             }
         });
 
-        showPuCard.setMinWidth(buttonWidth);
-
         showWeaponCard.setMinWidth(buttonWidth);
 
         //setting gamelog
@@ -486,7 +483,6 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         buttonPane.getChildren().add(showWeapon);
         buttonPane.getChildren().add(showPowerUp);
         buttonPane.getChildren().add(showPlBoard);
-        buttonPane.getChildren().add(showPuCard);
         buttonPane.getChildren().add(showWeaponCard);
 
         playerBoardPane.getChildren().add(blueAmmmo);
@@ -598,47 +594,47 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     private InputStream weaponParser(String weapon) {
         switch (weapon) {
-            case "CannoneVortex":
+            case "Cannone vortex":
                 return getClass().getResourceAsStream("/img/CannoneVortex.png");
             case "CyberGuanto":
                 return getClass().getResourceAsStream("/img/CyberGuanto.png");
             case "Distruttore":
                 return getClass().getResourceAsStream("/img/DistruttoreWeap.png");
-            case "FalceProtonica":
+            case "Falce protonica":
                 return getClass().getResourceAsStream("/img/FalceProtonica.png");
-            case "FucileAlPlasma":
+            case "Fucile al plasma":
                 return getClass().getResourceAsStream("/img/FucileAlPlasma.png");
-            case "FucileAPompa":
+            case "Fucile a pompa":
                 return getClass().getResourceAsStream("/img/FucileAPompa.png");
-            case "FucileDiPrecisione":
+            case "Fucile di precisione":
                 return getClass().getResourceAsStream("/img/FucileDiPrecisione.png");
-            case "FucileLaser":
+            case "Fucile laser":
                 return getClass().getResourceAsStream("/img/FucileLaser.png");
-            case "LanciaFiamme":
+            case "Lanciafiamme":
                 return getClass().getResourceAsStream("/img/LanciaFiamme.png");
-            case "LanciaGranate":
+            case "Lanciagranate":
                 return getClass().getResourceAsStream("/img/LanciaGranate.png");
-            case "LanciaRazzi":
+            case "Lanciarazzi":
                 return getClass().getResourceAsStream("/img/LanciaRazzi.png");
-            case "MartelloIonico":
+            case "Martello ionico":
                 return getClass().getResourceAsStream("/img/MartelloIonico.png");
             case "Mitragliatrice":
                 return getClass().getResourceAsStream("/img/Mitragliatrice.png");
-            case "OndaDurto":
+            case "Onda d'urto":
                 return getClass().getResourceAsStream("/img/OndaDurto.png");
-            case "RaggioSolare":
+            case "Raggio solare":
                 return getClass().getResourceAsStream("/img/RaggioSolare.png");
-            case "RaggioTraente":
+            case "Raggio traente":
                 return getClass().getResourceAsStream("/img/RaggioTraente.png");
-            case "RazzoTermico":
+            case "Razzo termico":
                 return getClass().getResourceAsStream("/img/RazzoTermico.png");
-            case "SpadaFotonica":
+            case "Spada fotonica":
                 return getClass().getResourceAsStream("/img/SpadaFotonica.png");
             case "Torpedine":
                 return getClass().getResourceAsStream("/img/Torpedine.png");
             case "Vulcanizzatore":
                 return getClass().getResourceAsStream("/img/Vulcanizzatore.png");
-            case "ZxZ":
+            case "Zx-2":
                 return getClass().getResourceAsStream("/img/ZxZ.png");
             default:
                 return getClass().getResourceAsStream("/img/RetroArmi.png");

@@ -35,7 +35,7 @@ public class MainFrame{
     private boolean networkActive = true;
     private Stage stage;
 
-    private final InputStream pathAdrenaline = getClass().getResourceAsStream("img" + File.separatorChar + "Adrenalina.PNG");
+    private final InputStream pathAdrenaline = getClass().getResourceAsStream("/img/Adrenalina.PNG");
 
 
     public MainFrame() {
