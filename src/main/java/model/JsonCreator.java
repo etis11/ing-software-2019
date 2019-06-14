@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 import jsonparser.*;
 import controller.CommandResponse;
 
+import javax.naming.OperationNotSupportedException;
+
 public class JsonCreator implements ChangesObserver {
 
     private boolean prettyPrinting = false;
@@ -14,7 +16,7 @@ public class JsonCreator implements ChangesObserver {
     private transient final Gson gson;
 
 
-    public JsonCreator(Match match) {
+    public JsonCreator(GameManager gm) {
         GsonBuilder gb = new GsonBuilder();
         gb.registerTypeAdapter(BloodToken.class, new BloodTokenSerializer());
         gb.registerTypeAdapter(PlayerBoard.class, new PlayerBoardSerializer());
@@ -28,10 +30,14 @@ public class JsonCreator implements ChangesObserver {
         if (prettyPrinting) gb.setPrettyPrinting();
         gson = gb.create();
 
-        response = new CommandResponse(match.getPlayers(), match.getMap().mapAsList());
+        response = new CommandResponse(gm.getMatch().getPlayers(), gm.getMatch().getMap().mapAsList());
     }
 
 
+    /**
+     * The message and the error will be null, the players changed are empty, the map is marked as "not changed" and the
+     * player serializer is reset.
+     */
     public void reset() {
         response.resetMessage();
         response.resetErrorMessage();
@@ -84,11 +90,13 @@ public class JsonCreator implements ChangesObserver {
     }
 
     public String createJustMessage(String s) {
-        return gson.toJson(s, String.class);
+         gson.toJson(s, String.class);
+         throw  new RuntimeException("da implementare");
     }
 
     public String createJustError(String s){
-        return gson.toJson(s, String.class);
+        gson.toJson(s, String.class);
+        throw new RuntimeException("da implementare");
     }
 
     /************************ Changes observer implementation *******************************************/

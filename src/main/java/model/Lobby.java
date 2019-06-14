@@ -3,6 +3,7 @@ package model;
 import exceptions.NotValidActionException;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Lobby {
@@ -36,7 +37,7 @@ public class Lobby {
      * @return list of players in the lobby
      */
     public List<User> getUsers() {
-        return users;
+        return new LinkedList<>(users);
     }
 
     /**
@@ -74,5 +75,9 @@ public class Lobby {
         } else {
             return null;
         }
+    }
+
+    public int getNumOfUsers(){
+        return users.size();
     }
 }

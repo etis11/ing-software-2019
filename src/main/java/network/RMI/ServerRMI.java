@@ -1,6 +1,7 @@
 package network.RMI;
 
 import controller.CommandLauncherInterface;
+import controller.CommandLauncherProvider;
 import controller.JsonReceiver;
 import exceptions.DuplicateException;
 import network.TokenRegistry;
@@ -22,7 +23,7 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
     /**
      * Lists of all the command launchers. Each Command Launcher is associated to a single match
      */
-    private List<CommandLauncherInterface> launchers = new ArrayList<>();
+    private final CommandLauncherProvider launchers;
     /**
      * index of the current available launcher
      */
@@ -31,11 +32,11 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
     /**
      * Creates a server with a launcher and the RMI registry.
      *
-     * @param firstLauncher the first launcher ever created in this run.
+     * @param provider the command launcher provider.
      * @throws RemoteException If there are problem initializing the rmi registry.
      */
-    public ServerRMI(CommandLauncherInterface firstLauncher) throws RemoteException {
-        launchers.add(firstLauncher);
+    public ServerRMI(CommandLauncherProvider provider) throws RemoteException {
+        launchers = provider;
         LocateRegistry.createRegistry(1099);
         rmiServerLogger.log(Level.INFO, ">>> Created the registry");
     }
@@ -49,7 +50,7 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
      */
     @Override
     public CommandLauncherInterface getCurrentCommandLauncher() {
-        return launchers.get(currentLauncer);
+        return launchers.getCurrentCommandLauncher();
     }
 
     /**

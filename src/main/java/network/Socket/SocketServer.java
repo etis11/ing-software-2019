@@ -1,6 +1,8 @@
 package network.Socket;
 
+import controller.CommandLauncher;
 import controller.CommandLauncherInterface;
+import controller.CommandLauncherProvider;
 import controller.JsonReceiver;
 import network.TokenRegistry;
 
@@ -25,7 +27,7 @@ public class SocketServer {
      * num max of clients that can be served ad once
      */
     private final static int MAX_CLIENTS = 5;
-    private final CommandLauncherInterface commandLauncher;
+    private final CommandLauncherProvider provider;
     /**
      * the socket of the server
      */
@@ -39,11 +41,11 @@ public class SocketServer {
      */
     private ExecutorService threadPool;
 
-    public SocketServer(int port, CommandLauncherInterface c) throws IOException {
+    public SocketServer(int port, CommandLauncherProvider provider) throws IOException {
         serverSocket = new ServerSocket(port);
         serverSocketLogger.log(Level.INFO, ">>> Server Launched on port:" + port + ".");
         threadPool = Executors.newFixedThreadPool(MAX_CLIENTS);
-        commandLauncher = c;
+        this.provider = provider;
     }
 
     /**
@@ -71,6 +73,7 @@ public class SocketServer {
             clientOutput.flush();
             //creates a json Receiver and binds it to the client socket.
             JsonReceiver receiverProxy = new JsonReceiverProxySocket(clientSocket);
+            CommandLauncherInterface commandLauncher = provider.getCurrentCommandLauncher();
             commandLauncher.addJsonReceiver(receiverProxy);
             registry.associateTokenAndReceiver(clientToken, receiverProxy);
             threadPool.submit(new CommandReceiverSocket(clientSocket, commandLauncher));
