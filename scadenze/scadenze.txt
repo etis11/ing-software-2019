@@ -3,6 +3,7 @@
 COSE DA FARE
 1) implementare multi partita con esecutori separati e all'interno una lobby
 2) nel json notifche per user
+3) esecutore che gestisce le disconnessioni
 
 
 COSE FATTE OGGI
