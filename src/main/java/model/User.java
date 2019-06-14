@@ -1,6 +1,11 @@
 package model;
 
+import java.io.File;
+
+import static model.State.fromJson;
+
 public class User {
+
 
     /**
      * instance variable for the user token
@@ -28,14 +33,16 @@ public class User {
     public User() {
         this.username = "user";
         this.effectPhrase = "I will survive";
-        this.player = null;
+        this.player = new Player("", fromJson("." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar + "stateMachine" + File.separatorChar + "stateMachine.json"));
         //listener
     }
 
     public User(String username) {
         this.username = username;
         this.effectPhrase = "I will survive";
-        this.player = null;
+        this.player = new Player("", fromJson("." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+                + File.separatorChar + "stateMachine" + File.separatorChar + "stateMachine.json"));
         //listener
     }
 

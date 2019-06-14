@@ -20,14 +20,6 @@ public class SemplifiedTile {
         this.weaponTile = weaponTile;
     }
 
-    public int getRow(){
-        return
-    }
-
-    public int getCol(){
-
-    }
-
     public int getId(){
         return id;
     }
