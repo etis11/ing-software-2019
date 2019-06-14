@@ -44,8 +44,8 @@ public class CommandExecutor {
                 }
                 command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Hai terminato il tuo turno"));
             }
-
         }
+        jsonCreator.reset();
     }
 
     public void execute(AskPickCommand command) throws IOException {
@@ -68,31 +68,35 @@ public class CommandExecutor {
             command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Se vuoi spostarti inserisci la direzione, altrimenti inserisci cosa vuoi raccogliere. (Munizioni o armi)"));
             }
         }
+        jsonCreator.reset();
     }
 
-    public void execute(AskReloadCommand command) {
+    public void execute(AskReloadCommand command) throws IOException {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
-            //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
-        } else {
+        if (registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() != currentPlayer) {
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
+        }
+        else {
             if (!currentPlayer.getState().canReload()) {
-//            command.getOriginView().notify("non puoi ricaricare")
-            } else {
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi ricaricare"));
+            }
+            else {
                 currentPlayer.getState().nextState("Reload", currentPlayer);
-                String message = "Il giocatore attuale sta ricaricando";
-//            for (MessageListener view : command.getAllViews()){
-//                if(view!=command.getOriginView()) {
-//                    view.notify(message)
-//                }
-//            }
                 if (!currentPlayer.getWeapons().isEmpty()) {
-                    //                command.getOriginView().notify("Scegli quale arma ricaricare tra: " + currentPlayer.weaponsToString())
+                    String message = "Il giocatore attuale sta ricaricando";
+                    for (JsonReceiver js : command.getAllReceivers()){
+                        if (js!=command.getJsonReceiver()) {
+                            js.sendJson(jsonCreator.createJsonWithMessage(message));
+                        }
+                    }
+                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Scegli quale arma ricaricare tra: " + currentPlayer.weaponsToString()));
                 } else {
-                    //                command.getOriginView().notify("Non hai armi")
+                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non hai armi da ricaricare"));
                 }
             }
         }
+        jsonCreator.reset();
     }
 
     public void execute(AskPointsCommand command) {
