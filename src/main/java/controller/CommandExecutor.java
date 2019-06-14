@@ -341,30 +341,28 @@ public class CommandExecutor {
 
     public void execute(SetUsernameCommand command) {
         if (!gameManager.getMatch().isStarted()) {
-            if (gameManager.getLobby().getUsers().contains(registry.getJsonUserOwner(command.getJsonReceiver()))) {
-                registry.getJsonUserOwner(command.getJsonReceiver()).setUsername(command.getUsername());
+            if (usernameAlreadyPresent(command.getUsername())) {
+                if (gameManager.getLobby().getUsers().contains(registry.getJsonUserOwner(command.getJsonReceiver()))) {
+                    registry.getJsonUserOwner(command.getJsonReceiver()).setUsername(command.getUsername());
 //                command.getOriginView().notify("Il tuo username è stato modificato in: " + command.getUsername())
-            } else {
-//                command.getOriginView().notify("Non puoi modificare il tuo username")
+                } else {
+                    User user = new User(command.getUsername());
+                    try {
+                        gameManager.getLobby().join(user);
+                    } catch (NotValidActionException e) {
+                        e.printStackTrace();
+                    }
+//            command.getOriginView().notify("Non puoi modificare il tuo username")
+                }
             }
-        } else {
+            else{
+//                command.getOriginView().notify("username già presente")
+            }
+        }
+        else {
 //            command.getOriginView().notify("Non puoi modificare il tuo username perchè la partita è già iniziata")
         }
-    }
 
-
-    public void execute(CreateUserCommand command) {
-        if (!gameManager.getMatch().isStarted()) {
-            User user = new User(command.getUsername());
-
-            try {
-                gameManager.getLobby().join(user);
-            } catch (NotValidActionException e) {
-                e.printStackTrace();
-            }
-        } else {
-//           command.getOriginView().notify("Non puoi unirti alla partita perchè è già iniziata")
-        }
 
     }
 
