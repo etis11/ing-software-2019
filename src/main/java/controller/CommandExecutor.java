@@ -90,7 +90,7 @@ public class CommandExecutor {
                             js.sendJson(jsonCreator.createJsonWithMessage(message));
                         }
                     }
-                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Scegli quale arma ricaricare tra: " + currentPlayer.weaponsToString()));
+                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Scegli quale arma ricaricare tra: " + currentPlayer.weaponsToString()));
                 } else {
                     command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non hai armi da ricaricare"));
                 }
@@ -105,11 +105,11 @@ public class CommandExecutor {
 //        command.getOriginView().notify(gameManager.getMatch().getCurrentPlayer().getName()+ " hai: "+points+ "punti");
     }
 
-    public void execute(AskShootCommand command) {
+    public void execute(AskShootCommand command) throws IOException {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
-            //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
+        if (registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() != currentPlayer) {
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
         } else {
             boolean loaded = false;
             //verify if almost a weapon is loaded
@@ -119,16 +119,19 @@ public class CommandExecutor {
                 }
             }
             if (!currentPlayer.getState().canShoot() || currentPlayer.getRemainingMoves() < 1 || !loaded) {
-//            command.getOriginView().notify("Non puoi sparare")
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi sparare"));
             } else {
                 currentPlayer.getState().nextState("Shoot", currentPlayer);
                 String message = "Il giocatore attuale sta per sparare";
-//            for (MessageListener view : command.getAllViews()){
-//                view.notify(message)
-//            }
-                //TODO notifico già le armi?
+                for (JsonReceiver js : command.getAllReceivers()){
+                    if (js!=command.getJsonReceiver()) {
+                        js.sendJson(jsonCreator.createJsonWithMessage(message));
+                    }
+                }
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Scegli con quale arma sparare tra: " + currentPlayer.weaponsToString()));
             }
         }
+        jsonCreator.reset();
     }
 
     public void execute(AskUsePowerUpCommand command) {
@@ -149,22 +152,25 @@ public class CommandExecutor {
         }
     }
 
-    public void execute(AskWalkCommand command) {
+    public void execute(AskWalkCommand command) throws IOException {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
-            //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
+        if (registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() != currentPlayer) {
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
         } else {
             if (!currentPlayer.getState().canRun() || currentPlayer.getRemainingMoves() < 1) {
-//            command.getOriginView().notify("non puoi spostarti")
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi muoverti"));
             } else {
                 currentPlayer.getState().nextState("Run", currentPlayer);
                 String message = "Il giocatore attuale si sta spostando";
-//            for (MessageListener view : command.getAllViews()){
-//                view.notify(message)
-//            }
+                for (JsonReceiver js : command.getAllReceivers()){
+                    if (js!=command.getJsonReceiver()) {
+                        js.sendJson(jsonCreator.createJsonWithMessage(message));
+                    }
+                }
             }
         }
+        jsonCreator.reset();
     }
 
     public void execute(MoveCommand command) {
