@@ -5,9 +5,9 @@ LEGENDA
 # = parzialmente fatto
 X = da fare
 
-1) mettere a posto la deserializzazione e testare il ritorno dei json dalla rete. JsonReceiver Observer Oscar
-2) mappa su gui, marchi, playerboard degli altri, inserire tutte le immagini. Implementare gli observer  Alessandro
-3) mappa dinamica, implementare gli observer Etis
+1) * mettere a posto la deserializzazione e testare il ritorno dei json dalla rete. JsonReceiver Observer Oscar
+2) * mappa su gui, marchi, playerboard degli altri, inserire tutte le immagini. Implementare gli observer  Alessandro
+3) Xmappa dinamica, implementare gli observer Etis
 
 
 insieme la prossima volta
@@ -16,7 +16,7 @@ insieme la prossima volta
 3) Connetere la CLI ai server
 4) definire tutta la parte di pulizia dei code smeels e testing
 5) se si riesce, leggere Mokito
-
+6) notifica di cambiamenti
 
 
 
