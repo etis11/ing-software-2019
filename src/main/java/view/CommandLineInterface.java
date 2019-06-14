@@ -168,7 +168,7 @@ public class CommandLineInterface extends AbstractView  {
 
     @Override
     public void onWeaponChange(Player p) {
-        //TODO implementare
+        displayText(p.getName()+ "ha cambiato le armi e contiene " + p.getNumWeapons() + " carte armi, che sono: "+ p.getWeapons());
     }
 
     /**
