@@ -201,7 +201,6 @@ public class CommandLineInterface extends AbstractView  {
      * Displays text in the CLI to the users/players
      **/
     public void displayText(String text) {
-        System.out.println(text);
     }
 
     @Override
