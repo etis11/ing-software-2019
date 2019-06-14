@@ -3,18 +3,20 @@ package model.clientModel;
 import model.PlayerBoard;
 import model.PowerUpCard;
 import model.Tile;
+import model.WeaponCard;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SemplifiedPlayer {
 
     private String name;
     private int remainingMoves;
     private int numWeaponCard;
-    private List<SemplifiedWeaponCard> weaponCards = new LinkedList<>();
+    private List<SemplifiedWeaponCard> weaponCards;
     private int numPowerUps;
     private List<PowerUpCard> powerUpCards = new LinkedList<>();
     private int tile;
@@ -75,6 +77,9 @@ public class SemplifiedPlayer {
 
     public void setTile(int tile) {
         this.tile = tile;
+    }
+    public int getNumWeapons() {
+        return weaponCards.size();
     }
 
     public SemplifiedPlayerBoard getPlayerBoard() {
