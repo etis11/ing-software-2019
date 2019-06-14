@@ -9,6 +9,7 @@ import network.TokenRegistry;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CommandExecutor {
     private final TokenRegistry registry = TokenRegistry.getInstance();
@@ -361,19 +362,23 @@ public class CommandExecutor {
     }
 
     public void execute(SetUsernameCommand command) throws IOException {
-        if (!gameManager.getMatch().isStarted()) {
+        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        if (!gameHasStarted) {
             if (!registry.usernameAlreadyPresent(command.getUsername())) {
-                if (gameManager.getLobby().getUsers().contains(registry.getJsonUserOwner(command.getJsonReceiver()))) {
-                    registry.getJsonUserOwner(command.getJsonReceiver()).setUsername(command.getUsername());
-                        command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Il tuo username è stato modificato in: " + command.getUsername()));
-                }
-                else {
+                List<User> users = gameManager.getLobby().getUsers();
+                JsonReceiver userJsonReceiver = command.getJsonReceiver();
+                if (registry.getJsonUserOwner(userJsonReceiver)== null){
                     User user = new User(command.getUsername());
+                    registry.associateReceiverAndUser(userJsonReceiver, user);
                     try {
                         gameManager.getLobby().join(user);
                     } catch (NotValidActionException e) {
                         e.printStackTrace();
                     }
+                }
+                else if (users.contains(registry.getJsonUserOwner(command.getJsonReceiver()))) {
+                    registry.getJsonUserOwner(command.getJsonReceiver()).setUsername(command.getUsername());
+                        command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Il tuo username è stato modificato in: " + command.getUsername()));
                 }
             }
             else{

@@ -2,6 +2,7 @@ package view;
 
 import controller.CommandContainer;
 import controller.commandpack.*;
+import network.RMI.ClientLauncherRMI;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class Parserator implements Runnable {
     private CommandContainer commandLauncher;
-    private String token = ClientSingleton.getInstance().getToken();
+    private String token;
     private CommandLineInterface CLI;
     private boolean quit;
 
@@ -19,11 +20,11 @@ public class Parserator implements Runnable {
         CLI = cli;
         commandLauncher = launcher;
         quit = false;
+        token = ClientSingleton.getInstance().getToken();
     }
 
     @Override
     public void run() {
-
         while (!quit) {
             try {
                 this.parseCommand(CLI.getUserInputString());

@@ -70,7 +70,6 @@ public class TokenRegistry {
 
     public User getJsonUserOwner(JsonReceiver receiver) {
         User owner = userReceiver.get(receiver);
-        if (owner == null) throw new NullPointerException("Non c'è nessun user associato a questo json receiver");
         return owner;
     }
 
@@ -89,5 +88,11 @@ public class TokenRegistry {
             if (u.getUsername().equals(name)) return true;
         }
         return false;
+    }
+
+    public void associateReceiverAndUser(JsonReceiver jr, User user){
+        synchronized (userReceiver){
+            userReceiver.putIfAbsent(jr, user);
+        }
     }
 }

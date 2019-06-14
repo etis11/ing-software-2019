@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -67,17 +68,17 @@ public class SocketServer {
             } else {
                 serverSocketLogger.log(Level.INFO, ">>> Token sent valid");
             }
-            //sends the token to the client
-            clientToken += "\n";
-            clientOutput.write(clientToken);
+            //sends the token to the clientquit
+            serverSocketLogger.log(Level.INFO, ">>> Sending token");
+            clientOutput.println(clientToken);
             clientOutput.flush();
             //creates a json Receiver and binds it to the client socket.
             JsonReceiver receiverProxy = new JsonReceiverProxySocket(clientSocket);
             CommandLauncherInterface commandLauncher = provider.getCurrentCommandLauncher();
             commandLauncher.addJsonReceiver(receiverProxy);
+            serverSocketLogger.log(Level.INFO,">>> Associating token and proxy");
             registry.associateTokenAndReceiver(clientToken, receiverProxy);
             threadPool.submit(new CommandReceiverSocket(clientSocket, commandLauncher));
-            ;
 
         }
     }
@@ -90,8 +91,8 @@ public class SocketServer {
     }
 
     private String getClientToken(Socket clientSocket) throws IOException {
-        BufferedReader b = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        String returnString = b.readLine();
+        Scanner b = new Scanner(clientSocket.getInputStream());
+        String returnString = b.nextLine();
         return returnString;
 
     }

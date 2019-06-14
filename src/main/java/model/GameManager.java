@@ -10,6 +10,10 @@ public class GameManager {
         this.match = new Match();
         this.lobby = new Lobby();
     }
+    public GameManager(Match m){
+        this.match = m;
+        this.lobby = new Lobby();
+    }
 
     public Match getMatch() {
         return match;

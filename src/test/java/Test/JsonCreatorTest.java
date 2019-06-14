@@ -33,8 +33,8 @@ public class JsonCreatorTest {
         map = new GameMap();
         map.addRegenPoint("red", new Tile(true, false));
         m.setMap(map);
-
-        jsonCreator = new JsonCreator(m);
+        GameManager gm = new GameManager(m);
+        jsonCreator = new JsonCreator(gm);
     }
 
     @Test

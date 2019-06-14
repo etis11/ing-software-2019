@@ -9,7 +9,7 @@ import model.Match;
 
 public class Gui extends Application {
 
-    CommandLauncher cmd = new CommandLauncher(new GameManager(), new JsonCreator(new Match()));
+    CommandLauncher cmd = new CommandLauncher(new GameManager(), new JsonCreator(new GameManager()));
     MainFrame mainFrame = new MainFrame();
     LobbyFrame lobbyFrame = new LobbyFrame(cmd);
     GameFrame gameFrame = new GameFrame(cmd, "Distruttore", 1);

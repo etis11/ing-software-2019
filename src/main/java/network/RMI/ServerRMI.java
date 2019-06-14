@@ -49,7 +49,7 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
      * @return the  stub of the command launcher
      */
     @Override
-    public CommandLauncherInterface getCurrentCommandLauncher() {
+    public CommandLauncherInterface getCurrentCommandLauncher() throws RemoteException {
         return launchers.getCurrentCommandLauncher();
     }
 

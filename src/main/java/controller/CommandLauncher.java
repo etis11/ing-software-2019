@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  */
 public class CommandLauncher implements CommandLauncherInterface {
 
-    private static final Logger LOGGER = Logger.getLogger(CommandLauncher.class.getName());
+    private static final Logger commandLauncherLogger = Logger.getLogger(CommandLauncher.class.getName());
     private final List<JsonReceiver> allReceivers = new ArrayList<>(5);
     /**
      * A queue where the commands are placed. The queue is concurrent and the commands of the current player are
@@ -60,14 +60,15 @@ public class CommandLauncher implements CommandLauncherInterface {
         while (!stop) {
             try {
                 takenCommand = commandQueue.take();
+                commandLauncherLogger.log(Level.INFO, ">>> Command extracted");
                 String token = takenCommand.getToken();
                 JsonReceiver clientReceiver = TokenRegistry.getInstance().getJsonReceiver(token);
                 takenCommand.setJsonReceiver(clientReceiver);
                 takenCommand.setAllJsonReceivers(allReceivers);
             } catch (InterruptedException i) {
                 System.out.println(i.getMessage());
-                LOGGER.log(Level.WARNING, i.getMessage(), i);
-                System.out.println("Unable to extract a command because the reading threas has been interrupted. " +
+                commandLauncherLogger.log(Level.WARNING, i.getMessage(), i);
+                System.out.println("Unable to extract a command because the reading thread has been interrupted. " +
                         "Stopping the command executor");
                 pool.shutdown();
                 stop = true;

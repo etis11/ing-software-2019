@@ -1,6 +1,7 @@
 package network;
 
 import controller.CommandLauncherInterface;
+import controller.CommandLauncherProvider;
 import controller.JsonReceiver;
 import controller.commandpack.Command;
 import network.RMI.ServerRMI;
@@ -18,6 +19,9 @@ public class ServerLauncher {
 
     public static void main(String[] args) throws RemoteException, AlreadyBoundException, FileNotFoundException {
 
+
+        CommandLauncherProvider provider = new CommandLauncherProvider();
+
         CommandLauncherInterface launcher = new CommandLauncherInterface() {
             @Override
             public void executeCommand() {
@@ -34,16 +38,15 @@ public class ServerLauncher {
                 System.out.println("cose");
             }
         };
-        UnicastRemoteObject.exportObject(launcher, 0);
 
-        ServerRMI rmiServer = new ServerRMI(launcher);
+        ServerRMI rmiServer = new ServerRMI(provider);
         Registry registry = LocateRegistry.getRegistry();
         registry.bind("serverRMI", rmiServer);
 
         SocketServer ss;
         try {
 
-            ss = new SocketServer(8000, launcher);
+            ss = new SocketServer(8000, provider);
             ss.run();
         } catch (IOException i) {
             System.out.println("che merda");

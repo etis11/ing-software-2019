@@ -94,7 +94,7 @@ public class MainFrame{
                         }
                     }
                     if (cmdLauncher == null) {
-                        cmdLauncher = new CommandLauncher(new GameManager(), new JsonCreator(new Match()));
+                        cmdLauncher = new CommandLauncher(new GameManager(), new JsonCreator(new GameManager()));
                     }
                     try {
                         cmdLauncher.addCommand(new SetUsernameCommand(ClientSingleton.getInstance().getToken(), userField.getText().trim()));
@@ -142,7 +142,7 @@ public class MainFrame{
                             throw new RuntimeException(r);
                         }
                     } else {
-                        cmdLauncher = new CommandLauncher(new GameManager(), new JsonCreator(new Match()));
+                        cmdLauncher = new CommandLauncher(new GameManager(), new JsonCreator(new GameManager()));
                     }
                     try {
                         cmdLauncher.addCommand(new SetUsernameCommand(ClientSingleton.getInstance().getToken(), userField.getText().trim()));
