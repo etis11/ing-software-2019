@@ -203,4 +203,9 @@ public class CommandLineInterface extends AbstractView  {
     public void displayText(String text) {
         System.out.println(text);
     }
+
+    @Override
+    public void onPlayerChange(Player p) {
+        System.out.println(AnsiColor.RED + "DA IMPLEMENTARE" + AnsiColor.RESET);
+    }
 }
