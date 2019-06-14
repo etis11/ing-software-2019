@@ -26,7 +26,7 @@ public class CommandLineInterface extends AbstractView  {
     /**
      * Attribute needed to output text from the console
      **/
-    private Writer consoleOutput;
+    private PrintWriter consoleOutput;
     /**
      * Attribute needed to grab the input entered by the user/player
      **/
@@ -62,7 +62,7 @@ public class CommandLineInterface extends AbstractView  {
      **/
     @Override
     public void onJoin(User joinedUser) {
-        System.out.println(joinedUser.getUsername() + " si e' unito alla lobby");
+        displayText(joinedUser.getUsername() + " si e' unito alla lobby");
     }
 
     /**
@@ -72,7 +72,7 @@ public class CommandLineInterface extends AbstractView  {
      **/
     @Override
     public void onLeave(User leavingUser) {
-        System.out.println(leavingUser.getUsername() + " ha lasciato la lobby");
+        displayText(leavingUser.getUsername() + " ha lasciato la lobby");
     }
 
     /**
@@ -109,7 +109,7 @@ public class CommandLineInterface extends AbstractView  {
 //            }
 //
 //        }
-        System.out.println("La posizione dei giocatori sulla mappa è cambiata");
+        displayText("La posizione dei giocatori sulla mappa è cambiata");
     }
 
     /**
@@ -119,7 +119,7 @@ public class CommandLineInterface extends AbstractView  {
      **/
     @Override
     public void notify(String message) {
-        System.out.println(message);
+        displayText(message);
     }
 
     /**
@@ -129,7 +129,7 @@ public class CommandLineInterface extends AbstractView  {
      **/
     @Override
     public void onHpChange(Player damagePlayer) {
-        System.out.println(damagePlayer.getName() + " ha subito danni e quindi e' rimasto con " + damagePlayer.getPlayerBoard().getNumDamagePoints() + " vite.");
+        displayText(damagePlayer.getName() + " ha subito danni e quindi e' rimasto con " + damagePlayer.getPlayerBoard().getNumDamagePoints() + " vite.");
     }
 
     /**
@@ -139,7 +139,7 @@ public class CommandLineInterface extends AbstractView  {
      **/
     @Override
     public void onMarksChange(Player markedPlayer) {
-        System.out.println("A" + markedPlayer.getName() + " si e' cambiato il numero dei marchi in: " + markedPlayer.getPlayerBoard().getNumMarks() + " marks");
+        displayText("A" + markedPlayer.getName() + " si e' cambiato il numero dei marchi in: " + markedPlayer.getPlayerBoard().getNumMarks() + " marks");
     }
 
     /**
@@ -149,7 +149,7 @@ public class CommandLineInterface extends AbstractView  {
      **/
     @Override
     public void onAmmoChange(Player p) {
-        System.out.println(p.getName() + " ha un numero diverso di ammo rispetto a prima:\n" +
+        displayText(p.getName() + " ha un numero diverso di ammo rispetto a prima:\n" +
                 "Ammo blu : " + p.getPlayerBoard().getLoader().getNumBlueAmmo() + "\n" +
                 "Ammo rosse : " + p.getPlayerBoard().getLoader().getNumRedAmmo() + "\n" +
                 "Ammo gialle : " + p.getPlayerBoard().getLoader().getNumYellowAmmo() + "\n"
@@ -163,7 +163,7 @@ public class CommandLineInterface extends AbstractView  {
      **/
     @Override
     public void onPowerUpChange(Player p) {
-        System.out.println(p.getName() + " ha cambiato il numero di carte PowerUp nella mano, quindi ora ha: " + p.getNumPowerUps());
+        displayText(p.getName() + " ha cambiato il numero di carte PowerUp nella mano, quindi ora ha: " + p.getNumPowerUps());
     }
 
     @Override
@@ -201,11 +201,11 @@ public class CommandLineInterface extends AbstractView  {
      * Displays text in the CLI to the users/players
      **/
     public void displayText(String text) {
-        System.out.println(text);
+        consoleOutput.println(text);
     }
 
     @Override
     public void onPlayerChange(Player p) {
-        System.out.println(AnsiColor.RED + "DA IMPLEMENTARE" + AnsiColor.RESET);
+        displayText(AnsiColor.RED + "DA IMPLEMENTARE" + AnsiColor.RESET);
     }
 }
