@@ -21,7 +21,7 @@ public class Player implements ChangesObservable{
     /**
      * name of the player
      */
-    final String name;
+    private String name;
     /**
      * current points of the player
      */
@@ -116,6 +116,10 @@ public class Player implements ChangesObservable{
      */
     public String getName() {
         return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
     }
 
     /**

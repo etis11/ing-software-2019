@@ -2,6 +2,8 @@ package controller.commandpack;
 
 import controller.CommandExecutor;
 
+import java.io.IOException;
+
 public class SetNumberOfDeathCommand extends AbstractCommand {
 
     private int death;
@@ -16,7 +18,7 @@ public class SetNumberOfDeathCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute(CommandExecutor exe) {
+    public void execute(CommandExecutor exe) throws IOException {
         exe.execute(this);
     }
 }

@@ -77,7 +77,15 @@ public class Lobby {
         }
     }
 
-    public int getNumOfUsers(){
+    public int getNumOfUsers() {
         return users.size();
+    }
+
+    public List<String> getNameToken(){
+        List<String> toReturn = new ArrayList<>();
+        for (User u : users){
+            toReturn.add(u.getPlayer().getName());
+        }
+        return toReturn;
     }
 }

@@ -4,7 +4,7 @@ import controller.CommandContainer;
 import controller.CommandLauncher;
 import controller.JsonReceiver;
 import controller.JsonUnwrapper;
-import controller.commandpack.CreateUserCommand;
+import controller.commandpack.SetUsernameCommand;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -17,6 +17,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.GameManager;
+import model.JsonCreator;
+import model.Match;
 import model.clientModel.SemplifiedGame;
 import network.RMI.ServerRMIInterface;
 import network.Socket.CommandLauncherProxySocket;
@@ -92,10 +94,10 @@ public class MainFrame{
                         }
                     }
                     if (cmdLauncher == null) {
-                        cmdLauncher = new CommandLauncher(new GameManager());
+                        cmdLauncher = new CommandLauncher(new GameManager(), new JsonCreator(new Match()));
                     }
                     try {
-                        cmdLauncher.addCommand(new CreateUserCommand(ClientSingleton.getInstance().getToken(), userField.getText().trim()));
+                        cmdLauncher.addCommand(new SetUsernameCommand(ClientSingleton.getInstance().getToken(), userField.getText().trim()));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
@@ -140,10 +142,10 @@ public class MainFrame{
                             throw new RuntimeException(r);
                         }
                     } else {
-                        cmdLauncher = new CommandLauncher(new GameManager());
+                        cmdLauncher = new CommandLauncher(new GameManager(), new JsonCreator(new Match()));
                     }
                     try {
-                        cmdLauncher.addCommand(new CreateUserCommand(ClientSingleton.getInstance().getToken(), userField.getText().trim()));
+                        cmdLauncher.addCommand(new SetUsernameCommand(ClientSingleton.getInstance().getToken(), userField.getText().trim()));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }

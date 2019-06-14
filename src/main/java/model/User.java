@@ -1,6 +1,8 @@
 package model;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import static model.State.fromJson;
 
@@ -93,4 +95,5 @@ public class User {
     public void setPlayer(Player player) {
         this.player = player;
     }
+
 }

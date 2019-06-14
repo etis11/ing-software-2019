@@ -2,6 +2,8 @@ package controller.commandpack;
 
 import controller.CommandExecutor;
 
+import java.io.IOException;
+
 /**
  * AskPickCommand is an instance of command pattern
  * to ask if the player are allowed to pick up something in his state of game
@@ -16,7 +18,7 @@ public class AskPickCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute(CommandExecutor exe) {
+    public void execute(CommandExecutor exe) throws IOException {
         exe.execute(this);
     }
 }

@@ -4,10 +4,12 @@ import controller.CommandLauncher;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.GameManager;
+import model.JsonCreator;
+import model.Match;
 
 public class Gui extends Application {
 
-    CommandLauncher cmd = new CommandLauncher(new GameManager());
+    CommandLauncher cmd = new CommandLauncher(new GameManager(), new JsonCreator(new Match()));
     MainFrame mainFrame = new MainFrame();
     LobbyFrame lobbyFrame = new LobbyFrame(cmd);
     GameFrame gameFrame = new GameFrame(cmd, "Distruttore", 1);

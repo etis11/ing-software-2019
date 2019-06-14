@@ -26,84 +26,89 @@ public class CommandExecutor {
     }
 
 
-    public void execute(AskEndTurnCommand command) {
+    public void execute(AskEndTurnCommand command) throws IOException {
 
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
-            //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
+        if (registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() != currentPlayer) {
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
         } else {
             if (!currentPlayer.getState().isNormalAction() && !currentPlayer.getState().isMoreAction() && !currentPlayer.getState().isMostAction()) {
-                //command.getOriginView().notify("Non puoi terminare il tuo turno al momento")
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi terminare il tuo turno al momento"));
             } else {
                 currentPlayer.getState().nextState("EndTurn", currentPlayer);
                 String message = "Il giocatore attuale ha terminato il suo turno";
-//            for (MessageListener view : command.getAllViews()){
-//                view.notify(message)
-//            }
+                for (JsonReceiver js : command.getAllReceivers()){
+                    if (js!=command.getJsonReceiver()) {
+                        js.sendJson(jsonCreator.createJsonWithMessage(message));
+                    }
+                }
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Hai terminato il tuo turno"));
             }
-
         }
+        jsonCreator.reset();
     }
 
-    public void execute(AskPickCommand command) {
+    public void execute(AskPickCommand command) throws IOException {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
-            //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
+        if (registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() != currentPlayer) {
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
         } else {
             if (!currentPlayer.getState().canPickUp() || currentPlayer.getRemainingMoves() < 1) {
-//            command.getOriginView().notify("Non puoi raccogliere")
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi raccogliere"));
             } else {
                 currentPlayer.setOldState(currentPlayer.getState());
                 currentPlayer.getState().nextState("PickUp", currentPlayer);
                 String message = "Il giocatore attuale sta raccogliendo";
-//            for (MessageListener view : command.getAllViews()){
-//                if (view!=command.getOriginView()) {
-//                    view.notify(message)
-//                }
-//            }
-//            command.getOriginView().notify("Se vuoi spostarti inserisci la direzione, altrimenti inserisci cosa vuoi raccogliere. (Munizioni o armi)")
-
+            for (JsonReceiver js : command.getAllReceivers()){
+                if (js!=command.getJsonReceiver()) {
+                    js.sendJson(jsonCreator.createJsonWithMessage(message));
+                }
+            }
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Se vuoi spostarti inserisci la direzione, altrimenti inserisci cosa vuoi raccogliere. (Munizioni o armi)"));
             }
         }
+        jsonCreator.reset();
     }
 
-    public void execute(AskReloadCommand command) {
+    public void execute(AskReloadCommand command) throws IOException {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
-            //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
-        } else {
+        if (registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() != currentPlayer) {
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
+        }
+        else {
             if (!currentPlayer.getState().canReload()) {
-//            command.getOriginView().notify("non puoi ricaricare")
-            } else {
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi ricaricare"));
+            }
+            else {
                 currentPlayer.getState().nextState("Reload", currentPlayer);
-                String message = "Il giocatore attuale sta ricaricando";
-//            for (MessageListener view : command.getAllViews()){
-//                if(view!=command.getOriginView()) {
-//                    view.notify(message)
-//                }
-//            }
                 if (!currentPlayer.getWeapons().isEmpty()) {
-                    //                command.getOriginView().notify("Scegli quale arma ricaricare tra: " + currentPlayer.weaponsToString())
+                    String message = "Il giocatore attuale sta ricaricando";
+                    for (JsonReceiver js : command.getAllReceivers()){
+                        if (js!=command.getJsonReceiver()) {
+                            js.sendJson(jsonCreator.createJsonWithMessage(message));
+                        }
+                    }
+                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Scegli quale arma ricaricare tra: " + currentPlayer.weaponsToString()));
                 } else {
-                    //                command.getOriginView().notify("Non hai armi")
+                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non hai armi da ricaricare"));
                 }
             }
         }
+        jsonCreator.reset();
     }
 
-    public void execute(AskPointsCommand command) {
-//        if (command.getPlayer() == null) throw new IllegalArgumentException("Player can't be null");
-//        int points = command.getPlayer().getPoints();
-//        command.getOriginView().notify(gameManager.getMatch().getCurrentPlayer().getName()+ " hai: "+points+ "punti");
+    public void execute(AskPointsCommand command) throws IOException {
+        int points = registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer().getPoints();
+        command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer().getName()+ " hai: "+points+ "punti"));
     }
 
-    public void execute(AskShootCommand command) {
+    public void execute(AskShootCommand command) throws IOException {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
-            //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
+        if (registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() != currentPlayer) {
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
         } else {
             boolean loaded = false;
             //verify if almost a weapon is loaded
@@ -113,75 +118,83 @@ public class CommandExecutor {
                 }
             }
             if (!currentPlayer.getState().canShoot() || currentPlayer.getRemainingMoves() < 1 || !loaded) {
-//            command.getOriginView().notify("Non puoi sparare")
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi sparare"));
             } else {
                 currentPlayer.getState().nextState("Shoot", currentPlayer);
                 String message = "Il giocatore attuale sta per sparare";
-//            for (MessageListener view : command.getAllViews()){
-//                view.notify(message)
-//            }
-                //TODO notifico già le armi?
+                for (JsonReceiver js : command.getAllReceivers()){
+                    if (js!=command.getJsonReceiver()) {
+                        js.sendJson(jsonCreator.createJsonWithMessage(message));
+                    }
+                }
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Scegli con quale arma sparare tra: " + currentPlayer.weaponsToString()));
             }
         }
+        jsonCreator.reset();
     }
 
-    public void execute(AskUsePowerUpCommand command) {
+    public void execute(AskUsePowerUpCommand command) throws IOException {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
-            //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
+        if (!currentPlayer.getState().canUsePowerUp() || currentPlayer.getPowerUps().isEmpty()) {
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi usare powerup"));
         } else {
-            if (!currentPlayer.getState().canUsePowerUp() || currentPlayer.getPowerUps().isEmpty()) {
-//            command.getOriginView().notify("Non puoi usare powerup")
-            } else {
-                String message = "Il giocatore attuale sta usando un power up";
-//            for (MessageListener view : command.getAllViews()){
-//                view.notify(message)
-//            }
-//            command.getOriginView().notify("Scegli quale power up usare tra: "+currentPlayer.powerUpToString())
+            String message = "Il giocatore attuale sta usando un power up";
+            for (JsonReceiver js : command.getAllReceivers()){
+                if (js!=command.getJsonReceiver()) {
+                    js.sendJson(jsonCreator.createJsonWithMessage(message));
+                }
             }
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Scegli quale power up usare tra: "+currentPlayer.powerUpToString()));
         }
+        jsonCreator.reset();
     }
 
-    public void execute(AskWalkCommand command) {
+    public void execute(AskWalkCommand command) throws IOException {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
-            //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
+        if (registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() != currentPlayer) {
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
         } else {
             if (!currentPlayer.getState().canRun() || currentPlayer.getRemainingMoves() < 1) {
-//            command.getOriginView().notify("non puoi spostarti")
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi muoverti"));
             } else {
                 currentPlayer.getState().nextState("Run", currentPlayer);
                 String message = "Il giocatore attuale si sta spostando";
-//            for (MessageListener view : command.getAllViews()){
-//                view.notify(message)
-//            }
+                for (JsonReceiver js : command.getAllReceivers()){
+                    if (js!=command.getJsonReceiver()) {
+                        js.sendJson(jsonCreator.createJsonWithMessage(message));
+                    }
+                }
             }
         }
+        jsonCreator.reset();
     }
 
-    public void execute(MoveCommand command) {
+    public void execute(MoveCommand command) throws IOException {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
-            //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
+        if (registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() != currentPlayer) {
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
         } else {
             if (currentPlayer.getState().getRemainingSteps() < command.getMoves().size()) {
-//            command.getOriginView().notify("Non hai abbastanze mosse rimanenti")
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non hai abbastanza mosse rimanenti"));
             } else {
                 currentPlayer.getState().decrementRemainingSteps(command.getMoves().size());
                 currentPlayer.move(new Movement(new ArrayList<>(command.getMoves())));
                 String message = "Il giocatore attuale si è spostato di: " + command.getMoves().size() + " mosse";
-//            for (MessageListener view : command.getAllViews()){
-//                view.notify(message)
-//            }
+                for (JsonReceiver js : command.getAllReceivers()){
+                    if (js!=command.getJsonReceiver()) {
+                        js.sendJson(jsonCreator.createJsonWithMessage(message));
+                    }
+                }
             }
 
             if (currentPlayer.getState().getName().equals("Run")) {
                 command.endCommandToAction(gameManager);
             }
         }
+        jsonCreator.reset();
     }
 
     public void execute(PickUpAmmoCommand command) {
@@ -292,86 +305,69 @@ public class CommandExecutor {
         }
     }
 
-    public void execute(SetEffectPhraseCommand command) {
+    public void execute(SetEffectPhraseCommand command) throws IOException {
         if (!gameManager.getMatch().isStarted()) {
             if (gameManager.getLobby().getUsers().contains(registry.getJsonUserOwner(command.getJsonReceiver()))) {
                 registry.getJsonUserOwner(command.getJsonReceiver()).setEffectPhrase(command.getPhrase());
-//                command.getOriginView().notify("La tua frase ad effetto è stata modificata")
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("La tua frase ad effetto è stata modificata"));
             } else {
-//                command.getOriginView().notify("Non puoi modificare la tua frase ad effetto")
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare la tua frase ad effetto"));
             }
         } else {
-//            command.getOriginView().notify("Non puoi modificare la tua frase perchè la partita è iniziata")
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare la tua frase perchè la partita è iniziata"));
         }
+        jsonCreator.reset();
     }
 
-    public void execute(SetNumberOfDeathCommand command) {
+    public void execute(SetNumberOfDeathCommand command) throws IOException {
         if (!gameManager.getMatch().isStarted()) {
             if (command.getDeath() < 9 && command.getDeath() > 4 && gameManager.getLobby().getUsers().get(0) == registry.getJsonUserOwner(command.getJsonReceiver())) {
                 gameManager.getMatch().setSkulls(command.getDeath());
-//                for (MessageListener ml : command.getAllViews()) {
-//                    ml.notify("Il numero di uccisioni per la partita è stato cambiato a: " + command.getDeath())
-//                }
+                for (JsonReceiver js : command.getAllReceivers()) {
+                    js.sendJson(jsonCreator.createJsonWithMessage("Il numero di uccisioni per la partita è stato cambiato a: " + command.getDeath()));
+                }
             } else {
                 if (command.getDeath() > 8 || command.getDeath() < 5) {
-//                    command.getOriginView().notify("Numero uccisioni non nel target ammissibile")
+                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Numero uccisioni non nel range ammissibile"));
                 } else {
-//                    command.getOriginView().notify("Operazione non consentita")
+                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Operazione non consentita"));
                 }
             }
         } else {
-//            command.getOriginView().notify("Non puoi modificare il numero di morti perchè è iniziata la partita");
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare il numero di morti perchè è iniziata la partita"));
         }
+        jsonCreator.reset();
     }
 
-    public void execute(SetPlayerNumberCommand command) {
+    public void execute(SetPlayerNumberCommand command) throws IOException {
         if (!gameManager.getMatch().isStarted()) {
             if (command.getPlayers() < 6 && command.getPlayers() > 2 && gameManager.getLobby().getUsers().get(0) == registry.getJsonUserOwner(command.getJsonReceiver())) {
                 gameManager.getMatch().setPlayerNumber(command.getPlayers());
                 for (JsonReceiver jr : command.getAllReceivers()) {
-                    try {
                         jr.sendJson(jsonCreator.createJsonWithMessage("Il numero di uccisioni per la partita è stato cambiato a: " + command.getPlayers()));
-                    } catch (IOException e) {
-                        //TODO gestire
-                        throw new RuntimeException(e);
-                    }
                 }
             } else {
                 if (command.getPlayers() > 5 || command.getPlayers() < 3) {
-                    try {
-                        command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Numero uccisioni non nel range ammissibile"));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Numero uccisioni non nel range ammissibile"));
                 } else {
-                    try {
-                        command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Operazione non consentita"));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Operazione non consentita"));
+
                 }
             }
         } else {
-            try {
-                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare il numero di giocatori perchè la partita è già iniziata"));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare il numero di giocatori perchè la partita è già iniziata"));
         }
+        jsonCreator.reset();
     }
 
-    public void execute(SetUsernameCommand command) {
+    public void execute(SetUsernameCommand command) throws IOException {
         if (!gameManager.getMatch().isStarted()) {
             if (!registry.usernameAlreadyPresent(command.getUsername())) {
                 if (gameManager.getLobby().getUsers().contains(registry.getJsonUserOwner(command.getJsonReceiver()))) {
                     registry.getJsonUserOwner(command.getJsonReceiver()).setUsername(command.getUsername());
-                    try {
                         command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Il tuo username è stato modificato in: " + command.getUsername()));
-                    } catch (IOException e) {
-                        //TODO gestire disconnessione
-                        throw new RuntimeException(e);
-                    }
-                } else {
+                }
+                else {
                     User user = new User(command.getUsername());
                     try {
                         gameManager.getLobby().join(user);
@@ -381,24 +377,28 @@ public class CommandExecutor {
                 }
             }
             else{
-                try {
-                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("username già presente"));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("username già presente"));
             }
         }
         else {
-            try {
-                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare il tuo username perchè la partita è già iniziata"));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare il tuo username perchè la partita è già iniziata"));
         }
         jsonCreator.reset();
     }
 
-    public void execute(SetTokenCommand command) {
-
+    public void execute(SetTokenCommand command) throws IOException {
+        if (!gameManager.getMatch().isStarted()){
+            if(!gameManager.getLobby().getNameToken().contains(command.getPlayerToken())) {
+                registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer().setName(command.getPlayerToken());
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Personaggio modificato in "+command.getPlayerToken()));
+            }
+            else{
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Personaggio già scelto"));
+            }
+        }
+        else {
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare il tuo personaggio perchè la partita è già iniziata"));
+        }
+        jsonCreator.reset();
     }
 }
