@@ -173,21 +173,23 @@ public class CommandExecutor {
         jsonCreator.reset();
     }
 
-    public void execute(MoveCommand command) {
+    public void execute(MoveCommand command) throws IOException {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
-            //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
+        if (registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() != currentPlayer) {
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
         } else {
             if (currentPlayer.getState().getRemainingSteps() < command.getMoves().size()) {
-//            command.getOriginView().notify("Non hai abbastanze mosse rimanenti")
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non hai abbastanza mosse rimanenti"));
             } else {
                 currentPlayer.getState().decrementRemainingSteps(command.getMoves().size());
                 currentPlayer.move(new Movement(new ArrayList<>(command.getMoves())));
                 String message = "Il giocatore attuale si è spostato di: " + command.getMoves().size() + " mosse";
-//            for (MessageListener view : command.getAllViews()){
-//                view.notify(message)
-//            }
+                for (JsonReceiver js : command.getAllReceivers()){
+                    if (js!=command.getJsonReceiver()) {
+                        js.sendJson(jsonCreator.createJsonWithMessage(message));
+                    }
+                }
             }
 
             if (currentPlayer.getState().getName().equals("Run")) {
