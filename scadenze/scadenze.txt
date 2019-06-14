@@ -1,3 +1,30 @@
+14 giugno
+
+LEGENDA
+* = fatto
+# = parzialmente fatto
+X = da fare
+
+1) mettere a posto la deserializzazione e testare il ritorno dei json dalla rete. JsonReceiver Observer Oscar
+2) mappa su gui, marchi, playerboard degli altri, inserire tutte le immagini. Implementare gli observer  Alessandro
+3) mappa dinamica, implementare gli observer Etis
+
+
+insieme la prossima volta
+1) Mettere a posto i comandi esistenti
+2) Mettere a posto la routine di shoot
+3) Connetere la CLI ai server
+4) definire tutta la parte di pulizia dei code smeels e testing
+5) se si riesce, leggere Mokito
+
+
+
+
+
+
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+
 11 giugno
 
 LEGENDA

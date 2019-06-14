@@ -23,6 +23,7 @@ public class Parserator implements Runnable {
 
     @Override
     public void run() {
+
         while (!quit) {
             try {
                 this.parseCommand(CLI.getUserInputString());
