@@ -328,18 +328,35 @@ public class CommandExecutor {
         if (!gameManager.getMatch().isStarted()) {
             if (command.getPlayers() < 6 && command.getPlayers() > 2 && gameManager.getLobby().getUsers().get(0) == registry.getJsonUserOwner(command.getJsonReceiver())) {
                 gameManager.getMatch().setPlayerNumber(command.getPlayers());
-//                for (MessageListener ml : command.getAllViews()) {
-//                    ml.notify("Il numero di uccisioni per la partita è stato cambiato a: " + command.getPlayers())
-//                }
+                for (JsonReceiver jr : command.getAllReceivers()) {
+                    try {
+                        jr.sendJson(jsonCreator.createJsonWithMessage("Il numero di uccisioni per la partita è stato cambiato a: " + command.getPlayers()));
+                    } catch (IOException e) {
+                        //TODO gestire
+                        throw new RuntimeException(e);
+                    }
+                }
             } else {
                 if (command.getPlayers() > 5 || command.getPlayers() < 3) {
-//                    command.getOriginView().notify("Numero uccisioni non nel target ammissibile")
+                    try {
+                        command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Numero uccisioni non nel range ammissibile"));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 } else {
-//                    command.getOriginView().notify("Operazione non consentita")
+                    try {
+                        command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Operazione non consentita"));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
         } else {
-//            command.getOriginView().notify("Non puoi modificare il numero di giocatori perchè la partita è già iniziata");
+            try {
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare il numero di giocatori perchè la partita è già iniziata"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -364,11 +381,19 @@ public class CommandExecutor {
                 }
             }
             else{
-                jsonCreator.createJsonWithError("username già presente");
+                try {
+                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("username già presente"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
         else {
-            jsonCreator.createJsonWithError("Non puoi modificare il tuo username perchè la partita è già iniziata");
+            try {
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare il tuo username perchè la partita è già iniziata"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         jsonCreator.reset();
     }

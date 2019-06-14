@@ -53,4 +53,8 @@ public abstract class AbstractCommand implements Command {
     public JsonReceiver getJsonReceiver() {
         return receiver;
     }
+
+    public List<JsonReceiver> getAllReceivers() {
+        return new ArrayList<>(allReceivers);
+    }
 }
