@@ -99,7 +99,6 @@ public class CommandLineInterface extends AbstractView  {
                 "╚══════════╩══════════╩══════════╩══════════╝";
 
 
-
         displayText(hash4);
         //TODO da verificare
 //        for (Player player : match.getPlayers()) {
@@ -208,5 +207,28 @@ public class CommandLineInterface extends AbstractView  {
     @Override
     public void onPlayerChange(SemplifiedPlayer p) {
         displayText(AnsiColor.RED + "DA IMPLEMENTARE" + AnsiColor.RESET);
+    }
+
+    public String playerColor(SemplifiedPlayer p) {
+        String playercolor = "";
+        p.getName();
+        switch(p.getName()) {
+            case "Dozer":
+                playercolor = AnsiColor.WHITE+"⬚"+AnsiColor.RESET;
+                break;
+            case "Sproger":
+                playercolor = AnsiColor.GREEN+"⬚"+AnsiColor.RESET;
+                break;
+            case "Distruttore":
+                playercolor = AnsiColor.YELLOW+"⬚"+AnsiColor.RESET;
+                break;
+            case "Banshee":
+                playercolor = AnsiColor.BLUE+"⬚"+AnsiColor.RESET;
+                break;
+            case "Violetta":
+                playercolor = AnsiColor.MAGENTA+"⬚"+AnsiColor.RESET;
+                break;
+        }
+        return playercolor;
     }
 }
