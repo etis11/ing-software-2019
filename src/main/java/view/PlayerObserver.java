@@ -1,17 +1,17 @@
 package view;
 
-import model.Player;
+import model.clientModel.SemplifiedPlayer;
 
 public interface PlayerObserver {
-    void onHpChange(Player damagePlayer);
+    void onHpChange(SemplifiedPlayer damagePlayer);
 
-    void onMarksChange(Player markedPlayer);
+    void onMarksChange(SemplifiedPlayer markedPlayer);
 
-    void onAmmoChange(Player p);
+    void onAmmoChange(SemplifiedPlayer p);
 
-    void onPowerUpChange(Player p);
+    void onPowerUpChange(SemplifiedPlayer p);
 
-    void onWeaponChange(Player p);
+    void onWeaponChange(SemplifiedPlayer p);
 
-    void onPlayerChange(Player p);
+    void onPlayerChange(SemplifiedPlayer p);
 }
