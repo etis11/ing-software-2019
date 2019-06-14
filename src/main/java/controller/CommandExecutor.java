@@ -99,10 +99,9 @@ public class CommandExecutor {
         jsonCreator.reset();
     }
 
-    public void execute(AskPointsCommand command) {
-//        if (command.getPlayer() == null) throw new IllegalArgumentException("Player can't be null");
-//        int points = command.getPlayer().getPoints();
-//        command.getOriginView().notify(gameManager.getMatch().getCurrentPlayer().getName()+ " hai: "+points+ "punti");
+    public void execute(AskPointsCommand command) throws IOException {
+        int points = registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer().getPoints();
+        command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer().getName()+ " hai: "+points+ "punti"));
     }
 
     public void execute(AskShootCommand command) throws IOException {
@@ -134,22 +133,21 @@ public class CommandExecutor {
         jsonCreator.reset();
     }
 
-    public void execute(AskUsePowerUpCommand command) {
+    public void execute(AskUsePowerUpCommand command) throws IOException {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
-            //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
+        if (!currentPlayer.getState().canUsePowerUp() || currentPlayer.getPowerUps().isEmpty()) {
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi usare powerup"));
         } else {
-            if (!currentPlayer.getState().canUsePowerUp() || currentPlayer.getPowerUps().isEmpty()) {
-//            command.getOriginView().notify("Non puoi usare powerup")
-            } else {
-                String message = "Il giocatore attuale sta usando un power up";
-//            for (MessageListener view : command.getAllViews()){
-//                view.notify(message)
-//            }
-//            command.getOriginView().notify("Scegli quale power up usare tra: "+currentPlayer.powerUpToString())
+            String message = "Il giocatore attuale sta usando un power up";
+            for (JsonReceiver js : command.getAllReceivers()){
+                if (js!=command.getJsonReceiver()) {
+                    js.sendJson(jsonCreator.createJsonWithMessage(message));
+                }
             }
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Scegli quale power up usare tra: "+currentPlayer.powerUpToString()));
         }
+        jsonCreator.reset();
     }
 
     public void execute(AskWalkCommand command) throws IOException {
@@ -196,6 +194,7 @@ public class CommandExecutor {
                 command.endCommandToAction(gameManager);
             }
         }
+        jsonCreator.reset();
     }
 
     public void execute(PickUpAmmoCommand command) {
