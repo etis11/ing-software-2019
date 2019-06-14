@@ -26,44 +26,46 @@ public class CommandExecutor {
     }
 
 
-    public void execute(AskEndTurnCommand command) {
+    public void execute(AskEndTurnCommand command) throws IOException {
 
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
-            //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
+        if (registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() != currentPlayer) {
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
         } else {
             if (!currentPlayer.getState().isNormalAction() && !currentPlayer.getState().isMoreAction() && !currentPlayer.getState().isMostAction()) {
-                //command.getOriginView().notify("Non puoi terminare il tuo turno al momento")
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi terminare il tuo turno al momento"));
             } else {
                 currentPlayer.getState().nextState("EndTurn", currentPlayer);
                 String message = "Il giocatore attuale ha terminato il suo turno";
-//            for (MessageListener view : command.getAllViews()){
-//                view.notify(message)
-//            }
+                for (JsonReceiver js : command.getAllReceivers()){
+                    if (js!=command.getJsonReceiver()) {
+                        js.sendJson(jsonCreator.createJsonWithMessage(message));
+                    }
+                }
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Hai terminato il tuo turno"));
             }
 
         }
     }
 
-    public void execute(AskPickCommand command) {
+    public void execute(AskPickCommand command) throws IOException {
         //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() == currentPlayer)) {
-            //ERRORE, comunica al receiver  command.getJsonReceiver().sendJson()
+        if (registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() != currentPlayer) {
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
         } else {
             if (!currentPlayer.getState().canPickUp() || currentPlayer.getRemainingMoves() < 1) {
-//            command.getOriginView().notify("Non puoi raccogliere")
+                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi raccogliere"));
             } else {
                 currentPlayer.setOldState(currentPlayer.getState());
                 currentPlayer.getState().nextState("PickUp", currentPlayer);
                 String message = "Il giocatore attuale sta raccogliendo";
-//            for (MessageListener view : command.getAllViews()){
-//                if (view!=command.getOriginView()) {
-//                    view.notify(message)
-//                }
-//            }
-//            command.getOriginView().notify("Se vuoi spostarti inserisci la direzione, altrimenti inserisci cosa vuoi raccogliere. (Munizioni o armi)")
-
+            for (JsonReceiver js : command.getAllReceivers()){
+                if (js!=command.getJsonReceiver()) {
+                    js.sendJson(jsonCreator.createJsonWithMessage(message));
+                }
+            }
+            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Se vuoi spostarti inserisci la direzione, altrimenti inserisci cosa vuoi raccogliere. (Munizioni o armi)"));
             }
         }
     }
