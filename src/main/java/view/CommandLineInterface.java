@@ -5,8 +5,10 @@ import model.User;
 import model.clientModel.SemplifiedMap;
 import model.clientModel.SemplifiedPlayer;
 import model.clientModel.SemplifiedPlayerBoard;
+import model.clientModel.SemplifiedTile;
 
 import java.io.*;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -24,6 +26,8 @@ public class CommandLineInterface extends AbstractView  {
     private String token;
     private SemplifiedPlayer player;
     private SemplifiedPlayerBoard playerBoard;
+    private SemplifiedTile tile;
+    private SemplifiedMap map;
     /**
      * Attribute needed to output text from the console
      **/
@@ -99,7 +103,7 @@ public class CommandLineInterface extends AbstractView  {
                 "╚══════════╩══════════╩══════════╩══════════╝";
 
 
-        displayText(hash4);
+
         //TODO da verificare
 //        for (Player player : match.getPlayers()) {
 //            if (player.getTile() == null) {
@@ -129,7 +133,10 @@ public class CommandLineInterface extends AbstractView  {
      **/
     @Override
     public void onHpChange(SemplifiedPlayer damagePlayer) {
-        displayText(damagePlayer.getName() + " ha subito danni e quindi e' rimasto con " + damagePlayer.getPlayerBoard().getNumDamagePoints() + " vite.");
+        displayText(damagePlayer.getName() + " ha subito danni e quindi e' rimasto con " + damagePlayer.getPlayerBoard().getNumDamagePoints() + " vite.\n");
+        for(int i=0; i<damagePlayer.getPlayerBoard().getNumDamagePoints();i++){
+            displayText(playerColor(damagePlayer)+"\uD83D\uDDA4"+AnsiColor.RESET);
+        }
     }
 
     /**
@@ -139,7 +146,10 @@ public class CommandLineInterface extends AbstractView  {
      **/
     @Override
     public void onMarksChange(SemplifiedPlayer markedPlayer) {
-        displayText("A" + markedPlayer.getName() + " si e' cambiato il numero dei marchi in: " + markedPlayer.getPlayerBoard().getNumMarks() + " marks");
+        displayText("A" + markedPlayer.getName() + " si e' cambiato il numero dei marchi in: " + markedPlayer.getPlayerBoard().getNumMarks() + " marks\n");
+        for(int i=0; i<markedPlayer.getPlayerBoard().getNumDamagePoints();i++){
+            displayText(playerColor(markedPlayer)+"\uD83D\uDCA7"+AnsiColor.RESET);
+        }
     }
 
     /**
@@ -149,11 +159,21 @@ public class CommandLineInterface extends AbstractView  {
      **/
     @Override
     public void onAmmoChange(SemplifiedPlayer p) {
-        displayText(p.getName() + " ha un numero diverso di ammo rispetto a prima:\n" +
-                "Ammo blu : " + p.getPlayerBoard().getLoader().getNumBlueAmmo() + "\n" +
-                "Ammo rosse : " + p.getPlayerBoard().getLoader().getNumRedAmmo() + "\n" +
-                "Ammo gialle : " + p.getPlayerBoard().getLoader().getNumYellowAmmo() + "\n"
-        );
+
+        displayText(playerColor(p)+p.getName() +AnsiColor.RESET + " ha un numero diverso di ammo rispetto a prima:\n");
+
+        displayText("Ammo "+ AnsiColor.BLUE+ "blu"+AnsiColor.RESET+": " + p.getPlayerBoard().getLoader().getNumBlueAmmo()+" ");
+        for(int i=0;i<p.getPlayerBoard().getLoader().getNumBlueAmmo();i++){
+            displayText(AnsiColor.BLUE+"⬜"+AnsiColor.RESET);
+        }
+        displayText("Ammo "+ AnsiColor.RED+ "blu"+AnsiColor.RESET+": " + p.getPlayerBoard().getLoader().getNumRedAmmo()+" ");
+        for(int i=0;i<p.getPlayerBoard().getLoader().getNumRedAmmo();i++){
+            displayText(AnsiColor.RED+"⬜"+AnsiColor.RESET);
+        }
+        displayText("Ammo "+ AnsiColor.YELLOW+ "blu"+AnsiColor.RESET+": " + p.getPlayerBoard().getLoader().getNumYellowAmmo()+" ");
+        for(int i=0;i<p.getPlayerBoard().getLoader().getNumYellowAmmo();i++){
+            displayText(AnsiColor.YELLOW+"⬜"+AnsiColor.RESET);
+        }
     }
 
     /**
@@ -214,19 +234,19 @@ public class CommandLineInterface extends AbstractView  {
         p.getName();
         switch(p.getName()) {
             case "Dozer":
-                playercolor = AnsiColor.WHITE+"⬚"+AnsiColor.RESET;
+                playercolor = AnsiColor.WHITE+"";
                 break;
             case "Sproger":
-                playercolor = AnsiColor.GREEN+"⬚"+AnsiColor.RESET;
+                playercolor = AnsiColor.GREEN+"";
                 break;
             case "Distruttore":
-                playercolor = AnsiColor.YELLOW+"⬚"+AnsiColor.RESET;
+                playercolor = AnsiColor.YELLOW+"";
                 break;
             case "Banshee":
-                playercolor = AnsiColor.BLUE+"⬚"+AnsiColor.RESET;
+                playercolor = AnsiColor.BLUE+"";
                 break;
             case "Violetta":
-                playercolor = AnsiColor.MAGENTA+"⬚"+AnsiColor.RESET;
+                playercolor = AnsiColor.MAGENTA+"";
                 break;
         }
         return playercolor;
