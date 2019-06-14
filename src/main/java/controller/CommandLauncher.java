@@ -3,6 +3,7 @@ package controller;
 
 import controller.commandpack.Command;
 import model.GameManager;
+import network.TokenRegistry;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -57,7 +58,9 @@ public class CommandLauncher implements CommandLauncherInterface {
         while (!stop) {
             try {
                 takenCommand = commandQueue.take();
-                takenCommand.setJsonReceiver();
+                String token = takenCommand.getToken();
+                JsonReceiver clientReceiver = TokenRegistry.getInstance().getJsonReceiver(token);
+                takenCommand.setJsonReceiver(clientReceiver);
                 takenCommand.setAllJsonReceivers(allReceivers);
             } catch (InterruptedException i) {
                 System.out.println(i.getMessage());

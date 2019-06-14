@@ -6,12 +6,6 @@ import static model.State.fromJson;
 
 public class User {
 
-
-    /**
-     * instance variable for the user token
-     */
-    private static long idToken = 0L;
-
     /**
      * username is the name chosen by the user
      */
@@ -26,7 +20,7 @@ public class User {
     /**
      * player is the player associate with the user
      */
-    private Player player;
+    private transient Player player;
     //TODO LobbyListener lobbyListener
 
 

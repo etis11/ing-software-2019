@@ -13,6 +13,7 @@ public class JsonCreator implements ChangesObserver {
     private final PlayerSerializer playerSerializer;
     private transient final Gson gson;
 
+
     public JsonCreator(Match match) {
         GsonBuilder gb = new GsonBuilder();
         gb.registerTypeAdapter(BloodToken.class, new BloodTokenSerializer());
