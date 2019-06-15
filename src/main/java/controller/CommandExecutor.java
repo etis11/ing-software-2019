@@ -29,74 +29,104 @@ public class CommandExecutor {
 
 
     public void execute(AskEndTurnCommand command) throws IOException {
-
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() != currentPlayer) {
-            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
-        } else {
-            if (!currentPlayer.getState().isNormalAction() && !currentPlayer.getState().isMoreAction() && !currentPlayer.getState().isMostAction()) {
-                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi terminare il tuo turno al momento"));
+        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        JsonReceiver userJsonReceiver = command.getJsonReceiver();
+        //verify if game started
+        if (gameHasStarted) {
+            Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
+            //verify if the owner is the current player
+            if (owner != currentPlayer) {
+                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
             } else {
-                currentPlayer.getState().nextState("EndTurn", currentPlayer);
-                String message = "Il giocatore attuale ha terminato il suo turno";
-                for (JsonReceiver js : command.getAllReceivers()){
-                    if (js!=command.getJsonReceiver()) {
-                        js.sendJson(jsonCreator.createJsonWithMessage(message));
+                //verify the player state
+                if (!currentPlayer.getState().isNormalAction() && !currentPlayer.getState().isMoreAction() && !currentPlayer.getState().isMostAction()) {
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi terminare il tuo turno al momento"));
+                } else {
+                    currentPlayer.getState().nextState("EndTurn", currentPlayer);
+                    String message = "Il giocatore attuale ha terminato il suo turno";
+                    for (JsonReceiver js : command.getAllReceivers()) {
+                        if (js != userJsonReceiver) {
+                            js.sendJson(jsonCreator.createJsonWithMessage(message));
+                        }
                     }
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Hai terminato il tuo turno"));
                 }
-                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Hai terminato il tuo turno"));
             }
+        }
+        else{
+            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La partita non è ancora iniziata"));
         }
         jsonCreator.reset();
     }
 
     public void execute(AskPickCommand command) throws IOException {
-        //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() != currentPlayer) {
-            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
-        } else {
-            if (!currentPlayer.getState().canPickUp() || currentPlayer.getRemainingMoves() < 1) {
-                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi raccogliere"));
+        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        JsonReceiver userJsonReceiver = command.getJsonReceiver();
+        //verify if game started
+        if (gameHasStarted) {
+            Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
+            //verify if the owner is the current player
+            if (owner != currentPlayer) {
+                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
             } else {
-                currentPlayer.setOldState(currentPlayer.getState());
-                currentPlayer.getState().nextState("PickUp", currentPlayer);
-                String message = "Il giocatore attuale sta raccogliendo";
-            for (JsonReceiver js : command.getAllReceivers()){
-                if (js!=command.getJsonReceiver()) {
-                    js.sendJson(jsonCreator.createJsonWithMessage(message));
+                //verify the state
+                if (!currentPlayer.getState().canPickUp() || currentPlayer.getRemainingMoves() < 1) {
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi raccogliere"));
+                } else {
+                    currentPlayer.setOldState(currentPlayer.getState());
+                    currentPlayer.getState().nextState("PickUp", currentPlayer);
+                    String message = "Il giocatore attuale sta raccogliendo";
+                    for (JsonReceiver js : command.getAllReceivers()) {
+                        if (js != userJsonReceiver) {
+                            js.sendJson(jsonCreator.createJsonWithMessage(message));
+                        }
+                    }
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Se vuoi spostarti inserisci la direzione, altrimenti inserisci cosa vuoi raccogliere. (Munizioni o armi)"));
                 }
             }
-            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Se vuoi spostarti inserisci la direzione, altrimenti inserisci cosa vuoi raccogliere. (Munizioni o armi)"));
-            }
+        }
+        else{
+            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La partita non è ancora iniziata"));
         }
         jsonCreator.reset();
     }
 
     public void execute(AskReloadCommand command) throws IOException {
-        //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() != currentPlayer) {
-            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
-        }
-        else {
-            if (!currentPlayer.getState().canReload()) {
-            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi ricaricare"));
-            }
-            else {
-                currentPlayer.getState().nextState("Reload", currentPlayer);
-                if (!currentPlayer.getWeapons().isEmpty()) {
-                    String message = "Il giocatore attuale sta ricaricando";
-                    for (JsonReceiver js : command.getAllReceivers()){
-                        if (js!=command.getJsonReceiver()) {
-                            js.sendJson(jsonCreator.createJsonWithMessage(message));
-                        }
-                    }
-                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Scegli quale arma ricaricare tra: " + currentPlayer.weaponsToString()));
+        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        JsonReceiver userJsonReceiver = command.getJsonReceiver();
+        //verify if game started
+        if (gameHasStarted) {
+            Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
+            //verify if the owner is the current player
+            if (owner != currentPlayer) {
+                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
+            } else {
+                //verify the state
+                if (!currentPlayer.getState().canReload()) {
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi ricaricare"));
                 } else {
-                    command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non hai armi da ricaricare"));
+                    currentPlayer.getState().nextState("Reload", currentPlayer);
+                    boolean hasWeapon = currentPlayer.getWeapons().isEmpty();
+                    //verify if the player has weapon
+                    if (!hasWeapon) {
+                        String message = "Il giocatore attuale sta ricaricando";
+                        for (JsonReceiver js : command.getAllReceivers()) {
+                            if (js != userJsonReceiver) {
+                                js.sendJson(jsonCreator.createJsonWithMessage(message));
+                            }
+                        }
+                        userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Scegli quale arma ricaricare tra: " + currentPlayer.weaponsToString()));
+                    } else {
+                        userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non hai armi da ricaricare"));
+                    }
                 }
             }
+        }
+        else{
+            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La partita non è ancora iniziata"));
         }
         jsonCreator.reset();
     }
