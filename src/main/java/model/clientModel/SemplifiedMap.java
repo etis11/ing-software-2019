@@ -10,7 +10,7 @@ public class SemplifiedMap {
     private final int rows = 3;
     private final int cols = 4;
 
-    private SemplifiedTile[][] map;
+    private SemplifiedTile[][] map = new SemplifiedTile[3][4];
 
 
 
@@ -75,7 +75,7 @@ public class SemplifiedMap {
     }
 
     public void setTile(SemplifiedTile tile, int row, int col) {
-        map[row][col] = tile;
+        this.map[row][col] = tile;
     }
 
     public void updateTiles(List<SemplifiedTile> tiles){

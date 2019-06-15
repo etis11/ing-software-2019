@@ -2,10 +2,7 @@ package view;
 
 import controller.CommandLauncherInterface;
 import model.User;
-import model.clientModel.SemplifiedMap;
-import model.clientModel.SemplifiedPlayer;
-import model.clientModel.SemplifiedPlayerBoard;
-import model.clientModel.SemplifiedTile;
+import model.clientModel.*;
 
 import java.io.*;
 import java.util.List;
@@ -88,22 +85,53 @@ public class CommandLineInterface extends AbstractView  {
     @Override
     public void onMapChange(SemplifiedMap mappa) {
 
-         String hash4 = "╔══════════╦══════════╦══════════╦══════════╗\n" +
+        String fag0="          ";
+        String fag1="          ";
+        String fag2="          ";
+        String fag3="          ";
+        String fag4="          ";
+        String fag5="          ";
+        String fag6="          ";
+        String fag7="          ";
+        String fag8="          ";
+        String fag9="          ";
+        String fag10="          ";
+        String fag11="          ";
+        String[] fags = {fag0,fag1 ,fag2,fag3,fag4,fag5,fag6,fag7 ,fag8,fag9,fag10,fag11};
+        String fag=" ";
+        for(int i=0; i<3 ; i++){
+            for(int j=0; j<4 ; j++){
+                System.out.println(i+","+j);
+                List<SemplifiedPlayer> players = mappa.getTile(i,j).getPlayers();
+                if(!players.isEmpty()){
+                    for(SemplifiedPlayer player : players){
+                        fags[player.getTile()] = fags[player.getTile()].substring(0, fags[player.getTile()].lastIndexOf(" ")) +playerColor(player)+"T"+fags[player.getTile()].substring(fags[player.getTile()].lastIndexOf(" ")+1);
+                    }
+                }
+
+            }
+        }
+        for(int i=0; i<12 ; i++){
+            System.out.println(fags[i]);
+        }
+
+        String hash4 = "╔══════════╦══════════╦══════════╦══════════╗\n" +
                 "║" + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "      REG " + AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + "          " + AnsiColor.RESET + "║\n" +
                 "║" + AnsiColor.BLUE_BACKGROUND + "     0    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "     1    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "     2    " + AnsiColor.RESET + " " + AnsiColor.GREEN_BACKGROUND + "    3     " + AnsiColor.RESET + "║\n" +
-                "║" + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + "          " + AnsiColor.RESET + "║\n" +
+                "║" + AnsiColor.BLUE_BACKGROUND +fags[0]+ AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND +fags[1]+ AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + fags[2]+ AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + fags[3] + AnsiColor.RESET + "║\n" +
                 "╠═══    ═══╬══════════╬═══    ═══╬═══    ═══╣\n" +
                 "║" + AnsiColor.RED_BACKGROUND + "    REG   " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + "║\n" +
                 "║" + AnsiColor.RED_BACKGROUND + "     4    " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "     5    " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "     6    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    7     " + AnsiColor.RESET + "║\n" +
-                "║" + AnsiColor.RED_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + "║\n" +
+                "║" + AnsiColor.RED_BACKGROUND + fags[4] + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + fags[5] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + fags[6] + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + fags[7] + AnsiColor.RESET + "║\n" +
                 "╠══════════╬═══    ═══╬          ╬          ╣\n" +
                 "║          ║" + AnsiColor.MAGENTA_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    REG   " + AnsiColor.RESET + "║\n" +
                 "║    8     ║" + AnsiColor.MAGENTA_BACKGROUND + "    9     " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    10    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    11    " + AnsiColor.RESET + "║\n" +
-                "║          ║" + AnsiColor.MAGENTA_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + "║\n" +
+                "║"+     fags[8]     +"║" + AnsiColor.MAGENTA_BACKGROUND + fags[9] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + fags[10] + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + fags[11]+ AnsiColor.RESET + "║\n" +
                 "╚══════════╩══════════╩══════════╩══════════╝";
 
 
-
+System.out.println(hash4);
+displayText(hash4);
         //TODO da verificare
 //        for (Player player : match.getPlayers()) {
 //            if (player.getTile() == null) {
@@ -115,7 +143,6 @@ public class CommandLineInterface extends AbstractView  {
 //        }
         displayText("La posizione dei giocatori sulla mappa è cambiata");
     }
-
     /**
      * Method used to notify all users with a string message
      *
@@ -133,10 +160,35 @@ public class CommandLineInterface extends AbstractView  {
      **/
     @Override
     public void onHpChange(SemplifiedPlayer damagePlayer) {
-        displayText(damagePlayer.getName() + " ha subito danni e quindi e' rimasto con " + damagePlayer.getPlayerBoard().getNumDamagePoints() + " vite.\n");
-        for(int i=0; i<damagePlayer.getPlayerBoard().getNumDamagePoints();i++){
-            displayText(playerColor(damagePlayer)+"\uD83D\uDDA4"+AnsiColor.RESET);
+        String output = "";
+        List<SemplifiedBloodToken> damageTokens = damagePlayer.getPlayerBoard().getDamageTokens() ;
+        int a = damageTokens.size() ;
+        for(int i =0 ; i<12-a; i++){
+            damageTokens.add(new SemplifiedBloodToken());
         }
+
+        for(SemplifiedBloodToken semplifiedBloodToken : damageTokens){
+            if(semplifiedBloodToken!=null){
+                SemplifiedPlayer semplifiedPlayer = semplifiedBloodToken.getOwner();
+                if(semplifiedPlayer==null){
+                    output=output+"\uD83D\uDDA4" ;
+                }else{
+                    String color = playerColor(semplifiedPlayer);
+                    output=output+color+"\uD83D\uDDA4"+AnsiColor.RESET;
+                }
+            }
+        }
+        System.out.println(output);
+        displayText(output);
+
+
+        //     damagePlayer.getPlayerBoard().getDamageTokens().get(0).get
+
+    //    damagePlayer.getPlayerBoard().getDamageTokens().stream().filter(t -> t.getColor()!=null ).findAny().get();
+    //    displayText(damagePlayer.getName() + " ha subito danni e quindi e' rimasto con " + damagePlayer.getPlayerBoard().getNumDamagePoints() + " vite.\n");
+    //    for(int i=0; i<damagePlayer.getPlayerBoard().getNumDamagePoints();i++){
+    //        displayText(playerColor(damagePlayer)+"\uD83D\uDDA4"+AnsiColor.RESET);
+    //    }
     }
 
     /**
@@ -146,10 +198,30 @@ public class CommandLineInterface extends AbstractView  {
      **/
     @Override
     public void onMarksChange(SemplifiedPlayer markedPlayer) {
-        displayText("A" + markedPlayer.getName() + " si e' cambiato il numero dei marchi in: " + markedPlayer.getPlayerBoard().getNumMarks() + " marks\n");
-        for(int i=0; i<markedPlayer.getPlayerBoard().getNumDamagePoints();i++){
-            displayText(playerColor(markedPlayer)+"\uD83D\uDCA7"+AnsiColor.RESET);
+        String output = "";
+        List<SemplifiedBloodToken> marxTokens = markedPlayer.getPlayerBoard().getMarksTokens() ;
+        int a = marxTokens.size() ;
+        for(int i =0 ; i<12-a; i++){
+            marxTokens.add(new SemplifiedBloodToken());
         }
+
+        for(SemplifiedBloodToken semplifiedBloodToken : marxTokens){
+            if(semplifiedBloodToken!=null){
+                SemplifiedPlayer semplifiedPlayer = semplifiedBloodToken.getOwner();
+                if(semplifiedPlayer==null){
+                    output=output+"\uD83D\uDCA7" ;
+                }else{
+                    String color = playerColor(semplifiedPlayer);
+                    output=output+color+"\uD83D\uDCA7"+AnsiColor.RESET;
+                }
+            }
+        }
+        System.out.println(output);
+        displayText(output);
+//        displayText("A" + markedPlayer.getName() + " si e' cambiato il numero dei marchi in: " + markedPlayer.getPlayerBoard().getNumMarks() + " marks\n");
+ //       for(int i=0; i<markedPlayer.getPlayerBoard().getNumDamagePoints();i++){
+ //           displayText(playerColor(markedPlayer)+"\uD83D\uDCA7"+AnsiColor.RESET);
+ //       }
     }
 
     /**
@@ -236,7 +308,7 @@ public class CommandLineInterface extends AbstractView  {
             case "Dozer":
                 playercolor = AnsiColor.WHITE+"";
                 break;
-            case "Sproger":
+            case "Sprog":
                 playercolor = AnsiColor.GREEN+"";
                 break;
             case "Distruttore":

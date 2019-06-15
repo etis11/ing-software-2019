@@ -3,6 +3,7 @@ package model.clientModel;
 import model.BloodToken;
 import model.Loader;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +17,11 @@ public class SemplifiedPlayerBoard {
     private int numYellowAmmo;
     private Loader loader;
 
+    public SemplifiedPlayerBoard() {
+        this.damageTokens = new LinkedList<>();
+        this.marksTokens = new LinkedList<>();
+        this.killValue = new LinkedList<>();
+    }
 
     public List<SemplifiedBloodToken> getDamageTokens() {
         return damageTokens;
