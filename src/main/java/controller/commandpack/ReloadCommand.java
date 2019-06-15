@@ -2,6 +2,8 @@ package controller.commandpack;
 
 import controller.CommandExecutor;
 
+import java.io.IOException;
+
 public class ReloadCommand extends AbstractCommand {
 
     private String weaponName;
@@ -16,7 +18,7 @@ public class ReloadCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute(CommandExecutor exe) {
+    public void execute(CommandExecutor exe) throws IOException {
         exe.execute(this);
     }
 }
