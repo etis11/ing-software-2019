@@ -342,15 +342,27 @@ public class CommandExecutor {
     }
 
     public void execute(SetEffectPhraseCommand command) throws IOException {
-        if (!gameManager.getMatch().isStarted()) {
-            if (gameManager.getLobby().getUsers().contains(registry.getJsonUserOwner(command.getJsonReceiver()))) {
-                registry.getJsonUserOwner(command.getJsonReceiver()).setEffectPhrase(command.getPhrase());
-                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("La tua frase ad effetto è stata modificata"));
-            } else {
-                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare la tua frase ad effetto"));
+        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        JsonReceiver userJsonReceiver = command.getJsonReceiver();
+        //verify if game started
+        if (!gameHasStarted) {
+            //verify if the user has already been created
+            if (registry.getJsonUserOwner(userJsonReceiver) != null) {
+                List<User> lobbyUsers = gameManager.getLobby().getUsers();
+                User owner = registry.getJsonUserOwner(userJsonReceiver);
+                //verify if the owner is in the lobby
+                if (lobbyUsers.contains(owner)) {
+                    owner.setEffectPhrase(command.getPhrase());
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("La tua frase ad effetto è stata modificata"));
+                } else {
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi modificare la tua frase ad effetto"));
+                }
             }
-        } else {
-            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare la tua frase perchè la partita è iniziata"));
+            else{
+                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non hai ancora impostato uno username"));
+            }
+        }else {
+            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi modificare la tua frase perchè la partita è iniziata"));
         }
         jsonCreator.reset();
     }
