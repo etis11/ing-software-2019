@@ -85,48 +85,48 @@ public class CommandLineInterface extends AbstractView  {
     @Override
     public void onMapChange(SemplifiedMap mappa) {
 
-        String fag0="          ";
-        String fag1="          ";
-        String fag2="          ";
-        String fag3="          ";
-        String fag4="          ";
-        String fag5="          ";
-        String fag6="          ";
-        String fag7="          ";
-        String fag8="          ";
-        String fag9="          ";
-        String fag10="          ";
-        String fag11="          ";
-        String[] fags = {fag0,fag1 ,fag2,fag3,fag4,fag5,fag6,fag7 ,fag8,fag9,fag10,fag11};
-        String fag=" ";
+        String p0="          ";
+        String p1="          ";
+        String p2="          ";
+        String p3="          ";
+        String p4="          ";
+        String p5="          ";
+        String p6="          ";
+        String p7="          ";
+        String p8="          ";
+        String p9="          ";
+        String p10="          ";
+        String p11="          ";
+        String[] p = {p0,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11};
+        String emptyP=" ";
         for(int i=0; i<3 ; i++){
             for(int j=0; j<4 ; j++){
                 System.out.println(i+","+j);
                 List<SemplifiedPlayer> players = mappa.getTile(i,j).getPlayers();
                 if(!players.isEmpty()){
                     for(SemplifiedPlayer player : players){
-                        fags[player.getTile()] = fags[player.getTile()].substring(0, fags[player.getTile()].lastIndexOf(" ")) +playerColor(player)+"T"+fags[player.getTile()].substring(fags[player.getTile()].lastIndexOf(" ")+1);
+                        p[player.getTile()] = p[player.getTile()].substring(0, p[player.getTile()].lastIndexOf(" ")) +playerColor(player)+"T"+p[player.getTile()].substring(p[player.getTile()].lastIndexOf(" ")+1);
                     }
                 }
 
             }
         }
-        for(int i=0; i<12 ; i++){
-            System.out.println(fags[i]);
+        for(int i=0; i<10 ; i++){
+            System.out.println(p[i]);
         }
 
         String hash4 = "╔══════════╦══════════╦══════════╦══════════╗\n" +
                 "║" + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "      REG " + AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + "          " + AnsiColor.RESET + "║\n" +
                 "║" + AnsiColor.BLUE_BACKGROUND + "     0    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "     1    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "     2    " + AnsiColor.RESET + " " + AnsiColor.GREEN_BACKGROUND + "    3     " + AnsiColor.RESET + "║\n" +
-                "║" + AnsiColor.BLUE_BACKGROUND +fags[0]+ AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND +fags[1]+ AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + fags[2]+ AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + fags[3] + AnsiColor.RESET + "║\n" +
+                "║" + AnsiColor.BLUE_BACKGROUND +p[0]+ AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND +p[1]+ AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + p[2]+ AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + p[3] + AnsiColor.RESET + "║\n" +
                 "╠═══    ═══╬══════════╬═══    ═══╬═══    ═══╣\n" +
                 "║" + AnsiColor.RED_BACKGROUND + "    REG   " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + "║\n" +
                 "║" + AnsiColor.RED_BACKGROUND + "     4    " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "     5    " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "     6    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    7     " + AnsiColor.RESET + "║\n" +
-                "║" + AnsiColor.RED_BACKGROUND + fags[4] + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + fags[5] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + fags[6] + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + fags[7] + AnsiColor.RESET + "║\n" +
+                "║" + AnsiColor.RED_BACKGROUND + p[4] + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + p[5] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[6] + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + p[7] + AnsiColor.RESET + "║\n" +
                 "╠══════════╬═══    ═══╬          ╬          ╣\n" +
                 "║          ║" + AnsiColor.MAGENTA_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    REG   " + AnsiColor.RESET + "║\n" +
                 "║    8     ║" + AnsiColor.MAGENTA_BACKGROUND + "    9     " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    10    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    11    " + AnsiColor.RESET + "║\n" +
-                "║"+     fags[8]     +"║" + AnsiColor.MAGENTA_BACKGROUND + fags[9] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + fags[10] + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + fags[11]+ AnsiColor.RESET + "║\n" +
+                "║"+     p[8]     +"║" + AnsiColor.MAGENTA_BACKGROUND + p[9] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[10] + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + p[11]+ AnsiColor.RESET + "║\n" +
                 "╚══════════╩══════════╩══════════╩══════════╝";
 
 
@@ -163,7 +163,7 @@ displayText(hash4);
         String output = "";
         List<SemplifiedBloodToken> damageTokens = damagePlayer.getPlayerBoard().getDamageTokens() ;
         int a = damageTokens.size() ;
-        for(int i =0 ; i<12-a; i++){
+        for(int i =0 ; i<10-a; i++){
             damageTokens.add(new SemplifiedBloodToken());
         }
 
@@ -201,7 +201,7 @@ displayText(hash4);
         String output = "";
         List<SemplifiedBloodToken> marxTokens = markedPlayer.getPlayerBoard().getMarksTokens() ;
         int a = marxTokens.size() ;
-        for(int i =0 ; i<12-a; i++){
+        for(int i =0 ; i<10-a; i++){
             marxTokens.add(new SemplifiedBloodToken());
         }
 
