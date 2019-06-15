@@ -132,73 +132,112 @@ public class CommandExecutor {
     }
 
     public void execute(AskPointsCommand command) throws IOException {
-        int points = registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer().getPoints();
-        command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage(registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer().getName()+ " hai: "+points+ "punti"));
+        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        JsonReceiver userJsonReceiver = command.getJsonReceiver();
+        //verify if game started
+        if (gameHasStarted) {
+            Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
+            int points = owner.getPoints();
+            userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage(owner.getName() + " hai: " + points + "punti"));
+        }
+        else{
+            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La partita non è ancora iniziata"));
+        }
+        jsonCreator.reset();
     }
 
     public void execute(AskShootCommand command) throws IOException {
-        //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() != currentPlayer) {
-            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
-        } else {
-            boolean loaded = false;
-            //verify if almost a weapon is loaded
-            for (WeaponCard wpc : currentPlayer.getWeapons()) {
-                if (wpc.isLoaded()) {
-                    loaded = true;
-                }
-            }
-            if (!currentPlayer.getState().canShoot() || currentPlayer.getRemainingMoves() < 1 || !loaded) {
-            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi sparare"));
+        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        JsonReceiver userJsonReceiver = command.getJsonReceiver();
+        //verify if game started
+        if (gameHasStarted) {
+            Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
+            //verify if the owner is the current player
+            if (owner != currentPlayer) {
+                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
             } else {
-                currentPlayer.getState().nextState("Shoot", currentPlayer);
-                String message = "Il giocatore attuale sta per sparare";
-                for (JsonReceiver js : command.getAllReceivers()){
-                    if (js!=command.getJsonReceiver()) {
-                        js.sendJson(jsonCreator.createJsonWithMessage(message));
+                boolean loaded = false;
+                //verify if almost a weapon is loaded
+                for (WeaponCard wpc : currentPlayer.getWeapons()) {
+                    if (wpc.isLoaded()) {
+                        loaded = true;
                     }
                 }
-                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Scegli con quale arma sparare tra: " + currentPlayer.weaponsToString()));
+                //verify the state
+                if (!currentPlayer.getState().canShoot() || currentPlayer.getRemainingMoves() < 1 || !loaded) {
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi sparare"));
+                } else {
+                    currentPlayer.getState().nextState("Shoot", currentPlayer);
+                    String message = "Il giocatore attuale sta per sparare";
+                    for (JsonReceiver js : command.getAllReceivers()) {
+                        if (js != userJsonReceiver) {
+                            js.sendJson(jsonCreator.createJsonWithMessage(message));
+                        }
+                    }
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Scegli con quale arma sparare tra: " + currentPlayer.weaponsToString()));
+                }
             }
+        }
+        else{
+            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La partita non è ancora iniziata"));
         }
         jsonCreator.reset();
     }
 
     public void execute(AskUsePowerUpCommand command) throws IOException {
-        //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (!currentPlayer.getState().canUsePowerUp() || currentPlayer.getPowerUps().isEmpty()) {
-            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi usare powerup"));
-        } else {
-            String message = "Il giocatore attuale sta usando un power up";
-            for (JsonReceiver js : command.getAllReceivers()){
-                if (js!=command.getJsonReceiver()) {
-                    js.sendJson(jsonCreator.createJsonWithMessage(message));
+        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        JsonReceiver userJsonReceiver = command.getJsonReceiver();
+        //verify if game started
+        if (gameHasStarted) {
+            Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
+            //verify if the owner can use powerup
+            if (!owner.getState().canUsePowerUp() || owner.getPowerUps().isEmpty()) {
+                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi usare powerup"));
+            } else {
+                String message = "Il giocatore attuale sta usando un power up";
+                for (JsonReceiver js : command.getAllReceivers()) {
+                    if (js != userJsonReceiver) {
+                        js.sendJson(jsonCreator.createJsonWithMessage(message));
+                    }
                 }
+                userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Scegli quale power up usare tra: " + currentPlayer.powerUpToString()));
             }
-            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Scegli quale power up usare tra: "+currentPlayer.powerUpToString()));
+        }
+        else{
+            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La partita non è ancora iniziata"));
         }
         jsonCreator.reset();
     }
 
     public void execute(AskWalkCommand command) throws IOException {
-        //auxiliary variable
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        if (registry.getJsonUserOwner(command.getJsonReceiver()).getPlayer() != currentPlayer) {
-            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
-        } else {
-            if (!currentPlayer.getState().canRun() || currentPlayer.getRemainingMoves() < 1) {
-            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi muoverti"));
+        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        JsonReceiver userJsonReceiver = command.getJsonReceiver();
+        //verify if game started
+        if (gameHasStarted) {
+            Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
+            //verify if the owner is the current player
+            if (owner != currentPlayer) {
+                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
             } else {
-                currentPlayer.getState().nextState("Run", currentPlayer);
-                String message = "Il giocatore attuale si sta spostando";
-                for (JsonReceiver js : command.getAllReceivers()){
-                    if (js!=command.getJsonReceiver()) {
-                        js.sendJson(jsonCreator.createJsonWithMessage(message));
+                //verify the state
+                if (!currentPlayer.getState().canRun() || currentPlayer.getRemainingMoves() < 1) {
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi muoverti"));
+                } else {
+                    currentPlayer.getState().nextState("Run", currentPlayer);
+                    String message = "Il giocatore attuale si sta spostando";
+                    for (JsonReceiver js : command.getAllReceivers()) {
+                        if (js != userJsonReceiver) {
+                            js.sendJson(jsonCreator.createJsonWithMessage(message));
+                        }
                     }
                 }
             }
+        }
+        else{
+            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La partita non è ancora iniziata"));
         }
         jsonCreator.reset();
     }
