@@ -11,6 +11,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import model.clientModel.SemplifiedPlayer;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -175,9 +176,6 @@ public class PbFrame {
     }
 
     public void show(){
-        updateAmmo();
-        updateMarks();
-        updateDamage();
         stage.show();
     }
 
@@ -813,7 +811,27 @@ public class PbFrame {
         }
     }
 
-    private void updateAmmo(){
-        //TODO
+    public void updateAmmo(SemplifiedPlayer p){
+        List<Label> ammo = ammoParser(p.getName());
+        ammo.get(0).setText(""+p.getPlayerBoard().getLoader().getNumBlueAmmo());
+        ammo.get(1).setText(""+p.getPlayerBoard().getLoader().getNumRedAmmo());
+        ammo.get(2).setText(""+p.getPlayerBoard().getLoader().getNumYellowAmmo());
+    }
+
+    private List<Label>ammoParser(String p){
+        int pos = players.indexOf(p);
+        switch (pos){
+            case 0:
+                return firstAmmo;
+            case 1:
+                return secondAmmo;
+            case 2:
+                return thirdAmmo;
+            case 3:
+                return fourthAmmo;
+            default:
+                //TODO o exception?
+                return firstAmmo;
+        }
     }
 }

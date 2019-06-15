@@ -753,6 +753,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
             redAmmmo.setText(""+p.getPlayerBoard().getLoader().getNumRedAmmo());
             yellowAmmmo.setText(""+p.getPlayerBoard().getLoader().getNumYellowAmmo());
         }
+        else {
+            pbFrame.updateAmmo(p);
+        }
     }
 
     @Override
