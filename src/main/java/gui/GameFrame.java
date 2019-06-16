@@ -36,12 +36,18 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     final int buttonWidth = 100;
     private final InputStream pathBackWeapon = getClass().getResourceAsStream("/img/RetroArmi.png");
     private final InputStream pathBackPu = getClass().getResourceAsStream("/img/RetroPu.png");
+    private final InputStream pathBackAmmo = getClass().getResourceAsStream("/img/RetroAmmo.png");
     final BackgroundImage weaponBack = new BackgroundImage(new Image(pathBackWeapon, 110, 190, false, true),
             BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
             BackgroundSize.DEFAULT);
     final BackgroundImage puBack = new BackgroundImage(new Image(pathBackPu, 110, 190, false, true),
             BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
             BackgroundSize.DEFAULT);
+    final BackgroundImage ammoBack = new BackgroundImage(new Image(pathBackAmmo, 50, 50, false, true),
+            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+            BackgroundSize.DEFAULT);
+    final Border border = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT));
+
 
     private PbFrame pbFrame;
     private WeaponFrame weaponFrame;
@@ -71,6 +77,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private Label ammoLabel10;
     private Label ammoLabel11;
     private Label ammoLabel12;
+    private List<Label> ammoList;
 
     private Label weapon1;
     private Label weapon2;
@@ -135,18 +142,47 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         coorInTileY = new ArrayList<>(5);
         coorTileX = new ArrayList<>(12);
         coorTileY = new ArrayList<>(12);
+        addCoorX();
+        addCoorY();
         stage = new Stage();
         generate();
     }
 
+    private void addCoorX(){
+        coorTileX.add(10);
+        coorTileX.add(165);
+        coorTileX.add(315);
+        coorTileX.add(465);
+        coorTileX.add(10);
+        coorTileX.add(165);
+        coorTileX.add(315);
+        coorTileX.add(465);
+        coorTileX.add(10);
+        coorTileX.add(165);
+        coorTileX.add(315);
+        coorTileX.add(465);
+    }
+    private void addCoorY(){
+        coorTileY.add(10);
+        coorTileY.add(180);
+        coorTileY.add(350);
+        coorTileY.add(10);
+        coorTileY.add(180);
+        coorTileY.add(350);
+        coorTileY.add(10);
+        coorTileY.add(180);
+        coorTileY.add(350);
+        coorTileY.add(10);
+        coorTileY.add(180);
+        coorTileY.add(350);
+    }
 
-    public void generate() {
+    private void generate() {
         //TODO da implementare
 
         stage.setTitle("Adrenalina - on game");
         stage.setResizable(false);
 
-        Border border = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT));
 
         mainPane = new StackPane();
         gameLog = new Pane();
@@ -545,6 +581,8 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         violettaToken.setFill(Color.BLUEVIOLET);
         bansheeToken.setFill(Color.TEAL);
 
+        generateLabelAmmo();
+
         //setting position of pane
         buttonPane.setSpacing(10);
         buttonPane.setTranslateX(1175);
@@ -909,7 +947,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         }
     }
 
-    private void generateLabel(){
+    private void generateLabelAmmo(){
         //TODO
         ammoLabel1 = new Label();
         ammoLabel2 = new Label();
@@ -923,6 +961,32 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         ammoLabel10 = new Label();
         ammoLabel11 = new Label();
         ammoLabel12 = new Label();
+        ammoList = new ArrayList<>();
+        ammoList.add(ammoLabel1);
+        ammoList.add(ammoLabel2);
+        ammoList.add(ammoLabel3);
+        ammoList.add(ammoLabel4);
+        ammoList.add(ammoLabel5);
+        ammoList.add(ammoLabel6);
+        ammoList.add(ammoLabel7);
+        ammoList.add(ammoLabel8);
+        ammoList.add(ammoLabel9);
+        ammoList.add(ammoLabel10);
+        ammoList.add(ammoLabel11);
+        ammoList.add(ammoLabel12);
+        for (Label l: ammoList){
+            l.setVisible(true);
+            l.setMinHeight(50);
+            l.setMinWidth(50);
+            l.setBorder(border);
+            l.setBackground(new Background(ammoBack));
+            mapPane.getChildren().add(l);
+        }
+        for (int i = 0; i<ammoList.size(); i++){
+            ammoList.get(i).setLayoutY(coorTileY.get(i));
+            ammoList.get(i).setLayoutX(coorTileX.get(i));
+        }
+
     }
 
 }
