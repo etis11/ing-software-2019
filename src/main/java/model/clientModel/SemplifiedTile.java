@@ -4,6 +4,7 @@ import model.AmmoCard;
 import model.Player;
 import model.WeaponCard;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SemplifiedTile {
@@ -18,10 +19,19 @@ public class SemplifiedTile {
         this.id = id;
         this.ammoTile = ammoTile;
         this.weaponTile = weaponTile;
+        this.players = new ArrayList<>();
     }
 
     public int getId(){
         return id;
+    }
+
+    public List<SemplifiedPlayer> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<SemplifiedPlayer> players) {
+        this.players = players;
     }
 
     @Override
