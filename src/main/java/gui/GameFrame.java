@@ -723,6 +723,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                 damage.get(i).setVisible(true);
             }
         }
+        else{
+            pbFrame.updateDamage(damagePlayer);
+        }
     }
 
     @Override
@@ -742,6 +745,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                 marksT.get(index).setVisible(true);
                 marksT.get(index).setText(""+Integer.parseInt(marksT.get(index).getText())+1);
             }
+        }
+        else{
+            pbFrame.updateMarks(markedPlayer);
         }
 
     }

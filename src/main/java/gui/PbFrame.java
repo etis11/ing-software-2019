@@ -11,6 +11,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import model.clientModel.SemplifiedBloodToken;
 import model.clientModel.SemplifiedPlayer;
 
 import java.io.InputStream;
@@ -770,44 +771,35 @@ public class PbFrame {
                 BackgroundSize.DEFAULT)));
     }
 
-    private void updateDamage(){
-        for (Circle c : firstDamage){
+    public void updateDamage(SemplifiedPlayer p){
+        List<Circle> damagedPlayerDamage = damageParser(p.getName());
+        for (Circle c : damagedPlayerDamage){
             c.setVisible(false);
         }
-        for (Circle c : secondDamage){
-            c.setVisible(false);
+        List<SemplifiedBloodToken> damageToken = p.getPlayerBoard().getDamageTokens();
+        for (int i = 0; i<damageToken.size();i++){
+            int index = players.indexOf(damageToken.get(i).getOwner().getName());
+            damagedPlayerDamage.get(i).setVisible(true);
+            damagedPlayerDamage.get(i).setFill(gameColor.get(index));
         }
-        for (Circle c : thirdDamage){
-            c.setVisible(false);
-        }
-        for (Circle c : fourthDamage){
-            c.setVisible(false);
-        }
+
     }
-    private void updateMarks(){
-        for (Circle c : firstMark){
+    public void updateMarks(SemplifiedPlayer p){
+        List<Circle> markedPlayerMarks = markParser(p.getName());
+        List<Label> markedPlayerMarksText = markTextParser(p.getName());
+        for (Circle c : markedPlayerMarks){
             c.setVisible(false);
         }
-        for (Circle c : secondMark){
-            c.setVisible(false);
-        }
-        for (Circle c : thirdMark){
-            c.setVisible(false);
-        }
-        for (Circle c : fourthMark){
-            c.setVisible(false);
-        }
-        for (Label l : firstMarkT){
+        for (Label l : markTextParser(p.getName())){
             l.setVisible(false);
+            l.setText("0");
         }
-        for (Label l : secondMarkT){
-            l.setVisible(false);
-        }
-        for (Label l : thirdMarkT){
-            l.setVisible(false);
-        }
-        for (Label l : fourthMarkT){
-            l.setVisible(false);
+        List<SemplifiedBloodToken> marks = p.getPlayerBoard().getMarksTokens();
+        for (SemplifiedBloodToken b : marks){
+            int index = players.indexOf(b.getOwner().getName());
+            markedPlayerMarksText.get(index).setText(""+Integer.parseInt(markedPlayerMarksText.get(index).getText())+1);
+            markedPlayerMarksText.get(index).setVisible(true);
+            markedPlayerMarks.get(index).setVisible(true);
         }
     }
 
@@ -832,6 +824,57 @@ public class PbFrame {
             default:
                 //TODO o exception?
                 return firstAmmo;
+        }
+    }
+
+    private List<Circle>markParser(String p){
+        int pos = players.indexOf(p);
+        switch (pos){
+            case 0:
+                return firstMark;
+            case 1:
+                return secondMark;
+            case 2:
+                return thirdMark;
+            case 3:
+                return fourthMark;
+            default:
+                //TODO o exception?
+                return firstMark;
+        }
+    }
+
+    private List<Label>markTextParser(String p){
+        int pos = players.indexOf(p);
+        switch (pos){
+            case 0:
+                return firstMarkT;
+            case 1:
+                return secondMarkT;
+            case 2:
+                return thirdMarkT;
+            case 3:
+                return fourthMarkT;
+            default:
+                //TODO o exception?
+                return firstMarkT;
+        }
+    }
+
+    private List<Circle>damageParser(String p){
+        int pos = players.indexOf(p);
+        switch (pos){
+            case 0:
+                return firstDamage;
+            case 1:
+                return secondDamage;
+            case 2:
+                return thirdDamage;
+            case 3:
+                return fourthDamage;
+            default:
+                //TODO o exception?
+                return firstDamage;
         }
     }
 }
