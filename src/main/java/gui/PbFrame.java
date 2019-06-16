@@ -260,7 +260,7 @@ public class PbFrame {
         firstDamage.add(damage11);
         firstDamage.add(damage12);
         for (Circle c: firstDamage){
-//            c.setVisible(false);
+            c.setVisible(false);
             c.setRadius(12);
             c.setLayoutY(90);
             c.setStroke(Color.BLACK);
@@ -288,7 +288,7 @@ public class PbFrame {
         firstMark.add(mark13);
         firstMark.add(mark14);
         for (Circle c : firstMark){
-//            c.setVisible(false);
+            c.setVisible(false);
             c.setRadius(15);
             c.setLayoutY(20);
             c.setStroke(Color.BLACK);
@@ -313,7 +313,7 @@ public class PbFrame {
         firstMarkT.add(markT14);
         //setting label for marks text
         for(Label l : firstMarkT){
-//            l.setVisible(false);
+            l.setVisible(false);
             l.setMaxHeight(15);
             l.setMaxWidth(15);
             l.setFont(Font.font("System Regular", FontWeight.BOLD, 15));
@@ -396,7 +396,7 @@ public class PbFrame {
         secondDamage.add(damage23);
         secondDamage.add(damage24);
         for (Circle c: secondDamage){
-//            c.setVisible(false);
+            c.setVisible(false);
             c.setRadius(12);
             c.setLayoutY(90);
             c.setStroke(Color.BLACK);
@@ -423,7 +423,7 @@ public class PbFrame {
         secondMark.add(mark23);
         secondMark.add(mark24);
         for (Circle c : secondMark){
-//            c.setVisible(false);
+            c.setVisible(false);
             c.setRadius(15);
             c.setLayoutY(20);
             c.setStroke(Color.BLACK);
@@ -448,7 +448,7 @@ public class PbFrame {
         secondMarkT.add(markT24);
         //setting label for marks text
         for(Label l : secondMarkT){
-//            l.setVisible(false);
+            l.setVisible(false);
             l.setMaxHeight(15);
             l.setMaxWidth(15);
             l.setFont(Font.font("System Regular", FontWeight.BOLD, 15));
@@ -531,7 +531,7 @@ public class PbFrame {
         thirdDamage.add(damage35);
         thirdDamage.add(damage36);
         for (Circle c: thirdDamage){
-//            c.setVisible(false);
+            c.setVisible(false);
             c.setRadius(12);
             c.setLayoutY(90);
             c.setStroke(Color.BLACK);
@@ -559,7 +559,7 @@ public class PbFrame {
         thirdMark.add(mark33);
         thirdMark.add(mark34);
         for (Circle c : thirdMark){
-//            c.setVisible(false);
+            c.setVisible(false);
             c.setRadius(15);
             c.setLayoutY(20);
             c.setStroke(Color.BLACK);
@@ -584,7 +584,7 @@ public class PbFrame {
         thirdMarkT.add(markT34);
         //setting label for marks text
         for(Label l : thirdMarkT){
-//            l.setVisible(false);
+            l.setVisible(false);
             l.setMaxHeight(15);
             l.setMaxWidth(15);
             l.setFont(Font.font("System Regular", FontWeight.BOLD, 15));
@@ -667,7 +667,7 @@ public class PbFrame {
         fourthDamage.add(damage47);
         fourthDamage.add(damage48);
         for (Circle c: fourthDamage){
-//            c.setVisible(false);
+            c.setVisible(false);
             c.setRadius(12);
             c.setLayoutY(90);
             c.setStroke(Color.BLACK);
@@ -695,7 +695,7 @@ public class PbFrame {
         fourthMark.add(mark43);
         fourthMark.add(mark44);
         for (Circle c : fourthMark){
-//            c.setVisible(false);
+            c.setVisible(false);
             c.setRadius(15);
             c.setLayoutY(20);
             c.setStroke(Color.BLACK);
@@ -720,7 +720,7 @@ public class PbFrame {
         fourthMarkT.add(markT44);
         //setting label for marks text
         for(Label l : fourthMarkT){
-//            l.setVisible(false);
+            l.setVisible(false);
             l.setMaxHeight(15);
             l.setMaxWidth(15);
             l.setFont(Font.font("System Regular", FontWeight.BOLD, 15));
@@ -784,6 +784,7 @@ public class PbFrame {
         }
 
     }
+
     public void updateMarks(SemplifiedPlayer p){
         List<Circle> markedPlayerMarks = markParser(p.getName());
         List<Label> markedPlayerMarksText = markTextParser(p.getName());
