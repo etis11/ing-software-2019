@@ -2,7 +2,6 @@ package gui;
 
 import controller.CommandContainer;
 import controller.commandpack.*;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -17,21 +16,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextBoundsType;
 import javafx.stage.Stage;
 import model.*;
-import model.clientModel.SemplifiedBloodToken;
-import model.clientModel.SemplifiedMap;
-import model.clientModel.SemplifiedPlayer;
-import model.clientModel.SemplifiedWeaponCard;
+import model.clientModel.*;
 import view.ClientSingleton;
 import view.MapObserver;
 import view.MessageListener;
 import view.PlayerObserver;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -67,6 +59,19 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private Pane playerBoardPane;
     private TextArea infoGame;
 
+    private Label ammoLabel1;
+    private Label ammoLabel2;
+    private Label ammoLabel3;
+    private Label ammoLabel4;
+    private Label ammoLabel5;
+    private Label ammoLabel6;
+    private Label ammoLabel7;
+    private Label ammoLabel8;
+    private Label ammoLabel9;
+    private Label ammoLabel10;
+    private Label ammoLabel11;
+    private Label ammoLabel12;
+
     private Label weapon1;
     private Label weapon2;
     private Label weapon3;
@@ -101,6 +106,11 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private List<Circle> mark;
     private List<Circle> token;
 
+    private List<Integer> coorInTileX;
+    private List<Integer> coorInTileY;
+    private List<Integer> coorTileX;
+    private List<Integer> coorTileY;
+
     public GameFrame(CommandContainer cmd, String board, int map) {
         this.cmdLauncher = cmd;
         this.mapPath = mapParser(map);
@@ -121,6 +131,10 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         this.boardPath = boardParser(board);
         pbFrame = new PbFrame(this.players, this.color);
         weaponFrame = new WeaponFrame(this.players);
+        coorInTileX = new ArrayList<>(5);
+        coorInTileY = new ArrayList<>(5);
+        coorTileX = new ArrayList<>(12);
+        coorTileY = new ArrayList<>(12);
         stage = new Stage();
         generate();
     }
@@ -702,7 +716,27 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     @Override
     public void onMapChange(SemplifiedMap map) {
-
+        for (Circle c : token){
+            c.setVisible(false);
+        }
+        SemplifiedTile onUpdateTile;
+        List<SemplifiedPlayer> playerInUpdateTile;
+        int tileId;
+        Circle tokenToUpdate;
+        for(int i = 0; i<3;i++){
+            for (int j = 0; j<4; j++){
+                onUpdateTile =map.getTile(i, j);
+                tileId = onUpdateTile.getId();
+                playerInUpdateTile =onUpdateTile.getPlayers();
+                for(int k = 0; k<playerInUpdateTile.size();k++) {
+                    tokenToUpdate = mapTokenParser(playerInUpdateTile.get(k).getName());
+                    tokenToUpdate.setLayoutX(coorTileX.get(tileId)+coorInTileX.get(k));
+                    tokenToUpdate.setLayoutY(coorTileY.get(tileId)+coorInTileY.get(k));
+                    tokenToUpdate.setVisible(true);
+                }
+            }
+        }
+        //TODO necessari altri update?
     }
 
     @Override
@@ -855,6 +889,40 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     @Override
     public void onPlayerChange(SemplifiedPlayer p) {
         //TODO
+    }
+
+    private Circle mapTokenParser(String name){
+        switch (name){
+            case "Distruttore":
+                return token.get(0);
+            case "Dozer":
+                return token.get(1);
+            case "Sprog":
+                return token.get(2);
+            case "Violetta":
+                return token.get(3);
+            case "Banshee":
+                return token.get(4);
+            default:
+                //TODO o exception?
+                return token.get(0);
+        }
+    }
+
+    private void generateLabel(){
+        //TODO
+        ammoLabel1 = new Label();
+        ammoLabel2 = new Label();
+        ammoLabel3 = new Label();
+        ammoLabel4 = new Label();
+        ammoLabel5 = new Label();
+        ammoLabel6 = new Label();
+        ammoLabel7 = new Label();
+        ammoLabel8 = new Label();
+        ammoLabel9 = new Label();
+        ammoLabel10 = new Label();
+        ammoLabel11 = new Label();
+        ammoLabel12 = new Label();
     }
 
 }
