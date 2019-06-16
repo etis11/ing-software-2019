@@ -5,6 +5,8 @@ import model.User;
 import model.clientModel.*;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -85,6 +87,13 @@ public class CommandLineInterface extends AbstractView  {
     @Override
     public void onMapChange(SemplifiedMap mappa) {
 
+        String user0="";
+        String user1="";
+        String user2="";
+        String user3="";
+        String user4="";
+        String[] user ={user0,user1,user2,user3,user4};
+
         String p0="          ";
         String p1="          ";
         String p2="          ";
@@ -98,33 +107,61 @@ public class CommandLineInterface extends AbstractView  {
         String p10="          ";
         String p11="          ";
         String[] p = {p0,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11};
-        String emptyP=" ";
+        int k=0;
+        int total=0;
         for(int i=0; i<3 ; i++){
             for(int j=0; j<4 ; j++){
-                System.out.println(i+","+j);
+                total=total+mappa.getTile(i,j).getPlayers().size();
+
                 List<SemplifiedPlayer> players = mappa.getTile(i,j).getPlayers();
-                if(!players.isEmpty()){
+           if(!players.isEmpty()){
+
+               int l=0;
                     for(SemplifiedPlayer player : players){
-                        p[player.getTile()] = p[player.getTile()].substring(0, p[player.getTile()].lastIndexOf(" ")) +playerColor(player)+"T"+p[player.getTile()].substring(p[player.getTile()].lastIndexOf(" ")+1);
+                        user[k]=playerColor(mappa.getTile(i,j).getPlayers().get(l))+"@"+AnsiColor.RESET+" e' il giocatore "+playerColor(mappa.getTile(i,j).getPlayers().get(l))+player.getName()+ AnsiColor.RESET+" e si trova nel tile: "+ player.getTile();
+                        k++;
+                        l++;
+                        p[player.getTile()] = p[player.getTile()].substring(0, p[player.getTile()].lastIndexOf(" ")) +playerColor(player)+"@"+p[player.getTile()].substring(p[player.getTile()].lastIndexOf(" ")+1);
+
+                        //System.out.println(user[player.getTile()]);
+                        //user[player.getTile()]="lol";
+                        //System.out.println(user[player.getTile()]);
+                        //user[lol] = playerColor(player)+"@"+AnsiColor.RESET+" e' il giocatore "+playerColor(player)+player.getName()+ AnsiColor.RESET+" e si trova nel tile: "+ player.getTile();
                     }
+
                 }
 
             }
-        }
-        for(int i=0; i<10 ; i++){
-            System.out.println(p[i]);
-        }
 
-        String hash4 = "╔══════════╦══════════╦══════════╦══════════╗\n" +
-                "║" + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "      REG " + AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + "          " + AnsiColor.RESET + "║\n" +
-                "║" + AnsiColor.BLUE_BACKGROUND + "     0    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "     1    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "     2    " + AnsiColor.RESET + " " + AnsiColor.GREEN_BACKGROUND + "    3     " + AnsiColor.RESET + "║\n" +
-                "║" + AnsiColor.BLUE_BACKGROUND +p[0]+ AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND +p[1]+ AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + p[2]+ AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + p[3] + AnsiColor.RESET + "║\n" +
-                "╠═══    ═══╬══════════╬═══    ═══╬═══    ═══╣\n" +
-                "║" + AnsiColor.RED_BACKGROUND + "    REG   " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + "║\n" +
-                "║" + AnsiColor.RED_BACKGROUND + "     4    " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "     5    " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "     6    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    7     " + AnsiColor.RESET + "║\n" +
+        }
+      //System.out.println(lol);
+        //for(int i=0;i<lol;i++){
+          //  user[lol]=playerColor(mappa.getTile().getId())+"@"+AnsiColor.RESET+" e' il giocatore "+playerColor(player)+player.getName()+ AnsiColor.RESET+" e si trova nel tile: "+ player.getTile();
+        //}
+
+        //for(int i=0;i<3;i++){
+          //  for(int j=0;j<4;j++){
+            //    List<SemplifiedPlayer> players = mappa.getTile(i,j).getPlayers();
+               // for(SemplifiedPlayer playerlol : players){
+                    //user[playerlol.getTile()]=playerColor(playerlol)+"@"+AnsiColor.RESET+" e' il giocatore "+playerColor(playerlol)+playerlol.getName()+ AnsiColor.RESET+" e si trova nel tile:"+ playerlol.getTile();
+
+                    //System.out.println(user[i+j]);
+                    //System.out.println(playerColor(playerlol)+"@"+AnsiColor.RESET+" e' il giocatore "+playerColor(playerlol)+playerlol.getName()+ AnsiColor.RESET+" e si trova nel tile:"+ playerlol.getTile());
+              //  }
+            //}
+        //}
+
+
+        String hash4 = AnsiColor.WHITE+"╔══════════╦══════════╦══════════╦══════════╗\t\t\t\tLEGGENDA DELLA MAPPA\n" +
+                "║" +AnsiColor.RESET+ AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + " "+AnsiColor.RESET+AnsiColor.BLACK+"REG TILE"+AnsiColor.RESET+AnsiColor.BLUE_BACKGROUND+" " + AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + "          " + AnsiColor.RESET + "║\t"+user[0]+"\n"+
+                "║" + AnsiColor.BLUE_BACKGROUND + "     0    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "     1    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "     2    " + AnsiColor.RESET + " " + AnsiColor.GREEN_BACKGROUND + "    3     " + AnsiColor.RESET + "║\t"+user[1]+"\n" +
+                "║" + AnsiColor.BLUE_BACKGROUND +p[0]+ AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND +p[1]+ AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + p[2]+ AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + p[3] + AnsiColor.RESET + "║\t"+user[2]+"\n" +
+                "╠═══    ═══╬══════════╬═══    ═══╬═══    ═══╣\t"+user[3]+"\n" +
+                "║" + AnsiColor.RED_BACKGROUND +" "+AnsiColor.RESET+AnsiColor.BLACK+"REG TILE"+AnsiColor.RESET+AnsiColor.RED_BACKGROUND+" " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + "║\t"+user[4]+"\n" +
+                "║" + AnsiColor.RED_BACKGROUND + "     4    " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "     5    " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "     6    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    7     " + AnsiColor.RESET + "║"+user[4]+"\n" +
                 "║" + AnsiColor.RED_BACKGROUND + p[4] + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + p[5] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[6] + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + p[7] + AnsiColor.RESET + "║\n" +
                 "╠══════════╬═══    ═══╬          ╬          ╣\n" +
-                "║          ║" + AnsiColor.MAGENTA_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    REG   " + AnsiColor.RESET + "║\n" +
+                "║          ║" + AnsiColor.MAGENTA_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND +" "+AnsiColor.RESET+AnsiColor.BLACK+"REG TILE"+AnsiColor.RESET+AnsiColor.YELLOW_BACKGROUND+" " + AnsiColor.RESET + "║\n" +
                 "║    8     ║" + AnsiColor.MAGENTA_BACKGROUND + "    9     " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    10    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    11    " + AnsiColor.RESET + "║\n" +
                 "║"+     p[8]     +"║" + AnsiColor.MAGENTA_BACKGROUND + p[9] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[10] + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + p[11]+ AnsiColor.RESET + "║\n" +
                 "╚══════════╩══════════╩══════════╩══════════╝";
@@ -143,6 +180,8 @@ displayText(hash4);
 //        }
         displayText("La posizione dei giocatori sulla mappa è cambiata");
     }
+
+
     /**
      * Method used to notify all users with a string message
      *
@@ -180,15 +219,6 @@ displayText(hash4);
         }
         System.out.println(output);
         displayText(output);
-
-
-        //     damagePlayer.getPlayerBoard().getDamageTokens().get(0).get
-
-    //    damagePlayer.getPlayerBoard().getDamageTokens().stream().filter(t -> t.getColor()!=null ).findAny().get();
-    //    displayText(damagePlayer.getName() + " ha subito danni e quindi e' rimasto con " + damagePlayer.getPlayerBoard().getNumDamagePoints() + " vite.\n");
-    //    for(int i=0; i<damagePlayer.getPlayerBoard().getNumDamagePoints();i++){
-    //        displayText(playerColor(damagePlayer)+"\uD83D\uDDA4"+AnsiColor.RESET);
-    //    }
     }
 
     /**

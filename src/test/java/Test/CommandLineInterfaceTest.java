@@ -19,7 +19,7 @@ public class CommandLineInterfaceTest {
         //  void cliTest () {
         CommandLineInterface commandLineInterface = new CommandLineInterface();
 
-        System.out.println("write something!!!");
+       // System.out.println("write something!!!");
  //       Scanner scanner = new Scanner(System.in);
  //       String c = scanner.nextLine();
         // scanner.close();
@@ -53,6 +53,8 @@ public class CommandLineInterfaceTest {
         player2.setName("Sprog");
         SemplifiedPlayer player3 = new SemplifiedPlayer();
         player3.setName("Banshee");
+        SemplifiedPlayer player4 = new SemplifiedPlayer();
+        player4.setName("Violetta");
       //  commandLineInterface.onAmmoChange(player);
 //        player.getPlayerBoard().getLoader().askReload(2, 0, 1);
       //  commandLineInterface.onAmmoChange(player);
@@ -82,17 +84,20 @@ public class CommandLineInterfaceTest {
         SemplifiedTile semplifiedTile11 = new SemplifiedTile(11,false,false);
 
         List<SemplifiedPlayer> semplifiedPlayers = new LinkedList<>();
+        List<SemplifiedPlayer> semplifiedPlayers3 = new LinkedList<>();
 
         List<SemplifiedPlayer> semplifiedPlayers2 = new LinkedList<>();
 
         semplifiedPlayers.add(player);
         semplifiedPlayers.add(player2);
-        semplifiedTile.setPlayers(semplifiedPlayers);
+        semplifiedPlayers3.add(player4);
         semplifiedPlayers2.add(player3);
-
+        semplifiedTile.setPlayers(semplifiedPlayers);
+        semplifiedTile5.setPlayers(semplifiedPlayers3);
         player.setTile(0);
         player2.setTile(0);
         player3.setTile(2);
+        player4.setTile(5);
         semplifiedTile2.setPlayers(semplifiedPlayers2);
 
         semplifiedMap.setTile(semplifiedTile,0,0);
@@ -107,8 +112,7 @@ public class CommandLineInterfaceTest {
         semplifiedMap.setTile(semplifiedTile9,2,1);
         semplifiedMap.setTile(semplifiedTile10,2,2);
         semplifiedMap.setTile(semplifiedTile11,2,3);
-
-        System.out.println("player3 tile : "+player3.getTile());
+       // System.out.println("player3 tile : "+player3.getTile());
         commandLineInterface.onMapChange(semplifiedMap);
         System.out.println("onHpChange");
 
@@ -137,7 +141,6 @@ public class CommandLineInterfaceTest {
 
         System.out.println("onMarksChange");
         commandLineInterface.onMarksChange(player);
-
         //}
     }
 }
