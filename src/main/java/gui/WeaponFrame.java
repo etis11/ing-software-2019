@@ -6,6 +6,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import model.clientModel.SemplifiedPlayer;
+import model.clientModel.SemplifiedWeaponCard;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -71,9 +73,10 @@ public class WeaponFrame {
         generateFirst();
         generateSecond();
         generateThird();
+        generateFourth();
 
 
-        Scene scene = new Scene(pane, 1150, 450);
+        Scene scene = new Scene(pane, 1125, 465);
         stage.setScene(scene);
 
 
@@ -88,10 +91,12 @@ public class WeaponFrame {
         firstPl = new Label();
         secondPl = new Label();
         thirdPl = new Label();
+        fourthPl = new Label();
 
         playerLabel.add(firstPl);
         playerLabel.add(secondPl);
         playerLabel.add(thirdPl);
+        playerLabel.add(fourthPl);
         for(Label l:playerLabel){
             l.setMinWidth(100);
             l.setMinHeight(100);
@@ -103,7 +108,9 @@ public class WeaponFrame {
         secondPl.setLayoutY(70);
         secondPl.setLayoutX(575);
         thirdPl.setLayoutX(firstPl.getLayoutX());
-        thirdPl.setLayoutY(250);
+        thirdPl.setLayoutY(295);
+        fourthPl.setLayoutX(secondPl.getLayoutX());
+        fourthPl.setLayoutY(thirdPl.getLayoutY());
     }
 
     private void generateFirst(){
@@ -182,7 +189,7 @@ public class WeaponFrame {
             l.setBorder(border);
             l.setMinWidth(125);
             l.setMinHeight(195);
-            l.setLayoutY(25);
+            l.setLayoutY(250);
             pane.getChildren().add(l);
         }
         weapon31.setLayoutX(130);
@@ -191,6 +198,35 @@ public class WeaponFrame {
         weapon31.setBackground(new Background(weaponBack));
         weapon32.setBackground(new Background(weaponBack));
         weapon33.setBackground(new Background(weaponBack));
+    }
+
+    private void generateFourth(){
+
+        weapon41 = new Label();
+        weapon42 = new Label();
+        weapon43 = new Label();
+        fourthW = new ArrayList<>();
+        fourthW.add(weapon41);
+        fourthW.add(weapon42);
+        fourthW.add(weapon43);
+        fourthPl.setBackground(new Background(new BackgroundImage(new Image(tokenImgParser(players.get(3)), 100, 100, false, true),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT)));
+
+        for (Label l:fourthW){
+            l.setVisible(true);
+            l.setBorder(border);
+            l.setMinWidth(125);
+            l.setMinHeight(195);
+            l.setLayoutY(250);
+            pane.getChildren().add(l);
+        }
+        weapon41.setLayoutX(685);
+        weapon42.setLayoutX(820);
+        weapon43.setLayoutX(955);
+        weapon41.setBackground(new Background(weaponBack));
+        weapon42.setBackground(new Background(weaponBack));
+        weapon43.setBackground(new Background(weaponBack));
     }
 
     private InputStream tokenImgParser(String token) {
@@ -207,6 +243,102 @@ public class WeaponFrame {
                 return pathBanshee;
             default:
                 return pathDistruttore;
+        }
+    }
+
+    public void updateWeapon(SemplifiedPlayer p){
+        List<Label> parsedWeapon = playerWeaponParser(p.getName());
+        List<SemplifiedWeaponCard> weaponUpdated = p.getWeaponCards();
+        if(weaponUpdated.get(0).isLoaded()){
+            parsedWeapon.get(0).setBackground(new Background(weaponBack));
+        }
+        else{
+            parsedWeapon.get(0).setBackground(new Background(new BackgroundImage(new Image(weaponParser(weaponUpdated.get(0).getName()), 110, 190, false, true),
+                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                    BackgroundSize.DEFAULT)));
+        }
+        if(weaponUpdated.get(1).isLoaded()){
+            parsedWeapon.get(1).setBackground(new Background(weaponBack));
+        }
+        else{
+            parsedWeapon.get(1).setBackground(new Background(new BackgroundImage(new Image(weaponParser(weaponUpdated.get(1).getName()), 110, 190, false, true),
+                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                    BackgroundSize.DEFAULT)));
+        }
+        if(weaponUpdated.get(2).isLoaded()){
+            parsedWeapon.get(2).setBackground(new Background(weaponBack));
+        }
+        else{
+            parsedWeapon.get(2).setBackground(new Background(new BackgroundImage(new Image(weaponParser(weaponUpdated.get(2).getName()), 110, 190, false, true),
+                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                    BackgroundSize.DEFAULT)));
+        }
+
+    }
+
+    private List<Label>playerWeaponParser(String p){
+        int pos = players.indexOf(p);
+        switch (pos){
+            case 0:
+                return firstW;
+            case 1:
+                return secondW;
+            case 2:
+                return thirdW;
+            case 3:
+                return fourthW;
+            default:
+                //TODO o exception?
+                return firstW;
+        }
+    }
+
+    private InputStream weaponParser(String weapon) {
+        switch (weapon) {
+            case "Cannone vortex":
+                return getClass().getResourceAsStream("/img/CannoneVortex.png");
+            case "CyberGuanto":
+                return getClass().getResourceAsStream("/img/CyberGuanto.png");
+            case "Distruttore":
+                return getClass().getResourceAsStream("/img/DistruttoreWeap.png");
+            case "Falce protonica":
+                return getClass().getResourceAsStream("/img/FalceProtonica.png");
+            case "Fucile al plasma":
+                return getClass().getResourceAsStream("/img/FucileAlPlasma.png");
+            case "Fucile a pompa":
+                return getClass().getResourceAsStream("/img/FucileAPompa.png");
+            case "Fucile di precisione":
+                return getClass().getResourceAsStream("/img/FucileDiPrecisione.png");
+            case "Fucile laser":
+                return getClass().getResourceAsStream("/img/FucileLaser.png");
+            case "Lanciafiamme":
+                return getClass().getResourceAsStream("/img/LanciaFiamme.png");
+            case "Lanciagranate":
+                return getClass().getResourceAsStream("/img/LanciaGranate.png");
+            case "Lanciarazzi":
+                return getClass().getResourceAsStream("/img/LanciaRazzi.png");
+            case "Martello ionico":
+                return getClass().getResourceAsStream("/img/MartelloIonico.png");
+            case "Mitragliatrice":
+                return getClass().getResourceAsStream("/img/Mitragliatrice.png");
+            case "Onda d'urto":
+                return getClass().getResourceAsStream("/img/OndaDurto.png");
+            case "Raggio solare":
+                return getClass().getResourceAsStream("/img/RaggioSolare.png");
+            case "Raggio traente":
+                return getClass().getResourceAsStream("/img/RaggioTraente.png");
+            case "Razzo termico":
+                return getClass().getResourceAsStream("/img/RazzoTermico.png");
+            case "Spada fotonica":
+                return getClass().getResourceAsStream("/img/SpadaFotonica.png");
+            case "Torpedine":
+                return getClass().getResourceAsStream("/img/Torpedine.png");
+            case "Vulcanizzatore":
+                return getClass().getResourceAsStream("/img/Vulcanizzatore.png");
+            case "Zx-2":
+                return getClass().getResourceAsStream("/img/ZxZ.png");
+            default:
+                return getClass().getResourceAsStream("/img/RetroArmi.png");
         }
     }
 }

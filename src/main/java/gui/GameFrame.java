@@ -846,6 +846,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                 index++;
             }
         }
+        else {
+            weaponFrame.updateWeapon(p);
+        }
 
     }
 
