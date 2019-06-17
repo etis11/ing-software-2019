@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -117,6 +118,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private List<Integer> coorInTileY;
     private List<Integer> coorTileX;
     private List<Integer> coorTileY;
+
+    double coorX;
+    double coorY;
 
     public GameFrame(CommandContainer cmd, String board, int map) {
         this.cmdLauncher = cmd;
@@ -601,6 +605,13 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         playerBoardPane.setTranslateY(505);
         playerBoardPane.setTranslateX(60);
 
+        mapPane.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                 coorX = event.getScreenX();
+                 coorY = event.getScreenY();
+            }
+        });
 
         //setting mainpane
         mainPane.getChildren().add(gameLog);
