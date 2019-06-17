@@ -13,6 +13,15 @@ public class SemplifiedTile {
     private final boolean weaponTile;
     private List<SemplifiedPlayer> players;
     private AmmoCard ammoCard;
+
+    public List<SemplifiedWeaponCard> getWeaponCards() {
+        return weaponCards;
+    }
+
+    public void setWeaponCards(List<SemplifiedWeaponCard> weaponCards) {
+        this.weaponCards = weaponCards;
+    }
+
     private List<SemplifiedWeaponCard> weaponCards;
 
     public SemplifiedTile(int id, boolean ammoTile, boolean weaponTile) {
@@ -44,11 +53,10 @@ public class SemplifiedTile {
 
     @Override
     public String toString() {
-
         String weaponCardsString = "";
         if(this.weaponCards !=null && this.weaponCards.size()>0){
             for(SemplifiedWeaponCard weaponCard : this.weaponCards){
-                weaponCardsString= weaponCardsString +" "+weaponCard.toString();
+                weaponCardsString= weaponCardsString +"  ||  "+weaponCard.getName();
             }
         }
 
@@ -59,11 +67,7 @@ public class SemplifiedTile {
                 playersString= playersString+" "+player.getName();
             }
         }
-        return "SemplifiedTile{" +
-                "id=" + id +
-                " , players=" + playersString +
-                ", weaponCards=" + weaponCardsString +
-                '}';
+        return weaponCardsString;
     }
 
 }
