@@ -1,11 +1,14 @@
 package Test;
 
+import model.Deck;
 import model.Player;
 import model.User;
+import model.WeaponCard;
 import model.clientModel.*;
 import view.CommandLineInterface;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -46,8 +49,31 @@ public class CommandLineInterfaceTest {
 //        System.out.println("numero : " + numero);
 //        int n = numero + 3;
 //        System.out.println("numero = 3 : " + n);
+        SemplifiedWeaponCard weapon1 = new SemplifiedWeaponCard();
+        SemplifiedWeaponCard weapon2 = new SemplifiedWeaponCard();
+        SemplifiedWeaponCard weapon3 = new SemplifiedWeaponCard();
+        SemplifiedWeaponCard weapon4 = new SemplifiedWeaponCard();
+        SemplifiedWeaponCard weapon5 = new SemplifiedWeaponCard();
+        SemplifiedWeaponCard weapon6 = new SemplifiedWeaponCard();
+        SemplifiedWeaponCard weapon7 = new SemplifiedWeaponCard();
+        SemplifiedWeaponCard weapon8 = new SemplifiedWeaponCard();
+        SemplifiedWeaponCard weapon9 = new SemplifiedWeaponCard();
+        SemplifiedWeaponCard weapon10 = new SemplifiedWeaponCard();
 
-        SemplifiedPlayer player = new SemplifiedPlayer();
+
+        weapon1.setName("Torpedine");
+        weapon2.setName("Fucile laser");
+        weapon3.setName("Distruttore");
+        weapon4.setName("Cannone Vortex");
+        weapon5.setName("Falce Protonica");
+        weapon6.setName("Raggio traente");
+        weapon7.setName("Razzo termico");
+        weapon8.setName("Vulcanizzatore");
+        weapon9.setName("Lanciarazzi");
+        weapon10.setName("Test");
+
+
+                SemplifiedPlayer player = new SemplifiedPlayer();
         player.setName("Dozer");
         SemplifiedPlayer player2 = new SemplifiedPlayer();
         player2.setName("Sprog");
@@ -87,6 +113,28 @@ public class CommandLineInterfaceTest {
         List<SemplifiedPlayer> semplifiedPlayers3 = new LinkedList<>();
 
         List<SemplifiedPlayer> semplifiedPlayers2 = new LinkedList<>();
+        List<SemplifiedWeaponCard> weaponsTile1 = new LinkedList<>();
+        List<SemplifiedWeaponCard> weaponsTile2 = new LinkedList<>();
+        List<SemplifiedWeaponCard> weaponsTile3 = new LinkedList<>();
+SemplifiedWeaponCard[] weaponsPlayer = new SemplifiedWeaponCard[1];
+
+        weaponsTile1.add(weapon1);
+        weaponsTile1.add(weapon2);
+        weaponsTile1.add(weapon3);
+        weaponsTile2.add(weapon4);
+        weaponsTile2.add(weapon5);
+        weaponsTile2.add(weapon6);
+        weaponsTile3.add(weapon7);
+        weaponsTile3.add(weapon8);
+        weaponsTile3.add(weapon9);
+        weaponsPlayer[0]=weapon10;
+        player.setWeaponCards(weaponsPlayer);
+
+        semplifiedTile2.setWeaponCards(weaponsTile1);
+        semplifiedTile4.setWeaponCards(weaponsTile2);
+        semplifiedTile11.setWeaponCards(weaponsTile3);
+
+
 
         semplifiedPlayers.add(player);
         semplifiedPlayers.add(player2);
