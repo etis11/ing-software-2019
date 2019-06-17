@@ -161,6 +161,11 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         coorTileX.add(165);
         coorTileX.add(315);
         coorTileX.add(465);
+        coorInTileX.add(60);
+        coorInTileX.add(120);
+        coorInTileX.add(90);
+        coorInTileX.add(60);
+        coorInTileX.add(120);
     }
     private void addCoorY(){
         coorTileY.add(10);
@@ -175,6 +180,11 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         coorTileY.add(10);
         coorTileY.add(180);
         coorTileY.add(350);
+        coorInTileY.add(70);
+        coorInTileY.add(70);
+        coorInTileY.add(95);
+        coorInTileY.add(120);
+        coorInTileY.add(120);
     }
 
     private void generate() {
@@ -757,6 +767,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         for (Circle c : token){
             c.setVisible(false);
         }
+        for (Label l : ammoList){
+            l.setVisible(false);
+        }
         SemplifiedTile onUpdateTile;
         List<SemplifiedPlayer> playerInUpdateTile;
         int tileId;
@@ -772,16 +785,20 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                     tokenToUpdate.setLayoutY(coorTileY.get(tileId)+coorInTileY.get(k));
                     tokenToUpdate.setVisible(true);
                 }
-                if(onUpdateTile.getAmmoCard() == null){
-                    ammoList.get(tileId).setBackground(new Background(ammoBack));
+                if(onUpdateTile.isAmmoTile()) {
+                    ammoList.get(tileId).setVisible(true);
+                    if (onUpdateTile.getAmmoCard() == null) {
+                        ammoList.get(tileId).setBackground(new Background(ammoBack));
+                    } else {
+                        //TODO implementare id ammo, per ora crea il retro
+                        ammoList.get(tileId).setBackground(new Background(ammoParser(0)));
+                    }
                 }
                 else{
-                    //TODO implementare id ammo, per ora crea il retro
-                    ammoList.get(tileId).setBackground(new Background(ammoParser(0)));
+                    //TODO update regen point
                 }
             }
         }
-        //TODO update regen point
     }
 
     @Override

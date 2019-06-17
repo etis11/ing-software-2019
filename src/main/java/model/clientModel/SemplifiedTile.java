@@ -26,6 +26,10 @@ public class SemplifiedTile {
         return ammoCard;
     }
 
+    public boolean isAmmoTile(){
+        return ammoTile;
+    }
+
     public int getId(){
         return id;
     }
