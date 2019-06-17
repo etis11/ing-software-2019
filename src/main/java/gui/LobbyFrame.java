@@ -20,8 +20,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import view.ClientSingleton;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.rmi.RemoteException;
 
@@ -81,8 +79,11 @@ public class LobbyFrame {
         ComboBox comboBox = new ComboBox(comboItems);
         comboBox.getSelectionModel().select(0);
         comboBox.valueProperty().addListener((ObservableValue observable, Object oldValue, Object newValue) -> {
-            //TODO comando set mappa
-            //valueLbl.setText(newValue.toString())
+            try {
+                cmdLauncher.addCommand(new SetMapCommand(ClientSingleton.getInstance().getToken(), Integer.parseInt(newValue.toString())));
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         });
         comboBox.setLayoutX(50);
         comboBox.setLayoutY(480);

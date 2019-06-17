@@ -596,4 +596,34 @@ public class CommandExecutor {
         }
         jsonCreator.reset();
     }
+
+    public void execute(SetMapCommand command) throws IOException{
+        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        JsonReceiver userJsonReceiver = command.getJsonReceiver();
+        //verify if game started
+        if (!gameHasStarted) {
+            //verify if the user has already been created
+            if (registry.getJsonUserOwner(userJsonReceiver) != null) {
+                int numMapWanted = command.getMap();
+                User firstLobbyUser = gameManager.getLobby().getUsers().get(0);
+                User owner = registry.getJsonUserOwner(userJsonReceiver);
+                //verify if the owner is the first user of the lobby
+                if (firstLobbyUser == owner) {
+                    //TODO set the map
+                    for (JsonReceiver jr : command.getAllReceivers()) {
+                        jr.sendJson(jsonCreator.createJsonWithMessage("La mappa per la partita è stata cambiata"));
+                    }
+                }
+                else {
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Operazione non consentita"));
+                }
+            }
+            else{
+                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non hai ancora impostato uno username"));
+            }
+        }else {
+            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi modificare la mappa perchè la partita è già iniziata"));
+        }
+        jsonCreator.reset();
+    }
 }
