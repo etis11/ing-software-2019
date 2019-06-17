@@ -772,9 +772,16 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                     tokenToUpdate.setLayoutY(coorTileY.get(tileId)+coorInTileY.get(k));
                     tokenToUpdate.setVisible(true);
                 }
+                if(onUpdateTile.getAmmoCard() == null){
+                    ammoList.get(tileId).setBackground(new Background(ammoBack));
+                }
+                else{
+                    //TODO implementare id ammo, per ora crea il retro
+                    ammoList.get(tileId).setBackground(new Background(ammoParser(0)));
+                }
             }
         }
-        //TODO necessari altri update?
+        //TODO update regen point
     }
 
     @Override
@@ -948,7 +955,6 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     }
 
     private void generateLabelAmmo(){
-        //TODO
         ammoLabel1 = new Label();
         ammoLabel2 = new Label();
         ammoLabel3 = new Label();
@@ -986,7 +992,126 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
             ammoList.get(i).setLayoutY(coorTileY.get(i));
             ammoList.get(i).setLayoutX(coorTileX.get(i));
         }
+    }
 
+    private BackgroundImage ammoParser(int ammoId){
+        InputStream pathToBuild;
+        switch (ammoId){
+            case 1:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo01.png");
+                break;
+            case 2:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo02.png");
+                break;
+            case 3:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo03.png");
+                break;
+            case 4:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo04.png");
+                break;
+            case 5:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo05.png");
+                break;
+            case 6:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo06.png");
+                break;
+            case 7:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo07.png");
+                break;
+            case 8:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo08.png");
+                break;
+            case 9:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo09.png");
+                break;
+            case 10:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo10.png");
+                break;
+            case 11:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo11.png");
+                break;
+            case 12:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo12.png");
+                break;
+            case 13:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo13.png");
+                break;
+            case 14:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo14.png");
+                break;
+            case 15:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo15.png");
+                break;
+            case 16:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo16.png");
+                break;
+            case 17:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo17.png");
+                break;
+            case 18:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo18.png");
+                break;
+            case 19:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo19.png");
+                break;
+            case 20:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo20.png");
+                break;
+            case 21:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo21.png");
+                break;
+            case 22:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo22.png");
+                break;
+            case 23:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo23.png");
+                break;
+            case 24:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo24.png");
+                break;
+            case 25:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo25.png");
+                break;
+            case 26:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo26.png");
+                break;
+            case 27:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo27.png");
+                break;
+            case 28:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo28.png");
+                break;
+            case 29:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo29.png");
+                break;
+            case 30:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo30.png");
+                break;
+            case 31:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo31.png");
+                break;
+            case 32:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo32.png");
+                break;
+            case 33:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo33.png");
+                break;
+            case 34:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo34.png");
+                break;
+            case 35:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo35.png");
+                break;
+            case 36:
+                pathToBuild = getClass().getResourceAsStream("/img/Ammo36.png");
+                break;
+             default:
+                 pathToBuild = getClass().getResourceAsStream("/img/RetroAmmo.png");
+                 break;
+        }
+        return new BackgroundImage(new Image(pathToBuild, 50, 50, false, true),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
     }
 
 }

@@ -22,6 +22,10 @@ public class SemplifiedTile {
         this.players = new ArrayList<>();
     }
 
+    public AmmoCard getAmmoCard(){
+        return ammoCard;
+    }
+
     public int getId(){
         return id;
     }
