@@ -1,9 +1,6 @@
 package Test;
 
-import model.Deck;
-import model.Player;
-import model.User;
-import model.WeaponCard;
+import model.*;
 import model.clientModel.*;
 import view.CommandLineInterface;
 
@@ -160,7 +157,13 @@ SemplifiedWeaponCard[] weaponsPlayer = new SemplifiedWeaponCard[1];
         semplifiedMap.setTile(semplifiedTile9,2,1);
         semplifiedMap.setTile(semplifiedTile10,2,2);
         semplifiedMap.setTile(semplifiedTile11,2,3);
-       // System.out.println("player3 tile : "+player3.getTile());
+
+        AmmoCard ammoCard1 = new AmmoCard();
+        semplifiedMap.getTile(1,2).setAmmoCard(ammoCard1);
+        semplifiedMap.getTile(0,0).setAmmoCard(ammoCard1);
+
+
+        // System.out.println("player3 tile : "+player3.getTile());
         commandLineInterface.onMapChange(semplifiedMap);
         System.out.println("onHpChange");
 

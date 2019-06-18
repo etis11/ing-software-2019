@@ -111,6 +111,9 @@ public class CommandLineInterface extends AbstractView  {
         int total=0;
         for(int i=0; i<3 ; i++){
             for(int j=0; j<4 ; j++){
+                if(mappa.getTile(i,j).getAmmoCard()!=null){
+                    p[mappa.getTile(i,j).getId()]=p[mappa.getTile(i,j).getId()].replaceFirst("    ","AMMO");
+                }
                 total=total+mappa.getTile(i,j).getPlayers().size();
 
                 List<SemplifiedPlayer> players = mappa.getTile(i,j).getPlayers();
