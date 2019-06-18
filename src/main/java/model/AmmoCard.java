@@ -8,6 +8,11 @@ import view.AnsiColor;
 public class AmmoCard {
 
     /**
+     * ID refers to an int needed to bind ammocards with their images thanks to jSON
+     */
+    private int ID;
+
+    /**
      * numBlue is an integer that represents the number of Blue ammo in an AmmoCard.
      * Such number varies from 0 upto 3
      */
