@@ -36,7 +36,7 @@ public class CommandLauncherProvider {
     private void createNewGame() throws RemoteException {
         //creates a lobby
         GameManager gameManager = new GameManager();
-        JsonCreator jsonCreator = new JsonCreator();
+        JsonCreator jsonCreator = new JsonCreator(gameManager);
         CommandLauncher launcher = new CommandLauncher(gameManager, jsonCreator);
         commandLaunchers.add(launcher);
         gameManagers.add(gameManager);

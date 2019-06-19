@@ -18,8 +18,6 @@ import java.rmi.server.UnicastRemoteObject;
 public class ServerLauncher {
 
     public static void main(String[] args) throws RemoteException, AlreadyBoundException, FileNotFoundException {
-
-
         CommandLauncherProvider provider = new CommandLauncherProvider();
 
         CommandLauncherInterface launcher = new CommandLauncherInterface() {
