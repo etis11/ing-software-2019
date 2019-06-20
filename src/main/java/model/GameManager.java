@@ -2,6 +2,7 @@ package model;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class GameManager implements CreationGameObservable {
 
@@ -69,6 +70,21 @@ public class GameManager implements CreationGameObservable {
     public boolean isMatchStarted() {
         if (match == null) return  false;
         return started;
+    }
+
+    public void attachObserverToPlayers(ChangesObserver playerObserver){
+        List<User> users= lobby.getUsers();
+        for(User u: users){
+            u.getPlayer().attach(playerObserver);
+        }
+    }
+
+    public void attachObserverToTiles(ChangesObserver tileObserver){
+        if (match == null) throw  new NoSuchElementException("The match has not been created");
+        GameMap map = match.getMap();
+        for(Tile t: map.mapAsList()){
+            t.attach(tileObserver);
+        }
     }
 
     /**

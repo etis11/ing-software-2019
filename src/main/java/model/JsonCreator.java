@@ -59,7 +59,7 @@ public class JsonCreator implements ChangesObserver, CreationGameObserver, Lobby
         response.setPlayerChanged(false);
         response.setMapChanged(false);
         response.resetJoinedUsers();
-        response.resetLeaveUsers();
+        response.resetLeavingUsers();
         playerSerializer.resetSet();
     }
 
