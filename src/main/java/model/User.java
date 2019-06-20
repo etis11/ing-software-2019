@@ -25,20 +25,17 @@ public class User {
     private transient Player player;
     //TODO LobbyListener lobbyListener
 
+    private final String stateMachinePath = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+            + File.separatorChar + "stateMachine" + File.separatorChar + "stateMachine.json";
 
     public User() {
         this.username = "user";
         this.effectPhrase = "I will survive";
-        this.player = new Player("", fromJson("." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "stateMachine" + File.separatorChar + "stateMachine.json"));
-        //listener
     }
 
     public User(String username) {
         this.username = username;
         this.effectPhrase = "I will survive";
-        this.player = new Player("", fromJson("." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-                + File.separatorChar + "stateMachine" + File.separatorChar + "stateMachine.json"));
         //listener
     }
 
@@ -94,6 +91,14 @@ public class User {
      */
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    /**
+     * Creates a player with the given name. Does not control if the name is Dozer, Violetta and so one
+     * @param name
+     */
+    public void setPlayrByName(String name){
+        player = new Player(name, fromJson(stateMachinePath));
     }
 
 }

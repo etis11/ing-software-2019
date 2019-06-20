@@ -6,6 +6,7 @@ public  abstract class AbstractCommandResponse {
     private String error;
     private boolean playerChanged;
     private boolean mapChanged;
+    private String mapName;
 
     public AbstractCommandResponse(){
         mapChanged = false;
@@ -56,4 +57,12 @@ public  abstract class AbstractCommandResponse {
         return mapChanged;
     }
 
+
+    public String getMapName() {
+        return mapName;
+    }
+
+    public void setMap(String map) {
+        this.mapName = map;
+    }
 }
