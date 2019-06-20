@@ -6,8 +6,12 @@ import view.LobbyListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Lobby  implements  LobbyObservable{
+
+    private static final Logger lobbyLogger = Logger.getLogger(Lobby.class.getName());
 
     /**
      * MAX_PLAYER_IN_LOBBY are the maximum of player allowed in the lobby
@@ -57,6 +61,7 @@ public class Lobby  implements  LobbyObservable{
         for (LobbyListener ls: lobbyListeners) {
             ls.onJoin(u);
         }
+        lobbyLogger.log(Level.INFO, "The user "+ u.getUsername() +" joined the lobby");
     }
 
     /**
@@ -81,6 +86,7 @@ public class Lobby  implements  LobbyObservable{
             for (LobbyListener ls: lobbyListeners) {
                 ls.onLeave(u);
             }
+            lobbyLogger.log(Level.INFO, "The user "+ u.getUsername() +" left the lobby");
             return users.remove(users.indexOf(u));
         } else {
             return null;
