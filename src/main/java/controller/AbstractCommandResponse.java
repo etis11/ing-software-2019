@@ -3,6 +3,7 @@ package controller;
 import model.Lobby;
 import model.User;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public  abstract class AbstractCommandResponse {
@@ -17,6 +18,8 @@ public  abstract class AbstractCommandResponse {
     private List<User> leave;
 
     public AbstractCommandResponse(){
+        join = new LinkedList<>();
+        leave = new LinkedList<>();
         mapChanged = false;
     }
 

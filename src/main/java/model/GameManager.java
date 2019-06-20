@@ -1,5 +1,7 @@
 package model;
 
+import view.LobbyListener;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -85,6 +87,10 @@ public class GameManager implements CreationGameObservable {
         for(Tile t: map.mapAsList()){
             t.attach(tileObserver);
         }
+    }
+
+    public void attachObserverToLobby(LobbyListener lobbyListener){
+        lobby.attach(lobbyListener);
     }
 
     /**

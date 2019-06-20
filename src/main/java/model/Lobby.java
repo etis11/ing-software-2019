@@ -1,24 +1,27 @@
 package model;
 
 import exceptions.NotValidActionException;
+import view.LobbyListener;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Lobby {
+public class Lobby  implements  LobbyObservable{
 
     /**
      * MAX_PLAYER_IN_LOBBY are the maximum of player allowed in the lobby
      */
     public  transient static final int MAX_PLAYER_IN_LOBBY = 5;
 
+    private transient final List<LobbyListener> lobbyListeners;
     /**
      * users are the User contained in the Lobby
      */
     List<User> users;
 
     public Lobby() {
+        lobbyListeners = new LinkedList<>();
         this.users = new ArrayList<>();
     }
 
@@ -87,5 +90,11 @@ public class Lobby {
             toReturn.add(u.getPlayer().getName());
         }
         return toReturn;
+    }
+
+    /****************************+ Lobby Observable interface ********************************************/
+    @Override
+    public void attach(LobbyListener ls) {
+        lobbyListeners.add(ls);
     }
 }

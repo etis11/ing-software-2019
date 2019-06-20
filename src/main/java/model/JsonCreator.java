@@ -28,23 +28,8 @@ public class JsonCreator implements ChangesObserver, CreationGameObserver, Lobby
         if (prettyPrinting) gb.setPrettyPrinting();
         gson = gb.create();
 
-    }
+        response = new CommandResponse();
 
-    public JsonCreator(GameManager gm) {
-        GsonBuilder gb = new GsonBuilder();
-        gb.registerTypeAdapter(BloodToken.class, new BloodTokenSerializer());
-        gb.registerTypeAdapter(PlayerBoard.class, new PlayerBoardSerializer());
-        playerSerializer = new PlayerSerializer();
-        gb.registerTypeAdapter(Player.class, playerSerializer);
-        gb.registerTypeAdapter(Tile.class, new TileSerializer());
-        weaponCardSerializer = new WeaponCardSerializer();
-        weaponCardSerializer.setPlayerModeTrue();
-        weaponCardSerializer.setCurrentPlayer(null);
-        gb.registerTypeAdapter(WeaponCard.class, weaponCardSerializer);
-        if (prettyPrinting) gb.setPrettyPrinting();
-        gson = gb.create();
-
-        response = new CommandResponse(gm.getMatch().getPlayers(), gm.getMatch().getMap().mapAsList());
     }
 
 

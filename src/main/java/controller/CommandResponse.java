@@ -10,10 +10,8 @@ public class CommandResponse  extends AbstractCommandResponse{
     private  List<Player> changedPlayers;
     private  List<Tile> allTiles;
 
-    public CommandResponse(List<Player> allPlayers, List<Tile> allTiles){
+    public CommandResponse(){
         super();
-        this.allPlayers = allPlayers;
-        this.allTiles = allTiles;
         changedPlayers = new LinkedList<>();
     }
 

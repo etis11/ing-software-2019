@@ -30,7 +30,7 @@ public class CommandExecutor {
 
     public void execute(AskEndTurnCommand command) throws IOException {
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        boolean gameHasStarted = gameManager.isMatchStarted();
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (gameHasStarted) {
@@ -62,7 +62,7 @@ public class CommandExecutor {
 
     public void execute(AskPickCommand command) throws IOException {
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        boolean gameHasStarted = gameManager.isMatchStarted();
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (gameHasStarted) {
@@ -95,7 +95,7 @@ public class CommandExecutor {
 
     public void execute(AskReloadCommand command) throws IOException {
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        boolean gameHasStarted = gameManager.isMatchStarted();
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (gameHasStarted) {
@@ -132,7 +132,7 @@ public class CommandExecutor {
     }
 
     public void execute(AskPointsCommand command) throws IOException {
-        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        boolean gameHasStarted = gameManager.isMatchStarted();
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (gameHasStarted) {
@@ -148,7 +148,7 @@ public class CommandExecutor {
 
     public void execute(AskShootCommand command) throws IOException {
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        boolean gameHasStarted = gameManager.isMatchStarted();
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (gameHasStarted) {
@@ -187,7 +187,7 @@ public class CommandExecutor {
 
     public void execute(AskUsePowerUpCommand command) throws IOException {
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        boolean gameHasStarted = gameManager.isMatchStarted();
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (gameHasStarted) {
@@ -213,7 +213,7 @@ public class CommandExecutor {
 
     public void execute(AskWalkCommand command) throws IOException {
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        boolean gameHasStarted = gameManager.isMatchStarted();
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (gameHasStarted) {
@@ -244,7 +244,7 @@ public class CommandExecutor {
 
     public void execute(MoveCommand command) throws IOException {
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        boolean gameHasStarted = gameManager.isMatchStarted();
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (gameHasStarted) {
@@ -284,7 +284,7 @@ public class CommandExecutor {
 
     public void execute(PickUpCommand command) throws IOException {
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        boolean gameHasStarted = gameManager.isMatchStarted();
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (gameHasStarted) {
@@ -402,7 +402,7 @@ public class CommandExecutor {
 
     public void execute(ReloadCommand command) throws IOException {
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        boolean gameHasStarted = gameManager.isMatchStarted();
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (gameHasStarted) {
@@ -445,7 +445,7 @@ public class CommandExecutor {
     }
 
     public void execute(SetEffectPhraseCommand command) throws IOException {
-        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        boolean gameHasStarted = gameManager.isMatchStarted();
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (!gameHasStarted) {
@@ -471,7 +471,7 @@ public class CommandExecutor {
     }
 
     public void execute(SetNumberOfDeathCommand command) throws IOException {
-        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        boolean gameHasStarted = gameManager.isMatchStarted();
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (!gameHasStarted) {
@@ -504,7 +504,7 @@ public class CommandExecutor {
     }
 
     public void execute(SetPlayerNumberCommand command) throws IOException {
-        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        boolean gameHasStarted = gameManager.isMatchStarted();
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (!gameHasStarted) {
@@ -538,7 +538,7 @@ public class CommandExecutor {
     }
 
     public void execute(SetUsernameCommand command) throws IOException {
-        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        boolean gameHasStarted = gameManager.isMatchStarted();
         List<User> users = gameManager.getLobby().getUsers();
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if the game is started
@@ -571,7 +571,7 @@ public class CommandExecutor {
     }
 
     public void execute(SetTokenCommand command) throws IOException {
-        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        boolean gameHasStarted = gameManager.isMatchStarted();
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (!gameHasStarted) {
@@ -598,7 +598,7 @@ public class CommandExecutor {
     }
 
     public void execute(SetMapCommand command) throws IOException{
-        boolean gameHasStarted = gameManager.getMatch().isStarted();
+        boolean gameHasStarted = gameManager.isMatchStarted();
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (!gameHasStarted) {
