@@ -22,10 +22,10 @@ public class User {
     /**
      * player is the player associate with the user
      */
-    private transient Player player;
+    private Player player;
     //TODO LobbyListener lobbyListener
 
-    private final String stateMachinePath = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+    private transient final String stateMachinePath = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
             + File.separatorChar + "stateMachine" + File.separatorChar + "stateMachine.json";
 
     public User() {

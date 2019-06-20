@@ -18,7 +18,7 @@ public class AskUsePowerUpCommand extends AbstractCommand {
     }
 
     /**
-     * execute the validation of command and notify to views what happen
+     * execute the validation of command and notifyMessage to views what happen
      * (only the player who calls if is not allowed, all if he is allowed)
      */
     @Override

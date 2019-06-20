@@ -82,7 +82,7 @@ public class Lobby  implements  LobbyObservable{
     public User removeUser(User u) {
         if (u == null) throw new IllegalArgumentException("not inserted an user");
         if (users.contains(u)) {
-            //notify to the observers
+            //notifyMessage to the observers
             for (LobbyListener ls: lobbyListeners) {
                 ls.onLeave(u);
             }

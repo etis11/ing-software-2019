@@ -14,13 +14,21 @@ public  abstract class AbstractCommandResponse {
     private boolean mapChanged;
     private String mapName;
     private Lobby lobby;
-    private List<User> join;
-    private List<User> leave;
+    private List<User> joiningUsers;
+    private List<User> leavingUsers;
 
     public AbstractCommandResponse(){
-        join = new LinkedList<>();
-        leave = new LinkedList<>();
+        joiningUsers = new LinkedList<>();
+        leavingUsers = new LinkedList<>();
         mapChanged = false;
+    }
+
+    public List<User> getJoiningUsers() {
+        return joiningUsers;
+    }
+
+    public List<User> getLeavingUsers() {
+        return leavingUsers;
     }
 
     public void resetMessage(){
@@ -86,16 +94,16 @@ public  abstract class AbstractCommandResponse {
     }
 
     public void addJoinedUser(User u){
-        join.remove(u);
-        join.add(u);
+        joiningUsers.remove(u);
+        joiningUsers.add(u);
     }
 
     public void addLeavingUser(User u){
-        leave.remove(u);
-        leave.add(u);
+        leavingUsers.remove(u);
+        leavingUsers.add(u);
     }
 
-    public void resetJoinedUsers(){ join.clear();}
+    public void resetJoinedUsers(){ joiningUsers.clear();}
 
-    public void resetLeavingUsers(){ leave.clear();}
+    public void resetLeavingUsers(){ leavingUsers.clear();}
 }

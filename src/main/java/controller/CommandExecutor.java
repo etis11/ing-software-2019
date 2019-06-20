@@ -314,7 +314,7 @@ public class CommandExecutor {
                             //put the card in the slush pile
                             gameManager.getMatch().getAmmoSlushPile().addCard(ammoCard);
 
-                            //notify
+                            //notifyMessage
                             String message = "Il giocatore attuale ha raccolto una carta munizioni";
                             for (JsonReceiver js : command.getAllReceivers()) {
                                 if (js != userJsonReceiver) {
@@ -550,7 +550,8 @@ public class CommandExecutor {
                     registry.associateReceiverAndUser(userJsonReceiver, user);
                     try {
                         gameManager.getLobby().join(user);
-                        userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Il tuo username è stato accettato"));
+                        String jsonTosend = jsonCreator.createJsonWithMessage("Utene creato. Il tuo nome è " +user.getUsername());
+                        userJsonReceiver.sendJson(jsonTosend);
                     } catch (NotValidActionException e) {
                         e.printStackTrace();
                     }

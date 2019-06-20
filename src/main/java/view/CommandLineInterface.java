@@ -80,7 +80,7 @@ public class CommandLineInterface extends AbstractView  {
     }
 
     /**
-     * Method used to notify all users when the gameMap changes in one of the four maps
+     * Method used to notifyMessage all users when the gameMap changes in one of the four maps
      *
      * @param mappa is the new Gamemap that got chosen as the map to be used during the next gameplay
      **/
@@ -186,17 +186,17 @@ displayText(hash4);
 
 
     /**
-     * Method used to notify all users with a string message
+     * Method used to notifyMessage all users with a string message
      *
-     * @param message is a String tupe needed to notify all users printing out a string
+     * @param message is a String tupe needed to notifyMessage all users printing out a string
      **/
     @Override
-    public void notify(String message) {
+    public void notifyMessage(String message) {
         displayText(message);
     }
 
     /**
-     * Method needed to notify all players whenever a player gets damage
+     * Method needed to notifyMessage all players whenever a player gets damage
      *
      * @param damagePlayer is the player who got damaged
      **/
@@ -225,7 +225,7 @@ displayText(hash4);
     }
 
     /**
-     * Method needed to notify all players whenever a player gets one or more marks
+     * Method needed to notifyMessage all players whenever a player gets one or more marks
      *
      * @param markedPlayer is the player who got one or more marks
      **/
@@ -258,7 +258,7 @@ displayText(hash4);
     }
 
     /**
-     * Method needed to notify all players whenever a player who uses or picks up ammo-s
+     * Method needed to notifyMessage all players whenever a player who uses or picks up ammo-s
      *
      * @param p is the player who used or picked up ammo-s
      **/
@@ -282,7 +282,7 @@ displayText(hash4);
     }
 
     /**
-     * Method needed to notify all players whenever changes number of Poweups in his hand
+     * Method needed to notifyMessage all players whenever changes number of Poweups in his hand
      *
      * @param p is the player who either used or dropped or picked up a PowerUp card
      **/
@@ -353,6 +353,7 @@ displayText(hash4);
             case "Violetta":
                 playercolor = AnsiColor.MAGENTA+"";
                 break;
+            default: throw new RuntimeException("The player name is not correct");
         }
         return playercolor;
     }
