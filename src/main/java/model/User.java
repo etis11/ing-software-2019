@@ -97,7 +97,7 @@ public class User {
      * Creates a player with the given name. Does not control if the name is Dozer, Violetta and so one
      * @param name
      */
-    public void setPlayrByName(String name){
+    public void setPlayerByName(String name){
         player = new Player(name, fromJson(stateMachinePath));
     }
 

@@ -100,6 +100,9 @@ public class Lobby  implements  LobbyObservable{
     public List<String> getNameToken(){
         List<String> toReturn = new ArrayList<>();
         for (User u : users){
+            if(u.getPlayer()==null){
+                u.setPlayerByName("");
+            }
             toReturn.add(u.getPlayer().getName());
         }
         return toReturn;
