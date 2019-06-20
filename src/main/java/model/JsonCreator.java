@@ -7,7 +7,7 @@ import controller.CommandResponse;
 
 import javax.naming.OperationNotSupportedException;
 
-public class JsonCreator implements ChangesObserver {
+public class JsonCreator implements ChangesObserver, StartGameEventObserver {
 
     private boolean prettyPrinting = false;
     private CommandResponse response;
@@ -125,5 +125,12 @@ public class JsonCreator implements ChangesObserver {
     public void notifyPlayerChange(Player p) {
         response.setPlayerChanged(true);
         response.addChangedPlayer(p);
+    }
+
+    /******************* StartGameEventObserver ************************************************************/
+    @Override
+    public void notifyStartedGame(Match m) {
+        response.setAllPlayers(m.getPlayers());
+        response.setAllTiles(m.getMap().mapAsList());
     }
 }

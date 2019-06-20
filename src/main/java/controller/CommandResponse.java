@@ -6,9 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CommandResponse  extends AbstractCommandResponse{
-    private final List<Player> allPlayers;
-    private final List<Player> changedPlayers;
-    private final List<Tile> allTiles;
+    private  List<Player> allPlayers;
+    private  List<Player> changedPlayers;
+    private  List<Tile> allTiles;
 
     public CommandResponse(List<Player> allPlayers, List<Tile> allTiles){
         super();
@@ -32,6 +32,14 @@ public class CommandResponse  extends AbstractCommandResponse{
 
     public List<Player> getChangedPlayers() {
         return changedPlayers;
+    }
+
+    public void setAllPlayers(List<Player> allPlayers) {
+        this.allPlayers = allPlayers;
+    }
+
+    public void setAllTiles(List<Tile> allTiles) {
+        this.allTiles = allTiles;
     }
 
     public List<Tile> getAllTiles() {

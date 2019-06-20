@@ -27,7 +27,7 @@ public class CommandLauncherProvider {
         if (commandLaunchers.size() == 0) createNewGame();
         GameManager currentGameManager = gameManagers.get(currentLauncher);
         //if the current game is started, create a new game
-        if (currentGameManager.getMatch().isStarted()) createNewGame();
+        if (currentGameManager.isMatchStarted()) createNewGame();
         //creates a new game if the lobby is full
         if(currentGameManager.getLobby().getNumOfUsers() >= 5) createNewGame();
         return commandLaunchers.get(currentLauncher);
