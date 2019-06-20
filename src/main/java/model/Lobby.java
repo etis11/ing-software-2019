@@ -11,7 +11,7 @@ public class Lobby {
     /**
      * MAX_PLAYER_IN_LOBBY are the maximum of player allowed in the lobby
      */
-    public static final int MAX_PLAYER_IN_LOBBY = 5;
+    public  transient static final int MAX_PLAYER_IN_LOBBY = 5;
 
     /**
      * users are the User contained in the Lobby

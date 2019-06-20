@@ -4,10 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import jsonparser.*;
 import controller.CommandResponse;
+import view.LobbyListener;
 
-import javax.naming.OperationNotSupportedException;
-
-public class JsonCreator implements ChangesObserver, StartGameEventObserver {
+public class JsonCreator implements ChangesObserver, CreationGameObserver, LobbyListener {
 
     private boolean prettyPrinting = false;
     private CommandResponse response;
@@ -59,6 +58,8 @@ public class JsonCreator implements ChangesObserver, StartGameEventObserver {
         response.resetChangedPlayers();
         response.setPlayerChanged(false);
         response.setMapChanged(false);
+        response.resetJoinedUsers();
+        response.resetLeaveUsers();
         playerSerializer.resetSet();
     }
 
@@ -127,10 +128,27 @@ public class JsonCreator implements ChangesObserver, StartGameEventObserver {
         response.addChangedPlayer(p);
     }
 
-    /******************* StartGameEventObserver ************************************************************/
+    /******************* CreationGameObserver ************************************************************/
     @Override
     public void notifyStartedGame(Match m) {
         response.setAllPlayers(m.getPlayers());
         response.setAllTiles(m.getMap().mapAsList());
+    }
+
+    @Override
+    public void notifyCreatedLobby(Lobby l) {
+        response.setLobby(l);
+    }
+
+    /******************* Lobby listener ************************************************************/
+
+    @Override
+    public void onJoin(User joinedUser) {
+        response.addJoinedUser(joinedUser);
+    }
+
+    @Override
+    public void onLeave(User leavingUser) {
+        response.addLeavingUser(leavingUser);
     }
 }

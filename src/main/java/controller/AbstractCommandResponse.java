@@ -1,5 +1,10 @@
 package controller;
 
+import model.Lobby;
+import model.User;
+
+import java.util.List;
+
 public  abstract class AbstractCommandResponse {
     private String message;
     private boolean errorOccurred;
@@ -7,6 +12,9 @@ public  abstract class AbstractCommandResponse {
     private boolean playerChanged;
     private boolean mapChanged;
     private String mapName;
+    private Lobby lobby;
+    private List<User> join;
+    private List<User> leave;
 
     public AbstractCommandResponse(){
         mapChanged = false;
@@ -65,4 +73,26 @@ public  abstract class AbstractCommandResponse {
     public void setMap(String map) {
         this.mapName = map;
     }
+
+    public Lobby getLobby() {
+        return lobby;
+    }
+
+    public void setLobby(Lobby lobby) {
+        this.lobby = lobby;
+    }
+
+    public void addJoinedUser(User u){
+        join.remove(u);
+        join.add(u);
+    }
+
+    public void addLeavingUser(User u){
+        leave.remove(u);
+        leave.add(u);
+    }
+
+    public void resetJoinedUsers(){ join.clear();}
+
+    public void resetLeavingUsers(){ leave.clear();}
 }

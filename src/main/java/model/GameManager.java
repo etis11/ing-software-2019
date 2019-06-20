@@ -3,7 +3,7 @@ package model;
 import java.util.LinkedList;
 import java.util.List;
 
-public class GameManager implements StartGameEventObservable {
+public class GameManager implements CreationGameObservable {
 
     /**
      * the match where the players are playing / will be playing. Can be null
@@ -30,7 +30,7 @@ public class GameManager implements StartGameEventObservable {
      */
     private final Lobby lobby;
 
-    private List<StartGameEventObserver> startGameObservers;
+    private List<CreationGameObserver> startGameObservers;
 
     /**
      * creates a new lobby. The Match is null, since will be created though a function
@@ -81,12 +81,13 @@ public class GameManager implements StartGameEventObservable {
 
 
     private void notifyAllObservers(){
-        for(StartGameEventObserver s: startGameObservers)
+        for(CreationGameObserver s: startGameObservers)
             s.notifyStartedGame(getMatch());
     }
-    /****************************** StartGameEventObservable Implementation *****************************************/
+    /****************************** CreationGameObservable Implementation *****************************************/
     @Override
-    public void attach(StartGameEventObserver ob) {
+    public void attach(CreationGameObserver ob) {
         startGameObservers.add(ob);
+        ob.notifyCreatedLobby(lobby);
     }
 }
