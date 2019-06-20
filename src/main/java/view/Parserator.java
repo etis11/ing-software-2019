@@ -78,7 +78,7 @@ public class Parserator implements Runnable {
             case "setusername":
                 commandLauncher.addCommand(new SetUsernameCommand(token, param));
                 return;
-            case "setfraseeffeto":
+            case "setfraseeffetto":
                 commandLauncher.addCommand(new SetEffectPhraseCommand(token, param));
                 return;
             case "setuccisioni":
@@ -91,7 +91,7 @@ public class Parserator implements Runnable {
                 commandLauncher.addCommand(new AskPointsCommand(token));
                 return;
             case "setpersonaggio":
-                commandLauncher.addCommand(new SetTokenCommand(token, param));
+                commandLauncher.addCommand(new SetTokenCommand(token, param.toLowerCase()));
                 return;
         }
 

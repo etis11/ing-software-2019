@@ -103,7 +103,7 @@ public class LobbyFrame {
                 info.setVisible(false);
                 if (checkToken("Distruttore")) {
                     try {
-                        cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Distruttore"));
+                        cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "distruttore"));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
@@ -126,7 +126,7 @@ public class LobbyFrame {
                 info.setVisible(false);
                 if (checkToken("Banshee")) {
                     try {
-                        cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Banshee"));
+                        cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "banshee"));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
@@ -149,7 +149,7 @@ public class LobbyFrame {
                 info.setVisible(false);
                 if (checkToken("Dozer")) {
                     try {
-                        cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Dozer"));
+                        cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "dozer"));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
@@ -172,7 +172,7 @@ public class LobbyFrame {
                 info.setVisible(false);
                 if (checkToken("Sprog")) {
                     try {
-                        cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Sprog"));
+                        cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "sprog"));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
@@ -195,7 +195,7 @@ public class LobbyFrame {
                 info.setVisible(false);
                 if (checkToken("Violetta")) {
                     try {
-                        cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "Violetta"));
+                        cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "violetta"));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }

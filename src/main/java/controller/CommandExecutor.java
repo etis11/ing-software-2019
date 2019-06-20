@@ -550,7 +550,7 @@ public class CommandExecutor {
                     registry.associateReceiverAndUser(userJsonReceiver, user);
                     try {
                         gameManager.getLobby().join(user);
-                        String jsonTosend = jsonCreator.createJsonWithMessage("Utene creato. Il tuo nome è " +user.getUsername());
+                        String jsonTosend = jsonCreator.createJsonWithMessage("Utente creato. Il tuo nome è " +user.getUsername());
                         userJsonReceiver.sendJson(jsonTosend);
                         for (JsonReceiver js : command.getAllReceivers()) {
                             if (js != userJsonReceiver) {
@@ -584,13 +584,19 @@ public class CommandExecutor {
             //verify if the user has already been created
             if (registry.getJsonUserOwner(userJsonReceiver) != null) {
                 List<String> usersToken = gameManager.getLobby().getNameToken();
-                //verify if the token is already used
-                if (!usersToken.contains(command.getPlayerToken())) {
-                    Player playerAssociateToUser = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
-                    playerAssociateToUser.setName(command.getPlayerToken());
-                    userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Personaggio modificato in " + command.getPlayerToken()));
-                } else {
-                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Personaggio già scelto"));
+                String userClaimedName = command.getPlayerToken();
+                if (userClaimedName.equals("violetta") || userClaimedName.equals("distruttore") || userClaimedName.equals("banshee") || userClaimedName.equals("dozer") || userClaimedName.equals("sprog")) {
+                    //verify if the token is already used
+                    if (!usersToken.contains(command.getPlayerToken())) {
+                        Player playerAssociateToUser = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
+                        playerAssociateToUser.setName(command.getPlayerToken());
+                        userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Personaggio modificato in " + command.getPlayerToken()));
+                    } else {
+                        userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Personaggio già scelto"));
+                    }
+                }
+                else{
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Personaggio non valido"));
                 }
             }
             else{
