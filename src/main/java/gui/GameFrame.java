@@ -35,10 +35,14 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     final int ammoDimension = 30;
     final int buttonWidth = 100;
+    final int regenDimension = 20;
     private final InputStream pathBackWeapon = getClass().getResourceAsStream("/img/RetroArmi.png");
     private final InputStream pathBackPu = getClass().getResourceAsStream("/img/RetroPu.png");
     private final InputStream pathBackAmmo = getClass().getResourceAsStream("/img/RetroAmmo.png");
     final BackgroundImage weaponBack = new BackgroundImage(new Image(pathBackWeapon, 110, 190, false, true),
+            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+            BackgroundSize.DEFAULT);
+    final BackgroundImage weaponBackRegen = new BackgroundImage(new Image(pathBackWeapon, 70, 120, false, true),
             BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
             BackgroundSize.DEFAULT);
     final BackgroundImage puBack = new BackgroundImage(new Image(pathBackPu, 110, 190, false, true),
@@ -80,6 +84,10 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private Label ammoLabel12;
     private List<Label> ammoList;
 
+    private Label weapon1Br;
+    private Label weapon2Br;
+    private Label weapon3Br;
+
     private Label weapon1;
     private Label weapon2;
     private Label weapon3;
@@ -90,6 +98,10 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private Label blueAmmmo;
     private Label redAmmmo;
     private Label yellowAmmmo;
+
+    private Label blueRegen;
+    private Label redRegen;
+    private Label yellowRegen;
 
     private Circle mark1;
     private Circle mark2;
@@ -113,6 +125,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private List<Circle> damage;
     private List<Circle> mark;
     private List<Circle> token;
+    private List<Label> blueRegenWeapon;
 
     private List<Integer> coorInTileX;
     private List<Integer> coorInTileY;
@@ -596,6 +609,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         bansheeToken.setFill(Color.TEAL);
 
         generateLabelAmmo();
+        generateRegen();
 
         //setting position of pane
         buttonPane.setSpacing(10);
@@ -610,8 +624,6 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
             public void handle(MouseEvent event) {
                  coorX = event.getScreenX();
                  coorY = event.getScreenY();
-                 System.out.println(coorX);
-                 System.out.println(coorY);
             }
         });
 
@@ -632,6 +644,96 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     public void close(){
         stage.close();
+    }
+
+    private void generateLabelAmmo(){
+        ammoLabel1 = new Label();
+        ammoLabel2 = new Label();
+        ammoLabel3 = new Label();
+        ammoLabel4 = new Label();
+        ammoLabel5 = new Label();
+        ammoLabel6 = new Label();
+        ammoLabel7 = new Label();
+        ammoLabel8 = new Label();
+        ammoLabel9 = new Label();
+        ammoLabel10 = new Label();
+        ammoLabel11 = new Label();
+        ammoLabel12 = new Label();
+        ammoList = new ArrayList<>();
+        ammoList.add(ammoLabel1);
+        ammoList.add(ammoLabel2);
+        ammoList.add(ammoLabel3);
+        ammoList.add(ammoLabel4);
+        ammoList.add(ammoLabel5);
+        ammoList.add(ammoLabel6);
+        ammoList.add(ammoLabel7);
+        ammoList.add(ammoLabel8);
+        ammoList.add(ammoLabel9);
+        ammoList.add(ammoLabel10);
+        ammoList.add(ammoLabel11);
+        ammoList.add(ammoLabel12);
+        for (Label l: ammoList){
+            l.setVisible(true);
+            l.setMinHeight(50);
+            l.setMinWidth(50);
+            l.setBorder(border);
+            l.setBackground(new Background(ammoBack));
+            mapPane.getChildren().add(l);
+        }
+        for (int i = 0; i<ammoList.size(); i++){
+            ammoList.get(i).setLayoutY(coorTileY.get(i));
+            ammoList.get(i).setLayoutX(coorTileX.get(i));
+        }
+    }
+
+    private void generateRegen(){
+        blueRegen = new Label();
+        redRegen = new Label();
+        yellowRegen = new Label();
+        weapon1Br = new Label();
+        weapon2Br = new Label();
+        weapon3Br = new Label();
+        blueRegenWeapon = new ArrayList<>(3);
+        blueRegenWeapon.add(weapon1Br);
+        blueRegenWeapon.add(weapon2Br);
+        blueRegenWeapon.add(weapon3Br);
+
+        blueRegen.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        redRegen.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+        yellowRegen.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        blueRegen.setMinWidth(regenDimension);
+        blueRegen.setMinHeight(regenDimension);
+        redRegen.setMinWidth(regenDimension);
+        redRegen.setMinHeight(regenDimension);
+        yellowRegen.setMinWidth(regenDimension);
+        yellowRegen.setMinHeight(regenDimension);
+
+        blueRegen.setLayoutX(605);
+        blueRegen.setLayoutY(70);
+        redRegen.setLayoutX(blueRegen.getLayoutX());
+        redRegen.setLayoutY(blueRegen.getLayoutY()+170);
+        yellowRegen.setLayoutX(blueRegen.getLayoutX());
+        yellowRegen.setLayoutY(redRegen.getLayoutY()+170);
+
+        for (Label l:blueRegenWeapon){
+            l.setVisible(true);
+            l.setBorder(border);
+            l.setLayoutY(30);
+            l.setMinWidth(70);
+            l.setMinHeight(120);
+            mapPane.getChildren().add(l);
+        }
+        weapon1Br.setLayoutX(630);
+        weapon2Br.setLayoutX(705);
+        weapon3Br.setLayoutX(780);
+        weapon1Br.setBackground(new Background(new BackgroundImage(new Image(weaponParser("Fucile laser"), 70, 120, false, true),
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT)));
+        mapPane.getChildren().add(blueRegen);
+        mapPane.getChildren().add(redRegen);
+        mapPane.getChildren().add(yellowRegen);
+
     }
 
     private InputStream mapParser(int map) {
@@ -984,45 +1086,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         }
     }
 
-    private void generateLabelAmmo(){
-        ammoLabel1 = new Label();
-        ammoLabel2 = new Label();
-        ammoLabel3 = new Label();
-        ammoLabel4 = new Label();
-        ammoLabel5 = new Label();
-        ammoLabel6 = new Label();
-        ammoLabel7 = new Label();
-        ammoLabel8 = new Label();
-        ammoLabel9 = new Label();
-        ammoLabel10 = new Label();
-        ammoLabel11 = new Label();
-        ammoLabel12 = new Label();
-        ammoList = new ArrayList<>();
-        ammoList.add(ammoLabel1);
-        ammoList.add(ammoLabel2);
-        ammoList.add(ammoLabel3);
-        ammoList.add(ammoLabel4);
-        ammoList.add(ammoLabel5);
-        ammoList.add(ammoLabel6);
-        ammoList.add(ammoLabel7);
-        ammoList.add(ammoLabel8);
-        ammoList.add(ammoLabel9);
-        ammoList.add(ammoLabel10);
-        ammoList.add(ammoLabel11);
-        ammoList.add(ammoLabel12);
-        for (Label l: ammoList){
-            l.setVisible(true);
-            l.setMinHeight(50);
-            l.setMinWidth(50);
-            l.setBorder(border);
-            l.setBackground(new Background(ammoBack));
-            mapPane.getChildren().add(l);
-        }
-        for (int i = 0; i<ammoList.size(); i++){
-            ammoList.get(i).setLayoutY(coorTileY.get(i));
-            ammoList.get(i).setLayoutX(coorTileX.get(i));
-        }
-    }
+
 
     private BackgroundImage ammoParser(int ammoId){
         InputStream pathToBuild;
@@ -1168,7 +1232,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         else if(y>204 && y<364){
             row = 1;
         }
-        else if (y>374){
+        else if (y>374 && y<505){
             row=2;
         }
         else{
