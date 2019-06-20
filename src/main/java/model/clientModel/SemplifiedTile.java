@@ -12,6 +12,11 @@ public class SemplifiedTile {
     private final boolean ammoTile;
     private final boolean weaponTile;
     private List<SemplifiedPlayer> players;
+
+    public void setAmmoCard(AmmoCard ammoCard) {
+        this.ammoCard = ammoCard;
+    }
+
     private AmmoCard ammoCard;
 
     public List<SemplifiedWeaponCard> getWeaponCards() {

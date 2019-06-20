@@ -8,12 +8,15 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * A CommandReceiverSocket is an object placed in the server side of the application that receives a command through the net
  * and add it to a command Launcher. This object should be launched within a thread.
  */
 public class CommandReceiverSocket implements Runnable {
+
+    private static final Logger commandReceiverSocketLogger = Logger.getLogger(CommandReceiverSocket.class.getName());
     /**
      * The socket that is sending commands
      */
@@ -44,10 +47,10 @@ public class CommandReceiverSocket implements Runnable {
     @Override
     public void run() {
         while (!stop) {
-            System.out.println(">>> Waiting for next command from " + clientSocket + ".");
+            commandReceiverSocketLogger.log(Level.FINE, ">>> Waiting for next command from " + clientSocket + ".");
             Command c = readCommand();
             if (c != null) {
-                System.out.println(">>> Received command from " + clientSocket + ". Adding it to the launcher");
+                commandReceiverSocketLogger.log(Level.FINE, ">>> Received command from " + clientSocket + ". Adding it to the launcher");
                 try {
 
                     launcher.addCommand(c);
@@ -56,7 +59,7 @@ public class CommandReceiverSocket implements Runnable {
                 }
             }
         }
-        System.out.println(">>> Stopping receiving from " + clientSocket + ".");
+        commandReceiverSocketLogger.log(Level.INFO, ">>> Stopping receiving from " + clientSocket + ".");
         close();
     }
 
@@ -72,8 +75,8 @@ public class CommandReceiverSocket implements Runnable {
 
         } catch (IOException | ClassNotFoundException ioe) {
             //System.out.println(ioe.getMessage()); printa null
-            System.out.println(">>> The input stream of " + clientSocket + " is not working anymore. The client could have disconnected");
-            //ioe.printStackTrace();
+            commandReceiverSocketLogger.log(Level.WARNING, ">>> The input stream of " + clientSocket +
+                    " is not working anymore. The client could have disconnected");
             stopReceiving();
         }
         return c;

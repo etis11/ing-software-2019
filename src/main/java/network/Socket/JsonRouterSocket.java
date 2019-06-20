@@ -49,7 +49,6 @@ public class JsonRouterSocket implements Runnable {
             try {
                 String changes = in.nextLine();
                 receiver.sendJson(changes);
-
             } catch (IOException e) {
                 stop();
                 throw new RuntimeException(e.getMessage());

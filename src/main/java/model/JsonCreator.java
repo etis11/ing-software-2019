@@ -4,10 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import jsonparser.*;
 import controller.CommandResponse;
+import view.LobbyListener;
 
-import javax.naming.OperationNotSupportedException;
-
-public class JsonCreator implements ChangesObserver {
+public class JsonCreator implements ChangesObserver, CreationGameObserver, LobbyListener {
 
     private boolean prettyPrinting = false;
     private CommandResponse response;
@@ -29,23 +28,8 @@ public class JsonCreator implements ChangesObserver {
         if (prettyPrinting) gb.setPrettyPrinting();
         gson = gb.create();
 
-    }
+        response = new CommandResponse();
 
-    public JsonCreator(GameManager gm) {
-        GsonBuilder gb = new GsonBuilder();
-        gb.registerTypeAdapter(BloodToken.class, new BloodTokenSerializer());
-        gb.registerTypeAdapter(PlayerBoard.class, new PlayerBoardSerializer());
-        playerSerializer = new PlayerSerializer();
-        gb.registerTypeAdapter(Player.class, playerSerializer);
-        gb.registerTypeAdapter(Tile.class, new TileSerializer());
-        weaponCardSerializer = new WeaponCardSerializer();
-        weaponCardSerializer.setPlayerModeTrue();
-        weaponCardSerializer.setCurrentPlayer(null);
-        gb.registerTypeAdapter(WeaponCard.class, weaponCardSerializer);
-        if (prettyPrinting) gb.setPrettyPrinting();
-        gson = gb.create();
-
-        response = new CommandResponse(gm.getMatch().getPlayers(), gm.getMatch().getMap().mapAsList());
     }
 
 
@@ -59,6 +43,8 @@ public class JsonCreator implements ChangesObserver {
         response.resetChangedPlayers();
         response.setPlayerChanged(false);
         response.setMapChanged(false);
+        response.resetJoinedUsers();
+        response.resetLeavingUsers();
         playerSerializer.resetSet();
     }
 
@@ -125,5 +111,29 @@ public class JsonCreator implements ChangesObserver {
     public void notifyPlayerChange(Player p) {
         response.setPlayerChanged(true);
         response.addChangedPlayer(p);
+    }
+
+    /******************* CreationGameObserver ************************************************************/
+    @Override
+    public void notifyStartedGame(Match m) {
+        response.setAllPlayers(m.getPlayers());
+        response.setAllTiles(m.getMap().mapAsList());
+    }
+
+    @Override
+    public void notifyCreatedLobby(Lobby l) {
+        response.setLobby(l);
+    }
+
+    /******************* Lobby listener ************************************************************/
+
+    @Override
+    public void onJoin(User joinedUser) {
+        response.addJoinedUser(joinedUser);
+    }
+
+    @Override
+    public void onLeave(User leavingUser) {
+        response.addLeavingUser(leavingUser);
     }
 }

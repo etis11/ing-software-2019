@@ -20,7 +20,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 public class CLILauncher {
 
-    private static JsonReceiver receiver;
+    private static JsonUnwrapper receiver;
     private static CommandLineInterface CLI;
 
     public static void main(String[] args) throws IOException {
@@ -62,7 +62,7 @@ public class CLILauncher {
         }
         else if(connectionType.equals("socket")){
             Socket mySocket;
-            JsonRouterSocket jsonSocketReceiver;
+            JsonRouterSocket jsonSocketReceiver = null;
             try{
                 mySocket = new Socket("localhost", 8000);
                 BufferedReader input = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
@@ -83,6 +83,11 @@ public class CLILauncher {
             catch (IOException i){
                 CLI.displayText(AnsiColor.RED + ">>> Problemi con il socket" + AnsiColor.RESET);
             }
+            receiver.attachMapObserver(CLI);
+            receiver.attachMessageListener(CLI);
+            receiver.attachPlayerObserver(CLI);
+            if (jsonSocketReceiver == null) throw new RuntimeException("the json socket receiver is null");
+            new Thread(jsonSocketReceiver).start();
             startCLI(CLI, cmdLauncher);
         }
         else{

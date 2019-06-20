@@ -1,0 +1,17 @@
+1) creazione server e server rmi
+2) richiesta ad un commad launcher provider
+3) creazione di un nuovo game. Il match non lo istanzio, instanzio solo un game manager e un json creator
+   game manager a) per adesso crea una lobby.
+                b) match vuoto (senza mappa, senza players).
+
+   json creator a) ora come ora la sua creazione dipende dalla presenza di un game manager
+                b) dal game manager ottengo la lobby ( lei è già instanziata)
+                c) dal game manager ottengo il match. Qui sorge un problema perchè
+                il match è un guscio vuoto. La mappa è null (e non ha senso pre-caricarla)
+                e la lista di player è vuota.
+                Mia opinione è mettere tutte le informazioni di creazione del match all'interno
+                del game manager (numero di uccisione, mappa) che vengono poi settate dall'utente.
+                Alla fine arriverà comando di start partita (un giocatore vuole inizare / il server capisce che
+                è scaduto un time out e genera il comando aggiungendolo nella coda del command launcher) e
+                il match viene creato e settato a partire da questi parametri.
+                

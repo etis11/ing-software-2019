@@ -1,14 +1,34 @@
 package controller;
 
+import model.Lobby;
+import model.User;
+
+import java.util.LinkedList;
+import java.util.List;
+
 public  abstract class AbstractCommandResponse {
     private String message;
     private boolean errorOccurred;
     private String error;
     private boolean playerChanged;
     private boolean mapChanged;
+    private String mapName;
+    private Lobby lobby;
+    private List<User> joiningUsers;
+    private List<User> leavingUsers;
 
     public AbstractCommandResponse(){
+        joiningUsers = new LinkedList<>();
+        leavingUsers = new LinkedList<>();
         mapChanged = false;
+    }
+
+    public List<User> getJoiningUsers() {
+        return joiningUsers;
+    }
+
+    public List<User> getLeavingUsers() {
+        return leavingUsers;
     }
 
     public void resetMessage(){
@@ -56,4 +76,34 @@ public  abstract class AbstractCommandResponse {
         return mapChanged;
     }
 
+
+    public String getMapName() {
+        return mapName;
+    }
+
+    public void setMap(String map) {
+        this.mapName = map;
+    }
+
+    public Lobby getLobby() {
+        return lobby;
+    }
+
+    public void setLobby(Lobby lobby) {
+        this.lobby = lobby;
+    }
+
+    public void addJoinedUser(User u){
+        joiningUsers.remove(u);
+        joiningUsers.add(u);
+    }
+
+    public void addLeavingUser(User u){
+        leavingUsers.remove(u);
+        leavingUsers.add(u);
+    }
+
+    public void resetJoinedUsers(){ joiningUsers.clear();}
+
+    public void resetLeavingUsers(){ leavingUsers.clear();}
 }

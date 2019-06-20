@@ -27,16 +27,21 @@ public class CommandLauncherProvider {
         if (commandLaunchers.size() == 0) createNewGame();
         GameManager currentGameManager = gameManagers.get(currentLauncher);
         //if the current game is started, create a new game
-        if (currentGameManager.getMatch().isStarted()) createNewGame();
+        if (currentGameManager.isMatchStarted()) createNewGame();
         //creates a new game if the lobby is full
         if(currentGameManager.getLobby().getNumOfUsers() >= 5) createNewGame();
         return commandLaunchers.get(currentLauncher);
     }
 
     private void createNewGame() throws RemoteException {
-        //creates a lobby
+        //creates a game with a lobby but without a match
         GameManager gameManager = new GameManager();
+        //creates a json creator
         JsonCreator jsonCreator = new JsonCreator();
+        //the json creator need the information about the lobby, so it need to be attached to the game manager.
+        //The json creator is also interested on the start match event
+        gameManager.attach(jsonCreator);
+        gameManager.attachObserverToLobby(jsonCreator);
         CommandLauncher launcher = new CommandLauncher(gameManager, jsonCreator);
         commandLaunchers.add(launcher);
         gameManagers.add(gameManager);

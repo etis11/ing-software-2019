@@ -815,7 +815,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     }
 
     @Override
-    public void notify(String message) {
+    public void notifyMessage(String message) {
         infoGame.appendText(message+"\n");
     }
 

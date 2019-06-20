@@ -1,24 +1,31 @@
 package model;
 
 import exceptions.NotValidActionException;
+import view.LobbyListener;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class Lobby {
+public class Lobby  implements  LobbyObservable{
+
+    private static final Logger lobbyLogger = Logger.getLogger(Lobby.class.getName());
 
     /**
      * MAX_PLAYER_IN_LOBBY are the maximum of player allowed in the lobby
      */
-    public static final int MAX_PLAYER_IN_LOBBY = 5;
+    public  transient static final int MAX_PLAYER_IN_LOBBY = 5;
 
+    private transient final List<LobbyListener> lobbyListeners;
     /**
      * users are the User contained in the Lobby
      */
     List<User> users;
 
     public Lobby() {
+        lobbyListeners = new LinkedList<>();
         this.users = new ArrayList<>();
     }
 
@@ -51,6 +58,10 @@ public class Lobby {
             throw new NotValidActionException("Lobby full");
         }
         users.add(u);
+        for (LobbyListener ls: lobbyListeners) {
+            ls.onJoin(u);
+        }
+        lobbyLogger.log(Level.INFO, "The user "+ u.getUsername() +" joined the lobby");
     }
 
     /**
@@ -71,6 +82,11 @@ public class Lobby {
     public User removeUser(User u) {
         if (u == null) throw new IllegalArgumentException("not inserted an user");
         if (users.contains(u)) {
+            //notifyMessage to the observers
+            for (LobbyListener ls: lobbyListeners) {
+                ls.onLeave(u);
+            }
+            lobbyLogger.log(Level.INFO, "The user "+ u.getUsername() +" left the lobby");
             return users.remove(users.indexOf(u));
         } else {
             return null;
@@ -87,5 +103,11 @@ public class Lobby {
             toReturn.add(u.getPlayer().getName());
         }
         return toReturn;
+    }
+
+    /****************************+ Lobby Observable interface ********************************************/
+    @Override
+    public void attach(LobbyListener ls) {
+        lobbyListeners.add(ls);
     }
 }

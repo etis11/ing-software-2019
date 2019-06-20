@@ -7,4 +7,5 @@ public interface LobbyListener {
     void onJoin(User joinedUser);
 
     void onLeave(User leavingUser);
+    
 }
