@@ -3,8 +3,8 @@ package controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import jsonparser.semplifiedParser.SemplifiedPlayerDeserializer;
-import model.Lobby;
 import model.LobbyObservable;
+import model.Player;
 import model.User;
 import model.clientModel.SemplifiedGame;
 import model.clientModel.SemplifiedMap;
@@ -75,21 +75,33 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
 
     @Override
     public void sendJson(String changes) {
+
         CommandResponseClient response = gson.fromJson(changes, CommandResponseClient.class);
         String message = response.getMessage();
-        if(response != null) notifyAllMessageListeners(message);
-        notifyAllMessageListeners(response.getError());
+        if(message!= null)
+            notifyAllMessageListeners(message);
+
+        String error = response.getError();
+        if (error != null)
+            notifyAllMessageListeners(error);
+
         SemplifiedMap map = game.getMap();
         if(response.getAllTiles() != null)
             map.updateTiles(response.getAllTiles());
-        //sono le stesse
-        if(response.isMapChanged()) notifyAllMapObservers(game.getMap());
+
+        if(response.isMapChanged())
+            notifyAllMapObservers(game.getMap());
         if(response.getAllPlayers() != null){
             game.setPlayers(response.getAllPlayers());
         }
-        if(response.arePlayersChanged()){
 
+
+        if(response.arePlayersChanged()){
+            List<SemplifiedPlayer> changedPlayers = response.getChangedPlayers();
+            for(SemplifiedPlayer p: changedPlayers)
+                notifyAllPlayerObserver(p);
         }
+
         if (response.getJoiningUsers() != null){
             for(User u: response.getJoiningUsers()){
                 notifyAllLobbyJoinListeners(u);
