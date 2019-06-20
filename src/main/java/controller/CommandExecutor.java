@@ -29,10 +29,10 @@ public class CommandExecutor {
 
 
     public void execute(AskEndTurnCommand command) throws IOException {
-        Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (hasMatchStarted(gameManager)) {
+            Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
             Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
             //verify if the owner is the current player
             if (owner != currentPlayer) {
@@ -60,11 +60,11 @@ public class CommandExecutor {
     }
 
     public void execute(AskPickCommand command) throws IOException {
-        Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (gameHasStarted) {
+            Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
             Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
             //verify if the owner is the current player
             if (owner != currentPlayer) {
@@ -93,11 +93,11 @@ public class CommandExecutor {
     }
 
     public void execute(AskReloadCommand command) throws IOException {
-        Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (gameHasStarted) {
+            Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
             Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
             //verify if the owner is the current player
             if (owner != currentPlayer) {
@@ -146,11 +146,11 @@ public class CommandExecutor {
     }
 
     public void execute(AskShootCommand command) throws IOException {
-        Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (gameHasStarted) {
+            Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
             Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
             //verify if the owner is the current player
             if (owner != currentPlayer) {
@@ -185,11 +185,11 @@ public class CommandExecutor {
     }
 
     public void execute(AskUsePowerUpCommand command) throws IOException {
-        Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (gameHasStarted) {
+            Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
             Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
             //verify if the owner can use powerup
             if (!owner.getState().canUsePowerUp() || owner.getPowerUps().isEmpty()) {
@@ -211,11 +211,11 @@ public class CommandExecutor {
     }
 
     public void execute(AskWalkCommand command) throws IOException {
-        Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (gameHasStarted) {
+            Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
             Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
             //verify if the owner is the current player
             if (owner != currentPlayer) {
@@ -242,11 +242,11 @@ public class CommandExecutor {
     }
 
     public void execute(MoveCommand command) throws IOException {
-        Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (gameHasStarted) {
+            Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
             Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
             //verify if the owner is the current player
             if (owner != currentPlayer) {
@@ -282,11 +282,11 @@ public class CommandExecutor {
     }
 
     public void execute(PickUpCommand command) throws IOException {
-        Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (gameHasStarted) {
+            Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
             Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
             //verify if the owner is the current player
             if (owner != currentPlayer) {
@@ -400,11 +400,11 @@ public class CommandExecutor {
     }
 
     public void execute(ReloadCommand command) throws IOException {
-        Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
         if (gameHasStarted) {
+            Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
             Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
             //verify if the owner is the current player
             if (owner != currentPlayer) {
@@ -481,7 +481,7 @@ public class CommandExecutor {
                 User owner = registry.getJsonUserOwner(userJsonReceiver);
                 //verify target of death and if the owner is the first user of the lobby
                 if (numOfDeathWanted < 9 && numOfDeathWanted > 4 && firstLobbyUser == owner) {
-                    gameManager.getMatch().setSkulls(numOfDeathWanted);
+                    gameManager.setNumOfSkulls(numOfDeathWanted);
                     for (JsonReceiver js : command.getAllReceivers()) {
                         js.sendJson(jsonCreator.createJsonWithMessage("Il numero di uccisioni per la partita è stato cambiato a: " + command.getDeath()));
                     }

@@ -52,6 +52,10 @@ public class GameManager implements CreationGameObservable {
         return lobby;
     }
 
+    public void setNumOfSkulls(int numOfSkulls) {
+        this.numOfSkulls = numOfSkulls;
+    }
+
     public void createMatch(){
         //gets all the players from the users and puts them in a list
         //creates a map from the json path
