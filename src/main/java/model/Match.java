@@ -77,6 +77,14 @@ public class Match {
         this.started = false;
     }
 
+    public Match(List<Player> players, int numOfSkulls, GameMap map){
+        this.playerNumber = players.size();
+        this.skulls = numOfSkulls;
+        this.map = map;
+        this.players = players;
+        currentPlayer = 0;
+    }
+
     /**
      * return if the match is started
      *
