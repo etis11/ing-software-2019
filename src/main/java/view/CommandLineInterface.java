@@ -327,6 +327,7 @@ displayText(hash4);
      **/
     public void displayText(String text) {
         consoleOutput.println(text);
+        consoleOutput.flush();
     }
 
     @Override
