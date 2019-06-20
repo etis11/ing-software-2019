@@ -60,7 +60,7 @@ public class CommandLauncher implements CommandLauncherInterface {
         while (!stop) {
             try {
                 takenCommand = commandQueue.take();
-                commandLauncherLogger.log(Level.INFO, ">>> Command extracted");
+                commandLauncherLogger.log(Level.INFO, ">>> " + takenCommand.getClass() + " extracted");
                 String token = takenCommand.getToken();
                 JsonReceiver clientReceiver = TokenRegistry.getInstance().getJsonReceiver(token);
                 takenCommand.setJsonReceiver(clientReceiver);
