@@ -616,12 +616,12 @@ public class CommandExecutor {
         if (!gameHasStarted) {
             //verify if the user has already been created
             if (registry.getJsonUserOwner(userJsonReceiver) != null) {
-                int numMapWanted = command.getMap();
+                String mapWanted = command.getMap();
                 User firstLobbyUser = gameManager.getLobby().getUsers().get(0);
                 User owner = registry.getJsonUserOwner(userJsonReceiver);
                 //verify if the owner is the first user of the lobby
                 if (firstLobbyUser == owner) {
-                    //TODO set the map
+                    gameManager.setMap(mapWanted);
                     for (JsonReceiver jr : command.getAllReceivers()) {
                         jr.sendJson(jsonCreator.createJsonWithMessage("La mappa per la partita è stata cambiata"));
                     }

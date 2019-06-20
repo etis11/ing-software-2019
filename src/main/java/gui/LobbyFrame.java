@@ -80,7 +80,7 @@ public class LobbyFrame {
         comboBox.getSelectionModel().select(0);
         comboBox.valueProperty().addListener((ObservableValue observable, Object oldValue, Object newValue) -> {
             try {
-                cmdLauncher.addCommand(new SetMapCommand(ClientSingleton.getInstance().getToken(), Integer.parseInt(newValue.toString())));
+                cmdLauncher.addCommand(new SetMapCommand(ClientSingleton.getInstance().getToken(), mapParser(Integer.parseInt(newValue.toString()))));
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
@@ -364,5 +364,20 @@ public class LobbyFrame {
     private boolean checkToken(String name) {
         //TODO implements control
         return false;
+    }
+
+    private String mapParser(int map){
+        switch (map){
+            case 1:
+                return "small";
+            case 2:
+                return "medium";
+            case 3:
+                return "big";
+            case 4:
+                return "extra";
+            default:
+                return "small";
+        }
     }
 }

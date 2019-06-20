@@ -42,6 +42,7 @@ public class GameManager implements CreationGameObservable {
         this.lobby = new Lobby();
         started = false;
         startGameObservers = new LinkedList<>();
+        numOfSkulls = 8;
     }
 
     public Match getMatch() {
@@ -54,6 +55,10 @@ public class GameManager implements CreationGameObservable {
 
     public void setNumOfSkulls(int numOfSkulls) {
         this.numOfSkulls = numOfSkulls;
+    }
+
+    public void setMap(String map){
+        this.map = map;
     }
 
     public void createMatch(){

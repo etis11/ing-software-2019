@@ -7,11 +7,11 @@ import java.io.IOException;
 public class SetMapCommand extends AbstractCommand {
 
     /*
-    index representig the map choosen
+    string representig the map choosen
      */
-    int map;
+    String map;
 
-    public SetMapCommand(String token, int map) {
+    public SetMapCommand(String token, String map) {
         super(token);
         this.map = map;
     }
@@ -27,7 +27,7 @@ public class SetMapCommand extends AbstractCommand {
     }
 
 
-    public int getMap(){
+    public String getMap(){
         return map;
     }
 
