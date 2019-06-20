@@ -542,7 +542,7 @@ public class CommandExecutor {
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if the game is started
         if (!gameHasStarted) {
-            //verify if the username has already used
+            //verify if the username is already used
             if (!registry.usernameAlreadyPresent(command.getUsername())) {
                 //verify if the user has already been created
                 if (registry.getJsonUserOwner(userJsonReceiver)== null){
@@ -550,21 +550,22 @@ public class CommandExecutor {
                     registry.associateReceiverAndUser(userJsonReceiver, user);
                     try {
                         gameManager.getLobby().join(user);
+                        userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Il tuo username è stato accettato"));
                     } catch (NotValidActionException e) {
                         e.printStackTrace();
                     }
                 }
                 else if (users.contains(registry.getJsonUserOwner(command.getJsonReceiver()))) {
                     registry.getJsonUserOwner(command.getJsonReceiver()).setUsername(command.getUsername());
-                        command.getJsonReceiver().sendJson(jsonCreator.createJsonWithMessage("Il tuo username è stato modificato in: " + command.getUsername()));
+                        userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Il tuo username è stato modificato in: " + command.getUsername()));
                 }
             }
             else{
-                command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("username già presente"));
+                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("username già presente"));
             }
         }
         else {
-            command.getJsonReceiver().sendJson(jsonCreator.createJsonWithError("Non puoi modificare il tuo username perchè la partita è già iniziata"));
+            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi modificare il tuo username perchè la partita è già iniziata"));
         }
         jsonCreator.reset();
     }
