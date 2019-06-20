@@ -54,6 +54,9 @@ public class Lobby  implements  LobbyObservable{
             throw new NotValidActionException("Lobby full");
         }
         users.add(u);
+        for (LobbyListener ls: lobbyListeners) {
+            ls.onJoin(u);
+        }
     }
 
     /**
@@ -74,6 +77,10 @@ public class Lobby  implements  LobbyObservable{
     public User removeUser(User u) {
         if (u == null) throw new IllegalArgumentException("not inserted an user");
         if (users.contains(u)) {
+            //notify to the observers
+            for (LobbyListener ls: lobbyListeners) {
+                ls.onLeave(u);
+            }
             return users.remove(users.indexOf(u));
         } else {
             return null;
