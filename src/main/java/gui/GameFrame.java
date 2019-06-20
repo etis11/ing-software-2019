@@ -610,6 +610,8 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
             public void handle(MouseEvent event) {
                  coorX = event.getScreenX();
                  coorY = event.getScreenY();
+                 System.out.println(coorX);
+                 System.out.println(coorY);
             }
         });
 
@@ -1140,6 +1142,28 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         return new BackgroundImage(new Image(pathToBuild, 50, 50, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
+    }
+
+    private int tileParser(double x, double y){
+        int col;
+        int row;
+        if(x>350 && x<482){
+            col = 0;
+        }
+        else  if(x>502 && x<631){
+            col = 1;
+        }
+        else  if(x>651 && x<780){
+            col = 2;
+        }
+        else if(x>800 && x<950){
+            col = 3;
+        }
+        else{
+            col = 0;
+        }
+        row = 0;
+        return row*3+col;
     }
 
 }
