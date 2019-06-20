@@ -1162,8 +1162,19 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         else{
             col = 0;
         }
-        row = 0;
-        return row*3+col;
+        if(y>30 && y<194) {
+            row = 0;
+        }
+        else if(y>204 && y<364){
+            row = 1;
+        }
+        else if (y>374){
+            row=2;
+        }
+        else{
+            row = 0;
+        }
+        return row*4+col;
     }
 
 }

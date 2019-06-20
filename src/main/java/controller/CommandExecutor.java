@@ -552,6 +552,11 @@ public class CommandExecutor {
                         gameManager.getLobby().join(user);
                         String jsonTosend = jsonCreator.createJsonWithMessage("Utene creato. Il tuo nome è " +user.getUsername());
                         userJsonReceiver.sendJson(jsonTosend);
+                        for (JsonReceiver js : command.getAllReceivers()) {
+                            if (js != userJsonReceiver) {
+                                js.sendJson(jsonCreator.createJsonWithMessage("Si è aggiunto un nuovo user alla lobby"));
+                            }
+                        }
                     } catch (NotValidActionException e) {
                         e.printStackTrace();
                     }
