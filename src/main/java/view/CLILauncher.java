@@ -58,6 +58,9 @@ public class CLILauncher {
                 CLI.displayText(r.getMessage());
                 throw new RuntimeException(r);
             }
+            receiver.attachMapObserver(CLI);
+            receiver.attachMessageListener(CLI);
+            receiver.attachPlayerObserver(CLI);
             startCLI(CLI, cmdLauncher);
         }
         else if(connectionType.equals("socket")){
