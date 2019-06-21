@@ -89,7 +89,7 @@ public class Match {
     /**
      * Method that returns number of skulls left during gameplay.
      */
-    public int getSkulls() {
+    public synchronized int getSkulls() {
         return skulls;
     }
 
@@ -97,14 +97,14 @@ public class Match {
      * Method called before gameplay. Used to store the number of skulls before gameplay so that each player
      * before game starting, gets to know how long the game might last and so on.
      */
-    public void setSkulls(int skulls) {
+    public synchronized void setSkulls(int skulls) {
         this.skulls = skulls;
     }
 
     /**
      * Method that returns number of player chosen for the match
      */
-    public int getPlayerNumber() {
+    public synchronized int getPlayerNumber() {
         return playerNumber;
     }
 
@@ -112,7 +112,7 @@ public class Match {
      * Method called before gameplay. Used to store the number of players before gameplay so that each player
      * before game starting, gets to know how many player plays.
      */
-    public void setPlayerNumber(int playerNumber) {
+    public synchronized void setPlayerNumber(int playerNumber) {
         this.playerNumber = playerNumber;
     }
 
@@ -121,7 +121,7 @@ public class Match {
      *
      * @return the current player
      */
-    public Player getCurrentPlayer() {
+    public synchronized Player getCurrentPlayer() {
         return players.get(currentPlayer);
     }
 
@@ -129,7 +129,7 @@ public class Match {
      * As stated above, this method returns the type of map that is going to be used during gameplay. The choice
      * has been made before with its setter
      */
-    public GameMap getMap() {
+    public  synchronized GameMap getMap() {
         return map;
     }
 
@@ -137,7 +137,7 @@ public class Match {
      * Chooses what kind of map to be used during the next game. There are 4 different combinatios.Once chosen,
      * it mustn't change during gameplay
      */
-    public void setMap(GameMap map) {
+    public synchronized void setMap(GameMap map) {
         this.map = map;
     }
 
@@ -145,21 +145,21 @@ public class Match {
     /**
      * This method returns a copy of the list of players that are going to/will play when game starts
      */
-    public List<Player> getPlayers() {
+    public synchronized List<Player> getPlayers() {
         return new LinkedList<>(this.players);
     }
 
     /**
      * Method used to set list of players before game starting.
      */
-    public void setPlayers(List<Player> players) {
+    public synchronized void setPlayers(List<Player> players) {
         this.players = players;
     }
 
     /**
      * Method used to return the deck of PowerUp cards
      */
-    public Deck<PowerUpCard> getPowerUpDeck() {
+    public synchronized Deck<PowerUpCard> getPowerUpDeck() {
         return powerUpDeck;
     }
 
@@ -171,31 +171,31 @@ public class Match {
     /**
      * Method used to return the deck of Weapon cards
      */
-    public Deck<WeaponCard> getWeaponDeck() {
+    public synchronized Deck<WeaponCard> getWeaponDeck() {
         return weaponDeck;
     }
 
     //TODO need to know if this method should be used or not
-    public void setWeaponDeck(Deck<WeaponCard> weaponDeck) {
+    public synchronized void setWeaponDeck(Deck<WeaponCard> weaponDeck) {
         this.weaponDeck = weaponDeck;
     }
 
     /**
      * Method used to return the deck of Ammo cards
      */
-    public Deck<AmmoCard> getAmmoDeck() {
+    public synchronized Deck<AmmoCard> getAmmoDeck() {
         return ammoDeck;
     }
 
     //TODO need to know if this method should be used or not
-    public void setAmmoDeck(Deck<AmmoCard> ammoDeck) {
+    public synchronized void setAmmoDeck(Deck<AmmoCard> ammoDeck) {
         this.ammoDeck = ammoDeck;
     }
 
     /**
      * Method used to return the slush pile of Ammo cards
      */
-    public Deck<AmmoCard> getAmmoSlushPile() {
+    public synchronized Deck<AmmoCard> getAmmoSlushPile() {
         return ammoSlushPile;
     }
 }

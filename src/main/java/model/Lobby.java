@@ -22,7 +22,7 @@ public class Lobby  implements  LobbyObservable{
     /**
      * users are the User contained in the Lobby
      */
-    List<User> users;
+    private final List<User> users;
 
     public Lobby() {
         lobbyListeners = new LinkedList<>();
@@ -48,7 +48,9 @@ public class Lobby  implements  LobbyObservable{
      * @return list of players in the lobby
      */
     public List<User> getUsers() {
-        return new LinkedList<>(users);
+        synchronized (users){
+            return new LinkedList<>(users);
+        }
     }
 
     /**
@@ -58,14 +60,16 @@ public class Lobby  implements  LobbyObservable{
      * @throws Exception thrown if the lobby is already full
      */
     public void join(User u) throws NotValidActionException {
-        if (!canJoin()) {
-            throw new NotValidActionException("Lobby full");
+        synchronized (users){
+            if (!canJoin()) {
+                throw new NotValidActionException("Lobby full");
+            }
+            users.add(u);
+            for (LobbyListener ls: lobbyListeners) {
+                ls.onJoin(u);
+            }
+            lobbyLogger.log(Level.INFO, "The user "+ u.getUsername() +" joined the lobby");
         }
-        users.add(u);
-        for (LobbyListener ls: lobbyListeners) {
-            ls.onJoin(u);
-        }
-        lobbyLogger.log(Level.INFO, "The user "+ u.getUsername() +" joined the lobby");
     }
 
     /**
@@ -74,7 +78,9 @@ public class Lobby  implements  LobbyObservable{
      * @return true if the lobby is not already full, false otherwise
      */
     public boolean canJoin() {
-        return users.size() < maxPlayerInLobby;
+        synchronized (users){
+            return users.size() < maxPlayerInLobby;
+        }
     }
 
     /**
@@ -84,32 +90,38 @@ public class Lobby  implements  LobbyObservable{
      * @return user to be removed
      */
     public User removeUser(User u) {
-        if (u == null) throw new IllegalArgumentException("not inserted an user");
-        if (users.contains(u)) {
-            //notifyMessage to the observers
-            for (LobbyListener ls: lobbyListeners) {
-                ls.onLeave(u);
+        synchronized (users){
+            if (u == null) throw new IllegalArgumentException("not inserted an user");
+            if (users.contains(u)) {
+                //notifyMessage to the observers
+                for (LobbyListener ls: lobbyListeners) {
+                    ls.onLeave(u);
+                }
+                lobbyLogger.log(Level.INFO, "The user "+ u.getUsername() +" left the lobby");
+                return users.remove(users.indexOf(u));
+            } else {
+                return null;
             }
-            lobbyLogger.log(Level.INFO, "The user "+ u.getUsername() +" left the lobby");
-            return users.remove(users.indexOf(u));
-        } else {
-            return null;
         }
     }
 
     public int getNumOfUsers() {
-        return users.size();
+        synchronized (users){
+            return users.size();
+        }
     }
 
     public List<String> getNameToken(){
-        List<String> toReturn = new ArrayList<>();
-        for (User u : users){
-            if(u.getPlayer()==null){
-                u.setPlayerByName("");
+        synchronized (users){
+            List<String> toReturn = new ArrayList<>();
+            for (User u : users){
+                if(u.getPlayer()==null){
+                    u.setPlayerByName("");
+                }
+                toReturn.add(u.getPlayer().getName());
             }
-            toReturn.add(u.getPlayer().getName());
+            return toReturn;
         }
-        return toReturn;
     }
 
     public boolean isFull(){
@@ -119,6 +131,8 @@ public class Lobby  implements  LobbyObservable{
     /****************************+ Lobby Observable interface ********************************************/
     @Override
     public void attach(LobbyListener ls) {
-        lobbyListeners.add(ls);
+        synchronized (lobbyListeners){
+            lobbyListeners.add(ls);
+        }
     }
 }
