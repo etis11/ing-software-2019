@@ -38,6 +38,10 @@ public class Lobby  implements  LobbyObservable{
         return maxPlayerInLobby;
     }
 
+    public void setMaxPlayerInLobby(int maxPlayerInLobby){
+        this.maxPlayerInLobby = maxPlayerInLobby;
+    }
+
     /**
      * give players in the lobby
      *
