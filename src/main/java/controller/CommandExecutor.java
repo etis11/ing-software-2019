@@ -11,6 +11,7 @@ import network.TokenRegistry;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 
 public class CommandExecutor {
     private final TokenRegistry registry = TokenRegistry.getInstance();
@@ -576,10 +577,14 @@ public class CommandExecutor {
 
 
         jsonCreator.reset();
+
         /*
-        * TODO adesso bisogna controllare che la lobby non sia piena. Se è piena, viene creata la partita e vengono fatte
-        * tutte le notifiche ai client
-        * */
+         * TODO adesso bisogna controllare che la lobby non sia piena.
+         * Se è piena controllare i nomi dei player e se mancanti assegnarli.
+         * lanciare un thread con il metodo privato che crea un matchù
+         * new thread( () -> funz).start();
+         * tutte le notifiche ai client
+         * */
     }
 
     public void execute(SetTokenCommand command) throws IOException {
@@ -613,6 +618,11 @@ public class CommandExecutor {
             userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi modificare il tuo personaggio perchè la partita è già iniziata"));
         }
         jsonCreator.reset();
+
+        /*
+         * TODO adesso bisogna controllare che la lobby non sia piena. Se è piena, viene creata la partita e vengono fatte
+         * tutte le notifiche ai client
+         * */
     }
 
     public void execute(SetMapCommand command) throws IOException{
@@ -627,9 +637,9 @@ public class CommandExecutor {
                 User owner = registry.getJsonUserOwner(userJsonReceiver);
                 //verify if the owner is the first user of the lobby
                 if (firstLobbyUser == owner) {
-                    gameManager.setMap(mapWanted);
+                    gameManager.setMapName(mapWanted);
                     for (JsonReceiver jr : command.getAllReceivers()) {
-                        jr.sendJson(jsonCreator.createJsonWithMessage("La mappa per la partita è stata cambiata"));
+                        jr.sendJson(jsonCreator.createJsonWithMessage("La mappa per la partita è stata cambiata in " + gameManager.getMapName() ));
                     }
                 }
                 else {
@@ -645,7 +655,22 @@ public class CommandExecutor {
         jsonCreator.reset();
     }
 
+
     private boolean hasMatchStarted(GameManager gm){
         return gm.isMatchStarted();
+    }
+
+    /**
+     * waits for some seconds and then creates a match and notifies to the receivers
+     * @param receivers the receivers that need to be informed
+     * @throws IOException
+     */
+    private void createMatchRoutine(List<JsonReceiver> receivers) throws IOException{
+        gameManager.createMatch();
+        gameManager.startMatch();
+        for(JsonReceiver jr: receivers ){
+            String json = jsonCreator.createJsonWithMessage("La partita è iniziata");
+            jr.sendJson(json);
+        }
     }
 }

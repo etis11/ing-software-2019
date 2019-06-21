@@ -61,6 +61,10 @@ public class GameManager implements CreationGameObservable {
         this.mapName = map;
     }
 
+    public String getMapName(){
+        return mapName;
+    }
+
     public void createMatch(){
         List<User> users = lobby.getUsers();
         List<Player> players = new LinkedList<>();
@@ -75,7 +79,7 @@ public class GameManager implements CreationGameObservable {
 
     public void startMatch(){
         started = true;
-        //codice che notifica tutti gli observer che il match è stato creato
+        notifyStartGameObservers();
 
     }
 
@@ -117,7 +121,7 @@ public class GameManager implements CreationGameObservable {
     }
 
 
-    private void notifyAllObservers(){
+    private void notifyStartGameObservers(){
         for(CreationGameObserver s: startGameObservers)
             s.notifyStartedGame(getMatch());
     }

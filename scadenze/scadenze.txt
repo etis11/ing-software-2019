@@ -1,11 +1,21 @@
 21 giugno
 
-1) fare la funzione onPlayerCHange (che unisce tutte le altre)
+1) fare la funzione onPlayerChange (che unisce tutte le altre)
 2) risolvere il problema input output della cli
-3) creazione della partita
+3) creazione della partita. Game Manager, lobby e match devono essere sincronizzati
 4) testiamo i comandi walk, pick up
 5) creazione documento specifica sparo
 6) gestione disconnessione
+7) studiare mokito
+
+COSE DA FARE PROSSIMA VOLTA
+1) forzare l'immissione di username e player oscar
+2) gestione disconnessioni
+3) lanciare il thread di ricezione in rmi
+
+COSE DA FARE ADESSO
+1) sincronizare json receiver, game manager, lobby e match
+
 
 ||||||||||||||||||||||||||||||||||
 18 giugno
