@@ -32,7 +32,7 @@ public class LobbyTest {
 
     @Test
     public void maxUser() {
-        assertSame(Lobby.getMaxPlayerInLobby(), 5, "ERROR: wrong costant");
+        assertSame(lobby.getMaxPlayerInLobby(), 5, "ERROR: wrong costant");
     }
 
     @Test
