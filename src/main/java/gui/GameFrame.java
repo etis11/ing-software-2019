@@ -864,6 +864,11 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     }
 
     @Override
+    public void onTypeMapChange(String mapName) {
+
+    }
+
+    @Override
     public void notifyMessage(String message) {
         infoGame.appendText(message+"\n");
     }
