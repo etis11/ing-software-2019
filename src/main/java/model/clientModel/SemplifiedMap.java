@@ -97,7 +97,8 @@ public class SemplifiedMap {
         builder.append("rows: " + map.length + " cols: " + map[0].length + "\n");
         for (SemplifiedTile[] row : map) {
             for (SemplifiedTile tile : row) {
-                builder.append(tile.toString() + "\n");
+                if (tile != null)
+                    builder.append(tile.toString() + "\n");
             }
         }
         return builder.toString();

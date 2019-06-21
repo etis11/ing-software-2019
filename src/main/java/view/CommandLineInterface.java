@@ -6,6 +6,7 @@ import model.User;
 import model.clientModel.*;
 
 import java.io.*;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -89,6 +90,11 @@ public class CommandLineInterface extends AbstractView  {
     @Override
     public void onMapChange(SemplifiedMap mappa) {
 
+        List<SemplifiedPlayer> MannaggiaAQUella = new LinkedList<>();
+        SemplifiedPlayer porcoIlSi = new SemplifiedPlayer();
+        porcoIlSi.setName("dozer");
+        MannaggiaAQUella.add(porcoIlSi);
+        mappa.getTile(2,2).setPlayers(MannaggiaAQUella);
         /*
        Strings declared needed for the map legend. Those are needed to check players position on the map
          */
@@ -125,27 +131,27 @@ public class CommandLineInterface extends AbstractView  {
         String[] p = {p0,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11};
         int k=0;
         int total=0;
-        System.out.println("notify della mappa " + mappa);
         for(int i=0; i<3 ; i++){
             for(int j=0; j<4 ; j++){
-                System.out.println("tile della mappa " + mappa.getTile(i,j));
-                if(mappa.getTile(i,j).getAmmoCard()!=null){
-                    p[mappa.getTile(i,j).getId()]=p[mappa.getTile(i,j).getId()].replaceFirst("    ","AMMO");
-                }
-                total=total+mappa.getTile(i,j).getPlayers().size();
+                SemplifiedTile tile = mappa.getTile(i,j);
+                if(tile != null){
+                    if(mappa.getTile(i,j).getAmmoCard()!=null){
+                        p[mappa.getTile(i,j).getId()]=p[mappa.getTile(i,j).getId()].replaceFirst("    ","AMMO");
+                    }
+                    total=total+mappa.getTile(i,j).getPlayers().size();
 
-                List<SemplifiedPlayer> players = mappa.getTile(i,j).getPlayers();
-           if(!players.isEmpty()){
+                    List<SemplifiedPlayer> players = mappa.getTile(i,j).getPlayers();
+                    if(!players.isEmpty()){
 
-               int l=0;
-                    for(SemplifiedPlayer player : players){
-                        user[k]=playerColor(mappa.getTile(i,j).getPlayers().get(l))+"@"+AnsiColor.RESET+" e' il giocatore "+playerColor(mappa.getTile(i,j).getPlayers().get(l))+player.getName()+ AnsiColor.RESET+" e si trova nel tile: "+ player.getTile();
-                        k++;
-                        l++;
-                        p[player.getTile()] = p[player.getTile()].substring(0, p[player.getTile()].lastIndexOf(" ")) +playerColor(player)+"@"+p[player.getTile()].substring(p[player.getTile()].lastIndexOf(" ")+1);
+                        int l=0;
+                        for(SemplifiedPlayer player : players){
+                            user[k]=playerColor(mappa.getTile(i,j).getPlayers().get(l))+"@"+AnsiColor.RESET+" e' il giocatore "+playerColor(mappa.getTile(i,j).getPlayers().get(l))+player.getName()+ AnsiColor.RESET+" e si trova nel tile: "+ player.getTile();
+                            k++;
+                            l++;
+                            p[player.getTile()] = p[player.getTile()].substring(0, p[player.getTile()].lastIndexOf(" ")) +playerColor(player)+"@"+p[player.getTile()].substring(p[player.getTile()].lastIndexOf(" ")+1);
 
-                       }
-
+                        }
+                    }
                 }
 
             }
@@ -212,8 +218,7 @@ The following 4 strings are the 4 maps.
                 "║"+     p[8]     +"║" + AnsiColor.MAGENTA_BACKGROUND + p[9] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[10] + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + p[11]+ AnsiColor.RESET +"║\t"+"REG TILE: "+mappa.getTile(2,3).getId()+mappa.getTile(2,3).toString()+"\n" +
                 "╚══════════╩══════════╩══════════╩══════════╝";
 
-displayText(hash3);
-        displayText("La posizione dei giocatori sulla mappa è cambiata");
+        displayText(hash1);
     }
 
     @Override
