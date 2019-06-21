@@ -41,9 +41,6 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     final BackgroundImage weaponBack = new BackgroundImage(new Image(pathBackWeapon, 110, 190, false, true),
             BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
             BackgroundSize.DEFAULT);
-    final BackgroundImage weaponBackRegen = new BackgroundImage(new Image(pathBackWeapon, 70, 120, false, true),
-            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-            BackgroundSize.DEFAULT);
     final BackgroundImage puBack = new BackgroundImage(new Image(pathBackPu, 110, 190, false, true),
             BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
             BackgroundSize.DEFAULT);
