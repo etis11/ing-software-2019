@@ -343,15 +343,15 @@ public class LobbyFrame implements MessageListener {
     private String mapParser(int map){
         switch (map){
             case 1:
-                return "small";
+                return "piccola";
             case 2:
-                return "medium";
+                return "media";
             case 3:
-                return "big";
+                return "grande";
             case 4:
-                return "extra";
+                return "estrema";
             default:
-                return "small";
+                return "piccola";
         }
     }
 
