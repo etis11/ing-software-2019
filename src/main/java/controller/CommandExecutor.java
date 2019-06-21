@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 public class CommandExecutor {
     private final TokenRegistry registry = TokenRegistry.getInstance();
     private final static Logger commandExecutorLogger = Logger.getLogger(CommandExecutor.class.getName());
+    private final int seconds = 8;
 
     /**
      * gameManager is a reference to the model due to access to the match and lobby variables
@@ -597,7 +598,7 @@ public class CommandExecutor {
             };
             Timer timer = new Timer();
             commandExecutorLogger.log(Level.INFO, "creazione e inizio del timer");
-            timer.schedule(task, 15000);
+            timer.schedule(task, seconds * 1000);
         }
     }
 

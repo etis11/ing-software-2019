@@ -19,31 +19,50 @@ public class SemplifiedPlayerDeserializer implements JsonDeserializer<Semplified
 
     @Override
     public SemplifiedPlayer deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+
+//        if (!jsonPlayer.has("name") || !jsonPlayer.has("remainingMoves") || !jsonPlayer.has("numWeaponCard")
+//                || !jsonPlayer.has("weaponCards") || !jsonPlayer.has("numPowerUps") || !jsonPlayer.has("powerUps")
+//                || !jsonPlayer.has("tile") || !jsonPlayer.has("playerBoard"))
+//            throw new JsonParseException("This json player doesnt have a name");
+
+        SemplifiedPlayer player;
+        if (jsonElement.isJsonPrimitive()) {
+            final JsonPrimitive primitive = jsonElement.getAsJsonPrimitive();
+            return getOrCreate(primitive.getAsString());
+        }
+
         JsonObject jsonPlayer = jsonElement.getAsJsonObject();
-        if (!jsonPlayer.has("name") || !jsonPlayer.has("remainingMoves") || !jsonPlayer.has("numWeaponCard")
-                || !jsonPlayer.has("weaponCards") || !jsonPlayer.has("numPowerUps") || !jsonPlayer.has("powerUps")
-                || !jsonPlayer.has("tile") || !jsonPlayer.has("playerBoard"))
-            throw new JsonParseException("This json player doesnt have a name");
 
-        SemplifiedPlayer player = new SemplifiedPlayer();
-        player.setRemainingMoves(jsonPlayer.get("remainingMoves").getAsInt());
-        player.setNumWeaponCard(jsonPlayer.get("numWeaponCard").getAsInt());
-        player.setNumPowerUps(jsonPlayer.get("numPowerUps").getAsInt());
-        player.setTile(jsonPlayer.get("tile").getAsInt());
+        player = getOrCreate(jsonPlayer.get("name").getAsString());
 
-        SemplifiedWeaponCard[] weaponCards = jsonDeserializationContext.deserialize(
-                jsonPlayer.getAsJsonArray("weaponCards"), SemplifiedWeaponCard[].class);
-        player.setWeaponCards(weaponCards);
+        if (jsonPlayer.has("remainingMoves"))
+            player.setRemainingMoves(jsonPlayer.get("remainingMoves").getAsInt());
+        if (jsonPlayer.has("numWeaponCard"))
+            player.setNumWeaponCard(jsonPlayer.get("numWeaponCard").getAsInt());
+        if (jsonPlayer.has("numPowerUps"))
+            player.setNumPowerUps(jsonPlayer.get("numPowerUps").getAsInt());
+        if (jsonPlayer.has("tile"))
+            player.setTile(jsonPlayer.get("tile").getAsInt());
+
+        if (jsonPlayer.has("weaponCards")){
+            SemplifiedWeaponCard[] weaponCards = jsonDeserializationContext.deserialize(
+                    jsonPlayer.getAsJsonArray("weaponCards"), SemplifiedWeaponCard[].class);
+            player.setWeaponCards(weaponCards);
+        }
 
         //this could give problems on the gui for order
-        PowerUpCard[] powerUpCards = jsonDeserializationContext.deserialize(
-                jsonPlayer.getAsJsonArray("powerUps"), PowerUpCard[].class);
-        player.setPowerUpCards(powerUpCards);
+        if (jsonPlayer.has("powerUps")){
+            PowerUpCard[] powerUpCards = jsonDeserializationContext.deserialize(
+                    jsonPlayer.getAsJsonArray("powerUps"), PowerUpCard[].class);
+            player.setPowerUpCards(powerUpCards);
+        }
 
-        SemplifiedPlayerBoard playerBoard = jsonDeserializationContext.deserialize(
-                jsonPlayer.get("playerBoard").getAsJsonObject(), SemplifiedPlayerBoard.class);
+        if (jsonPlayer.has("playerBoard")){
+            SemplifiedPlayerBoard playerBoard = jsonDeserializationContext.deserialize(
+                    jsonPlayer.get("playerBoard").getAsJsonObject(), SemplifiedPlayerBoard.class);
+            player.setPlayerBoard(playerBoard);
 
-        player.setPlayerBoard(playerBoard);
+        }
 
         return player;
     }

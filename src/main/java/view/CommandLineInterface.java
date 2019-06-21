@@ -125,8 +125,10 @@ public class CommandLineInterface extends AbstractView  {
         String[] p = {p0,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11};
         int k=0;
         int total=0;
+        System.out.println("notify della mappa " + mappa);
         for(int i=0; i<3 ; i++){
             for(int j=0; j<4 ; j++){
+                System.out.println("tile della mappa " + mappa.getTile(i,j));
                 if(mappa.getTile(i,j).getAmmoCard()!=null){
                     p[mappa.getTile(i,j).getId()]=p[mappa.getTile(i,j).getId()].replaceFirst("    ","AMMO");
                 }

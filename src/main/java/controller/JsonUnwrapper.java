@@ -79,6 +79,7 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
     public void sendJson(String changes) {
 
         CommandResponseClient response = gson.fromJson(changes, CommandResponseClient.class);
+        System.out.println(changes);
         String message = response.getMessage();
         if(message!= null)
             notifyAllMessageListeners(message);
