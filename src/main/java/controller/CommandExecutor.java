@@ -13,9 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CommandExecutor {
     private final TokenRegistry registry = TokenRegistry.getInstance();
+    private final static Logger commandExecutorLogger = Logger.getLogger(CommandExecutor.class.getName());
 
     /**
      * gameManager is a reference to the model due to access to the match and lobby variables
@@ -584,6 +587,7 @@ public class CommandExecutor {
             TimerTask task = new TimerTask(){
                 @Override
                 public void run() {
+                    commandExecutorLogger.log(Level.INFO, "timer iniziato");
                     try {
                         createMatchRoutine(command.getAllReceivers());
                     } catch (IOException e) {
@@ -592,6 +596,7 @@ public class CommandExecutor {
                 }
             };
             Timer timer = new Timer();
+            commandExecutorLogger.log(Level.INFO, "creazione del timer");
             timer.schedule(task, 30000);
         }
     }

@@ -22,7 +22,7 @@ public class GameManager implements CreationGameObservable {
     /**
      * Name of the map
      */
-    private String mapName;
+    private String mapName = "piccola";
 
     /**
      * number of kills that will be set in the math
