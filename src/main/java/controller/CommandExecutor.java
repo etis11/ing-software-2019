@@ -516,7 +516,7 @@ public class CommandExecutor {
                 User owner = registry.getJsonUserOwner(userJsonReceiver);
                 //verify target of number of player and if the owner is the first user of the lobby
                 if (numOfPlayersWanted < 6 && numOfPlayersWanted > 2 && firstLobbyUser == owner) {
-                    gameManager.getMatch().setPlayerNumber(numOfPlayersWanted);
+                    gameManager.getLobby().setMaxPlayerInLobby(numOfPlayersWanted);
                     for (JsonReceiver jr : command.getAllReceivers()) {
                         jr.sendJson(jsonCreator.createJsonWithMessage("Il numero di uccisioni per la partita è stato cambiato a: " + command.getPlayers()));
                     }
@@ -578,7 +578,7 @@ public class CommandExecutor {
 
 
         jsonCreator.reset();
-        
+
         boolean lobbyFull = gameManager.getLobby().isFull();
         if(lobbyFull){
             TimerTask task = new TimerTask(){
