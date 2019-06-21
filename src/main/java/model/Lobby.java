@@ -14,9 +14,9 @@ public class Lobby  implements  LobbyObservable{
     private static final Logger lobbyLogger = Logger.getLogger(Lobby.class.getName());
 
     /**
-     * MAX_PLAYER_IN_LOBBY are the maximum of player allowed in the lobby
+     * maxPlayerInLobby are the maximum of player allowed in the lobby
      */
-    public transient static final int MAX_PLAYER_IN_LOBBY = 3;
+    public transient int maxPlayerInLobby = 3;
 
     private transient final List<LobbyListener> lobbyListeners;
     /**
@@ -34,8 +34,8 @@ public class Lobby  implements  LobbyObservable{
      *
      * @return constant of max player
      */
-    public static int getMaxPlayerInLobby() {
-        return MAX_PLAYER_IN_LOBBY;
+    public int getMaxPlayerInLobby() {
+        return maxPlayerInLobby;
     }
 
     /**
@@ -75,7 +75,7 @@ public class Lobby  implements  LobbyObservable{
      */
     public boolean canJoin() {
         synchronized (users){
-            return users.size() < MAX_PLAYER_IN_LOBBY;
+            return users.size() < maxPlayerInLobby;
         }
     }
 
@@ -118,6 +118,10 @@ public class Lobby  implements  LobbyObservable{
             }
             return toReturn;
         }
+    }
+
+    public boolean isFull(){
+        return getNumOfUsers() == getMaxPlayerInLobby();
     }
 
     /****************************+ Lobby Observable interface ********************************************/
