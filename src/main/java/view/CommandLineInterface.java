@@ -331,9 +331,10 @@ displayText(hash3);
      **/
     public String getUserInputString() throws IOException {
         //       Scanner scanner1 = new Scanner(System.in);
-        consoleOutput.write(AnsiColor.GREEN + ">>> " + AnsiColor.RESET);
+//        consoleOutput.write(AnsiColor.GREEN + ">>> " + AnsiColor.RESET);
         consoleOutput.flush();
         String cc = fromKeyBoard.nextLine();
+        consoleOutput.print(AnsiColor.GREEN + ">>> " + AnsiColor.RESET);
         return cc;
     }
 
@@ -356,7 +357,11 @@ displayText(hash3);
      * Displays text in the CLI to the users/players
      **/
     public void displayText(String text) {
+        if(!text.equals("Scegliere connessione rmi o socket")) {
+            consoleOutput.println();
+        }
         consoleOutput.println(text);
+        consoleOutput.write(AnsiColor.GREEN + ">>> " + AnsiColor.RESET);
         consoleOutput.flush();
     }
 

@@ -587,7 +587,7 @@ public class CommandExecutor {
             TimerTask task = new TimerTask(){
                 @Override
                 public void run() {
-                    commandExecutorLogger.log(Level.INFO, "timer iniziato");
+                    commandExecutorLogger.log(Level.INFO, "timer scaduto");
                     try {
                         createMatchRoutine(command.getAllReceivers());
                     } catch (IOException e) {
@@ -596,7 +596,7 @@ public class CommandExecutor {
                 }
             };
             Timer timer = new Timer();
-            commandExecutorLogger.log(Level.INFO, "creazione del timer");
+            commandExecutorLogger.log(Level.INFO, "creazione e inizio del timer");
             timer.schedule(task, 30000);
         }
     }

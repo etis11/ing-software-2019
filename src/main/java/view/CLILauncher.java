@@ -33,7 +33,7 @@ public class CLILauncher {
         String connectionType = "";
 
         while(!connectionType.equals("rmi") && !connectionType.equals("socket") && !connectionType.equals("locale")){
-            CLI.displayText(">>> Scegliere connessione rmi o socket");
+            CLI.displayText("Scegliere connessione rmi o socket");
             connectionType = CLI.getUserInputString();
         }
         if(connectionType.equals("rmi")){
