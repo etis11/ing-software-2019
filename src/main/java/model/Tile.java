@@ -596,8 +596,8 @@ public class Tile implements ChangesObservable {
      * @param toBePut the weapon that has to be put in the tile
      * @throws Exception the tile is full
      */
-    public void putWeaponCard(WeaponCard toBePut) throws Exception {
-        if (weapons.size() >= 3) throw new Exception("Can't put the weapon in the tile because it's full");
+    public void putWeaponCard(WeaponCard toBePut) {
+        if (weapons.size() >= 3) throw new RuntimeException("Can't put the weapon in the tile because it's full");
         if (toBePut == null) throw new NullPointerException("The argument passed is null");
 
         weapons.add(toBePut);

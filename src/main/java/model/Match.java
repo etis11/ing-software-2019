@@ -86,6 +86,10 @@ public class Match {
         currentPlayer = 0;
     }
 
+    public synchronized void createWeaponDeck(List<WeaponCard> cards){
+        this.weaponDeck = new Deck<>(cards);
+    }
+
     /**
      * Method that returns number of skulls left during gameplay.
      */
