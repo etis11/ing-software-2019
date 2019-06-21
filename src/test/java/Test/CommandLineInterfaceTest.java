@@ -192,7 +192,6 @@ SemplifiedWeaponCard[] weaponsPlayer = new SemplifiedWeaponCard[1];
 
         System.out.println("onMarksChange");
         commandLineInterface.onMarksChange(player);
-        commandLineInterface.onHelp(player);
         //}
     }
 }
