@@ -214,6 +214,11 @@ displayText(hash3);
         displayText("La posizione dei giocatori sulla mappa è cambiata");
     }
 
+    @Override
+    public void onTypeMapChange(String mapName) {
+
+    }
+
 
     /**
      * Method used to notifyMessage all users with a string message
@@ -364,23 +369,25 @@ displayText(hash3);
         String playercolor = "";
         p.getName();
         switch(p.getName()) {
-            case "Dozer":
+            case "dozer":
                 playercolor = AnsiColor.WHITE+"";
                 break;
-            case "Sprog":
+            case "sprog":
                 playercolor = AnsiColor.GREEN+"";
                 break;
-            case "Distruttore":
+            case "distruttore":
                 playercolor = AnsiColor.YELLOW+"";
                 break;
-            case "Banshee":
+            case "banshee":
                 playercolor = AnsiColor.BLUE+"";
                 break;
-            case "Violetta":
+            case "violetta":
                 playercolor = AnsiColor.MAGENTA+"";
                 break;
             default: throw new RuntimeException("The player name is not correct");
         }
         return playercolor;
     }
+
+
 }

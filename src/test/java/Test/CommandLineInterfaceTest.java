@@ -71,13 +71,13 @@ public class CommandLineInterfaceTest {
 
 
                 SemplifiedPlayer player = new SemplifiedPlayer();
-        player.setName("Dozer");
+        player.setName("dozer");
         SemplifiedPlayer player2 = new SemplifiedPlayer();
-        player2.setName("Sprog");
+        player2.setName("sprog");
         SemplifiedPlayer player3 = new SemplifiedPlayer();
-        player3.setName("Banshee");
+        player3.setName("banshee");
         SemplifiedPlayer player4 = new SemplifiedPlayer();
-        player4.setName("Violetta");
+        player4.setName("violetta");
       //  commandLineInterface.onAmmoChange(player);
 //        player.getPlayerBoard().getLoader().askReload(2, 0, 1);
       //  commandLineInterface.onAmmoChange(player);
@@ -192,6 +192,7 @@ SemplifiedWeaponCard[] weaponsPlayer = new SemplifiedWeaponCard[1];
 
         System.out.println("onMarksChange");
         commandLineInterface.onMarksChange(player);
+        commandLineInterface.onHelp(player);
         //}
     }
 }
