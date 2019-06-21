@@ -597,7 +597,7 @@ public class CommandExecutor {
             };
             Timer timer = new Timer();
             commandExecutorLogger.log(Level.INFO, "creazione e inizio del timer");
-            timer.schedule(task, 30000);
+            timer.schedule(task, 15000);
         }
     }
 
@@ -677,9 +677,11 @@ public class CommandExecutor {
     private void createMatchRoutine(List<JsonReceiver> receivers) throws IOException{
         gameManager.createMatch();
         gameManager.startMatch();
+        jsonCreator.notifyTileChange(null);
         for(JsonReceiver jr: receivers ){
             String json = jsonCreator.createJsonWithMessage("La partita è iniziata");
             jr.sendJson(json);
         }
+        jsonCreator.reset();
     }
 }
