@@ -126,33 +126,13 @@ public class CommandLineInterface extends AbstractView  {
                         l++;
                         p[player.getTile()] = p[player.getTile()].substring(0, p[player.getTile()].lastIndexOf(" ")) +playerColor(player)+"@"+p[player.getTile()].substring(p[player.getTile()].lastIndexOf(" ")+1);
 
-                        //System.out.println(user[player.getTile()]);
-                        //user[player.getTile()]="lol";
-                        //System.out.println(user[player.getTile()]);
-                        //user[lol] = playerColor(player)+"@"+AnsiColor.RESET+" e' il giocatore "+playerColor(player)+player.getName()+ AnsiColor.RESET+" e si trova nel tile: "+ player.getTile();
-                    }
+                       }
 
                 }
 
             }
 
         }
-      //System.out.println(lol);
-        //for(int i=0;i<lol;i++){
-          //  user[lol]=playerColor(mappa.getTile().getId())+"@"+AnsiColor.RESET+" e' il giocatore "+playerColor(player)+player.getName()+ AnsiColor.RESET+" e si trova nel tile: "+ player.getTile();
-        //}
-
-        //for(int i=0;i<3;i++){
-          //  for(int j=0;j<4;j++){
-            //    List<SemplifiedPlayer> players = mappa.getTile(i,j).getPlayers();
-               // for(SemplifiedPlayer playerlol : players){
-                    //user[playerlol.getTile()]=playerColor(playerlol)+"@"+AnsiColor.RESET+" e' il giocatore "+playerColor(playerlol)+playerlol.getName()+ AnsiColor.RESET+" e si trova nel tile:"+ playerlol.getTile();
-
-                    //System.out.println(user[i+j]);
-                    //System.out.println(playerColor(playerlol)+"@"+AnsiColor.RESET+" e' il giocatore "+playerColor(playerlol)+playerlol.getName()+ AnsiColor.RESET+" e si trova nel tile:"+ playerlol.getTile());
-              //  }
-            //}
-        //}
 
 
         String hash1 = AnsiColor.WHITE+"╔══════════╦══════════╦══════════╦══════════╗\t\t\t\tLEGGENDA DELLA MAPPA\n" +
@@ -212,15 +192,6 @@ public class CommandLineInterface extends AbstractView  {
                 "╚══════════╩══════════╩══════════╩══════════╝";
 
 displayText(hash3);
-        //TODO da verificare
-//        for (Player player : match.getPlayers()) {
-//            if (player.getTile() == null) {
-//                System.out.println("is null");
-//            } else {
-//                System.out.println("position is " + player.getTile().getID());
-//            }
-//
-//        }
         displayText("La posizione dei giocatori sulla mappa è cambiata");
     }
 
@@ -289,10 +260,7 @@ displayText(hash3);
             }
         }
         displayText(output);
-//        displayText("A" + markedPlayer.getName() + " si e' cambiato il numero dei marchi in: " + markedPlayer.getPlayerBoard().getNumMarks() + " marks\n");
- //       for(int i=0; i<markedPlayer.getPlayerBoard().getNumDamagePoints();i++){
- //           displayText(playerColor(markedPlayer)+"\uD83D\uDCA7"+AnsiColor.RESET);
- //       }
+//
     }
 
     /**
