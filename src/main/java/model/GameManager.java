@@ -61,7 +61,7 @@ public class GameManager implements CreationGameObservable {
         this.mapName = map;
     }
 
-    public String getMapName(){
+    public synchronized String getMapName(){
         return mapName;
     }
 
@@ -90,8 +90,8 @@ public class GameManager implements CreationGameObservable {
      *               started.
      */
     public  synchronized boolean isMatchStarted() {
-        if (match == null) return  false;
-        return started;
+            if (match == null) return  false;
+            return started;
     }
 
     public  synchronized void attachObserverToPlayers(ChangesObserver playerObserver){

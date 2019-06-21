@@ -164,7 +164,7 @@ public class Match {
     }
 
     //TODO need to know if this method should be used or not
-    public void setPowerUpDeck(Deck<PowerUpCard> powerUpDeck) {
+    public synchronized void setPowerUpDeck(Deck<PowerUpCard> powerUpDeck) {
         this.powerUpDeck = powerUpDeck;
     }
 
