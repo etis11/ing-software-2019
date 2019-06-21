@@ -69,11 +69,12 @@ public class GameManager implements CreationGameObservable {
     public synchronized void createMatch(){
         List<User> users = lobby.getUsers();
         List<Player> players = new LinkedList<>();
+
+        checkUser();
+
         for (User u: users){
             players.add(u.getPlayer());
         }
-
-        checkUser();
 
         String mapPath = getMapFromName(mapName);
         GameMap map = GameMap.loadMap(mapPath);

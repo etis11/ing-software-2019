@@ -87,6 +87,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     private Label pu1;
     private Label pu2;
+    private Label pu3;
 
     private Label blueAmmmo;
     private Label redAmmmo;
@@ -123,7 +124,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     double coorX;
     double coorY;
 
-    public GameFrame(CommandContainer cmd, String board, int map) {
+    public GameFrame(CommandContainer cmd, String board, String map) {
         this.cmdLauncher = cmd;
         this.mapPath = mapParser(map);
         this.color = new ArrayList<>();
@@ -135,11 +136,11 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         this.color.add(Color.TEAL);
         this.players = new ArrayList<>();
         this.marksT = new ArrayList<>();
-        this.players.add("Dozer");
-        this.players.add("Distruttore");
-        this.players.add("Violetta");
-        this.players.add("Sprog");
-        this.players.add("Banshee");
+        this.players.add("dozer");
+        this.players.add("distruttore");
+        this.players.add("violetta");
+        this.players.add("sprog");
+        this.players.add("banshee");
         this.boardPath = boardParser(board);
         pbFrame = new PbFrame(this.players, this.color);
         weaponFrame = new WeaponFrame(this.players);
@@ -239,6 +240,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
         pu1 = new Label();
         pu2 = new Label();
+        pu3 = new Label();
 
         Circle damage1 = new Circle();
         Circle damage2 = new Circle();
@@ -424,6 +426,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                 weapon3.setVisible(true);
                 pu1.setVisible(false);
                 pu2.setVisible(false);
+                pu3.setVisible(false);
             }
         });
 
@@ -436,6 +439,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                 weapon3.setVisible(false);
                 pu1.setVisible(true);
                 pu2.setVisible(true);
+                pu3.setVisible(true);
             }
         });
 
@@ -490,18 +494,25 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         weapon3.setLayoutY(0);
         pu1.setVisible(false);
         pu2.setVisible(false);
+        pu3.setVisible(false);
         pu1.setBorder(border);
         pu2.setBorder(border);
+        pu3.setBorder(border);
         pu1.setMinWidth(110);
         pu1.setMinHeight(190);
         pu2.setMinWidth(110);
         pu2.setMinHeight(190);
+        pu3.setMinWidth(110);
+        pu3.setMinHeight(190);
         pu1.setLayoutX(860);
         pu2.setLayoutX(975);
+        pu3.setLayoutX(1090);
         pu1.setLayoutY(0);
         pu2.setLayoutY(0);
+        pu3.setLayoutY(0);
         pu1.setBackground(new Background(puBack));
         pu2.setBackground(new Background(puBack));
+        pu3.setBackground(new Background(puBack));
 
         //set damage
         for (Circle c : damage){
@@ -580,6 +591,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         playerBoardPane.getChildren().add(weapon3);
         playerBoardPane.getChildren().add(pu1);
         playerBoardPane.getChildren().add(pu2);
+        playerBoardPane.getChildren().add(pu3);
         playerBoardPane.getChildren().add(markT1);
         playerBoardPane.getChildren().add(markT2);
         playerBoardPane.getChildren().add(markT3);
@@ -684,15 +696,15 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         }
     }
 
-    private InputStream mapParser(int map) {
+    private InputStream mapParser(String map) {
         switch (map) {
-            case 1:
+            case "piccola":
                 return getClass().getResourceAsStream("/img/SmallMapDef.png");
-            case 2:
+            case "media":
                 return getClass().getResourceAsStream("/img/MediumMapDef.png");
-            case 3:
+            case "grande":
                 return getClass().getResourceAsStream("/img/LargeMapDef.png");
-            case 4:
+            case "estrema":
                 return getClass().getResourceAsStream("/img/ExtraLargeMapDef.png");
             default:
                 return getClass().getResourceAsStream("/img/SmallMapDef.png");
@@ -701,30 +713,28 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     private InputStream boardParser(String board) {
         switch (board) {
-            case "Distruttore":
+            case "distruttore":
                 color.remove(1);
                 players.remove(1);
                 return getClass().getResourceAsStream("/img/DistruttoreBoard.png");
-            case "Sprog":
+            case "sprog":
                 color.remove(3);
                 players.remove(3);
                 return getClass().getResourceAsStream("/img/SprogBoard.png");
-            case "Dozer":
+            case "dozer":
                 color.remove(0);
                 players.remove(0);
                 return getClass().getResourceAsStream("/img/DozerBoard.png");
-            case "Violetta":
+            case "violetta":
                 color.remove(2);
                 players.remove(2);
                 return getClass().getResourceAsStream("/img/ViolettaBoard.png");
-            case "Banshee":
+            case "banshee":
                 color.remove(4);
                 players.remove(4);
                 return getClass().getResourceAsStream("/img/BansheeBoard.png");
             default:
-                color.remove(1);
-                players.remove(1);
-                return getClass().getResourceAsStream("/img/DistruttoreBoard.png");
+                throw new RuntimeException("not valid name");
         }
     }
 
@@ -865,7 +875,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     @Override
     public void onTypeMapChange(String mapName) {
-
+        //not necessary
     }
 
     @Override
@@ -944,18 +954,26 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                                 BackgroundSize.DEFAULT)));
                         break;
+                    case 2:
+                        pu3.setBackground(new Background(new BackgroundImage(new Image(powerUpParser(powerUp.get(index)), 110, 190, false, true),
+                                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                                BackgroundSize.DEFAULT)));
+                        break;
                     default:
                         break;
                 }
                 index++;
             }
-            while (index <2){
+            while (index <3){
                 switch (index){
                     case 0:
                         pu1.setBackground(new Background(puBack));
                         break;
                     case 1:
                         pu2.setBackground(new Background(puBack));
+                        break;
+                    case 2:
+                        pu3.setBackground(new Background(puBack));
                         break;
                     default:
                         break;
