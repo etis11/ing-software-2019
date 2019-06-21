@@ -1,8 +1,18 @@
+21 giugno
+
+1) fare la funzione onPlayerCHange (che unisce tutte le altre)
+2) risolvere il problema input output della cli
+3) creazione della partita
+4) testiamo i comandi walk, pick up
+5) creazione documento specifica sparo
+6) gestione disconnessione
+
+||||||||||||||||||||||||||||||||||
 18 giugno
 
-1) sistemare i comandi (controlli match e user) Alessandro passoni
-2) Su cli GameMap 100% completo Etis
-3) json creator deve poter gestire anche gli users. Per ora fa crashare un bel po'
+*1) sistemare i comandi (controlli match e user) Alessandro passoni
+*2) Su cli GameMap 100% completo Etis
+*3) json creator deve poter gestire anche gli users. Per ora fa crashare un bel po'
 di roba Oscar
 
 
