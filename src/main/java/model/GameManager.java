@@ -45,19 +45,19 @@ public class GameManager implements CreationGameObservable {
         numOfSkulls = 8;
     }
 
-    public Match getMatch() {
+    public  synchronized Match getMatch() {
         return match;
     }
 
-    public Lobby getLobby() {
+    public  synchronized Lobby getLobby() {
         return lobby;
     }
 
-    public void setNumOfSkulls(int numOfSkulls) {
+    public  synchronized  void setNumOfSkulls(int numOfSkulls) {
         this.numOfSkulls = numOfSkulls;
     }
 
-    public void setMapName(String map){
+    public  synchronized void setMapName(String map){
         this.mapName = map;
     }
 
@@ -65,19 +65,20 @@ public class GameManager implements CreationGameObservable {
         return mapName;
     }
 
-    public void createMatch(){
+    public synchronized void createMatch(){
         List<User> users = lobby.getUsers();
         List<Player> players = new LinkedList<>();
         for (User u: users){
             players.add(u.getPlayer());
         }
+        //TODO controllo sui nomi
 
         String mapPath = getMapFromName(mapName);
         GameMap map = GameMap.loadMap(mapPath);
         match = new Match(players, numOfSkulls, map);
     }
 
-    public void startMatch(){
+    public  synchronized void startMatch(){
         started = true;
         notifyStartGameObservers();
 
@@ -88,19 +89,19 @@ public class GameManager implements CreationGameObservable {
      * @return false if the match is not created. Otherwise, can return false if the match has been created but not
      *               started.
      */
-    public boolean isMatchStarted() {
+    public  synchronized boolean isMatchStarted() {
         if (match == null) return  false;
         return started;
     }
 
-    public void attachObserverToPlayers(ChangesObserver playerObserver){
+    public  synchronized void attachObserverToPlayers(ChangesObserver playerObserver){
         List<User> users= lobby.getUsers();
         for(User u: users){
             u.getPlayer().attach(playerObserver);
         }
     }
 
-    public void attachObserverToTiles(ChangesObserver tileObserver){
+    public  synchronized void attachObserverToTiles(ChangesObserver tileObserver){
         if (match == null) throw  new NoSuchElementException("The match has not been created");
         GameMap map = match.getMap();
         for(Tile t: map.mapAsList()){
@@ -108,25 +109,16 @@ public class GameManager implements CreationGameObservable {
         }
     }
 
-    public void attachObserverToLobby(LobbyListener lobbyListener){
+    public  synchronized void attachObserverToLobby(LobbyListener lobbyListener){
         lobby.attach(lobbyListener);
     }
 
-    /**
-     * given a map name, returns the relative json path
-     * @return the path of the json
-     */
-    private String mapToPath(){
-        return null;
-    }
-
-
-    private void notifyStartGameObservers(){
+    private synchronized void notifyStartGameObservers(){
         for(CreationGameObserver s: startGameObservers)
             s.notifyStartedGame(getMatch());
     }
 
-    private String getMapFromName(String name){
+    private  synchronized String getMapFromName(String name){
         // piccola media grande estrema
         switch (name){
             case "piccola":
@@ -142,7 +134,7 @@ public class GameManager implements CreationGameObservable {
     }
     /****************************** CreationGameObservable Implementation *****************************************/
     @Override
-    public void attach(CreationGameObserver ob) {
+    public  synchronized void attach(CreationGameObserver ob) {
         startGameObservers.add(ob);
         ob.notifyCreatedLobby(lobby);
     }
