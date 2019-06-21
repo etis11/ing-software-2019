@@ -90,11 +90,7 @@ public class CommandLineInterface extends AbstractView  {
     @Override
     public void onMapChange(SemplifiedMap mappa) {
 
-        List<SemplifiedPlayer> MannaggiaAQUella = new LinkedList<>();
-        SemplifiedPlayer porcoIlSi = new SemplifiedPlayer();
-        porcoIlSi.setName("dozer");
-        MannaggiaAQUella.add(porcoIlSi);
-        mappa.getTile(2,2).setPlayers(MannaggiaAQUella);
+        System.out.println(mappa.getTile(0,2).getWeaponCards());
         /*
        Strings declared needed for the map legend. Those are needed to check players position on the map
          */

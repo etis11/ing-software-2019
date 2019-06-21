@@ -10,8 +10,9 @@
 
 COSE DA FARE PROSSIMA VOLTA
 1) forzare l'immissione di username e player oscar
-2) gestione disconnessioni
-3) lanciare il thread di ricezione in rmi
+2) gestione disconnessioni oscar
+3) lanciare il thread di ricezione in rmi oscar
+4) generare le ammo Pass
 
 COSE DA FARE ADESSO
 1) sincronizare json receiver, game manager, lobby e match
