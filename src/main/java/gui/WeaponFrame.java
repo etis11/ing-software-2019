@@ -231,18 +231,18 @@ public class WeaponFrame {
 
     private InputStream tokenImgParser(String token) {
         switch (token) {
-            case "Distruttore":
+            case "distruttore":
                 return pathDistruttore;
-            case "Sprog":
+            case "sprog":
                 return pathSprog;
-            case "Dozer":
+            case "dozer":
                 return pathDozer;
-            case "Violetta":
+            case "violetta":
                 return pathVioletta;
-            case "Banshee":
+            case "banshee":
                 return pathBanshee;
             default:
-                return pathDistruttore;
+                throw  new RuntimeException("name not allowed");
         }
     }
 

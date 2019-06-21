@@ -1022,19 +1022,18 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     private Circle mapTokenParser(String name){
         switch (name){
-            case "Distruttore":
+            case "distruttore":
                 return token.get(0);
-            case "Dozer":
+            case "dozer":
                 return token.get(1);
-            case "Sprog":
+            case "sprog":
                 return token.get(2);
-            case "Violetta":
+            case "violetta":
                 return token.get(3);
-            case "Banshee":
+            case "banshee":
                 return token.get(4);
             default:
-                //TODO o exception?
-                return token.get(0);
+                throw new RuntimeException("name not allowed");
         }
     }
 

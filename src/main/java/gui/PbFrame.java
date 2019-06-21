@@ -182,15 +182,15 @@ public class PbFrame {
 
     private InputStream boardParser(String board) {
         switch (board) {
-            case "Distruttore":
+            case "distruttore":
                 return getClass().getResourceAsStream("/img/DistruttoreBoard.png");
-            case "Sprog":
+            case "sprog":
                 return getClass().getResourceAsStream("/img/SprogBoard.png");
-            case "Dozer":
+            case "dozer":
                 return getClass().getResourceAsStream("/img/DozerBoard.png");
-            case "Violetta":
+            case "violetta":
                 return getClass().getResourceAsStream("/img/ViolettaBoard.png");
-            case "Banshee":
+            case "banshee":
                 return getClass().getResourceAsStream("/img/BansheeBoard.png");
             default:
                 return getClass().getResourceAsStream("/img/DistruttoreBoard.png");
@@ -823,8 +823,7 @@ public class PbFrame {
             case 3:
                 return fourthAmmo;
             default:
-                //TODO o exception?
-                return firstAmmo;
+                throw new RuntimeException("name passed is not for a player");
         }
     }
 
@@ -840,8 +839,7 @@ public class PbFrame {
             case 3:
                 return fourthMark;
             default:
-                //TODO o exception?
-                return firstMark;
+                throw new RuntimeException("name passed is not for a player");
         }
     }
 
@@ -857,8 +855,7 @@ public class PbFrame {
             case 3:
                 return fourthMarkT;
             default:
-                //TODO o exception?
-                return firstMarkT;
+                throw new RuntimeException("name passed is not for a player");
         }
     }
 
@@ -874,8 +871,7 @@ public class PbFrame {
             case 3:
                 return fourthDamage;
             default:
-                //TODO o exception?
-                return firstDamage;
+                throw new RuntimeException("name passed is not for a player");
         }
     }
 }

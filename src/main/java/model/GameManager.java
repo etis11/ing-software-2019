@@ -2,6 +2,7 @@ package model;
 
 import view.LobbyListener;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -71,7 +72,8 @@ public class GameManager implements CreationGameObservable {
         for (User u: users){
             players.add(u.getPlayer());
         }
-        //TODO controllo sui nomi
+
+        checkUser();
 
         String mapPath = getMapFromName(mapName);
         GameMap map = GameMap.loadMap(mapPath);
@@ -130,6 +132,24 @@ public class GameManager implements CreationGameObservable {
             case "estrema":
                 return this.getClass().getResource("/maps/map3.json").getPath();
             default: throw new RuntimeException("No map associated to " + name);
+        }
+    }
+
+    private synchronized void checkUser(){
+        List<String> names = new ArrayList<>(5);
+        List<String> playerNames = lobby.getNameToken();
+        names.add("violetta");
+        names.add("sprog");
+        names.add("banshee");
+        names.add("dozer");
+        names.add("distruttore");
+        for (String str: playerNames){
+            names.remove(str);
+        }
+        for (User u :lobby.getUsers()){
+            if (u.getPlayer().getName().equals("")){
+                u.getPlayer().setName(names.remove(0));
+            }
         }
     }
     /****************************** CreationGameObservable Implementation *****************************************/
