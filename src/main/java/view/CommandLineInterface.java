@@ -155,20 +155,6 @@ public class CommandLineInterface extends AbstractView  {
         //}
 
 
-        String hash4 = AnsiColor.WHITE+"╔══════════╦══════════╦══════════╦══════════╗\t\t\t\tLEGGENDA DELLA MAPPA\n" +
-                "║" +AnsiColor.RESET+ AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + " "+AnsiColor.RESET+AnsiColor.BLACK+"REG TILE"+AnsiColor.RESET+AnsiColor.BLUE_BACKGROUND+" " + AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + "          " + AnsiColor.RESET + "║\t"+user[0]+"\n"+
-                "║" + AnsiColor.BLUE_BACKGROUND + "     0    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "     1    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "     2    " + AnsiColor.RESET + " " + AnsiColor.GREEN_BACKGROUND + "    3     " + AnsiColor.RESET + "║\t"+user[1]+"\n" +
-                "║" + AnsiColor.BLUE_BACKGROUND +p[0]+ AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND +p[1]+ AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + p[2]+ AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + p[3] + AnsiColor.RESET + "║\t"+user[2]+"\n" +
-                "╠═══    ═══╬══════════╬═══    ═══╬═══    ═══╣\t"+user[3]+"\n" +
-                "║" + AnsiColor.RED_BACKGROUND +" "+AnsiColor.RESET+AnsiColor.BLACK+"REG TILE"+AnsiColor.RESET+AnsiColor.RED_BACKGROUND+" " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + "║\t"+user[4]+"\n" +
-                "║" + AnsiColor.RED_BACKGROUND + "     4    " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "     5    " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "     6    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    7     " + AnsiColor.RESET + "║"+user[4]+"\n" +
-                "║" + AnsiColor.RED_BACKGROUND + p[4] + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + p[5] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[6] + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + p[7] + AnsiColor.RESET + "║\n" +
-                "╠══════════╬═══    ═══╬          ╬          ╣\t\t\t\tLEGGENDA DELLE ARMI\n" +
-                "║          ║" + AnsiColor.MAGENTA_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND +" "+AnsiColor.RESET+AnsiColor.BLACK+"REG TILE"+AnsiColor.RESET+AnsiColor.YELLOW_BACKGROUND+" " + AnsiColor.RESET +"║\t"+"REG TILE: "+mappa.getTile(0,2).getId()+"  "+mappa.getTile(0,2).toString()+"\n" +
-                "║    8     ║" + AnsiColor.MAGENTA_BACKGROUND + "    9     " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    10    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    11    " + AnsiColor.RESET +"║\t"+"REG TILE: "+mappa.getTile(1,0).getId()+" "+mappa.getTile(1,0).toString()+"\n" +
-                "║"+     p[8]     +"║" + AnsiColor.MAGENTA_BACKGROUND + p[9] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[10] + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + p[11]+ AnsiColor.RESET +"║\t"+"REG TILE: "+mappa.getTile(2,3).getId()+mappa.getTile(2,3).toString()+"\n" +
-                "╚══════════╩══════════╩══════════╩══════════╝";
-
         String hash1 = AnsiColor.WHITE+"╔══════════╦══════════╦══════════╦══════════╗\t\t\t\tLEGGENDA DELLA MAPPA\n" +
                 "║" +AnsiColor.RESET + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + " "+AnsiColor.RESET+AnsiColor.BLACK+"REG TILE"+AnsiColor.RESET+AnsiColor.BLUE_BACKGROUND+" " + AnsiColor.RESET + "║          ║\t"+user[0]+"\n" +
                 "║" + AnsiColor.BLUE_BACKGROUND + "     0    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "      1   " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "     2    " + AnsiColor.RESET + "║    3     ║\t"+user[1]+"\n" +
@@ -211,8 +197,20 @@ public class CommandLineInterface extends AbstractView  {
                 "║" + AnsiColor.WHITE_BACKGROUND +p[8]+AnsiColor.RESET+" "+AnsiColor.WHITE_BACKGROUND+p[9] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[10] +  AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + p[11]+ AnsiColor.RESET + "║║\t"+"REG TILE: "+mappa.getTile(2,3).getId()+mappa.getTile(2,3).toString()+"\n" +
                 "╚══════════╩══════════╩══════════╩══════════╝";
 
+        String hash4 = AnsiColor.WHITE+"╔══════════╦══════════╦══════════╦══════════╗\t\t\t\tLEGGENDA DELLA MAPPA\n" +
+                "║" +AnsiColor.RESET+ AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + " "+AnsiColor.RESET+AnsiColor.BLACK+"REG TILE"+AnsiColor.RESET+AnsiColor.BLUE_BACKGROUND+" " + AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + "          " + AnsiColor.RESET + "║\t"+user[0]+"\n"+
+                "║" + AnsiColor.BLUE_BACKGROUND + "     0    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "     1    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "     2    " + AnsiColor.RESET + " " + AnsiColor.GREEN_BACKGROUND + "    3     " + AnsiColor.RESET + "║\t"+user[1]+"\n" +
+                "║" + AnsiColor.BLUE_BACKGROUND +p[0]+ AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND +p[1]+ AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + p[2]+ AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + p[3] + AnsiColor.RESET + "║\t"+user[2]+"\n" +
+                "╠═══    ═══╬══════════╬═══    ═══╬═══    ═══╣\t"+user[3]+"\n" +
+                "║" + AnsiColor.RED_BACKGROUND +" "+AnsiColor.RESET+AnsiColor.BLACK+"REG TILE"+AnsiColor.RESET+AnsiColor.RED_BACKGROUND+" " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + "║\t"+user[4]+"\n" +
+                "║" + AnsiColor.RED_BACKGROUND + "     4    " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "     5    " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "     6    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    7     " + AnsiColor.RESET + "║"+user[4]+"\n" +
+                "║" + AnsiColor.RED_BACKGROUND + p[4] + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + p[5] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[6] + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + p[7] + AnsiColor.RESET + "║\n" +
+                "╠══════════╬═══    ═══╬          ╬          ╣\t\t\t\tLEGGENDA DELLE ARMI\n" +
+                "║          ║" + AnsiColor.MAGENTA_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND +" "+AnsiColor.RESET+AnsiColor.BLACK+"REG TILE"+AnsiColor.RESET+AnsiColor.YELLOW_BACKGROUND+" " + AnsiColor.RESET +"║\t"+"REG TILE: "+mappa.getTile(0,2).getId()+"  "+mappa.getTile(0,2).toString()+"\n" +
+                "║    8     ║" + AnsiColor.MAGENTA_BACKGROUND + "    9     " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    10    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    11    " + AnsiColor.RESET +"║\t"+"REG TILE: "+mappa.getTile(1,0).getId()+" "+mappa.getTile(1,0).toString()+"\n" +
+                "║"+     p[8]     +"║" + AnsiColor.MAGENTA_BACKGROUND + p[9] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[10] + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + p[11]+ AnsiColor.RESET +"║\t"+"REG TILE: "+mappa.getTile(2,3).getId()+mappa.getTile(2,3).toString()+"\n" +
+                "╚══════════╩══════════╩══════════╩══════════╝";
 
-System.out.println(hash2);
 displayText(hash3);
         //TODO da verificare
 //        for (Player player : match.getPlayers()) {
@@ -262,7 +260,6 @@ displayText(hash3);
                 }
             }
         }
-        System.out.println(output);
         displayText(output);
     }
 
@@ -291,7 +288,6 @@ displayText(hash3);
                 }
             }
         }
-        System.out.println(output);
         displayText(output);
 //        displayText("A" + markedPlayer.getName() + " si e' cambiato il numero dei marchi in: " + markedPlayer.getPlayerBoard().getNumMarks() + " marks\n");
  //       for(int i=0; i<markedPlayer.getPlayerBoard().getNumDamagePoints();i++){
