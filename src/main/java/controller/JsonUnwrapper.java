@@ -25,6 +25,8 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
     private final List<LobbyListener> lobbyListeners;
     private final SemplifiedGame game;
 
+    private String oldMapName;
+
     /**
      * creates  a json wrapper. If used with RMI, should be exported
      */
@@ -80,6 +82,12 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
         String message = response.getMessage();
         if(message!= null)
             notifyAllMessageListeners(message);
+
+        String mapName = response.getMapName();
+        if (mapName != null && !mapName.equals(oldMapName)){
+            for(MapObserver m : mapObservers)
+                m.onTypeMapChange(mapName);
+        }
 
         String error = response.getError();
         if (error != null)
