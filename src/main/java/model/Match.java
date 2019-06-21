@@ -62,10 +62,18 @@ public class Match {
         this.playerNumber = 5;
     }
 
-    public Match(int playerNumber, int skulls, String mapPath) {
+    public Match(int skulls, String mapPath, List<Player> players){
+        playerNumber = players.size();
+        this.skulls = skulls;
+        this.players = players;
+        this.map = GameMap.loadMap(mapPath);
+        currentPlayer = 0;
+    }
+
+    public Match(int playerNumber, int skulls, GameMap map) {
         this.playerNumber = playerNumber;
         this.skulls = skulls;
-        this.map = GameMap.loadMap(mapPath);
+        this.map = map;
         this.players = new ArrayList<>(playerNumber);
         currentPlayer = 0;
     }

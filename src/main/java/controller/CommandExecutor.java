@@ -573,7 +573,13 @@ public class CommandExecutor {
         else {
             userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi modificare il tuo username perchè la partita è già iniziata"));
         }
+
+
         jsonCreator.reset();
+        /*
+        * TODO adesso bisogna controllare che la lobby non sia piena. Se è piena, viene creata la partita e vengono fatte
+        * tutte le notifiche ai client
+        * */
     }
 
     public void execute(SetTokenCommand command) throws IOException {

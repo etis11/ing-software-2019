@@ -21,7 +21,7 @@ public class GameManager implements CreationGameObservable {
     /**
      * Name of the map
      */
-    private String map;
+    private String mapName;
 
     /**
      * number of kills that will be set in the math
@@ -57,20 +57,26 @@ public class GameManager implements CreationGameObservable {
         this.numOfSkulls = numOfSkulls;
     }
 
-    public void setMap(String map){
-        this.map = map;
+    public void setMapName(String map){
+        this.mapName = map;
     }
 
     public void createMatch(){
-        //gets all the players from the users and puts them in a list
-        //creates a map from the json path
-        //creates a match with these parameters
+        List<User> users = lobby.getUsers();
+        List<Player> players = new LinkedList<>();
+        for (User u: users){
+            players.add(u.getPlayer());
+        }
 
+        String mapPath = getMapFromName(mapName);
+        GameMap map = GameMap.loadMap(mapPath);
+        match = new Match(players, numOfSkulls, map);
     }
 
     public void startMatch(){
         started = true;
         //codice che notifica tutti gli observer che il match è stato creato
+
     }
 
     /**
@@ -114,6 +120,21 @@ public class GameManager implements CreationGameObservable {
     private void notifyAllObservers(){
         for(CreationGameObserver s: startGameObservers)
             s.notifyStartedGame(getMatch());
+    }
+
+    private String getMapFromName(String name){
+        // piccola media grande estrema
+        switch (name){
+            case "piccola":
+                return this.getClass().getResource("/maps/map1.json").getPath();
+            case "media":
+                return this.getClass().getResource("/maps/map4.json").getPath();
+            case "grande":
+                return this.getClass().getResource("/maps/map2.json").getPath();
+            case "estrema":
+                return this.getClass().getResource("/maps/map3.json").getPath();
+            default: throw new RuntimeException("No map associated to " + name);
+        }
     }
     /****************************** CreationGameObservable Implementation *****************************************/
     @Override
