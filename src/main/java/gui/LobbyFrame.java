@@ -19,14 +19,18 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import view.ClientSingleton;
+import view.MessageListener;
 
 import java.io.InputStream;
 import java.rmi.RemoteException;
 
-public class LobbyFrame {
+public class LobbyFrame implements MessageListener {
     final int buttonWidth = 75;
     private CommandContainer cmdLauncher;
     private Stage stage;
+
+    private Label lobbyLabel;
+    private Label info;
 
     final InputStream pathDistruttore = getClass().getResourceAsStream( "/img/Distruttore.PNG");
     final InputStream pathBanshee = getClass().getResourceAsStream( "/img/Banshee.PNG");
@@ -68,7 +72,7 @@ public class LobbyFrame {
         TextField effectPhraseField = new TextField("Cambia frase ad effetto");
         TextField deathField = new TextField("Cambia numero morti");
         TextField playerNumberField = new TextField("Cambia numero giocatori");
-        Label info = new Label();
+        info = new Label();
         ObservableList<String> comboItems = FXCollections.observableArrayList(
                 "Scegli Mappa",
                 "Piccola",
@@ -77,6 +81,8 @@ public class LobbyFrame {
                 "Esagerata"
         );
         ComboBox comboBox = new ComboBox(comboItems);
+        lobbyLabel = new Label("Partita in attesa di incominciare");
+
         comboBox.getSelectionModel().select(0);
         comboBox.valueProperty().addListener((ObservableValue observable, Object oldValue, Object newValue) -> {
             try {
@@ -101,17 +107,11 @@ public class LobbyFrame {
             @Override
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
-                if (checkToken("Distruttore")) {
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "distruttore"));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-                } else {
-                    info.setText("personaggio già scelto");
-                    info.setVisible(true);
-                }
-
             }
         });
 
@@ -124,17 +124,11 @@ public class LobbyFrame {
             @Override
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
-                if (checkToken("Banshee")) {
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "banshee"));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-                } else {
-                    info.setText("personaggio già scelto");
-                    info.setVisible(true);
-                }
-
             }
         });
 
@@ -147,17 +141,11 @@ public class LobbyFrame {
             @Override
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
-                if (checkToken("Dozer")) {
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "dozer"));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-                } else {
-                    info.setText("personaggio già scelto");
-                    info.setVisible(true);
-                }
-
             }
         });
 
@@ -170,17 +158,11 @@ public class LobbyFrame {
             @Override
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
-                if (checkToken("Sprog")) {
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "sprog"));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-                } else {
-                    info.setText("personaggio già scelto");
-                    info.setVisible(true);
-                }
-
             }
         });
 
@@ -193,17 +175,11 @@ public class LobbyFrame {
             @Override
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
-                if (checkToken("Violetta")) {
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "violetta"));
                     } catch (RemoteException e) {
                         e.printStackTrace();
                     }
-                } else {
-                    info.setText("personaggio già scelto");
-                    info.setVisible(true);
-                }
-
             }
         });
 
@@ -277,8 +253,7 @@ public class LobbyFrame {
                         e.printStackTrace();
                     }
                 } else {
-                    //TODO messaggio
-                    info.setText("TODO");
+                    info.setText("Inserisci un valore");
                     info.setVisible(true);
                 }
             }
@@ -298,8 +273,7 @@ public class LobbyFrame {
                         e.printStackTrace();
                     }
                 } else {
-                    //TODO messaggio
-                    info.setText("TODO");
+                    info.setText("Inserisci un valore");
                     info.setVisible(true);
                 }
             }
@@ -312,6 +286,10 @@ public class LobbyFrame {
         BackgroundImage myBI = new BackgroundImage(new Image(pathAdreanline, 1000, 600, false, true),
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
+
+        lobbyLabel.setLayoutY(50);
+        lobbyLabel.setLayoutY(450);
+        lobbyLabel.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
         Pane box = new Pane();
         //adding background image to box
@@ -332,6 +310,7 @@ public class LobbyFrame {
         box.getChildren().add(playerNumberField);
         box.getChildren().add(info);
         box.getChildren().add(comboBox);
+        box.getChildren().add(lobbyLabel);
 
         stage.setScene(new Scene(box, 1000, 600));
 
@@ -361,11 +340,6 @@ public class LobbyFrame {
         return !phrase.equalsIgnoreCase("") && !phrase.equalsIgnoreCase("Cambia numero giocatori");
     }
 
-    private boolean checkToken(String name) {
-        //TODO implements control
-        return false;
-    }
-
     private String mapParser(int map){
         switch (map){
             case 1:
@@ -379,5 +353,11 @@ public class LobbyFrame {
             default:
                 return "small";
         }
+    }
+
+    @Override
+    public void notifyMessage(String message) {
+        info.setText(message);
+        info.setVisible(true);
     }
 }
