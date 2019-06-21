@@ -75,7 +75,7 @@ public class GameManager implements CreationGameObservable {
         for (User u: users){
             players.add(u.getPlayer());
         }
-        
+
         String mapPath = getMapFromName(mapName);
         GameMap map = GameMap.loadMap(mapPath);
         match = new Match(players, numOfSkulls, map);

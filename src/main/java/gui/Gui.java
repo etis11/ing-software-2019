@@ -12,7 +12,7 @@ public class Gui extends Application {
     CommandLauncher cmd = new CommandLauncher(new GameManager(), new JsonCreator());
     MainFrame mainFrame = new MainFrame();
 //    LobbyFrame lobbyFrame = new LobbyFrame(cmd);
-    GameFrame gameFrame = new GameFrame(cmd, "Distruttore", 1);
+    GameFrame gameFrame = new GameFrame(cmd, "distruttore", "picccola");
 
     @Override
     public void start(Stage stage) throws Exception {
