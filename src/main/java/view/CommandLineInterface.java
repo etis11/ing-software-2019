@@ -357,7 +357,9 @@ displayText(hash3);
      * Displays text in the CLI to the users/players
      **/
     public void displayText(String text) {
-        consoleOutput.println();
+        if(!text.equals("Scegliere connessione rmi o socket")) {
+            consoleOutput.println();
+        }
         consoleOutput.println(text);
         consoleOutput.write(AnsiColor.GREEN + ">>> " + AnsiColor.RESET);
         consoleOutput.flush();
