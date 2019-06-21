@@ -853,12 +853,11 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                     if (onUpdateTile.getAmmoCard() == null) {
                         ammoList.get(tileId).setBackground(new Background(ammoBack));
                     } else {
-                        //TODO implementare id ammo, per ora crea il retro
-                        ammoList.get(tileId).setBackground(new Background(ammoParser(0)));
+                        ammoList.get(tileId).setBackground(new Background(ammoParser(onUpdateTile.getAmmoCard().getId())));
                     }
                 }
                 else{
-                    //TODO update regen point
+                    regenFrame.updateRegen(map);
                 }
             }
         }

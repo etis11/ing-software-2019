@@ -7,6 +7,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import model.clientModel.SemplifiedMap;
+import model.clientModel.SemplifiedTile;
+import model.clientModel.SemplifiedWeaponCard;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -56,7 +59,7 @@ public class RegenFrame {
 
         generateRegen();
 
-        Scene scene = new Scene(pane, 800, 700);
+        Scene scene = new Scene(pane, 600, 700);
         stage.setScene(scene);
     }
 
@@ -158,6 +161,51 @@ public class RegenFrame {
         pane.getChildren().add(yellowRegen);
 
     }
+
+    public void updateRegen(SemplifiedMap map){
+        SemplifiedTile tileToUpdate = map.getTile(0,2);
+        List<SemplifiedWeaponCard> weapons = tileToUpdate.getWeaponCards();
+        int index = 0;
+        while(index<weapons.size()){
+            blueRegenWeapon.get(index).setBackground(new Background(new BackgroundImage(new Image(weaponParser(weapons.get(index).getName()), 110, 190, false, true),
+                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                    BackgroundSize.DEFAULT)));
+            index++;
+        }
+        while(index<3){
+            blueRegenWeapon.get(index).setBackground(new Background(weaponBack));
+            index++;
+        }
+
+        tileToUpdate = map.getTile(1,0);
+        weapons = tileToUpdate.getWeaponCards();
+        index = 0;
+        while(index<weapons.size()){
+            redRegenWeapon.get(index).setBackground(new Background(new BackgroundImage(new Image(weaponParser(weapons.get(index).getName()), 110, 190, false, true),
+                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                    BackgroundSize.DEFAULT)));
+            index++;
+        }
+        while(index<3){
+            redRegenWeapon.get(index).setBackground(new Background(weaponBack));
+            index++;
+        }
+
+        tileToUpdate = map.getTile(2,3);
+        weapons = tileToUpdate.getWeaponCards();
+        index = 0;
+        while(index<weapons.size()){
+            yellowRegenWeapon.get(index).setBackground(new Background(new BackgroundImage(new Image(weaponParser(weapons.get(index).getName()), 110, 190, false, true),
+                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                    BackgroundSize.DEFAULT)));
+            index++;
+        }
+        while(index<3){
+            yellowRegenWeapon.get(index).setBackground(new Background(weaponBack));
+            index++;
+        }
+    }
+
 
     private InputStream weaponParser(String weapon) {
         switch (weapon) {

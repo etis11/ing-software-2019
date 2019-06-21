@@ -10,7 +10,7 @@ public class SemplifiedMap {
     private final int rows = 3;
     private final int cols = 4;
 
-    private SemplifiedTile[][] map = new SemplifiedTile[3][4];
+    private SemplifiedTile[][] map = new SemplifiedTile[rows][cols];
 
 
 
