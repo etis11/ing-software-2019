@@ -1,4 +1,5 @@
 package model;
+import com.google.gson.annotations.SerializedName;
 import view.AnsiColor;
 /**
  * AmmoCard refers to the Ammunition Cards that are to be used during play for certain tasks
@@ -10,7 +11,8 @@ public class AmmoCard {
     /**
      * ID refers to an int needed to bind ammocards with their images thanks to jSON
      */
-    private int ID;
+    @SerializedName("ID")
+    private int id;
 
     /**
      * numBlue is an integer that represents the number of Blue ammo in an AmmoCard.
@@ -93,6 +95,11 @@ public class AmmoCard {
     public boolean isDrawPowerUp() {
         return drawPowerUp;
     }
+
+    public int getId(){
+        return id;
+    }
+
     @Override
     public String toString() {
         String blue = "";

@@ -35,14 +35,10 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     final int ammoDimension = 30;
     final int buttonWidth = 100;
-    final int regenDimension = 20;
     private final InputStream pathBackWeapon = getClass().getResourceAsStream("/img/RetroArmi.png");
     private final InputStream pathBackPu = getClass().getResourceAsStream("/img/RetroPu.png");
     private final InputStream pathBackAmmo = getClass().getResourceAsStream("/img/RetroAmmo.png");
     final BackgroundImage weaponBack = new BackgroundImage(new Image(pathBackWeapon, 110, 190, false, true),
-            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-            BackgroundSize.DEFAULT);
-    final BackgroundImage weaponBackRegen = new BackgroundImage(new Image(pathBackWeapon, 70, 120, false, true),
             BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
             BackgroundSize.DEFAULT);
     final BackgroundImage puBack = new BackgroundImage(new Image(pathBackPu, 110, 190, false, true),
@@ -56,6 +52,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     private PbFrame pbFrame;
     private WeaponFrame weaponFrame;
+    private RegenFrame regenFrame;
 
     private CommandContainer cmdLauncher;
 
@@ -84,10 +81,6 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private Label ammoLabel12;
     private List<Label> ammoList;
 
-    private Label weapon1Br;
-    private Label weapon2Br;
-    private Label weapon3Br;
-
     private Label weapon1;
     private Label weapon2;
     private Label weapon3;
@@ -98,10 +91,6 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private Label blueAmmmo;
     private Label redAmmmo;
     private Label yellowAmmmo;
-
-    private Label blueRegen;
-    private Label redRegen;
-    private Label yellowRegen;
 
     private Circle mark1;
     private Circle mark2;
@@ -125,7 +114,6 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private List<Circle> damage;
     private List<Circle> mark;
     private List<Circle> token;
-    private List<Label> blueRegenWeapon;
 
     private List<Integer> coorInTileX;
     private List<Integer> coorInTileY;
@@ -155,6 +143,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         this.boardPath = boardParser(board);
         pbFrame = new PbFrame(this.players, this.color);
         weaponFrame = new WeaponFrame(this.players);
+        regenFrame = new RegenFrame();
         coorInTileX = new ArrayList<>(5);
         coorInTileY = new ArrayList<>(5);
         coorTileX = new ArrayList<>(12);
@@ -230,6 +219,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         Button showPowerUp = new Button("Mostra PU");
         Button showPlBoard = new Button("Mostra PB av");
         Button showWeaponCard = new Button("Mostra Armi av");
+        Button showRegen = new Button("Regen Point");
 
         infoGame.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         infoGame.setMaxWidth(300);
@@ -465,6 +455,14 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
             }
         });
 
+        showRegen.setMinWidth(buttonWidth);
+        showRegen.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                regenFrame.show();
+            }
+        });
+
         //setting gamelog
         gameLog.getChildren().add(infoGame);
 
@@ -572,6 +570,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         buttonPane.getChildren().add(showPowerUp);
         buttonPane.getChildren().add(showPlBoard);
         buttonPane.getChildren().add(showWeaponCard);
+        buttonPane.getChildren().add(showRegen);
 
         playerBoardPane.getChildren().add(blueAmmmo);
         playerBoardPane.getChildren().add(redAmmmo);
@@ -609,7 +608,6 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         bansheeToken.setFill(Color.TEAL);
 
         generateLabelAmmo();
-        generateRegen();
 
         //setting position of pane
         buttonPane.setSpacing(10);
@@ -684,56 +682,6 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
             ammoList.get(i).setLayoutY(coorTileY.get(i));
             ammoList.get(i).setLayoutX(coorTileX.get(i));
         }
-    }
-
-    private void generateRegen(){
-        blueRegen = new Label();
-        redRegen = new Label();
-        yellowRegen = new Label();
-        weapon1Br = new Label();
-        weapon2Br = new Label();
-        weapon3Br = new Label();
-        blueRegenWeapon = new ArrayList<>(3);
-        blueRegenWeapon.add(weapon1Br);
-        blueRegenWeapon.add(weapon2Br);
-        blueRegenWeapon.add(weapon3Br);
-
-        blueRegen.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-        redRegen.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-        yellowRegen.setBackground(new Background(new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
-
-        blueRegen.setMinWidth(regenDimension);
-        blueRegen.setMinHeight(regenDimension);
-        redRegen.setMinWidth(regenDimension);
-        redRegen.setMinHeight(regenDimension);
-        yellowRegen.setMinWidth(regenDimension);
-        yellowRegen.setMinHeight(regenDimension);
-
-        blueRegen.setLayoutX(605);
-        blueRegen.setLayoutY(70);
-        redRegen.setLayoutX(blueRegen.getLayoutX());
-        redRegen.setLayoutY(blueRegen.getLayoutY()+170);
-        yellowRegen.setLayoutX(blueRegen.getLayoutX());
-        yellowRegen.setLayoutY(redRegen.getLayoutY()+170);
-
-        for (Label l:blueRegenWeapon){
-            l.setVisible(true);
-            l.setBorder(border);
-            l.setLayoutY(30);
-            l.setMinWidth(70);
-            l.setMinHeight(120);
-            mapPane.getChildren().add(l);
-        }
-        weapon1Br.setLayoutX(630);
-        weapon2Br.setLayoutX(705);
-        weapon3Br.setLayoutX(780);
-        weapon1Br.setBackground(new Background(new BackgroundImage(new Image(weaponParser("Fucile laser"), 70, 120, false, true),
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT)));
-        mapPane.getChildren().add(blueRegen);
-        mapPane.getChildren().add(redRegen);
-        mapPane.getChildren().add(yellowRegen);
-
     }
 
     private InputStream mapParser(int map) {
@@ -905,15 +853,19 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                     if (onUpdateTile.getAmmoCard() == null) {
                         ammoList.get(tileId).setBackground(new Background(ammoBack));
                     } else {
-                        //TODO implementare id ammo, per ora crea il retro
-                        ammoList.get(tileId).setBackground(new Background(ammoParser(0)));
+                        ammoList.get(tileId).setBackground(new Background(ammoParser(onUpdateTile.getAmmoCard().getId())));
                     }
                 }
                 else{
-                    //TODO update regen point
+                    regenFrame.updateRegen(map);
                 }
             }
         }
+    }
+
+    @Override
+    public void onTypeMapChange(String mapName) {
+
     }
 
     @Override
