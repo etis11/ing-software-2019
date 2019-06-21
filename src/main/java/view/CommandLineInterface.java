@@ -1,12 +1,11 @@
 package view;
 
 import controller.CommandLauncherInterface;
+import controller.commandpack.SetMapCommand;
 import model.User;
 import model.clientModel.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -27,10 +26,13 @@ public class CommandLineInterface extends AbstractView  {
     private SemplifiedPlayerBoard playerBoard;
     private SemplifiedTile tile;
     private SemplifiedMap map;
+    private SetMapCommand chosenMap;
+
     /**
      * Attribute needed to output text from the console
      **/
     private PrintWriter consoleOutput;
+
     /**
      * Attribute needed to grab the input entered by the user/player
      **/
@@ -87,13 +89,23 @@ public class CommandLineInterface extends AbstractView  {
     @Override
     public void onMapChange(SemplifiedMap mappa) {
 
+        /*
+       Strings declared needed for the map legend. Those are needed to check players position on the map
+         */
         String user0="";
         String user1="";
         String user2="";
         String user3="";
         String user4="";
+
+        /*
+        String array containing all players on map
+         */
         String[] user ={user0,user1,user2,user3,user4};
 
+        /*
+        Strings needed to PLACE the players with symbol @ on the map so that we can keep track of them evertyime the map changes
+         */
         String p0="          ";
         String p1="          ";
         String p2="          ";
@@ -106,6 +118,10 @@ public class CommandLineInterface extends AbstractView  {
         String p9="          ";
         String p10="          ";
         String p11="          ";
+
+        /*
+        String containing all players
+         */
         String[] p = {p0,p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11};
         int k=0;
         int total=0;
@@ -134,6 +150,9 @@ public class CommandLineInterface extends AbstractView  {
 
         }
 
+/*
+The following 4 strings are the 4 maps.
+ */
 
         String hash1 = AnsiColor.WHITE+"╔══════════╦══════════╦══════════╦══════════╗\t\t\t\tLEGGENDA DELLA MAPPA\n" +
                 "║" +AnsiColor.RESET + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + " "+AnsiColor.RESET+AnsiColor.BLACK+"REG TILE"+AnsiColor.RESET+AnsiColor.BLUE_BACKGROUND+" " + AnsiColor.RESET + "║          ║\t"+user[0]+"\n" +
