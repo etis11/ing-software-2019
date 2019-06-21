@@ -164,7 +164,7 @@ public class RegenFrame {
 
     public void updateRegen(SemplifiedMap map){
         SemplifiedTile tileToUpdate = map.getTile(0,2);
-        List<SemplifiedWeaponCard> weapons = tileToUpdate.getWeaponCards();
+        List<SemplifiedWeaponCard> weapons = tileToUpdate.getWeapons();
         int index = 0;
         while(index<weapons.size()){
             blueRegenWeapon.get(index).setBackground(new Background(new BackgroundImage(new Image(weaponParser(weapons.get(index).getName()), 110, 190, false, true),
@@ -178,7 +178,7 @@ public class RegenFrame {
         }
 
         tileToUpdate = map.getTile(1,0);
-        weapons = tileToUpdate.getWeaponCards();
+        weapons = tileToUpdate.getWeapons();
         index = 0;
         while(index<weapons.size()){
             redRegenWeapon.get(index).setBackground(new Background(new BackgroundImage(new Image(weaponParser(weapons.get(index).getName()), 110, 190, false, true),
@@ -192,7 +192,7 @@ public class RegenFrame {
         }
 
         tileToUpdate = map.getTile(2,3);
-        weapons = tileToUpdate.getWeaponCards();
+        weapons = tileToUpdate.getWeapons();
         index = 0;
         while(index<weapons.size()){
             yellowRegenWeapon.get(index).setBackground(new Background(new BackgroundImage(new Image(weaponParser(weapons.get(index).getName()), 110, 190, false, true),

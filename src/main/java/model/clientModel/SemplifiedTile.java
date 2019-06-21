@@ -1,33 +1,22 @@
 package model.clientModel;
 
 import model.AmmoCard;
-import model.Player;
-import model.WeaponCard;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SemplifiedTile {
-    private final int id;
-    private final boolean ammoTile;
-    private final boolean weaponTile;
+    private  int id;
+    private  boolean ammoTile;
+    private  boolean weaponTile;
     private List<SemplifiedPlayer> players;
-
-    public void setAmmoCard(AmmoCard ammoCard) {
-        this.ammoCard = ammoCard;
-    }
-
     private AmmoCard ammoCard;
+    private List<SemplifiedWeaponCard> weapons;
 
-    public List<SemplifiedWeaponCard> getWeaponCards() {
-        return weaponCards;
+    public SemplifiedTile(){
+
     }
 
-    public void setWeaponCards(List<SemplifiedWeaponCard> weaponCards) {
-        this.weaponCards = weaponCards;
-    }
-
-    private List<SemplifiedWeaponCard> weaponCards;
 
     public SemplifiedTile(int id, boolean ammoTile, boolean weaponTile) {
         this.id = id;
@@ -36,12 +25,36 @@ public class SemplifiedTile {
         this.players = new ArrayList<>();
     }
 
+    public void setAmmoTile(boolean ammoTile) {
+        this.ammoTile = ammoTile;
+    }
+
+    public void setWeaponTile(boolean weaponTile) {
+        this.weaponTile = weaponTile;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public AmmoCard getAmmoCard(){
         return ammoCard;
     }
 
     public boolean isAmmoTile(){
         return ammoTile;
+    }
+
+    public void setAmmoCard(AmmoCard ammoCard) {
+        this.ammoCard = ammoCard;
+    }
+
+    public List<SemplifiedWeaponCard> getWeapons() {
+        return weapons;
+    }
+
+    public void setWeapons(List<SemplifiedWeaponCard> weapons) {
+        this.weapons = weapons;
     }
 
     public int getId(){
@@ -59,8 +72,8 @@ public class SemplifiedTile {
     @Override
     public String toString() {
         String weaponCardsString = "";
-        if(this.weaponCards !=null && this.weaponCards.size()>0){
-            for(SemplifiedWeaponCard weaponCard : this.weaponCards){
+        if(this.weapons !=null && this.weapons.size()>0){
+            for(SemplifiedWeaponCard weaponCard : this.weapons){
                 weaponCardsString= weaponCardsString +"  ||  "+weaponCard.getName();
             }
         }

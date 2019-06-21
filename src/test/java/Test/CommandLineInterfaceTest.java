@@ -5,11 +5,8 @@ import model.clientModel.*;
 import view.CommandLineInterface;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 
 public class CommandLineInterfaceTest {
 
@@ -127,9 +124,9 @@ SemplifiedWeaponCard[] weaponsPlayer = new SemplifiedWeaponCard[1];
         weaponsPlayer[0]=weapon10;
         player.setWeaponCards(weaponsPlayer);
 
-        semplifiedTile2.setWeaponCards(weaponsTile1);
-        semplifiedTile4.setWeaponCards(weaponsTile2);
-        semplifiedTile11.setWeaponCards(weaponsTile3);
+        semplifiedTile2.setWeapons(weaponsTile1);
+        semplifiedTile4.setWeapons(weaponsTile2);
+        semplifiedTile11.setWeapons(weaponsTile3);
 
 
 

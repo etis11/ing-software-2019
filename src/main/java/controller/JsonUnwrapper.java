@@ -3,12 +3,11 @@ package controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import jsonparser.semplifiedParser.SemplifiedPlayerDeserializer;
+import jsonparser.semplifiedParser.SemplifiedTileDeserializer;
+import jsonparser.semplifiedParser.SemplifiedWeaponDeserializer;
 import model.LobbyObservable;
-import model.Player;
 import model.User;
-import model.clientModel.SemplifiedGame;
-import model.clientModel.SemplifiedMap;
-import model.clientModel.SemplifiedPlayer;
+import model.clientModel.*;
 import view.*;
 
 import java.util.LinkedList;
@@ -34,6 +33,8 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
         GsonBuilder gsonBuilder = new GsonBuilder();
         playerDeserializer = new SemplifiedPlayerDeserializer();
         gsonBuilder.registerTypeAdapter(SemplifiedPlayer.class, playerDeserializer);
+//        gsonBuilder.registerTypeAdapter(SemplifiedWeaponCard.class, new SemplifiedWeaponDeserializer());
+//        gsonBuilder.registerTypeAdapter(SemplifiedTile.class, new SemplifiedTileDeserializer());
         gson = gsonBuilder.create();
 
         this.game = game;
@@ -79,7 +80,6 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
     public void sendJson(String changes) {
 
         CommandResponseClient response = gson.fromJson(changes, CommandResponseClient.class);
-        System.out.println(changes);
         String message = response.getMessage();
         if(message!= null)
             notifyAllMessageListeners(message);
@@ -95,9 +95,9 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
             notifyAllMessageListeners(error);
 
         SemplifiedMap map = game.getMap();
-        if(response.getAllTiles() != null)
+        if(response.getAllTiles() != null){
             map.updateTiles(response.getAllTiles());
-
+        }
         if(response.isMapChanged())
             notifyAllMapObservers(game.getMap());
         if(response.getAllPlayers() != null){

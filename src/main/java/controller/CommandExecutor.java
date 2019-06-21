@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 public class CommandExecutor {
     private final TokenRegistry registry = TokenRegistry.getInstance();
     private final static Logger commandExecutorLogger = Logger.getLogger(CommandExecutor.class.getName());
-    private final int seconds = 8;
+    private final int seconds = 1;
 
     /**
      * gameManager is a reference to the model due to access to the match and lobby variables

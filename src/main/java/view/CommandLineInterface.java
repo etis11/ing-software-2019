@@ -89,8 +89,6 @@ public class CommandLineInterface extends AbstractView  {
      **/
     @Override
     public void onMapChange(SemplifiedMap mappa) {
-
-        System.out.println(mappa.getTile(0,2).getWeaponCards());
         /*
        Strings declared needed for the map legend. Those are needed to check players position on the map
          */
