@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Stack;
 
 
@@ -14,6 +15,14 @@ public class Deck<T> {
      */
     private Stack<T> cards;
 
+
+    /**
+     * creates a deck
+     */
+    public Deck(List<T> cards) {
+        this.cards = new Stack<>();
+        this.cards.addAll(cards);
+    }
 
     /**
      * creates a deck

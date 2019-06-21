@@ -1,5 +1,7 @@
 package model;
 
+import jsonparser.JsonFileReader;
+import jsonparser.WeaponCardDeserializer;
 import view.LobbyListener;
 
 import java.util.ArrayList;
@@ -79,6 +81,7 @@ public class GameManager implements CreationGameObservable {
         String mapPath = getMapFromName(mapName);
         GameMap map = GameMap.loadMap(mapPath);
         match = new Match(players, numOfSkulls, map);
+        initWeapon(match);
     }
 
     public  synchronized void startMatch(){
@@ -152,6 +155,24 @@ public class GameManager implements CreationGameObservable {
                 u.getPlayer().setName(names.remove(0));
             }
         }
+    }
+
+    public synchronized void initWeapon(Match match){
+        JsonFileReader jsonFileReader = new JsonFileReader();
+        String cards = jsonFileReader.loadWeaponCards("cards/cards.json");
+        WeaponCardDeserializer weaponCardDeserializer = new WeaponCardDeserializer(match);
+        List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
+        match.createWeaponDeck(weaponCards);
+        match.getWeaponDeck().shuffle();
+        match.getMap().getRegenPoint("red").putWeaponCard(match.getWeaponDeck().draw());
+        match.getMap().getRegenPoint("red").putWeaponCard(match.getWeaponDeck().draw());
+        match.getMap().getRegenPoint("red").putWeaponCard(match.getWeaponDeck().draw());
+        match.getMap().getRegenPoint("blue").putWeaponCard(match.getWeaponDeck().draw());
+        match.getMap().getRegenPoint("blue").putWeaponCard(match.getWeaponDeck().draw());
+        match.getMap().getRegenPoint("blue").putWeaponCard(match.getWeaponDeck().draw());
+        match.getMap().getRegenPoint("yellow").putWeaponCard(match.getWeaponDeck().draw());
+        match.getMap().getRegenPoint("yellow").putWeaponCard(match.getWeaponDeck().draw());
+        match.getMap().getRegenPoint("yellow").putWeaponCard(match.getWeaponDeck().draw());
     }
     /****************************** CreationGameObservable Implementation *****************************************/
     @Override

@@ -126,12 +126,12 @@ public class JsonCreatorTest {
         Tile t2 = new Tile(null, null, null, null, false, true);
         t2.setID(1);
         PowerUpCard pc = new PowerUpCard(Color.RED, PowerUpType.NEWTON);
-        JsonFileReader jsonFileReader = new JsonFileReader();
-        String cards = jsonFileReader.loadWeaponCards("cards/cards.json");
+        JsonFileReader jsonFileReader = new JsonFileReader();//ok
+        String cards = jsonFileReader.loadWeaponCards("cards/cards.json");//ok
         Match match = new Match();
         //List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
-        WeaponCardDeserializer weaponCardDeserializer = new WeaponCardDeserializer(match);
-        List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
+        WeaponCardDeserializer weaponCardDeserializer = new WeaponCardDeserializer(match);//ok
+        List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);//ok
         WeaponCard w = weaponCards.get(0);
         try {
             WeaponCard broccolator = new WeaponCard();
