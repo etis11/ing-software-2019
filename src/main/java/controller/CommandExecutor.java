@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class CommandExecutor {
     private final TokenRegistry registry = TokenRegistry.getInstance();
@@ -577,14 +578,22 @@ public class CommandExecutor {
 
 
         jsonCreator.reset();
-
-        /*
-         * TODO adesso bisogna controllare che la lobby non sia piena.
-         * Se è piena controllare i nomi dei player e se mancanti assegnarli.
-         * lanciare un thread con il metodo privato che crea un matchù
-         * new thread( () -> funz).start();
-         * tutte le notifiche ai client
-         * */
+        
+        boolean lobbyFull = gameManager.getLobby().isFull();
+        if(lobbyFull){
+            TimerTask task = new TimerTask(){
+                @Override
+                public void run() {
+                    try {
+                        createMatchRoutine(command.getAllReceivers());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                }
+            };
+            Timer timer = new Timer();
+            timer.schedule(task, 30000);
+        }
     }
 
     public void execute(SetTokenCommand command) throws IOException {
@@ -618,11 +627,6 @@ public class CommandExecutor {
             userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi modificare il tuo personaggio perchè la partita è già iniziata"));
         }
         jsonCreator.reset();
-
-        /*
-         * TODO adesso bisogna controllare che la lobby non sia piena. Se è piena, viene creata la partita e vengono fatte
-         * tutte le notifiche ai client
-         * */
     }
 
     public void execute(SetMapCommand command) throws IOException{
