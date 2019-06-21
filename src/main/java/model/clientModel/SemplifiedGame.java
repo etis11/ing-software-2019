@@ -11,6 +11,10 @@ public class SemplifiedGame {
     private SemplifiedMap map;
     private String message;
 
+    public SemplifiedGame(){
+        map = new SemplifiedMap();
+    }
+
     public List<SemplifiedPlayer> getPlayers() {
         return players;
     }
