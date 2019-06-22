@@ -86,9 +86,11 @@ public class GameManager implements CreationGameObservable {
         initWeapon(match);
         try {
             initAmmo(match);
+            initPowerUp(match);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        assignPowerUp(match);
     }
 
     public  synchronized void startMatch(){
@@ -200,6 +202,13 @@ public class GameManager implements CreationGameObservable {
         match.createPowerUpSlushDeck();
         match.getPowerUpDeck().shuffle();
 
+    }
+
+    private synchronized void assignPowerUp(Match match){
+        for (Player p : match.getPlayers()){
+            p.pickUpPowerUp(match.getPowerUpDeck().draw());
+            p.pickUpPowerUp(match.getPowerUpDeck().draw());
+        }
     }
     /****************************** CreationGameObservable Implementation *****************************************/
     @Override

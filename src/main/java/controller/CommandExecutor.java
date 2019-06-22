@@ -453,6 +453,7 @@ public class CommandExecutor {
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
+        //TODO serve uno stato di spawn eventualmente da verificare?
         if (gameHasStarted) {
             Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
             Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();

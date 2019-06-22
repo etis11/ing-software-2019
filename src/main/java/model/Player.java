@@ -214,10 +214,12 @@ public class Player implements ChangesObservable{
     }
 
     public void pickUpPowerUp(PowerUpCard p) {
-        //TODO mancano tutti i controlli e l'implementazione del metodo
         powerUps.add(p);
+        if (getNumPowerUps()>3){
+            //TODO gestione scarto
+            throw  new RuntimeException("da implementare per bene");
+        }
         notifyAllObservers();
-        throw  new RuntimeException("da implementare per bene");
     }
 
     /**
