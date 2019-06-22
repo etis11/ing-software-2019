@@ -1,13 +1,15 @@
 package model;
 
+import com.google.gson.Gson;
 import jsonparser.JsonFileReader;
 import jsonparser.WeaponCardDeserializer;
 import view.LobbyListener;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.*;
 
 public class GameManager implements CreationGameObservable {
 
@@ -82,6 +84,11 @@ public class GameManager implements CreationGameObservable {
         GameMap map = GameMap.loadMap(mapPath);
         match = new Match(players, numOfSkulls, map);
         initWeapon(match);
+        try {
+            initAmmo(match);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public  synchronized void startMatch(){
@@ -157,22 +164,42 @@ public class GameManager implements CreationGameObservable {
         }
     }
 
-    public synchronized void initWeapon(Match match){
+    private synchronized void initWeapon(Match match){
         JsonFileReader jsonFileReader = new JsonFileReader();
-        String cards = jsonFileReader.loadWeaponCards("cards/cards.json");
+        String cards = jsonFileReader.loadWeaponCards("cards/weaponCards.json");
         WeaponCardDeserializer weaponCardDeserializer = new WeaponCardDeserializer(match);
         List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
         match.createWeaponDeck(weaponCards);
         match.getWeaponDeck().shuffle();
-        match.getMap().getRegenPoint("red").putWeaponCard(match.getWeaponDeck().draw());
-        match.getMap().getRegenPoint("red").putWeaponCard(match.getWeaponDeck().draw());
-        match.getMap().getRegenPoint("red").putWeaponCard(match.getWeaponDeck().draw());
-        match.getMap().getRegenPoint("blue").putWeaponCard(match.getWeaponDeck().draw());
-        match.getMap().getRegenPoint("blue").putWeaponCard(match.getWeaponDeck().draw());
-        match.getMap().getRegenPoint("blue").putWeaponCard(match.getWeaponDeck().draw());
-        match.getMap().getRegenPoint("yellow").putWeaponCard(match.getWeaponDeck().draw());
-        match.getMap().getRegenPoint("yellow").putWeaponCard(match.getWeaponDeck().draw());
-        match.getMap().getRegenPoint("yellow").putWeaponCard(match.getWeaponDeck().draw());
+        for (int i = 0; i<3;i++){
+            match.getMap().getRegenPoint("red").putWeaponCard(match.getWeaponDeck().draw());
+            match.getMap().getRegenPoint("blue").putWeaponCard(match.getWeaponDeck().draw());
+            match.getMap().getRegenPoint("yellow").putWeaponCard(match.getWeaponDeck().draw());
+        }
+    }
+
+    private synchronized void initAmmo(Match match) throws FileNotFoundException {
+        Gson gson = new Gson();
+        AmmoCard[] newCard = gson.fromJson(new FileReader("cards/ammoCards.json"), AmmoCard[].class);
+        List<AmmoCard> ammoCards = new ArrayList<>(Arrays.asList(newCard));
+        match.createAmmoDeck(ammoCards);
+        match.createAmmoSlushDeck();
+        match.getAmmoDeck().shuffle();
+        for (Tile t : match.getMap().mapAsList()){
+            if (t.canContainAmmo()) {
+                t.putAmmoCard(match.getAmmoDeck().draw());
+            }
+        }
+    }
+
+    private synchronized void initPowerUp(Match match) throws FileNotFoundException {
+        Gson gson = new Gson();
+        PowerUpCard[] newCard = gson.fromJson(new FileReader("cards/powerUpCards.json"), PowerUpCard[].class);
+        List<PowerUpCard> powerUpCards = new ArrayList<>(Arrays.asList(newCard));
+        match.createPowerUpDeck(powerUpCards);
+        match.createPowerUpSlushDeck();
+        match.getPowerUpDeck().shuffle();
+
     }
     /****************************** CreationGameObservable Implementation *****************************************/
     @Override

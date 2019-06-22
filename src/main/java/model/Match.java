@@ -57,6 +57,11 @@ public class Match {
      */
     private Deck<AmmoCard> ammoSlushPile;
 
+    /**
+     * powerUpSlushPile contains all AmmoCards used
+     */
+    private Deck<AmmoCard> powerUpSlushPile;
+
 
     public Match() {
         this.playerNumber = 5;
@@ -86,8 +91,42 @@ public class Match {
         currentPlayer = 0;
     }
 
+    /**
+     * creates the weaponDeck providing the cards
+     * @param cards list of weapon cards
+     */
     public synchronized void createWeaponDeck(List<WeaponCard> cards){
         this.weaponDeck = new Deck<>(cards);
+    }
+
+    /**
+     * creates the ammoDeck providing the cards
+     * @param cards list of ammo cards
+     */
+    public synchronized void createAmmoDeck(List<AmmoCard> cards){
+        this.ammoDeck = new Deck<>(cards);
+    }
+
+    /**
+     * creates the ammoSlushDeck 
+     */
+    public synchronized void createAmmoSlushDeck(){
+        this.ammoSlushPile = new Deck<>();
+    }
+
+    /**
+     * creates the powerUpDeck providing the cards
+     * @param cards list of powerUp cards
+     */
+    public synchronized void createPowerUpDeck(List<PowerUpCard> cards){
+        this.powerUpDeck = new Deck<>(cards);
+    }
+
+    /**
+     * creates the powerUpSlushDeck
+     */
+    public synchronized void createPowerUpSlushDeck(){
+        this.powerUpSlushPile = new Deck<>();
     }
 
     /**

@@ -528,10 +528,10 @@ public class Tile implements ChangesObservable {
      * @throws NullPointerException the ammo argument is null
      * @throws Exception            The tile has already an ammo card or the tile is not an ammo tile
      */
-    public void putAmmoCard(AmmoCard ammo) throws Exception {
-        if (!ammoTile) throw new Exception("This tile is not an ammo Tile");
+    public void putAmmoCard(AmmoCard ammo){
+        if (!ammoTile) throw new RuntimeException("This tile is not an ammo Tile");
         if (ammo == null) throw new NullPointerException("The argument passed is null");
-        if (ammoCard != null) throw new Exception("Can't add an ammoCard card in a tile that has already an ammo card");
+        if (ammoCard != null) throw new RuntimeException("Can't add an ammoCard card in a tile that has already an ammo card");
         this.ammoCard = ammo;
         notifyAllObserver();
     }
