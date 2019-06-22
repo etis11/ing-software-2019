@@ -1,5 +1,6 @@
 package Test;
 
+import com.google.gson.Gson;
 import javafx.scene.paint.Color;
 import jsonparser.JsonFileReader;
 import jsonparser.WeaponCardDeserializer;
@@ -167,5 +168,16 @@ public class JsonCreatorTest {
                 "\"ammoTile\":true,\"weaponTile\":false}]}";
         assertEquals(expectedString, jsonCreator.createTargetPlayerJson("Apelle figlio di apollo", pinotto), () -> "ERROR: the json should be the same");
 
+    }
+
+    void powerUp(){
+        PowerUpCard card = new PowerUpCard(Color.BLUE, PowerUpType.NEWTON);
+        String json = new Gson().toJson(card, PowerUpCard.class);
+        System.out.println(json);
+
+        PowerUpCard des = new Gson().fromJson(json, PowerUpCard.class);
+
+        System.out.println(card.getColor() +" "+ card.getPowerUpType());
+        System.out.println(des.getColor() +" "+ des.getPowerUpType());
     }
 }

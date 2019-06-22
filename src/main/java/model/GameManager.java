@@ -1,7 +1,9 @@
 package model;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import jsonparser.JsonFileReader;
+import jsonparser.PowerUpDeserializer;
 import jsonparser.WeaponCardDeserializer;
 import view.LobbyListener;
 
@@ -195,8 +197,14 @@ public class GameManager implements CreationGameObservable {
     }
 
     private synchronized void initPowerUp(Match match) throws FileNotFoundException {
-        Gson gson = new Gson();
+        GsonBuilder gb = new GsonBuilder();
+        gb.registerTypeAdapter(PowerUpCard.class, new PowerUpDeserializer());
+        Gson gson = gb.create();
         PowerUpCard[] newCard = gson.fromJson(new FileReader("cards/powerUpCards.json"), PowerUpCard[].class);
+        for(PowerUpCard p: newCard){
+            System.out.println("color: "+ p.getColor());
+            System.out.println("type: " + p.getPowerUpType());
+        }
         List<PowerUpCard> powerUpCards = new ArrayList<>(Arrays.asList(newCard));
         match.createPowerUpDeck(powerUpCards);
         match.createPowerUpSlushDeck();
