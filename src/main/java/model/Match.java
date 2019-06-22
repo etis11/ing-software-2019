@@ -226,4 +226,33 @@ public class Match {
     public synchronized Deck<AmmoCard> getAmmoSlushPile() {
         return ammoSlushPile;
     }
+
+    /**
+     * replace item consumed on the board
+     */
+    public synchronized void replaceCards(){
+        for(Tile t: map.mapAsList()){
+            if (t.canContainWeapons() && t.getWeapons().size()<3){
+                while(t.getWeapons().size()<3){
+                    t.putWeaponCard(weaponDeck.draw());
+                }
+            }
+            else if (t.canContainAmmo() && !t.isPresentAmmoCard()){
+                if (ammoDeck.isEmpty()){
+                    ammoSlushToDeck();
+                }
+                t.putAmmoCard(ammoDeck.draw());
+            }
+        }
+    }
+
+    /**
+     * reset the ammoDeck from his slush pile
+     */
+    private void ammoSlushToDeck(){
+        while (!ammoSlushPile.isEmpty()){
+            ammoDeck.addCard(ammoSlushPile.draw());
+        }
+        ammoDeck.shuffle();
+    }
 }
