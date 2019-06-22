@@ -55,7 +55,9 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
 
     /**
      * creates a token and adds it to the list of tokens
-     *
+     *TODO ATTENZIONE, potrebbe essere che se io conoscessi il token di passoni potrei connettermi e registrare il mio json receiver
+     * TODO al posto del suo per vedere le sue notifiche. Non penso che sia un vero problema perchè associateTokenAndReceiver inserisce l'associazione
+     * TODO solo se il token non è già associato
      * @return the token
      */
     @Override
@@ -63,7 +65,7 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
         rmiServerLogger.log(Level.INFO , ">>>A client is asking a token");
         String newToken = token;
         TokenRegistry registry = TokenRegistry.getInstance();
-        if (registry.tokenAlreadyGenerated(token)) {
+        if (!registry.tokenAlreadyGenerated(token)) {
             newToken = UUID.randomUUID().toString();
         }
         try {
@@ -73,6 +75,6 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
             rmiServerLogger.log(Level.WARNING, ">>> A client already associated is trying to get another token");
             throw new DuplicateException(d);
         }
-        return token;
+        return newToken;
     }
 }
