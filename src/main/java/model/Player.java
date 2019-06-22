@@ -338,23 +338,6 @@ public class Player implements ChangesObservable{
     }
 
     /**
-     * @param w
-     */
-    public void reloadWeapon(WeaponCard w) {
-        //TODO probabilmente non necessario
-        notifyAllObservers();
-    }
-
-    /**
-     * This method picks up the Ammo card in the current tile. The legality of this action must be controlled before calling
-     * this method. The ammoCard is used (passed to the loader). The player draws a powerUp if the drawPowerUp is true
-     */
-    public void pickUpAmmoCard() throws Exception {
-        //TODO forse non ci serve
-        notifyAllObservers();
-    }
-
-    /**
      * moves a player of a given path if it is possible
      *
      * @param movement Movement containing the list of moves to do
