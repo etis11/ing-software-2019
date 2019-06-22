@@ -1,0 +1,50 @@
+[
+  {
+    "PowerUpType": "NEWTON",
+    "Color": "BLUE"
+  },
+  {
+    "PowerUpType": "TELEPORTER",
+    "Color": "BLUE"
+  },
+  {
+    "PowerUpType": "TARGETINGSCOPE",
+    "Color": "BLUE"
+  },
+  {
+    "PowerUpType": "TAGBACKGRANADE",
+    "Color": "BLUE"
+  },
+  {
+    "PowerUpType": "NEWTON",
+    "Color": "YELLOW"
+  },
+  {
+    "PowerUpType": "TELEPORTER",
+    "Color": "YELLOW"
+  },
+  {
+    "PowerUpType": "TARGETINGSCOPE",
+    "Color": "YELLOW"
+  },
+  {
+    "PowerUpType": "TAGBACKGRANADE",
+    "Color": "YELLOW"
+  },
+  {
+    "PowerUpType": "NEWTON",
+    "Color": "RED"
+  },
+  {
+    "PowerUpType": "TELEPORTER",
+    "Color": "RED"
+  },
+  {
+    "PowerUpType": "TARGETINGSCOPE",
+    "Color": "RED"
+  },
+  {
+    "PowerUpType": "TAGBACKGRANADE",
+    "Color": "RED"
+  }
+]

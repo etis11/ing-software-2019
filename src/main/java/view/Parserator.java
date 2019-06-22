@@ -16,6 +16,9 @@ public class Parserator implements Runnable {
     private CommandLineInterface CLI;
     private boolean quit;
 
+    /*
+    String needed to return all possible commands that you can call on CLI
+     */
     String commandi=AnsiColor.GREEN+"quit"+AnsiColor.RESET+" - Uscire dal gioco\n" +
             AnsiColor.GREEN+"muovi *up/right/down/left*"+AnsiColor.RESET+" - Fa muovere il giocatore aggiungendo anche la/le direzione/i. Es: muovi up,left\n" +
             AnsiColor.GREEN+"spara"+AnsiColor.RESET+" - Commando che autorizza il giocatore a sparare\n" +
