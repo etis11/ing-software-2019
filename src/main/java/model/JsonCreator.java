@@ -6,6 +6,8 @@ import jsonparser.*;
 import controller.CommandResponse;
 import view.LobbyListener;
 
+import java.util.List;
+
 public class JsonCreator implements ChangesObserver, CreationGameObserver, LobbyListener {
 
     private boolean prettyPrinting = false;
@@ -111,13 +113,21 @@ public class JsonCreator implements ChangesObserver, CreationGameObserver, Lobby
     public void notifyPlayerChange(Player p) {
         response.setPlayerChanged(true);
         response.addChangedPlayer(p);
+        System.out.println("Player cambiato " + p);
+        System.out.println("i suoi power up sono "+ p.getPowerUps());
     }
 
     /******************* CreationGameObserver ************************************************************/
     @Override
     public void notifyStartedGame(Match m) {
-        response.setAllPlayers(m.getPlayers());
-        response.setAllTiles(m.getMap().mapAsList());
+        List<Player> allPlayer = m.getPlayers();
+        List<Tile> allTiles = m.getMap().mapAsList();
+        for(Player p: allPlayer)
+            p.attach(this);
+        for(Tile t: allTiles)
+            t.attach(this);
+        response.setAllPlayers(allPlayer);
+        response.setAllTiles(allTiles);
     }
 
     @Override

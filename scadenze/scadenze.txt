@@ -1,3 +1,7 @@
+//NB ho beccato una arma null tra le armi creato sulla cli. questo è molto male
+inoltre il json creator per qualche motivo non è attaccato ai players
+
+
 21 giugno
 
 1) fare la funzione onPlayerChange (che unisce tutte le altre)

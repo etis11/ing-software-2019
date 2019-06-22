@@ -131,8 +131,9 @@ public class GameManager implements CreationGameObservable {
     }
 
     private synchronized void notifyStartGameObservers(){
-        for(CreationGameObserver s: startGameObservers)
+        for(CreationGameObserver s: startGameObservers){
             s.notifyStartedGame(getMatch());
+        }
     }
 
     private  synchronized String getMapFromName(String name){
@@ -201,10 +202,6 @@ public class GameManager implements CreationGameObservable {
         gb.registerTypeAdapter(PowerUpCard.class, new PowerUpDeserializer());
         Gson gson = gb.create();
         PowerUpCard[] newCard = gson.fromJson(new FileReader("cards/powerUpCards.json"), PowerUpCard[].class);
-        for(PowerUpCard p: newCard){
-            System.out.println("color: "+ p.getColor());
-            System.out.println("type: " + p.getPowerUpType());
-        }
         List<PowerUpCard> powerUpCards = new ArrayList<>(Arrays.asList(newCard));
         match.createPowerUpDeck(powerUpCards);
         match.createPowerUpSlushDeck();
