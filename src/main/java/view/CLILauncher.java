@@ -117,6 +117,7 @@ public class CLILauncher {
         }
         catch (NoSuchObjectException s){
             CLI.displayText(AnsiColor.BLUE + ">>>Chiusura della CLI" + AnsiColor.RESET);
+            System.exit(0);
         }
     }
 }
