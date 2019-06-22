@@ -45,7 +45,7 @@ public class SocketServer {
     public SocketServer(int port, CommandLauncherProvider provider) throws IOException {
         serverSocket = new ServerSocket(port);
         serverSocketLogger.log(Level.INFO, ">>> Server Launched on port:" + port + ".");
-        threadPool = Executors.newFixedThreadPool(MAX_CLIENTS);
+        threadPool = Executors.newCachedThreadPool();
         this.provider = provider;
     }
 
