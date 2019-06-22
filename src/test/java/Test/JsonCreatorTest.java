@@ -127,7 +127,7 @@ public class JsonCreatorTest {
         t2.setID(1);
         PowerUpCard pc = new PowerUpCard(Color.RED, PowerUpType.NEWTON);
         JsonFileReader jsonFileReader = new JsonFileReader();//ok
-        String cards = jsonFileReader.loadWeaponCards("cards/cards.json");//ok
+        String cards = jsonFileReader.loadWeaponCards("cards/weaponCards.json");//ok
         Match match = new Match();
         //List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
         WeaponCardDeserializer weaponCardDeserializer = new WeaponCardDeserializer(match);//ok

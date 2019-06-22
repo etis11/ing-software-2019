@@ -75,7 +75,7 @@ public class WeaponCardTest {
     @Test
     void jsonLoadTest() {
         JsonFileReader jsonFileReader = new JsonFileReader();
-        String cards = jsonFileReader.loadWeaponCards("cards/cards.json");
+        String cards = jsonFileReader.loadWeaponCards("cards/weaponCards.json");
         Match match = new Match();
         //List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
         WeaponCardDeserializer weaponCardDeserializer = new WeaponCardDeserializer(match);
