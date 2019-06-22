@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -262,5 +263,42 @@ public class Match {
      */
     public void nextPlayer(){
         currentPlayer++;
+    }
+
+    private boolean checkDead(){
+        for(Player p:players){
+            String state =p.getState().getName();
+            if(state.equals("dead") || state.equals("overkilled")){
+                calculatePoints(p);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void verifyDead(){
+        if(checkDead()){
+            skulls--;
+        }
+        if(skulls<1){
+            //TODO end game o final frenzy
+        }
+    }
+    
+    private void calculatePoints(Player p){
+        List<BloodToken> damage = p.getPlayerBoard().getDamageTokens();
+        int[] numDamagePerPlayer = new int[playerNumber];
+        for(int i = 0; i<playerNumber;i++){
+            numDamagePerPlayer[i] = 0;
+        }
+        for (BloodToken b:damage){
+            numDamagePerPlayer[players.indexOf(b.getOwner())]++;
+        }
+        Arrays.sort(numDamagePerPlayer);
+        //TODO
+        //attribuisco punti
+        //attribuisco marchi
+        //se overkilled marchio
+        //atrtibuisco punto aggiuntivo prima uccizione
     }
 }
