@@ -108,7 +108,7 @@ public class Match {
     }
 
     /**
-     * creates the ammoSlushDeck 
+     * creates the ammoSlushDeck
      */
     public synchronized void createAmmoSlushDeck(){
         this.ammoSlushPile = new Deck<>();
@@ -206,11 +206,6 @@ public class Match {
         return powerUpDeck;
     }
 
-    //TODO need to know if this method should be used or not
-    public synchronized void setPowerUpDeck(Deck<PowerUpCard> powerUpDeck) {
-        this.powerUpDeck = powerUpDeck;
-    }
-
     /**
      * Method used to return the deck of Weapon cards
      */
@@ -218,21 +213,11 @@ public class Match {
         return weaponDeck;
     }
 
-    //TODO need to know if this method should be used or not
-    public synchronized void setWeaponDeck(Deck<WeaponCard> weaponDeck) {
-        this.weaponDeck = weaponDeck;
-    }
-
     /**
      * Method used to return the deck of Ammo cards
      */
     public synchronized Deck<AmmoCard> getAmmoDeck() {
         return ammoDeck;
-    }
-
-    //TODO need to know if this method should be used or not
-    public synchronized void setAmmoDeck(Deck<AmmoCard> ammoDeck) {
-        this.ammoDeck = ammoDeck;
     }
 
     /**
