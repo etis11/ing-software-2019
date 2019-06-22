@@ -231,6 +231,7 @@ public class Match {
      * replace item consumed on the board
      */
     public synchronized void replaceCards(){
+        //TODO devo notificare?
         for(Tile t: map.mapAsList()){
             if (t.canContainWeapons() && t.getWeapons().size()<3){
                 while(t.getWeapons().size()<3){

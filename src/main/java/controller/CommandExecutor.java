@@ -449,6 +449,34 @@ public class CommandExecutor {
         jsonCreator.reset();
     }
 
+    public void execute(SpawnCommand command) throws IOException {
+        boolean gameHasStarted = hasMatchStarted(gameManager);
+        JsonReceiver userJsonReceiver = command.getJsonReceiver();
+        //verify if game started
+        if (gameHasStarted) {
+            Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
+            Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
+            //verify if the owner is the current player
+            if (owner != currentPlayer) {
+                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
+            } else{
+                String regenPointColor = command.getColor();
+                Tile tileToSpawn = gameManager.getMatch().getMap().getRegenPoint(regenPointColor);
+                tileToSpawn.addPlayer(currentPlayer);
+                String message = currentPlayer.getName()+" si è rigenerato nel punto di rigenerazione"+regenPointColor;
+                for (JsonReceiver js : command.getAllReceivers()) {
+                    if (js != userJsonReceiver) {
+                        js.sendJson(jsonCreator.createJsonWithMessage(message));
+                    }
+                }
+                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("ti sei rigenerato nel punto di rigenerazione "+regenPointColor));
+            }
+        }else{
+            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La partita non è ancora iniziata"));
+        }
+        jsonCreator.reset();
+    }
+
     public void execute(SetEffectPhraseCommand command) throws IOException {
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
@@ -685,4 +713,5 @@ public class CommandExecutor {
         }
         jsonCreator.reset();
     }
+
 }
