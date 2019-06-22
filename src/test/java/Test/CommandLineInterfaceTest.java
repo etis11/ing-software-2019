@@ -162,7 +162,6 @@ SemplifiedWeaponCard[] weaponsPlayer = new SemplifiedWeaponCard[1];
 
         // System.out.println("player3 tile : "+player3.getTile());
         commandLineInterface.onMapChange(semplifiedMap);
-        System.out.println("onHpChange");
 
         player.setPlayerBoard(new SemplifiedPlayerBoard());
         SemplifiedBloodToken semplifiedBloodToken = new SemplifiedBloodToken(player2);
@@ -172,7 +171,6 @@ SemplifiedWeaponCard[] weaponsPlayer = new SemplifiedWeaponCard[1];
         SemplifiedBloodToken semplifiedBloodToken3 = new SemplifiedBloodToken(player3);
         player.getPlayerBoard().getDamageTokens().add(semplifiedBloodToken3);
 
-        commandLineInterface.onHpChange(player);
 
         SemplifiedBloodToken semplifiedBloodToken4 = new SemplifiedBloodToken(player3);
         player.getPlayerBoard().getMarksTokens().add(semplifiedBloodToken4);
@@ -187,8 +185,7 @@ SemplifiedWeaponCard[] weaponsPlayer = new SemplifiedWeaponCard[1];
         SemplifiedBloodToken semplifiedBloodToken9 = new SemplifiedBloodToken(player3);
         player.getPlayerBoard().getMarksTokens().add(semplifiedBloodToken9);
 
-        System.out.println("onMarksChange");
-        commandLineInterface.onMarksChange(player);
+commandLineInterface.onPlayerChange(player);
         //}
     }
 }

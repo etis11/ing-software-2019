@@ -147,9 +147,7 @@ public class CommandLineInterface extends AbstractView  {
                         }
                     }
                 }
-
             }
-
         }
 
 /*
@@ -256,7 +254,7 @@ The following 4 strings are the 4 maps.
                 }
             }
         }
-        displayText(output);
+        displayText("HP del giocatore "+playerColor(damagePlayer)+"\n"+output);
     }
 
     /**
@@ -284,7 +282,7 @@ The following 4 strings are the 4 maps.
                 }
             }
         }
-        displayText(output);
+        displayText("I marchi del giocatore "+playerColor(markedPlayer)+"\n"+output);
 //
     }
 
@@ -362,13 +360,15 @@ The following 4 strings are the 4 maps.
             consoleOutput.println();
         }
         consoleOutput.println(text);
-        consoleOutput.write(AnsiColor.GREEN + ">>> " + AnsiColor.RESET);
+        //consoleOutput.write(AnsiColor.GREEN + ">>> " + AnsiColor.RESET);
         consoleOutput.flush();
     }
 
     @Override
     public void onPlayerChange(SemplifiedPlayer p) {
-        displayText(AnsiColor.RED + "DA IMPLEMENTARE" + AnsiColor.RESET);
+        displayText("La playerboard del giocatore "+playerColor(p));
+        onHpChange(p);
+        onMarksChange(p);
     }
 
     public String playerColor(SemplifiedPlayer p) {
