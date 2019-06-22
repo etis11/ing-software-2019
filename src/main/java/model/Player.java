@@ -334,6 +334,11 @@ public class Player implements ChangesObservable{
      */
     public void usePowerUp(PowerUpCard c) {
         //TODO
+        try {
+            throwPowerUp(c);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         notifyAllObservers();
     }
 

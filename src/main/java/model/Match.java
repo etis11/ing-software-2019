@@ -256,4 +256,11 @@ public class Match {
         }
         ammoDeck.shuffle();
     }
+
+    /**
+     * set the new current player
+     */
+    public void nextPlayer(){
+        currentPlayer++;
+    }
 }
