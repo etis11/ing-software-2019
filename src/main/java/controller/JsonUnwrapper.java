@@ -13,7 +13,7 @@ import view.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObservable, MapObservable, LobbyObservable {
+public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObservable, MapObservable, LobbyObservable, MatchObservable {
 
 
     private final Gson gson;
@@ -21,6 +21,7 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
     private final List<MessageListener> messageListeners;
     private final List<PlayerObserver> playerObservers;
     private final List<MapObserver> mapObservers;
+    private final List<MatchObserver> matchObservers;
     private final List<LobbyListener> lobbyListeners;
     private final SemplifiedGame game;
 
@@ -42,6 +43,7 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
         playerObservers = new LinkedList<>();
         mapObservers = new LinkedList<>();
         lobbyListeners = new LinkedList<>();
+        matchObservers = new LinkedList<>();
     }
 
     private void notifyAllMessageListeners(String message){
@@ -53,6 +55,11 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
         for(MapObserver ob: mapObservers){
             ob.onMapChange(map);
         }
+    }
+
+    //TODO implementare metodo e json
+    private void notifyAllMatchObservers(){
+
     }
 
     private void notifyAllPlayerObserver(SemplifiedPlayer player){
@@ -149,9 +156,16 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
         mapObservers.add(mapObserver);
     }
 
+    /********************** Match Observable ***************************************/
+    @Override
+    public void attachMatchObserver(MatchObserver matchObserver) {
+        matchObservers.add(matchObserver);
+    }
+
     /********************** Lobby Observable ***************************************/
     @Override
     public void attach(LobbyListener ls) {
         lobbyListeners.add(ls);
     }
+
 }
