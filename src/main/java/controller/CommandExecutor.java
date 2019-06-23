@@ -453,7 +453,6 @@ public class CommandExecutor {
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
-        //TODO serve uno stato di spawn eventualmente da verificare?
         if (gameHasStarted) {
             Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
             Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
@@ -464,6 +463,7 @@ public class CommandExecutor {
                 String regenPointColor = command.getColor();
                 Tile tileToSpawn = gameManager.getMatch().getMap().getRegenPoint(regenPointColor);
                 tileToSpawn.addPlayer(currentPlayer);
+                currentPlayer.getState().nextState("NormalAction", currentPlayer);
                 String message = currentPlayer.getName()+" si è rigenerato nel punto di rigenerazione"+regenPointColor;
                 for (JsonReceiver js : command.getAllReceivers()) {
                     if (js != userJsonReceiver) {

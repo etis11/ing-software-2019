@@ -272,15 +272,34 @@ public class Match implements ChangesMatchObservable{
     /**
      * set the new current player
      */
-    public void nextPlayer(){
+    private void nextPlayer(){
         currentPlayer++;
         notifyAllObserversCurrentPlayer();
+    }
+
+    /**
+     * check if the current player has to spawn
+     */
+    private void checkSpawn(){
+        Player current = getCurrentPlayer();
+        if(current.getTile() == null && current.getState().getName().equals("EndTurn")){
+            current.pickUpPowerUp(powerUpDeck.draw());
+            current.pickUpPowerUp(powerUpDeck.draw());
+        }else if(current.getState().getName().equals("Dead") || current.getState().getName().equals("Overkilled")){
+            PowerUpCard p = powerUpDeck.draw();
+            current.pickUpPowerUp(p);
+        }
+        else{
+            current.getState().nextState(actionParser(current.getPlayerBoard()),current);
+            return;
+        }
+        //comando di spawn e scarto
     }
 
     private boolean checkDead(){
         for(Player p:players){
             String state =p.getState().getName();
-            if(state.equals("dead") || state.equals("overkilled")){
+            if(state.equals("Dead") || state.equals("Overkilled")){
                 calculatePoints(p);
                 return true;
             }
@@ -312,6 +331,25 @@ public class Match implements ChangesMatchObservable{
         //attribuisco marchi
         //se overkilled marchio
         //atrtibuisco punto aggiuntivo prima uccizione
+        //attribuisco skull
+    }
+
+    public void newRound(){
+        nextPlayer();
+        checkSpawn();
+    }
+
+    private String actionParser(PlayerBoard playerBoard){
+        int damage = playerBoard.getNumDamagePoints();
+        if(damage<3){
+            return "NormalAction";
+        }
+        else if (damage<6){
+            return "MoreAction";
+        }
+        else{
+            return "MostAction";
+        }
     }
 
     /********************** changes observable **************************/
@@ -320,6 +358,7 @@ public class Match implements ChangesMatchObservable{
         matchObservers.add(observer);
     }
 
+    //TODO va bene per json?
     private void notifyAllObserversCurrentPlayer(){
         for(ChangesMatchObserver ob : matchObservers) ob.notifyCurrentPlayerChange(players.get(currentPlayer));
     }

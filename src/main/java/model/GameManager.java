@@ -92,7 +92,7 @@ public class GameManager implements CreationGameObservable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        assignPowerUp(match);
+        match.newRound();
     }
 
     public  synchronized void startMatch(){
@@ -209,12 +209,6 @@ public class GameManager implements CreationGameObservable {
 
     }
 
-    private synchronized void assignPowerUp(Match match){
-        for (Player p : match.getPlayers()){
-            p.pickUpPowerUp(match.getPowerUpDeck().draw());
-            p.pickUpPowerUp(match.getPowerUpDeck().draw());
-        }
-    }
     /****************************** CreationGameObservable Implementation *****************************************/
     @Override
     public  synchronized void attach(CreationGameObserver ob) {
