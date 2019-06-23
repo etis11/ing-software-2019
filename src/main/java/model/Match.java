@@ -334,11 +334,19 @@ public class Match implements ChangesMatchObservable{
         //attribuisco skull
     }
 
+    /**
+     * starts a new round
+     */
     public void newRound(){
         nextPlayer();
         checkSpawn();
     }
 
+    /**
+     * parses the action that the player can do depending on his damage
+     * @param playerBoard playerBoard of current player
+     * @return string of the parsed state to go
+     */
     private String actionParser(PlayerBoard playerBoard){
         int damage = playerBoard.getNumDamagePoints();
         if(damage<3){
