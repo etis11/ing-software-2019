@@ -10,7 +10,7 @@ import java.util.List;
  * This class handles nearly everything in the game. Starting from the GameMap,Decks,Players and so on.
  * THe Match contains every Player and handles all moves done by players in the gamemap each turn.
  */
-public class Match {
+public class Match implements ChangesMatchObservable{
 
     /**
      * the number of player playing the game
@@ -62,6 +62,14 @@ public class Match {
      * powerUpSlushPile contains all AmmoCards used
      */
     private Deck<AmmoCard> powerUpSlushPile;
+    /**
+     * skulls provided by owners
+     */
+    private List<BloodToken> skullsList;
+    /**
+     * a list of observer interested in the change of the map
+     */
+    private List<ChangesMatchObserver> matchObservers;
 
 
     public Match() {
@@ -73,7 +81,8 @@ public class Match {
         this.skulls = skulls;
         this.players = players;
         this.map = GameMap.loadMap(mapPath);
-        currentPlayer = 0;
+        currentPlayer = -1;
+        matchObservers = new LinkedList<>();
     }
 
     public Match(int playerNumber, int skulls, GameMap map) {
@@ -81,7 +90,8 @@ public class Match {
         this.skulls = skulls;
         this.map = map;
         this.players = new ArrayList<>(playerNumber);
-        currentPlayer = 0;
+        currentPlayer = -1;
+        matchObservers = new LinkedList<>();
     }
 
     public Match(List<Player> players, int numOfSkulls, GameMap map){
@@ -89,7 +99,8 @@ public class Match {
         this.skulls = numOfSkulls;
         this.map = map;
         this.players = players;
-        currentPlayer = 0;
+        currentPlayer = -1;
+        matchObservers = new LinkedList<>();
     }
 
     /**
@@ -263,6 +274,7 @@ public class Match {
      */
     public void nextPlayer(){
         currentPlayer++;
+        notifyAllObserversCurrentPlayer();
     }
 
     private boolean checkDead(){
@@ -284,7 +296,7 @@ public class Match {
             //TODO end game o final frenzy
         }
     }
-    
+
     private void calculatePoints(Player p){
         List<BloodToken> damage = p.getPlayerBoard().getDamageTokens();
         int[] numDamagePerPlayer = new int[playerNumber];
@@ -300,5 +312,18 @@ public class Match {
         //attribuisco marchi
         //se overkilled marchio
         //atrtibuisco punto aggiuntivo prima uccizione
+    }
+
+    /********************** changes observable **************************/
+    @Override
+    public void attach(ChangesMatchObserver observer) {
+        matchObservers.add(observer);
+    }
+
+    private void notifyAllObserversCurrentPlayer(){
+        for(ChangesMatchObserver ob : matchObservers) ob.notifyCurrentPlayerChange(players.get(currentPlayer));
+    }
+    private void notifyAllObserversCurrentSkull(){
+        for(ChangesMatchObserver ob : matchObservers) ob.notifySkullChange(skullsList);
     }
 }

@@ -613,7 +613,7 @@ public class CommandExecutor {
         jsonCreator.reset();
 
         boolean lobbyFull = gameManager.getLobby().isFull();
-        if(lobbyFull){
+        if(lobbyFull && !gameHasStarted){
             TimerTask task = new TimerTask(){
                 @Override
                 public void run() {
@@ -626,6 +626,7 @@ public class CommandExecutor {
                 }
             };
             Timer timer = new Timer();
+            //gameManager.getLobby()
             commandExecutorLogger.log(Level.INFO, "creazione e inizio del timer");
             timer.schedule(task, seconds * 1000);
         }
