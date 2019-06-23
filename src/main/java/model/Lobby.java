@@ -24,9 +24,20 @@ public class Lobby  implements  LobbyObservable{
      */
     private final List<User> users;
 
+    private boolean closed;
+
     public Lobby() {
+        closed = false;
         lobbyListeners = new LinkedList<>();
         this.users = new ArrayList<>();
+    }
+
+    public boolean isClosed(){
+        return this.closed;
+    }
+
+    public void closeLobby(){
+        this.closed = true;
     }
 
     /**
