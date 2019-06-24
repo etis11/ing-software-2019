@@ -298,19 +298,30 @@ The following 4 strings are the 4 maps.
     @Override
     public void onAmmoChange(SemplifiedPlayer p) {
 
-        displayText(playerColor(p)+p.getName() +AnsiColor.RESET + " ha un numero diverso di ammo rispetto a prima:\n");
-        displayText("Ammo "+ AnsiColor.BLUE+ "blu"+AnsiColor.RESET+": " + p.getPlayerBoard().getNumBlueAmmo()+" ");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(playerColor(p)+p.getName() +AnsiColor.RESET + " ha un numero diverso di ammo rispetto a prima.\n");
+        //blue
+        stringBuilder.append("Ammo "+ AnsiColor.BLUE+ "blu"+AnsiColor.RESET+": " + p.getPlayerBoard().getNumBlueAmmo() + "\n");
         for(int i=0;i<p.getPlayerBoard().getNumBlueAmmo();i++){
-            displayText(AnsiColor.BLUE+"⬜"+AnsiColor.RESET);
+            stringBuilder.append(AnsiColor.BLUE+"⬜"+AnsiColor.RESET);
         }
-        displayText("Ammo "+ AnsiColor.RED+ "blu"+AnsiColor.RESET+": " + p.getPlayerBoard().getNumRedAmmo()+" ");
+        stringBuilder.append("\n");
+        //red
+        stringBuilder.append("Ammo "+ AnsiColor.RED+ "rosse"+AnsiColor.RESET+": " + p.getPlayerBoard().getNumRedAmmo() + "\n");
         for(int i=0;i<p.getPlayerBoard().getNumRedAmmo();i++){
-            displayText(AnsiColor.RED+"⬜"+AnsiColor.RESET);
+            stringBuilder.append(AnsiColor.RED+"⬜"+AnsiColor.RESET);
         }
-        displayText("Ammo "+ AnsiColor.YELLOW+ "blu"+AnsiColor.RESET+": " + p.getPlayerBoard().getNumYellowAmmo()+" ");
+        stringBuilder.append("\n");
+        //yellow
+        stringBuilder.append("Ammo "+ AnsiColor.YELLOW+ "gialle"+AnsiColor.RESET+": " + p.getPlayerBoard().getNumYellowAmmo());
         for(int i=0;i<p.getPlayerBoard().getNumYellowAmmo();i++){
-            displayText(AnsiColor.YELLOW+"⬜"+AnsiColor.RESET);
+            //if present the previuos line should have a \n.
+            if(i == 0)
+                stringBuilder.append("\n");
+            stringBuilder.append(AnsiColor.YELLOW+"⬜"+AnsiColor.RESET);
+            //i dont put the \n after the last ammo since display text will
         }
+        displayText(stringBuilder.toString());
     }
 
     /**
@@ -321,13 +332,13 @@ The following 4 strings are the 4 maps.
     @Override
     public void onPowerUpChange(SemplifiedPlayer p) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("POWER UPS: " + p.getNumPowerUps() + "\n");
+        stringBuilder.append("POWER UPS: " + p.getNumPowerUps());
         List<PowerUpCard> powerUpCards = p.getPowerUpCards();
         for(PowerUpCard card: powerUpCards){
             AnsiColor color = getAnsiColorPowerUp(card);
             String powerUpName = getPowerUpNameByType(card);
-            stringBuilder.append(color + powerUpName + AnsiColor.RESET );
             stringBuilder.append("\n");
+            stringBuilder.append(color + powerUpName + AnsiColor.RESET );
         }
         //displayText(p.getName() + " ha cambiato il numero di carte PowerUp nella mano, quindi ora ha: " + p.getNumPowerUps());
         displayText(stringBuilder.toString());
@@ -343,10 +354,11 @@ The following 4 strings are the 4 maps.
                 stringBuilder.append(getWeaponColor(w) + w.getName() + AnsiColor.RESET + "\n");
             }
         }
-        stringBuilder.append("ARMI SCARICHE: " + p.getNumEmptyWeapons() + "\n");
+        stringBuilder.append("ARMI SCARICHE: " + p.getNumEmptyWeapons());
         for(SemplifiedWeaponCard w: p.getWeaponCards()){
             if (!w.isLoaded()){
-                stringBuilder.append(getWeaponColor(w) + w.getName() + AnsiColor.RESET + "\n");
+                stringBuilder.append("\n");
+                stringBuilder.append(getWeaponColor(w) + w.getName() + AnsiColor.RESET);
             }
         }
         displayText(stringBuilder.toString());
