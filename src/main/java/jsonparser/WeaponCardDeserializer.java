@@ -6,6 +6,7 @@ import model.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /*
@@ -127,23 +128,30 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
             //    toAdd.setCost(costs);
             //  toAdd.setStrategy(getStrategyByName(strategy.get("type").getAsString(),param));}
             //System.out.println(effect);
+            toAdd.setMoveTargetAndHitAll(effect.get("moveTargetAndHitAll").getAsBoolean());
+            toAdd.setAlreadyMovedTarget(effect.get("alreadyMovedTarget").getAsBoolean());
             toAdd.setGlobal(effect.get("isGlobal").getAsBoolean());
 
-
-            toAdd.setMarks(gson.fromJson(effect.get("marks"), HashMap.class));
             toAdd.setDamage(gson.fromJson(effect.get("damage"), HashMap.class));
+            toAdd.setMarks(gson.fromJson(effect.get("marks"), HashMap.class));
+            toAdd.setCanMoveShooter(effect.get("canMoveShooter").getAsBoolean());
+            toAdd.setCanMoveShooter(effect.get("canMoveTarget").getAsBoolean());
+            toAdd.setNumStepsShooter(effect.get("numStepsShooter").getAsInt());
+            toAdd.setNumStepsTarget(effect.get("numStepsTarget").getAsInt());
+
             try {
-                for (JsonElement oe : effect.get("optionalEffects").getAsJsonArray()) {
-                    toAdd.getOptionalEffects().add(gson.fromJson(effect.get("optionalEffects"), OptionalEffect.class));
+                if(effect.has("optionalEffects")){
+                    for (JsonElement oe : effect.get("optionalEffects").getAsJsonArray()) {
+                        JsonArray optionalEffectJson = effect.get("optionalEffects").getAsJsonArray();
+                        for (JsonElement optionalJson : optionalEffectJson) {
+                            OptionalEffect optionalEffect = gson.fromJson(optionalJson, OptionalEffect.class);
+                            toAdd.getOptionalEffects().add(optionalEffect);
+                        }
+                    }
                 }
             } catch (Exception e) {
                 System.out.println("qua devo aggiungere qualcosa se no sonar si imppapa");
             }
-            toAdd.setCanMoveShooter(effect.get("isGlobal").getAsBoolean());
-            toAdd.setMoveTargetAndHitAll(effect.get("isGlobal").getAsBoolean());
-            toAdd.setAlreadyMovedTarget(effect.get("isGlobal").getAsBoolean());
-            toAdd.setMoveTargetAndHitAll(effect.get("isGlobal").getAsBoolean());
-            toAdd.setAlreadyMovedTarget(effect.get("isGlobal").getAsBoolean());
             //List<String> costs = new ArrayList<>();
             try {
                 JsonArray jsonCost = effect.get("cost").getAsJsonArray();

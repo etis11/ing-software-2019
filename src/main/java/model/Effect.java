@@ -175,7 +175,7 @@ public class Effect {
      * @return
      */
     public List<OptionalEffect> getOptionalEffects() {
-        return new LinkedList<>(optionalEffects);
+        return this.optionalEffects;
     }
 
     public void setOptionalEffects(List<OptionalEffect> optionalEffects) {

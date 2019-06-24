@@ -2,9 +2,7 @@ package Test;
 
 import jsonparser.JsonFileReader;
 import jsonparser.WeaponCardDeserializer;
-import model.AmmoCard;
-import model.Match;
-import model.WeaponCard;
+import model.*;
 import model.clientModel.SemplifiedPlayer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -82,6 +80,26 @@ public class WeaponCardTest {
         List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
         System.out.println(weaponCards);
         System.out.println(weaponCards.get(0).getBaseEffect().get(0).getMarks());
+        System.out.println(weaponCards.get(0).getBaseEffect().get(0).getStrategy());
+        System.out.println(weaponCards.get(6).getAdvancedEffect().get(0).toString());
+
         System.out.println(weaponCards.get(1).getName());
+        System.out.println(weaponCards.get(3).getBaseEffect().get(0).getOptionalEffects());
+        System.out.println(weaponCards.size());
+
+        for(WeaponCard weaponCard : weaponCards){
+            System.out.println(weaponCard.getBaseEffect().size());
+            for(Effect baseEffect : weaponCard.getBaseEffect()){
+                System.out.println("effects size"+baseEffect.getOptionalEffects().size());
+                for(OptionalEffect optionalEffect : baseEffect.getOptionalEffects()){
+                    String costs = "1";
+                    for(String cost : optionalEffect.getCost()){
+                        System.out.println(costs+" "+cost);
+                    }
+                }
+
+            }
+        }
+
     }
 }

@@ -8,7 +8,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -53,7 +53,8 @@
       }
     ],
     "advancedEffect": []
-  },
+  }
+,
   {
     "NAME": "Mitragliatrice",
     "reloadCost": [
@@ -63,7 +64,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -137,7 +138,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -201,7 +202,8 @@
       }
     ],
     "advancedEffect": []
-  },
+  }
+,
   {
     "NAME": "Fucile al plasma",
     "reloadCost": [
@@ -211,7 +213,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -273,7 +275,8 @@
       }
     ],
     "advancedEffect": []
-  },
+  }
+,
   {
     "NAME": "Fucile di precisione",
     "reloadCost": [
@@ -284,7 +287,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -309,69 +312,68 @@
       }
     ],
     "advancedEffect": []
-  },
-  {
-    "NAME": "Falce protonica",
-    "reloadCost": [
-      "blue"
-    ],
-    "baseEffect": [
-      {
-        "cost": [],
-        "moveTargetAndHitAll;": false,
-        "alreadyMovedTarget": false,
-        "isGlobal": false,
-        "damage": {
-          "red": 1,
-          "blue": 1,
-          "green": 1
-        },
-        "marks": {
-          "red": 0,
-          "blue": 0,
-          "green": 0
-        },
-        "canMoveShooter": false,
-        "numStepsShooter": 0,
-        "canMoveTarget": false,
-        "numStepsTarget": 0,
-        "strategy": {
-          "type": "MeleeStrategy",
-          "param": 2
-        },
-        "optionalEffects": []
+  },{
+  "NAME": "Falce protonica",
+  "reloadCost": [
+    "blue"
+  ],
+  "baseEffect": [
+    {
+      "cost": [],
+      "moveTargetAndHitAll": false,
+      "alreadyMovedTarget": false,
+      "isGlobal": false,
+      "damage": {
+        "red": 1,
+        "blue": 1,
+        "green": 1
+      },
+      "marks": {
+        "red": 0,
+        "blue": 0,
+        "green": 0
+      },
+      "canMoveShooter": false,
+      "numStepsShooter": 0,
+      "canMoveTarget": false,
+      "numStepsTarget": 0,
+      "strategy": {
+        "type": "MeleeStrategy",
+        "param": 2
+      },
+      "optionalEffects": []
+    }
+  ],
+  "advancedEffect": [
+    {
+      "cost": [
+        "blue",
+        "red"
+      ],
+      "moveTargetAndHitAll": false,
+      "alreadyMovedTarget": false,
+      "isGlobal": false,
+      "damage": {
+        "red": 2,
+        "blue": 2,
+        "green": 2
+      },
+      "marks": {
+        "red": 0,
+        "blue": 0,
+        "green": 0
+      },
+      "canMoveShooter": false,
+      "numStepsShooter": 0,
+      "canMoveTarget": false,
+      "numStepsTarget": 0,
+      "strategy": {
+        "type": "MeleeStrategy",
+        "param": 0
       }
-    ],
-    "advancedEffect": [
-      {
-        "cost": [
-          "blue",
-          "red"
-        ],
-        "moveTargetAndHitAll;": false,
-        "alreadyMovedTarget": false,
-        "isGlobal": false,
-        "damage": {
-          "red": 2,
-          "blue": 2,
-          "green": 2
-        },
-        "marks": {
-          "red": 0,
-          "blue": 0,
-          "green": 0
-        },
-        "canMoveShooter": false,
-        "numStepsShooter": 0,
-        "canMoveTarget": false,
-        "numStepsTarget": 0,
-        "strategy": {
-          "type": "MeleeStrategy",
-          "param": 0
-        }
-      }
-    ]
-  },
+    }
+  ]
+},
   {
     "NAME": "Raggio traente",
     "reloadCost": [
@@ -380,7 +382,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -411,7 +413,7 @@
           "yellow"
         ],
         "isGlobal": false,
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "damage": {
           "red": 3,
@@ -443,7 +445,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -498,7 +500,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": true,
         "damage": {
@@ -526,7 +528,7 @@
       {
         "cost": [],
         "isGlobal": true,
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "damage": {
           "red": 1,
@@ -545,8 +547,7 @@
         "strategy": {
           "type": "HellionStrategy",
           "param": null
-        },
-        "optionalEffects": []
+        }
       }
     ]
   },
@@ -560,7 +561,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -595,7 +596,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -625,7 +626,7 @@
           "red"
         ],
         "isGlobal": false,
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "damage": {
           "red": 1,
@@ -656,7 +657,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -687,7 +688,7 @@
           "yellow"
         ],
         "isGlobal": false,
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "damage": {
           "red": 1,
@@ -718,7 +719,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -773,7 +774,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -848,7 +849,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -876,7 +877,7 @@
       {
         "cost": [],
         "isGlobal": false,
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "damage": {
           "red": 2,
@@ -908,7 +909,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -980,7 +981,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -1007,7 +1008,7 @@
     "advancedEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -1040,7 +1041,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -1067,7 +1068,7 @@
     "advancedEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -1100,7 +1101,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -1125,7 +1126,7 @@
       },
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -1154,7 +1155,7 @@
         "cost": [
           "blue"
         ],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -1174,8 +1175,7 @@
         "strategy": {
           "type": "MeleeStrategy",
           "param": null
-        },
-        "optionalEffects": []
+        }
       }
     ]
   },
@@ -1187,7 +1187,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -1217,7 +1217,7 @@
           "yellow"
         ],
         "isGlobal": false,
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "damage": {
           "red": 1,
@@ -1248,7 +1248,7 @@
     "baseEffect": [
       {
         "cost": [],
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
@@ -1278,7 +1278,7 @@
           "red"
         ],
         "isGlobal": false,
-        "moveTargetAndHitAll;": false,
+        "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "damage": {
           "red": 3,

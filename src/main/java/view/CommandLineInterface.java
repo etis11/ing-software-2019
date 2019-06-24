@@ -330,7 +330,7 @@ The following 4 strings are the 4 maps.
      **/
     public String getUserInputString() throws IOException {
         //       Scanner scanner1 = new Scanner(System.in);
-//        consoleOutput.write(AnsiColor.GREEN + ">>> " + AnsiColor.RESET);
+       consoleOutput.write(AnsiColor.GREEN + ">>> " + AnsiColor.RESET);
         consoleOutput.flush();
         String cc = fromKeyBoard.nextLine();
         consoleOutput.print(AnsiColor.GREEN + ">>> " + AnsiColor.RESET);
