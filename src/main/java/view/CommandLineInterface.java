@@ -295,7 +295,6 @@ The following 4 strings are the 4 maps.
     public void onAmmoChange(SemplifiedPlayer p) {
 
         displayText(playerColor(p)+p.getName() +AnsiColor.RESET + " ha un numero diverso di ammo rispetto a prima:\n");
-
         displayText("Ammo "+ AnsiColor.BLUE+ "blu"+AnsiColor.RESET+": " + p.getPlayerBoard().getLoader().getNumBlueAmmo()+" ");
         for(int i=0;i<p.getPlayerBoard().getLoader().getNumBlueAmmo();i++){
             displayText(AnsiColor.BLUE+"⬜"+AnsiColor.RESET);
@@ -369,6 +368,9 @@ The following 4 strings are the 4 maps.
         displayText("La playerboard del giocatore "+playerColor(p));
         onHpChange(p);
         onMarksChange(p);
+        onAmmoChange(p);
+        onPowerUpChange(p);
+        onWeaponChange(p);
     }
 
     public String playerColor(SemplifiedPlayer p) {

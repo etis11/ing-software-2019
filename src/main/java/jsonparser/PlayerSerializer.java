@@ -55,7 +55,6 @@ public class PlayerSerializer implements JsonSerializer<Player> {
         jsonObject.addProperty("numPowerUps", player.getNumPowerUps());
 
         if (player == currentPlayer){
-            System.out.println("siamo lo stesso player, devo prendere i powerups");
             final JsonElement powerUps = jsonSerializationContext.serialize(player.getPowerUps().toArray(new PowerUpCard[0]), PowerUpCard[].class);
             jsonObject.add("powerUps", powerUps);
         }
