@@ -31,7 +31,8 @@ public class Parserator implements Runnable {
             AnsiColor.GREEN+"setuccisioni *NUMERO*"+AnsiColor.RESET+" - Commando che decide i numeri di teschi a inizio partita. Es: setuccisioni 4\n" +
             AnsiColor.GREEN+"setgiocatori *NUMERO*"+AnsiColor.RESET+" - Comando che serve per decidere i numeri di giocatori nella partita. Es: setgiocatori 5\n" +
             AnsiColor.GREEN+"punti"+AnsiColor.RESET+" - Commando che ritorna la quantita dei punti del giocatore che fa la richiesta\n" +
-            AnsiColor.GREEN+"setpersonaggio *NOME*"+AnsiColor.RESET+" - Commando che connette il giocatore con il carattere del gioco. Es: setpersonaggio VIOLETTA";
+            AnsiColor.GREEN+"setpersonaggio *NOME*"+AnsiColor.RESET+" - Commando che connette il giocatore con il carattere del gioco. Es: setpersonaggio VIOLETTA\n"+
+            AnsiColor.GREEN+"setfrenesia *si/no*"+AnsiColor.RESET+" - Commando che imposta la frenesia finale per la partita. Es: setfrenesia no\n";
 
     public Parserator(CommandLineInterface cli, CommandContainer launcher) {
         CLI = cli;
@@ -112,6 +113,8 @@ public class Parserator implements Runnable {
             case "setpersonaggio":
                 commandLauncher.addCommand(new SetTokenCommand(token, param.toLowerCase()));
                 return;
+            case "setfrenesia":
+                commandLauncher.addCommand(new SetFinalFrenzyCommand(token, parseFrenzy(param)));
         }
 
         if (command.contains("up") || command.contains("right") || command.contains("left") || command.contains("down")) {
@@ -121,5 +124,9 @@ public class Parserator implements Runnable {
             return;
         }
         throw new IllegalArgumentException();
+    }
+
+    private boolean parseFrenzy(String param){
+        return !param.equalsIgnoreCase("no");
     }
 }
