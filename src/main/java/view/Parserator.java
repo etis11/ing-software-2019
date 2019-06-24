@@ -115,6 +115,7 @@ public class Parserator implements Runnable {
                 return;
             case "setfrenesia":
                 commandLauncher.addCommand(new SetFinalFrenzyCommand(token, parseFrenzy(param)));
+                return;
         }
 
         if (command.contains("up") || command.contains("right") || command.contains("left") || command.contains("down")) {

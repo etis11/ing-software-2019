@@ -319,19 +319,34 @@ public class Match implements ChangesMatchObservable{
     private void calculatePoints(Player p){
         List<BloodToken> damage = p.getPlayerBoard().getDamageTokens();
         int[] numDamagePerPlayer = new int[playerNumber];
+        int[] orederedDamagePerPlayer = new int[playerNumber];
+        int[] points = new int[playerNumber];
         for(int i = 0; i<playerNumber;i++){
             numDamagePerPlayer[i] = 0;
         }
         for (BloodToken b:damage){
             numDamagePerPlayer[players.indexOf(b.getOwner())]++;
         }
-        Arrays.sort(numDamagePerPlayer);
+        if (playerNumber >= 0) System.arraycopy(numDamagePerPlayer, 0, orederedDamagePerPlayer, 0, playerNumber);
+        Arrays.sort(orederedDamagePerPlayer);
+        for(int i = playerNumber; i>=0;i--){
+            for (int j =0; j<playerNumber;j++){
+                if(orederedDamagePerPlayer[i]== numDamagePerPlayer[j]){
+                    points[j]=p.getPlayerBoard().getKillValue().get(0);
+                }
+                //todo verifica se hanno stesso punteggio
+            }
+        }
         //TODO
         //attribuisco punti
         //attribuisco marchi
         //se overkilled marchio
-        //atrtibuisco punto aggiuntivo prima uccizione
-        //attribuisco skull
+        //decrease max point value
+        p.getPlayerBoard().getKillValue().remove(0);
+        //points for first damage
+        points[players.indexOf(damage.get(0).getOwner())]++;
+        //set the kill on the skull list
+        skullsList.add(new BloodToken(damage.get(10).getOwner()));
     }
 
     /**
