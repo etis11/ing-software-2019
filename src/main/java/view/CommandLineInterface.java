@@ -19,20 +19,6 @@ import java.util.Scanner;
  **/
 public class CommandLineInterface extends AbstractView  {
 
-    private CommandLauncherInterface commandLauncher;
-    private User user;
-    private String username;
-    private String phrase;
-    private int num;
-    private User owner;
-    private int players;
-    private String token;
-    private SemplifiedPlayer player;
-    private SemplifiedPlayerBoard playerBoard;
-    private SemplifiedTile tile;
-    private SemplifiedMap map;
-    private SetMapCommand chosenMap;
-
     /**
      * Attribute needed to output text from the console
      **/
