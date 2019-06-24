@@ -85,10 +85,12 @@ public class JsonCreator implements ChangesObserver, CreationGameObserver, Lobby
      */
     public String createTargetPlayerJson(String s, Player player) {
         weaponCardSerializer.setCurrentPlayer(player);
+        playerSerializer.setCurrentPlayer(player);
         response.setMessage(s);
         String changes = gson.toJson(response);
         response.resetMessage();
         playerSerializer.resetSet();
+        playerSerializer.resetCurrentPlayer();
         return changes;
     }
 

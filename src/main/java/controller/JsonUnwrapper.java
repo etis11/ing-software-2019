@@ -3,8 +3,6 @@ package controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import jsonparser.semplifiedParser.SemplifiedPlayerDeserializer;
-import jsonparser.semplifiedParser.SemplifiedTileDeserializer;
-import jsonparser.semplifiedParser.SemplifiedWeaponDeserializer;
 import model.LobbyObservable;
 import model.User;
 import model.clientModel.*;
@@ -88,7 +86,7 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
         /**
          * poi da cancellare
          */
-        System.out.println(changes);
+        //System.out.println(changes);
 
         CommandResponseClient response = gson.fromJson(changes, CommandResponseClient.class);
         String message = response.getMessage();

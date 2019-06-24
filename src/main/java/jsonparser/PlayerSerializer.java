@@ -18,6 +18,10 @@ import java.util.Set;
 
 public class PlayerSerializer implements JsonSerializer<Player> {
 
+    Player currentPlayer;
+
+
+
     private static final ThreadLocal<Set<Player>> cache = new ThreadLocal<Set<Player>>() {
         @Override
         protected Set<Player> initialValue() {
@@ -25,6 +29,13 @@ public class PlayerSerializer implements JsonSerializer<Player> {
         }
     };
 
+    public void setCurrentPlayer(Player p) {
+        currentPlayer = p;
+    }
+
+    public void resetCurrentPlayer(){
+        currentPlayer = null;
+    }
 
     @Override
     public JsonElement serialize(Player player, Type type, JsonSerializationContext jsonSerializationContext) {
@@ -43,8 +54,11 @@ public class PlayerSerializer implements JsonSerializer<Player> {
 
         jsonObject.addProperty("numPowerUps", player.getNumPowerUps());
 
-        final JsonElement powerUps = jsonSerializationContext.serialize(player.getPowerUps().toArray(new PowerUpCard[0]), PowerUpCard[].class);
-        jsonObject.add("powerUps", powerUps);
+        if (player == currentPlayer){
+            System.out.println("siamo lo stesso player, devo prendere i powerups");
+            final JsonElement powerUps = jsonSerializationContext.serialize(player.getPowerUps().toArray(new PowerUpCard[0]), PowerUpCard[].class);
+            jsonObject.add("powerUps", powerUps);
+        }
 
         if (player.getTile() != null)
             jsonObject.addProperty("tile", player.getTile().getID());
