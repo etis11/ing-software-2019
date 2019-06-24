@@ -15,7 +15,6 @@ public class SemplifiedPlayerBoard {
     private int numBlueAmmo;
     private int numRedAmmo;
     private int numYellowAmmo;
-    private Loader loader;
 
     public SemplifiedPlayerBoard() {
         this.damageTokens = new LinkedList<>();
@@ -31,9 +30,6 @@ public class SemplifiedPlayerBoard {
     }
     public int getNumMarks() {
         return marksTokens.size();
-    }
-    public Loader getLoader() {
-        return loader;
     }
 
     public void setDamageTokens(SemplifiedBloodToken[] damageTokens) {

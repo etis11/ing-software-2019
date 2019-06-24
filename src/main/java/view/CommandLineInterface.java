@@ -2,7 +2,11 @@ package view;
 
 import controller.CommandLauncherInterface;
 import controller.commandpack.SetMapCommand;
+import javafx.scene.paint.Color;
+import model.PowerUpCard;
+import model.PowerUpType;
 import model.User;
+import model.WeaponCard;
 import model.clientModel.*;
 
 import java.io.*;
@@ -295,16 +299,16 @@ The following 4 strings are the 4 maps.
     public void onAmmoChange(SemplifiedPlayer p) {
 
         displayText(playerColor(p)+p.getName() +AnsiColor.RESET + " ha un numero diverso di ammo rispetto a prima:\n");
-        displayText("Ammo "+ AnsiColor.BLUE+ "blu"+AnsiColor.RESET+": " + p.getPlayerBoard().getLoader().getNumBlueAmmo()+" ");
-        for(int i=0;i<p.getPlayerBoard().getLoader().getNumBlueAmmo();i++){
+        displayText("Ammo "+ AnsiColor.BLUE+ "blu"+AnsiColor.RESET+": " + p.getPlayerBoard().getNumBlueAmmo()+" ");
+        for(int i=0;i<p.getPlayerBoard().getNumBlueAmmo();i++){
             displayText(AnsiColor.BLUE+"⬜"+AnsiColor.RESET);
         }
-        displayText("Ammo "+ AnsiColor.RED+ "blu"+AnsiColor.RESET+": " + p.getPlayerBoard().getLoader().getNumRedAmmo()+" ");
-        for(int i=0;i<p.getPlayerBoard().getLoader().getNumRedAmmo();i++){
+        displayText("Ammo "+ AnsiColor.RED+ "blu"+AnsiColor.RESET+": " + p.getPlayerBoard().getNumRedAmmo()+" ");
+        for(int i=0;i<p.getPlayerBoard().getNumRedAmmo();i++){
             displayText(AnsiColor.RED+"⬜"+AnsiColor.RESET);
         }
-        displayText("Ammo "+ AnsiColor.YELLOW+ "blu"+AnsiColor.RESET+": " + p.getPlayerBoard().getLoader().getNumYellowAmmo()+" ");
-        for(int i=0;i<p.getPlayerBoard().getLoader().getNumYellowAmmo();i++){
+        displayText("Ammo "+ AnsiColor.YELLOW+ "blu"+AnsiColor.RESET+": " + p.getPlayerBoard().getNumYellowAmmo()+" ");
+        for(int i=0;i<p.getPlayerBoard().getNumYellowAmmo();i++){
             displayText(AnsiColor.YELLOW+"⬜"+AnsiColor.RESET);
         }
     }
@@ -316,12 +320,36 @@ The following 4 strings are the 4 maps.
      **/
     @Override
     public void onPowerUpChange(SemplifiedPlayer p) {
-        displayText(p.getName() + " ha cambiato il numero di carte PowerUp nella mano, quindi ora ha: " + p.getNumPowerUps());
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("POWER UPS: " + p.getNumPowerUps() + "\n");
+        List<PowerUpCard> powerUpCards = p.getPowerUpCards();
+        for(PowerUpCard card: powerUpCards){
+            AnsiColor color = getAnsiColorPowerUp(card);
+            String powerUpName = getPowerUpNameByType(card);
+            stringBuilder.append(color + powerUpName + AnsiColor.RESET );
+            stringBuilder.append("\n");
+        }
+        //displayText(p.getName() + " ha cambiato il numero di carte PowerUp nella mano, quindi ora ha: " + p.getNumPowerUps());
+        displayText(stringBuilder.toString());
     }
 
     @Override
     public void onWeaponChange(SemplifiedPlayer p) {
-        displayText(p.getName()+ "ha cambiato le armi e contiene " + p.getNumWeapons() + " carte armi, che sono: "+ p.getWeaponCards());
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("ARMI: " + p.getNumWeapons() + "\n");
+        stringBuilder.append("ARMI CARICHE: " + p.getNumLoadedWeapons()+ "\n");
+        for(SemplifiedWeaponCard w: p.getWeaponCards()){
+            if (w.isLoaded()){
+                stringBuilder.append(getWeaponColor(w) + w.getName() + AnsiColor.RESET + "\n");
+            }
+        }
+        stringBuilder.append("ARMI SCARICHE: " + p.getNumEmptyWeapons() + "\n");
+        for(SemplifiedWeaponCard w: p.getWeaponCards()){
+            if (!w.isLoaded()){
+                stringBuilder.append(getWeaponColor(w) + w.getName() + AnsiColor.RESET + "\n");
+            }
+        }
+        displayText(stringBuilder.toString());
     }
 
     /**
@@ -397,5 +425,48 @@ The following 4 strings are the 4 maps.
         return playercolor;
     }
 
+    /**
+     * Returns the ansi color of the power up
+     * @param powerUpCard
+     * @return the relative ansi color
+     */
+    private AnsiColor getAnsiColorPowerUp(PowerUpCard powerUpCard){
+        Color color = powerUpCard.getColor();
+        if (color.equals(Color.RED))
+            return AnsiColor.RED;
+        if(color.equals(Color.BLUE))
+            return AnsiColor.BLUE;
+        if(color.equals(Color.YELLOW))
+            return AnsiColor.YELLOW;
+        throw new RuntimeException("Color not valid");
+    }
+
+    private String getPowerUpNameByType(PowerUpCard powerUpCard){
+        PowerUpType powerUpType = powerUpCard.getPowerUpType();
+        if (powerUpType.equals(PowerUpType.NEWTON))
+            return "Newton";
+        if (powerUpType.equals(PowerUpType.TAGBACK_GRANADE))
+            return "Granata";
+        if (powerUpType.equals(PowerUpType.TARGETING_SCOPE))
+            return "Mirino";
+        if (powerUpType.equals(PowerUpType.TELEPORTER))
+            return "Teletrasporto";
+        throw new RuntimeException("There is not such a type of power up");
+    }
+
+    private AnsiColor getWeaponColor(SemplifiedWeaponCard weaponCard){
+        String firstCost = weaponCard.getCost().get(0);
+        firstCost = firstCost.toLowerCase();
+        switch (firstCost){
+            case "red":
+                return AnsiColor.RED;
+            case "blue":
+                return AnsiColor.BLUE;
+            case "yellow":
+                return AnsiColor.YELLOW;
+            default:
+                throw new RuntimeException("Unkown color for a weapon card");
+        }
+    }
 
 }

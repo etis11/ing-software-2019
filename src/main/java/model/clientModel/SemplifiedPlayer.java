@@ -90,6 +90,20 @@ public class SemplifiedPlayer {
         this.playerBoard = playerBoard;
     }
 
+    public int getNumLoadedWeapons(){
+        int i = 0;
+        for (SemplifiedWeaponCard w: weaponCards){
+            if(w.isLoaded()){
+                i++;
+            }
+        }
+        return i;
+    }
+
+    public int getNumEmptyWeapons(){
+        return weaponCards.size() - getNumLoadedWeapons();
+    }
+
     @Override
     public String toString() {
 
