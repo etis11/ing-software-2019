@@ -24,6 +24,9 @@ public class Lobby  implements  LobbyObservable{
      */
     private final List<User> users;
 
+    /**
+     * identify if the lobby is closed
+     */
     private boolean closed;
 
     public Lobby() {
@@ -32,10 +35,17 @@ public class Lobby  implements  LobbyObservable{
         this.users = new ArrayList<>();
     }
 
+    /**
+     * tells if the lobby is closed and a match is starting
+     * @return the state of the lobby
+     */
     public boolean isClosed(){
         return this.closed;
     }
 
+    /**
+     * closes the lobby
+     */
     public void closeLobby(){
         this.closed = true;
     }

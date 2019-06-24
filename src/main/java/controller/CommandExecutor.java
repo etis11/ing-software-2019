@@ -695,6 +695,40 @@ public class CommandExecutor {
         jsonCreator.reset();
     }
 
+    public void execute(SetFinalFrenzyCommand command) throws IOException{
+        boolean gameHasStarted = hasMatchStarted(gameManager);
+        JsonReceiver userJsonReceiver = command.getJsonReceiver();
+        //verify if game started
+        if (!gameHasStarted) {
+            //verify if the user has already been created
+            if (registry.getJsonUserOwner(userJsonReceiver) != null) {
+                boolean frenzyWanted = command.getFrenzy();
+                User firstLobbyUser = gameManager.getLobby().getUsers().get(0);
+                User owner = registry.getJsonUserOwner(userJsonReceiver);
+                //verify if the owner is the first user of the lobby
+                if (firstLobbyUser == owner) {
+                    if(gameManager.getFinalfrenzy()!=frenzyWanted) {
+                        gameManager.setFinalFrenzy(frenzyWanted);
+                        for (JsonReceiver jr : command.getAllReceivers()) {
+                            jr.sendJson(jsonCreator.createJsonWithMessage("La partita terminerà con la frenesia finale: " + gameManager.getFinalfrenzy()));
+                        }
+                    }else{
+                        userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La frenesia finale era già impostata al valore inserito"));
+                    }
+                }
+                else {
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Operazione non consentita"));
+                }
+            }
+            else{
+                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non hai ancora impostato uno username"));
+            }
+        }else {
+            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi modificare la frenesia finale perchè la partita è già iniziata"));
+        }
+        jsonCreator.reset();
+    }
+
 
     private boolean hasMatchStarted(GameManager gm){
         return gm.isMatchStarted();
