@@ -806,9 +806,9 @@ public class PbFrame {
 
     public void updateAmmo(SemplifiedPlayer p){
         List<Label> ammo = ammoParser(p.getName());
-        ammo.get(0).setText(""+p.getPlayerBoard().getLoader().getNumBlueAmmo());
-        ammo.get(1).setText(""+p.getPlayerBoard().getLoader().getNumRedAmmo());
-        ammo.get(2).setText(""+p.getPlayerBoard().getLoader().getNumYellowAmmo());
+        ammo.get(0).setText(""+p.getPlayerBoard().getNumBlueAmmo());
+        ammo.get(1).setText(""+p.getPlayerBoard().getNumRedAmmo());
+        ammo.get(2).setText(""+p.getPlayerBoard().getNumYellowAmmo());
     }
 
     private List<Label>ammoParser(String p){

@@ -928,9 +928,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     @Override
     public void onAmmoChange(SemplifiedPlayer p) {
         if (!players.contains(p.getName())) {
-            blueAmmmo.setText(""+p.getPlayerBoard().getLoader().getNumBlueAmmo());
-            redAmmmo.setText(""+p.getPlayerBoard().getLoader().getNumRedAmmo());
-            yellowAmmmo.setText(""+p.getPlayerBoard().getLoader().getNumYellowAmmo());
+            blueAmmmo.setText(""+p.getPlayerBoard().getNumBlueAmmo());
+            redAmmmo.setText(""+p.getPlayerBoard().getNumRedAmmo());
+            yellowAmmmo.setText(""+p.getPlayerBoard().getNumYellowAmmo());
         }
         else {
             pbFrame.updateAmmo(p);
