@@ -58,7 +58,6 @@ public class Player implements ChangesObservable{
      */
     private List<ChangesObserver> playerObservers;
 
-
     /**
      * A player without name is created. His hand is empty and the state is EndTurn (he cant do anything). Since no map or tile
      * has been created, this player has not been positioned on any tile
@@ -183,6 +182,19 @@ public class Player implements ChangesObservable{
      */
     public List<WeaponCard> getWeapons() {
         return weapons.stream().map(WeaponCard::new).collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    /**
+     * returns a copy of all the empty weapons
+     * @return
+     */
+    public List<WeaponCard> getEmptyWeapons(){
+        List<WeaponCard> emptyWeapons = new LinkedList<>();
+        for(WeaponCard w: getWeapons()){
+            if(!w.isLoaded())
+                emptyWeapons.add(new WeaponCard(w));
+        }
+        return emptyWeapons;
     }
 
     /**

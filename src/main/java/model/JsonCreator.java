@@ -24,8 +24,6 @@ public class JsonCreator implements ChangesObserver, CreationGameObserver, Lobby
         gb.registerTypeAdapter(Player.class, playerSerializer);
         gb.registerTypeAdapter(Tile.class, new TileSerializer());
         weaponCardSerializer = new WeaponCardSerializer();
-        weaponCardSerializer.setPlayerModeTrue();
-        weaponCardSerializer.setCurrentPlayer(null);
         gb.registerTypeAdapter(WeaponCard.class, weaponCardSerializer);
         if (prettyPrinting) gb.setPrettyPrinting();
         gson = gb.create();
@@ -84,7 +82,6 @@ public class JsonCreator implements ChangesObserver, CreationGameObserver, Lobby
      * @return
      */
     public String createTargetPlayerJson(String s, Player player) {
-        weaponCardSerializer.setCurrentPlayer(player);
         playerSerializer.setCurrentPlayer(player);
         response.setMessage(s);
         String changes = gson.toJson(response);

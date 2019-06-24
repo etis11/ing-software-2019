@@ -21,6 +21,7 @@ public class SemplifiedPlayer {
     private List<PowerUpCard> powerUpCards = new LinkedList<>();
     private int tile;
     private SemplifiedPlayerBoard playerBoard;
+    private List<SemplifiedWeaponCard> carte;
 
 
     public String getName() {

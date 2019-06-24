@@ -49,7 +49,13 @@ public class PlayerSerializer implements JsonSerializer<Player> {
 
         jsonObject.addProperty("numWeaponCard", player.getNumWeapons());
 
-        final JsonElement weaponCards = jsonSerializationContext.serialize(player.getWeapons().toArray(new WeaponCard[0]), WeaponCard[].class);
+        final JsonElement weaponCards;
+        if (player == currentPlayer){
+             weaponCards = jsonSerializationContext.serialize(player.getWeapons().toArray(new WeaponCard[0]), WeaponCard[].class);
+        }
+        else{
+            weaponCards = jsonSerializationContext.serialize(player.getEmptyWeapons().toArray(new WeaponCard[0]), WeaponCard[].class);
+        }
         jsonObject.add("weaponCards", weaponCards);
 
         jsonObject.addProperty("numPowerUps", player.getNumPowerUps());

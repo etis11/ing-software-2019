@@ -12,30 +12,6 @@ import java.lang.reflect.Type;
 
 public class WeaponCardSerializer implements JsonSerializer<WeaponCard> {
 
-    private Player currentPlayer;
-    private boolean playerMode;
-    private boolean tileMode;
-
-    public WeaponCardSerializer() {
-        playerMode = true;
-        tileMode = false;
-    }
-
-    public void setCurrentPlayer(Player p) {
-        currentPlayer = p;
-    }
-
-    public void setPlayerModeTrue() {
-        playerMode = true;
-        tileMode = false;
-    }
-
-    public void setTileModeTrue() {
-        playerMode = false;
-        tileMode = true;
-    }
-
-
     @Override
     /**
      * This method serialize a weapon. A weapon can be seen only if it's not loaded or if the player is the same that
@@ -43,17 +19,7 @@ public class WeaponCardSerializer implements JsonSerializer<WeaponCard> {
      */
     public JsonElement serialize(WeaponCard weaponCard, Type type, JsonSerializationContext jsonSerializationContext) {
         final JsonObject jsonWeaponCard = new JsonObject();
-        if (playerMode && currentPlayer != null) {
-            if (currentPlayer.getWeapons().contains(weaponCard) || !weaponCard.isLoaded()) {
-                serializeWeaponCard(weaponCard, jsonWeaponCard, jsonSerializationContext);
-            }
-        } else {
-            serializeWeaponCard(weaponCard, jsonWeaponCard, jsonSerializationContext);
-        }
-
-
-        //at the end , the player is set back to null
-        currentPlayer = null;
+        serializeWeaponCard(weaponCard, jsonWeaponCard, jsonSerializationContext);
         return jsonWeaponCard;
 
     }
