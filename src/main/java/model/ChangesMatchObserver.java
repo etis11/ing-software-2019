@@ -5,6 +5,5 @@ import java.util.List;
 public interface ChangesMatchObserver {
     void notifyCurrentPlayerChange(Player player);
 
-    void notifySkullChange(List<List<BloodToken>> deathTrack );
+    void notifySkullChange(List<List<BloodToken>> deathTrack);
 }
-

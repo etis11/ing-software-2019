@@ -61,6 +61,7 @@ public class CLILauncher {
             receiver.attachMapObserver(CLI);
             receiver.attachMessageListener(CLI);
             receiver.attachPlayerObserver(CLI);
+            receiver.attachMatchObserver(CLI);
             startCLI(CLI, cmdLauncher);
         }
         else if(connectionType.equals("socket")){
@@ -89,6 +90,7 @@ public class CLILauncher {
             receiver.attachMapObserver(CLI);
             receiver.attachMessageListener(CLI);
             receiver.attachPlayerObserver(CLI);
+            receiver.attachMatchObserver(CLI);
             if (jsonSocketReceiver == null) throw new RuntimeException("the json socket receiver is null");
             new Thread(jsonSocketReceiver).start();
             startCLI(CLI, cmdLauncher);
