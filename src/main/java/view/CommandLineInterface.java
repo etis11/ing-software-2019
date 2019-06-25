@@ -377,17 +377,24 @@ The following 4 strings are the 4 maps.
         stringBuilder.append("E' iniziato il turno di: ")
                 .append(playerColor(p))
                 .append(p.getName())
-                .append(AnsiColor.RESET)
-                .append("\n");
+                .append(AnsiColor.RESET);
         displayText(stringBuilder.toString());
     }
 
     @Override
     public void onSkullChange(List<List<SemplifiedBloodToken>> deathTrack) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Tracciato mortale aggiornato: ");
-
-        //TODO
+        stringBuilder.append("Tracciato mortale aggiornato:\n");
+        for(List<SemplifiedBloodToken> lsb: deathTrack){
+            for (SemplifiedBloodToken b: lsb){
+                SemplifiedPlayer owner = b.getOwner();
+                String color = playerColor(owner);
+                stringBuilder.append(color)
+                        .append("\uD83D\uDDA4")
+                        .append(AnsiColor.RESET);
+            }
+            stringBuilder.append(" ");
+        }
         displayText(stringBuilder.toString());
     }
 
@@ -426,7 +433,6 @@ The following 4 strings are the 4 maps.
             consoleOutput.println();
         }
         consoleOutput.println(text);
-        //consoleOutput.write(AnsiColor.GREEN + ">>> " + AnsiColor.RESET);
         consoleOutput.flush();
     }
 
