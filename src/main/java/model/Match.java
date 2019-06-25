@@ -309,6 +309,7 @@ public class Match implements ChangesMatchObservable{
 
     public void verifyDead(){
         if(checkDead()){
+            //decrease remaining skulls
             skulls--;
         }
         if(skulls<1){
@@ -316,30 +317,22 @@ public class Match implements ChangesMatchObservable{
         }
     }
 
+    /**
+     * calculate points for each player given the dead player
+     * @param p dead player
+     */
     private void calculatePoints(Player p){
         List<BloodToken> damage = p.getPlayerBoard().getDamageTokens();
         int[] numDamagePerPlayer = new int[playerNumber];
-        int[] orederedDamagePerPlayer = new int[playerNumber];
+        int[] orderedDamagePerPlayer = new int[playerNumber];
         int[] points = new int[playerNumber];
-        for(int i = 0; i<playerNumber;i++){
-            numDamagePerPlayer[i] = 0;
-        }
-        for (BloodToken b:damage){
-            numDamagePerPlayer[players.indexOf(b.getOwner())]++;
-        }
-        if (playerNumber >= 0) System.arraycopy(numDamagePerPlayer, 0, orederedDamagePerPlayer, 0, playerNumber);
-        Arrays.sort(orederedDamagePerPlayer);
-        int pointsIndex = 0;
-        for(int i = playerNumber; i>=0;i--){
-            for (int j =0; j<playerNumber;j++){
-                if(orederedDamagePerPlayer[i]== numDamagePerPlayer[j]){
-                    points[j]=p.getPlayerBoard().getKillValue().get(pointsIndex);
-                    if(i>0 && orederedDamagePerPlayer[i-1]!=orederedDamagePerPlayer[i]){
-                        pointsIndex++;
-                    }
-                }
-            }
-        }
+        //calculate number of damage given by each player
+        calculateDamagePerPlayer(numDamagePerPlayer, p);
+        //copy the array into another an order it
+        if (playerNumber >= 0) System.arraycopy(numDamagePerPlayer, 0, orderedDamagePerPlayer, 0, playerNumber);
+        Arrays.sort(orderedDamagePerPlayer);
+        //attributes how many point scored each player
+        calculatePointPerPlayer(numDamagePerPlayer, orderedDamagePerPlayer, points, p);
         //marks the overkill
         if (damage.size()==12){
            markPlayerAfterOverkill(damage.get(11).getOwner(), p);
@@ -354,6 +347,8 @@ public class Match implements ChangesMatchObservable{
         }
         //set the kill on the skull list
         skullsList.add(new BloodToken(damage.get(10).getOwner()));
+        //reset the playerboard
+        p.getPlayerBoard().resetPlayerboard();
     }
 
     /**
@@ -384,6 +379,35 @@ public class Match implements ChangesMatchObservable{
 
     private void markPlayerAfterOverkill(Player target, Player owner){
         target.getPlayerBoard().calculateDamage(new DamageTransporter(target, owner, 0,1));
+    }
+
+    private void calculateDamagePerPlayer(int[] numDamagePerPlayer, Player p){
+        for(int i = 0; i<playerNumber;i++){
+            Player toEvaluate = players.get(i);
+            if(toEvaluate != p) {
+                numDamagePerPlayer[i] = p.getPlayerBoard().getNumDamagePoints(toEvaluate);
+            }
+            else{
+                numDamagePerPlayer[i] = 0;
+            }
+        }
+    }
+
+    private void calculatePointPerPlayer(int[] numDamagePerPlayer, int [] orderedDamagePerPlayer, int[] points, Player p){
+        int pointsIndex = 0;
+        for(int i = playerNumber; i>=0;i--){
+            for (int j =0; j<playerNumber;j++){
+                if(orderedDamagePerPlayer[i]== numDamagePerPlayer[j] && i != players.indexOf(p)){
+                    points[j]=p.getPlayerBoard().getKillValue().get(pointsIndex);
+                    if(i>0 && orderedDamagePerPlayer[i-1]!=orderedDamagePerPlayer[i]){
+                        pointsIndex++;
+                    }
+                }
+                else if (i == players.indexOf(p)){
+                    points[j]=0;
+                }
+            }
+        }
     }
 
     /********************** changes observable **************************/

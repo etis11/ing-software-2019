@@ -86,6 +86,16 @@ public class PlayerBoard {
         return (int) marks.stream().filter(mark -> mark.getOwner() == p).count();
     }
 
+    /**
+     * This method returns the number of marks that a player had put on the playerBoard
+     *
+     * @param p, the player that you are interested in
+     * @return number of mark of that player
+     */
+    public int getNumDamageOfPlayer(Player p) {
+        return (int) damageTokens.stream().filter(damage -> damage.getOwner() == p).count();
+    }
+
 
     /**
      * Returns the number of marks of the player, without distinguishing the owner
@@ -166,6 +176,15 @@ public class PlayerBoard {
         for (int i = 0; i < numMarks; i++) {
             if (getNumDamagePoints(d.getTarget()) < 3)
                 marks.add(new BloodToken(d.getOwner()));
+        }
+    }
+
+    public void resetPlayerboard(){
+        for(BloodToken b : damageTokens){
+            damageTokens.remove(b);
+        }
+        for(BloodToken b : marks){
+            damageTokens.remove(b);
         }
     }
 }
