@@ -76,7 +76,7 @@ public class SocketServer {
             JsonReceiver receiverProxy = new JsonReceiverProxySocket(clientSocket);
             CommandLauncherInterface commandLauncher = provider.getCurrentCommandLauncher();
             commandLauncher.addJsonReceiver(receiverProxy);
-            serverSocketLogger.log(Level.INFO,">>> Associating token and proxy");
+            serverSocketLogger.log(Level.INFO,">>>Token and proxy associated");
             registry.associateTokenAndReceiver(clientToken, receiverProxy);
             threadPool.submit(new CommandReceiverSocket(clientSocket, commandLauncher));
 
