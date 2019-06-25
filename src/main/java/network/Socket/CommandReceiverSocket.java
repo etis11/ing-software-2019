@@ -54,7 +54,6 @@ public class CommandReceiverSocket implements Runnable {
             if (c != null) {
                 commandReceiverSocketLogger.log(Level.FINE, ">>> Received command from " + clientSocket + ". Adding it to the launcher");
                 try {
-
                     launcher.addCommand(c);
                 } catch (RemoteException i) {
                     throw new RuntimeException("This exception should never occurs. A socket doesn't generate a Remote exception ");
