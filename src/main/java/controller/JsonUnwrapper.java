@@ -45,6 +45,7 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
         matchObservers = new LinkedList<>();
 
         oldDeathTrack = new LinkedList<>();
+        oldCurrentPlayer = new SemplifiedPlayer();
     }
 
     private void notifyAllMessageListeners(String message){
@@ -140,15 +141,16 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
 
         //if the new current player has a different name of the old current player,
         SemplifiedPlayer currentPlayer = response.getCurrentPlayer();
+
         if (!currentPlayer.equals(oldCurrentPlayer)){
             notifyCurrentPlayerChange(currentPlayer);
             oldCurrentPlayer = currentPlayer;
         }
 
         List<List<SemplifiedBloodToken>> deathTrack = response.getDeathTrack();
-        if (oldDeathTrack.size() != deathTrack.size())
+        if ( deathTrack != null &&  oldDeathTrack.size() != deathTrack.size())
             notifyDeathTrackChange(deathTrack);
-        
+
         playerDeserializer.resetMap();
     }
 
