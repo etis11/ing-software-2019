@@ -65,7 +65,7 @@ public class Match implements ChangesMatchObservable{
     /**
      * skulls provided by owners
      */
-    private List<BloodToken> skullsList;
+    private List<List<BloodToken>> deathTrack;
     /**
      * a list of observer interested in the change of the map
      */
@@ -284,10 +284,11 @@ public class Match implements ChangesMatchObservable{
         if(current.getTile() == null && current.getState().getName().equals("EndTurn")){
             current.pickUpPowerUp(powerUpDeck.draw());
             current.pickUpPowerUp(powerUpDeck.draw());
-        }else if(current.getState().getName().equals("Dead") || current.getState().getName().equals("Overkilled")){
-            PowerUpCard p = powerUpDeck.draw();
-            current.pickUpPowerUp(p);
         }
+//        else if(current.getState().getName().equals("Dead") || current.getState().getName().equals("Overkilled")){
+//            PowerUpCard p = powerUpDeck.draw();
+//            current.pickUpPowerUp(p);
+//        }
         else{
             current.getState().nextState(actionParser(current.getPlayerBoard()),current);
             return;
@@ -349,7 +350,7 @@ public class Match implements ChangesMatchObservable{
             players.get(i).addPoints(points[i]);
         }
         //set the kill on the skull list
-        skullsList.add(new BloodToken(damage.get(10).getOwner()));
+        //todo skullsList.add(new BloodToken(damage.get(10).getOwner()));
         //reset the playerboard
         p.getPlayerBoard().resetPlayerboard();
     }
@@ -444,12 +445,10 @@ public class Match implements ChangesMatchObservable{
         matchObservers.add(observer);
     }
 
-    //TODO va bene per json?
     private void notifyAllObserversCurrentPlayer(){
         for(ChangesMatchObserver ob : matchObservers) ob.notifyCurrentPlayerChange(players.get(currentPlayer));
     }
     private void notifyAllObserversCurrentSkull(){
-        for(ChangesMatchObserver ob : matchObservers) ob.notifySkullChange(skullsList);
+        for(ChangesMatchObserver ob : matchObservers) ob.notifySkullChange(deathTrack);
     }
-    //todo notify quanso lo stato diventa end turn????
 }
