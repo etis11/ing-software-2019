@@ -1,3 +1,11 @@
+25 giugno
+
+
+
+COSE DA FARE PRIMA O POI
+1) rendere le interfaccie con i generics
+
+
 //NB ho beccato una arma null tra le armi creato sulla cli. questo è molto male
 inoltre il json creator per qualche motivo non è attaccato ai players
 
