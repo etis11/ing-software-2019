@@ -740,7 +740,7 @@ public class CommandExecutor {
      * @throws IOException
      */
     private void createMatchRoutine(List<JsonReceiver> receivers) throws IOException{
-        gameManager.createMatch();
+        gameManager.createMatch(jsonCreator);
         gameManager.startMatch();
         jsonCreator.notifyTileChange(null);
         JsonReceiver userToBeNotifiedThrow = null;

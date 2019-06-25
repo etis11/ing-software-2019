@@ -46,6 +46,7 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
 
         oldDeathTrack = new LinkedList<>();
         oldCurrentPlayer = new SemplifiedPlayer();
+        oldCurrentPlayer.setName("Pinotto");
     }
 
     private void notifyAllMessageListeners(String message){
@@ -142,7 +143,7 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
         //if the new current player has a different name of the old current player,
         SemplifiedPlayer currentPlayer = response.getCurrentPlayer();
 
-        if (!currentPlayer.equals(oldCurrentPlayer)){
+        if ( currentPlayer != null && !oldCurrentPlayer.equals(currentPlayer)){
             notifyCurrentPlayerChange(currentPlayer);
             oldCurrentPlayer = currentPlayer;
         }
