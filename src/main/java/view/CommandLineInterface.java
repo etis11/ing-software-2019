@@ -489,9 +489,9 @@ The following 4 strings are the 4 maps.
     private String getPowerUpNameByType(PowerUpCard powerUpCard){
         PowerUpType powerUpType = powerUpCard.getPowerUpType();
         if (powerUpType.equals(PowerUpType.NEWTON))
-            return "Newton";
+            return "RaggioCinetico";
         if (powerUpType.equals(PowerUpType.TAGBACK_GRANADE))
-            return "Granata";
+            return "GranataVenom";
         if (powerUpType.equals(PowerUpType.TARGETING_SCOPE))
             return "Mirino";
         if (powerUpType.equals(PowerUpType.TELEPORTER))

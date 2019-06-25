@@ -2,6 +2,7 @@ package model;
 
 
 import exceptions.NotValidMovesException;
+import javafx.scene.paint.Color;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -434,6 +435,23 @@ public class Player implements ChangesObservable{
         return toReturn.toString();
     }
 
+    public boolean hasPowerUp(PowerUpType type, Color color){
+        for(PowerUpCard pc :getPowerUps()){
+            if(pc.getPowerUpType().equals(type) && pc.getColor().equals(color)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public PowerUpCard getPowerUp(PowerUpType type, Color color){
+        for(PowerUpCard pc :getPowerUps()){
+            if(pc.getPowerUpType().equals(type) && pc.getColor().equals(color)){
+                return pc;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return "Player{" +
@@ -441,6 +459,8 @@ public class Player implements ChangesObservable{
                 ", tile=" + tile +
                 '}';
     }
+
+
 
     /********************** changes observable **************************/
     @Override
