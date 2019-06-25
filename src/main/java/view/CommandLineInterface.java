@@ -285,26 +285,34 @@ The following 4 strings are the 4 maps.
     public void onAmmoChange(SemplifiedPlayer p) {
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(playerColor(p)+p.getName() +AnsiColor.RESET + " ha un numero diverso di ammo rispetto a prima.\n");
+        stringBuilder.append(playerColor(p))
+                .append(p.getName())
+                .append(AnsiColor.RESET)
+                .append(" ha un numero diverso di ammo rispetto a prima.\n");
         //blue
-        stringBuilder.append("Ammo "+ AnsiColor.BLUE+ "blu"+AnsiColor.RESET+": " + p.getPlayerBoard().getNumBlueAmmo() + "\n");
+        stringBuilder.append("Ammo " + AnsiColor.BLUE + "blu" + AnsiColor.RESET + ": ")
+                .append(p.getPlayerBoard().getNumBlueAmmo())
+                .append("\n");
         for(int i=0;i<p.getPlayerBoard().getNumBlueAmmo();i++){
-            stringBuilder.append(AnsiColor.BLUE+"⬜"+AnsiColor.RESET);
+            stringBuilder.append(AnsiColor.BLUE + "⬜" + AnsiColor.RESET);
         }
         stringBuilder.append("\n");
         //red
-        stringBuilder.append("Ammo "+ AnsiColor.RED+ "rosse"+AnsiColor.RESET+": " + p.getPlayerBoard().getNumRedAmmo() + "\n");
+        stringBuilder.append("Ammo " + AnsiColor.RED + "rosse" + AnsiColor.RESET + ": ")
+                .append(p.getPlayerBoard().getNumRedAmmo())
+                .append("\n");
         for(int i=0;i<p.getPlayerBoard().getNumRedAmmo();i++){
-            stringBuilder.append(AnsiColor.RED+"⬜"+AnsiColor.RESET);
+            stringBuilder.append(AnsiColor.RED + "⬜" + AnsiColor.RESET);
         }
         stringBuilder.append("\n");
         //yellow
-        stringBuilder.append("Ammo "+ AnsiColor.YELLOW+ "gialle"+AnsiColor.RESET+": " + p.getPlayerBoard().getNumYellowAmmo());
+        stringBuilder.append("Ammo " + AnsiColor.YELLOW + "gialle" + AnsiColor.RESET + ": ")
+                .append(p.getPlayerBoard().getNumYellowAmmo());
         for(int i=0;i<p.getPlayerBoard().getNumYellowAmmo();i++){
             //if present the previuos line should have a \n.
             if(i == 0)
                 stringBuilder.append("\n");
-            stringBuilder.append(AnsiColor.YELLOW+"⬜"+AnsiColor.RESET);
+            stringBuilder.append(AnsiColor.YELLOW + "⬜" + AnsiColor.RESET);
             //i dont put the \n after the last ammo since display text will
         }
         displayText(stringBuilder.toString());
@@ -318,13 +326,16 @@ The following 4 strings are the 4 maps.
     @Override
     public void onPowerUpChange(SemplifiedPlayer p) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("POWER UPS: " + p.getNumPowerUps());
+        stringBuilder.append("POWER UPS: ")
+                .append(p.getNumPowerUps());
         List<PowerUpCard> powerUpCards = p.getPowerUpCards();
         for(PowerUpCard card: powerUpCards){
             AnsiColor color = getAnsiColorPowerUp(card);
             String powerUpName = getPowerUpNameByType(card);
             stringBuilder.append("\n");
-            stringBuilder.append(color + powerUpName + AnsiColor.RESET );
+            stringBuilder.append(color)
+                    .append(powerUpName)
+                    .append(AnsiColor.RESET);
         }
         //displayText(p.getName() + " ha cambiato il numero di carte PowerUp nella mano, quindi ora ha: " + p.getNumPowerUps());
         displayText(stringBuilder.toString());
@@ -333,20 +344,50 @@ The following 4 strings are the 4 maps.
     @Override
     public void onWeaponChange(SemplifiedPlayer p) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("ARMI: " + p.getNumWeapons() + "\n");
-        stringBuilder.append("ARMI CARICHE: " + p.getNumLoadedWeapons()+ "\n");
+        stringBuilder.append("ARMI: ")
+                .append(p.getNumWeapons())
+                .append("\n");
+        stringBuilder.append("ARMI CARICHE: ")
+                .append(p.getNumLoadedWeapons())
+                .append("\n");
         for(SemplifiedWeaponCard w: p.getWeaponCards()){
             if (w.isLoaded()){
-                stringBuilder.append(getWeaponColor(w) + w.getName() + AnsiColor.RESET + "\n");
+                stringBuilder.append(getWeaponColor(w))
+                        .append(w.getName())
+                        .append(AnsiColor.RESET)
+                        .append("\n");
             }
         }
-        stringBuilder.append("ARMI SCARICHE: " + p.getNumEmptyWeapons());
+        stringBuilder.append("ARMI SCARICHE: ")
+                .append(p.getNumEmptyWeapons());
         for(SemplifiedWeaponCard w: p.getWeaponCards()){
             if (!w.isLoaded()){
                 stringBuilder.append("\n");
-                stringBuilder.append(getWeaponColor(w) + w.getName() + AnsiColor.RESET);
+                stringBuilder.append(getWeaponColor(w))
+                        .append(w.getName())
+                        .append(AnsiColor.RESET);
             }
         }
+        displayText(stringBuilder.toString());
+    }
+
+    @Override
+    public void onCurrentPlayerChange(SemplifiedPlayer p) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("E' iniziato il turno di: ")
+                .append(playerColor(p))
+                .append(p.getName())
+                .append(AnsiColor.RESET)
+                .append("\n");
+        displayText(stringBuilder.toString());
+    }
+
+    @Override
+    public void onSkullChange(List<List<SemplifiedBloodToken>> deathTrack) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Tracciato mortale aggiornato: ");
+
+        //TODO
         displayText(stringBuilder.toString());
     }
 
