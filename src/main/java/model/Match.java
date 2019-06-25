@@ -242,8 +242,7 @@ public class Match implements ChangesMatchObservable{
     /**
      * replace item consumed on the board
      */
-    public synchronized void replaceCards(){
-        //TODO devo notificare?
+    private synchronized void replaceCards(){
         for(Tile t: map.mapAsList()){
             if (t.canContainWeapons() && t.getWeapons().size()<3){
                 while(t.getWeapons().size()<3){
@@ -296,6 +295,10 @@ public class Match implements ChangesMatchObservable{
         //comando di spawn e scarto
     }
 
+    /**
+     * check if a player dead during the round
+     * @return true if anyone dead, false otherwhise
+     */
     private boolean checkDead(){
         for(Player p:players){
             String state =p.getState().getName();
@@ -307,8 +310,9 @@ public class Match implements ChangesMatchObservable{
         return false;
     }
 
-    public void verifyDead(){
+    private void verifyDead(){
         if(checkDead()){
+            //decrease remaining skulls
             skulls--;
         }
         if(skulls<1){
@@ -316,37 +320,38 @@ public class Match implements ChangesMatchObservable{
         }
     }
 
+    /**
+     * calculate points for each player given the dead player
+     * @param p dead player
+     */
     private void calculatePoints(Player p){
         List<BloodToken> damage = p.getPlayerBoard().getDamageTokens();
         int[] numDamagePerPlayer = new int[playerNumber];
-        int[] orederedDamagePerPlayer = new int[playerNumber];
+        int[] orderedDamagePerPlayer = new int[playerNumber];
         int[] points = new int[playerNumber];
-        for(int i = 0; i<playerNumber;i++){
-            numDamagePerPlayer[i] = 0;
+        //calculate number of damage given by each player
+        calculateDamagePerPlayer(numDamagePerPlayer, p);
+        //copy the array into another an order it
+        if (playerNumber >= 0) System.arraycopy(numDamagePerPlayer, 0, orderedDamagePerPlayer, 0, playerNumber);
+        Arrays.sort(orderedDamagePerPlayer);
+        //attributes how many point scored each player
+        calculatePointPerPlayer(numDamagePerPlayer, orderedDamagePerPlayer, points, p);
+        //marks the overkill
+        if (damage.size()==12){
+           markPlayerAfterOverkill(damage.get(11).getOwner(), p);
         }
-        for (BloodToken b:damage){
-            numDamagePerPlayer[players.indexOf(b.getOwner())]++;
-        }
-        if (playerNumber >= 0) System.arraycopy(numDamagePerPlayer, 0, orederedDamagePerPlayer, 0, playerNumber);
-        Arrays.sort(orederedDamagePerPlayer);
-        for(int i = playerNumber; i>=0;i--){
-            for (int j =0; j<playerNumber;j++){
-                if(orederedDamagePerPlayer[i]== numDamagePerPlayer[j]){
-                    points[j]=p.getPlayerBoard().getKillValue().get(0);
-                }
-                //todo verifica se hanno stesso punteggio
-            }
-        }
-        //TODO
-        //attribuisco punti
-        //attribuisco marchi
-        //se overkilled marchio
         //decrease max point value
         p.getPlayerBoard().getKillValue().remove(0);
         //points for first damage
         points[players.indexOf(damage.get(0).getOwner())]++;
+        //attribute points to each player
+        for (int i=0; i<playerNumber;i++){
+            players.get(i).addPoints(points[i]);
+        }
         //set the kill on the skull list
         skullsList.add(new BloodToken(damage.get(10).getOwner()));
+        //reset the playerboard
+        p.getPlayerBoard().resetPlayerboard();
     }
 
     /**
@@ -355,6 +360,14 @@ public class Match implements ChangesMatchObservable{
     public void newRound(){
         nextPlayer();
         checkSpawn();
+    }
+
+    /**
+     * routine to terminate a round
+     */
+    public void endRound(){
+        verifyDead();
+        replaceCards();
     }
 
     /**
@@ -375,6 +388,56 @@ public class Match implements ChangesMatchObservable{
         }
     }
 
+    /**
+     * mark the player who made the overkill
+     * @param target player to be targeted
+     * @param owner player dead
+     */
+    private void markPlayerAfterOverkill(Player target, Player owner){
+        target.getPlayerBoard().calculateDamage(new DamageTransporter(target, owner, 0,1));
+    }
+
+    /**
+     * calculates number of damage inflicted to the dead player by each player
+     * @param numDamagePerPlayer number of damage inflicted to the dead player by each player
+     * @param p player dead
+     */
+    private void calculateDamagePerPlayer(int[] numDamagePerPlayer, Player p){
+        for(int i = 0; i<playerNumber;i++){
+            Player toEvaluate = players.get(i);
+            if(toEvaluate != p) {
+                numDamagePerPlayer[i] = p.getPlayerBoard().getNumDamagePoints(toEvaluate);
+            }
+            else{
+                numDamagePerPlayer[i] = 0;
+            }
+        }
+    }
+
+    /**
+     * calculate how many points has each player scored after a player dead
+     * @param numDamagePerPlayer number of damage inflicted to the dead player by each player
+     * @param orderedDamagePerPlayer number of damage ordered
+     * @param points points for scored for all player by this death
+     * @param p player dead
+     */
+    private void calculatePointPerPlayer(int[] numDamagePerPlayer, int [] orderedDamagePerPlayer, int[] points, Player p){
+        int pointsIndex = 0;
+        for(int i = playerNumber; i>=0;i--){
+            for (int j =0; j<playerNumber;j++){
+                if(orderedDamagePerPlayer[i]== numDamagePerPlayer[j] && i != players.indexOf(p)){
+                    points[j]=p.getPlayerBoard().getKillValue().get(pointsIndex);
+                    if(i>0 && orderedDamagePerPlayer[i-1]!=orderedDamagePerPlayer[i]){
+                        pointsIndex++;
+                    }
+                }
+                else if (i == players.indexOf(p)){
+                    points[j]=0;
+                }
+            }
+        }
+    }
+
     /********************** changes observable **************************/
     @Override
     public void attach(ChangesMatchObserver observer) {
@@ -388,4 +451,5 @@ public class Match implements ChangesMatchObservable{
     private void notifyAllObserversCurrentSkull(){
         for(ChangesMatchObserver ob : matchObservers) ob.notifySkullChange(skullsList);
     }
+    //todo notify quanso lo stato diventa end turn????
 }
