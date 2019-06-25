@@ -8,7 +8,7 @@ import view.LobbyListener;
 
 import java.util.List;
 
-public class JsonCreator implements ChangesObserver, CreationGameObserver, LobbyListener {
+public class JsonCreator implements ChangesObserver, CreationGameObserver, LobbyListener, ChangesMatchObserver {
 
     private boolean prettyPrinting = false;
     private CommandResponse response;
@@ -144,5 +144,15 @@ public class JsonCreator implements ChangesObserver, CreationGameObserver, Lobby
     @Override
     public void onLeave(User leavingUser) {
         response.addLeavingUser(leavingUser);
+    }
+
+    @Override
+    public void notifyCurrentPlayerChange(Player player) {
+        response.setCurrentPlayer(player);
+    }
+
+    @Override
+    public void notifySkullChange(List<List<BloodToken>> deathTrack) {
+        response.setDeathTrack(deathTrack);
     }
 }

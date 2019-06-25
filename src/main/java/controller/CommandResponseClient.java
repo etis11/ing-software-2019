@@ -1,6 +1,7 @@
 package controller;
 
 
+import model.clientModel.SemplifiedBloodToken;
 import model.clientModel.SemplifiedPlayer;
 import model.clientModel.SemplifiedTile;
 
@@ -11,6 +12,8 @@ public class CommandResponseClient extends AbstractCommandResponse {
     private final List<SemplifiedPlayer> allPlayers;
     private final List<SemplifiedPlayer> changedPlayers;
     private final List<SemplifiedTile> allTiles;
+    private SemplifiedPlayer currentPlayer;
+    private List<List<SemplifiedBloodToken>> deathTrack;
 
     public CommandResponseClient(List<SemplifiedPlayer> allPlayers, List<SemplifiedTile> allTiles){
         super();
@@ -38,5 +41,13 @@ public class CommandResponseClient extends AbstractCommandResponse {
 
     public List<SemplifiedTile> getAllTiles() {
         return allTiles;
+    }
+
+    public SemplifiedPlayer getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public List<List<SemplifiedBloodToken>> getDeathTrack() {
+        return deathTrack;
     }
 }

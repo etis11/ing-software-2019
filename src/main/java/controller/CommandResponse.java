@@ -1,4 +1,5 @@
 package controller;
+import model.BloodToken;
 import model.Player;
 import model.Tile;
 
@@ -9,6 +10,8 @@ public class CommandResponse  extends AbstractCommandResponse{
     private  List<Player> allPlayers;
     private  List<Player> changedPlayers;
     private  List<Tile> allTiles;
+    private Player currentPlayer;
+    private List<List<BloodToken>> deathTrack;
 
     public CommandResponse(){
         super();
@@ -42,5 +45,13 @@ public class CommandResponse  extends AbstractCommandResponse{
 
     public List<Tile> getAllTiles() {
         return allTiles;
+    }
+
+    public void setCurrentPlayer(Player p){
+        currentPlayer = p;
+    }
+
+    public void setDeathTrack(List<List<BloodToken>> deathTrack) {
+        this.deathTrack = deathTrack;
     }
 }
