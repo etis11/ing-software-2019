@@ -61,7 +61,7 @@ public class Match implements ChangesMatchObservable{
     /**
      * powerUpSlushPile contains all AmmoCards used
      */
-    private Deck<AmmoCard> powerUpSlushPile;
+    private Deck<PowerUpCard> powerUpSlushPile;
     /**
      * skulls provided by owners
      */
@@ -84,6 +84,8 @@ public class Match implements ChangesMatchObservable{
         currentPlayer = -1;
         deathTrack = new LinkedList<>(new LinkedList<>());
         matchObservers = new LinkedList<>();
+        ammoSlushPile = new Deck<>();
+        powerUpSlushPile = new Deck<>();
     }
 
     public Match(int playerNumber, int skulls, GameMap map) {
@@ -94,6 +96,8 @@ public class Match implements ChangesMatchObservable{
         currentPlayer = -1;
         deathTrack = new LinkedList<>(new LinkedList<>());
         matchObservers = new LinkedList<>();
+        ammoSlushPile = new Deck<>();
+        powerUpSlushPile = new Deck<>();
     }
 
     public Match(List<Player> players, int numOfSkulls, GameMap map){
@@ -104,6 +108,8 @@ public class Match implements ChangesMatchObservable{
         currentPlayer = -1;
         deathTrack = new LinkedList<>(new LinkedList<>());
         matchObservers = new LinkedList<>();
+        ammoSlushPile = new Deck<>();
+        powerUpSlushPile = new Deck<>();
     }
 
     /**
@@ -271,11 +277,19 @@ public class Match implements ChangesMatchObservable{
         ammoDeck.shuffle();
     }
 
+    public void addPowerUpToSlush(PowerUpCard pc){
+        powerUpSlushPile.addCard(pc);
+    }
+
     /**
      * set the new current player
      */
     private void nextPlayer(){
         currentPlayer++;
+        if(currentPlayer>=playerNumber){
+            currentPlayer = 0;
+        }
+        getCurrentPlayer().setRemainingMoves(2);
         notifyAllObserversCurrentPlayer();
     }
 

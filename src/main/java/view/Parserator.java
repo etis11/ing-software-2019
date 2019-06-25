@@ -131,6 +131,13 @@ public class Parserator implements Runnable {
             CLI.displayText(AnsiColor.RED + "Server rmi non raggiungibile" + AnsiColor.RESET);
             System.exit(1);
         }
+        String power = command.toLowerCase();
+        if (power.contains("granatavenom")||power.contains("teletrasporto")||power.contains("mirino")||power.contains("raggiocinetico")){
+            String[] splittedPower = power.split(" ");
+            commandLauncher.addCommand(new SpawnCommand(token, splittedPower[0], splittedPower[1]));
+            return;
+        }
+        throw new IllegalArgumentException();
     }
 
     private boolean parseFrenzy(String param){

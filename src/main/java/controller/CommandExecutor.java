@@ -5,6 +5,7 @@ import exceptions.InsufficientAmmoException;
 import exceptions.NotValidActionException;
 import exceptions.NotValidMovesException;
 import exceptions.PickableNotPresentException;
+import javafx.scene.paint.Color;
 import model.*;
 import network.TokenRegistry;
 
@@ -229,6 +230,7 @@ public class CommandExecutor {
             } else {
                 //verify the state
                 if (!currentPlayer.getState().canRun() || currentPlayer.getRemainingMoves() < 1) {
+                    System.out.println(currentPlayer.getState().canRun()+" "+currentPlayer.getRemainingMoves());
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi muoverti"));
                 } else {
                     currentPlayer.getState().nextState("Run", currentPlayer);
@@ -460,17 +462,27 @@ public class CommandExecutor {
             if (owner != currentPlayer) {
                 userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
             } else{
-                String regenPointColor = command.getColor();
-                Tile tileToSpawn = gameManager.getMatch().getMap().getRegenPoint(regenPointColor);
-                tileToSpawn.addPlayer(currentPlayer);
-                currentPlayer.getState().nextState("NormalAction", currentPlayer);
-                String message = currentPlayer.getName()+" si è rigenerato nel punto di rigenerazione"+regenPointColor;
-                for (JsonReceiver js : command.getAllReceivers()) {
-                    if (js != userJsonReceiver) {
-                        js.sendJson(jsonCreator.createJsonWithMessage(message));
-                    }
+                if(!currentPlayer.hasPowerUp(powerUpParser(command.getPowerUpType()), colorParser(command.getColor()))){
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non hai questo PowerUp"));
                 }
-                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("ti sei rigenerato nel punto di rigenerazione "+regenPointColor));
+                else {
+                    String regenPointColor = command.getColor();
+                    Tile tileToSpawn = gameManager.getMatch().getMap().getRegenPoint(translateColor(regenPointColor));
+                    tileToSpawn.addPlayer(currentPlayer);
+                    currentPlayer.getState().nextState("NormalAction", currentPlayer);
+//                    try {
+//                        gameManager.getMatch().addPowerUpToSlush(currentPlayer.throwPowerUp(currentPlayer.getPowerUp(powerUpParser(command.getPowerUpType()), colorParser(command.getColor()))));
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+                    String message = currentPlayer.getName() + " si è rigenerato nel punto di rigenerazione" + regenPointColor;
+                    for (JsonReceiver js : command.getAllReceivers()) {
+                        if (js != userJsonReceiver) {
+                            js.sendJson(jsonCreator.createJsonWithMessage(message));
+                        }
+                    }
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("ti sei rigenerato nel punto di rigenerazione " + regenPointColor));
+                }
             }
         }else{
             userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La partita non è ancora iniziata"));
@@ -760,6 +772,39 @@ public class CommandExecutor {
         }
         jsonCreator.reset();
         userToBeNotifiedThrow.sendJson(jsonCreator.createJsonWithMessage("scegli quale powerup scartare per spawnare"));
+    }
+
+    private Color colorParser(String color){
+        if(color.equals("rosso")){
+           return Color.RED;
+        } else if (color.equals("blue")){
+            return Color.BLUE;
+        } else{
+            return Color.YELLOW;
+        }
+    }
+
+    private String translateColor(String color){
+        switch (color){
+            case "rosso":
+                return "red";
+            case "blu":
+                return "blue";
+            case "giallo":
+                return "yellow";
+        }
+        return null;
+    }
+    private PowerUpType powerUpParser(String powerUp){
+        if(powerUp.equalsIgnoreCase("granatavenom")){
+            return PowerUpType.TAGBACK_GRANADE;
+        } else if (powerUp.equalsIgnoreCase("mirino")){
+            return PowerUpType.TARGETING_SCOPE;
+        }else if (powerUp.equalsIgnoreCase("raggiocinetico")){
+            return PowerUpType.NEWTON;
+        } else{
+            return PowerUpType.TELEPORTER;
+        }
     }
 
 }
