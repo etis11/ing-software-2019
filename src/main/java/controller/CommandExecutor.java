@@ -743,6 +743,7 @@ public class CommandExecutor {
         gameManager.createMatch();
         gameManager.startMatch();
         jsonCreator.notifyTileChange(null);
+        JsonReceiver userToBeNotifiedThrow = null;
         //this line should not be necessary, but the observer-obserrvable pattern is activated after the mach is created,
         //so the json creator is not attached to the player . At this point should be attached
         jsonCreator.notifyPlayerChange(gameManager.getMatch().getCurrentPlayer());
@@ -751,8 +752,12 @@ public class CommandExecutor {
             Player player = userToBeNotified.getPlayer();
             String json = jsonCreator.createTargetPlayerJson("La partita è iniziata", player);
             jr.sendJson(json);
+            if(userToBeNotified.getPlayer().getName().equals(gameManager.getMatch().getCurrentPlayer().getName())){
+                userToBeNotifiedThrow = jr;
+            }
         }
         jsonCreator.reset();
+        userToBeNotifiedThrow.sendJson(jsonCreator.createJsonWithMessage("scegli quale powerup scartare per spawnare"));
     }
 
 }
