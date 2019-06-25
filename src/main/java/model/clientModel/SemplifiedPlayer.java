@@ -114,5 +114,19 @@ public class SemplifiedPlayer {
                 +"con damagePoints : "+ playerBoard.getDamageTokens().size();
     }
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+
+        if(!(obj instanceof SemplifiedPlayer)) return false;
+
+        SemplifiedPlayer player = (SemplifiedPlayer) obj;
+
+        return this.getName().equals(player.getName());
+    }
 }

@@ -8,5 +8,5 @@ import java.util.List;
 public interface MatchObserver {
     void onCurrentPlayerChange(SemplifiedPlayer p);
 
-    void onSkullChange(List<SemplifiedBloodToken> skull);
+    void onSkullChange(List<List<SemplifiedBloodToken>> skull);
 }

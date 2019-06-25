@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import jsonparser.semplifiedParser.SemplifiedPlayerDeserializer;
 import model.LobbyObservable;
+import model.Match;
 import model.User;
 import model.clientModel.*;
 import view.*;
@@ -24,6 +25,8 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
     private final SemplifiedGame game;
 
     private String oldMapName;
+    private SemplifiedPlayer oldCurrentPlayer;
+    private List<List<SemplifiedBloodToken>> oldDeathTrack;
 
     /**
      * creates  a json wrapper. If used with RMI, should be exported
@@ -32,8 +35,6 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
         GsonBuilder gsonBuilder = new GsonBuilder();
         playerDeserializer = new SemplifiedPlayerDeserializer();
         gsonBuilder.registerTypeAdapter(SemplifiedPlayer.class, playerDeserializer);
-//        gsonBuilder.registerTypeAdapter(SemplifiedWeaponCard.class, new SemplifiedWeaponDeserializer());
-//        gsonBuilder.registerTypeAdapter(SemplifiedTile.class, new SemplifiedTileDeserializer());
         gson = gsonBuilder.create();
 
         this.game = game;
@@ -42,6 +43,8 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
         mapObservers = new LinkedList<>();
         lobbyListeners = new LinkedList<>();
         matchObservers = new LinkedList<>();
+
+        oldDeathTrack = new LinkedList<>();
     }
 
     private void notifyAllMessageListeners(String message){
@@ -55,9 +58,12 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
         }
     }
 
-    //TODO implementare metodo e json
-    private void notifyAllMatchObservers(){
+    private void notifyCurrentPlayerChange(SemplifiedPlayer p){
+        for (MatchObserver mo: matchObservers) mo.onCurrentPlayerChange(p);
+    }
 
+    private void notifyDeathTrackChange(List<List<SemplifiedBloodToken>> deathTrack){
+        for(MatchObserver mo: matchObservers) mo.onSkullChange(deathTrack);
     }
 
     private void notifyAllPlayerObserver(SemplifiedPlayer player){
@@ -86,7 +92,7 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
         /**
          * poi da cancellare
          */
-        //System.out.println(changes);
+        System.out.println(changes);
 
         CommandResponseClient response = gson.fromJson(changes, CommandResponseClient.class);
         String message = response.getMessage();
@@ -132,6 +138,17 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
             }
         }
 
+        //if the new current player has a different name of the old current player,
+        SemplifiedPlayer currentPlayer = response.getCurrentPlayer();
+        if (!currentPlayer.equals(oldCurrentPlayer)){
+            notifyCurrentPlayerChange(currentPlayer);
+            oldCurrentPlayer = currentPlayer;
+        }
+
+        List<List<SemplifiedBloodToken>> deathTrack = response.getDeathTrack();
+        if (oldDeathTrack.size() != deathTrack.size())
+            notifyDeathTrackChange(deathTrack);
+        
         playerDeserializer.resetMap();
     }
 
