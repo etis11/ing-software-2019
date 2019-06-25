@@ -36,12 +36,15 @@ public class TokenRegistry {
 
     private final ConcurrentMap<String, User> tokenToUser;
 
+    private final List<String> userNames;
+
 
     private TokenRegistry(){
         tokenAssociated  = new ConcurrentHashMap<>();
         registeredTokens = new ArrayList<>(10);
         userReceiver = new ConcurrentHashMap<>();
         tokenToUser = new ConcurrentHashMap<>();
+        userNames = new LinkedList<>();
     }
 
     /**
@@ -119,13 +122,25 @@ public class TokenRegistry {
         tokenAssociated.remove(token);
     }
 
-    public boolean usernameAlreadyPresent(String name){
-        List<User> users = new ArrayList<>(userReceiver.values());
-        for(User u: users){
-            if (u.getUsername().equals(name)) return true;
-        }
-        return false;
+    public boolean usernameAlreadyPresent(final String name){
+        return userReceiver.values().stream().anyMatch(user->user.getUsername().equals(name));
     }
+
+    /**
+     * Used in the login phase, creates a momentary association between a token and a fake user
+     * @param token
+     * @param name
+     * @return
+     */
+    public boolean checkAndInsertUsername(String token, final String name) {
+        if (userReceiver.values().stream().anyMatch(user -> user.getUsername().equals(name)))
+            return true;
+        else {
+            tokenToUser.put(token, new User(name));
+            return false;
+        }
+    }
+
 
     /**
      * associates the given json receiver and user. A json receiver can exist while the user is still null
@@ -144,7 +159,7 @@ public class TokenRegistry {
      * @param user value
      */
     public void associateTokenAndUser(String token, User user){
-        tokenToUser.putIfAbsent(token, user);
+        tokenToUser.put(token, user);
         tokenRegistryLogger.log(Level.INFO, "Associated token and user " + user.getUsername());
 
     }

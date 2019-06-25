@@ -60,25 +60,7 @@ public class SocketServer {
             serverSocketLogger.log(Level.INFO, ">>> Waiting for connection.");
             Socket clientSocket = serverSocket.accept();
             serverSocketLogger.log(Level.INFO, ">>> New connection accepted: " + clientSocket.getRemoteSocketAddress());
-            PrintWriter clientOutput = new PrintWriter(clientSocket.getOutputStream());
-            String clientToken = getClientToken(clientSocket);
-            if (!registry.tokenAlreadyGenerated(clientToken)) {
-                serverSocketLogger.log(Level.INFO, ">>> Generating Token");
-                clientToken = UUID.randomUUID().toString();
-            } else {
-                serverSocketLogger.log(Level.INFO, ">>> Token sent valid");
-            }
-            //sends the token to the clientquit
-            serverSocketLogger.log(Level.INFO, ">>> Sending token");
-            clientOutput.println(clientToken);
-            clientOutput.flush();
-            //creates a json Receiver and binds it to the client socket.
-            JsonReceiver receiverProxy = new JsonReceiverProxySocket(clientSocket);
-            CommandLauncherInterface commandLauncher = provider.getCurrentCommandLauncher();
-            commandLauncher.addJsonReceiver(receiverProxy);
-            serverSocketLogger.log(Level.INFO,">>>Token and proxy associated");
-            registry.associateTokenAndReceiver(clientToken, receiverProxy);
-            threadPool.submit(new CommandReceiverSocket(clientSocket, commandLauncher));
+            threadPool.submit(new CommandReceiverSocket(clientSocket, provider));
 
         }
     }
@@ -90,10 +72,4 @@ public class SocketServer {
         stop = true;
     }
 
-    private String getClientToken(Socket clientSocket) throws IOException {
-        Scanner b = new Scanner(clientSocket.getInputStream());
-        String returnString = b.nextLine();
-        return returnString;
-
-    }
 }

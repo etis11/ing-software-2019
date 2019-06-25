@@ -77,6 +77,23 @@ public class CLILauncher {
                 token = input.readLine();
                 CLI.displayText("TOKEN: " + token);
                 ClientSingleton.getInstance().setToken(token);
+                //lettura della routine di username
+                boolean ok = false;
+                while(!ok){
+                    //inserisci uno username
+                    CLI.displayText(input.readLine());
+                    String possibleName = CLI.getUserInputString();
+                    output.println(possibleName);
+                    output.flush();
+                    String serverResponse = input.readLine();
+                    if (serverResponse.equals("OK")){
+                        ok = true;
+                        CLI.displayText("Username accettato");
+                    }
+                    else{
+                        CLI.displayText(serverResponse);
+                    }
+                }
             }
             catch (IOException i){
                 CLI.displayText(AnsiColor.RED + "Errore nella connessione. Probabilmente il server è down" + AnsiColor.RESET);
