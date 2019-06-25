@@ -9,6 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TokenRegistry {
 
@@ -17,6 +19,8 @@ public class TokenRegistry {
      */
     private static TokenRegistry registry;
 
+
+    private final Logger tokenRegistryLogger = Logger.getLogger(TokenRegistry.class.getName());
     /**
      * map where token and json receivers are linked
      */
@@ -31,7 +35,7 @@ public class TokenRegistry {
     private  final ConcurrentMap<JsonReceiver, User> userReceiver;
 
     private final ConcurrentMap<String, User> tokenToUser;
-    //private static final Object registeredTokensLock = new Object();
+
 
     private TokenRegistry(){
         tokenAssociated  = new ConcurrentHashMap<>();
@@ -49,7 +53,6 @@ public class TokenRegistry {
             registry= new TokenRegistry();
         }
         return  registry;
-
     }
 
     /**
@@ -67,6 +70,7 @@ public class TokenRegistry {
                 throw new DuplicateException(">>> There is already a jsonReceiver associated to this token");
             if (!registeredTokens.contains(token)) registeredTokens.add(token);
             tokenAssociated.putIfAbsent(token, jsonReceiver);
+            tokenRegistryLogger.log(Level.INFO, "Associated token and json receiver");
         }
     }
 
@@ -130,6 +134,8 @@ public class TokenRegistry {
      */
     public void associateReceiverAndUser(JsonReceiver jr, User user){
             userReceiver.putIfAbsent(jr, user);
+        tokenRegistryLogger.log(Level.INFO, "Associated json receiver and user " + user.getUsername());
+
     }
 
     /**
@@ -139,6 +145,8 @@ public class TokenRegistry {
      */
     public void associateTokenAndUser(String token, User user){
         tokenToUser.putIfAbsent(token, user);
+        tokenRegistryLogger.log(Level.INFO, "Associated token and user " + user.getUsername());
+
     }
 
     /**
@@ -147,6 +155,8 @@ public class TokenRegistry {
      */
     public void removeAssociaton(String token){
         tokenToUser.remove(token);
+        tokenRegistryLogger.log(Level.INFO, "Removed token " + token);
+
     }
 
     /**

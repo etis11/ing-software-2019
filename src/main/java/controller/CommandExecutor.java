@@ -575,6 +575,7 @@ public class CommandExecutor {
         boolean gameHasStarted = hasMatchStarted(gameManager);
         List<User> users = gameManager.getLobby().getUsers();
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
+        String clientToken = command.getToken();
         //verify if the game is started
         if (!gameHasStarted) {
             //verify if the username is already used
@@ -583,6 +584,7 @@ public class CommandExecutor {
                 if (registry.getJsonUserOwner(userJsonReceiver)== null){
                     User user = new User(command.getUsername());
                     registry.associateReceiverAndUser(userJsonReceiver, user);
+                    registry.associateTokenAndUser(clientToken, user);
                     try {
                         gameManager.getLobby().join(user);
                         String jsonTosend = jsonCreator.createJsonWithMessage("Utente creato. Il tuo nome è " +user.getUsername());
