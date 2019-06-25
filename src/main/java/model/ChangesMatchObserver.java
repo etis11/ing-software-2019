@@ -7,3 +7,4 @@ public interface ChangesMatchObserver {
 
     void notifySkullChange(List<List<BloodToken>> deathTrack );
 }
+
