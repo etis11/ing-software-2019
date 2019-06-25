@@ -80,7 +80,7 @@ public class GameManager implements CreationGameObservable {
         return finalFrenzy;
     }
 
-    public synchronized void createMatch(){
+    public synchronized void createMatch(ChangesMatchObserver jsonCreator){
         List<User> users = lobby.getUsers();
         List<Player> players = new LinkedList<>();
 
@@ -94,6 +94,7 @@ public class GameManager implements CreationGameObservable {
         GameMap map = GameMap.loadMap(mapPath);
         //TODO aggiungere final frenzy
         match = new Match(players, numOfSkulls, map);
+        match.attach(jsonCreator);
         initWeapon(match);
         try {
             initAmmo(match);

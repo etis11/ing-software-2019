@@ -740,7 +740,7 @@ public class CommandExecutor {
      * @throws IOException
      */
     private void createMatchRoutine(List<JsonReceiver> receivers) throws IOException{
-        gameManager.createMatch();
+        gameManager.createMatch(jsonCreator);
         gameManager.startMatch();
         jsonCreator.notifyTileChange(null);
         //this line should not be necessary, but the observer-obserrvable pattern is activated after the mach is created,

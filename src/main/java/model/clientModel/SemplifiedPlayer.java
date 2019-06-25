@@ -105,14 +105,6 @@ public class SemplifiedPlayer {
         return weaponCards.size() - getNumLoadedWeapons();
     }
 
-    @Override
-    public String toString() {
-
-        return "Giocatore: " + name
-                +"posizionato in : "+tile
-                +"con marks: "+ playerBoard.getMarksTokens().size()
-                +"con damagePoints : "+ playerBoard.getDamageTokens().size();
-    }
 
     @Override
     public int hashCode() {
@@ -121,6 +113,7 @@ public class SemplifiedPlayer {
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) return false;
         if(this == obj) return true;
 
         if(!(obj instanceof SemplifiedPlayer)) return false;
