@@ -29,12 +29,15 @@ public class TokenRegistry {
      * map where the json receiver and the user are associated
      */
     private  final ConcurrentMap<JsonReceiver, User> userReceiver;
+
+    private final ConcurrentMap<String, User> tokenToUser;
     //private static final Object registeredTokensLock = new Object();
 
     private TokenRegistry(){
         tokenAssociated  = new ConcurrentHashMap<>();
         registeredTokens = new ArrayList<>(10);
         userReceiver = new ConcurrentHashMap<>();
+        tokenToUser = new ConcurrentHashMap<>();
     }
 
     /**
@@ -127,5 +130,31 @@ public class TokenRegistry {
      */
     public void associateReceiverAndUser(JsonReceiver jr, User user){
             userReceiver.putIfAbsent(jr, user);
+    }
+
+    /**
+     * associated token and user
+     * @param token key
+     * @param user value
+     */
+    public void associateTokenAndUser(String token, User user){
+        tokenToUser.putIfAbsent(token, user);
+    }
+
+    /**
+     * remove both the token and user
+     * @param token token of the user that has to be removed
+     */
+    public void removeAssociaton(String token){
+        tokenToUser.remove(token);
+    }
+
+    /**
+     * returns the corresponding user of this token
+     * @param token key
+     * @return user, can be null
+     */
+    public User getUserFromToken(String token){
+        return tokenToUser.get(token);
     }
 }
