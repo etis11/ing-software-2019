@@ -329,22 +329,29 @@ public class Match implements ChangesMatchObservable{
         }
         if (playerNumber >= 0) System.arraycopy(numDamagePerPlayer, 0, orederedDamagePerPlayer, 0, playerNumber);
         Arrays.sort(orederedDamagePerPlayer);
+        int pointsIndex = 0;
         for(int i = playerNumber; i>=0;i--){
             for (int j =0; j<playerNumber;j++){
                 if(orederedDamagePerPlayer[i]== numDamagePerPlayer[j]){
-                    points[j]=p.getPlayerBoard().getKillValue().get(0);
+                    points[j]=p.getPlayerBoard().getKillValue().get(pointsIndex);
+                    if(i>0 && orederedDamagePerPlayer[i-1]!=orederedDamagePerPlayer[i]){
+                        pointsIndex++;
+                    }
                 }
-                //todo verifica se hanno stesso punteggio
             }
         }
-        //TODO
-        //attribuisco punti
-        //attribuisco marchi
-        //se overkilled marchio
+        //marks the overkill
+        if (damage.size()==12){
+           markPlayerAfterOverkill(damage.get(11).getOwner(), p);
+        }
         //decrease max point value
         p.getPlayerBoard().getKillValue().remove(0);
         //points for first damage
         points[players.indexOf(damage.get(0).getOwner())]++;
+        //attribute points to each player
+        for (int i=0; i<playerNumber;i++){
+            players.get(i).addPoints(points[i]);
+        }
         //set the kill on the skull list
         skullsList.add(new BloodToken(damage.get(10).getOwner()));
     }
@@ -373,6 +380,10 @@ public class Match implements ChangesMatchObservable{
         else{
             return "MostAction";
         }
+    }
+
+    private void markPlayerAfterOverkill(Player target, Player owner){
+        target.getPlayerBoard().calculateDamage(new DamageTransporter(target, owner, 0,1));
     }
 
     /********************** changes observable **************************/
