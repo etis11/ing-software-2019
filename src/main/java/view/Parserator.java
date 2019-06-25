@@ -70,61 +70,67 @@ public class Parserator implements Runnable {
         } else {
             realCommand = command;
         }
-        switch (realCommand.toLowerCase()) {
-            case "help":
-                CLI.displayText(command);
-                return;
-            case "quit":
-                quit = true;
-                return;
-            case "muovi":
-                commandLauncher.addCommand(new AskWalkCommand(token));
-                return;
-            case "raccogli":
-                commandLauncher.addCommand(new AskPickCommand(token));
-                return;
-            case "spara":
-                commandLauncher.addCommand(new AskShootCommand(token));
-                return;
-            case "ricarica":
-                commandLauncher.addCommand(new AskReloadCommand(token));
-                return;
-            case "fineturno":
-                commandLauncher.addCommand(new AskEndTurnCommand(token));
-                return;
-            case "powerup":
-                commandLauncher.addCommand(new AskUsePowerUpCommand(token));
-                return;
-            case "setusername":
-                commandLauncher.addCommand(new SetUsernameCommand(token, param));
-                return;
-            case "setfraseeffetto":
-                commandLauncher.addCommand(new SetEffectPhraseCommand(token, param));
-                return;
-            case "setuccisioni":
-                commandLauncher.addCommand(new SetNumberOfDeathCommand(token, Integer.valueOf(param)));
-                return;
-            case "setgiocatori":
-                commandLauncher.addCommand(new SetPlayerNumberCommand(token, Integer.valueOf(param)));
-                return;
-            case "punti":
-                commandLauncher.addCommand(new AskPointsCommand(token));
-                return;
-            case "setpersonaggio":
-                commandLauncher.addCommand(new SetTokenCommand(token, param.toLowerCase()));
-                return;
-            case "setfrenesia":
-                commandLauncher.addCommand(new SetFinalFrenzyCommand(token, parseFrenzy(param)));
-                return;
-        }
+        try {
+            switch (realCommand.toLowerCase()) {
+                case "help":
+                    CLI.displayText(command);
+                    return;
+                case "quit":
+                    quit = true;
+                    return;
+                case "muovi":
+                    commandLauncher.addCommand(new AskWalkCommand(token));
+                    return;
+                case "raccogli":
+                    commandLauncher.addCommand(new AskPickCommand(token));
+                    return;
+                case "spara":
+                    commandLauncher.addCommand(new AskShootCommand(token));
+                    return;
+                case "ricarica":
+                    commandLauncher.addCommand(new AskReloadCommand(token));
+                    return;
+                case "fineturno":
+                    commandLauncher.addCommand(new AskEndTurnCommand(token));
+                    return;
+                case "powerup":
+                    commandLauncher.addCommand(new AskUsePowerUpCommand(token));
+                    return;
+                case "setusername":
+                case "s":
+                    commandLauncher.addCommand(new SetUsernameCommand(token, param));
+                    return;
+                case "setfraseeffetto":
+                    commandLauncher.addCommand(new SetEffectPhraseCommand(token, param));
+                    return;
+                case "setuccisioni":
+                    commandLauncher.addCommand(new SetNumberOfDeathCommand(token, Integer.valueOf(param)));
+                    return;
+                case "setgiocatori":
+                    commandLauncher.addCommand(new SetPlayerNumberCommand(token, Integer.valueOf(param)));
+                    return;
+                case "punti":
+                    commandLauncher.addCommand(new AskPointsCommand(token));
+                    return;
+                case "setpersonaggio":
+                    commandLauncher.addCommand(new SetTokenCommand(token, param.toLowerCase()));
+                    return;
+                case "setfrenesia":
+                    commandLauncher.addCommand(new SetFinalFrenzyCommand(token, parseFrenzy(param)));
+                    return;
+            }
 
-        if (command.contains("up") || command.contains("right") || command.contains("left") || command.contains("down")) {
-            List<String> toadd = new ArrayList<>();
-            toadd.addAll(Arrays.asList(command.split(",")));
-            commandLauncher.addCommand(new MoveCommand(token, toadd));
-            return;
+            if (command.contains("up") || command.contains("right") || command.contains("left") || command.contains("down")) {
+                List<String> toadd = new ArrayList<>();
+                toadd.addAll(Arrays.asList(command.split(",")));
+                commandLauncher.addCommand(new MoveCommand(token, toadd));
+                return;
+            }
+            throw new IllegalArgumentException();
+        } catch (RemoteException r) {
+            CLI.displayText(AnsiColor.RED + "Server rmi non raggiungibile" + AnsiColor.RESET);
+            System.exit(1);
         }
-        throw new IllegalArgumentException();
     }
 
     private boolean parseFrenzy(String param){

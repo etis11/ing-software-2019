@@ -50,6 +50,7 @@ public class CLILauncher {
                 Registry registry = LocateRegistry.getRegistry();
                 ServerRMIInterface serverRMI = (ServerRMIInterface) registry.lookup("serverRMI");
                 token = serverRMI.getPersonalToken(receiver, "");
+                CLI.displayText("TOKEN: " + token);
                 ClientSingleton.getInstance().setToken(token);
                 cmdLauncher = serverRMI.getCurrentCommandLauncher();
             }
@@ -73,7 +74,9 @@ public class CLILauncher {
                 PrintWriter output = new PrintWriter(mySocket.getOutputStream());
                 output.write(ClientSingleton.getInstance().getToken() + "\n");
                 output.flush();
-                ClientSingleton.getInstance().setToken(input.readLine());
+                token = input.readLine();
+                CLI.displayText("TOKEN: " + token);
+                ClientSingleton.getInstance().setToken(token);
             }
             catch (IOException i){
                 CLI.displayText(AnsiColor.RED + "Errore nella connessione. Probabilmente il server è down" + AnsiColor.RESET);

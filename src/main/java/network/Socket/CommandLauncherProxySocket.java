@@ -2,6 +2,7 @@ package network.Socket;
 
 import controller.CommandContainer;
 import controller.commandpack.Command;
+import view.AnsiColor;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -16,6 +17,7 @@ public class CommandLauncherProxySocket implements CommandContainer {
     //private ObjectInputStream in;
     private final ObjectOutputStream out;
 
+    private final int maxTries = 3;
     /**
      * creates a socker
      *
@@ -40,13 +42,14 @@ public class CommandLauncherProxySocket implements CommandContainer {
      */
     @Override
     public void addCommand(Command c) {
-        try {
-            out.writeObject(c);
-            out.flush();
-        } catch (IOException i) {
-            System.err.println(i.getMessage());
-            i.printStackTrace();
-        }
+            try {
+                out.writeObject(c);
+                out.flush();
+            } catch (IOException i) {
+                close();
+                System.out.println(AnsiColor.RED + "Socket Server irraggiungibile (sto provando a inviare un comando)" + AnsiColor.RESET);
+                System.exit(1);
+            }
     }
 
     /**

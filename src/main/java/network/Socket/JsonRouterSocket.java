@@ -1,9 +1,11 @@
 package network.Socket;
 
 import controller.JsonReceiver;
+import view.AnsiColor;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -25,6 +27,8 @@ public class JsonRouterSocket implements Runnable {
      */
     private Scanner in;
 
+    private final int maxTentatives = 3;
+
     /**
      * creates a json router socket that receives the json elements. It's associated to the client socket
      * and a json receiver
@@ -45,14 +49,25 @@ public class JsonRouterSocket implements Runnable {
      */
     @Override
     public void run() {
-        while (!stop)
+        while (!stop){
             try {
                 String changes = in.nextLine();
                 receiver.sendJson(changes);
-            } catch (IOException e) {
-                stop();
-                throw new RuntimeException(e.getMessage());
             }
+            //no such element exeption thrown if something is already closed i guess
+            catch (IOException | NoSuchElementException e) {
+                stop();
+                System.out.println("weeee");
+            }
+        }
+        try {
+            clientSocket.close();
+        }
+        catch (IOException i) {
+            System.out.println("Chiusura socket ha lanciato un'eccezzione");
+        }
+        System.out.println(AnsiColor.RED + "Server non raggiungibile, in lettura dai json" + AnsiColor.RESET);
+        System.exit(1);
     }
 
     public void stop() {

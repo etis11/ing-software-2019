@@ -43,7 +43,6 @@ public class CommandLineInterface extends AbstractView  {
 
     /**
      * creates a generic cli
-     *
      * @param inputStream
      * @param outputStream
      */
