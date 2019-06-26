@@ -99,13 +99,13 @@ public class CommandExecutor {
                 } else {
                     currentPlayer.setOldState(currentPlayer.getState());
                     currentPlayer.getState().nextState("PickUp", currentPlayer);
-                    String message = "Il giocatore attuale sta raccogliendo";
+                    String message = currentPlayer.getName()+" vuole raccogliere";
                     for (JsonReceiver js : command.getAllReceivers()) {
                         if (js != userJsonReceiver) {
                             js.sendJson(jsonCreator.createJsonWithMessage(message));
                         }
                     }
-                    userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Se vuoi spostarti inserisci la direzione, altrimenti inserisci cosa vuoi raccogliere. (Munizioni o armi)"));
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Se vuoi spostarti inserisci la direzione, altrimenti inserisci none, raccoglierai automaticamente se ci sono munizioni"));
                 }
             }
         }
@@ -281,13 +281,44 @@ public class CommandExecutor {
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non hai abbastanza mosse rimanenti"));
                 } else {
                     try {
+                        Tile oldTile = currentPlayer.getTile();
                         currentPlayer.getState().decrementRemainingSteps(command.getMoves().size());
                         currentPlayer.move(new Movement(new ArrayList<>(command.getMoves())));
                         String message = currentPlayer.getName()+" si è spostato di nel tile: " +currentPlayer.getTile().getID();
-                        for (JsonReceiver js : command.getAllReceivers()) {
-                            notifyToAllExceptCurrent(js, userJsonReceiver, message);
+                        if(!currentPlayer.getState().canPickUp()) {
+                            for (JsonReceiver js : command.getAllReceivers()) {
+                                notifyToAllExceptCurrent(js, userJsonReceiver, message);
+                            }
+                            userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Ti sei spostato nel tile :" + currentPlayer.getTile().getID(), currentPlayer));
                         }
-                        userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Ti sei spostato nel tile :" + currentPlayer.getTile().getID(), currentPlayer));
+                        if(currentPlayer.getState().canPickUp() && currentPlayer.getTile().canContainAmmo()){
+                            if (currentPlayer.getTile().isPresentAmmoCard()) {
+                                currentPlayer.getState().remainingStepsToZero();
+
+                                AmmoCard ammoCard = currentPlayer.getTile().pickUpAmmoCard();
+                                //draw
+                                currentPlayer.useAmmoCard(ammoCard, gameManager.getMatch().getPowerUpDeck());
+                                //put the card in the slush pile
+                                gameManager.getMatch().getAmmoSlushPile().addCard(ammoCard);
+                                //notifyMessage
+                                String message2 = currentPlayer.getName()+" si è spostato nel tile "+currentPlayer.getTile().getID()+" ha raccolto una carta munizioni";
+                                for (JsonReceiver js : command.getAllReceivers()) {
+                                    notifyToAllExceptCurrent(js, userJsonReceiver, message2);
+                                }
+                                userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Ti sei spostato nel tile "+currentPlayer.getTile().getID()+" e hai raccolto una carta munizioni"));
+                            }
+                            else {
+                                //return to old state
+                                if(oldTile != currentPlayer.getTile()) {
+                                    oldTile.addPlayer(currentPlayer);
+                                }
+                                userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Nel tuo tile non c'è niente da raccogliere", currentPlayer));
+                                currentPlayer.setState(currentPlayer.getOldState());
+                                currentPlayer.setOldState(null);
+                                jsonCreator.reset();
+                                return;
+                            }
+                        }
                         command.endCommandToAction(gameManager);
                     } catch (NotValidMovesException e) {
                         currentPlayer.getState().resetRemainingSteps();
@@ -324,34 +355,7 @@ public class CommandExecutor {
                     }
 
                     //verify if it is an ammo tile
-                    if (currentPlayer.getTile().canContainAmmo()) {
-                        //verify if an ammo card is present
-                        if (currentPlayer.getTile().isPresentAmmoCard()) {
-                            currentPlayer.getState().remainingStepsToZero();
-
-                            AmmoCard ammoCard = currentPlayer.getTile().pickUpAmmoCard();
-                            //draw
-                            currentPlayer.useAmmoCard(ammoCard, gameManager.getMatch().getPowerUpDeck());
-                            //put the card in the slush pile
-                            gameManager.getMatch().getAmmoSlushPile().addCard(ammoCard);
-
-                            //notifyMessage
-                            String message = "Il giocatore attuale ha raccolto una carta munizioni";
-                            for (JsonReceiver js : command.getAllReceivers()) {
-                                if (js != userJsonReceiver) {
-                                    js.sendJson(jsonCreator.createJsonWithMessage(message));
-                                }
-                            }
-                            userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Hai raccolto una carta munizioni"));
-                            //decrement moves of player and return to action selector
-                            command.endCommandToAction(gameManager);
-                        }
-                        else {
-                            //return to old state
-                            oldTile.addPlayer(currentPlayer);
-                            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Nel tuo tile non c'è niente da raccogliere"));
-                        }
-                    } else {
+                    if (currentPlayer.getTile().canContainWeapons()) {
                         //verify if there are weapon in the tile
                         if (!currentPlayer.getTile().getWeapons().isEmpty()) {
                             //set player remaining steps to zero

@@ -119,9 +119,11 @@ public class Parserator implements Runnable {
                     return;
             }
 
-            if (command.contains("up") || command.contains("right") || command.contains("left") || command.contains("down")) {
+            if (command.contains("up") || command.contains("right") || command.contains("left") || command.contains("down")|| command.contains("none")) {
                 List<String> toadd = new ArrayList<>();
-                toadd.addAll(Arrays.asList(command.split(",")));
+                if(!command.contains("none")) {
+                    toadd.addAll(Arrays.asList(command.split(",")));
+                }
                 commandLauncher.addCommand(new MoveCommand(token, toadd));
                 return;
             }
