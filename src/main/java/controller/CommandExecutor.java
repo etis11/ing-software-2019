@@ -502,8 +502,8 @@ public class CommandExecutor {
                         String message = currentPlayer.getName() + " si è rigenerato nel punto di rigenerazione" + regenPointColor;
                         for (JsonReceiver js : command.getAllReceivers()) {
                             if (js != userJsonReceiver) {
-                                User userToBenotified = registry.getJsonUserOwner(js);
-                                Player userPlayer = userToBenotified.getPlayer();
+                                User userToBeNotified = registry.getJsonUserOwner(js);
+                                Player userPlayer = userToBeNotified.getPlayer();
                                 js.sendJson(jsonCreator.createTargetPlayerJson(message, userPlayer));
                             }
                         }

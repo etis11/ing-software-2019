@@ -1,5 +1,6 @@
 25 giugno
 
+1) deserializzare il death track
 
 
 COSE DA FARE PRIMA O POI
