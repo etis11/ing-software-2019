@@ -50,31 +50,31 @@ public class CommandExecutor {
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi terminare il tuo turno al momento"));
                 } else {
                     currentPlayer.getState().nextState("EndTurn", currentPlayer);
-                    //TODO prova, non so se metterli qua o no
-                    gameManager.getMatch().endRound();
-                    gameManager.getMatch().newRound();
                     String message = currentPlayer.getName()+" ha terminato il suo turno";
                     for (JsonReceiver js : command.getAllReceivers()) {
                         if (js != userJsonReceiver) {
-                            js.sendJson(jsonCreator.createJsonWithMessage(message));
+                            notifyToAllExceptCurrent(js, userJsonReceiver, message);
                         }
                     }
-                    userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Hai terminato il tuo turno"));
-
-//                    JsonReceiver userToBeNotifiedThrow = null;
-//                    for(JsonReceiver jr : command.getAllReceivers()){
-//                        User userToBeNotified= TokenRegistry.getInstance().getJsonUserOwner(jr);
-//                        if(userToBeNotified.getPlayer().getName().equals(gameManager.getMatch().getCurrentPlayer().getName())){
-//                            userToBeNotifiedThrow = jr;
-//                        }
-//                    }
-//                    userToBeNotifiedThrow.sendJson(jsonCreator.createJsonWithMessage("E' iniziato il tuo turno"));
-//                    jsonCreator.reset();
-//                    currentPlayer = gameManager.getMatch().getCurrentPlayer();
-//                    if((currentPlayer.getState().getName().equals("EndTurn")&& currentPlayer.getTile() == null) || currentPlayer.getState().getName().equals("Dead") || currentPlayer.getState().getName().equals("Overkilled")) {
-//                        userToBeNotifiedThrow.sendJson(jsonCreator.createJsonWithMessage("scegli quale powerup scartare per spawnare"));
-//                        jsonCreator.reset();
-//                    }
+                    userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Hai terminato il tuo turno", currentPlayer));
+                    //TODO prova, non so se metterli qua o no
+                    gameManager.getMatch().endRound();
+                    gameManager.getMatch().newRound();
+                    jsonCreator.reset();
+                    currentPlayer = gameManager.getMatch().getCurrentPlayer();
+                    JsonReceiver userToBeNotifiedThrow = null;
+                    for(JsonReceiver jr : command.getAllReceivers()){
+                        User userToBeNotified= TokenRegistry.getInstance().getJsonUserOwner(jr);
+                        if(userToBeNotified.getPlayer().getName().equals(gameManager.getMatch().getCurrentPlayer().getName())){
+                            userToBeNotifiedThrow = jr;
+                        }
+                    }
+                    userToBeNotifiedThrow.sendJson(jsonCreator.createTargetPlayerJson("E' iniziato il tuo turno", currentPlayer));
+                    jsonCreator.reset();
+                    if((currentPlayer.getState().getName().equals("EndTurn")&& currentPlayer.getTile() == null) || currentPlayer.getState().getName().equals("Dead") || currentPlayer.getState().getName().equals("Overkilled")) {
+                        userToBeNotifiedThrow.sendJson(jsonCreator.createJsonWithMessage("scegli quale powerup scartare per spawnare"));
+                        jsonCreator.reset();
+                    }
                 }
             }
         }
@@ -288,7 +288,7 @@ public class CommandExecutor {
                         currentPlayer.move(new Movement(new ArrayList<>(command.getMoves())));
                         String message = currentPlayer.getName()+" si è spostato di nel tile: " +currentPlayer.getTile().getID();
                         for (JsonReceiver js : command.getAllReceivers()) {
-                            notifyToAll(js, userJsonReceiver, message);
+                            notifyToAllExceptCurrent(js, userJsonReceiver, message);
                         }
                         userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Ti sei spostato nel tile :" + currentPlayer.getTile().getID(), currentPlayer));
                         command.endCommandToAction(gameManager);
@@ -497,7 +497,7 @@ public class CommandExecutor {
                         }
                         String message = currentPlayer.getName() + " si è rigenerato nel punto di rigenerazione" + regenPointColor;
                         for (JsonReceiver js : command.getAllReceivers()) {
-                            notifyToAll(js, userJsonReceiver, message);
+                            notifyToAllExceptCurrent(js, userJsonReceiver, message);
                         }
                         userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Ti sei rigenerato nel punto di rigenerazione " + regenPointColor, currentPlayer));
                     }
@@ -832,7 +832,7 @@ public class CommandExecutor {
     }
 
 
-    private void notifyToAll(JsonReceiver js, JsonReceiver userJsonReceiver, String message) throws IOException {
+    private void notifyToAllExceptCurrent(JsonReceiver js, JsonReceiver userJsonReceiver, String message) throws IOException {
         if (js != userJsonReceiver) {
             User userToBenotified = registry.getJsonUserOwner(js);
             Player userPlayer = userToBenotified.getPlayer();
