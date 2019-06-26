@@ -280,7 +280,7 @@ public class CommandExecutor {
             if (owner != currentPlayer) {
                 userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
             } else {
-                if (currentPlayer.getState().getRemainingSteps() < command.getMoves().size()) {
+                if (!currentPlayer.getState().getName().equals("Run") && currentPlayer.getState().getRemainingSteps() < command.getMoves().size()) {
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non hai abbastanza mosse rimanenti"));
                 } else {
                     try {
@@ -288,20 +288,14 @@ public class CommandExecutor {
                         currentPlayer.move(new Movement(new ArrayList<>(command.getMoves())));
                         String message = currentPlayer.getName()+" si è spostato di nel tile: " +currentPlayer.getTile().getID();
                         for (JsonReceiver js : command.getAllReceivers()) {
-                            if (js != userJsonReceiver) {
-                                User userToBenotified = registry.getJsonUserOwner(js);
-                                Player userPlayer = userToBenotified.getPlayer();
-                                js.sendJson(jsonCreator.createTargetPlayerJson(message, userPlayer));
-                            }
+                            notifyToAll(js, userJsonReceiver, message);
                         }
                         userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Ti sei spostato nel tile :" + currentPlayer.getTile().getID(), currentPlayer));
+                        command.endCommandToAction(gameManager);
                     } catch (NotValidMovesException e) {
                         currentPlayer.getState().resetRemainingSteps();
                         userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Movimento non valido"));
                     }
-                }
-                if (currentPlayer.getState().getName().equals("Run")) {
-                    command.endCommandToAction(gameManager);
                 }
             }
         }
@@ -503,11 +497,7 @@ public class CommandExecutor {
                         }
                         String message = currentPlayer.getName() + " si è rigenerato nel punto di rigenerazione" + regenPointColor;
                         for (JsonReceiver js : command.getAllReceivers()) {
-                            if (js != userJsonReceiver) {
-                                User userToBenotified = registry.getJsonUserOwner(js);
-                                Player userPlayer = userToBenotified.getPlayer();
-                                js.sendJson(jsonCreator.createTargetPlayerJson(message, userPlayer));
-                            }
+                            notifyToAll(js, userJsonReceiver, message);
                         }
                         userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Ti sei rigenerato nel punto di rigenerazione " + regenPointColor, currentPlayer));
                     }
@@ -842,7 +832,11 @@ public class CommandExecutor {
     }
 
 
-    private void notifyToAll(){
-
+    private void notifyToAll(JsonReceiver js, JsonReceiver userJsonReceiver, String message) throws IOException {
+        if (js != userJsonReceiver) {
+            User userToBenotified = registry.getJsonUserOwner(js);
+            Player userPlayer = userToBenotified.getPlayer();
+            js.sendJson(jsonCreator.createTargetPlayerJson(message, userPlayer));
+        }
     }
 }
