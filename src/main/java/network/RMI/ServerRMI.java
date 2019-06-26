@@ -1,11 +1,14 @@
 package network.RMI;
 
+import controller.CommandLauncher;
 import controller.CommandLauncherInterface;
 import controller.CommandLauncherProvider;
 import controller.JsonReceiver;
+import controller.commandpack.SetUsernameCommand;
 import exceptions.DuplicateException;
 import network.TokenRegistry;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
@@ -49,8 +52,10 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
      * @return the  stub of the command launcher
      */
     @Override
-    public CommandLauncherInterface getCurrentCommandLauncher() throws RemoteException {
-        return launchers.getCurrentCommandLauncher();
+    public CommandLauncherInterface getCurrentCommandLauncher(JsonReceiver jsonReceiver) throws RemoteException {
+        CommandLauncherInterface launcher= launchers.getCurrentCommandLauncher();
+        launcher.addJsonReceiver(jsonReceiver);
+        return launcher;
     }
 
     /**
@@ -61,20 +66,30 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
      * @return the token
      */
     @Override
-    public String getPersonalToken(JsonReceiver jsonReceiver, String token) throws RemoteException {
-        rmiServerLogger.log(Level.INFO , ">>>A client is asking a token");
+    public String getPersonalToken(String token) throws RemoteException {
+        rmiServerLogger.log(Level.INFO , ">>>A is trying to register");
         String newToken = token;
         TokenRegistry registry = TokenRegistry.getInstance();
         if (!registry.tokenAlreadyGenerated(token)) {
             newToken = UUID.randomUUID().toString();
         }
-        try {
-            registry.associateTokenAndReceiver(newToken, jsonReceiver);
-            getCurrentCommandLauncher().addJsonReceiver(jsonReceiver);
-        } catch (DuplicateException d) {
-            rmiServerLogger.log(Level.WARNING, ">>> A client already associated is trying to get another token");
-            throw new DuplicateException(d);
+        else{
+            throw new UnsupportedOperationException("GESTIRE IL CASO IN CUI INVIO UN TOKEN GIA' GENERATO");
         }
         return newToken;
+    }
+
+    public String checkUsername(String token, String username, JsonReceiver jsonReceiver){
+        if(username.contains(" ") || username.equals(""))
+            return "KO - username con formato errato";
+        TokenRegistry registry = TokenRegistry.getInstance();
+        if(registry.checkAndInsertUsername(token, username)){
+            return "KO - username già esistente";
+        }
+        else{
+            registry.associateTokenAndReceiver(token, jsonReceiver);
+            rmiServerLogger.log(Level.INFO, "token e ricevitore associati");
+            return "OK";
+        }
     }
 }

@@ -2,6 +2,7 @@ package view;
 
 import controller.*;
 import controller.commandpack.Command;
+import controller.commandpack.SetUsernameCommand;
 import model.clientModel.SemplifiedGame;
 import network.RMI.ServerRMIInterface;
 import network.Socket.CommandLauncherProxySocket;
@@ -17,6 +18,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Scanner;
 
 public class CLILauncher {
 
@@ -49,10 +51,26 @@ public class CLILauncher {
             try{
                 Registry registry = LocateRegistry.getRegistry();
                 ServerRMIInterface serverRMI = (ServerRMIInterface) registry.lookup("serverRMI");
-                token = serverRMI.getPersonalToken(receiver, "");
+                token = serverRMI.getPersonalToken("");
                 CLI.displayText("TOKEN: " + token);
                 ClientSingleton.getInstance().setToken(token);
-                cmdLauncher = serverRMI.getCurrentCommandLauncher();
+                //user creation
+                boolean ok = false;
+                String serverResponse;
+                String username;
+                while (!ok){
+                    CLI.displayText("Inserisci uno username");
+                    username = CLI.getUserInputString();
+                    serverResponse = serverRMI.checkUsername(token, username,receiver);
+                    if(serverResponse.contains("OK")){
+                        ok = true;
+                        CLI.displayText("Username accettato");
+                        cmdLauncher = serverRMI.getCurrentCommandLauncher(receiver);
+                        cmdLauncher.addCommand(new SetUsernameCommand(token, username));
+                    }
+                    else CLI.displayText(serverResponse);
+                }
+
             }
             catch (Exception r){
                 r.printStackTrace();

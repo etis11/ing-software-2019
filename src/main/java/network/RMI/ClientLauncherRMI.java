@@ -28,9 +28,9 @@ public class ClientLauncherRMI {
 
 
             ServerRMIInterface serverRMI = (ServerRMIInterface) registry.lookup("serverRMI");
-            token = serverRMI.getPersonalToken(receiver, "");
+            //token = serverRMI.getPersonalToken(receiver, "");
             ClientSingleton.getInstance().setToken(token);
-            launcher = serverRMI.getCurrentCommandLauncher();
+            launcher = serverRMI.getCurrentCommandLauncher(receiver);
         } catch (Exception r) {
             System.out.println(r.getMessage());
             r.printStackTrace();

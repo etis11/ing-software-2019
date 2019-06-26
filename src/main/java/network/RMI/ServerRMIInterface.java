@@ -8,7 +8,9 @@ import java.rmi.RemoteException;
 
 public interface ServerRMIInterface extends Remote {
 
-    CommandLauncherInterface getCurrentCommandLauncher() throws RemoteException;
+    CommandLauncherInterface getCurrentCommandLauncher(JsonReceiver jsonReceiver) throws RemoteException;
 
-    String getPersonalToken(JsonReceiver jsonReceiver, String token) throws RemoteException;
+    String getPersonalToken(String token) throws RemoteException;
+
+    String checkUsername(String token, String username, JsonReceiver jsonReceiver) throws RemoteException;
 }

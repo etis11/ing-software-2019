@@ -135,9 +135,9 @@ public class MainFrame{
                             Registry registry = LocateRegistry.getRegistry();
                             //asks fro the server stub
                             ServerRMIInterface serverRMI = (ServerRMIInterface) registry.lookup("serverRMI");
-                            token = serverRMI.getPersonalToken(receiver, "");
+                            //token = serverRMI.getPersonalToken(receiver, "");
                             ClientSingleton.getInstance().setToken(token);
-                            cmdLauncher = serverRMI.getCurrentCommandLauncher();
+                            cmdLauncher = serverRMI.getCurrentCommandLauncher(receiver);
                         } catch (Exception r) {
                             throw new RuntimeException(r);
                         }
