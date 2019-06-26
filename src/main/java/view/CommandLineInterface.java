@@ -58,7 +58,7 @@ public class CommandLineInterface extends AbstractView  {
      **/
     @Override
     public void onJoin(User joinedUser) {
-        displayText(joinedUser.getUsername() + " si e' unito alla lobby");
+        displayText(AnsiColor.BLUE_BOLD_BRIGHT + joinedUser.getUsername() + " si e' unito alla lobby" +AnsiColor.RESET);
     }
 
     /**
@@ -68,7 +68,7 @@ public class CommandLineInterface extends AbstractView  {
      **/
     @Override
     public void onLeave(User leavingUser) {
-        displayText(leavingUser.getUsername() + " ha lasciato la lobby");
+        displayText(AnsiColor.BLUE_BOLD_BRIGHT + leavingUser.getUsername() + " ha lasciato la lobby" + AnsiColor.RESET);
     }
 
     /**
@@ -143,7 +143,7 @@ public class CommandLineInterface extends AbstractView  {
 The following 4 strings are the 4 maps.
  */
 
-        String hash1 = AnsiColor.WHITE+"╔══════════╦══════════╦══════════╦══════════╗\t\t\t\tLEGGENDA DELLA MAPPA\n" +
+        String hash1 = AnsiColor.WHITE+"╔══════════╦══════════╦══════════╦══════════╗\t\t\t\tLEGENDA DELLA MAPPA\n" +
                 "║" +AnsiColor.RESET + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + " "+AnsiColor.RESET+AnsiColor.BLACK+"REG TILE"+AnsiColor.RESET+AnsiColor.BLUE_BACKGROUND+" " + AnsiColor.RESET + "║          ║\t"+user[0]+"\n" +
                 "║" + AnsiColor.BLUE_BACKGROUND + "     0    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "      1   " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "     2    " + AnsiColor.RESET + "║    3     ║\t"+user[1]+"\n" +
                 "║" + AnsiColor.BLUE_BACKGROUND +p[0] + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + p[1]+ AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + p[2] + AnsiColor.RESET + "║"  + p[3] + "║\t"+user[2]+"\n" +
@@ -151,13 +151,13 @@ The following 4 strings are the 4 maps.
                 "║" + AnsiColor.RED_BACKGROUND + " "+AnsiColor.RESET+AnsiColor.BLACK+"REG TILE"+AnsiColor.RESET+AnsiColor.RED_BACKGROUND+" " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + "║\t"+user[4]+"\n" +
                 "║" + AnsiColor.RED_BACKGROUND + "     4    " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "     5    " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "      6   " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    7     " + AnsiColor.RESET + "║"+user[4]+"\n" +
                 "║" + AnsiColor.RED_BACKGROUND + p[4] + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + p[5] + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + p[6] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[7] + AnsiColor.RESET + "║\n" +
-                "╠══════════╬═══    ═══╬══════════╬          ╣\t\t\t\tLEGGENDA DELLE ARMI\n" +
+                "╠══════════╬═══    ═══╬══════════╬          ╣\t\t\t\tLEGENDA DELLE ARMI\n" +
                 "║          ║" + AnsiColor.GREEN_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.GREEN_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND +" "+AnsiColor.RESET+AnsiColor.BLACK+"REG TILE"+AnsiColor.RESET+AnsiColor.YELLOW_BACKGROUND+" " + AnsiColor.RESET +"║\t"+"REG TILE: "+mappa.getTile(0,2).getId()+" "+mappa.getTile(0,2).toString()+"\n" +
                 "║    8     ║" + AnsiColor.GREEN_BACKGROUND + "    9     " + AnsiColor.RESET + " " + AnsiColor.GREEN_BACKGROUND + "     10   " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    11    " + AnsiColor.RESET + "║\t"+"REG TILE: "+mappa.getTile(1,0).getId()+" "+mappa.getTile(1,0).toString()+"\n" +
                 "║"+     p[8]     +"║" + AnsiColor.GREEN_BACKGROUND + p[9] + AnsiColor.RESET + " " + AnsiColor.GREEN_BACKGROUND + p[10] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[11] + AnsiColor.RESET + "║\t"+"REG TILE: "+mappa.getTile(2,3).getId()+mappa.getTile(2,3).toString()+"\n" +
                 "╚══════════╩══════════╩══════════╩══════════╝";
 
-        String hash2 = AnsiColor.WHITE+"╔══════════╦══════════╦══════════╦══════════╗\t\t\t\tLEGGENDA DELLA MAPPA\n" +
+        String hash2 = AnsiColor.WHITE+"╔══════════╦══════════╦══════════╦══════════╗\t\t\t\tLEGENDA DELLA MAPPA\n" +
                 "║" +AnsiColor.RESET+ AnsiColor.RED_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + " "+AnsiColor.RESET+AnsiColor.BLACK+"REG TILE"+AnsiColor.RESET+ AnsiColor.BLUE_BACKGROUND+" " + AnsiColor.RESET +"║          ║\t"+user[0]+"\n" +
                 "║" + AnsiColor.RED_BACKGROUND + "     0    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "      1   " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "     2    " + AnsiColor.RESET + "║    3     ║\t"+user[1]+"\n" +
                 "║" + AnsiColor.RED_BACKGROUND + p[0] + AnsiColor.RESET + "║" + AnsiColor.BLUE_BACKGROUND + p[1] + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + p[2] + AnsiColor.RESET + "║"  + p[3] + "║\t"+user[2]+"\n" +
@@ -215,7 +215,7 @@ The following 4 strings are the 4 maps.
      **/
     @Override
     public void notifyMessage(String message) {
-        displayText(message);
+        displayText(AnsiColor.BLUE_BOLD_BRIGHT + message + AnsiColor.RESET);
     }
 
     /**
@@ -243,7 +243,7 @@ The following 4 strings are the 4 maps.
                 }
             }
         }
-        displayText("HP del giocatore "+playerColor(damagePlayer)+" "+output);
+        displayText(AnsiColor.BLUE_BOLD_BRIGHT +"HP del giocatore "+playerColor(damagePlayer)+" "+output + AnsiColor.RESET);
     }
 
     /**
@@ -285,9 +285,10 @@ The following 4 strings are the 4 maps.
 
         StringBuilder stringBuilder = new StringBuilder();
         //blue
-        stringBuilder.append("Ammo " + AnsiColor.BLUE + "blu" + AnsiColor.RESET + ": ")
+        stringBuilder.append(AnsiColor.WHITE + "" +"Ammo " + AnsiColor.BLUE + "blu" + AnsiColor.RESET + ": ")
                 .append(p.getPlayerBoard().getNumBlueAmmo())
                 .append(" ");
+
         for(int i=0;i<p.getPlayerBoard().getNumBlueAmmo();i++){
             stringBuilder.append(AnsiColor.BLUE + "⬜" + AnsiColor.RESET);
         }
@@ -398,11 +399,8 @@ The following 4 strings are the 4 maps.
      * Method used to get a keyboard input from the users
      **/
     public String getUserInputString() throws IOException {
-        //       Scanner scanner1 = new Scanner(System.in);
-       consoleOutput.write(AnsiColor.GREEN + ">>> " + AnsiColor.RESET);
         consoleOutput.flush();
         String cc = fromKeyBoard.nextLine();
-        consoleOutput.print(AnsiColor.GREEN + ">>> " + AnsiColor.RESET);
         return cc;
     }
 
@@ -413,8 +411,6 @@ The following 4 strings are the 4 maps.
 
 
     public int getUserInputInt() {
-
-
         //  Scanner scanner = new Scanner(System.in);
         int input = fromKeyBoard.nextInt();
         //  scanner.close();
@@ -425,16 +421,23 @@ The following 4 strings are the 4 maps.
      * Displays text in the CLI to the users/players
      **/
     public void displayText(String text) {
-        if(!text.equals("Scegliere connessione rmi o socket")) {
-            consoleOutput.println();
-        }
-        consoleOutput.println(text);
+        consoleOutput.println(AnsiColor.BLUE_BOLD_BRIGHT + text + AnsiColor.RESET);
+        consoleOutput.flush();
+    }
+
+    public void displayTextSameLine(String text){
+        consoleOutput.print(AnsiColor.BLUE_BOLD_BRIGHT + text + AnsiColor.RESET);
+        consoleOutput.flush();
+    }
+
+    public void waitingInput(){
+        consoleOutput.print(AnsiColor.GREEN + ">>> " + AnsiColor.RESET);
         consoleOutput.flush();
     }
 
     @Override
     public void onPlayerChange(SemplifiedPlayer p) {
-        displayText("La playerboard del giocatore "+playerColor(p));
+        displayText("PLAYERBOARD DI "+AnsiColor.RESET + playerColor(p) + p.getName().toUpperCase());
         onHpChange(p);
         onMarksChange(p);
         onAmmoChange(p);

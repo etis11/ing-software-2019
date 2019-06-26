@@ -52,7 +52,6 @@ public class Parserator implements Runnable {
                 CLI.displayText(AnsiColor.RED + "Nessun comando esistente con questo formato" + AnsiColor.RESET);
             }
         }
-        //TODO rendere un po' più flessibile questa cosa
         CLILauncher.stopCLI();
     }
 
