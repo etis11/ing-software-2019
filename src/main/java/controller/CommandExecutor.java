@@ -50,13 +50,30 @@ public class CommandExecutor {
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi terminare il tuo turno al momento"));
                 } else {
                     currentPlayer.getState().nextState("EndTurn", currentPlayer);
-                    String message = "Il giocatore attuale ha terminato il suo turno";
+                    //TODO prova, non so se metterli qua o no
+                    String message = currentPlayer.getName()+" ha terminato il suo turno";
                     for (JsonReceiver js : command.getAllReceivers()) {
                         if (js != userJsonReceiver) {
                             js.sendJson(jsonCreator.createJsonWithMessage(message));
                         }
                     }
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Hai terminato il tuo turno"));
+                    gameManager.getMatch().endRound();
+                    gameManager.getMatch().newRound();
+                    JsonReceiver userToBeNotifiedThrow = null;
+                    for(JsonReceiver jr : command.getAllReceivers()){
+                        User userToBeNotified= TokenRegistry.getInstance().getJsonUserOwner(jr);
+                        if(userToBeNotified.getPlayer().getName().equals(gameManager.getMatch().getCurrentPlayer().getName())){
+                            userToBeNotifiedThrow = jr;
+                        }
+                    }
+                    userToBeNotifiedThrow.sendJson(jsonCreator.createJsonWithMessage("E' iniziato il tuo turno"));
+                    jsonCreator.reset();
+                    currentPlayer = gameManager.getMatch().getCurrentPlayer();
+                    if((currentPlayer.getState().getName().equals("EndTurn")&& currentPlayer.getTile() == null) || currentPlayer.getState().getName().equals("Dead") || currentPlayer.getState().getName().equals("Overkilled")) {
+                        userToBeNotifiedThrow.sendJson(jsonCreator.createJsonWithMessage("scegli quale powerup scartare per spawnare"));
+                        jsonCreator.reset();
+                    }
                 }
             }
         }
@@ -64,6 +81,7 @@ public class CommandExecutor {
             userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La partita non è ancora iniziata"));
         }
         jsonCreator.reset();
+
     }
 
     public void execute(AskPickCommand command) throws IOException {
@@ -230,7 +248,6 @@ public class CommandExecutor {
             } else {
                 //verify the state
                 if (!currentPlayer.getState().canRun() || currentPlayer.getRemainingMoves() < 1) {
-                    System.out.println(currentPlayer.getState().canRun()+" "+currentPlayer.getRemainingMoves());
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi muoverti"));
                 } else {
                     currentPlayer.getState().nextState("Run", currentPlayer);
@@ -240,6 +257,7 @@ public class CommandExecutor {
                             js.sendJson(jsonCreator.createJsonWithMessage(message));
                         }
                     }
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("inserisci le mosse che vuoi fare: (up, down, left, right)"));
                 }
             }
         }
@@ -462,26 +480,34 @@ public class CommandExecutor {
             if (owner != currentPlayer) {
                 userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
             } else{
-                if(!currentPlayer.hasPowerUp(powerUpParser(command.getPowerUpType()), colorParser(command.getColor()))){
-                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non hai questo PowerUp"));
-                }
-                else {
-                    String regenPointColor = command.getColor();
-                    Tile tileToSpawn = gameManager.getMatch().getMap().getRegenPoint(translateColor(regenPointColor));
-                    tileToSpawn.addPlayer(currentPlayer);
-                    currentPlayer.getState().nextState("NormalAction", currentPlayer);
-//                    try {
-//                        gameManager.getMatch().addPowerUpToSlush(currentPlayer.throwPowerUp(currentPlayer.getPowerUp(powerUpParser(command.getPowerUpType()), colorParser(command.getColor()))));
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-                    String message = currentPlayer.getName() + " si è rigenerato nel punto di rigenerazione" + regenPointColor;
-                    for (JsonReceiver js : command.getAllReceivers()) {
-                        if (js != userJsonReceiver) {
-                            js.sendJson(jsonCreator.createJsonWithMessage(message));
+                String state = currentPlayer.getState().getName();
+                //verify the player state
+                if ((state.equals("EndTurn")&& currentPlayer.getTile() == null) || state.equals("Dead") ||state.equals("Overkilled")) {
+                    //verify if the current player has a powerup
+                    if (!currentPlayer.hasPowerUp(powerUpParser(command.getPowerUpType()), colorParser(command.getColor()))) {
+                        userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non hai questo PowerUp"));
+                    } else {
+                        String regenPointColor = command.getColor();
+                        Tile tileToSpawn = gameManager.getMatch().getMap().getRegenPoint(translateColor(regenPointColor));
+                        tileToSpawn.addPlayer(currentPlayer);
+                        currentPlayer.getState().nextState("NormalAction", currentPlayer);
+                        PowerUpCard toThrow= currentPlayer.getPowerUp(powerUpParser(command.getPowerUpType()), colorParser(command.getColor()));
+                        try {
+                            gameManager.getMatch().addPowerUpToSlush(currentPlayer.throwPowerUp(toThrow));
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
+                        String message = currentPlayer.getName() + " si è rigenerato nel punto di rigenerazione" + regenPointColor;
+                        for (JsonReceiver js : command.getAllReceivers()) {
+                            if (js != userJsonReceiver) {
+                                js.sendJson(jsonCreator.createJsonWithMessage(message));
+                            }
+                        }
+                        userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Ti sei rigenerato nel punto di rigenerazione " + regenPointColor));
                     }
-                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("ti sei rigenerato nel punto di rigenerazione " + regenPointColor));
+                }
+                else{
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Azione non consentita"));
                 }
             }
         }else{
@@ -772,12 +798,13 @@ public class CommandExecutor {
         }
         jsonCreator.reset();
         userToBeNotifiedThrow.sendJson(jsonCreator.createJsonWithMessage("scegli quale powerup scartare per spawnare"));
+        jsonCreator.reset();
     }
 
     private Color colorParser(String color){
         if(color.equals("rosso")){
            return Color.RED;
-        } else if (color.equals("blue")){
+        } else if (color.equals("blu")){
             return Color.BLUE;
         } else{
             return Color.YELLOW;
@@ -796,15 +823,16 @@ public class CommandExecutor {
         return null;
     }
     private PowerUpType powerUpParser(String powerUp){
-        if(powerUp.equalsIgnoreCase("granatavenom")){
+        if(powerUp.equalsIgnoreCase("granata")){
             return PowerUpType.TAGBACK_GRANADE;
         } else if (powerUp.equalsIgnoreCase("mirino")){
             return PowerUpType.TARGETING_SCOPE;
         }else if (powerUp.equalsIgnoreCase("raggiocinetico")){
             return PowerUpType.NEWTON;
-        } else{
+        } else if (powerUp.equalsIgnoreCase("teletrasporto")){
             return PowerUpType.TELEPORTER;
         }
+        return null;
     }
 
 }

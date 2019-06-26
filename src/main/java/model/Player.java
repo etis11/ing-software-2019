@@ -444,12 +444,12 @@ public class Player implements ChangesObservable{
         return false;
     }
     public PowerUpCard getPowerUp(PowerUpType type, Color color){
-        for(PowerUpCard pc :getPowerUps()){
+        for(PowerUpCard pc :powerUps){
             if(pc.getPowerUpType().equals(type) && pc.getColor().equals(color)){
                 return pc;
             }
         }
-        return null;
+        throw  new RuntimeException("missed control if the power up is present");
     }
 
     @Override

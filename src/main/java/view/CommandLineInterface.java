@@ -243,7 +243,7 @@ The following 4 strings are the 4 maps.
                 }
             }
         }
-        displayText("HP del giocatore "+playerColor(damagePlayer)+"\n"+output);
+        displayText("HP del giocatore "+playerColor(damagePlayer)+" "+output);
     }
 
     /**
@@ -271,7 +271,7 @@ The following 4 strings are the 4 maps.
                 }
             }
         }
-        displayText("I marchi del giocatore "+playerColor(markedPlayer)+"\n"+output);
+        displayText("I marchi del giocatore "+playerColor(markedPlayer)+" "+output);
 //
     }
 
@@ -291,7 +291,7 @@ The following 4 strings are the 4 maps.
         //blue
         stringBuilder.append("Ammo " + AnsiColor.BLUE + "blu" + AnsiColor.RESET + ": ")
                 .append(p.getPlayerBoard().getNumBlueAmmo())
-                .append("\n");
+                .append(" ");
         for(int i=0;i<p.getPlayerBoard().getNumBlueAmmo();i++){
             stringBuilder.append(AnsiColor.BLUE + "⬜" + AnsiColor.RESET);
         }
@@ -299,18 +299,19 @@ The following 4 strings are the 4 maps.
         //red
         stringBuilder.append("Ammo " + AnsiColor.RED + "rosse" + AnsiColor.RESET + ": ")
                 .append(p.getPlayerBoard().getNumRedAmmo())
-                .append("\n");
+                .append(" ");
         for(int i=0;i<p.getPlayerBoard().getNumRedAmmo();i++){
             stringBuilder.append(AnsiColor.RED + "⬜" + AnsiColor.RESET);
         }
         stringBuilder.append("\n");
         //yellow
         stringBuilder.append("Ammo " + AnsiColor.YELLOW + "gialle" + AnsiColor.RESET + ": ")
-                .append(p.getPlayerBoard().getNumYellowAmmo());
+                .append(p.getPlayerBoard().getNumYellowAmmo())
+                .append(" ");
         for(int i=0;i<p.getPlayerBoard().getNumYellowAmmo();i++){
             //if present the previuos line should have a \n.
-            if(i == 0)
-                stringBuilder.append("\n");
+//            if(i == 0)
+//                stringBuilder.append("\n");
             stringBuilder.append(AnsiColor.YELLOW + "⬜" + AnsiColor.RESET);
             //i dont put the \n after the last ammo since display text will
         }
@@ -490,7 +491,7 @@ The following 4 strings are the 4 maps.
         if (powerUpType.equals(PowerUpType.NEWTON))
             return "RaggioCinetico";
         if (powerUpType.equals(PowerUpType.TAGBACK_GRANADE))
-            return "GranataVenom";
+            return "Granata";
         if (powerUpType.equals(PowerUpType.TARGETING_SCOPE))
             return "Mirino";
         if (powerUpType.equals(PowerUpType.TELEPORTER))

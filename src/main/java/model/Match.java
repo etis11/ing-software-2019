@@ -302,15 +302,13 @@ public class Match implements ChangesMatchObservable{
             current.pickUpPowerUp(powerUpDeck.draw());
             current.pickUpPowerUp(powerUpDeck.draw());
         }
-//        else if(current.getState().getName().equals("Dead") || current.getState().getName().equals("Overkilled")){
-//            PowerUpCard p = powerUpDeck.draw();
-//            current.pickUpPowerUp(p);
-//        }
+        else if(current.getState().getName().equals("Dead") || current.getState().getName().equals("Overkilled")){
+            PowerUpCard p = powerUpDeck.draw();
+            current.pickUpPowerUp(p);
+        }
         else{
             current.getState().nextState(actionParser(current.getPlayerBoard()),current);
-            return;
         }
-        //comando di spawn e scarto
     }
 
     /**
