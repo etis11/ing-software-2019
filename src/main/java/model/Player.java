@@ -449,7 +449,7 @@ public class Player implements ChangesObservable{
                 return pc;
             }
         }
-        return null;
+        throw  new RuntimeException("missed control if the power up is present");
     }
 
     @Override

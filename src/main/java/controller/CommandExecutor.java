@@ -462,26 +462,36 @@ public class CommandExecutor {
             if (owner != currentPlayer) {
                 userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
             } else{
-                if(!currentPlayer.hasPowerUp(powerUpParser(command.getPowerUpType()), colorParser(command.getColor()))){
-                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non hai questo PowerUp"));
-                }
-                else {
-                    String regenPointColor = command.getColor();
-                    Tile tileToSpawn = gameManager.getMatch().getMap().getRegenPoint(translateColor(regenPointColor));
-                    tileToSpawn.addPlayer(currentPlayer);
-                    currentPlayer.getState().nextState("NormalAction", currentPlayer);
+                String state = currentPlayer.getState().getName();
+                //verify the player state
+                if ((state.equals("EndTurn")&& currentPlayer.getTile() == null) || state.equals("Dead") ||state.equals("Overkilled")) {
+                    //verify if the current player has a powerup
+                    if (!currentPlayer.hasPowerUp(powerUpParser(command.getPowerUpType()), colorParser(command.getColor()))) {
+                        userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non hai questo PowerUp"));
+                    } else {
+                        String regenPointColor = command.getColor();
+                        Tile tileToSpawn = gameManager.getMatch().getMap().getRegenPoint(translateColor(regenPointColor));
+                        tileToSpawn.addPlayer(currentPlayer);
+                        currentPlayer.getState().nextState("NormalAction", currentPlayer);
+                        PowerUpCard toThrow= currentPlayer.getPowerUp(powerUpParser(command.getPowerUpType()), colorParser(command.getColor()));
+                        System.out.println("power ti throw: "+toThrow);
+                        System.out.println(currentPlayer.getPowerUps());
 //                    try {
-//                        gameManager.getMatch().addPowerUpToSlush(currentPlayer.throwPowerUp(currentPlayer.getPowerUp(powerUpParser(command.getPowerUpType()), colorParser(command.getColor()))));
+//                        gameManager.getMatch().addPowerUpToSlush(currentPlayer.throwPowerUp());
 //                    } catch (Exception e) {
 //                        e.printStackTrace();
 //                    }
-                    String message = currentPlayer.getName() + " si è rigenerato nel punto di rigenerazione" + regenPointColor;
-                    for (JsonReceiver js : command.getAllReceivers()) {
-                        if (js != userJsonReceiver) {
-                            js.sendJson(jsonCreator.createJsonWithMessage(message));
+                        String message = currentPlayer.getName() + " si è rigenerato nel punto di rigenerazione" + regenPointColor;
+                        for (JsonReceiver js : command.getAllReceivers()) {
+                            if (js != userJsonReceiver) {
+                                js.sendJson(jsonCreator.createJsonWithMessage(message));
+                            }
                         }
+                        userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Ti sei rigenerato nel punto di rigenerazione " + regenPointColor));
                     }
-                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("ti sei rigenerato nel punto di rigenerazione " + regenPointColor));
+                }
+                else{
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Azione non consentita"));
                 }
             }
         }else{
@@ -796,15 +806,16 @@ public class CommandExecutor {
         return null;
     }
     private PowerUpType powerUpParser(String powerUp){
-        if(powerUp.equalsIgnoreCase("granatavenom")){
+        if(powerUp.equalsIgnoreCase("granata")){
             return PowerUpType.TAGBACK_GRANADE;
         } else if (powerUp.equalsIgnoreCase("mirino")){
             return PowerUpType.TARGETING_SCOPE;
         }else if (powerUp.equalsIgnoreCase("raggiocinetico")){
             return PowerUpType.NEWTON;
-        } else{
+        } else if (powerUp.equalsIgnoreCase("teletrasporto")){
             return PowerUpType.TELEPORTER;
         }
+        return null;
     }
 
 }

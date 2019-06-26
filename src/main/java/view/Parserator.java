@@ -132,7 +132,7 @@ public class Parserator implements Runnable {
             System.exit(1);
         }
         String power = command.toLowerCase();
-        if (power.contains("granatavenom")||power.contains("teletrasporto")||power.contains("mirino")||power.contains("raggiocinetico")){
+        if (power.contains("granata")||power.contains("teletrasporto")||power.contains("mirino")||power.contains("raggiocinetico")){
             String[] splittedPower = power.split(" ");
             commandLauncher.addCommand(new SpawnCommand(token, splittedPower[0], splittedPower[1]));
             return;

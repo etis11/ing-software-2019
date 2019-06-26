@@ -243,7 +243,7 @@ The following 4 strings are the 4 maps.
                 }
             }
         }
-        displayText("HP del giocatore "+playerColor(damagePlayer)+"\n"+output);
+        displayText("HP del giocatore "+playerColor(damagePlayer)+" "+output);
     }
 
     /**
@@ -271,7 +271,7 @@ The following 4 strings are the 4 maps.
                 }
             }
         }
-        displayText("I marchi del giocatore "+playerColor(markedPlayer)+"\n"+output);
+        displayText("I marchi del giocatore "+playerColor(markedPlayer)+" "+output);
 //
     }
 
@@ -290,16 +290,14 @@ The following 4 strings are the 4 maps.
                 .append(" ha un numero diverso di ammo rispetto a prima.\n");
         //blue
         stringBuilder.append("Ammo " + AnsiColor.BLUE + "blu" + AnsiColor.RESET + ": ")
-                .append(p.getPlayerBoard().getNumBlueAmmo())
-                .append("\n");
+                .append(p.getPlayerBoard().getNumBlueAmmo());
         for(int i=0;i<p.getPlayerBoard().getNumBlueAmmo();i++){
             stringBuilder.append(AnsiColor.BLUE + "⬜" + AnsiColor.RESET);
         }
         stringBuilder.append("\n");
         //red
         stringBuilder.append("Ammo " + AnsiColor.RED + "rosse" + AnsiColor.RESET + ": ")
-                .append(p.getPlayerBoard().getNumRedAmmo())
-                .append("\n");
+                .append(p.getPlayerBoard().getNumRedAmmo());
         for(int i=0;i<p.getPlayerBoard().getNumRedAmmo();i++){
             stringBuilder.append(AnsiColor.RED + "⬜" + AnsiColor.RESET);
         }
@@ -490,7 +488,7 @@ The following 4 strings are the 4 maps.
         if (powerUpType.equals(PowerUpType.NEWTON))
             return "RaggioCinetico";
         if (powerUpType.equals(PowerUpType.TAGBACK_GRANADE))
-            return "GranataVenom";
+            return "Granata";
         if (powerUpType.equals(PowerUpType.TARGETING_SCOPE))
             return "Mirino";
         if (powerUpType.equals(PowerUpType.TELEPORTER))
