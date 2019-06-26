@@ -60,6 +60,20 @@ public class CommandExecutor {
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Hai terminato il tuo turno"));
                     gameManager.getMatch().endRound();
                     gameManager.getMatch().newRound();
+                    JsonReceiver userToBeNotifiedThrow = null;
+                    for(JsonReceiver jr : command.getAllReceivers()){
+                        User userToBeNotified= TokenRegistry.getInstance().getJsonUserOwner(jr);
+                        if(userToBeNotified.getPlayer().getName().equals(gameManager.getMatch().getCurrentPlayer().getName())){
+                            userToBeNotifiedThrow = jr;
+                        }
+                    }
+                    userToBeNotifiedThrow.sendJson(jsonCreator.createJsonWithMessage("E' iniziato il tuo turno"));
+                    jsonCreator.reset();
+                    currentPlayer = gameManager.getMatch().getCurrentPlayer();
+                    if((currentPlayer.getState().getName().equals("EndTurn")&& currentPlayer.getTile() == null) || currentPlayer.getState().getName().equals("Dead") || currentPlayer.getState().getName().equals("Overkilled")) {
+                        userToBeNotifiedThrow.sendJson(jsonCreator.createJsonWithMessage("scegli quale powerup scartare per spawnare"));
+                        jsonCreator.reset();
+                    }
                 }
             }
         }
@@ -784,6 +798,7 @@ public class CommandExecutor {
         }
         jsonCreator.reset();
         userToBeNotifiedThrow.sendJson(jsonCreator.createJsonWithMessage("scegli quale powerup scartare per spawnare"));
+        jsonCreator.reset();
     }
 
     private Color colorParser(String color){
