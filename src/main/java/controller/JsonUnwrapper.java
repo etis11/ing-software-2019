@@ -94,12 +94,9 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
         /**
          * poi da cancellare
          */
-        System.out.println(changes);
+        //System.out.println(changes);
 
         CommandResponseClient response = gson.fromJson(changes, CommandResponseClient.class);
-        String message = response.getMessage();
-        if(message!= null)
-            notifyAllMessageListeners(message);
 
         String mapName = response.getMapName();
         if (mapName != null && !mapName.equals(oldMapName)){
@@ -151,6 +148,10 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
         List<List<SemplifiedBloodToken>> deathTrack = response.getDeathTrack();
         if ( deathTrack != null &&  oldDeathTrack.size() != deathTrack.size())
             notifyDeathTrackChange(deathTrack);
+
+        String message = response.getMessage();
+        if(message!= null)
+            notifyAllMessageListeners(message);
 
         playerDeserializer.resetMap();
     }
