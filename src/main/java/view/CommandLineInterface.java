@@ -284,10 +284,6 @@ The following 4 strings are the 4 maps.
     public void onAmmoChange(SemplifiedPlayer p) {
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(playerColor(p))
-                .append(p.getName())
-                .append(AnsiColor.RESET)
-                .append(" ha un numero diverso di ammo rispetto a prima.\n");
         //blue
         stringBuilder.append("Ammo " + AnsiColor.BLUE + "blu" + AnsiColor.RESET + ": ")
                 .append(p.getPlayerBoard().getNumBlueAmmo())
