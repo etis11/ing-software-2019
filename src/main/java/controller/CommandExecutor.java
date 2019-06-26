@@ -292,6 +292,7 @@ public class CommandExecutor {
                                 js.sendJson(jsonCreator.createJsonWithMessage(message));
                             }
                         }
+                        userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Ti sei spostato nel tile " + currentPlayer.getTile().getID(), currentPlayer));
                     } catch (NotValidMovesException e) {
                         currentPlayer.getState().resetRemainingSteps();
                         userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Movimento non valido"));
@@ -501,10 +502,12 @@ public class CommandExecutor {
                         String message = currentPlayer.getName() + " si è rigenerato nel punto di rigenerazione" + regenPointColor;
                         for (JsonReceiver js : command.getAllReceivers()) {
                             if (js != userJsonReceiver) {
-                                js.sendJson(jsonCreator.createJsonWithMessage(message));
+                                User userToBenotified = registry.getJsonUserOwner(js);
+                                Player userPlayer = userToBenotified.getPlayer();
+                                js.sendJson(jsonCreator.createTargetPlayerJson(message, userPlayer));
                             }
                         }
-                        userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Ti sei rigenerato nel punto di rigenerazione " + regenPointColor));
+                        userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Ti sei rigenerato nel punto di rigenerazione " + regenPointColor, currentPlayer));
                     }
                 }
                 else{

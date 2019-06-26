@@ -16,7 +16,7 @@ public class Lobby  implements  LobbyObservable{
     /**
      * maxPlayerInLobby are the maximum of player allowed in the lobby
      */
-    private transient int maxPlayerInLobby = 3;
+    private transient int maxPlayerInLobby = 2;
 
     private transient final List<LobbyListener> lobbyListeners;
     /**
