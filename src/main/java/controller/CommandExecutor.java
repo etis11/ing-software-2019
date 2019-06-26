@@ -50,13 +50,16 @@ public class CommandExecutor {
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi terminare il tuo turno al momento"));
                 } else {
                     currentPlayer.getState().nextState("EndTurn", currentPlayer);
-                    String message = "Il giocatore attuale ha terminato il suo turno";
+                    //TODO prova, non so se metterli qua o no
+                    String message = currentPlayer.getName()+" ha terminato il suo turno";
                     for (JsonReceiver js : command.getAllReceivers()) {
                         if (js != userJsonReceiver) {
                             js.sendJson(jsonCreator.createJsonWithMessage(message));
                         }
                     }
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Hai terminato il tuo turno"));
+                    gameManager.getMatch().endRound();
+                    gameManager.getMatch().newRound();
                 }
             }
         }
@@ -64,6 +67,7 @@ public class CommandExecutor {
             userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La partita non è ancora iniziata"));
         }
         jsonCreator.reset();
+
     }
 
     public void execute(AskPickCommand command) throws IOException {
@@ -230,7 +234,6 @@ public class CommandExecutor {
             } else {
                 //verify the state
                 if (!currentPlayer.getState().canRun() || currentPlayer.getRemainingMoves() < 1) {
-                    System.out.println(currentPlayer.getState().canRun()+" "+currentPlayer.getRemainingMoves());
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi muoverti"));
                 } else {
                     currentPlayer.getState().nextState("Run", currentPlayer);
@@ -240,6 +243,7 @@ public class CommandExecutor {
                             js.sendJson(jsonCreator.createJsonWithMessage(message));
                         }
                     }
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("inserisci le mosse che vuoi fare: (up, down, left, right)"));
                 }
             }
         }
