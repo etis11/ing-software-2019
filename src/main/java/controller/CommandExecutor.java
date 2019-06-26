@@ -251,6 +251,7 @@ public class CommandExecutor {
                 if (!currentPlayer.getState().canRun() || currentPlayer.getRemainingMoves() < 1) {
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi muoverti"));
                 } else {
+                    currentPlayer.setOldState(currentPlayer.getState());
                     currentPlayer.getState().nextState("Run", currentPlayer);
                     String message = "Il giocatore attuale si sta spostando";
                     for (JsonReceiver js : command.getAllReceivers()) {
@@ -296,10 +297,9 @@ public class CommandExecutor {
                         userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Movimento non valido"));
                     }
                 }
-                    //TODO debug
-//                if (currentPlayer.getState().getName().equals("Run")) {
-//                    command.endCommandToAction(gameManager);
-//                }
+                if (currentPlayer.getState().getName().equals("Run")) {
+                    command.endCommandToAction(gameManager);
+                }
             }
         }
         else{
