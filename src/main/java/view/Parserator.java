@@ -138,7 +138,6 @@ public class Parserator implements Runnable {
             CLI.displayText(AnsiColor.RED + "Server rmi non raggiungibile" + AnsiColor.RESET);
             System.exit(1);
         }
-
     }
 
     private boolean parseFrenzy(String param){
