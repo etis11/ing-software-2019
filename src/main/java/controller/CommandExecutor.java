@@ -289,7 +289,9 @@ public class CommandExecutor {
                         String message = currentPlayer.getName()+" si è spostato di nel tile: " +currentPlayer.getTile().getID();
                         for (JsonReceiver js : command.getAllReceivers()) {
                             if (js != userJsonReceiver) {
-                                js.sendJson(jsonCreator.createJsonWithMessage(message));
+                                User userToBenotified = registry.getJsonUserOwner(js);
+                                Player userPlayer = userToBenotified.getPlayer();
+                                js.sendJson(jsonCreator.createTargetPlayerJson(message, userPlayer));
                             }
                         }
                         userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Ti sei spostato nel tile :" + currentPlayer.getTile().getID(), currentPlayer));
@@ -839,4 +841,8 @@ public class CommandExecutor {
         return null;
     }
 
+
+    private void notifyToAll(){
+
+    }
 }

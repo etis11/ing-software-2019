@@ -361,6 +361,11 @@ public class Player implements ChangesObservable{
      */
     public void move(Movement movement) throws NotValidMovesException {
         Tile newTile = explorePath(movement);
+        try {
+            tile.removePlayer(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         newTile.addPlayer(this);
     }
 
