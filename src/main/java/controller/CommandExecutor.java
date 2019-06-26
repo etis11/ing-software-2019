@@ -253,13 +253,13 @@ public class CommandExecutor {
                 } else {
                     currentPlayer.setOldState(currentPlayer.getState());
                     currentPlayer.getState().nextState("Run", currentPlayer);
-                    String message = "Il giocatore attuale si sta spostando";
+                    String message = currentPlayer.getName()+" si sta spostando";
                     for (JsonReceiver js : command.getAllReceivers()) {
                         if (js != userJsonReceiver) {
                             js.sendJson(jsonCreator.createJsonWithMessage(message));
                         }
                     }
-                    userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("inserisci le mosse che vuoi fare: (up, down, left, right)"));
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Inserisci le mosse che vuoi fare: (up, down, left, right)"));
                 }
             }
         }
@@ -286,13 +286,13 @@ public class CommandExecutor {
                     try {
                         currentPlayer.getState().decrementRemainingSteps(command.getMoves().size());
                         currentPlayer.move(new Movement(new ArrayList<>(command.getMoves())));
-                        String message = "Il giocatore attuale si è spostato di: " + command.getMoves().size() + " mosse";
+                        String message = currentPlayer.getName()+" si è spostato di nel tile: " +currentPlayer.getTile().getID();
                         for (JsonReceiver js : command.getAllReceivers()) {
                             if (js != userJsonReceiver) {
                                 js.sendJson(jsonCreator.createJsonWithMessage(message));
                             }
                         }
-                        userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Ti sei spostato nel tile " + currentPlayer.getTile().getID(), currentPlayer));
+                        userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Ti sei spostato nel tile :" + currentPlayer.getTile().getID(), currentPlayer));
                     } catch (NotValidMovesException e) {
                         currentPlayer.getState().resetRemainingSteps();
                         userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Movimento non valido"));
