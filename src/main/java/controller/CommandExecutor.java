@@ -60,7 +60,6 @@ public class CommandExecutor {
                     //TODO prova, non so se metterli qua o no
                     gameManager.getMatch().endRound();
                     gameManager.getMatch().newRound();
-                    jsonCreator.reset();
                     currentPlayer = gameManager.getMatch().getCurrentPlayer();
                     JsonReceiver userToBeNotifiedThrow = null;
                     for(JsonReceiver jr : command.getAllReceivers()){
@@ -69,11 +68,9 @@ public class CommandExecutor {
                             userToBeNotifiedThrow = jr;
                         }
                     }
-                    userToBeNotifiedThrow.sendJson(jsonCreator.createTargetPlayerJson("E' iniziato il tuo turno", currentPlayer));
-                    jsonCreator.reset();
+                    userToBeNotifiedThrow.sendJson(jsonCreator.createTargetPlayerJson("", currentPlayer));
                     if((currentPlayer.getState().getName().equals("EndTurn")&& currentPlayer.getTile() == null) || currentPlayer.getState().getName().equals("Dead") || currentPlayer.getState().getName().equals("Overkilled")) {
-                        userToBeNotifiedThrow.sendJson(jsonCreator.createJsonWithMessage("scegli quale powerup scartare per spawnare"));
-                        jsonCreator.reset();
+                        userToBeNotifiedThrow.sendJson(jsonCreator.createTargetPlayerJson("scegli quale powerup scartare per spawnare", currentPlayer));
                     }
                 }
             }
