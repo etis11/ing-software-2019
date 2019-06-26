@@ -146,7 +146,6 @@ public class Player implements ChangesObservable{
      */
     public void setState(State s) {
         state = s;
-        notifyAllObservers();
     }
 
     /**
