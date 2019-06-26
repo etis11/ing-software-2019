@@ -164,7 +164,6 @@ public class Player implements ChangesObservable{
      */
     public void setRemainingMoves(int remainingMoves) {
         this.remainingMoves = remainingMoves;
-        notifyAllObservers();
     }
 
     /**
@@ -172,7 +171,6 @@ public class Player implements ChangesObservable{
      */
     public void decrementMoves() {
         this.remainingMoves--;
-        notifyAllObservers();
     }
 
     /**
@@ -247,7 +245,6 @@ public class Player implements ChangesObservable{
      */
     public void setTile(Tile tile) {
         this.tile = tile;
-        notifyAllObservers();
     }
 
     /**
