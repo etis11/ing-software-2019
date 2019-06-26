@@ -290,25 +290,28 @@ The following 4 strings are the 4 maps.
                 .append(" ha un numero diverso di ammo rispetto a prima.\n");
         //blue
         stringBuilder.append("Ammo " + AnsiColor.BLUE + "blu" + AnsiColor.RESET + ": ")
-                .append(p.getPlayerBoard().getNumBlueAmmo());
+                .append(p.getPlayerBoard().getNumBlueAmmo())
+                .append(" ");
         for(int i=0;i<p.getPlayerBoard().getNumBlueAmmo();i++){
             stringBuilder.append(AnsiColor.BLUE + "⬜" + AnsiColor.RESET);
         }
         stringBuilder.append("\n");
         //red
         stringBuilder.append("Ammo " + AnsiColor.RED + "rosse" + AnsiColor.RESET + ": ")
-                .append(p.getPlayerBoard().getNumRedAmmo());
+                .append(p.getPlayerBoard().getNumRedAmmo())
+                .append(" ");
         for(int i=0;i<p.getPlayerBoard().getNumRedAmmo();i++){
             stringBuilder.append(AnsiColor.RED + "⬜" + AnsiColor.RESET);
         }
         stringBuilder.append("\n");
         //yellow
         stringBuilder.append("Ammo " + AnsiColor.YELLOW + "gialle" + AnsiColor.RESET + ": ")
-                .append(p.getPlayerBoard().getNumYellowAmmo());
+                .append(p.getPlayerBoard().getNumYellowAmmo())
+                .append(" ");
         for(int i=0;i<p.getPlayerBoard().getNumYellowAmmo();i++){
             //if present the previuos line should have a \n.
-            if(i == 0)
-                stringBuilder.append("\n");
+//            if(i == 0)
+//                stringBuilder.append("\n");
             stringBuilder.append(AnsiColor.YELLOW + "⬜" + AnsiColor.RESET);
             //i dont put the \n after the last ammo since display text will
         }

@@ -474,13 +474,11 @@ public class CommandExecutor {
                         tileToSpawn.addPlayer(currentPlayer);
                         currentPlayer.getState().nextState("NormalAction", currentPlayer);
                         PowerUpCard toThrow= currentPlayer.getPowerUp(powerUpParser(command.getPowerUpType()), colorParser(command.getColor()));
-                        System.out.println("power ti throw: "+toThrow);
-                        System.out.println(currentPlayer.getPowerUps());
-//                    try {
-//                        gameManager.getMatch().addPowerUpToSlush(currentPlayer.throwPowerUp());
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
+                        try {
+                            gameManager.getMatch().addPowerUpToSlush(currentPlayer.throwPowerUp(toThrow));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         String message = currentPlayer.getName() + " si è rigenerato nel punto di rigenerazione" + regenPointColor;
                         for (JsonReceiver js : command.getAllReceivers()) {
                             if (js != userJsonReceiver) {
@@ -787,7 +785,7 @@ public class CommandExecutor {
     private Color colorParser(String color){
         if(color.equals("rosso")){
            return Color.RED;
-        } else if (color.equals("blue")){
+        } else if (color.equals("blu")){
             return Color.BLUE;
         } else{
             return Color.YELLOW;
