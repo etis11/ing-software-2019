@@ -143,9 +143,9 @@ public class CommandReceiverSocket implements Runnable {
                     " is not working anymore. The client may be disconnected");
             try {
                 //the launcher will not be able to send anymore the updates to the client
+                User user = registry.getJsonUserOwner(jsonReceiverProxySocket);
                 launcher.removeJsonReceiver(jsonReceiverProxySocket);
                 //the user is marked as disconnected
-                User user = registry.getJsonUserOwner(jsonReceiverProxySocket);
                 user.setDisconnected(true);
                 //if the game is not started, the user is destroyed. His name can be picked, since he doesn't exist.
                 //The client token is also forgot

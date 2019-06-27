@@ -10,6 +10,7 @@ import model.*;
 import network.TokenRegistry;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -30,10 +31,13 @@ public class CommandExecutor {
 
     private JsonCreator jsonCreator;
 
-    public CommandExecutor(GameManager gameManager, JsonCreator jsonCreator) {
+    private final CommandLauncherInterface launcher;
+
+    public CommandExecutor(GameManager gameManager, JsonCreator jsonCreator, CommandLauncherInterface launcherInterface) {
         this.gameManager = gameManager;
         this.jsonCreator = jsonCreator;
         this.shootState = ShootState.BASE;
+        this.launcher = launcherInterface;
     }
 
 
@@ -614,6 +618,7 @@ public class CommandExecutor {
                 //verify if the user has already been created
                 if (registry.getJsonUserOwner(userJsonReceiver)== null){
                     User user = new User(command.getUsername());
+                    commandExecutorLogger.log(Level.INFO, "User created");
                     registry.associateReceiverAndUser(userJsonReceiver, user);
                     registry.associateTokenAndUser(clientToken, user);
                     try {
@@ -846,5 +851,35 @@ public class CommandExecutor {
         currentPlayer.setOldState(null);
         currentPlayer.setOldTile(null);
         jsonCreator.reset();
+    }
+
+    /**
+     * disconnects a json receiver
+     * @param jsonReceiver
+     * @throws IOException
+     */
+    private void disconnectSokcetJsonReceiver(JsonReceiver jsonReceiver) {
+        //if the user is null, this means that the json receiver is not registered anymore, so another routine has removed him
+        if(registry.getJsonUserOwner(jsonReceiver) == null)
+            return;
+        //same, another routine is disconnecting him
+        if(registry.getJsonUserOwner(jsonReceiver).isDisconnected())
+            return;
+        User user = registry.getJsonUserOwner(jsonReceiver);
+        try{
+
+            launcher.removeJsonReceiver(jsonReceiver);
+        }
+        catch (RemoteException re){
+            commandExecutorLogger.log(Level.WARNING,
+                    "Reoving json receiver. This exception should never occour. " +re.getMessage());
+        }
+        user.setDisconnected(true);
+        registry.removeTokenReceiverAssociation(jsonReceiver);
+        if( !gameManager.isMatchStarted()){
+            gameManager.getLobby().removeUser(user);
+            registry.removeTokenToUserAssociationAndToken(user);
+        }
+        registry.removeReceiverUserAssociation(jsonReceiver);
     }
 }

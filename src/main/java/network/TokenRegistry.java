@@ -72,8 +72,8 @@ public class TokenRegistry {
      */
     public boolean usernameAlreadyPresent(final String name){
         // TODO prima era solo col primo dell'or, fare dei test per vedere se posso assumere il nome di qualcuno disconnesso.
-        return receiverUser.values().stream().anyMatch(user->user.getUsername().equals(name)) ||
-                tokenToUser.values().stream().anyMatch(user -> user.getUsername().equals(name));
+        return receiverUser.values().stream().anyMatch(user->user.getUsername().equals(name));
+                //tokenToUser.values().stream().anyMatch(user -> user.getUsername().equals(name));
     }
 
     /**
@@ -183,6 +183,21 @@ public class TokenRegistry {
 
     }
 
+    /**
+     * removes the association between token and user. The token is also removed
+     * @param u user to be removed
+     */
+    public void removeTokenToUserAssociationAndToken(User u){
+        String toDeleteToken;
+        synchronized (registeredTokens){
+            for(String token: registeredTokens){
+                if (tokenToUser.get(token) == u){
+                    tokenToUser.remove(token, u);
+                    registeredTokens.remove(token);
+                }
+            }
+        }
+    }
 
     public void removeReceiverUserAssociation(JsonReceiver jsonReceiver){
         receiverUser.remove(jsonReceiver);

@@ -47,7 +47,7 @@ public class CommandLauncher implements CommandLauncherInterface {
     public CommandLauncher(GameManager gameManager, JsonCreator jsonCreator) {
         commandQueue = new LinkedBlockingDeque<>();
         this.pool = Executors.newCachedThreadPool();
-        commandExecutor = new CommandExecutor(gameManager, jsonCreator);
+        commandExecutor = new CommandExecutor(gameManager, jsonCreator, this);
     }
 
     /**
