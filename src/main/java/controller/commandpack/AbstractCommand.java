@@ -34,6 +34,7 @@ public abstract class AbstractCommand implements Command {
         gameManager.getMatch().getCurrentPlayer().getState().resetRemainingSteps();
         gameManager.getMatch().getCurrentPlayer().getState().nextState(gameManager.getMatch().getCurrentPlayer().getOldState().getName(), gameManager.getMatch().getCurrentPlayer());
         gameManager.getMatch().getCurrentPlayer().setOldState(null);
+        gameManager.getMatch().getCurrentPlayer().setOldTile(null);
     }
 
     @Override

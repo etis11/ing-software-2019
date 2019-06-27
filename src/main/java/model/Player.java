@@ -46,6 +46,8 @@ public class Player implements ChangesObservable{
      * tile where the player token is located
      */
     private Tile tile;
+
+    private Tile oldTile;
     /**
      * board that contains all the "public" information of the player. this informations can be obtained by the others player too.
      */
@@ -73,6 +75,7 @@ public class Player implements ChangesObservable{
         playerBoard = new PlayerBoard();
         remainingMoves = 0;
         oldState = null;
+        oldTile =null;
         playerObservers = new LinkedList<>();
     }
 
@@ -92,6 +95,7 @@ public class Player implements ChangesObservable{
         playerBoard = new PlayerBoard();
         remainingMoves = 0;
         oldState = null;
+        oldTile = null;
         playerObservers = new LinkedList<>();
     }
 
@@ -105,6 +109,7 @@ public class Player implements ChangesObservable{
         playerBoard = new PlayerBoard();
         remainingMoves = 0;
         oldState = null;
+        oldTile =null;
         playerObservers = new LinkedList<>();
     }
 
@@ -128,6 +133,14 @@ public class Player implements ChangesObservable{
      */
     public int getPoints() {
         return points;
+    }
+
+    public Tile getOldTile() {
+        return oldTile;
+    }
+
+    public void setOldTile(Tile oldTile) {
+        this.oldTile = oldTile;
     }
 
     /**
