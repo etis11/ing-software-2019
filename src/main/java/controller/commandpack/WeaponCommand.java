@@ -6,10 +6,11 @@ import java.io.IOException;
 
 public class WeaponCommand extends AbstractCommand {
 
-    String weaponName;
+    private String weaponName;
 
     public WeaponCommand(String token, String weaponName){
         super(token);
+        System.out.println("token: "+token);
         this.weaponName = weaponName;
     }
 

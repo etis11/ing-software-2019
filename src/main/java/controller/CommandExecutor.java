@@ -281,7 +281,7 @@ public class CommandExecutor {
             if (owner != currentPlayer) {
                 userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
             } else {
-                if(currentPlayer.getState().getName().equals("Run")||currentPlayer.getState().getName().equals("PickUp")||currentPlayer.getState().getName().equals("PickUpPlu")) {
+                if(currentPlayer.getState().getName().equals("Run")||currentPlayer.getState().getName().equals("PickUp")||currentPlayer.getState().getName().equals("PickUpPlus")) {
                     if (!currentPlayer.getState().canRun() && currentPlayer.getState().getRemainingSteps() < command.getMoves().size()) {
                         userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non hai abbastanza mosse rimanenti"));
                     } else {
