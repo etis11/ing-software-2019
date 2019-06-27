@@ -92,7 +92,8 @@ public class CommandLauncher implements CommandLauncherInterface {
         }
     }
 
-    /************************ Command Launcher interface implementation *******************************/
+    /* *********************** Command Launcher interface implementation *******************************/
+
     /**
      * add the specified command to the commandList.
      *

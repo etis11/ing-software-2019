@@ -2,6 +2,8 @@ package controller;
 
 import model.GameManager;
 import model.JsonCreator;
+import model.Lobby;
+import model.User;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -15,21 +17,21 @@ public class CommandLauncherProvider {
     private final List<GameManager> gameManagers;
     private int currentLauncher;
 
-    public CommandLauncherProvider(){
+    public CommandLauncherProvider() {
         commandLaunchers = new LinkedList<>();
         gameManagers = new LinkedList<>();
         // so the first game has index 0
         currentLauncher = -1;
     }
 
-    public CommandLauncherInterface getCurrentCommandLauncher() throws RemoteException{
+    public CommandLauncherInterface getCurrentCommandLauncher() throws RemoteException {
         //first time launched, creates a new game
         if (commandLaunchers.size() == 0) createNewGame();
         GameManager currentGameManager = gameManagers.get(currentLauncher);
         //if the current game is started, create a new game
         if (currentGameManager.isMatchStarted()) createNewGame();
         //creates a new game if the lobby is full
-        if(currentGameManager.getLobby().getNumOfUsers() >= 5) createNewGame();
+        if (currentGameManager.getLobby().getNumOfUsers() >= 5) createNewGame();
         return commandLaunchers.get(currentLauncher);
     }
 
@@ -47,8 +49,31 @@ public class CommandLauncherProvider {
         gameManagers.add(gameManager);
         currentLauncher += 1;
         UnicastRemoteObject.exportObject(launcher, 0);
-        new Thread(()-> launcher.executeCommand()).start();
+        new Thread(() -> launcher.executeCommand()).start();
 
     }
 
+    public void removeUserFromGame(User user) {
+        synchronized (gameManagers) {
+            for (GameManager gm : gameManagers) {
+                Lobby lobby = gm.getLobby();
+                if (lobby.contains(user)) {
+                    lobby.removeUser(user);
+                }
+            }
+        }
+    }
+
+    public boolean hasGameStarted(User user) {
+        synchronized (gameManagers) {
+            for (GameManager gm : gameManagers) {
+                Lobby lobby = gm.getLobby();
+                if (lobby.contains(user)) {
+                    return gm.isMatchStarted();
+                }
+            }
+            throw new RuntimeException("This user is not in any game");
+        }
+
+    }
 }

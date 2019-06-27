@@ -13,7 +13,6 @@ public class User {
      */
     private String username;
 
-
     /**
      * effectPhrase is the phrase chosen by the user to play
      */
@@ -23,7 +22,8 @@ public class User {
      * player is the player associate with the user
      */
     private Player player;
-    //TODO LobbyListener lobbyListener
+
+    private boolean disconnected;
 
     private transient final String stateMachinePath = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
             + File.separatorChar + "stateMachine" + File.separatorChar + "stateMachine.json";
@@ -31,12 +31,13 @@ public class User {
     public User() {
         this.username = "user";
         this.effectPhrase = "I will survive";
+        disconnected = false;
     }
 
     public User(String username) {
         this.username = username;
         this.effectPhrase = "I will survive";
-        //listener
+        disconnected = false;
     }
 
     /**
@@ -101,4 +102,11 @@ public class User {
         player = new Player(name, fromJson(stateMachinePath));
     }
 
+    public  synchronized boolean isDisconnected() {
+        return disconnected;
+    }
+
+    public synchronized void setDisconnected(boolean disconnected) {
+        this.disconnected = disconnected;
+    }
 }

@@ -112,7 +112,7 @@ public class Lobby  implements  LobbyObservable{
      */
     public User removeUser(User u) {
         synchronized (users){
-            if (u == null) throw new IllegalArgumentException("not inserted an user");
+            if (u == null) throw new IllegalArgumentException("User passed is null");
             if (users.contains(u)) {
                 //notifyMessage to the observers
                 for (LobbyListener ls: lobbyListeners) {
@@ -147,6 +147,12 @@ public class Lobby  implements  LobbyObservable{
 
     public boolean isFull(){
         return getNumOfUsers() == getMaxPlayerInLobby();
+    }
+
+    public boolean contains(User u){
+        synchronized (users){
+            return users.contains(u);
+        }
     }
 
     /****************************+ Lobby Observable interface ********************************************/

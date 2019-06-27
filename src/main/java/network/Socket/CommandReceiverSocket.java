@@ -3,6 +3,7 @@ package network.Socket;
 import controller.*;
 import controller.commandpack.Command;
 import controller.commandpack.SetUsernameCommand;
+import model.User;
 import network.TokenRegistry;
 
 import java.io.IOException;
@@ -38,11 +39,14 @@ public class CommandReceiverSocket implements Runnable {
      * the object that provides command launcher, executors, lobby, and match
      */
     private CommandLauncherProvider provider;
-
     /**
      * token registry used to create the user
      */
     private final TokenRegistry registry;
+
+    private String myToken;
+
+    private JsonReceiverProxySocket jsonReceiverProxySocket;
 
     private CommandLauncherInterface launcher;
 
@@ -75,6 +79,7 @@ public class CommandReceiverSocket implements Runnable {
             commandReceiverSocketLogger.log(Level.INFO, ">>> Sending token");
             clientOutput.println(clientToken);
             clientOutput.flush();
+            myToken = clientToken;
             //now asks for the username fino a quando non è corretto.
             boolean ok = false;
             while (!ok){
@@ -93,11 +98,11 @@ public class CommandReceiverSocket implements Runnable {
                 clientOutput.flush();
             }
             //creates a json Receiver and binds it to the client socket.
-            JsonReceiver receiverProxy = new JsonReceiverProxySocket(clientSocket);
+            jsonReceiverProxySocket = new JsonReceiverProxySocket(clientSocket);
             launcher = provider.getCurrentCommandLauncher();
-            launcher.addJsonReceiver(receiverProxy);
+            launcher.addJsonReceiver(jsonReceiverProxySocket);
             commandReceiverSocketLogger.log(Level.INFO,">>>Token and proxy associated");
-            registry.associateTokenAndReceiver(clientToken, receiverProxy);
+            registry.associateTokenAndReceiver(clientToken, jsonReceiverProxySocket);
             in = new ObjectInputStream(clientSocket.getInputStream());
             launcher.addCommand(new SetUsernameCommand(clientToken, username));
         }
@@ -136,13 +141,34 @@ public class CommandReceiverSocket implements Runnable {
         } catch (IOException ioe) {
             commandReceiverSocketLogger.log(Level.WARNING, ">>> The input stream of " + clientSocket +
                     " is not working anymore. The client may be disconnected");
-            launcher.removeJsonReceiver();
+            try {
+                //the launcher will not be able to send anymore the updates to the client
+                launcher.removeJsonReceiver(jsonReceiverProxySocket);
+                //the user is marked as disconnected
+                User user = registry.getJsonUserOwner(jsonReceiverProxySocket);
+                user.setDisconnected(true);
+                //if the game is not started, the user is destroyed. His name can be picked, since he doesn't exist.
+                //The client token is also forgot
+                if (!provider.hasGameStarted(user)){
+                    provider.removeUserFromGame(user);
+                    registry.removeTokenToUserAssociation(myToken);
+                    registry.removeToken(myToken);
+                }
+                //remove the association between jsonReceiver and user
+                registry.removeReceiverUserAssociation(jsonReceiverProxySocket);
+                //remove the association between token and json receiver
+                registry.removeTokenReceiverAssociation(myToken);
+
+
+            } catch (RemoteException e) {
+                commandReceiverSocketLogger.log(Level.WARNING, "Should not be possible to be in this catch, since all the objects here don't" +
+                        "use RMI" + e.getMessage());
+                stopReceiving();
+            }
 
         }
         catch (ClassNotFoundException cnf){
             commandReceiverSocketLogger.log(Level.WARNING, "Not found class " +cnf.getMessage());
-        }
-        finally {
             stopReceiving();
         }
         return c;
