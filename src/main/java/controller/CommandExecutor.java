@@ -22,6 +22,7 @@ public class CommandExecutor {
     private final static Logger commandExecutorLogger = Logger.getLogger(CommandExecutor.class.getName());
     private final int seconds = 1;
     private ShootState shootState;
+    private WeaponCard weaponToUse;
 
     /**
      * gameManager is a reference to the model due to access to the match and lobby variables
@@ -34,6 +35,7 @@ public class CommandExecutor {
         this.gameManager = gameManager;
         this.jsonCreator = jsonCreator;
         this.shootState = ShootState.BASE;
+        this.weaponToUse = null;
     }
 
 
@@ -190,18 +192,17 @@ public class CommandExecutor {
                     }
                 }
                 //verify the state
-                if (!currentPlayer.getState().canShoot() || currentPlayer.getRemainingMoves() < 1 || !loaded) {
+                if (!currentPlayer.getState().canShoot() || !shootState.equals(ShootState.BASE)|| currentPlayer.getRemainingMoves() < 1 || !loaded) {
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi sparare"));
                 } else {
+                    currentPlayer.setOldState(currentPlayer.getState());
                     currentPlayer.getState().nextState("Shoot", currentPlayer);
                     shootState = ShootState.ASKEDSHOOT;
-                    String message = "Il giocatore attuale sta per sparare";
+                    String message = currentPlayer.getName()+" sta per sparare";
                     for (JsonReceiver js : command.getAllReceivers()) {
-                        if (js != userJsonReceiver) {
-                            js.sendJson(jsonCreator.createJsonWithMessage(message));
-                        }
+                        notifyToAllExceptCurrent(js, userJsonReceiver, message);
                     }
-                    userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Scegli con quale arma sparare tra: " + currentPlayer.weaponsToString()));
+                    userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Muoviti o scegli con quale arma sparare tra: " + currentPlayer.weaponsToString(), currentPlayer));
                 }
             }
         }
@@ -516,17 +517,40 @@ public class CommandExecutor {
             //verify if the owner is the current player
             if (owner != currentPlayer) {
                 userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
-            } else {
-                String state = currentPlayer.getState().getName();
-                //verify the player state
-                if(state.equals("PickUp") || state.equals("PickUpPlus")){
-                    execute(new PickUpCommand(command.getToken(),  command.getWeaponName()));
-                }else if(state.equals("Reload")){
-                    execute(new ReloadCommand(command.getToken(), command.getWeaponName()));
-                }else if(state.equals("Shoot")|| state.equals("ShootPlus")) {
-                    //TODO
-                }else{
-                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Azione non consentita"));
+            }
+            else{
+                if(shootState.equals(ShootState.ASKEDSHOOT)){
+                    for(WeaponCard wc: currentPlayer.getWeapons()){
+                        if(wc.getName().equals(command.getWeaponName())){
+                            weaponToUse =wc;
+                        }
+                    }
+                    if(weaponToUse != null && weaponToUse.isLoaded()){
+                        shootState = ShootState.CHOSENWEAPON;
+                        userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Hai scelto di sparare con: "+weaponToUse.getName(), currentPlayer));
+                    }
+                    else{
+                       if(weaponToUse == null){
+                           userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non hai quest'arma, scegline una che possiedi"));
+                       }
+                       else{
+                           userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Quest'arma non è carica scegline una carica"));
+                       }
+                    }
+                    if(weaponToUse.getAdvancedEffect()!=null){
+                        userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Scegli se vuoi usare gli effetti opzionali e quali", currentPlayer));
+                    }
+                    else{
+                        if(weaponToUse.getBaseEffect().get(0).canMoveShooter()){
+                            userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Scegli se vuoi muoverti con l'effetto base", currentPlayer));
+                        }
+                        else{
+                            userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Scegli chi vuoi colpire", currentPlayer));
+                        }
+                    }
+                }
+                else{
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non sei nella fase di scelta dell'arma"));
                 }
             }
 

@@ -145,7 +145,13 @@ public class Parserator implements Runnable {
                     return;
                 }
             }
-
+            if(command.toLowerCase().contains("usa")){
+                String[] splittedCommand = command.split(" ",2);
+                if(isWeapon(splittedCommand[1])) {
+                    commandLauncher.addCommand(new WeaponCommand(token, splittedCommand[1]));
+                    return;
+                }
+            }
 
 
             throw new IllegalArgumentException();
