@@ -13,6 +13,7 @@ import java.util.List;
 public class Parserator implements Runnable {
     private CommandContainer commandLauncher;
     private String token;
+    private List<String> weapons;
     private CommandLineInterface CLI;
     private boolean quit;
 
@@ -39,6 +40,7 @@ public class Parserator implements Runnable {
         commandLauncher = launcher;
         quit = false;
         token = ClientSingleton.getInstance().getToken();
+        createListWeapon();
     }
 
     @Override
@@ -131,9 +133,27 @@ public class Parserator implements Runnable {
             String power = command.toLowerCase();
             if (power.contains("granata")||power.contains("teletrasporto")||power.contains("mirino")||power.contains("raggiocinetico")){
                 String[] splittedPower = power.split(" ");
-                commandLauncher.addCommand(new SpawnCommand(token, splittedPower[0], splittedPower[1]));
-                return;
+                if(isValidColor(splittedPower[1])) {
+                    commandLauncher.addCommand(new SpawnCommand(token, splittedPower[0], splittedPower[1]));
+                    return;
+                }
             }
+            if(command.toLowerCase().contains("prendi")){
+                String[] splittedCommand = command.split(" ",2);
+                if(isWeapon(splittedCommand[1])) {
+                    commandLauncher.addCommand(new PickUpCommand(token, splittedCommand[1]));
+                    return;
+                }
+            }
+            if(command.toLowerCase().contains("usa")){
+                String[] splittedCommand = command.split(" ",2);
+                if(isWeapon(splittedCommand[1])) {
+                    commandLauncher.addCommand(new WeaponCommand(token, splittedCommand[1]));
+                    return;
+                }
+            }
+
+
             throw new IllegalArgumentException();
         } catch (RemoteException r) {
             CLI.displayText(AnsiColor.RED + "Server rmi non raggiungibile" + AnsiColor.RESET);
@@ -143,5 +163,42 @@ public class Parserator implements Runnable {
 
     private boolean parseFrenzy(String param){
         return !param.equalsIgnoreCase("no");
+    }
+
+    private void createListWeapon(){
+        weapons = new ArrayList<>();
+        weapons.add("Distruttore");
+        weapons.add("Mitragliatrice");
+        weapons.add("Torpedine");
+        weapons.add("Fucile al plasma");
+        weapons.add("Fucile di precisione");
+        weapons.add("Falce protonica");
+        weapons.add("Raggio traente");
+        weapons.add("Cannone vortex");
+        weapons.add("Vulcanizzatore");
+        weapons.add("Razzo termico");
+        weapons.add("Raggio solare");
+        weapons.add("Lanciafiamme");
+        weapons.add("Lanciagranate");
+        weapons.add("Lanciarazzi");
+        weapons.add("Fucile laser");
+        weapons.add("Spada fotonica");
+        weapons.add("ZX-2");
+        weapons.add("Fucile a pompa");
+        weapons.add("Cyberguanto");
+        weapons.add("Onda d'urto");
+        weapons.add("Martello ionico");
+    }
+
+    private boolean isWeapon(String command){
+        for(String w:weapons){
+            if(w.equals(command)){
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean isValidColor(String color){
+        return color.equals("blu") || color.equals("rosso")|| color.equals("giallo");
     }
 }
