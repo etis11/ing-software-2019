@@ -151,7 +151,7 @@ public class CommandReceiverSocket implements Runnable {
                 //The client token is also forgot
                 if (!provider.hasGameStarted(user)){
                     provider.removeUserFromGame(user);
-                    registry.removeTokenToUserAssociation(myToken);
+                    registry.removeTokenToUsernameAssociation(myToken);
                     registry.removeToken(myToken);
                 }
                 //remove the association between jsonReceiver and user

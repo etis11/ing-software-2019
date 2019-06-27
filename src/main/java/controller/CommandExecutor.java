@@ -664,41 +664,55 @@ public class CommandExecutor {
         String clientToken = command.getToken();
         //verify if the game is started
         if (!gameHasStarted) {
-            //verify if the username is already used
-            if (!registry.usernameAlreadyPresent(command.getUsername())) {
-                //verify if the user has already been created
-                if (registry.getJsonUserOwner(userJsonReceiver)== null){
-                    User user = new User(command.getUsername());
-                    commandExecutorLogger.log(Level.INFO, "User created");
-                    registry.associateReceiverAndUser(userJsonReceiver, user);
-                    registry.associateTokenAndUser(clientToken, user);
-                    try {
-                        gameManager.getLobby().join(user);
-                        String jsonTosend = jsonCreator.createJsonWithMessage("Utente creato. Il tuo nome è " +user.getUsername());
-                        userJsonReceiver.sendJson(jsonTosend);
-                        for (JsonReceiver js : command.getAllReceivers()) {
-                            if (js != userJsonReceiver) {
-                                js.sendJson(jsonCreator.createJsonWithMessage("Si è aggiunto un nuovo user alla lobby"));
-                            }
+            //first case, the user has still to be created. In this case, the name associated to the token in the registry should
+            //be assigned
+
+            //if the json receiver is not linked to any user
+            if(registry.getJsonUserOwner(userJsonReceiver)==null){
+                //returns the username registered with this token
+                String username = registry.getUsernameFromToken(clientToken);
+                User user = new User(username);
+                commandExecutorLogger.log(Level.INFO, "User "+username +" created");
+                registry.associateReceiverAndUser(userJsonReceiver, user);
+                try {
+                    gameManager.getLobby().join(user);
+                    String jsonToSend = jsonCreator.createJsonWithMessage("Utente creato. Il tuo nome è " +user.getUsername());
+                    userJsonReceiver.sendJson(jsonToSend);
+                    for (JsonReceiver js : command.getAllReceivers()) {
+                        if (js != userJsonReceiver) {
+                            js.sendJson(jsonCreator.createJsonWithMessage("Lo user "+ user.getUsername() +" si è unito alla lobby"));
                         }
-                    } catch (NotValidActionException e) {
-                        e.printStackTrace();
                     }
-                }
-                else if (users.contains(registry.getJsonUserOwner(command.getJsonReceiver()))) {
-                    registry.getJsonUserOwner(command.getJsonReceiver()).setUsername(command.getUsername());
-                        userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Il tuo username è stato modificato in: " + command.getUsername()));
+                } catch (NotValidActionException e) {
+                    e.getMessage();
+                    e.printStackTrace();
                 }
             }
+            //in case the json receiver is associated to the username, the new username should be checked
             else{
-                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("username già presente"));
+                String newUsername = command.getUsername();
+                //if already present, send an error
+                if (registry.usernameAlreadyPresent(newUsername)){
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("username già presente"));
+                }
+                //if not present, the user should change his name and the registry should be notified of the change
+                else{
+                    User currentUser = registry.getJsonUserOwner(userJsonReceiver);
+                    String oldUsername = currentUser.getUsername();
+                    currentUser.setUsername(newUsername);
+                    registry.associateTokenAndUser(command.getToken(), newUsername);
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Il tuo username è stato modificato in: " + newUsername));
+                    for (JsonReceiver js : command.getAllReceivers()) {
+                        if (js != userJsonReceiver) {
+                            js.sendJson(jsonCreator.createJsonWithMessage("Lo user " + oldUsername +" ha cambiato il nome in " + newUsername));
+                        }
+                    }
+                }
             }
         }
         else {
             userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi modificare il tuo username perchè la partita è già iniziata"));
         }
-
-
         jsonCreator.reset();
 
         boolean lobbyFull = gameManager.getLobby().isFull();
@@ -929,8 +943,16 @@ public class CommandExecutor {
         registry.removeTokenReceiverAssociation(jsonReceiver);
         if( !gameManager.isMatchStarted()){
             gameManager.getLobby().removeUser(user);
-            registry.removeTokenToUserAssociationAndToken(user);
+            registry.removeTokenToUserAssociationAndToken(user.getUsername());
         }
         registry.removeReceiverUserAssociation(jsonReceiver);
+    }
+
+    private void notifyAllExceptOne(String message, JsonReceiver toExclude, List<JsonReceiver> allReceivers) throws IOException{
+        for (JsonReceiver js : allReceivers) {
+            if (js != toExclude) {
+                js.sendJson(jsonCreator.createJsonWithMessage(message));
+            }
+        }
     }
 }

@@ -32,17 +32,15 @@ public class TokenRegistry {
      */
     private  final ConcurrentMap<JsonReceiver, User> receiverUser;
 
-    private final ConcurrentMap<String, User> tokenToUser;
+    private final ConcurrentMap<String, String> tokenToUsername;
 
-    private final List<String> userNames;
 
 
     private TokenRegistry(){
         associatonTokenReceiver  = new ConcurrentHashMap<>();
         registeredTokens = new ArrayList<>(10);
         receiverUser = new ConcurrentHashMap<>();
-        tokenToUser = new ConcurrentHashMap<>();
-        userNames = new LinkedList<>();
+        tokenToUsername = new ConcurrentHashMap<>();
     }
 
     /**
@@ -66,14 +64,12 @@ public class TokenRegistry {
     }
 
     /**
-     * Tells if the username has been already generated
+     * Tells if the username has been already registered.
      * @param name
      * @return true if some other user has already chose this username
      */
     public boolean usernameAlreadyPresent(final String name){
-        // TODO prima era solo col primo dell'or, fare dei test per vedere se posso assumere il nome di qualcuno disconnesso.
-        return receiverUser.values().stream().anyMatch(user->user.getUsername().equals(name));
-                //tokenToUser.values().stream().anyMatch(user -> user.getUsername().equals(name));
+        return tokenToUsername.values().stream().anyMatch(username ->username.equals(name));
     }
 
     /**
@@ -102,8 +98,8 @@ public class TokenRegistry {
      * @param token key
      * @return user, can be null
      */
-    public User getUserFromToken(String token){
-        return tokenToUser.get(token);
+    public String getUsernameFromToken(String token){
+        return tokenToUsername.get(token);
     }
 
 
@@ -141,11 +137,11 @@ public class TokenRegistry {
     /**
      * associated token and user
      * @param token key
-     * @param user value
+     * @param username value
      */
-    public void associateTokenAndUser(String token, User user){
-        tokenToUser.put(token, user);
-        tokenRegistryLogger.log(Level.INFO, "Associated token and user " + user.getUsername());
+    public void associateTokenAndUser(String token, String username){
+        tokenToUsername.put(token, username);
+        tokenRegistryLogger.log(Level.INFO, "Associated token and user " + username);
 
     }
 
@@ -177,22 +173,22 @@ public class TokenRegistry {
      * remove both the token and user
      * @param token token of the user that has to be removed
      */
-    public void removeTokenToUserAssociation(String token){
-        tokenToUser.remove(token);
+    public void removeTokenToUsernameAssociation(String token){
+        tokenToUsername.remove(token);
         tokenRegistryLogger.log(Level.INFO, "Removed token " + token);
 
     }
 
     /**
      * removes the association between token and user. The token is also removed
-     * @param u user to be removed
+     * @param username user to be removed
      */
-    public void removeTokenToUserAssociationAndToken(User u){
+    public void removeTokenToUserAssociationAndToken(String username){
         String toDeleteToken;
         synchronized (registeredTokens){
             for(String token: registeredTokens){
-                if (tokenToUser.get(token) == u){
-                    tokenToUser.remove(token, u);
+                if (tokenToUsername.get(token).equals(username)){
+                    tokenToUsername.remove(token, username);
                     registeredTokens.remove(token);
                 }
             }
@@ -217,10 +213,10 @@ public class TokenRegistry {
      * @return
      */
     public boolean checkAndInsertUsername(String token, final String name) {
-        if (receiverUser.values().stream().anyMatch(user -> user.getUsername().equals(name)))
+        if (usernameAlreadyPresent(name))
             return true;
         else {
-            tokenToUser.put(token, new User(name));
+            tokenToUsername.put(token, name);
             return false;
         }
     }
