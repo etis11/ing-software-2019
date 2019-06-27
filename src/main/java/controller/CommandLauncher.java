@@ -78,6 +78,7 @@ public class CommandLauncher implements CommandLauncherInterface {
                 try {
                     takenCommand.execute(commandExecutor);
                 } catch (IOException e) {
+                    commandLauncherLogger.log(Level.INFO,"un client si è disconnesso e non sono riuscito a gestire bene la disconnessione");
                     e.printStackTrace();
                 }
             }

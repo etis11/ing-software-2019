@@ -57,7 +57,6 @@ public class JsonRouterSocket implements Runnable {
             //no such element exeption thrown if something is already closed i guess
             catch (IOException | NoSuchElementException e) {
                 stop();
-                System.out.println("weeee");
             }
         }
         try {

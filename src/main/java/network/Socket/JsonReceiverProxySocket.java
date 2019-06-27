@@ -40,7 +40,13 @@ public class JsonReceiverProxySocket implements JsonReceiver {
      * @throws IOException if there are problems while writing the object
      */
     @Override
-    public void sendJson(String changes) throws IOException {
+    public void sendJson(String changes) throws IOException{
+        //The stream should be closed, the client socket too in case there is some error on this print writer
+        if(out.checkError()){
+            jsonProxyLogger.log(Level.INFO,"Socket " + clientSocket + "may be no more reachable. Launching a IOExcpetion");
+            throw new IOException("Socket outputstream not reachable");
+        }
+        System.out.println("Json receiver proxy " + this + " socket "+ clientSocket);
         jsonProxyLogger.log(Level.INFO, ">>> Sending the json changes");
         out.println(changes);
         out.flush();

@@ -140,18 +140,19 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
         //if the new current player has a different name of the old current player,
         SemplifiedPlayer currentPlayer = response.getCurrentPlayer();
 
-        if ( currentPlayer != null && !oldCurrentPlayer.equals(currentPlayer)){
-            notifyCurrentPlayerChange(currentPlayer);
-            oldCurrentPlayer = currentPlayer;
-        }
-
         List<List<SemplifiedBloodToken>> deathTrack = response.getDeathTrack();
         if ( deathTrack != null &&  oldDeathTrack.size() != deathTrack.size())
             notifyDeathTrackChange(deathTrack);
 
+        if ( currentPlayer != null && !oldCurrentPlayer.equals(currentPlayer)){
+            notifyCurrentPlayerChange(currentPlayer);
+            oldCurrentPlayer = currentPlayer;
+        }
         String message = response.getMessage();
-        if(message!= null)
+        if(message!= null) {
             notifyAllMessageListeners(message);
+        }
+
 
         playerDeserializer.resetMap();
     }

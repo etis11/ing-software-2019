@@ -134,9 +134,10 @@ public class CommandReceiverSocket implements Runnable {
             c = (Command) in.readObject();
 
         } catch (IOException | ClassNotFoundException ioe) {
-            //System.out.println(ioe.getMessage()); printa null
             commandReceiverSocketLogger.log(Level.WARNING, ">>> The input stream of " + clientSocket +
-                    " is not working anymore. The client could have disconnected");
+                    " is not working anymore. The client may be disconnected");
+
+
             stopReceiving();
         }
         return c;
