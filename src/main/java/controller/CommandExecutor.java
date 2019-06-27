@@ -277,50 +277,56 @@ public class CommandExecutor {
             if (owner != currentPlayer) {
                 userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
             } else {
-                if (!currentPlayer.getState().canRun() && currentPlayer.getState().getRemainingSteps() < command.getMoves().size()) {
-                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non hai abbastanza mosse rimanenti"));
-                } else {
-                    try {
-                        currentPlayer.setOldTile(currentPlayer.getTile());
-                        currentPlayer.getState().decrementRemainingSteps(command.getMoves().size());
-                        currentPlayer.move(new Movement(new ArrayList<>(command.getMoves())));
-                        String message = currentPlayer.getName()+" si è spostato di nel tile: " +currentPlayer.getTile().getID();
-                        if(!currentPlayer.getState().canPickUp()) {
-                            for (JsonReceiver js : command.getAllReceivers()) {
-                                notifyToAllExceptCurrent(js, userJsonReceiver, message);
-                            }
-                            userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Ti sei spostato nel tile :" + currentPlayer.getTile().getID(), currentPlayer));
-                            command.endCommandToAction(gameManager);
-                        }
-                        if(currentPlayer.getState().canPickUp() && currentPlayer.getTile().canContainAmmo()){
-                            if (currentPlayer.getTile().isPresentAmmoCard()) {
-                                currentPlayer.getState().remainingStepsToZero();
-
-                                AmmoCard ammoCard = currentPlayer.getTile().pickUpAmmoCard();
-                                //draw
-                                currentPlayer.useAmmoCard(ammoCard, gameManager.getMatch().getPowerUpDeck());
-                                //put the card in the slush pile
-                                gameManager.getMatch().getAmmoSlushPile().addCard(ammoCard);
-                                //notifyMessage
-                                String message2 = currentPlayer.getName()+" si è spostato nel tile "+currentPlayer.getTile().getID()+" ha raccolto una carta munizioni";
+                if(currentPlayer.getState().getName().equals("Run")||currentPlayer.getState().getName().equals("PickUp")||currentPlayer.getState().getName().equals("PickUpPlu")) {
+                    if (!currentPlayer.getState().canRun() && currentPlayer.getState().getRemainingSteps() < command.getMoves().size()) {
+                        userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non hai abbastanza mosse rimanenti"));
+                    } else {
+                        try {
+                            currentPlayer.setOldTile(currentPlayer.getTile());
+                            currentPlayer.getState().decrementRemainingSteps(command.getMoves().size());
+                            currentPlayer.move(new Movement(new ArrayList<>(command.getMoves())));
+                            String message = currentPlayer.getName() + " si è spostato di nel tile: " + currentPlayer.getTile().getID();
+                            if (!currentPlayer.getState().canPickUp()) {
                                 for (JsonReceiver js : command.getAllReceivers()) {
-                                    notifyToAllExceptCurrent(js, userJsonReceiver, message2);
+                                    notifyToAllExceptCurrent(js, userJsonReceiver, message);
                                 }
-                                userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Ti sei spostato nel tile "+currentPlayer.getTile().getID()+" e hai raccolto una carta munizioni"));
+                                userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Ti sei spostato nel tile :" + currentPlayer.getTile().getID(), currentPlayer));
                                 command.endCommandToAction(gameManager);
                             }
-                            else {
-                                //return to old state
-                                returnOldState(currentPlayer, userJsonReceiver, "Non c'è nulla da raccogliere in questo tile");
-                                return;
+                            if (currentPlayer.getState().canPickUp() && currentPlayer.getTile().canContainAmmo()) {
+                                if (currentPlayer.getTile().isPresentAmmoCard()) {
+                                    currentPlayer.getState().remainingStepsToZero();
+
+                                    AmmoCard ammoCard = currentPlayer.getTile().pickUpAmmoCard();
+                                    //draw
+                                    currentPlayer.useAmmoCard(ammoCard, gameManager.getMatch().getPowerUpDeck());
+                                    //put the card in the slush pile
+                                    gameManager.getMatch().getAmmoSlushPile().addCard(ammoCard);
+                                    //notifyMessage
+                                    String message2 = currentPlayer.getName() + " si è spostato nel tile " + currentPlayer.getTile().getID() + " ha raccolto una carta munizioni";
+                                    for (JsonReceiver js : command.getAllReceivers()) {
+                                        notifyToAllExceptCurrent(js, userJsonReceiver, message2);
+                                    }
+                                    userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Ti sei spostato nel tile " + currentPlayer.getTile().getID() + " e hai raccolto una carta munizioni"));
+                                    command.endCommandToAction(gameManager);
+                                    System.out.println(currentPlayer.getState().getName());
+                                } else {
+                                    //return to old state
+                                    returnOldState(currentPlayer, userJsonReceiver, "Non c'è nulla da raccogliere in questo tile");
+                                    return;
+                                }
+                            } else if (currentPlayer.getState().canPickUp() && currentPlayer.getTile().canContainWeapons()) {
+                                userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Seleziona quale arma raccogliere", currentPlayer));
                             }
-                        }else if(currentPlayer.getState().canPickUp() && currentPlayer.getTile().canContainWeapons()){
-                            userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Seleziona quale arma raccogliere", currentPlayer));
+                        } catch (NotValidMovesException e) {
+                            currentPlayer.getState().resetRemainingSteps();
+                            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Movimento non valido"));
                         }
-                    } catch (NotValidMovesException e) {
-                        currentPlayer.getState().resetRemainingSteps();
-                        userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Movimento non valido"));
                     }
+                }
+                else
+                {
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Azione non valida"));
                 }
             }
         }
