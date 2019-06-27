@@ -64,7 +64,7 @@ public class CommandLauncher implements CommandLauncherInterface {
                 String token = takenCommand.getToken();
                 JsonReceiver clientReceiver = TokenRegistry.getInstance().getJsonReceiver(token);
                 takenCommand.setJsonReceiver(clientReceiver);
-                takenCommand.setAllJsonReceivers(allReceivers);
+                takenCommand.setAllJsonReceivers(getAllReceivers());
             } catch (InterruptedException i) {
                 System.out.println(i.getMessage());
                 commandLauncherLogger.log(Level.WARNING, i.getMessage(), i);
@@ -86,6 +86,13 @@ public class CommandLauncher implements CommandLauncherInterface {
 
     }
 
+    private List<JsonReceiver> getAllReceivers(){
+        synchronized (allReceivers){
+            return allReceivers;
+        }
+    }
+
+    /************************ Command Launcher interface implementation *******************************/
     /**
      * add the specified command to the commandList.
      *
@@ -100,8 +107,17 @@ public class CommandLauncher implements CommandLauncherInterface {
     }
 
     @Override
-    public void addJsonReceiver(JsonReceiver j) throws RemoteException {
-        allReceivers.add(j);
+    public void addJsonReceiver(JsonReceiver j){
+        synchronized (allReceivers){
+            allReceivers.add(j);
+        }
     }
 
+    @Override
+    public void removeJsonReceiver(JsonReceiver js){
+        synchronized (allReceivers){
+            allReceivers.remove(js);
+            commandLauncherLogger.log(Level.INFO, "Removed a json receiver. A disconnection may have occurred");
+        }
+    }
 }

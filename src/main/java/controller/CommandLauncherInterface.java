@@ -10,4 +10,6 @@ public interface CommandLauncherInterface extends CommandContainer {
     void executeCommand() throws RemoteException;
 
     void addJsonReceiver(JsonReceiver j) throws RemoteException;
+
+    void removeJsonReceiver(JsonReceiver js) throws RemoteException;
 }

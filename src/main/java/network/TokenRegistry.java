@@ -24,7 +24,7 @@ public class TokenRegistry {
     /**
      * map where token and json receivers are linked
      */
-    private  final ConcurrentMap<String, JsonReceiver> tokenAssociated;
+    private  final ConcurrentMap<String, JsonReceiver> associatonTokenReceiver;
     /**
      * list of all the registered tokens
      */
@@ -40,7 +40,7 @@ public class TokenRegistry {
 
 
     private TokenRegistry(){
-        tokenAssociated  = new ConcurrentHashMap<>();
+        associatonTokenReceiver  = new ConcurrentHashMap<>();
         registeredTokens = new ArrayList<>(10);
         userReceiver = new ConcurrentHashMap<>();
         tokenToUser = new ConcurrentHashMap<>();
@@ -69,10 +69,10 @@ public class TokenRegistry {
      */
     public void associateTokenAndReceiver(String token, JsonReceiver jsonReceiver) {
         synchronized (registeredTokens) {
-            if (tokenAssociated.containsKey(token))
+            if (associatonTokenReceiver.containsKey(token))
                 throw new DuplicateException(">>> There is already a jsonReceiver associated to this token");
             if (!registeredTokens.contains(token)) registeredTokens.add(token);
-            tokenAssociated.putIfAbsent(token, jsonReceiver);
+            associatonTokenReceiver.putIfAbsent(token, jsonReceiver);
             tokenRegistryLogger.log(Level.INFO, "Associated token and json receiver");
         }
     }
@@ -99,7 +99,7 @@ public class TokenRegistry {
      * @return
      */
     public JsonReceiver getJsonReceiver(String token) {
-        JsonReceiver receiver = tokenAssociated.get(token);
+        JsonReceiver receiver = associatonTokenReceiver.get(token);
         if (receiver == null) throw new NullPointerException("This token is not registered");
         return receiver;
     }
@@ -118,8 +118,8 @@ public class TokenRegistry {
      * removes the association between the token and the json receiver. The token is not removed.
      * @param token
      */
-    public void removeAssociation(String token) {
-        tokenAssociated.remove(token);
+    public void removeTokenReceiverAssociaton(String token) {
+        associatonTokenReceiver.remove(token);
     }
 
     public boolean usernameAlreadyPresent(final String name){
@@ -148,7 +148,7 @@ public class TokenRegistry {
      * @param user user that is associated to this
      */
     public void associateReceiverAndUser(JsonReceiver jr, User user){
-            userReceiver.putIfAbsent(jr, user);
+        userReceiver.putIfAbsent(jr, user);
         tokenRegistryLogger.log(Level.INFO, "Associated json receiver and user " + user.getUsername());
 
     }

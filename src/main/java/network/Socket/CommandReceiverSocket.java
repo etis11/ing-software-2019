@@ -133,11 +133,16 @@ public class CommandReceiverSocket implements Runnable {
         try {
             c = (Command) in.readObject();
 
-        } catch (IOException | ClassNotFoundException ioe) {
+        } catch (IOException ioe) {
             commandReceiverSocketLogger.log(Level.WARNING, ">>> The input stream of " + clientSocket +
                     " is not working anymore. The client may be disconnected");
+            launcher.removeJsonReceiver();
 
-
+        }
+        catch (ClassNotFoundException cnf){
+            commandReceiverSocketLogger.log(Level.WARNING, "Not found class " +cnf.getMessage());
+        }
+        finally {
             stopReceiving();
         }
         return c;
