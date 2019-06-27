@@ -21,6 +21,7 @@ public class CommandExecutor {
     private final TokenRegistry registry = TokenRegistry.getInstance();
     private final static Logger commandExecutorLogger = Logger.getLogger(CommandExecutor.class.getName());
     private final int seconds = 1;
+    private ShootState shootState;
 
     /**
      * gameManager is a reference to the model due to access to the match and lobby variables
@@ -32,6 +33,7 @@ public class CommandExecutor {
     public CommandExecutor(GameManager gameManager, JsonCreator jsonCreator) {
         this.gameManager = gameManager;
         this.jsonCreator = jsonCreator;
+        this.shootState = ShootState.BASE;
     }
 
 
@@ -169,6 +171,7 @@ public class CommandExecutor {
     }
 
     public void execute(AskShootCommand command) throws IOException {
+        //todo manca il movimento
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
@@ -191,6 +194,7 @@ public class CommandExecutor {
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi sparare"));
                 } else {
                     currentPlayer.getState().nextState("Shoot", currentPlayer);
+                    shootState = ShootState.ASKEDSHOOT;
                     String message = "Il giocatore attuale sta per sparare";
                     for (JsonReceiver js : command.getAllReceivers()) {
                         if (js != userJsonReceiver) {
@@ -293,7 +297,7 @@ public class CommandExecutor {
                                 userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Ti sei spostato nel tile :" + currentPlayer.getTile().getID(), currentPlayer));
                                 command.endCommandToAction(gameManager);
                             }
-                            if (currentPlayer.getState().canPickUp() && currentPlayer.getTile().canContainAmmo()) {
+                            if (currentPlayer.getState().canPickUp() && currentPlayer.getTile().canContainAmmo() && (currentPlayer.getState().getName().equals("PickUp")|| currentPlayer.getState().getName().equals("PickUpPlu"))) {
                                 if (currentPlayer.getTile().isPresentAmmoCard()) {
                                     currentPlayer.getState().remainingStepsToZero();
 
@@ -309,13 +313,12 @@ public class CommandExecutor {
                                     }
                                     userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Ti sei spostato nel tile " + currentPlayer.getTile().getID() + " e hai raccolto una carta munizioni"));
                                     command.endCommandToAction(gameManager);
-                                    System.out.println(currentPlayer.getState().getName());
                                 } else {
                                     //return to old state
                                     returnOldState(currentPlayer, userJsonReceiver, "Non c'è nulla da raccogliere in questo tile");
                                     return;
                                 }
-                            } else if (currentPlayer.getState().canPickUp() && currentPlayer.getTile().canContainWeapons()) {
+                            } else if (currentPlayer.getState().canPickUp() && currentPlayer.getTile().canContainWeapons() && (currentPlayer.getState().getName().equals("PickUp")|| currentPlayer.getState().getName().equals("PickUpPlu"))) {
                                 userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Seleziona quale arma raccogliere", currentPlayer));
                             }
                         } catch (NotValidMovesException e) {
