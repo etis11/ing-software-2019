@@ -7,16 +7,11 @@ import java.util.List;
 
 public class PickUpCommand extends AbstractCommand {
 
-    /**
-     * list containing moves to construct a movement
-     */
-    private List<String> moves;
 
     private String weaponName;
 
-    public PickUpCommand(String token, List<String> moves, String weaponName) {
+    public PickUpCommand(String token, String weaponName) {
         super(token);
-        this.moves = moves;
         this.weaponName = weaponName;
     }
 
@@ -26,10 +21,6 @@ public class PickUpCommand extends AbstractCommand {
     @Override
     public void execute(CommandExecutor exe) throws IOException {
         exe.execute(this);
-    }
-
-    public List<String> getMoves(){
-        return moves;
     }
 
     public String getWeaponName() {

@@ -311,7 +311,7 @@ public class CommandExecutor {
                                     for (JsonReceiver js : command.getAllReceivers()) {
                                         notifyToAllExceptCurrent(js, userJsonReceiver, message2);
                                     }
-                                    userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Ti sei spostato nel tile " + currentPlayer.getTile().getID() + " e hai raccolto una carta munizioni"));
+                                    userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Ti sei spostato nel tile " + currentPlayer.getTile().getID() + " e hai raccolto una carta munizioni", currentPlayer));
                                     command.endCommandToAction(gameManager);
                                 } else {
                                     //return to old state
@@ -352,7 +352,6 @@ public class CommandExecutor {
             } else {
                 //verify the state
                 if (currentPlayer.getState().canPickUp()) {
-
                     //verify if it is a weapon tile
                     if (currentPlayer.getTile().canContainWeapons()) {
                         //verify if there are weapon in the tile
@@ -391,11 +390,9 @@ public class CommandExecutor {
                                     } finally {
                                         String message = currentPlayer.getName()+" ha raccolto: " + weaponCard.getName();
                                         for (JsonReceiver js : command.getAllReceivers()) {
-                                            if (js != userJsonReceiver) {
-                                                js.sendJson(jsonCreator.createJsonWithMessage(message));
-                                            }
+                                            notifyToAllExceptCurrent(js, userJsonReceiver, message);
                                         }
-                                       userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Hai raccolto " + weaponCard.getName()));
+                                       userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Hai raccolto " + weaponCard.getName(), currentPlayer));
                                     }
 
                                 }
@@ -504,6 +501,36 @@ public class CommandExecutor {
                 }
             }
         }else{
+            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La partita non è ancora iniziata"));
+        }
+        jsonCreator.reset();
+    }
+
+    public void execute(WeaponCommand command) throws IOException {
+        boolean gameHasStarted = hasMatchStarted(gameManager);
+        JsonReceiver userJsonReceiver = command.getJsonReceiver();
+        //verify if game started
+        if (gameHasStarted) {
+            Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
+            Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
+            //verify if the owner is the current player
+            if (owner != currentPlayer) {
+                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
+            } else {
+                String state = currentPlayer.getState().getName();
+                //verify the player state
+                if(state.equals("PickUp") || state.equals("PickUpPlus")){
+                    execute(new PickUpCommand(command.getToken(),  command.getWeaponName()));
+                }else if(state.equals("Reload")){
+                    execute(new ReloadCommand(command.getToken(), command.getWeaponName()));
+                }else if(state.equals("Shoot")|| state.equals("ShootPlus")) {
+                    //TODO
+                }else{
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Azione non consentita"));
+                }
+            }
+
+        } else {
             userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La partita non è ancora iniziata"));
         }
         jsonCreator.reset();
