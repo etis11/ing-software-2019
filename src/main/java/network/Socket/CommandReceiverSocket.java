@@ -64,6 +64,8 @@ public class CommandReceiverSocket implements Runnable {
     public void run() {
         String clientToken = null;
         String username = null;
+        User user = null;
+        boolean mustCreateUser = false;
         try{
             PrintWriter clientOutput = new PrintWriter(clientSocket.getOutputStream());
             Scanner clientInput = new Scanner(clientSocket.getInputStream());
@@ -72,39 +74,67 @@ public class CommandReceiverSocket implements Runnable {
             if (!registry.tokenAlreadyGenerated(clientToken)) {
                 commandReceiverSocketLogger.log(Level.INFO, ">>> Generating Token");
                 clientToken = UUID.randomUUID().toString();
+                //sends the token to the client
+                commandReceiverSocketLogger.log(Level.INFO, ">>> Sending token");
+                clientOutput.println(clientToken);
+                clientOutput.flush();
+                myToken = clientToken;
+                //now asks for the username fino a quando non è corretto.
+                boolean ok = false;
+                while (!ok){
+                    clientOutput.println("Inserisci uno username");
+                    clientOutput.flush();
+                    username = clientInput.nextLine();
+                    if (username.contains(" ") || username.equals(""))
+                        clientOutput.println("Username con formato non corretto");
+                    else if (registry.checkAndInsertUsername(clientToken, username)){
+                        clientOutput.println("Username già presente, inserire di nuovo.");
+                    }
+                    else{
+                        ok = true;
+                        clientOutput.println("OK");
+                    }
+                    clientOutput.flush();
+                }
+                launcher = provider.getCurrentCommandLauncher();
+                mustCreateUser = true;
             } else {
-                commandReceiverSocketLogger.log(Level.INFO, ">>> Token sent valid");
-            }
-            //sends the token to the client
-            commandReceiverSocketLogger.log(Level.INFO, ">>> Sending token");
-            clientOutput.println(clientToken);
-            clientOutput.flush();
-            myToken = clientToken;
-            //now asks for the username fino a quando non è corretto.
-            boolean ok = false;
-            while (!ok){
-                clientOutput.println("Inserisci uno username");
+                commandReceiverSocketLogger.log(Level.INFO, ">>> Token sent valid. Reconnecting host to the old match");
+                // send a token okay, so the client knows that doesn't have to insert the usename
+                clientOutput.println("TOKEN OK");
                 clientOutput.flush();
-                username = clientInput.nextLine();
-                if (username.contains(" ") || username.equals(""))
-                    clientOutput.println("Username con formato non corretto");
-                else if (registry.checkAndInsertUsername(clientToken, username)){
-                    clientOutput.println("Username già presente, inserire di nuovo.");
-                }
-                else{
-                    ok = true;
-                    clientOutput.println("OK");
-                }
-                clientOutput.flush();
+                myToken = clientToken;
+                System.out.println("prima di riattivare lo user");
+                //lo user è di nuovo attivo
+                username = registry.getUsernameFromToken(clientToken);
+                launcher = provider.getConnectedBeforeLauncher(username);
+                System.out.println("dopo richiesta token");
+                user =provider.ReconnectUserToOldGame(username);
+                if (user == null) throw new RuntimeException("User ottenuto null");
+                System.out.println("dopo riconnessione");
+                System.out.println("Usern riattivato");
             }
+
             //creates a json Receiver and binds it to the client socket.
+            System.out.println("creazione comunicazione");
+            //comune
             jsonReceiverProxySocket = new JsonReceiverProxySocket(clientSocket);
-            launcher = provider.getCurrentCommandLauncher();
+            //comune, launcher già settato
             launcher.addJsonReceiver(jsonReceiverProxySocket);
             commandReceiverSocketLogger.log(Level.INFO,">>>Token and proxy associated");
+            //comune
             registry.associateTokenAndReceiver(clientToken, jsonReceiverProxySocket);
+            //if the user already existed, should be associated to the jsonReceiver
+            if (user!= null){
+                registry.associateReceiverAndUser(jsonReceiverProxySocket, user);
+            }
+            System.out.println("prima dell'input object stream");
             in = new ObjectInputStream(clientSocket.getInputStream());
-            launcher.addCommand(new SetUsernameCommand(clientToken, username));
+            System.out.println("dopo l'input object stream");
+            if(mustCreateUser){
+
+                launcher.addCommand(new SetUsernameCommand(clientToken, username));
+            }
         }
         catch (IOException ioe){
             ioe.printStackTrace();

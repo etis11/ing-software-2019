@@ -53,6 +53,10 @@ public class CommandLauncherProvider {
 
     }
 
+    /**
+     * removes the fiven user from the lobby of his game. Used only when the game has not started
+     * @param user user to be kicked from the lobby
+     */
     public void removeUserFromGame(User user) {
         synchronized (gameManagers) {
             for (GameManager gm : gameManagers) {
@@ -64,6 +68,11 @@ public class CommandLauncherProvider {
         }
     }
 
+    /**
+     * tells if the game the user is in is started or not
+     * @param user
+     * @return true if the match is started
+     */
     public boolean hasGameStarted(User user) {
         synchronized (gameManagers) {
             for (GameManager gm : gameManagers) {
@@ -76,4 +85,39 @@ public class CommandLauncherProvider {
         }
 
     }
+
+    /**
+     * makes the user with this name in the right lobby active again
+     * @param name
+     */
+    public User ReconnectUserToOldGame(String name){
+        synchronized (gameManagers){
+            for(GameManager gm : gameManagers){
+                List<User> users = gm.getLobby().getUsers();
+                for(User user: users){
+                    if (user.getUsername().equals(name)){
+                        user.setDisconnected(false);
+                        return user;
+                    }
+
+                }
+            }
+        }
+        return null;
+    }
+
+    public CommandLauncherInterface getConnectedBeforeLauncher(String name){
+        int index = 0;
+        synchronized (gameManagers){
+            for(GameManager gm : gameManagers){
+                List<User> users = gm.getLobby().getUsers();
+                for(User user: users){
+                    if (user.getUsername().equals(name))
+                        index = gameManagers.indexOf(gm);
+                }
+            }
+        }
+        return commandLaunchers.get(index);
+    }
+
 }
