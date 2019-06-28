@@ -200,6 +200,17 @@ Method used to set an advanced effect
         this.loaded = loaded;
     }
 
+    public boolean canOpt(Player currentPlayer){
+        if(getBaseEffect().get(0).getOptionalEffects()!= null && !getBaseEffect().get(0).getOptionalEffects().isEmpty()){
+            for(OptionalEffect opt: getBaseEffect().get(0).getOptionalEffects()){
+                if(currentPlayer.canPay(opt.getCost())){
+                    return  true;
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * Two weaponsCard are equals if they have the same name
      *

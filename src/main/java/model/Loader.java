@@ -182,4 +182,60 @@ public class Loader {
 
         ammoPool.insertAmmo(toReturn);
     }
+
+    public boolean canPay(List<String> cost){
+        int y = getNumYellowAmmo();
+        int b = getNumBlueAmmo();
+        int r = getNumRedAmmo();
+        for (String str: cost){
+            if(str.equals("red")){
+                r--;
+            }else if(str.equals("blue")){
+                b--;
+            }else if (str.equals("yellow")){
+                y--;
+            }else{
+                throw new RuntimeException("Invalid cost");
+            }
+        }
+        return y*b*r>=0;
+    }
+
+    public boolean canPayAll(List<OptionalEffect> opt){
+        int y = getNumYellowAmmo();
+        int b = getNumBlueAmmo();
+        int r = getNumRedAmmo();
+        for(OptionalEffect opts: opt ){
+            for(String str: opts.getCost()){
+                if(str.equals("red")){
+                    r--;
+                }else if(str.equals("blue")){
+                    b--;
+                }else if (str.equals("yellow")){
+                    y--;
+                }else{
+                    throw new RuntimeException("Invalid cost");
+                }
+            }
+        }
+        return y*b*r>=0;
+    }
+
+    public void pay(List<String> cost){
+        int r =0;
+        int y = 0;
+        int b = 0;
+        for(String str : cost) {
+            if (str.equals("red")) {
+                r++;
+            } else if (str.equals("blue")) {
+                b++;
+            } else if (str.equals("yellow")) {
+                y++;
+            } else {
+                throw new RuntimeException("Invalid cost");
+            }
+        }
+        ammoToPool(b,r,y);
+    }
 }

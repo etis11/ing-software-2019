@@ -454,6 +454,15 @@ public class Match implements ChangesMatchObservable{
         }
     }
 
+    public Player getPlayerFromName(String name){
+        for (Player p: players){
+            if(p.getName().equals(name)){
+                return p;
+            }
+        }
+        throw new RuntimeException("Not valid Player");
+    }
+
     /********************** changes observable **************************/
     @Override
     public void attach(ChangesMatchObserver observer) {

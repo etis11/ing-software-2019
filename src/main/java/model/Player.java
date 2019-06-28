@@ -308,7 +308,10 @@ public class Player implements ChangesObservable{
         if (w == null) throw new IllegalArgumentException("Passato un valore nullo");
         if (weapons.size() > 4) {
             throw new Exception("Il giocatore ha già 4 armi in mano");
-        } else weapons.add(w);
+        } else{
+            weapons.add(tile.pickUpWeaponCard(w));
+        }
+
         notifyAllObservers();
     }
 
@@ -464,6 +467,27 @@ public class Player implements ChangesObservable{
             }
         }
         throw  new RuntimeException("missed control if the power up is present");
+    }
+
+    public boolean canPay(List<String> cost){
+        return playerBoard.getLoader().canPay(cost);
+    }
+
+    public boolean canPayAll(List<OptionalEffect> opt){
+        return playerBoard.getLoader().canPayAll(opt);
+    }
+    public void payOpt(List<OptionalEffect> opt){
+        for (OptionalEffect opts: opt) {
+            playerBoard.getLoader().pay(opts.getCost());
+        }
+    }
+
+    public void payOpt(OptionalEffect opt){
+        playerBoard.getLoader().pay(opt.getCost());
+    }
+
+    public void pay(Effect effect){
+        playerBoard.getLoader().pay(effect.getCost());
     }
 
     @Override

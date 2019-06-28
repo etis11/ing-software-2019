@@ -74,7 +74,7 @@ public class Parserator implements Runnable {
         try {
             switch (realCommand.toLowerCase()) {
                 case "help":
-                    CLI.displayText(command);
+                    CLI.displayText(commandi);
                     return;
                 case "quit":
                     quit = true;
@@ -151,6 +151,20 @@ public class Parserator implements Runnable {
                     commandLauncher.addCommand(new WeaponCommand(token, splittedCommand[1]));
                     return;
                 }
+            }
+            if (isWeapon(command)){
+                commandLauncher.addCommand(new ReloadCommand(token, command));
+                return;
+            }
+            if(command.contains("opt")){
+                String[] splittedCommand = command.split(" ");
+                if(splittedCommand[0].equals("opt")){
+                    commandLauncher.addCommand(new ChooseOptEffectCommand(token, splittedCommand[1]));
+                }
+                else {
+                    commandLauncher.addCommand(new ChooseOptEffectCommand(token, splittedCommand[0]));
+                }
+                return;
             }
 
 
