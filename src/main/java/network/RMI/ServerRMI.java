@@ -6,6 +6,7 @@ import controller.CommandLauncherProvider;
 import controller.JsonReceiver;
 import controller.commandpack.SetUsernameCommand;
 import exceptions.DuplicateException;
+import model.User;
 import network.TokenRegistry;
 
 import java.io.IOException;
@@ -66,16 +67,15 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
      * @return the token
      */
     @Override
-    public String getPersonalToken(String token) throws RemoteException {
+    public String getPersonalToken(String token){
         rmiServerLogger.log(Level.INFO , ">>>A is trying to register");
         String newToken = token;
+        System.out.println(newToken);
         TokenRegistry registry = TokenRegistry.getInstance();
         if (!registry.tokenAlreadyGenerated(token)) {
             newToken = UUID.randomUUID().toString();
         }
-        else{
-            throw new UnsupportedOperationException("GESTIRE IL CASO IN CUI INVIO UN TOKEN GIA' GENERATO");
-        }
+        System.out.println(newToken);
         return newToken;
     }
 
@@ -91,5 +91,19 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
             rmiServerLogger.log(Level.INFO, "token e ricevitore associati");
             return "OK";
         }
+    }
+
+    public CommandLauncherInterface reconnect(String clientToken, JsonReceiver receiver) throws RemoteException{
+        TokenRegistry registry = TokenRegistry.getInstance();
+        String username = registry.getUsernameFromToken(clientToken);
+        CommandLauncherInterface launcher = launchers.getConnectedBeforeLauncher(username);
+        User user =launchers.ReconnectUserToOldGame(username);
+        if (user == null) throw new RuntimeException("User should not be null");
+        launcher.addJsonReceiver(receiver);
+        registry.associateTokenAndReceiver(clientToken, receiver);
+        if (user!= null){
+            registry.associateReceiverAndUser(receiver, user);
+        }
+        return launcher;
     }
 }

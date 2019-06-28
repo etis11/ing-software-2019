@@ -50,27 +50,38 @@ public class CLILauncher {
             }
             //gets the command container
             try{
+                String newToken ;
                 Registry registry = LocateRegistry.getRegistry();
                 ServerRMIInterface serverRMI = (ServerRMIInterface) registry.lookup("serverRMI");
-                token = serverRMI.getPersonalToken("");
-                CLI.displayText("TOKEN: " + token);
-                ClientSingleton.getInstance().setToken(token);
-                //user creation
-                boolean ok = false;
-                String serverResponse;
-                String username;
-                while (!ok){
-                    CLI.displayText("Inserisci uno username");
-                    username = CLI.getUserInputString();
-                    serverResponse = serverRMI.checkUsername(token, username,receiver);
-                    if(serverResponse.contains("OK")){
-                        ok = true;
-                        CLI.displayText("Username accettato");
-                        cmdLauncher = serverRMI.getCurrentCommandLauncher(receiver);
-                        cmdLauncher.addCommand(new SetUsernameCommand(token, username));
+                CLI.displayText("Inserisci un token.");
+                //gets the token from the user
+                token = CLI.getUserInputString();
+                newToken = serverRMI.getPersonalToken(token);
+                CLI.displayText("TOKEN: " + newToken);
+                ClientSingleton.getInstance().setToken(newToken);
+                //if newToken != token, a new user should be created
+                if(!newToken.equals(token)){
+                    //user creation
+                    boolean ok = false;
+                    String serverResponse;
+                    String username;
+                    while (!ok){
+                        CLI.displayText("Inserisci uno username");
+                        username = CLI.getUserInputString();
+                        serverResponse = serverRMI.checkUsername(newToken, username,receiver);
+                        if(serverResponse.contains("OK")){
+                            ok = true;
+                            cmdLauncher = serverRMI.getCurrentCommandLauncher(receiver);
+                            cmdLauncher.addCommand(new SetUsernameCommand(newToken, username));
+                        }
+                        else CLI.displayText(serverResponse);
                     }
-                    else CLI.displayText(serverResponse);
                 }
+                else {
+                    cmdLauncher = serverRMI.reconnect(newToken, receiver);
+                }
+
+
 
             }
             catch (Exception r){

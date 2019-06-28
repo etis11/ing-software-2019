@@ -1,5 +1,6 @@
 package network.RMI;
 
+import controller.CommandLauncher;
 import controller.CommandLauncherInterface;
 import controller.JsonReceiver;
 
@@ -13,4 +14,6 @@ public interface ServerRMIInterface extends Remote {
     String getPersonalToken(String token) throws RemoteException;
 
     String checkUsername(String token, String username, JsonReceiver jsonReceiver) throws RemoteException;
+
+    CommandLauncherInterface reconnect(String token, JsonReceiver jsonReceiver) throws RemoteException;
 }
