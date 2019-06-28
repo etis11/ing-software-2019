@@ -9,6 +9,8 @@ import view.LobbyListener;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class GameManager implements CreationGameObservable {
@@ -97,12 +99,8 @@ public class GameManager implements CreationGameObservable {
         match = new Match(players, numOfSkulls, map);
         match.attach(jsonCreator);
         initWeapon(match);
-        try {
-            initAmmo(match);
-            initPowerUp(match);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        initAmmo(match);
+        initPowerUp(match);
         match.newRound();
     }
 
@@ -181,10 +179,8 @@ public class GameManager implements CreationGameObservable {
     }
 
     private synchronized void initWeapon(Match match){
-        JsonFileReader jsonFileReader = new JsonFileReader();
-        String cards = jsonFileReader.loadWeaponCards("cards/weaponCards.json");
         WeaponCardDeserializer weaponCardDeserializer = new WeaponCardDeserializer(match);
-        List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
+        List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards("/cards/weaponCards.json");
         match.createWeaponDeck(weaponCards);
         match.getWeaponDeck().shuffle();
         for (int i = 0; i<3;i++){
@@ -194,9 +190,9 @@ public class GameManager implements CreationGameObservable {
         }
     }
 
-    private synchronized void initAmmo(Match match) throws FileNotFoundException {
+    private synchronized void initAmmo(Match match){
         Gson gson = new Gson();
-        AmmoCard[] newCard = gson.fromJson(new FileReader("cards/ammoCards.json"), AmmoCard[].class);
+        AmmoCard[] newCard = gson.fromJson(new InputStreamReader(getClass().getResourceAsStream("/cards/ammoCards.json")), AmmoCard[].class);
         List<AmmoCard> ammoCards = new ArrayList<>(Arrays.asList(newCard));
         match.createAmmoDeck(ammoCards);
         match.createAmmoSlushDeck();
@@ -208,11 +204,12 @@ public class GameManager implements CreationGameObservable {
         }
     }
 
-    private synchronized void initPowerUp(Match match) throws FileNotFoundException {
+    private synchronized void initPowerUp(Match match) {
         GsonBuilder gb = new GsonBuilder();
         gb.registerTypeAdapter(PowerUpCard.class, new PowerUpDeserializer());
         Gson gson = gb.create();
-        PowerUpCard[] newCard = gson.fromJson(new FileReader("cards/powerUpCards.json"), PowerUpCard[].class);
+        InputStream inputStream = GameManager.class.getResourceAsStream("/cards/powerUpCards.json");
+        PowerUpCard[] newCard = gson.fromJson(new InputStreamReader(inputStream), PowerUpCard[].class);
         List<PowerUpCard> powerUpCards = new ArrayList<>(Arrays.asList(newCard));
         match.createPowerUpDeck(powerUpCards);
         match.createPowerUpSlushDeck();

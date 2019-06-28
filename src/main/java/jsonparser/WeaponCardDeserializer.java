@@ -3,6 +3,8 @@ package jsonparser;
 import com.google.gson.*;
 import model.*;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,7 +69,7 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
         //creates the gson parser
 
         Gson gson = new Gson();
-        JsonArray json = gson.fromJson(jsonFile, JsonArray.class);
+        JsonArray json = gson.fromJson(new InputStreamReader(getClass().getResourceAsStream(jsonFile)), JsonArray.class);
         List<WeaponCard> wcToReturn = new ArrayList<>();
         for (JsonElement el : json) {
             WeaponCard wcToAdd = new WeaponCard();
