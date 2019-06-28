@@ -1,6 +1,7 @@
 package model;
 
 
+import exceptions.IllegalHavingException;
 import exceptions.NotValidMovesException;
 import javafx.scene.paint.Color;
 
@@ -302,12 +303,12 @@ public class Player implements ChangesObservable{
      * method throws an exception
      *
      * @param w weapon that has to be picked
-     * @throws Exception if the player has already 4 weapons
+     * @throws IllegalHavingException if the player has already 4 weapons
      */
-    public void pickUpWeapon(WeaponCard w) throws Exception {
+    public void pickUpWeapon(WeaponCard w) throws IllegalHavingException {
         if (w == null) throw new IllegalArgumentException("Passato un valore nullo");
         if (weapons.size() > 4) {
-            throw new Exception("Il giocatore ha già 4 armi in mano");
+            throw new IllegalHavingException("Il giocatore ha già 4 armi in mano");
         } else{
             weapons.add(tile.pickUpWeaponCard(w));
         }

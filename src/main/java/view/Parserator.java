@@ -166,6 +166,12 @@ public class Parserator implements Runnable {
                 }
                 return;
             }
+            if(command.toLowerCase().contains("sprog") || command.toLowerCase().contains("distruttore") || command.toLowerCase().contains("dozer")|| command.toLowerCase().equals("violetta")||command.toLowerCase().contains("banshee")){
+                List<String> toadd = new ArrayList<>();
+                toadd.addAll(Arrays.asList(command.split(",")));
+                commandLauncher.addCommand(new ChooseTargetCommand(token, toadd));
+                return;
+            }
 
 
             throw new IllegalArgumentException();

@@ -570,11 +570,10 @@ public class Tile implements ChangesObservable {
      *
      * @param desired weapon that has to be picked up
      * @return the desired weapon
-     * @throws Exception the tile is not a weapon tile, cant pick up a weapon
      */
-    public WeaponCard pickUpWeaponCard(WeaponCard desired) throws Exception {
+    public WeaponCard pickUpWeaponCard(WeaponCard desired){
         boolean found = false;
-        if (!weaponTile) throw new Exception("this is not a weapon tile");
+        if (!weaponTile) throw new RuntimeException("this is not a weapon tile");
         if (desired == null) throw new NullPointerException("The argument passed is null");
 
         for (WeaponCard w : weapons) {
@@ -584,7 +583,7 @@ public class Tile implements ChangesObservable {
             }
         }
 
-        if (!found) throw new Exception("The weapon was not in the list");
+        if (!found) throw new RuntimeException("The weapon was not in the list");
 
         notifyAllObserver();
         return desired;
