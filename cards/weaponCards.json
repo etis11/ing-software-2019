@@ -153,8 +153,8 @@
         },
         "canMoveShooter": false,
         "numStepsShooter": 0,
-        "canMoveTarget": false,
-        "numStepsTarget": 0,
+        "canMoveTarget": true,
+        "numStepsTarget": 2,
         "strategy": {
           "type": "SeeStrategy",
           "param": null
@@ -175,8 +175,8 @@
               "green": 0
             },
             "activated": false,
-            "canMove": false,
-            "steps": 0,
+            "canMove": true,
+            "steps": 2,
             "alreadyMoved": false
           },
           {
