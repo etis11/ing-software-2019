@@ -152,6 +152,20 @@ public class Parserator implements Runnable {
                     return;
                 }
             }
+            if (isWeapon(command)){
+                commandLauncher.addCommand(new ReloadCommand(token, command));
+                return;
+            }
+            if(command.contains("opt")){
+                String[] splittedCommand = command.split(" ");
+                if(splittedCommand[0].equals("opt")){
+                    commandLauncher.addCommand(new ChooseOptEffectCommand(token, splittedCommand[1]));
+                }
+                else {
+                    commandLauncher.addCommand(new ChooseOptEffectCommand(token, splittedCommand[0]));
+                }
+                return;
+            }
 
 
             throw new IllegalArgumentException();

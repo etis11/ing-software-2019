@@ -24,6 +24,7 @@ public class CommandExecutor {
     private final int seconds = 1;
     private ShootState shootState;
     private WeaponCard weaponToUse;
+    private List<OptionalEffect> opt;
 
     /**
      * gameManager is a reference to the model due to access to the match and lobby variables
@@ -40,6 +41,7 @@ public class CommandExecutor {
         this.shootState = ShootState.BASE;
         this.launcher = launcherInterface;
         this.weaponToUse = null;
+        this.opt = new ArrayList<>();
     }
 
 
@@ -286,7 +288,8 @@ public class CommandExecutor {
             if (owner != currentPlayer) {
                 userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
             } else {
-                if(currentPlayer.getState().getName().equals("Run")||currentPlayer.getState().getName().equals("PickUp")||currentPlayer.getState().getName().equals("PickUpPlus")) {
+                String state = currentPlayer.getState().getName();
+                if(state.equals("Run")||state.equals("PickUp")||state.equals("PickUpPlus")|| state.equals("Shoot")||state.equals("ShootPlus")) {
                     if (!currentPlayer.getState().canRun() && currentPlayer.getState().getRemainingSteps() < command.getMoves().size()) {
                         userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non hai abbastanza mosse rimanenti"));
                     } else {
@@ -325,6 +328,9 @@ public class CommandExecutor {
                                 }
                             } else if (currentPlayer.getState().canPickUp() && currentPlayer.getTile().canContainWeapons() && (currentPlayer.getState().getName().equals("PickUp")|| currentPlayer.getState().getName().equals("PickUpPlu"))) {
                                 userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Seleziona quale arma raccogliere", currentPlayer));
+                            }else if(currentPlayer.getState().canShoot() && shootState.equals(ShootState.ASKEDSHOOT)&&(currentPlayer.getState().getName().equals("Shoot") ||currentPlayer.getState().getName().equals("ShootPlus")) ){
+                                userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Seleziona con quale arma sparare", currentPlayer));
+                                System.out.println(currentPlayer.getOldTile());
                             }
                         } catch (NotValidMovesException e) {
                             currentPlayer.getState().resetRemainingSteps();
@@ -390,19 +396,18 @@ public class CommandExecutor {
                                 else {
                                     try {
                                         currentPlayer.pickUpWeapon(weaponCard);
-                                    } catch (Exception e) {
-                                        userJsonReceiver.sendJson(jsonCreator.createJsonWithError("hai più armi di quante consentite, scegline una da scartare tra: " + currentPlayer.weaponsToString()));
-                                    } finally {
                                         String message = currentPlayer.getName()+" ha raccolto: " + weaponCard.getName();
                                         for (JsonReceiver js : command.getAllReceivers()) {
                                             notifyToAllExceptCurrent(js, userJsonReceiver, message);
                                         }
-                                       userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Hai raccolto " + weaponCard.getName(), currentPlayer));
+                                        userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Hai raccolto " + weaponCard.getName(), currentPlayer));
+                                        //decrement moves of player and return to action selector
+                                        command.endCommandToAction(gameManager);
+                                    } catch (Exception e) {
+                                        userJsonReceiver.sendJson(jsonCreator.createJsonWithError("hai più armi di quante consentite, scegline una da scartare tra: " + currentPlayer.weaponsToString()));
                                     }
-
                                 }
-                                //decrement moves of player and return to action selector
-                                command.endCommandToAction(gameManager);
+
                             }
                         }
                         else {
@@ -541,11 +546,13 @@ public class CommandExecutor {
                            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Quest'arma non è carica scegline una carica"));
                        }
                     }
-                    if(weaponToUse.getAdvancedEffect()!=null){
-                        userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Scegli se vuoi usare gli effetti opzionali e quali", currentPlayer));
+                    //verify if the current player can use an optional effect or if is present
+                    if(weaponToUse.canOpt(currentPlayer)){
+                        System.out.println(weaponToUse.getBaseEffect().get(0).getOptionalEffects());
+                        userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Scegli se vuoi usare gli effetti opzionali e quali: no opt, tutti opt o opt + il numero da 0 a "+(weaponToUse.getBaseEffect().get(0).getOptionalEffects().size()-1), currentPlayer));
                     }
                     else{
-                        if(weaponToUse.getBaseEffect().get(0).canMoveShooter()){
+                        if(weaponToUse.getBaseEffect().get(0).canMoveShooter() && weaponToUse.getAdvancedEffect()!= null && weaponToUse.getAdvancedEffect().size()>0 && weaponToUse.getAdvancedEffect().get(0).canMoveShooter()){
                             userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Scegli se vuoi muoverti con l'effetto base", currentPlayer));
                         }
                         else{
@@ -562,6 +569,56 @@ public class CommandExecutor {
             userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La partita non è ancora iniziata"));
         }
         jsonCreator.reset();
+    }
+
+    public void execute(ChooseOptEffectCommand command) throws IOException {
+        boolean gameHasStarted = hasMatchStarted(gameManager);
+        JsonReceiver userJsonReceiver = command.getJsonReceiver();
+        //verify if game started
+        if (gameHasStarted) {
+            Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
+            Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
+            //verify if the owner is the current player
+            if (owner != currentPlayer) {
+                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
+            }
+            else{
+                if(shootState.equals(ShootState.CHOSENWEAPON)&& weaponToUse.canOpt(currentPlayer)){
+                    String message;
+
+                    if(command.getOpt().equals("tutti")) {
+                        if (currentPlayer.canPayAll(weaponToUse.getBaseEffect().get(0).getOptionalEffects())){
+                            opt.addAll(weaponToUse.getBaseEffect().get(0).getOptionalEffects());
+                            currentPlayer.payOpt(weaponToUse.getBaseEffect().get(0).getOptionalEffects());
+                            message = "Tutti gli effetti opzionali sono stati impostati";
+                            shootState = ShootState.CHOSENEFFECT;
+                        }
+                        else{
+                            message = "Non puoi pagare tutti gli effetti opzionali, seleziona solo quelli ammessi";
+                        }
+                    }else if(!command.getOpt().equals("no")){
+                        if (currentPlayer.canPay(weaponToUse.getBaseEffect().get(0).getOptionalEffects().get(Integer.parseInt(command.getOpt())).getCost())) {
+                            opt.add(weaponToUse.getBaseEffect().get(0).getOptionalEffects().get(Integer.parseInt(command.getOpt())));
+                            currentPlayer.payOpt(weaponToUse.getBaseEffect().get(0).getOptionalEffects().get(Integer.parseInt(command.getOpt())));
+                            message = "L'effetto opzionale selezionato è stato impostato";
+                            shootState = ShootState.CHOSENEFFECT;
+                        }
+                        else{
+                            message = "Non puoi l'effetto opzionali, seleziona solo quelli ammessi";
+                        }
+                    }
+                    userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson(message, currentPlayer));
+                }
+                else{
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non sei nella fase di scelta degli effetti opzionali"));
+                }
+            }
+
+        } else {
+            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La partita non è ancora iniziata"));
+        }
+        jsonCreator.reset();
+
     }
 
     public void execute(SetEffectPhraseCommand command) throws IOException {
@@ -955,4 +1012,6 @@ public class CommandExecutor {
             }
         }
     }
+
+
 }
