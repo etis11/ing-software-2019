@@ -500,6 +500,15 @@ public class Player implements ChangesObservable{
         playerBoard.getLoader().pay(effect.getCost());
     }
 
+    public WeaponCard hasWeapon(String name){
+        for (WeaponCard wc: weapons){
+            if(wc.getName().equals(name)){
+                return wc;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return "Player{" +

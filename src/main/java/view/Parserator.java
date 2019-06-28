@@ -152,6 +152,13 @@ public class Parserator implements Runnable {
                     return;
                 }
             }
+            if(command.toLowerCase().contains("scarta")){
+                String[] splittedCommand = command.split(" ",2);
+                if(isWeapon(splittedCommand[1])) {
+                    commandLauncher.addCommand(new ThrowWeaponCommand(token, splittedCommand[1]));
+                    return;
+                }
+            }
             if (isWeapon(command)){
                 commandLauncher.addCommand(new ReloadCommand(token, command));
                 return;

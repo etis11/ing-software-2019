@@ -449,6 +449,43 @@ public class CommandExecutor {
         jsonCreator.reset();
     }
 
+    public void execute(ThrowWeaponCommand command) throws IOException {
+        boolean gameHasStarted = hasMatchStarted(gameManager);
+        JsonReceiver userJsonReceiver = command.getJsonReceiver();
+        //verify if game started
+        if (gameHasStarted) {
+            Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
+            Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
+            //verify if the owner is the current player
+            if (owner != currentPlayer) {
+                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
+            } else {
+                if(currentPlayer.getWeapons().size()<4 && (currentPlayer.getState().getName().equals("PickUp")||currentPlayer.getState().getName().equals("PickUpPlus"))){
+                    WeaponCard toThrow = currentPlayer.hasWeapon(command.getWeaponToThrow());
+                    if(toThrow!=null){
+                        currentPlayer.getTile().putWeaponCard(toThrow);
+                        String message = currentPlayer.getName()+" ha scartato: "+command.getWeaponToThrow();
+                        for (JsonReceiver js : command.getAllReceivers()) {
+                            notifyToAllExceptCurrent(js, userJsonReceiver, message);
+                        }
+                        userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Hai scartato: "+command.getWeaponToThrow(),currentPlayer));
+                    }
+                    else{
+                        userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non hai quest'arma"));
+                    }
+                }
+                else{
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non devi scartare nessun'arma"));
+                }
+            }
+        }
+        else {
+            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La partita non è ancora iniziata"));
+        }
+        jsonCreator.reset();
+
+    }
+
     public void execute(ReloadCommand command) throws IOException {
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
