@@ -7,6 +7,7 @@ import model.clientModel.SemplifiedGame;
 import network.RMI.ServerRMIInterface;
 import network.Socket.CommandLauncherProxySocket;
 import network.Socket.JsonRouterSocket;
+import network.TokenRegistry;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -94,24 +95,31 @@ public class CLILauncher {
                 token = CLI.getUserInputString();
                 output.println(token);
                 output.flush();
-                token = input.readLine();
-                CLI.displayText("TOKEN: " + token);
-                ClientSingleton.getInstance().setToken(token);
-                //lettura della routine di username
-                boolean ok = false;
-                while(!ok){
-                    //inserisci uno username
-                    CLI.displayText(input.readLine());
-                    String possibleName = CLI.getUserInputString();
-                    output.println(possibleName);
-                    output.flush();
-                    String serverResponse = input.readLine();
-                    if (serverResponse.equals("OK")){
-                        ok = true;
-                        CLI.displayText("Username accettato");
-                    }
-                    else{
-                        CLI.displayText(serverResponse);
+                String tokenResponse;
+                tokenResponse = input.readLine();
+                if (tokenResponse.equals("TOKEN OK")){
+                    ClientSingleton.getInstance().setToken(token);
+                }
+                else{
+                    token = tokenResponse;
+                    CLI.displayText("TOKEN: " + token);
+                    ClientSingleton.getInstance().setToken(token);
+                    //lettura della routine di username
+                    boolean ok = false;
+                    while(!ok){
+                        //inserisci uno username
+                        CLI.displayText(input.readLine());
+                        String possibleName = CLI.getUserInputString();
+                        output.println(possibleName);
+                        output.flush();
+                        String serverResponse = input.readLine();
+                        if (serverResponse.equals("OK")){
+                            ok = true;
+                            CLI.displayText("Username accettato");
+                        }
+                        else{
+                            CLI.displayText(serverResponse);
+                        }
                     }
                 }
             }
@@ -134,6 +142,7 @@ public class CLILauncher {
             if (jsonSocketReceiver == null) throw new RuntimeException("the json socket receiver is null");
             new Thread(jsonSocketReceiver).start();
             startCLI(CLI, cmdLauncher);
+            System.out.println("CLI lanciata");
         }
         else{
             cmdLauncher = new CommandContainer() {

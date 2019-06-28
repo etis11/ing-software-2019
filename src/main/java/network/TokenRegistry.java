@@ -32,7 +32,7 @@ public class TokenRegistry {
      */
     private  final ConcurrentMap<JsonReceiver, User> receiverUser;
 
-    private final ConcurrentMap<String, String> tokenToUsername;
+    private final Map<String, String> tokenToUsername;
 
 
 
@@ -40,7 +40,7 @@ public class TokenRegistry {
         associatonTokenReceiver  = new ConcurrentHashMap<>();
         registeredTokens = new ArrayList<>(10);
         receiverUser = new ConcurrentHashMap<>();
-        tokenToUsername = new ConcurrentHashMap<>();
+        tokenToUsername = new HashMap<>();
     }
 
     /**
@@ -99,7 +99,11 @@ public class TokenRegistry {
      * @return user, can be null
      */
     public String getUsernameFromToken(String token){
-        return tokenToUsername.get(token);
+        System.out.println("prima tokenToUsername     " + tokenToUsername);
+        System.out.println("chiave: " + token);
+        String username = tokenToUsername.get(token);
+        System.out.println("dopo token to username" + username);
+        return username;
     }
 
 
@@ -140,6 +144,7 @@ public class TokenRegistry {
      * @param username value
      */
     public void associateTokenAndUser(String token, String username){
+        System.out.println(tokenToUsername.values());
         tokenToUsername.put(token, username);
         tokenRegistryLogger.log(Level.INFO, "Associated token and user " + username);
 
