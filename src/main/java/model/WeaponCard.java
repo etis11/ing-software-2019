@@ -211,6 +211,40 @@ Method used to set an advanced effect
         return false;
     }
 
+    public int getBluePickCost(){
+        int toReturn = 0;
+        if(reloadCost.size()>1){
+            for(int i=1; i<reloadCost.size();i++){
+                if(reloadCost.get(i).equals("blue")){
+                    toReturn++;
+                }
+            }
+        }
+        return toReturn;
+    }
+    public int getRedPickCost(){
+        int toReturn = 0;
+        if(reloadCost.size()>1){
+            for(int i=1; i<reloadCost.size();i++){
+                if(reloadCost.get(i).equals("red")){
+                    toReturn++;
+                }
+            }
+        }
+        return toReturn;
+    }
+    public int getYellowPickCost(){
+        int toReturn = 0;
+        if(reloadCost.size()>1){
+            for(int i=1; i<reloadCost.size();i++){
+                if(reloadCost.get(i).equals("yellow")){
+                    toReturn++;
+                }
+            }
+        }
+        return toReturn;
+    }
+
     /**
      * Two weaponsCard are equals if they have the same name
      *

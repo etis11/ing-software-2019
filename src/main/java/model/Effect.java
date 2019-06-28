@@ -117,7 +117,7 @@ public class Effect {
     /**
      * This method sums the damages and the marks of the optional effect in the current effect.
      */
-    public void applyOptionalEffect() {
+    public void applyOptionalEffect(List<OptionalEffect> optionalEffects) {
         String[] colors = {"red", "blue", "yellow"};
         for (OptionalEffect o : optionalEffects) {
             if (o.isActivated()) {

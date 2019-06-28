@@ -368,7 +368,6 @@ public class CommandExecutor {
     }
 
     public void execute(PickUpCommand command) throws IOException {
-        //todo pgamento armi
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
@@ -422,7 +421,12 @@ public class CommandExecutor {
                                         //decrement moves of player and return to action selector
                                         command.endCommandToAction(gameManager);
                                     } catch (IllegalHavingException e) {
-                                        userJsonReceiver.sendJson(jsonCreator.createJsonWithError("hai più armi di quante consentite, scegline una da scartare tra: " + currentPlayer.weaponsToString()));
+                                        userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Hai più armi di quante consentite, scegline una da scartare tra: " + currentPlayer.weaponsToString()));
+                                    }
+                                    catch (InsufficientAmmoException e){
+                                        //return to old state
+                                        returnOldState(currentPlayer, userJsonReceiver, "Non hai sufficienti munizioni per raccogliere l'arma");
+                                        return;
                                     }
                                 }
 
@@ -655,16 +659,14 @@ public class CommandExecutor {
                         }
                         if(base == null){
                             if(!weaponToUse.getBaseEffect().get(0).canMoveTarget() && weaponToUse.getBaseEffect().get(0).getStrategy().areTargetValid(currentPlayer, targets)) {
-                                shootState = ShootState.APPLYEFFECTDAMAGE;
-                                //todo apply damage
+                                applyDamage(currentPlayer);
                             } else if(weaponToUse.getBaseEffect().get(0).canMoveTarget()){
                                 shootState = ShootState.TARGETASKED;
                             }
                             userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Target impostati corrrettamente", currentPlayer));
-                        }else if (base!= null){
+                        }else if (base != null){
                             if(!base.canMoveTarget() && base.getStrategy().areTargetValid(currentPlayer, targets)) {
-                                shootState = ShootState.APPLYEFFECTDAMAGE;
-                                //todo apply damage
+                                applyDamage(currentPlayer);
                             }
                             else if(base.canMoveTarget()){
                                 shootState = ShootState.TARGETASKED;
@@ -742,10 +744,45 @@ public class CommandExecutor {
                     if((base == null && !weaponToUse.getBaseEffect().get(0).canMoveTarget())||(base != null && !base.canMoveTarget())||canOptionalTargetMove()){
                         //verify cannone
                         if(weaponToUse.getName().equals("Cannone vortex")){
-
+                            //todo
                         }
                         else{
-                            Tile oldTargetTile = targets.get(0).getTile();
+                            //verify leght of move
+                            targets.get(0).setOldTile(targets.get(0).getTile());
+                            int moves;
+                            if(base == null){
+                                moves = weaponToUse.getBaseEffect().get(0).getNumStepsTarget();
+                            }else if(base != null){
+                                moves = base.getNumStepsTarget();
+                            }else{
+                                //todo da optional
+                                moves = 1;
+                            }
+                            //verify if the moves passed are correct
+                            if(command.getMoves().size()<= moves){
+                                try {
+                                    currentPlayer.move(new Movement(new ArrayList<>(command.getMoves())));
+                                } catch (NotValidMovesException e) {
+                                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Movimento non valido"));
+                                }
+                            }
+                            //verify if now target are valid
+                            if((base == null && weaponToUse.getBaseEffect().get(0).getStrategy().areTargetValid(currentPlayer, targets))||(base != null && base.getStrategy().areTargetValid(currentPlayer, targets))){
+                                //todo verify for optional
+                                shootState = ShootState.APPLYEFFECTDAMAGE;
+                                //todo apply damage
+                            }
+                            else{
+                                if(!weaponToUse.getName().equals("Cannone vortex")){
+                                    resetShoot();
+                                    command.endCommandToAction(gameManager);
+                                    undoMovement(targets.get(0), userJsonReceiver, "Non puoi colpire nessuno dopo lo spostamento del bersaglio, hai perso la mossa");
+                                }
+                                else{
+                                    //todo per tutti
+                                }
+                            }
+
                         }
                     }
                 }
@@ -1223,8 +1260,16 @@ public class CommandExecutor {
 
     private boolean canOptionalTargetMove(){
         for(OptionalEffect opts: opt){
-//            if(opts.c)
+//            if(opts)
         }
         return true;
+    }
+
+    private void applyDamage(Player currentPlayer){
+        shootState = ShootState.APPLYEFFECTDAMAGE;
+        //todo apply damage, possono essere più di uno?
+        weaponToUse.getBaseEffect().get(0).applyOptionalEffect(opt);
+        DamageTransporter dt = new DamageTransporter(targets.get(0), currentPlayer, weaponToUse.getBaseEffect().get(0).getDamage().get("red"),weaponToUse.getBaseEffect().get(0).getMarks().get("red"));
+        targets.get(0).getPlayerBoard().calculateDamage(dt);
     }
 }

@@ -2,6 +2,7 @@ package model;
 
 
 import exceptions.IllegalHavingException;
+import exceptions.InsufficientAmmoException;
 import exceptions.NotValidMovesException;
 import javafx.scene.paint.Color;
 
@@ -305,11 +306,19 @@ public class Player implements ChangesObservable{
      * @param w weapon that has to be picked
      * @throws IllegalHavingException if the player has already 4 weapons
      */
-    public void pickUpWeapon(WeaponCard w) throws IllegalHavingException {
+    public void pickUpWeapon(WeaponCard w) throws IllegalHavingException, InsufficientAmmoException {
         if (w == null) throw new IllegalArgumentException("Passato un valore nullo");
         if (weapons.size() > 4) {
             throw new IllegalHavingException("Il giocatore ha già 4 armi in mano");
         } else{
+            if(w.getReloadCost().size()>1){
+                if(canPay(w.getReloadCost().subList(1, w.getReloadCost().size()))){
+                    playerBoard.getLoader().ammoToPool(w.getBluePickCost(), w.getRedPickCost(), w.getYellowPickCost());
+                }
+                else{
+                    throw new InsufficientAmmoException("not sufficient ammo");
+                }
+            }
             weapons.add(tile.pickUpWeaponCard(w));
         }
 
