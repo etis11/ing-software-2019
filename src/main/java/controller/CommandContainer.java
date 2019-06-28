@@ -2,6 +2,7 @@ package controller;
 
 import controller.commandpack.Command;
 
+import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 

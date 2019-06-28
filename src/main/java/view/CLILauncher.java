@@ -90,7 +90,9 @@ public class CLILauncher {
                 mySocket = new Socket("localhost", 8000);
                 BufferedReader input = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
                 PrintWriter output = new PrintWriter(mySocket.getOutputStream());
-                output.write(ClientSingleton.getInstance().getToken() + "\n");
+                CLI.displayText("Inserisci un token.");
+                token = CLI.getUserInputString();
+                output.println(token);
                 output.flush();
                 token = input.readLine();
                 CLI.displayText("TOKEN: " + token);
@@ -119,8 +121,8 @@ public class CLILauncher {
             }
             if (mySocket == null) throw  new RuntimeException("null socket");
             try{
-                cmdLauncher = new CommandLauncherProxySocket(mySocket);
-                jsonSocketReceiver = new JsonRouterSocket(mySocket, receiver);
+                cmdLauncher = new CommandLauncherProxySocket(mySocket, token);
+                jsonSocketReceiver = new JsonRouterSocket(mySocket, receiver, token);
             }
             catch (IOException i){
                 CLI.displayText(AnsiColor.RED + ">>> Problemi con il socket" + AnsiColor.RESET);
