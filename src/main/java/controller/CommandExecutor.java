@@ -335,7 +335,9 @@ public class CommandExecutor {
                             }else if(currentPlayer.getState().canShoot() && shootState.equals(ShootState.ASKEDSHOOT)&&(currentPlayer.getState().getName().equals("Shoot") ||currentPlayer.getState().getName().equals("ShootPlus")) ){
                                 userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Seleziona con quale arma sparare", currentPlayer));
                                 System.out.println(currentPlayer.getOldTile());
-                            }else if (currentPlayer.getState().canShoot() && shootState.equals(ShootState.CHOSENWEAPON));//todo
+                            }else if (currentPlayer.getState().canShoot() && shootState.equals(ShootState.CHOOSEBASE)){
+                                //todo
+                            }
                         } catch (NotValidMovesException e) {
                             currentPlayer.getState().resetRemainingSteps();
                             userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Movimento non valido"));
@@ -550,19 +552,13 @@ public class CommandExecutor {
                            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Quest'arma non è carica scegline una carica"));
                        }
                     }
-                    //verify if the current player can use an optional effect or if is present
-                    if(weaponToUse.canOpt(currentPlayer)){
-                        System.out.println(weaponToUse.getBaseEffect().get(0).getOptionalEffects());
-                        userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Scegli se vuoi usare gli effetti opzionali e quali: no opt, tutti opt o opt + il numero da 0 a "+(weaponToUse.getBaseEffect().get(0).getOptionalEffects().size()-1), currentPlayer));
+                    if(weaponToUse.getAdvancedEffect()!= null && !weaponToUse.getAdvancedEffect().isEmpty()) {
+                        userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Scegli se usare l'effetto base o quello avanzato", currentPlayer));
                     }
                     else{
-                        if(weaponToUse.getBaseEffect().get(0).canMoveShooter() && weaponToUse.getAdvancedEffect()!= null && weaponToUse.getAdvancedEffect().size()>0 && weaponToUse.getAdvancedEffect().get(0).canMoveShooter()){
-                            userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Scegli se vuoi muoverti con l'effetto base", currentPlayer));
-                        }
-                        else{
-                            userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Scegli chi vuoi colpire", currentPlayer));
-                        }
+                        askOptional(currentPlayer, userJsonReceiver);
                     }
+
                 }
                 else{
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non sei nella fase di scelta dell'arma"));
@@ -669,7 +665,7 @@ public class CommandExecutor {
                     if(command.getTypeBase().equals("avanzato")){
                         base = weaponToUse.getAdvancedEffect().get(0);
                     }
-                    shootState = ShootState.CHOOSEBASE;
+                    askOptional(currentPlayer, userJsonReceiver);
                 }
                 else{
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non sei nella fase di scelta dell'efetto avanzato"));
@@ -1069,6 +1065,23 @@ public class CommandExecutor {
         for (JsonReceiver js : allReceivers) {
             if (js != toExclude) {
                 js.sendJson(jsonCreator.createJsonWithMessage(message));
+            }
+        }
+    }
+
+    private void askOptional(Player currentPlayer, JsonReceiver userJsonReceiver) throws IOException {
+        shootState = ShootState.CHOOSEBASE;
+        //verify if the current player can use an optional effect or if is present
+        if(weaponToUse.canOpt(currentPlayer)){
+            System.out.println(weaponToUse.getBaseEffect().get(0).getOptionalEffects());
+            userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Scegli se vuoi usare gli effetti opzionali e quali: no opt, tutti opt o opt + il numero da 0 a "+(weaponToUse.getBaseEffect().get(0).getOptionalEffects().size()-1), currentPlayer));
+        }
+        else{
+            if(weaponToUse.getBaseEffect().get(0).canMoveShooter() && weaponToUse.getAdvancedEffect()!= null && weaponToUse.getAdvancedEffect().size()>0 && weaponToUse.getAdvancedEffect().get(0).canMoveShooter()){
+                userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Scegli se vuoi muoverti con l'effetto base", currentPlayer));
+            }
+            else{
+                userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Scegli chi vuoi colpire", currentPlayer));
             }
         }
     }
