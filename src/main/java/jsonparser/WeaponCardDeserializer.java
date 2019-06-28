@@ -141,13 +141,13 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
 
             try {
                 if(effect.has("optionalEffects")){
-                    for (JsonElement oe : effect.get("optionalEffects").getAsJsonArray()) {
+                   // for (JsonElement oe : effect.get("optionalEffects").getAsJsonArray()) {
                         JsonArray optionalEffectJson = effect.get("optionalEffects").getAsJsonArray();
                         for (JsonElement optionalJson : optionalEffectJson) {
                             OptionalEffect optionalEffect = gson.fromJson(optionalJson, OptionalEffect.class);
                             toAdd.getOptionalEffects().add(optionalEffect);
                         }
-                    }
+                    //}
                 }
             } catch (Exception e) {
                 System.out.println("qua devo aggiungere qualcosa se no sonar si imppapa");

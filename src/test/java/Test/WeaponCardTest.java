@@ -84,7 +84,8 @@ public class WeaponCardTest {
         System.out.println(weaponCards.get(6).getAdvancedEffect().get(0).toString());
 
         System.out.println(weaponCards.get(1).getName());
-        System.out.println(weaponCards.get(3).getBaseEffect().get(0).getOptionalEffects());
+        for(int i=0;i<21;i++){
+        System.out.println("size qua:"+weaponCards.get(i).getBaseEffect().get(0).getOptionalEffects().size());}
         System.out.println(weaponCards.size());
 
         for(WeaponCard weaponCard : weaponCards){

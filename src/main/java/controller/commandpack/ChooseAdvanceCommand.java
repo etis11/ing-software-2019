@@ -4,11 +4,11 @@ import controller.CommandExecutor;
 
 import java.io.IOException;
 
-public class ChooseAdvance extends AbstractCommand {
+public class ChooseAdvanceCommand extends AbstractCommand {
 
     private String typeBase;
 
-    public ChooseAdvance(String token, String typeBase){
+    public ChooseAdvanceCommand(String token, String typeBase){
         super(token);
         this.typeBase = typeBase;
     }
