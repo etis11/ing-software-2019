@@ -74,7 +74,7 @@ public class Parserator implements Runnable {
         try {
             switch (realCommand.toLowerCase()) {
                 case "help":
-                    CLI.displayText(command);
+                    CLI.displayText(commandi);
                     return;
                 case "quit":
                     quit = true;
