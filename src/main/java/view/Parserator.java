@@ -169,8 +169,10 @@ public class Parserator implements Runnable {
             if(command.toLowerCase().contains("sprog") || command.toLowerCase().contains("distruttore") || command.toLowerCase().contains("dozer")|| command.toLowerCase().equals("violetta")||command.toLowerCase().contains("banshee")){
                 List<String> toadd = new ArrayList<>();
                 toadd.addAll(Arrays.asList(command.split(",")));
-                commandLauncher.addCommand(new ChooseTargetCommand(token, toadd));
-                return;
+                if(isNameValid(toadd)) {
+                    commandLauncher.addCommand(new ChooseTargetCommand(token, toadd));
+                    return;
+                }
             }
 
 
@@ -221,5 +223,14 @@ public class Parserator implements Runnable {
     }
     private boolean isValidColor(String color){
         return color.equals("blu") || color.equals("rosso")|| color.equals("giallo");
+    }
+
+    private boolean isNameValid(List<String> name){
+        for (String str: name){
+            if(!str.equals("sprog") && !str.equals("dozer") &&!str.equals("violetta") &&!str.equals("distruttore") && !str.equals("banshee")){
+                return false;
+            }
+        }
+        return true;
     }
 }

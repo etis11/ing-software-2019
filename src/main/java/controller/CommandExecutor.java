@@ -368,6 +368,7 @@ public class CommandExecutor {
     }
 
     public void execute(PickUpCommand command) throws IOException {
+        //todo pgamento armi
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
@@ -648,10 +649,38 @@ public class CommandExecutor {
             }
             else {
                 if ((shootState.equals(ShootState.CHOSENWEAPON) && weaponToUse.getBaseEffect().get(0).getOptionalEffects().isEmpty())|| shootState.equals(ShootState.MOVEEFFECTBASE) || shootState.equals(ShootState.MOVEEFFECTOPTIONAL)) {
-                    for(String str: command.getTarget()){
-                        targets.add(gameManager.getMatch().getPlayerFromName(str));
+                    if(verifyTarget(command.getTarget(), gameManager.getMatch().getPlayers())) {
+                        for (String str : command.getTarget()) {
+                            targets.add(gameManager.getMatch().getPlayerFromName(str));
+                        }
+                        if(base == null){
+                            if(!weaponToUse.getBaseEffect().get(0).canMoveTarget() && weaponToUse.getBaseEffect().get(0).getStrategy().areTargetValid(currentPlayer, targets)) {
+                                shootState = ShootState.APPLYEFFECTDAMAGE;
+                                //todo apply damage
+                            } else if(weaponToUse.getBaseEffect().get(0).canMoveTarget()){
+                                shootState = ShootState.TARGETASKED;
+                            }
+                            userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Target impostati corrrettamente", currentPlayer));
+                        }else if (base!= null){
+                            if(!base.canMoveTarget() && base.getStrategy().areTargetValid(currentPlayer, targets)) {
+                                shootState = ShootState.APPLYEFFECTDAMAGE;
+                                //todo apply damage
+                            }
+                            else if(base.canMoveTarget()){
+                                shootState = ShootState.TARGETASKED;
+                            }
+                            userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Target impostati corrrettamente", currentPlayer));
+                        }
+                        //todo optional
+                        else{
+                            resetShoot();
+                            command.endCommandToAction(gameManager);
+                            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("I target che hai inserito non puoi colpirli, hai perso la mossa"));
+                        }
+
+                    }else{
+                        userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Target inseriti non validi"));
                     }
-                    shootState = ShootState.TARGETASKED;
                 }
                 else{
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non sei nella fase di scelta dei target"));
@@ -689,6 +718,39 @@ public class CommandExecutor {
                 }
                 else{
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non sei nella fase di scelta dell'efetto avanzato"));
+                }
+            }
+        } else {
+            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La partita non è ancora iniziata"));
+        }
+        jsonCreator.reset();
+    }
+
+    public void execute(MoveTargetCommand command) throws IOException {
+        boolean gameHasStarted = hasMatchStarted(gameManager);
+        JsonReceiver userJsonReceiver = command.getJsonReceiver();
+        //verify if game started
+        if (gameHasStarted) {
+            Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
+            Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
+            //verify if the owner is the current player
+            if (owner != currentPlayer) {
+                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
+            }
+            else {
+                if(shootState.equals(ShootState.TARGETASKED)){
+                    if((base == null && !weaponToUse.getBaseEffect().get(0).canMoveTarget())||(base != null && !base.canMoveTarget())||canOptionalTargetMove()){
+                        //verify cannone
+                        if(weaponToUse.getName().equals("Cannone vortex")){
+
+                        }
+                        else{
+                            Tile oldTargetTile = targets.get(0).getTile();
+                        }
+                    }
+                }
+                else{
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non sei nella fase di scelta movimento dell'avversario"));
                 }
             }
         } else {
@@ -1144,5 +1206,25 @@ public class CommandExecutor {
         else{
             shootState =ShootState.MOVEEFFECTBASE;
         }
+    }
+
+    private boolean verifyTarget(List<String> name, List<Player> players){
+        List<String> playerName = new ArrayList<>();
+        for(Player pl: players){
+            playerName.add(pl.getName());
+        }
+        for(String str: name){
+            if(!playerName.contains(str)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean canOptionalTargetMove(){
+        for(OptionalEffect opts: opt){
+//            if(opts.c)
+        }
+        return true;
     }
 }
