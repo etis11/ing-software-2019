@@ -25,6 +25,7 @@ public class CommandExecutor {
     private ShootState shootState;
     private WeaponCard weaponToUse;
     private List<OptionalEffect> opt;
+    private List<Player> targets;
 
     /**
      * gameManager is a reference to the model due to access to the match and lobby variables
@@ -584,7 +585,7 @@ public class CommandExecutor {
             }
             else{
                 if(shootState.equals(ShootState.CHOSENWEAPON)&& weaponToUse.canOpt(currentPlayer)){
-                    String message;
+                    String message ="";
 
                     if(command.getOpt().equals("tutti")) {
                         if (currentPlayer.canPayAll(weaponToUse.getBaseEffect().get(0).getOptionalEffects())){
@@ -619,6 +620,30 @@ public class CommandExecutor {
         }
         jsonCreator.reset();
 
+    }
+
+    public void execute(ChooseTargetCommand command) throws IOException {
+        boolean gameHasStarted = hasMatchStarted(gameManager);
+        JsonReceiver userJsonReceiver = command.getJsonReceiver();
+        //verify if game started
+        if (gameHasStarted) {
+            Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
+            Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
+            //verify if the owner is the current player
+            if (owner != currentPlayer) {
+                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
+            }
+            else {
+                if ((shootState.equals(ShootState.CHOSENWEAPON) && weaponToUse.getBaseEffect().get(0).getOptionalEffects().isEmpty())|| shootState.equals(ShootState.MOVEEFFECTBASE) || shootState.equals(ShootState.MOVEEFFECTOPTIONAL)) {
+                    for(String str: command.getTarget()){
+                        targets.add(gameManager.getMatch().getPlayerFromName(str));
+                    }
+                }
+            }
+        } else {
+            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La partita non è ancora iniziata"));
+        }
+        jsonCreator.reset();
     }
 
     public void execute(SetEffectPhraseCommand command) throws IOException {
