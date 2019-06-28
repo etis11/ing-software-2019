@@ -106,17 +106,17 @@ public class AmmoCard {
         String yellow = "";
         String red = "";
         for(int i=0 ; i<numBlue ; i++ ){
-            blue= blue+ AnsiColor.BLUE +"YOUR SHITTY CHARACTER"+AnsiColor.RESET;
+            blue= blue+ AnsiColor.BLUE +"YOUR CHARACTER"+AnsiColor.RESET;
         }
         for(int i=0 ; i<numYellow ; i++ ){
-            yellow= yellow+AnsiColor.YELLOW +"YOUR SHITTY CHARACTER"+AnsiColor.RESET;
+            yellow= yellow+AnsiColor.YELLOW +"YOUR CHARACTER"+AnsiColor.RESET;
         }
         for(int i=0 ; i<numRed; i++ ){
-            red= red+AnsiColor.RED +"YOUR SHITTY CHARACTER"+AnsiColor.RESET;
+            red= red+AnsiColor.RED +"YOUR CHARACTER"+AnsiColor.RESET;
         }
         String drawPowerUpCharacter = "";
         if(drawPowerUp){
-            drawPowerUpCharacter= drawPowerUpCharacter+"Another Shitty Character";
+            drawPowerUpCharacter= drawPowerUpCharacter+"Another  Character";
         }
         return "AmmoCard{" +
                 "numBlue=" + blue +
