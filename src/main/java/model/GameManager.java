@@ -91,7 +91,8 @@ public class GameManager implements CreationGameObservable {
         }
 
         String mapPath = getMapFromName(mapName);
-        GameMap map = GameMap.loadMap(mapPath);
+
+        GameMap map = GameMap.loadMap(GameManager.class.getResourceAsStream(mapPath));
         //TODO aggiungere final frenzy
         match = new Match(players, numOfSkulls, map);
         match.attach(jsonCreator);
@@ -150,13 +151,13 @@ public class GameManager implements CreationGameObservable {
         // piccola media grande estrema
         switch (name){
             case "piccola":
-                return this.getClass().getResource("/maps/map1.json").getPath();
+                return "/maps/map1.json";
             case "media":
-                return this.getClass().getResource("/maps/map4.json").getPath();
+                return "/maps/map4.json";
             case "grande":
-                return this.getClass().getResource("/maps/map2.json").getPath();
+                return "/maps/map2.json";
             case "estrema":
-                return this.getClass().getResource("/maps/map3.json").getPath();
+                return "/maps/map3.json";
             default: throw new RuntimeException("No map associated to " + name);
         }
     }

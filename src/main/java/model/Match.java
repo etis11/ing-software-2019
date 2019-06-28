@@ -80,7 +80,7 @@ public class Match implements ChangesMatchObservable{
         playerNumber = players.size();
         this.skulls = skulls;
         this.players = players;
-        this.map = GameMap.loadMap(mapPath);
+        this.map = GameMap.loadMap(Match.class.getResourceAsStream(mapPath));
         currentPlayer = -1;
         deathTrack = new LinkedList<>(new LinkedList<>());
         matchObservers = new LinkedList<>();

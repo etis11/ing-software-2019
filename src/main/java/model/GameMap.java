@@ -5,9 +5,7 @@ import com.google.gson.GsonBuilder;
 import exceptions.DuplicateException;
 import jsonparser.GameMapDeserializer;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -82,7 +80,6 @@ public class GameMap {
      * @return
      */
     public static GameMap loadMap(String mapPath) {
-
         //creates the gson parser
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(GameMap.class, new GameMapDeserializer());
@@ -95,6 +92,18 @@ public class GameMap {
             LOGGER.log(Level.WARNING, f.getMessage(), f);
             return null;
         }
+
+        return customGson.fromJson(jsonFile, GameMap.class);
+        //return new GameMapDeserializer().deserialize(customGson.fromJson(jsonFile, JsonElement.class),null,null);
+    }
+
+    public static GameMap loadMap(InputStream mapFile) {
+        //creates the gson parser
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(GameMap.class, new GameMapDeserializer());
+        Gson customGson = builder.create();
+        BufferedReader jsonFile;
+        jsonFile = new BufferedReader(new InputStreamReader(mapFile));
 
         return customGson.fromJson(jsonFile, GameMap.class);
         //return new GameMapDeserializer().deserialize(customGson.fromJson(jsonFile, JsonElement.class),null,null);
