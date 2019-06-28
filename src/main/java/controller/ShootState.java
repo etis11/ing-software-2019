@@ -8,6 +8,7 @@ public enum ShootState {
     BASE(),
     ASKEDSHOOT(),
     CHOSENWEAPON(),
+    CHOOSEBASE(),
     CHOSENEFFECT(),
     MOVEEFFECTBASE(),
     MOVEEFFECTOPTIONAL(),

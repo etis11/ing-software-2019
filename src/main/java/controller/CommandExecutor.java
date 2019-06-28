@@ -26,6 +26,7 @@ public class CommandExecutor {
     private WeaponCard weaponToUse;
     private List<OptionalEffect> opt;
     private List<Player> targets;
+    private Effect base;
 
     /**
      * gameManager is a reference to the model due to access to the match and lobby variables
@@ -43,6 +44,8 @@ public class CommandExecutor {
         this.launcher = launcherInterface;
         this.weaponToUse = null;
         this.opt = new ArrayList<>();
+        this.targets = new ArrayList<>();
+        base = null;
     }
 
 
@@ -299,7 +302,7 @@ public class CommandExecutor {
                             currentPlayer.getState().decrementRemainingSteps(command.getMoves().size());
                             currentPlayer.move(new Movement(new ArrayList<>(command.getMoves())));
                             String message = currentPlayer.getName() + " si è spostato di nel tile: " + currentPlayer.getTile().getID();
-                            if (!currentPlayer.getState().canPickUp()) {
+                            if (currentPlayer.getState().getName().equals("Run")) {
                                 for (JsonReceiver js : command.getAllReceivers()) {
                                     notifyToAllExceptCurrent(js, userJsonReceiver, message);
                                 }
@@ -332,7 +335,7 @@ public class CommandExecutor {
                             }else if(currentPlayer.getState().canShoot() && shootState.equals(ShootState.ASKEDSHOOT)&&(currentPlayer.getState().getName().equals("Shoot") ||currentPlayer.getState().getName().equals("ShootPlus")) ){
                                 userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Seleziona con quale arma sparare", currentPlayer));
                                 System.out.println(currentPlayer.getOldTile());
-                            }
+                            }else if (currentPlayer.getState().canShoot() && shootState.equals(ShootState.CHOSENWEAPON));//todo
                         } catch (NotValidMovesException e) {
                             currentPlayer.getState().resetRemainingSteps();
                             userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Movimento non valido"));
@@ -642,6 +645,34 @@ public class CommandExecutor {
                 }
                 else{
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non sei nella fase di scelta dei target"));
+                }
+            }
+        } else {
+            userJsonReceiver.sendJson(jsonCreator.createJsonWithError("La partita non è ancora iniziata"));
+        }
+        jsonCreator.reset();
+    }
+
+    public void execute(ChooseAdvance command) throws IOException{
+        boolean gameHasStarted = hasMatchStarted(gameManager);
+        JsonReceiver userJsonReceiver = command.getJsonReceiver();
+        //verify if game started
+        if (gameHasStarted) {
+            Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
+            Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
+            //verify if the owner is the current player
+            if (owner != currentPlayer) {
+                userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
+            }
+            else {
+                if(shootState.equals(ShootState.CHOSENWEAPON)){
+                    if(command.getTypeBase().equals("avanzato")){
+                        base = weaponToUse.getAdvancedEffect().get(0);
+                    }
+                    shootState = ShootState.CHOOSEBASE;
+                }
+                else{
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non sei nella fase di scelta dell'efetto avanzato"));
                 }
             }
         } else {
