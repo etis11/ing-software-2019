@@ -45,7 +45,8 @@
               "green": 0
             },
             "activated": false,
-            "canMove": false,
+            "canMoveShooter": false,
+            "canMoveTarget": false,
             "steps": 0,
             "alreadyMoved": false
           }
@@ -53,8 +54,7 @@
       }
     ],
     "advancedEffect": []
-  }
-,
+  },
   {
     "NAME": "Mitragliatrice",
     "reloadCost": [
@@ -101,7 +101,8 @@
               "green": 0
             },
             "activated": false,
-            "canMove": false,
+            "canMoveShooter": false,
+            "canMoveTarget": false,
             "steps": 0,
             "alreadyMoved": false
           },
@@ -120,7 +121,8 @@
               "green": 0
             },
             "activated": false,
-            "canMove": false,
+            "canMoveShooter": false,
+            "canMoveTarget": false,
             "steps": 0,
             "alreadyMoved": false
           }
@@ -175,7 +177,8 @@
               "green": 0
             },
             "activated": false,
-            "canMove": true,
+            "canMoveShooter": false,
+            "canMoveTarget": false,
             "steps": 2,
             "alreadyMoved": false
           },
@@ -194,7 +197,8 @@
               "green": 0
             },
             "activated": false,
-            "canMove": false,
+            "canMoveShooter": false,
+            "canMoveTarget": false,
             "steps": 0,
             "alreadyMoved": false
           }
@@ -202,8 +206,7 @@
       }
     ],
     "advancedEffect": []
-  }
-,
+  },
   {
     "NAME": "Fucile al plasma",
     "reloadCost": [
@@ -248,7 +251,8 @@
               "green": 0
             },
             "activated": false,
-            "canMove": true,
+            "canMoveShooter": false,
+            "canMoveTarget": false,
             "steps": 2,
             "alreadyMoved": false
           },
@@ -267,7 +271,8 @@
               "green": 0
             },
             "activated": false,
-            "canMove": false,
+            "canMoveShooter": false,
+            "canMoveTarget": false,
             "steps": 0,
             "alreadyMoved": false
           }
@@ -275,8 +280,7 @@
       }
     ],
     "advancedEffect": []
-  }
-,
+  },
   {
     "NAME": "Fucile di precisione",
     "reloadCost": [
@@ -312,68 +316,69 @@
       }
     ],
     "advancedEffect": []
-  },{
-  "NAME": "Falce protonica",
-  "reloadCost": [
-    "blue"
-  ],
-  "baseEffect": [
-    {
-      "cost": [],
-      "moveTargetAndHitAll": false,
-      "alreadyMovedTarget": false,
-      "isGlobal": false,
-      "damage": {
-        "red": 1,
-        "blue": 1,
-        "green": 1
-      },
-      "marks": {
-        "red": 0,
-        "blue": 0,
-        "green": 0
-      },
-      "canMoveShooter": false,
-      "numStepsShooter": 0,
-      "canMoveTarget": false,
-      "numStepsTarget": 0,
-      "strategy": {
-        "type": "MeleeStrategy",
-        "param": 2
-      },
-      "optionalEffects": []
-    }
-  ],
-  "advancedEffect": [
-    {
-      "cost": [
-        "blue",
-        "red"
-      ],
-      "moveTargetAndHitAll": false,
-      "alreadyMovedTarget": false,
-      "isGlobal": false,
-      "damage": {
-        "red": 2,
-        "blue": 2,
-        "green": 2
-      },
-      "marks": {
-        "red": 0,
-        "blue": 0,
-        "green": 0
-      },
-      "canMoveShooter": false,
-      "numStepsShooter": 0,
-      "canMoveTarget": false,
-      "numStepsTarget": 0,
-      "strategy": {
-        "type": "MeleeStrategy",
-        "param": 0
+  },
+  {
+    "NAME": "Falce protonica",
+    "reloadCost": [
+      "blue"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "moveTargetAndHitAll": false,
+        "alreadyMovedTarget": false,
+        "isGlobal": false,
+        "damage": {
+          "red": 1,
+          "blue": 1,
+          "green": 1
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": 2
+        },
+        "optionalEffects": []
       }
-    }
-  ]
-},
+    ],
+    "advancedEffect": [
+      {
+        "cost": [
+          "blue",
+          "red"
+        ],
+        "moveTargetAndHitAll": false,
+        "alreadyMovedTarget": false,
+        "isGlobal": false,
+        "damage": {
+          "red": 2,
+          "blue": 2,
+          "green": 2
+        },
+        "marks": {
+          "red": 0,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "MeleeStrategy",
+          "param": 0
+        }
+      }
+    ]
+  },
   {
     "NAME": "Raggio traente",
     "reloadCost": [
@@ -482,7 +487,8 @@
               "green": 0
             },
             "activated": false,
-            "canMove": true,
+            "canMoveShooter": false,
+            "canMoveTarget": false,
             "steps": 1,
             "alreadyMoved": false
           }
@@ -756,7 +762,8 @@
               "green": 0
             },
             "activated": false,
-            "canMove": false,
+            "canMoveShooter": false,
+            "canMoveTarget": false,
             "steps": 0,
             "alreadyMoved": false
           }
@@ -811,7 +818,8 @@
               "green": 0
             },
             "activated": false,
-            "canMove": true,
+            "canMoveShooter": false,
+            "canMoveTarget": false,
             "steps": 2,
             "alreadyMoved": false
           },
@@ -830,7 +838,8 @@
               "green": 0
             },
             "activated": false,
-            "canMove": false,
+            "canMoveShooter": false,
+            "canMoveTarget": false,
             "steps": 0,
             "alreadyMoved": false
           }
@@ -944,7 +953,8 @@
               "green": 0
             },
             "activated": false,
-            "canMove": true,
+            "canMoveShooter": false,
+            "canMoveTarget": false,
             "steps": 1,
             "alreadyMoved": false
           },
@@ -963,7 +973,8 @@
               "green": 0
             },
             "activated": false,
-            "canMove": false,
+            "canMoveShooter": false,
+            "canMoveTarget": false,
             "steps": 0,
             "alreadyMoved": false
           }
