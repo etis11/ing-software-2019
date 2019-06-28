@@ -638,6 +638,10 @@ public class CommandExecutor {
                     for(String str: command.getTarget()){
                         targets.add(gameManager.getMatch().getPlayerFromName(str));
                     }
+                    shootState = ShootState.TARGETASKED;
+                }
+                else{
+                    userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non sei nella fase di scelta dei target"));
                 }
             }
         } else {
