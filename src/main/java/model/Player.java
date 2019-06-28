@@ -486,6 +486,10 @@ public class Player implements ChangesObservable{
         playerBoard.getLoader().pay(opt.getCost());
     }
 
+    public void pay(Effect effect){
+        playerBoard.getLoader().pay(effect.getCost());
+    }
+
     @Override
     public String toString() {
         return "Player{" +
