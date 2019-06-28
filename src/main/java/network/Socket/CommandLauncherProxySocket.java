@@ -17,6 +17,8 @@ public class CommandLauncherProxySocket implements CommandContainer {
     //private ObjectInputStream in;
     private final ObjectOutputStream out;
 
+    private final String token;
+
     private final int maxTries = 3;
     /**
      * creates a socker
@@ -25,14 +27,16 @@ public class CommandLauncherProxySocket implements CommandContainer {
      * @param port port on which is listening
      * @throws IOException problems while getting the input and output stream
      */
-    public CommandLauncherProxySocket(String host, int port) throws IOException {
+    public CommandLauncherProxySocket(String host, int port, String token) throws IOException {
         socket = new Socket(host, port);
         out = new ObjectOutputStream(socket.getOutputStream());
+        this.token = token;
     }
 
-    public CommandLauncherProxySocket(Socket s) throws IOException {
+    public CommandLauncherProxySocket(Socket s, String token) throws IOException {
         socket = s;
         out = new ObjectOutputStream(s.getOutputStream());
+        this.token = token;
     }
 
     /**

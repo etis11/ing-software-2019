@@ -157,6 +157,7 @@ public class Parserator implements Runnable {
             throw new IllegalArgumentException();
         } catch (RemoteException r) {
             CLI.displayText(AnsiColor.RED + "Server rmi non raggiungibile" + AnsiColor.RESET);
+            CLI.displayText("Il tuo token è: " + CLI.getToken());
             System.exit(1);
         }
     }

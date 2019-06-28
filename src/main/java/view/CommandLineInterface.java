@@ -29,6 +29,8 @@ public class CommandLineInterface extends AbstractView  {
      **/
     private Scanner fromKeyBoard;
 
+    private String token;
+
 
     /**
      * creates a cli that receives on the system.in and writes on system.out
@@ -39,6 +41,14 @@ public class CommandLineInterface extends AbstractView  {
         consoleOutput = new PrintWriter(System.out);
         fromKeyBoard = new Scanner(System.in);
 
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     /**

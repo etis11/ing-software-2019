@@ -85,7 +85,7 @@ public class MainFrame{
 
                         if (mySocket != null) {
                             try {
-                                cmdLauncher = new CommandLauncherProxySocket(mySocket);
+                                cmdLauncher = new CommandLauncherProxySocket(mySocket, "");
                             } catch (IOException i) {
                                 System.out.println(i.getMessage());
                                 i.printStackTrace();

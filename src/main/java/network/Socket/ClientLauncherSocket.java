@@ -33,7 +33,7 @@ public class ClientLauncherSocket {
         if (mySocket != null) {
             try {
 
-                cr = new CommandLauncherProxySocket(mySocket);
+                cr = new CommandLauncherProxySocket(mySocket, "");
             } catch (IOException i) {
                 System.out.println(i.getMessage());
                 i.printStackTrace();

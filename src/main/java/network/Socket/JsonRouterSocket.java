@@ -29,6 +29,8 @@ public class JsonRouterSocket implements Runnable {
 
     private final int maxTentatives = 3;
 
+    private final String token;
+
     /**
      * creates a json router socket that receives the json elements. It's associated to the client socket
      * and a json receiver
@@ -37,11 +39,12 @@ public class JsonRouterSocket implements Runnable {
      * @param receiver json receiver
      * @throws IOException If there are problems getting the socket input stream
      */
-    public JsonRouterSocket(Socket s, JsonReceiver receiver) throws IOException {
+    public JsonRouterSocket(Socket s, JsonReceiver receiver, String token) throws IOException {
         clientSocket = s;
         in = new Scanner(clientSocket.getInputStream());
         this.receiver = receiver;
         stop = false;
+        this.token = token;
     }
 
     /**
@@ -66,6 +69,7 @@ public class JsonRouterSocket implements Runnable {
             System.out.println("Chiusura socket ha lanciato un'eccezzione");
         }
         System.out.println(AnsiColor.RED + "Server non raggiungibile, in lettura dai json" + AnsiColor.RESET);
+        System.out.println(AnsiColor.RED + "Il tuo token era " + token + AnsiColor.RESET);
         System.exit(1);
     }
 
