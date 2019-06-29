@@ -3,6 +3,7 @@ package model;
 import exceptions.PickableNotPresentException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -576,10 +577,20 @@ public class Tile implements ChangesObservable {
         if (!weaponTile) throw new RuntimeException("this is not a weapon tile");
         if (desired == null) throw new NullPointerException("The argument passed is null");
 
-        for (WeaponCard w : weapons) {
-            if (w.equals(desired)) {
-                desired = w;
-                found = weapons.remove(w);
+        Iterator<WeaponCard> iter = weapons.iterator();
+//        for (WeaponCard w : weapons) {
+//            if (w.equals(desired)) {
+//                desired = w;
+//                found = weapons.remove(w);
+//            }
+//        }
+        while (iter.hasNext()) {
+            WeaponCard wc = iter.next();
+
+            if (wc.equals(desired)){
+                desired = wc;
+                found = true;
+                iter.remove();
             }
         }
 

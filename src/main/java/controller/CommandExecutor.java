@@ -72,10 +72,12 @@ public class CommandExecutor {
                     }
                     String messageToSend = "Hai terminato il tuo turno";
                     notifier.notifyMessageTargetPlayer(messageToSend, userJsonReceiver, currentPlayer);
+                    commandExecutorLogger.log(Level.INFO, "Termine turno giocatore "+currentPlayer.getName());
                     //TODO prova, non so se metterli qua o no
                     gameManager.getMatch().endRound();
                     gameManager.getMatch().newRound();
                     currentPlayer = gameManager.getMatch().getCurrentPlayer();
+                    commandExecutorLogger.log(Level.INFO, "Inizio turno giocatore "+currentPlayer.getName());
                     JsonReceiver userToBeNotifiedThrow = null;
                     for(JsonReceiver jr : command.getAllReceivers()){
                         User userToBeNotified= TokenRegistry.getInstance().getJsonUserOwner(jr);
@@ -86,6 +88,7 @@ public class CommandExecutor {
                     notifier.notifyMessageTargetPlayer("", userToBeNotifiedThrow, currentPlayer);
                     if((currentPlayer.getState().getName().equals("EndTurn")&& currentPlayer.getTile() == null) || currentPlayer.getState().getName().equals("Dead") || currentPlayer.getState().getName().equals("Overkilled")) {
                         notifier.notifyMessageTargetPlayer("scegli quale powerup scartare per spawnare", userToBeNotifiedThrow, currentPlayer);
+                        commandExecutorLogger.log(Level.INFO, "Richiesta scarto power up per spawn a "+currentPlayer.getName());
                     }
                 }
             }
@@ -126,6 +129,7 @@ public class CommandExecutor {
                     notifier.notifyMessage(
                             "Se vuoi spostarti inserisci la direzione, altrimenti inserisci none, " +
                                     "raccoglierai automaticamente se ci sono munizioni", userJsonReceiver);
+                    commandExecutorLogger.log(Level.INFO, "Richiesta spostamento per raccogliere a "+currentPlayer.getName());
                 }
             }
         }
@@ -165,6 +169,7 @@ public class CommandExecutor {
                         }
                         notifier.notifyMessage("Scegli quale arma ricaricare tra: " + currentPlayer.weaponsToString(),
                                 userJsonReceiver);
+                        commandExecutorLogger.log(Level.INFO, "Richiesta scelta di ricarica arma a "+currentPlayer.getName());
                     } else {
                         String error = "Non hai armi da ricaricare";
                         notifier.notifyError(error, userJsonReceiver);
@@ -188,6 +193,7 @@ public class CommandExecutor {
             int points = owner.getPoints();
             String message = owner.getName() + " hai: " + points + "punti";
             notifier.notifyMessage(message, userJsonReceiver);
+            commandExecutorLogger.log(Level.INFO, "Notificato punteggio a "+owner.getName());
         }
         else{
             String error ="La partita non è ancora iniziata";
@@ -230,6 +236,7 @@ public class CommandExecutor {
                     }
                     notifier.notifyMessageTargetPlayer("Muoviti o scegli con quale arma sparare tra: "
                             + currentPlayer.weaponsToString(), userJsonReceiver, currentPlayer);
+                    commandExecutorLogger.log(Level.INFO, "Richiesta di movimento o arma per sparare a "+currentPlayer.getName());
                 }
             }
         }
@@ -241,6 +248,7 @@ public class CommandExecutor {
     }
 
     public void execute(AskUsePowerUpCommand command) throws IOException {
+        //todo va rivisto
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
@@ -295,6 +303,8 @@ public class CommandExecutor {
                         }
                     }
                     notifier.notifyMessage( "Inserisci le mosse che vuoi fare: (up, down, left, right)", userJsonReceiver);
+                    commandExecutorLogger.log(Level.INFO, "Richiesta spostamento per move a "+currentPlayer.getName());
+
                 }
             }
         }
@@ -334,6 +344,7 @@ public class CommandExecutor {
                                 }
                                 notifier.notifyMessageTargetPlayer("Ti sei spostato nel tile :" + currentPlayer.getTile().getID()
                                         , userJsonReceiver, currentPlayer);
+                                commandExecutorLogger.log(Level.INFO, "movimento di  "+currentPlayer.getName()+" avvenuto correttamente");
                                 command.endCommandToAction(gameManager);
                             }
                             if (currentPlayer.getState().canPickUp() && currentPlayer.getTile().canContainAmmo() && (currentPlayer.getState().getName().equals("PickUp")|| currentPlayer.getState().getName().equals("PickUpPlu"))) {
@@ -352,18 +363,25 @@ public class CommandExecutor {
                                     }
                                     notifier.notifyMessageTargetPlayer("Ti sei spostato nel tile " + currentPlayer.getTile().getID()
                                             + " e hai raccolto una carta munizioni", userJsonReceiver, currentPlayer);
+                                    commandExecutorLogger.log(Level.INFO, "Racolta ammo da "+currentPlayer.getName());
                                     command.endCommandToAction(gameManager);
                                 } else {
                                     //return to old state
                                     returnOldState(currentPlayer, userJsonReceiver, "Non c'è nulla da raccogliere in questo tile");
                                     return;
                                 }
-                            } else if (currentPlayer.getState().canPickUp() && currentPlayer.getTile().canContainWeapons() && (currentPlayer.getState().getName().equals("PickUp")|| currentPlayer.getState().getName().equals("PickUpPlu"))) {
+                            }
+                            //pick up state into weapon tile
+                            else if (currentPlayer.getState().canPickUp() && currentPlayer.getTile().canContainWeapons() && (currentPlayer.getState().getName().equals("PickUp")|| currentPlayer.getState().getName().equals("PickUpPlu"))) {
                                 notifier.notifyMessageTargetPlayer("Seleziona quale arma raccogliere", userJsonReceiver, currentPlayer);
-                            }else if(currentPlayer.getState().canShoot() && shootState.equals(ShootState.ASKEDSHOOT)&&(currentPlayer.getState().getName().equals("Shoot") ||currentPlayer.getState().getName().equals("ShootPlus")) ){
+                            }
+                            //choose weapon to shoot after movement
+                            else if(currentPlayer.getState().canShoot() && shootState.equals(ShootState.ASKEDSHOOT)&&(currentPlayer.getState().getName().equals("Shoot") ||currentPlayer.getState().getName().equals("ShootPlus")) ){
                                 notifier.notifyMessageTargetPlayer("Seleziona con quale arma sparare", userJsonReceiver, currentPlayer);
                                 System.out.println(currentPlayer.getOldTile());
-                            }else if (currentPlayer.getState().canShoot() && shootState.equals(ShootState.CHOOSEBASE)){
+                            }
+                            //shooter movement
+                            else if (currentPlayer.getState().canShoot() && shootState.equals(ShootState.CHOOSEBASE)){
                                 //verify if the shooter can move before choose target
                                 if((base == null && !weaponToUse.getBaseEffect().get(0).canMoveShooter())||(base != null && !base.canMoveShooter())){
                                     undoMovement(currentPlayer, userJsonReceiver,"Puoi soltanto scegliere chi colpire");
@@ -371,7 +389,9 @@ public class CommandExecutor {
                                 else{
                                    verfyMoveShooter(currentPlayer,userJsonReceiver, command);
                                 }
-                            }else if (currentPlayer.getState().canShoot() && shootState.equals(ShootState.CHOSENEFFECT)){
+                            }
+                            //movement caused by optional effect
+                            else if (currentPlayer.getState().canShoot() && shootState.equals(ShootState.CHOSENEFFECT)){
                                 if (!opt.isEmpty() && !canMoveOpt()){
                                     undoMovement(currentPlayer, userJsonReceiver,"Puoi soltanto scegliere chi colpire");
                                 }
@@ -414,14 +434,14 @@ public class CommandExecutor {
                 notifier.notifyError(error, userJsonReceiver);
             } else {
                 //verify the state
-                if (currentPlayer.getState().canPickUp()) {
+                if (currentPlayer.getState().canPickUp() && currentPlayer.getNumWeapons()<4 && (currentPlayer.getState().getName().equals("PickUp")||currentPlayer.getState().getName().equals("PickUpPlus"))) {
                     //verify if it is a weapon tile
                     if (currentPlayer.getTile().canContainWeapons()) {
                         //verify if there are weapon in the tile
                         if (!currentPlayer.getTile().getWeapons().isEmpty()) {
                             //set player remaining steps to zero
                             currentPlayer.getState().remainingStepsToZero();
-
+                            System.out.println("Armi del giocatore: "+currentPlayer.weaponsToString());
                             WeaponCard weaponCard = null;
                             int count = 0;
                             if (command.getWeaponName() == null) {
@@ -454,11 +474,13 @@ public class CommandExecutor {
                                             notifyToAllExceptCurrent(js, userJsonReceiver, message);
                                         }
                                         notifier.notifyMessageTargetPlayer("Hai raccolto " + weaponCard.getName(), userJsonReceiver, currentPlayer);
+                                        commandExecutorLogger.log(Level.INFO, "Raccolta "+weaponCard.getName()+" da "+currentPlayer.getName());
                                         //decrement moves of player and return to action selector
                                         command.endCommandToAction(gameManager);
                                     } catch (IllegalHavingException e) {
                                         String error ="Hai più armi di quante consentite, scegline una da scartare tra: " + currentPlayer.weaponsToString();
                                         notifier.notifyError(error, userJsonReceiver);
+                                        commandExecutorLogger.log(Level.INFO, "Richiesta di scarto arma a "+currentPlayer.getName());
                                     }
                                     catch (InsufficientAmmoException e){
                                         //return to old state
@@ -500,15 +522,16 @@ public class CommandExecutor {
                 String error ="Non puoi eseguire questa azione se non è il tuo turno";
                 notifier.notifyError(error, userJsonReceiver);
             } else {
-                if(currentPlayer.getWeapons().size()<4 && (currentPlayer.getState().getName().equals("PickUp")||currentPlayer.getState().getName().equals("PickUpPlus"))){
+                if(currentPlayer.getWeapons().size()>3 && (currentPlayer.getState().getName().equals("PickUp")||currentPlayer.getState().getName().equals("PickUpPlus"))){
                     WeaponCard toThrow = currentPlayer.hasWeapon(command.getWeaponToThrow());
                     if(toThrow!=null){
-                        currentPlayer.getTile().putWeaponCard(toThrow);
+                        currentPlayer.throwWeaponCard(toThrow);
                         String message = currentPlayer.getName()+" ha scartato: "+command.getWeaponToThrow();
                         for (JsonReceiver js : command.getAllReceivers()) {
                             notifyToAllExceptCurrent(js, userJsonReceiver, message);
                         }
                         notifier.notifyMessageTargetPlayer("Hai scartato: "+command.getWeaponToThrow(), userJsonReceiver, currentPlayer);
+                        commandExecutorLogger.log(Level.INFO, "Scartato "+toThrow.getName()+" da "+currentPlayer.getName());
                     }
                     else{
                         String error ="Non hai quest'arma";
@@ -547,13 +570,14 @@ public class CommandExecutor {
                             if (!wpc.isLoaded()) {
                                 try {
                                     wpc.reload(currentPlayer.getPlayerBoard().getLoader());
-                                    String message = "Il giocatore attuale ha ricaricato: " + wpc.getName();
+                                    String message = currentPlayer.getName()+" ha ricaricato: " + wpc.getName();
                                     for (JsonReceiver js : command.getAllReceivers()) {
                                         if (js != userJsonReceiver) {
                                             notifier.notifyMessage(message, js);
                                         }
                                     }
                                     notifier.notifyMessage("Arma ricaricata, vuoi ricaricare un'altra arma o finire il turno?", userJsonReceiver);
+                                    commandExecutorLogger.log(Level.INFO, "Richiesta nuova ricarica arma a "+currentPlayer.getName());
                                 } catch (InsufficientAmmoException e) {
                                     String error ="Non hai abbastanza munizioni per ricricare l'arma selezionata";
                                     notifier.notifyError(error, userJsonReceiver);
@@ -613,6 +637,7 @@ public class CommandExecutor {
                             notifyToAllExceptCurrent(js, userJsonReceiver, message);
                         };
                         notifier.notifyMessageTargetPlayer("Ti sei rigenerato nel punto di rigenerazione " + regenPointColor, userJsonReceiver, currentPlayer);
+                        commandExecutorLogger.log(Level.INFO, "Spawn di "+currentPlayer.getName());
                     }
                 }
                 else{
@@ -641,11 +666,14 @@ public class CommandExecutor {
             }
             else{
                 if(shootState.equals(ShootState.ASKEDSHOOT)){
+                    //attributes the weapon to shoot
                     for(WeaponCard wc: currentPlayer.getWeapons()){
                         if(wc.getName().equals(command.getWeaponName())){
                             weaponToUse =wc;
+                            System.out.println("Scelta arma: "+weaponToUse.getName());
                         }
                     }
+                    //verify if the shooter owns the weapon and if it is loaded
                     if(weaponToUse != null && weaponToUse.isLoaded()){
                         shootState = ShootState.CHOSENWEAPON;
                         String message = "Hai scelto di sparare con: "+weaponToUse.getName();
@@ -661,6 +689,7 @@ public class CommandExecutor {
                            notifier.notifyError(error, userJsonReceiver);
                        }
                     }
+                    //verify if the controller has to ask for base or advanced effect
                     if(weaponToUse.getAdvancedEffect()!= null && !weaponToUse.getAdvancedEffect().isEmpty()) {
                         String message = "Scegli se usare l'effetto base o quello avanzato";
                         notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);

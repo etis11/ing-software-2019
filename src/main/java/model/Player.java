@@ -63,6 +63,8 @@ public class Player implements ChangesObservable{
      */
     private List<ChangesObserver> playerObservers;
 
+    private boolean payWewapon = true;
+
     /**
      * A player without name is created. His hand is empty and the state is EndTurn (he cant do anything). Since no map or tile
      * has been created, this player has not been positioned on any tile
@@ -308,10 +310,11 @@ public class Player implements ChangesObservable{
      */
     public void pickUpWeapon(WeaponCard w) throws IllegalHavingException, InsufficientAmmoException {
         if (w == null) throw new IllegalArgumentException("Passato un valore nullo");
-        if (weapons.size() > 4) {
-            throw new IllegalHavingException("Il giocatore ha già 4 armi in mano");
+        if (weapons.size() > 2) {
+            weapons.add(tile.pickUpWeaponCard(w));
+            throw new IllegalHavingException("Il giocatore ha 4 armi in mano");
         } else{
-            if(w.getReloadCost().size()>1){
+            if(w.getReloadCost().size()>1 && payWewapon){
                 if(canPay(w.getReloadCost().subList(1, w.getReloadCost().size()))){
                     playerBoard.getLoader().ammoToPool(w.getBluePickCost(), w.getRedPickCost(), w.getYellowPickCost());
                 }
@@ -507,6 +510,13 @@ public class Player implements ChangesObservable{
             }
         }
         return null;
+    }
+
+    public void throwWeaponCard(WeaponCard wc){
+        if(wc == null) throw new IllegalArgumentException("passed null weapon card");
+        getTile().putWeaponCard(wc);
+        weapons.remove(wc);
+        notifyAllObservers();
     }
 
     @Override
