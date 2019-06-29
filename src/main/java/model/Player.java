@@ -512,6 +512,13 @@ public class Player implements ChangesObservable{
         return null;
     }
 
+    public void throwWeaponCard(WeaponCard wc){
+        if(wc == null) throw new IllegalArgumentException("passed null weapon card");
+        getTile().putWeaponCard(wc);
+        weapons.remove(wc);
+        notifyAllObservers();
+    }
+
     @Override
     public String toString() {
         return "Player{" +

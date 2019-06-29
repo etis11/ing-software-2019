@@ -513,7 +513,7 @@ public class CommandExecutor {
                 if(currentPlayer.getWeapons().size()>3 && (currentPlayer.getState().getName().equals("PickUp")||currentPlayer.getState().getName().equals("PickUpPlus"))){
                     WeaponCard toThrow = currentPlayer.hasWeapon(command.getWeaponToThrow());
                     if(toThrow!=null){
-                        currentPlayer.getTile().putWeaponCard(toThrow);
+                        currentPlayer.throwWeaponCard(toThrow);
                         String message = currentPlayer.getName()+" ha scartato: "+command.getWeaponToThrow();
                         for (JsonReceiver js : command.getAllReceivers()) {
                             notifyToAllExceptCurrent(js, userJsonReceiver, message);
