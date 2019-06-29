@@ -370,12 +370,18 @@ public class CommandExecutor {
                                     returnOldState(currentPlayer, userJsonReceiver, "Non c'è nulla da raccogliere in questo tile");
                                     return;
                                 }
-                            } else if (currentPlayer.getState().canPickUp() && currentPlayer.getTile().canContainWeapons() && (currentPlayer.getState().getName().equals("PickUp")|| currentPlayer.getState().getName().equals("PickUpPlu"))) {
+                            }
+                            //pick up state into weapon tile
+                            else if (currentPlayer.getState().canPickUp() && currentPlayer.getTile().canContainWeapons() && (currentPlayer.getState().getName().equals("PickUp")|| currentPlayer.getState().getName().equals("PickUpPlu"))) {
                                 notifier.notifyMessageTargetPlayer("Seleziona quale arma raccogliere", userJsonReceiver, currentPlayer);
-                            }else if(currentPlayer.getState().canShoot() && shootState.equals(ShootState.ASKEDSHOOT)&&(currentPlayer.getState().getName().equals("Shoot") ||currentPlayer.getState().getName().equals("ShootPlus")) ){
+                            }
+                            //choose weapon to shoot after movement
+                            else if(currentPlayer.getState().canShoot() && shootState.equals(ShootState.ASKEDSHOOT)&&(currentPlayer.getState().getName().equals("Shoot") ||currentPlayer.getState().getName().equals("ShootPlus")) ){
                                 notifier.notifyMessageTargetPlayer("Seleziona con quale arma sparare", userJsonReceiver, currentPlayer);
                                 System.out.println(currentPlayer.getOldTile());
-                            }else if (currentPlayer.getState().canShoot() && shootState.equals(ShootState.CHOOSEBASE)){
+                            }
+                            //shooter movement
+                            else if (currentPlayer.getState().canShoot() && shootState.equals(ShootState.CHOOSEBASE)){
                                 //verify if the shooter can move before choose target
                                 if((base == null && !weaponToUse.getBaseEffect().get(0).canMoveShooter())||(base != null && !base.canMoveShooter())){
                                     undoMovement(currentPlayer, userJsonReceiver,"Puoi soltanto scegliere chi colpire");
@@ -383,7 +389,9 @@ public class CommandExecutor {
                                 else{
                                    verfyMoveShooter(currentPlayer,userJsonReceiver, command);
                                 }
-                            }else if (currentPlayer.getState().canShoot() && shootState.equals(ShootState.CHOSENEFFECT)){
+                            }
+                            //movement caused by optional effect
+                            else if (currentPlayer.getState().canShoot() && shootState.equals(ShootState.CHOSENEFFECT)){
                                 if (!opt.isEmpty() && !canMoveOpt()){
                                     undoMovement(currentPlayer, userJsonReceiver,"Puoi soltanto scegliere chi colpire");
                                 }
@@ -658,11 +666,14 @@ public class CommandExecutor {
             }
             else{
                 if(shootState.equals(ShootState.ASKEDSHOOT)){
+                    //attributes the weapon to shoot
                     for(WeaponCard wc: currentPlayer.getWeapons()){
                         if(wc.getName().equals(command.getWeaponName())){
                             weaponToUse =wc;
+                            System.out.println("Scelta arma: "+weaponToUse.getName());
                         }
                     }
+                    //verify if the shooter owns the weapon and if it is loaded
                     if(weaponToUse != null && weaponToUse.isLoaded()){
                         shootState = ShootState.CHOSENWEAPON;
                         String message = "Hai scelto di sparare con: "+weaponToUse.getName();
@@ -678,6 +689,7 @@ public class CommandExecutor {
                            notifier.notifyError(error, userJsonReceiver);
                        }
                     }
+                    //verify if the controller has to ask for base or advanced effect
                     if(weaponToUse.getAdvancedEffect()!= null && !weaponToUse.getAdvancedEffect().isEmpty()) {
                         String message = "Scegli se usare l'effetto base o quello avanzato";
                         notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
