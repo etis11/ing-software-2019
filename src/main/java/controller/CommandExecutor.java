@@ -30,8 +30,14 @@ public class CommandExecutor {
      */
     private GameManager gameManager;
 
+    /**
+     * the entity that creates the json for the players
+     */
     private JsonCreator jsonCreator;
 
+    /*
+    launcher, used in case of disconnection (the broken json receivers must be removed from the launcher
+     */
     private final CommandLauncherInterface launcher;
 
     public CommandExecutor(GameManager gameManager, JsonCreator jsonCreator, CommandLauncherInterface launcherInterface) {
@@ -1195,35 +1201,6 @@ public class CommandExecutor {
         currentPlayer.setOldTile(null);
     }
 
-    /**
-     * disconnects a json receiver
-     * @param jsonReceiver
-     * @throws IOException
-     */
-    private void disconnectSokcetJsonReceiver(JsonReceiver jsonReceiver) {
-        //if the user is null, this means that the json receiver is not registered anymore, so another routine has removed him
-        if(registry.getJsonUserOwner(jsonReceiver) == null)
-            return;
-        //same, another routine is disconnecting him
-        if(registry.getJsonUserOwner(jsonReceiver).isDisconnected())
-            return;
-        User user = registry.getJsonUserOwner(jsonReceiver);
-        try{
-
-            launcher.removeJsonReceiver(jsonReceiver);
-        }
-        catch (RemoteException re){
-            commandExecutorLogger.log(Level.WARNING,
-                    "Reoving json receiver. This exception should never occour. " +re.getMessage());
-        }
-        user.setDisconnected(true);
-        registry.removeTokenReceiverAssociation(jsonReceiver);
-        if( !gameManager.isMatchStarted()){
-            gameManager.getLobby().removeUser(user);
-            registry.removeTokenToUserAssociationAndToken(user.getUsername());
-        }
-        registry.removeReceiverUserAssociation(jsonReceiver);
-    }
 
     private void notifyAllExceptOne(String message, JsonReceiver toExclude, List<JsonReceiver> allReceivers) throws IOException{
         for (JsonReceiver js : allReceivers) {
