@@ -6,9 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import jsonparser.StateMachineDeserializer;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -117,13 +115,8 @@ public class State {
         GsonBuilder gb = new GsonBuilder().registerTypeAdapter(State[].class, new StateMachineDeserializer());
         State[] states;
         Gson g = gb.create();
-        BufferedReader jsonStateMachine = null;
-        try {
-            jsonStateMachine = new BufferedReader(new FileReader(path));
-        } catch (FileNotFoundException f) {
-            System.out.println(f.getMessage());
-            LOGGER.log(Level.WARNING, f.getMessage(), f);
-        }
+        InputStreamReader jsonStateMachine = null;
+        jsonStateMachine = new InputStreamReader(State.class.getResourceAsStream(path));
 
         states = g.fromJson(jsonStateMachine, State[].class);
         for (State s : states) {

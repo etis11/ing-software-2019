@@ -25,8 +25,9 @@ public class User {
 
     private boolean disconnected;
 
-    private transient final String stateMachinePath = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
-            + File.separatorChar + "stateMachine" + File.separatorChar + "stateMachine.json";
+//    private transient final String stateMachinePath = "." + File.separatorChar + "src" + File.separatorChar + "main" + File.separatorChar + "resources"
+//            + File.separatorChar + "stateMachine" + File.separatorChar + "stateMachine.json";
+    private transient final String stateMachinePath = "/stateMachine/stateMachine.json";
 
     public User() {
         this.username = "user";
