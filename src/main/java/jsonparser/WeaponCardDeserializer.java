@@ -201,7 +201,7 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
                 toReturn = new RoomStrategy(match);
                 break;
             case "VortexCannonStrategy":
-                toReturn = new VortexCannonStrategy(param, match);
+                toReturn = new VortexCannonStrategy(match);
                 break;
             case "DontSeeStrategy":
                 toReturn = new DontSeeStrategy(match);
@@ -229,6 +229,9 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
                 break;
             case "HellionStrategy":
                 toReturn = new HellionStrategy(param, match);
+                break;
+            case "TorpedineStrategy":
+                toReturn = new TorpedineStrategy(match);
                 break;
             default:
                 break;
