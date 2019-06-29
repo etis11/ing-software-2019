@@ -68,6 +68,14 @@ public class Parserator implements Runnable {
             if (splittedCommand.length > 1) {
                 param = splittedCommand[1];
             }
+            if(command.contains("setfraseeffetto")){
+                String toSet="";
+                for(int i=1;i<splittedCommand.length;i++){
+                    toSet=" "+splittedCommand[i];
+                }
+                param= toSet;
+            }
+
         } else {
             realCommand = command;
         }
