@@ -46,6 +46,7 @@ public class TractorBeamStrategy extends AbstractTargetStrategy {
      * @return all the tiles are have a distance<3 from the target and at the same time are visible to the shooter
      */
     //TODO fare test con metodo distance
+    /*
     public List<Tile> destinationTiles(Player shooter, Player target) {
         List<Tile> visibleTiles = match.getMap().allVisibleTiles(shooter);
         List<Tile> destinations = new LinkedList<>();
@@ -56,7 +57,7 @@ public class TractorBeamStrategy extends AbstractTargetStrategy {
         }
         return destinations;
     }
-
+*/
     /**
      * Classic method used to checker whether or not the list of targets selected by the player (shooter in our case)
      * are valid or not. Even if just one of them is not possible to be considered as a target, it should return false
@@ -89,6 +90,7 @@ public class TractorBeamStrategy extends AbstractTargetStrategy {
      * @param target      is the target CHOSEN by the player to be moved
      * @param destination is the new tile where the target should be moved at
      */
+    /*
     public void moveTarget(Player shooter, Player target, Tile destination) {
         Tile startPoint = target.getTile();
         if (this.destinationTiles(shooter, target).contains(destination) && getHittableTargets(shooter).contains(target)) {
@@ -97,5 +99,5 @@ public class TractorBeamStrategy extends AbstractTargetStrategy {
             destination.getPlayers().add(target);
         }
     }
-
+*/
 }
