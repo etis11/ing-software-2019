@@ -26,6 +26,15 @@ public class CommandExecutor {
     private Effect base;
 
     /**
+     * Timer used to check and disconnect the current player
+     */
+    private Timer turnTimer;
+    /**
+     * duration of a turn expressed in seconds
+     */
+    private final int turnLength = 30;
+
+    /**
      * gameManager is a reference to the model due to access to the match and lobby variables
      */
     private GameManager gameManager;
@@ -43,9 +52,20 @@ public class CommandExecutor {
         base = null;
         this.jsonCreator = jsonCreator;
         notifier = new JsonNotifier(jsonCreator, launcherInterface, gameManager);
+        turnTimer = null;
     }
 
+    public void setTurnTimer(Timer turnTimer) {
+        this.turnTimer = turnTimer;
+    }
 
+    /**
+     * returns the timer length
+     * @return expressed in seconds
+     */
+    public int getTurnLength() {
+        return turnLength;
+    }
 
     public void execute(AskEndTurnCommand command) throws IOException {
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
@@ -75,7 +95,14 @@ public class CommandExecutor {
                     commandExecutorLogger.log(Level.INFO, "Termine turno giocatore "+currentPlayer.getName());
                     //TODO prova, non so se metterli qua o no
                     gameManager.getMatch().endRound();
+                    if (turnTimer != null){
+                        turnTimer.cancel();
+                        turnTimer.purge();
+                    }
                     gameManager.getMatch().newRound();
+                    turnTimer = new Timer();
+                    turnTimer.schedule(new NewTurnTimerTask(this, command.getAllReceivers()
+                            , userJsonReceiver,notifier, gameManager), turnLength*1000);
                     currentPlayer = gameManager.getMatch().getCurrentPlayer();
                     commandExecutorLogger.log(Level.INFO, "Inizio turno giocatore "+currentPlayer.getName());
                     JsonReceiver userToBeNotifiedThrow = null;
