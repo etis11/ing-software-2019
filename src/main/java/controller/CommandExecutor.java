@@ -169,6 +169,7 @@ public class CommandExecutor {
                         }
                         notifier.notifyMessage("Scegli quale arma ricaricare tra: " + currentPlayer.weaponsToString(),
                                 userJsonReceiver);
+                        commandExecutorLogger.log(Level.INFO, "Richiesta scelta di ricarica arma a "+currentPlayer.getName());
                     } else {
                         String error = "Non hai armi da ricaricare";
                         notifier.notifyError(error, userJsonReceiver);
@@ -192,6 +193,7 @@ public class CommandExecutor {
             int points = owner.getPoints();
             String message = owner.getName() + " hai: " + points + "punti";
             notifier.notifyMessage(message, userJsonReceiver);
+            commandExecutorLogger.log(Level.INFO, "Notificato punteggio a "+owner.getName());
         }
         else{
             String error ="La partita non è ancora iniziata";
@@ -234,6 +236,7 @@ public class CommandExecutor {
                     }
                     notifier.notifyMessageTargetPlayer("Muoviti o scegli con quale arma sparare tra: "
                             + currentPlayer.weaponsToString(), userJsonReceiver, currentPlayer);
+                    commandExecutorLogger.log(Level.INFO, "Richiesta di movimento o arma per sparare a "+currentPlayer.getName());
                 }
             }
         }
@@ -245,6 +248,7 @@ public class CommandExecutor {
     }
 
     public void execute(AskUsePowerUpCommand command) throws IOException {
+        //todo va rivisto
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
@@ -519,6 +523,7 @@ public class CommandExecutor {
                             notifyToAllExceptCurrent(js, userJsonReceiver, message);
                         }
                         notifier.notifyMessageTargetPlayer("Hai scartato: "+command.getWeaponToThrow(), userJsonReceiver, currentPlayer);
+                        commandExecutorLogger.log(Level.INFO, "Scartato "+toThrow.getName()+" da "+currentPlayer.getName());
                     }
                     else{
                         String error ="Non hai quest'arma";
@@ -557,13 +562,14 @@ public class CommandExecutor {
                             if (!wpc.isLoaded()) {
                                 try {
                                     wpc.reload(currentPlayer.getPlayerBoard().getLoader());
-                                    String message = "Il giocatore attuale ha ricaricato: " + wpc.getName();
+                                    String message = currentPlayer.getName()+" ha ricaricato: " + wpc.getName();
                                     for (JsonReceiver js : command.getAllReceivers()) {
                                         if (js != userJsonReceiver) {
                                             notifier.notifyMessage(message, js);
                                         }
                                     }
                                     notifier.notifyMessage("Arma ricaricata, vuoi ricaricare un'altra arma o finire il turno?", userJsonReceiver);
+                                    commandExecutorLogger.log(Level.INFO, "Richiesta nuova ricarica arma a "+currentPlayer.getName());
                                 } catch (InsufficientAmmoException e) {
                                     String error ="Non hai abbastanza munizioni per ricricare l'arma selezionata";
                                     notifier.notifyError(error, userJsonReceiver);
@@ -623,6 +629,7 @@ public class CommandExecutor {
                             notifyToAllExceptCurrent(js, userJsonReceiver, message);
                         };
                         notifier.notifyMessageTargetPlayer("Ti sei rigenerato nel punto di rigenerazione " + regenPointColor, userJsonReceiver, currentPlayer);
+                        commandExecutorLogger.log(Level.INFO, "Spawn di "+currentPlayer.getName());
                     }
                 }
                 else{
