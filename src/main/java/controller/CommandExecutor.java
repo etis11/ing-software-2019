@@ -7,7 +7,6 @@ import model.*;
 import network.TokenRegistry;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -328,16 +327,20 @@ public class CommandExecutor {
                 notifier.notifyError(error, userJsonReceiver);
             } else {
                 String state = currentPlayer.getState().getName();
+                //if run, pick or shoot state
                 if(state.equals("Run")||state.equals("PickUp")||state.equals("PickUpPlus")|| state.equals("Shoot")||state.equals("ShootPlus")) {
+                    //if player can't run
                     if (!currentPlayer.getState().canRun() && currentPlayer.getState().getRemainingSteps() < command.getMoves().size()) {
                         String error ="Non hai abbastanza mosse rimanenti";
                         notifier.notifyError(error, userJsonReceiver);
                     } else {
+                        //try the movement
                         try {
                             currentPlayer.setOldTile(currentPlayer.getTile());
                             currentPlayer.getState().decrementRemainingSteps(command.getMoves().size());
                             currentPlayer.move(new Movement(new ArrayList<>(command.getMoves())));
                             String message = currentPlayer.getName() + " si è spostato di nel tile: " + currentPlayer.getTile().getID();
+                            //case run state
                             if (currentPlayer.getState().getName().equals("Run")) {
                                 for (JsonReceiver js : command.getAllReceivers()) {
                                     notifyToAllExceptCurrent(js, userJsonReceiver, message);
@@ -347,6 +350,7 @@ public class CommandExecutor {
                                 commandExecutorLogger.log(Level.INFO, "Run of  "+currentPlayer.getName()+" correctly done");
                                 command.endCommandToAction(gameManager);
                             }
+                            //case pick state
                             if (currentPlayer.getState().canPickUp() && currentPlayer.getTile().canContainAmmo() && (currentPlayer.getState().getName().equals("PickUp")|| currentPlayer.getState().getName().equals("PickUpPlu"))) {
                                 if (currentPlayer.getTile().isPresentAmmoCard()) {
                                     currentPlayer.getState().remainingStepsToZero();
@@ -387,7 +391,8 @@ public class CommandExecutor {
                                     undoMovement(currentPlayer, userJsonReceiver,"Puoi soltanto scegliere chi colpire");
                                 }
                                 else{
-                                   verfyMoveShooter(currentPlayer,userJsonReceiver, command);
+                                    shootState = ShootState.MOVEEFFECTBASE;
+                                    verifyHitMovedShooter(currentPlayer,userJsonReceiver, command);
                                 }
                             }
                             //movement caused by optional effect
@@ -398,7 +403,7 @@ public class CommandExecutor {
                                 else if(!opt.isEmpty()){
                                     shootState = ShootState.MOVEEFFECTOPTIONAL;
                                 }
-                                verfyMoveShooter(currentPlayer, userJsonReceiver, command);
+                                //todo da rifare verifyHitMovedShooter(currentPlayer, userJsonReceiver, command)
                             }
                         } catch (NotValidMovesException e) {
                             currentPlayer.getState().resetRemainingSteps();
@@ -791,28 +796,39 @@ public class CommandExecutor {
                 notifier.notifyError(error, userJsonReceiver);
             }
             else {
+                //verify if the state is correct to accept targets
                 if ((shootState.equals(ShootState.CHOSENWEAPON) && weaponToUse.getBaseEffect().get(0).getOptionalEffects().isEmpty())|| shootState.equals(ShootState.MOVEEFFECTBASE) || shootState.equals(ShootState.MOVEEFFECTOPTIONAL)) {
                     if(verifyTarget(command.getTarget(), gameManager.getMatch().getPlayers())) {
                         for (String str : command.getTarget()) {
                             targets.add(gameManager.getMatch().getPlayerFromName(str));
                         }
+                        String message ="";
+                        //if using base effect
                         if(base == null){
-                            if(!weaponToUse.getBaseEffect().get(0).canMoveTarget() && weaponToUse.getBaseEffect().get(0).getStrategy().areTargetValid(currentPlayer, targets)) {
+                            //if can't move traget and target are valid apply damage
+                            if(!weaponToUse.getBaseEffect().get(0).canMoveTarget() && weaponToUse.getBaseEffect().get(0).getStrategy().areTargetValid(currentPlayer, targets) && !canOptionalTargetMove()) {
                                 applyDamage(currentPlayer);
+                                message = "Target impostati corrrettamente e colpiti";
                             } else if(weaponToUse.getBaseEffect().get(0).canMoveTarget()){
                                 shootState = ShootState.TARGETASKED;
+                                message = "Target impostati corrrettamente";
                             }
-                            String message = "Target impostati corrrettamente";
                             notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
+                            commandExecutorLogger.log(Level.INFO, "target selected correctly "+currentPlayer.getName());
+
                         }else if (base != null){
-                            if(!base.canMoveTarget() && base.getStrategy().areTargetValid(currentPlayer, targets)) {
+                            if(!base.canMoveTarget() && base.getStrategy().areTargetValid(currentPlayer, targets) && !canOptionalTargetMove()) {
                                 applyDamage(currentPlayer);
+                                message = "Target impostati corrrettamente e colpiti";
                             }
                             else if(base.canMoveTarget()){
                                 shootState = ShootState.TARGETASKED;
+                                message = "Target impostati corrrettamente";
                             }
-                            String message = "Target impostati corrrettamente";
                             notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
+                        }
+                        else if (!opt.isEmpty()){
+
                         }
                         //todo optional
                         else{
@@ -1339,7 +1355,7 @@ public class CommandExecutor {
         jsonCreator.reset();
     }
 
-    public void undoMovement(Player currentPlayer, JsonReceiver userJsonReceiver, String message) throws IOException {
+    private void undoMovement(Player currentPlayer, JsonReceiver userJsonReceiver, String message) throws IOException {
         if(currentPlayer.getTile() != currentPlayer.getOldTile()) {
             currentPlayer.getOldTile().addPlayer(currentPlayer);
         }
@@ -1393,21 +1409,12 @@ public class CommandExecutor {
         }
     }
 
-    private void verfyMoveShooter(Player currentPlayer, JsonReceiver userJsonReceiver, MoveCommand command) throws IOException {
-        if(base == null && !weaponToUse.getBaseEffect().get(0).getStrategy().canHitSomeone(currentPlayer)){
+    private void verifyHitMovedShooter(Player currentPlayer, JsonReceiver userJsonReceiver, MoveCommand command) throws IOException {
+        if((base == null && !weaponToUse.getBaseEffect().get(0).getStrategy().canHitSomeone(currentPlayer))||(base != null && !base.getStrategy().canHitSomeone(currentPlayer))){
             resetShoot();
             command.endCommandToAction(gameManager);
             String error ="Non puoi colpire nessuno da questa posizione quindi hai perso la mossa";
             notifier.notifyError(error, userJsonReceiver);
-        }
-        else if (base != null && !base.getStrategy().canHitSomeone(currentPlayer)){
-            resetShoot();
-            command.endCommandToAction(gameManager);
-            String error ="Non puoi colpire nessuno da questa posizione quindi hai perso la mossa";
-            notifier.notifyError(error, userJsonReceiver);
-        }
-        else{
-            shootState =ShootState.MOVEEFFECTBASE;
         }
     }
 
@@ -1426,9 +1433,11 @@ public class CommandExecutor {
 
     private boolean canOptionalTargetMove(){
         for(OptionalEffect opts: opt){
-//            if(opts)
+//            if(opts.canTargetMove()){
+//                return true;
+//            }
         }
-        return true;
+        return false;
     }
 
     private void applyDamage(Player currentPlayer){
