@@ -181,6 +181,10 @@ public class Parserator implements Runnable {
                     return;
                 }
             }
+            if(command.trim().equalsIgnoreCase("avanzato") || command.trim().equalsIgnoreCase("base")){
+                commandLauncher.addCommand(new ChooseAdvanceCommand(token, command));
+                return;
+            }
 
 
             throw new IllegalArgumentException();

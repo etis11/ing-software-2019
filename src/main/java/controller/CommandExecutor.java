@@ -678,6 +678,7 @@ public class CommandExecutor {
                         shootState = ShootState.CHOSENWEAPON;
                         String message = "Hai scelto di sparare con: "+weaponToUse.getName();
                         notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
+                        commandExecutorLogger.log(Level.INFO, "Choose to shoot with "+weaponToUse.getName());
                     }
                     else{
                        if(weaponToUse == null){
@@ -693,9 +694,11 @@ public class CommandExecutor {
                     if(weaponToUse.getAdvancedEffect()!= null && !weaponToUse.getAdvancedEffect().isEmpty()) {
                         String message = "Scegli se usare l'effetto base o quello avanzato";
                         notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
+                        commandExecutorLogger.log(Level.INFO, "Asked base or advanced effect to "+currentPlayer.getName());
                     }
                     else{
                         askOptional(currentPlayer, userJsonReceiver);
+                        commandExecutorLogger.log(Level.INFO, "Asked optional effect to "+currentPlayer.getName());
                     }
 
                 }
@@ -847,13 +850,18 @@ public class CommandExecutor {
                         if(currentPlayer.canPay( weaponToUse.getAdvancedEffect().get(0).getCost())) {
                             base = weaponToUse.getAdvancedEffect().get(0);
                             currentPlayer.pay( weaponToUse.getAdvancedEffect().get(0));
+                            commandExecutorLogger.log(Level.INFO, "Choosen advanced effetc for "+weaponToUse.getName()+ " from "+currentPlayer.getName());
                         }
                         else{
                             String error ="Non puoi pagare l'efetto avanzato, quindi userai quello base";
                             notifier.notifyError(error, userJsonReceiver);
                         }
                     }
+                    else{
+                        commandExecutorLogger.log(Level.INFO, "Choosen base effect for "+weaponToUse.getName()+ " from "+currentPlayer.getName());
+                    }
                     askOptional(currentPlayer, userJsonReceiver);
+                    commandExecutorLogger.log(Level.INFO, "Asked optional effect to "+currentPlayer.getName());
                 }
                 else{
                     String error ="Non sei nella fase di scelta dell'efetto avanzato";
