@@ -18,7 +18,7 @@ public class JsonNotifier implements Notifier {
      */
     private static final Logger jsonNotifierLogger = Logger.getLogger(JsonNotifier.class.getName());
     /**
-     * registry used to retrieve useful infromation and used for disconnection
+     * registry used to retrieve useful information and used for disconnection
      */
     private final TokenRegistry registry;
     /**
@@ -44,9 +44,9 @@ public class JsonNotifier implements Notifier {
 
     @Override
     public void notifyError(final String message, JsonReceiver jsonReceiver) {
-        if(jsonReceiver != null){
-            String json = jsonCreator.createJsonWithError(message);
-            sendJsonAndHandleException(json, jsonReceiver);
+            if(jsonReceiver != null){
+                String json = jsonCreator.createJsonWithError(message);
+                sendJsonAndHandleException(json, jsonReceiver);
         }
     }
 
@@ -68,7 +68,7 @@ public class JsonNotifier implements Notifier {
 
     private void sendJsonAndHandleException(final String json, JsonReceiver jsonReceiver){
         try{
-            jsonReceiver.sendJson(json);
+                jsonReceiver.sendJson(json);
         }
         catch(RemoteException re){
 
@@ -81,15 +81,20 @@ public class JsonNotifier implements Notifier {
     /**
      * disconnects a json receiver
      * @param jsonReceiver
-     * @throws IOException
      */
-    private void disconnectSokcetJsonReceiver(JsonReceiver jsonReceiver) {
+    private void disconnectJsonReceiver(JsonReceiver jsonReceiver) {
         //if the user is null, this means that the json receiver is not registered anymore, so another routine has removed him
         if(registry.getJsonUserOwner(jsonReceiver) == null)
+        {
+            jsonNotifierLogger.log(Level.WARNING, "json Receiver già disconnesso");
             return;
+        }
         //same, another routine is disconnecting him
-        if(registry.getJsonUserOwner(jsonReceiver).isDisconnected())
+        if(registry.getJsonUserOwner(jsonReceiver).isDisconnected()){
+            jsonNotifierLogger.log(Level.WARNING, "json Receiver già disconnesso");
             return;
+        }
+
         User user = registry.getJsonUserOwner(jsonReceiver);
         try{
 
@@ -100,6 +105,7 @@ public class JsonNotifier implements Notifier {
                     "Removing json receiver. This exception should never occour. " +re.getMessage());
         }
         user.setDisconnected(true);
+        jsonNotifierLogger.log(Level.INFO, "Disconnecting the receiver");
         registry.removeTokenReceiverAssociation(jsonReceiver);
         if( !gameManager.isMatchStarted()){
             gameManager.getLobby().removeUser(user);

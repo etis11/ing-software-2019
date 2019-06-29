@@ -92,6 +92,21 @@ public class CommandLauncher implements CommandLauncherInterface {
         }
     }
 
+    @Override
+    public void removeJsonReceiver(JsonReceiver js){
+        synchronized (allReceivers){
+            allReceivers.remove(js);
+            commandLauncherLogger.log(Level.INFO, "Removed a json receiver. A disconnection may have occurred");
+        }
+    }
+
+    @Override
+    public void addJsonReceiver(JsonReceiver j){
+        synchronized (allReceivers){
+            allReceivers.add(j);
+        }
+    }
+
     /* *********************** Command Launcher interface implementation *******************************/
 
     /**
@@ -107,18 +122,6 @@ public class CommandLauncher implements CommandLauncherInterface {
         commandQueue.offer(c);
     }
 
-    @Override
-    public void addJsonReceiver(JsonReceiver j){
-        synchronized (allReceivers){
-            allReceivers.add(j);
-        }
-    }
 
-    @Override
-    public void removeJsonReceiver(JsonReceiver js){
-        synchronized (allReceivers){
-            allReceivers.remove(js);
-            commandLauncherLogger.log(Level.INFO, "Removed a json receiver. A disconnection may have occurred");
-        }
-    }
+
 }
