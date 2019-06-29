@@ -397,7 +397,7 @@ public class CommandExecutor {
                             }
                             //movement caused by optional effect
                             else if (currentPlayer.getState().canShoot() && shootState.equals(ShootState.CHOSENEFFECT)){
-                                if (!opt.isEmpty() && !canMoveOpt()){
+                                if (!opt.isEmpty() && !canMoveShooterOpt()){
                                     undoMovement(currentPlayer, userJsonReceiver,"Puoi soltanto scegliere chi colpire");
                                 }
                                 else if(!opt.isEmpty()){
@@ -1373,9 +1373,18 @@ public class CommandExecutor {
         }
     }
 
-    private boolean canMoveOpt(){
+    private boolean canMoveShooterOpt(){
         for(OptionalEffect opts : opt){
             if(opts.canShooterMove()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean canMoveTargetOpt(){
+        for(OptionalEffect opts : opt){
+            if(opts.canTargetMove()){
                 return true;
             }
         }
