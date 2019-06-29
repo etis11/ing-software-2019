@@ -28,7 +28,7 @@ public class Parserator implements Runnable {
             AnsiColor.GREEN+"fineturno"+AnsiColor.RESET+" - Serve per terminare il tuo turno\n" +
             AnsiColor.GREEN+"powerup"+AnsiColor.RESET+" - Commando che server per chiedere conferma per poter usare la PowerUp\n" +
             AnsiColor.GREEN+"setusername *NOME*"+AnsiColor.RESET+" - Commando che server per defnire il nome del tuo player. Es: setusername Paolo\n" +
-            AnsiColor.GREEN+"setfraseeffect *FRASE*"+AnsiColor.RESET+" - Commando che server per dare una frase al tuo player.Es: setphraseeffect This is Sparta!\n" +
+            AnsiColor.GREEN+"setfraseeffetto *FRASE*"+AnsiColor.RESET+" - Commando che server per dare una frase al tuo player.Es: setphraseeffect This is Sparta!\n" +
             AnsiColor.GREEN+"setuccisioni *NUMERO*"+AnsiColor.RESET+" - Commando che decide i numeri di teschi a inizio partita. Es: setuccisioni 4\n" +
             AnsiColor.GREEN+"setgiocatori *NUMERO*"+AnsiColor.RESET+" - Comando che serve per decidere i numeri di giocatori nella partita. Es: setgiocatori 5\n" +
             AnsiColor.GREEN+"punti"+AnsiColor.RESET+" - Commando che ritorna la quantita dei punti del giocatore che fa la richiesta\n" +
