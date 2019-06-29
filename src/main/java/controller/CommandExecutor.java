@@ -728,25 +728,30 @@ public class CommandExecutor {
                 notifier.notifyError(error, userJsonReceiver);
             }
             else{
+                //verify if the shoot state is correct
                 if(shootState.equals(ShootState.CHOOSEBASE)&& weaponToUse.canOpt(currentPlayer)){
                     String message ="";
-
+                    //parse command param
                     if(command.getOpt().equals("tutti")) {
+                        //verify if player can pay all effects
                         if (currentPlayer.canPayAll(weaponToUse.getBaseEffect().get(0).getOptionalEffects())){
                             opt.addAll(weaponToUse.getBaseEffect().get(0).getOptionalEffects());
                             currentPlayer.payOpt(weaponToUse.getBaseEffect().get(0).getOptionalEffects());
                             message = "Tutti gli effetti opzionali sono stati impostati, se puoi muoverti inerisci il movimento se no inserisci i bersagli";
                             shootState = ShootState.CHOSENEFFECT;
+                            System.out.println("scelti : "+opt.size()+" opt effect (tutti)");
                         }
                         else{
                             message = "Non puoi pagare tutti gli effetti opzionali, seleziona solo quelli ammessi";
                         }
                     }else if(!command.getOpt().equals("no")){
+                        //verify if the choosen opt effect can be paid
                         if (currentPlayer.canPay(weaponToUse.getBaseEffect().get(0).getOptionalEffects().get(Integer.parseInt(command.getOpt())).getCost())) {
                             opt.add(weaponToUse.getBaseEffect().get(0).getOptionalEffects().get(Integer.parseInt(command.getOpt())));
                             currentPlayer.payOpt(weaponToUse.getBaseEffect().get(0).getOptionalEffects().get(Integer.parseInt(command.getOpt())));
-                            message = "L'effetto opzionale selezionato è stato impostato, se puoi muoverti inerisci il movimento se no inserisci i bersagli";
+                            message = "L'effetto opzionale selezionato è stato impostato, se puoi muoverti inserisci il movimento se no inserisci i bersagli";
                             shootState = ShootState.CHOSENEFFECT;
+                            System.out.println("scelto : "+opt.size()+" opt effect(uno solo num: "+command.getOpt()+")");
                         }
                         else{
                             message = "Non puoi l'effetto opzionali, seleziona solo quelli ammessi";
@@ -754,8 +759,10 @@ public class CommandExecutor {
                     }else if (command.getOpt().equals("no")){
                         shootState = ShootState.CHOSENEFFECT;
                         message = "Nessun effetto opzionale impostato, se puoi muoverti inerisci il movimento se no inserisci i bersagli";
+                        System.out.println("scelto nessun opt");
                     }
                     notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
+                    commandExecutorLogger.log(Level.INFO, "Set optional effect for "+weaponToUse.getName());
                 }
                 else{
                     String error ="Non sei nella fase di scelta degli effetti opzionali";
