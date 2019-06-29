@@ -68,10 +68,12 @@ public class CommandExecutor {
                         }
                     }
                     userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Hai terminato il tuo turno", currentPlayer));
+                    commandExecutorLogger.log(Level.INFO, "Termine turno giocatore "+currentPlayer.getName());
                     //TODO prova, non so se metterli qua o no
                     gameManager.getMatch().endRound();
                     gameManager.getMatch().newRound();
                     currentPlayer = gameManager.getMatch().getCurrentPlayer();
+                    commandExecutorLogger.log(Level.INFO, "Inizio turno giocatore "+currentPlayer.getName());
                     JsonReceiver userToBeNotifiedThrow = null;
                     for(JsonReceiver jr : command.getAllReceivers()){
                         User userToBeNotified= TokenRegistry.getInstance().getJsonUserOwner(jr);
@@ -82,6 +84,7 @@ public class CommandExecutor {
                     userToBeNotifiedThrow.sendJson(jsonCreator.createTargetPlayerJson("", currentPlayer));
                     if((currentPlayer.getState().getName().equals("EndTurn")&& currentPlayer.getTile() == null) || currentPlayer.getState().getName().equals("Dead") || currentPlayer.getState().getName().equals("Overkilled")) {
                         userToBeNotifiedThrow.sendJson(jsonCreator.createTargetPlayerJson("scegli quale powerup scartare per spawnare", currentPlayer));
+                        commandExecutorLogger.log(Level.INFO, "Richiesta scarto power up per spawn a "+currentPlayer.getName());
                     }
                 }
             }
@@ -112,11 +115,10 @@ public class CommandExecutor {
                     currentPlayer.getState().nextState("PickUp", currentPlayer);
                     String message = currentPlayer.getName()+" vuole raccogliere";
                     for (JsonReceiver js : command.getAllReceivers()) {
-                        if (js != userJsonReceiver) {
-                            js.sendJson(jsonCreator.createJsonWithMessage(message));
-                        }
+                       notifyToAllExceptCurrent(js, userJsonReceiver, message);
                     }
-                    userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Se vuoi spostarti inserisci la direzione, altrimenti inserisci none, raccoglierai automaticamente se ci sono munizioni"));
+                    userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Se vuoi spostarti inserisci la direzione, altrimenti inserisci none, raccoglierai automaticamente se ci sono munizioni", currentPlayer));
+                    commandExecutorLogger.log(Level.INFO, "Richiesta spostamento per raccogliere a "+currentPlayer.getName());
                 }
             }
         }
@@ -269,6 +271,7 @@ public class CommandExecutor {
                         }
                     }
                     userJsonReceiver.sendJson(jsonCreator.createJsonWithMessage("Inserisci le mosse che vuoi fare: (up, down, left, right)"));
+                    commandExecutorLogger.log(Level.INFO, "Richiesta spostamento per move a "+currentPlayer.getName());
                 }
             }
         }
@@ -304,6 +307,7 @@ public class CommandExecutor {
                                     notifyToAllExceptCurrent(js, userJsonReceiver, message);
                                 }
                                 userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Ti sei spostato nel tile :" + currentPlayer.getTile().getID(), currentPlayer));
+                                commandExecutorLogger.log(Level.INFO, "movimento di  "+currentPlayer.getName()+" avvenuto correttamente");
                                 command.endCommandToAction(gameManager);
                             }
                             if (currentPlayer.getState().canPickUp() && currentPlayer.getTile().canContainAmmo() && (currentPlayer.getState().getName().equals("PickUp")|| currentPlayer.getState().getName().equals("PickUpPlu"))) {
@@ -321,6 +325,7 @@ public class CommandExecutor {
                                         notifyToAllExceptCurrent(js, userJsonReceiver, message2);
                                     }
                                     userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Ti sei spostato nel tile " + currentPlayer.getTile().getID() + " e hai raccolto una carta munizioni", currentPlayer));
+                                    commandExecutorLogger.log(Level.INFO, "Racolta ammo da "+currentPlayer.getName());
                                     command.endCommandToAction(gameManager);
                                 } else {
                                     //return to old state
@@ -379,14 +384,14 @@ public class CommandExecutor {
                 userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
             } else {
                 //verify the state
-                if (currentPlayer.getState().canPickUp()) {
+                if (currentPlayer.getState().canPickUp() && currentPlayer.getNumWeapons()<4 && (currentPlayer.getState().getName().equals("PickUp")||currentPlayer.getState().getName().equals("PickUpPlus"))) {
                     //verify if it is a weapon tile
                     if (currentPlayer.getTile().canContainWeapons()) {
                         //verify if there are weapon in the tile
                         if (!currentPlayer.getTile().getWeapons().isEmpty()) {
                             //set player remaining steps to zero
                             currentPlayer.getState().remainingStepsToZero();
-
+                            System.out.println("Armi del giocatore: "+currentPlayer.weaponsToString());
                             WeaponCard weaponCard = null;
                             int count = 0;
                             if (command.getWeaponName() == null) {
@@ -418,10 +423,12 @@ public class CommandExecutor {
                                             notifyToAllExceptCurrent(js, userJsonReceiver, message);
                                         }
                                         userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Hai raccolto " + weaponCard.getName(), currentPlayer));
+                                        commandExecutorLogger.log(Level.INFO, "Raccolta "+weaponCard.getName()+" da "+currentPlayer.getName());
                                         //decrement moves of player and return to action selector
                                         command.endCommandToAction(gameManager);
                                     } catch (IllegalHavingException e) {
                                         userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Hai più armi di quante consentite, scegline una da scartare tra: " + currentPlayer.weaponsToString()));
+                                        commandExecutorLogger.log(Level.INFO, "Richiesta di scarto arma a "+currentPlayer.getName());
                                     }
                                     catch (InsufficientAmmoException e){
                                         //return to old state
@@ -460,7 +467,7 @@ public class CommandExecutor {
             if (owner != currentPlayer) {
                 userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non puoi eseguire questa azione se non è il tuo turno"));
             } else {
-                if(currentPlayer.getWeapons().size()<4 && (currentPlayer.getState().getName().equals("PickUp")||currentPlayer.getState().getName().equals("PickUpPlus"))){
+                if(currentPlayer.getWeapons().size()>3 && (currentPlayer.getState().getName().equals("PickUp")||currentPlayer.getState().getName().equals("PickUpPlus"))){
                     WeaponCard toThrow = currentPlayer.hasWeapon(command.getWeaponToThrow());
                     if(toThrow!=null){
                         currentPlayer.getTile().putWeaponCard(toThrow);
@@ -469,6 +476,7 @@ public class CommandExecutor {
                             notifyToAllExceptCurrent(js, userJsonReceiver, message);
                         }
                         userJsonReceiver.sendJson(jsonCreator.createTargetPlayerJson("Hai scartato: "+command.getWeaponToThrow(),currentPlayer));
+                        command.endCommandToAction(gameManager);
                     }
                     else{
                         userJsonReceiver.sendJson(jsonCreator.createJsonWithError("Non hai quest'arma"));

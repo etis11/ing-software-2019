@@ -30,6 +30,7 @@ public abstract class AbstractCommand implements Command {
     }
 
     public void endCommandToAction(GameManager gameManager) {
+        System.out.println("RESET STATO");
         gameManager.getMatch().getCurrentPlayer().decrementMoves();
         gameManager.getMatch().getCurrentPlayer().getState().resetRemainingSteps();
         gameManager.getMatch().getCurrentPlayer().getState().nextState(gameManager.getMatch().getCurrentPlayer().getOldState().getName(), gameManager.getMatch().getCurrentPlayer());
