@@ -965,7 +965,6 @@ public class CommandExecutor {
                             }
                             //verify if now target are valid
                             if((base == null && weaponToUse.getBaseEffect().get(0).getStrategy().areTargetValid(currentPlayer, targets))||(base != null && base.getStrategy().areTargetValid(currentPlayer, targets))){
-                                //todo verify for optional
                                 shootState = ShootState.APPLYEFFECTDAMAGE;
                                 applyDamage(currentPlayer);
                             }
@@ -1480,5 +1479,6 @@ public class CommandExecutor {
         weaponToUse.getBaseEffect().get(0).applyOptionalEffect(opt);
         DamageTransporter dt = new DamageTransporter(targets.get(0), currentPlayer, weaponToUse.getBaseEffect().get(0).getDamage().get("red"),weaponToUse.getBaseEffect().get(0).getMarks().get("red"));
         targets.get(0).getPlayerBoard().calculateDamage(dt);
+        //todo reset danni
     }
 }
