@@ -72,12 +72,19 @@ public class WeaponCardTest {
 
     @Test
     void jsonLoadTest() {
-        JsonFileReader jsonFileReader = new JsonFileReader();
-        String cards = jsonFileReader.loadWeaponCards("cards/weaponCards.json");
+        JsonFileReader jsonFileReader = new JsonFileReader();// C:\Users\new xps\Documents\ing-sw-2019-44\src\main\resources\cards\weaponCards.json
+       // loadWeaponCards is never used
+        String cards = jsonFileReader.loadWeaponCards("src/main/resources/cards/weaponCards.json");
+
+        assertNotNull(cards);
+
+      //  System.out.println("cards "+cards);
+
         Match match = new Match();
         //List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
         WeaponCardDeserializer weaponCardDeserializer = new WeaponCardDeserializer(match);
-        List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
+        List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards("/cards/weaponCards.json");
+
         System.out.println(weaponCards);
         System.out.println(weaponCards.get(0).getBaseEffect().get(0).getMarks());
         System.out.println(weaponCards.get(0).getBaseEffect().get(0).getStrategy());

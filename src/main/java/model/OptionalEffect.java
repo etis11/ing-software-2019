@@ -12,6 +12,8 @@ public class OptionalEffect {
     private Map<String, Integer> additionalMarks;
     private boolean activated;
     private boolean canMoveShooter;
+    private boolean canMoveTarget;
+
     private int shooterSteps;
     private boolean shooterAlreadyMoved;
 
@@ -30,6 +32,14 @@ public class OptionalEffect {
 
     public boolean canShooterMove() {
         return canMoveShooter;
+    }
+
+    public boolean canTargetMove() {
+        return canMoveTarget;
+    }
+
+    public void setCanMoveTarget(boolean canMoveTarget) {
+        this.canMoveTarget = canMoveTarget;
     }
 
     public void activate(boolean activated) {

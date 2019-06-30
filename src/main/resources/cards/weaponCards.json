@@ -158,7 +158,7 @@
         "canMoveTarget": true,
         "numStepsTarget": 2,
         "strategy": {
-          "type": "SeeStrategy",
+          "type": "TorpedineStrategy",
           "param": null
         },
         "optionalEffects": [

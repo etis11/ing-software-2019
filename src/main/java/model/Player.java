@@ -205,7 +205,8 @@ public class Player implements ChangesObservable{
      * @return the list of all weapons in the hand of the player
      */
     public List<WeaponCard> getWeapons() {
-        return weapons.stream().map(WeaponCard::new).collect(Collectors.toCollection(LinkedList::new));
+        return this.weapons;
+      //  return weapons.stream().map(WeaponCard::new).collect(Collectors.toCollection(LinkedList::new));
     }
 
     /**
