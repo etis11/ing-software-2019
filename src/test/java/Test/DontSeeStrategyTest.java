@@ -4,6 +4,7 @@ import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -81,10 +82,14 @@ public class DontSeeStrategyTest {
         map.addRoom(white);
         map.addRoom(pink);
         System.out.println("match players : " + match.getPlayers().toString());
-        match.getPlayers().add(shooter);
-        match.getPlayers().add(target1);
-        match.getPlayers().add(target2);
-        match.getPlayers().add(target3);
+
+        List<Player> toSet=new ArrayList<>();
+        toSet.add(shooter);
+        toSet.add(target1);
+        toSet.add(target2);
+        toSet.add(target3);
+        match.setPlayers(toSet);
+
         for (Player player : match.getPlayers()) {
             System.out.println("match players : " + player.getName());
         }

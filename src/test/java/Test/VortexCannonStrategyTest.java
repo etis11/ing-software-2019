@@ -4,6 +4,7 @@ import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -97,8 +98,10 @@ public class VortexCannonStrategyTest {
         targets.add(target4);
         targets.add(target5);
 
-        match.getPlayers().add(shooter);
-        match.getPlayers().addAll(enemies);
+        List<Player> toSet=new ArrayList<>();
+        toSet.add(shooter);
+        toSet.addAll(enemies);
+        match.setPlayers(toSet);
 
         System.out.println("match players : " + match.getPlayers());
         assertNotNull(match.getPlayers());
@@ -126,8 +129,10 @@ public class VortexCannonStrategyTest {
         // match.getPlayers().stream().filter(player -> match.getMap().allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(shooter, map) <= 1)) && !player.equals(shooter)).collect(Collectors.toList());
 
         System.out.println("allVisibleTiles : " + map.allVisibleTiles(shooter));
-        match.getPlayers().add(shooter);
-        match.getPlayers().addAll(targets);
+
+        toSet.add(shooter);
+        toSet.addAll(targets);
+        match.setPlayers(toSet);
         System.out.println("getHittableTargets : " + vortex.getHittableTargets(shooter));
         System.out.println("Are Targets valid : " + vortex.areTargetValid(shooter, targets));
         vortex.areTargetValid(shooter, targets);
