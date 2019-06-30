@@ -7,7 +7,6 @@ import model.*;
 import network.TokenRegistry;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -32,7 +31,7 @@ public class CommandExecutor {
     /**
      * duration of a turn expressed in seconds
      */
-    private final int turnLength = 30;
+    private final int turnLength = 15;
 
     /**
      * gameManager is a reference to the model due to access to the match and lobby variables
@@ -42,6 +41,8 @@ public class CommandExecutor {
     private final  JsonCreator jsonCreator;
 
     private final Notifier notifier;
+
+    private final CommandLauncherInterface launcher;
 
     public CommandExecutor(GameManager gameManager, JsonCreator jsonCreator, CommandLauncherInterface launcherInterface) {
         this.gameManager = gameManager;
@@ -53,6 +54,7 @@ public class CommandExecutor {
         this.jsonCreator = jsonCreator;
         notifier = new JsonNotifier(jsonCreator, launcherInterface, gameManager);
         turnTimer = null;
+        launcher = launcherInterface;
     }
 
     public void setTurnTimer(Timer turnTimer) {
@@ -90,33 +92,15 @@ public class CommandExecutor {
                             notifyToAllExceptCurrent(js, userJsonReceiver, message);
                         }
                     }
-                    String messageToSend = "Hai terminato il tuo turno";
-                    notifier.notifyMessageTargetPlayer(messageToSend, userJsonReceiver, currentPlayer);
-                    commandExecutorLogger.log(Level.INFO, "Termine turno giocatore "+currentPlayer.getName());
-                    //TODO prova, non so se metterli qua o no
-                    gameManager.getMatch().endRound();
-                    if (turnTimer != null){
-                        turnTimer.cancel();
-                        turnTimer.purge();
-                    }
+                    endTurnNotification(userJsonReceiver);
+                    endTurnAndResetTimer();
                     gameManager.getMatch().newRound();
-                    turnTimer = new Timer();
-                    turnTimer.schedule(new NewTurnTimerTask(this, command.getAllReceivers()
-                            , userJsonReceiver,notifier, gameManager), turnLength*1000);
+                    newTimerCreation(command.getAllReceivers());
+
                     currentPlayer = gameManager.getMatch().getCurrentPlayer();
                     commandExecutorLogger.log(Level.INFO, "Inizio turno giocatore "+currentPlayer.getName());
-                    JsonReceiver userToBeNotifiedThrow = null;
-                    for(JsonReceiver jr : command.getAllReceivers()){
-                        User userToBeNotified= TokenRegistry.getInstance().getJsonUserOwner(jr);
-                        if(userToBeNotified.getPlayer().getName().equals(gameManager.getMatch().getCurrentPlayer().getName())){
-                            userToBeNotifiedThrow = jr;
-                        }
-                    }
-                    notifier.notifyMessageTargetPlayer("", userToBeNotifiedThrow, currentPlayer);
-                    if((currentPlayer.getState().getName().equals("EndTurn")&& currentPlayer.getTile() == null) || currentPlayer.getState().getName().equals("Dead") || currentPlayer.getState().getName().equals("Overkilled")) {
-                        notifier.notifyMessageTargetPlayer("scegli quale powerup scartare per spawnare", userToBeNotifiedThrow, currentPlayer);
-                        commandExecutorLogger.log(Level.INFO, "Richiesta scarto power up per spawn a "+currentPlayer.getName());
-                    }
+                    //cycle that finds the json receiver of the person that should throw
+                    notifyNewTurnAndSpawning(command.getAllReceivers());
                 }
             }
         }
@@ -127,6 +111,85 @@ public class CommandExecutor {
         jsonCreator.reset();
 
     }
+
+    public void execute(ServerEndTurnCommand command) throws IOException{
+            //notify to all the user alive that the old user has been kicked
+            List<JsonReceiver> allJsonReceivers = command.getAllReceivers();
+            // user that has to be disconnected
+            User forcedDisconnectedUser = command.getDisconnectUser();
+            //current player before changing the turn
+            Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
+            for(JsonReceiver jsonReceiver: allJsonReceivers) {
+                notifier.notifyDisconnection(forcedDisconnectedUser, currentPlayer, jsonReceiver);
+            }
+            //put the current player in end turn
+            currentPlayer.goToEndState();
+            //disconnected, i dont have to notify him
+            //end turn
+            endTurnAndResetTimer();
+            //new round
+            gameManager.getMatch().newRound();
+            //new turn
+            newTimerCreation(allJsonReceivers);
+            notifyNewTurnAndSpawning(allJsonReceivers);
+    }
+
+
+    /**
+     * Notifies to the current player that the turn has ended. The board is filled and the timer is resetted
+     * @param userJsonReceiver
+     */
+    private void endTurnNotification(JsonReceiver userJsonReceiver){
+        String messageToSend = "Hai terminato il tuo turno";
+        Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
+        notifier.notifyMessageTargetPlayer(messageToSend, userJsonReceiver, currentPlayer);
+        commandExecutorLogger.log(Level.INFO, "Termine turno giocatore "+currentPlayer.getName());
+    }
+
+    private void endTurnAndResetTimer(){
+        gameManager.getMatch().endRound();
+        //chack in case it's the first time and the timer was not instatiated
+        if (turnTimer != null){
+            turnTimer.cancel();
+            turnTimer.purge();
+        }
+    }
+
+    private void notifyNewTurnAndSpawning(List<JsonReceiver> allJsonReceiver){
+        JsonReceiver userToBeNotifiedThrow = null;
+        for(JsonReceiver jr : allJsonReceiver){
+            User userToBeNotified= TokenRegistry.getInstance().getJsonUserOwner(jr);
+            if(userToBeNotified.getPlayer().getName().equals(gameManager.getMatch().getCurrentPlayer().getName())){
+                userToBeNotifiedThrow = jr;
+            }
+        }
+        Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
+        notifier.notifyMessageTargetPlayer("", userToBeNotifiedThrow, currentPlayer);
+        if((currentPlayer.getState().getName().equals("EndTurn")&& currentPlayer.getTile() == null) || currentPlayer.getState().getName().equals("Dead") || currentPlayer.getState().getName().equals("Overkilled")) {
+            notifier.notifyMessageTargetPlayer("scegli quale powerup scartare per spawnare", userToBeNotifiedThrow, currentPlayer);
+            commandExecutorLogger.log(Level.INFO, "Richiesta scarto power up per spawn a "+currentPlayer.getName());
+        }
+    }
+
+    /**
+     * looks for the json receiver of the current player and sets the timer
+     * @param allJsonReceivers
+     */
+    private void newTimerCreation(List<JsonReceiver> allJsonReceivers){
+        //looking for the json receiver that has the current player
+        JsonReceiver jsonReceiverCurrentTurn = null;
+        for (JsonReceiver jsonReceiver : allJsonReceivers){
+            User possibleCurrentUser = registry.getJsonUserOwner(jsonReceiver);
+            Player userPlayer = possibleCurrentUser.getPlayer();
+            //if the current player is the same of this user player, then the new json receiver is this one
+            if (userPlayer.getName().equals(gameManager.getMatch().getCurrentPlayer().getName())){
+                jsonReceiverCurrentTurn = jsonReceiver;
+            }
+        }
+        turnTimer = new Timer();
+        turnTimer.schedule(new TurnTimerTask(launcher, jsonReceiverCurrentTurn, notifier), turnLength*1000);
+    }
+
 
     public void execute(AskPickCommand command) throws IOException {
         boolean gameHasStarted = hasMatchStarted(gameManager);
@@ -1450,4 +1513,5 @@ public class CommandExecutor {
         DamageTransporter dt = new DamageTransporter(targets.get(0), currentPlayer, weaponToUse.getBaseEffect().get(0).getDamage().get("red"),weaponToUse.getBaseEffect().get(0).getMarks().get("red"));
         targets.get(0).getPlayerBoard().calculateDamage(dt);
     }
+
 }

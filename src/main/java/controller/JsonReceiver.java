@@ -17,4 +17,6 @@ public interface JsonReceiver extends Remote {
      * @throws IOException     Using socket, if there are some problems writing an object in a stream
      */
     void sendJson(String changes) throws RemoteException, IOException;
+
+    void disconnect() throws RemoteException, IOException;
 }

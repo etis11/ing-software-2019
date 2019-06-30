@@ -79,7 +79,6 @@ public class TokenRegistry {
      */
     public JsonReceiver getJsonReceiver(String token) {
         JsonReceiver receiver = associatonTokenReceiver.get(token);
-        if (receiver == null) throw new NullPointerException("This token is not registered");
         return receiver;
     }
 

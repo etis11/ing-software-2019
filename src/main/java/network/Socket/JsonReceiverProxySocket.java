@@ -5,6 +5,7 @@ import controller.JsonReceiver;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,6 +51,11 @@ public class JsonReceiverProxySocket implements JsonReceiver {
         jsonProxyLogger.log(Level.INFO, ">>> Sending the json changes");
         out.println(changes);
         out.flush();
+    }
+
+    @Override
+    public void disconnect() throws RemoteException, IOException {
+        close();
     }
 
     /**

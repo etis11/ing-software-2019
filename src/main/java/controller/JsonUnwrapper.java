@@ -9,6 +9,9 @@ import model.User;
 import model.clientModel.*;
 import view.*;
 
+import javax.naming.OperationNotSupportedException;
+import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -157,6 +160,12 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
         playerDeserializer.resetMap();
     }
 
+    @Override
+    public void disconnect(){
+        System.out.println(AnsiColor.RED + "Errore nella connesione. Disconnessione forzata." + AnsiColor.RESET);
+        System.exit(0);
+    }
+
     /************************ message observable    *******************************/
     @Override
     public void attachMessageListener(MessageListener listener) {
@@ -187,5 +196,4 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
     public void attach(LobbyListener ls) {
         lobbyListeners.add(ls);
     }
-
 }
