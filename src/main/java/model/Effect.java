@@ -40,6 +40,7 @@ public class Effect {
     private int numStepsTarget;
     private boolean moveTargetAndHitAll;
     private boolean alreadyMovedTarget;
+    private boolean alreadyMovedShooter = false;
     //TODO da settare. Fare l'azione inversa dell'apply
     private int redDamage;
     private int blueDamage;
@@ -51,6 +52,7 @@ public class Effect {
     public Effect(List<String> cost, TargetStrategy strategy) {
         this.cost = cost;
         this.strategy = strategy;
+        this.alreadyMovedShooter = false;
         damage = new HashMap<>();
         damage.put("red", 0);
         damage.put("blue", 0);
@@ -103,6 +105,10 @@ public class Effect {
     }
 
     public void setAlreadyMovedTarget(boolean alreadyMovedTarget) {
+        this.alreadyMovedTarget = alreadyMovedTarget;
+    }
+
+    public void setAlreadyMovedShooter(boolean alreadyMovedTarget) {
         this.alreadyMovedTarget = alreadyMovedTarget;
     }
 
