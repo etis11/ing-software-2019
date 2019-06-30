@@ -36,10 +36,19 @@ public class CommandExecutor {
      */
     private GameManager gameManager;
 
+    /**
+     * used to create json
+     */
     private final  JsonCreator jsonCreator;
 
+    /**
+     * notifies the receiver of the changes
+     */
     private final Notifier notifier;
 
+    /**
+     * is used by the server to send his command
+     */
     private final CommandLauncherInterface launcher;
 
     public CommandExecutor(GameManager gameManager, JsonCreator jsonCreator, CommandLauncherInterface launcherInterface) {
@@ -159,6 +168,9 @@ public class CommandExecutor {
         commandExecutorLogger.log(Level.INFO, "Termine turno giocatore "+currentPlayer.getName());
     }
 
+    /**
+     * calls the end round routine and resets the timer
+     */
     private void endTurnAndResetTimer(){
         gameManager.getMatch().endRound();
         //chack in case it's the first time and the timer was not instatiated
@@ -168,6 +180,10 @@ public class CommandExecutor {
         }
     }
 
+    /**
+     * notify the new turn and checks for the spawning
+     * @param allJsonReceiver
+     */
     private void notifyNewTurnAndSpawning(List<JsonReceiver> allJsonReceiver){
         JsonReceiver userToBeNotifiedThrow = null;
         for(JsonReceiver jr : allJsonReceiver){
