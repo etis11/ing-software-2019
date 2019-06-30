@@ -129,7 +129,18 @@ public class CommandLineInterface extends AbstractView  {
                 SemplifiedTile tile = mappa.getTile(i,j);
                 if(tile != null){
                     if(mappa.getTile(i,j).getAmmoCard()!=null){
-                        p[mappa.getTile(i,j).getId()]=p[mappa.getTile(i,j).getId()].replaceFirst("    ","AMMO");
+                        String toaddAmmo="";
+
+                        for(int z=0;z<mappa.getTile(i,j).getAmmoCard().getNumBlue();z++){
+                            toaddAmmo=toaddAmmo+"B";
+                        }
+                        for(int z=0;z<mappa.getTile(i,j).getAmmoCard().getNumRed();z++){
+                            toaddAmmo=toaddAmmo+"R";
+                        }
+                        for(int z=0;z<mappa.getTile(i,j).getAmmoCard().getNumYellow();z++){
+                            toaddAmmo=toaddAmmo+"Y";
+                        }
+                        p[mappa.getTile(i,j).getId()]=p[mappa.getTile(i,j).getId()].replaceFirst("    "," "+toaddAmmo+ (mappa.getTile(i,j).getAmmoCard().isDrawPowerUp()? "P" : ""));
                     }
                     total=total+mappa.getTile(i,j).getPlayers().size();
 
