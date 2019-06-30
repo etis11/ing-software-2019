@@ -65,6 +65,11 @@ public class Player implements ChangesObservable{
 
     private boolean payWewapon = true;
 
+    private final State endTurnState;
+
+    //True if there is a connected user that is playing with this player
+    private boolean active = true;
+
     /**
      * A player without name is created. His hand is empty and the state is EndTurn (he cant do anything). Since no map or tile
      * has been created, this player has not been positioned on any tile
@@ -81,6 +86,7 @@ public class Player implements ChangesObservable{
         oldState = null;
         oldTile =null;
         playerObservers = new LinkedList<>();
+        endTurnState = null;
     }
 
     /**
@@ -101,12 +107,13 @@ public class Player implements ChangesObservable{
         oldState = null;
         oldTile = null;
         playerObservers = new LinkedList<>();
+        endTurnState = null;
     }
 
-    public Player(String name, State s) {
+    public Player(String name, State endTurnState) {
         this.name = name;
         points = 0;
-        state = s;
+        state = endTurnState;
         weapons = new LinkedList<>();
         powerUps = new LinkedList<>();
         tile = null;
@@ -115,6 +122,7 @@ public class Player implements ChangesObservable{
         oldState = null;
         oldTile =null;
         playerObservers = new LinkedList<>();
+        this.endTurnState = endTurnState;
     }
 
     /**
@@ -165,6 +173,10 @@ public class Player implements ChangesObservable{
         state = s;
     }
 
+    public void goToEndState(){
+        state = endTurnState;
+    }
+
     /**
      * returns the number of remaining moves for playing turn
      *
@@ -188,6 +200,14 @@ public class Player implements ChangesObservable{
      */
     public void decrementMoves() {
         this.remainingMoves--;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     /**

@@ -71,6 +71,11 @@ public class Match implements ChangesMatchObservable{
      */
     private List<ChangesMatchObserver> matchObservers;
 
+    /**
+     * minimum number of players that have to be active in a match
+     */
+    private static final int minActivePlayers = 2;
+
 
     public Match() {
         this.playerNumber = 5;
@@ -110,6 +115,10 @@ public class Match implements ChangesMatchObservable{
         matchObservers = new LinkedList<>();
         ammoSlushPile = new Deck<>();
         powerUpSlushPile = new Deck<>();
+    }
+
+    public static int getMinActivePlayers() {
+        return minActivePlayers;
     }
 
     /**
@@ -210,8 +219,8 @@ public class Match implements ChangesMatchObservable{
      * This method returns a copy of the list of players that are going to/will play when game starts
      */
     public synchronized List<Player> getPlayers() {
-      // return new LinkedList<>(this.players);
-       return this.players;
+       return new LinkedList<>(this.players);
+      // return this.players;
     }
 
     /**
@@ -283,13 +292,16 @@ public class Match implements ChangesMatchObservable{
     }
 
     /**
-     * set the new current player
+     * set the new current player. An inactive player is ignored
      */
     private void nextPlayer(){
-        currentPlayer++;
-        if(currentPlayer>=playerNumber){
-            currentPlayer = 0;
-        }
+        //looks for the first active layer
+        do{
+            currentPlayer++;
+            if(currentPlayer>=playerNumber){
+                currentPlayer = 0;
+            }
+        } while (!getCurrentPlayer().isActive());
         getCurrentPlayer().setRemainingMoves(2);
         notifyAllObserversCurrentPlayer();
     }
@@ -380,11 +392,20 @@ public class Match implements ChangesMatchObservable{
     }
 
     /**
-     * routine to terminate a round
+     * routine to terminate a round.
      */
     public void endRound(){
         verifyDead();
         replaceCards();
+    }
+
+    public int getNumActivePlayers(){
+        int i = 0;
+        for(Player p: players){
+            if (p.isActive())
+                i++;
+        }
+        return i;
     }
 
     /**

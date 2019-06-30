@@ -4,6 +4,7 @@ import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -64,8 +65,10 @@ public class AdjacentStrategyTest {
         List<Player> targets = new LinkedList<>();
         targets.add(target);
         targets.add(target2);
-        match.getPlayers().add(shooter);
-        match.getPlayers().addAll(targets);
+        List<Player> toSet=new ArrayList<>();
+        toSet.add(shooter);
+        toSet.addAll(targets);
+        match.setPlayers(toSet);
 
         assertFalse(adjacentStrategy.areTargetValid(shooter, targets), "Targets should not be valid");
         assertTrue(adjacentStrategy.canHitSomeone(shooter), "Can't hit anyone");

@@ -79,7 +79,6 @@ public class TokenRegistry {
      */
     public JsonReceiver getJsonReceiver(String token) {
         JsonReceiver receiver = associatonTokenReceiver.get(token);
-        if (receiver == null) throw new NullPointerException("This token is not registered");
         return receiver;
     }
 
@@ -89,6 +88,9 @@ public class TokenRegistry {
      * @return correspongind user
      */
     public User getJsonUserOwner(JsonReceiver receiver) {
+        if(receiver == null)
+            System.out.println("accesso ad un receiver null, capire bene perchè. Forse perchè non ho implementato il salto dei player" +
+                    "inattivi ");
         User owner = receiverUser.get(receiver);
         return owner;
     }

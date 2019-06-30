@@ -71,11 +71,33 @@ public class JsonNotifier implements Notifier {
                 jsonReceiver.sendJson(json);
         }
         catch(RemoteException re){
-
+            disconnectJsonReceiver(jsonReceiver);
         }
         catch (IOException ioe){
-
+            disconnectJsonReceiver(jsonReceiver);
         }
+    }
+
+    /**
+     * disconnect the given jsonReceiver
+     * @param jsonReceiver
+     */
+    @Override
+    public void disconnectReceiver(JsonReceiver jsonReceiver) {
+        try{
+            jsonReceiver.disconnect();
+        }
+        catch (IOException ioe){
+            jsonNotifierLogger.log(Level.WARNING, "Maybe this receiver was already disconnected");
+        }
+        disconnectJsonReceiver(jsonReceiver);
+    }
+
+    @Override
+    public void notifyDisconnection(User user, Player player, JsonReceiver jsonReceiver) {
+        TokenRegistry registry = TokenRegistry.getInstance();
+        String json = jsonCreator.createTargetPlayerJson(user.getUsername() + " has disconnected.", player);
+        sendJsonAndHandleException(json, jsonReceiver);
     }
 
     /**
@@ -97,7 +119,6 @@ public class JsonNotifier implements Notifier {
 
         User user = registry.getJsonUserOwner(jsonReceiver);
         try{
-
             launcher.removeJsonReceiver(jsonReceiver);
         }
         catch (RemoteException re){
