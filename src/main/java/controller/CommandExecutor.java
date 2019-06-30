@@ -1402,6 +1402,9 @@ public class CommandExecutor {
         jsonCreator.reset();
         userToBeNotifiedThrow.sendJson(jsonCreator.createJsonWithMessage("scegli quale powerup scartare per spawnare"));
         jsonCreator.reset();
+        //creates a timer for the first turn
+        turnTimer = new Timer();
+        turnTimer.schedule(new TurnTimerTask(launcher, userToBeNotifiedThrow, notifier), turnLength*1000);
     }
 
     private Color colorParser(String color){
@@ -1466,15 +1469,6 @@ public class CommandExecutor {
         String error =message;
         notifier.notifyError(error, userJsonReceiver);
         currentPlayer.setOldTile(null);
-    }
-
-
-    private void notifyAllExceptOne(String message, JsonReceiver toExclude, List<JsonReceiver> allReceivers) throws IOException{
-        for (JsonReceiver js : allReceivers) {
-            if (js != toExclude) {
-                notifier.notifyMessage(message, js);
-            }
-        }
     }
 
     private boolean canMoveShooterOpt(){

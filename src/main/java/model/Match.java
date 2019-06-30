@@ -283,13 +283,16 @@ public class Match implements ChangesMatchObservable{
     }
 
     /**
-     * set the new current player
+     * set the new current player. An inactive player is ignored
      */
     private void nextPlayer(){
-        currentPlayer++;
-        if(currentPlayer>=playerNumber){
-            currentPlayer = 0;
-        }
+        //looks for the first active layer
+        do{
+            currentPlayer++;
+            if(currentPlayer>=playerNumber){
+                currentPlayer = 0;
+            }
+        } while (!getCurrentPlayer().isActive());
         getCurrentPlayer().setRemainingMoves(2);
         notifyAllObserversCurrentPlayer();
     }

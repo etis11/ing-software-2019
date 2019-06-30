@@ -67,6 +67,9 @@ public class Player implements ChangesObservable{
 
     private final State endTurnState;
 
+    //True if there is a connected user that is playing with this player
+    private boolean active = true;
+
     /**
      * A player without name is created. His hand is empty and the state is EndTurn (he cant do anything). Since no map or tile
      * has been created, this player has not been positioned on any tile
@@ -197,6 +200,14 @@ public class Player implements ChangesObservable{
      */
     public void decrementMoves() {
         this.remainingMoves--;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     /**

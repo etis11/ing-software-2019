@@ -88,6 +88,9 @@ public class TokenRegistry {
      * @return correspongind user
      */
     public User getJsonUserOwner(JsonReceiver receiver) {
+        if(receiver == null)
+            System.out.println("accesso ad un receiver null, capire bene perchè. Forse perchè non ho implementato il salto dei player" +
+                    "inattivi ");
         User owner = receiverUser.get(receiver);
         return owner;
     }

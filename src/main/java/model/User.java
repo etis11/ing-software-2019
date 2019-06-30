@@ -109,5 +109,10 @@ public class User {
 
     public synchronized void setDisconnected(boolean disconnected) {
         this.disconnected = disconnected;
+        //if disconnected, the player is inactive
+        if(disconnected)
+            player.setActive(false);
+        else
+            player.setActive(true);
     }
 }
