@@ -34,7 +34,7 @@
             "cost": [
               "red"
             ],
-            "addtionalDamage": {
+            "additionalDamage": {
               "red": 0,
               "blue": 0,
               "green": 0
@@ -90,7 +90,7 @@
             "cost": [
               "yellow"
             ],
-            "addtionalDamage": {
+            "additionalDamage": {
               "red": 1,
               "blue": 0,
               "green": 0
@@ -110,7 +110,7 @@
             "cost": [
               "blue"
             ],
-            "addtionalDamage": {
+            "additionalDamage": {
               "red": 0,
               "blue": 1,
               "green": 0
@@ -156,7 +156,7 @@
         "canMoveShooter": false,
         "numStepsShooter": 0,
         "canMoveTarget": true,
-        "numStepsTarget": 2,
+        "numStepsTarget": 0,
         "strategy": {
           "type": "TorpedineStrategy",
           "param": null
@@ -166,7 +166,7 @@
             "cost": [
               "blue"
             ],
-            "addtionalDamage": {
+            "additionalDamage": {
               "red": 0,
               "blue": 1,
               "green": 0
@@ -179,14 +179,14 @@
             "activated": false,
             "canMoveShooter": false,
             "canMoveTarget": false,
-            "steps": 2,
+            "steps": 0,
             "alreadyMoved": false
           },
           {
             "cost": [
               "blue"
             ],
-            "addtionalDamage": {
+            "additionalDamage": {
               "red": 0,
               "blue": 0,
               "green": 2
@@ -240,7 +240,7 @@
         "optionalEffects": [
           {
             "cost": [],
-            "addtionalDamage": {
+            "additionalDamage": {
               "red": 0,
               "blue": 0,
               "green": 0
@@ -251,7 +251,7 @@
               "green": 0
             },
             "activated": false,
-            "canMoveShooter": false,
+            "canMoveShooter": true,
             "canMoveTarget": false,
             "steps": 2,
             "alreadyMoved": false
@@ -260,7 +260,7 @@
             "cost": [
               "blue"
             ],
-            "addtionalDamage": {
+            "additionalDamage": {
               "red": 1,
               "blue": 0,
               "green": 0
@@ -309,7 +309,7 @@
         "canMoveTarget": false,
         "numStepsTarget": 0,
         "strategy": {
-          "type": "FixedDiStrategyStrategy",
+          "type": "FixedDistanceStrategy",
           "param": 2
         },
         "optionalEffects": []
@@ -476,7 +476,7 @@
             "cost": [
               "red"
             ],
-            "addtionalDamage": {
+            "additionalDamage": {
               "red": 0,
               "blue": 1,
               "green": 1
@@ -488,7 +488,7 @@
             },
             "activated": false,
             "canMoveShooter": false,
-            "canMoveTarget": false,
+            "canMoveTarget": true,
             "steps": 1,
             "alreadyMoved": false
           }
@@ -751,7 +751,7 @@
             "cost": [
               "red"
             ],
-            "addtionalDamage": {
+            "additionalDamage": {
               "red": 0,
               "blue": 0,
               "green": 0
@@ -799,7 +799,7 @@
         "canMoveTarget": true,
         "numStepsTarget": 1,
         "strategy": {
-          "type": "SeeStrategy",
+          "type": "FixedDistanceStrategy",
           "param": null
         },
         "optionalEffects": [
@@ -807,7 +807,7 @@
             "cost": [
               "blue"
             ],
-            "addtionalDamage": {
+            "additionalDamage": {
               "red": 0,
               "blue": 0,
               "green": 0
@@ -818,7 +818,7 @@
               "green": 0
             },
             "activated": false,
-            "canMoveShooter": false,
+            "canMoveShooter": true,
             "canMoveTarget": false,
             "steps": 2,
             "alreadyMoved": false
@@ -827,7 +827,7 @@
             "cost": [
               "yellow"
             ],
-            "addtionalDamage": {
+            "additionalDamage": {
               "red": 1,
               "blue": 1,
               "green": 1
@@ -942,7 +942,7 @@
         "optionalEffects": [
           {
             "cost": [],
-            "addtionalDamage": {
+            "additionalDamage": {
               "red": 0,
               "blue": 0,
               "green": 0
@@ -953,7 +953,7 @@
               "green": 0
             },
             "activated": false,
-            "canMoveShooter": false,
+            "canMoveShooter": true,
             "canMoveTarget": false,
             "steps": 1,
             "alreadyMoved": false
@@ -962,7 +962,7 @@
             "cost": [
               "yellow"
             ],
-            "addtionalDamage": {
+            "additionalDamage": {
               "red": 0,
               "blue": 2,
               "green": 0
@@ -1200,7 +1200,7 @@
         "cost": [],
         "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
-        "isGlobal": false,
+        "isGlobal": true,
         "damage": {
           "red": 1,
           "blue": 1,
@@ -1227,7 +1227,7 @@
         "cost": [
           "yellow"
         ],
-        "isGlobal": false,
+        "isGlobal": true,
         "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "damage": {
