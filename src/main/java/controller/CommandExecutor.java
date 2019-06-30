@@ -7,10 +7,8 @@ import model.*;
 import network.TokenRegistry;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.rmi.RemoteException;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -94,6 +92,7 @@ public class CommandExecutor {
                     }
                     endTurnNotification(userJsonReceiver);
                     endTurnAndResetTimer();
+                    checkEndMatch(command.getAllReceivers());
                     gameManager.getMatch().newRound();
                     newTimerCreation(command.getAllReceivers());
 
@@ -140,6 +139,7 @@ public class CommandExecutor {
             //disconnected, i dont have to notify him
             //end turn
             endTurnAndResetTimer();
+            checkEndMatch(allJsonReceivers);
             //new round
             gameManager.getMatch().newRound();
             //new turn
@@ -190,19 +190,49 @@ public class CommandExecutor {
      */
     private void newTimerCreation(List<JsonReceiver> allJsonReceivers){
         //looking for the json receiver that has the current player
+        User timerUser = null;
         JsonReceiver jsonReceiverCurrentTurn = null;
         for (JsonReceiver jsonReceiver : allJsonReceivers){
-            User possibleCurrentUser = registry.getJsonUserOwner(jsonReceiver);
+            User possibleCurrentUser = possibleCurrentUser = registry.getJsonUserOwner(jsonReceiver);
             Player userPlayer = possibleCurrentUser.getPlayer();
             //if the current player is the same of this user player, then the new json receiver is this one
             if (userPlayer.getName().equals(gameManager.getMatch().getCurrentPlayer().getName())){
                 jsonReceiverCurrentTurn = jsonReceiver;
+                timerUser = possibleCurrentUser;
+
             }
         }
         turnTimer = new Timer();
-        turnTimer.schedule(new TurnTimerTask(launcher, jsonReceiverCurrentTurn, notifier), turnLength*1000);
+        turnTimer.schedule(new TurnTimerTask(launcher, jsonReceiverCurrentTurn, notifier, timerUser), turnLength*1000);
     }
 
+    /**
+     * Checks if the match has to stop. A match ends when there are less then 3 players or
+     * all the player have played during "frenesia"
+     * TODO per adesso implementa solo la storia della disconnessione
+     */
+    private void checkEndMatch(List<JsonReceiver> allReceivers){
+        Match match = gameManager.getMatch();
+        if (match.getNumActivePlayers() < Match.getMinActivePlayers()){
+            for(JsonReceiver jsonReceiver: allReceivers){
+                notifier.notifyMessage("La partita è terminata perchè non ci sono abbastanza utenti attivi", jsonReceiver);
+            }
+            //now i must disconnect all the json receivers
+            disconnectReceivers(allReceivers);
+            try{
+                launcher.stopExecuting();
+            }
+            catch (RemoteException re){
+                commandExecutorLogger.log(Level.WARNING, "This exception should never occur");
+            }
+        }
+    }
+
+    private void disconnectReceivers(List<JsonReceiver> allReceivers){
+        for(JsonReceiver jsonReceiver: allReceivers){
+            notifier.disconnectReceiver(jsonReceiver);
+        }
+    }
 
     public void execute(AskPickCommand command) throws IOException {
         boolean gameHasStarted = hasMatchStarted(gameManager);
@@ -1390,6 +1420,7 @@ public class CommandExecutor {
         //this line should not be necessary, but the observer-obserrvable pattern is activated after the mach is created,
         //so the json creator is not attached to the player . At this point should be attached
         jsonCreator.notifyPlayerChange(gameManager.getMatch().getCurrentPlayer());
+        User timerUser = null;
         for(JsonReceiver jr: receivers ){
             User userToBeNotified= TokenRegistry.getInstance().getJsonUserOwner(jr);
             Player player = userToBeNotified.getPlayer();
@@ -1397,6 +1428,7 @@ public class CommandExecutor {
             jr.sendJson(json);
             if(userToBeNotified.getPlayer().getName().equals(gameManager.getMatch().getCurrentPlayer().getName())){
                 userToBeNotifiedThrow = jr;
+                timerUser = userToBeNotified;
             }
         }
         jsonCreator.reset();
@@ -1404,7 +1436,7 @@ public class CommandExecutor {
         jsonCreator.reset();
         //creates a timer for the first turn
         turnTimer = new Timer();
-        turnTimer.schedule(new TurnTimerTask(launcher, userToBeNotifiedThrow, notifier), turnLength*1000);
+        turnTimer.schedule(new TurnTimerTask(launcher, userToBeNotifiedThrow, notifier, timerUser), turnLength*1000);
     }
 
     private Color colorParser(String color){

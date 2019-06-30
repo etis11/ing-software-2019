@@ -14,6 +14,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,7 +38,7 @@ public class CommandLauncher implements CommandLauncherInterface {
 
     private final CommandExecutor commandExecutor;
 
-    private boolean stop = false;
+    private AtomicBoolean stop = new AtomicBoolean(false);
 
     /**
      * creates a command executor with the given match. Also the commandQueue is set empty and the pool is a cached pool
@@ -57,7 +58,7 @@ public class CommandLauncher implements CommandLauncherInterface {
     @Override
     public void executeCommand() {
         Command takenCommand = null;
-        while (!stop) {
+        while (!stop.get()) {
             try {
                 takenCommand = commandQueue.take();
                 commandLauncherLogger.log(Level.INFO, ">>> " + takenCommand.getClass() + " extracted");
@@ -71,7 +72,7 @@ public class CommandLauncher implements CommandLauncherInterface {
                 System.out.println("Unable to extract a command because the reading thread has been interrupted. " +
                         "Stopping the command executor");
                 pool.shutdown();
-                stop = true;
+                stopExecuting();
                 Thread.currentThread().interrupt();
             }
             if (takenCommand != null) {
@@ -122,6 +123,8 @@ public class CommandLauncher implements CommandLauncherInterface {
         commandQueue.offer(c);
     }
 
-
-
+    @Override
+    public void stopExecuting() {
+        stop.set(true);
+    }
 }

@@ -71,6 +71,11 @@ public class Match implements ChangesMatchObservable{
      */
     private List<ChangesMatchObserver> matchObservers;
 
+    /**
+     * minimum number of players that have to be active in a match
+     */
+    private static final int minActivePlayers = 2;
+
 
     public Match() {
         this.playerNumber = 5;
@@ -110,6 +115,10 @@ public class Match implements ChangesMatchObservable{
         matchObservers = new LinkedList<>();
         ammoSlushPile = new Deck<>();
         powerUpSlushPile = new Deck<>();
+    }
+
+    public static int getMinActivePlayers() {
+        return minActivePlayers;
     }
 
     /**
@@ -383,11 +392,20 @@ public class Match implements ChangesMatchObservable{
     }
 
     /**
-     * routine to terminate a round
+     * routine to terminate a round.
      */
     public void endRound(){
         verifyDead();
         replaceCards();
+    }
+
+    public int getNumActivePlayers(){
+        int i = 0;
+        for(Player p: players){
+            if (p.isActive())
+                i++;
+        }
+        return i;
     }
 
     /**
