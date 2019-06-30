@@ -29,7 +29,7 @@ public class CommandExecutor {
     /**
      * duration of a turn expressed in seconds
      */
-    private final int turnLength = 15;
+    private final int turnLength = 20;
 
     /**
      * gameManager is a reference to the model due to access to the match and lobby variables
@@ -113,8 +113,11 @@ public class CommandExecutor {
                     JsonReceiver userToBeNotifiedThrow = null;
                     for(JsonReceiver jr : command.getAllReceivers()){
                         User userToBeNotified= TokenRegistry.getInstance().getJsonUserOwner(jr);
-                        if(userToBeNotified.getPlayer().getName().equals(gameManager.getMatch().getCurrentPlayer().getName())){
-                            userToBeNotifiedThrow = jr;
+                        //TODO meglio fare una funzione per questo,è identico ad un codice che ho commentato
+                        if(userToBeNotified != null){
+                            if(userToBeNotified.getPlayer().getName().equals(gameManager.getMatch().getCurrentPlayer().getName())){
+                                userToBeNotifiedThrow = jr;
+                            }
                         }
                     }
                     notifier.notifyMessageTargetPlayer("", userToBeNotifiedThrow, currentPlayer);
@@ -188,8 +191,13 @@ public class CommandExecutor {
         JsonReceiver userToBeNotifiedThrow = null;
         for(JsonReceiver jr : allJsonReceiver){
             User userToBeNotified= TokenRegistry.getInstance().getJsonUserOwner(jr);
-            if(userToBeNotified.getPlayer().getName().equals(gameManager.getMatch().getCurrentPlayer().getName())){
-                userToBeNotifiedThrow = jr;
+            //the user is null if the jsonreceiver has disconnected, so should not be checked.
+            //TODO probabilmente crea dei problemi nello spawning di un player disconnesso, bisogna scorrere
+            //TODO tutti i player, controllare che devono spawnare, ed farli spawnare in maniera automatica dal server
+            if (userToBeNotified != null){
+                if(userToBeNotified.getPlayer().getName().equals(gameManager.getMatch().getCurrentPlayer().getName())){
+                    userToBeNotifiedThrow = jr;
+                }
             }
         }
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
@@ -210,12 +218,15 @@ public class CommandExecutor {
         JsonReceiver jsonReceiverCurrentTurn = null;
         for (JsonReceiver jsonReceiver : allJsonReceivers){
             User possibleCurrentUser = possibleCurrentUser = registry.getJsonUserOwner(jsonReceiver);
-            Player userPlayer = possibleCurrentUser.getPlayer();
-            //if the current player is the same of this user player, then the new json receiver is this one
-            if (userPlayer.getName().equals(gameManager.getMatch().getCurrentPlayer().getName())){
-                jsonReceiverCurrentTurn = jsonReceiver;
-                timerUser = possibleCurrentUser;
+            //this user is null in case the json receiver has been disconnected and so his user is disconnected.
+            if (possibleCurrentUser != null){
+                Player userPlayer = possibleCurrentUser.getPlayer();
+                //if the current player is the same of this user player, then the new json receiver is this one
+                if (userPlayer.getName().equals(gameManager.getMatch().getCurrentPlayer().getName())){
+                    jsonReceiverCurrentTurn = jsonReceiver;
+                    timerUser = possibleCurrentUser;
 
+                }
             }
         }
         turnTimer = new Timer();

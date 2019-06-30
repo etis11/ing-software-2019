@@ -119,7 +119,6 @@ public class JsonNotifier implements Notifier {
 
         User user = registry.getJsonUserOwner(jsonReceiver);
         try{
-
             launcher.removeJsonReceiver(jsonReceiver);
         }
         catch (RemoteException re){
