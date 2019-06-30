@@ -108,8 +108,15 @@ public class Effect {
         this.alreadyMovedTarget = alreadyMovedTarget;
     }
 
-    public void setAlreadyMovedShooter(boolean alreadyMovedTarget) {
-        this.alreadyMovedTarget = alreadyMovedTarget;
+    public void setAlreadyMovedShooter(boolean alreadyMovedShooter) {
+        this.alreadyMovedShooter = alreadyMovedShooter;
+    }
+
+    public boolean isAlreadyMovedTarget(){
+        return alreadyMovedTarget;
+    }
+    public boolean isAlreadyMovedShooter(){
+        return alreadyMovedShooter;
     }
 
     public TargetStrategy getStrategy() {
@@ -126,19 +133,21 @@ public class Effect {
     public void applyOptionalEffect(List<OptionalEffect> optionalEffects) {
         String[] colors = {"red", "blue", "yellow"};
         for (OptionalEffect o : optionalEffects) {
-            if (o.isActivated()) {
-                Map<String, Integer> additionalDamage = o.getAdditionalDamage();
-                Map<String, Integer> additionalMarks = o.getAdditionalDamage();
-                for (String color : colors) {
-                    int dmg = this.damage.get(color);
-                    int addDmg = additionalDamage.get(color);
-                    int marks = this.marks.get(color);
-                    int addMarks = additionalMarks.get(color);
-                    this.damage.put(color, dmg + addDmg);
-                    this.marks.put(color, marks + addMarks);
-                }
+            Map<String, Integer> additionalDamage = o.getAdditionalDamage();
+            Map<String, Integer> additionalMarks = o.getAdditionalDamage();
+            for (String color : colors) {
+                int dmg = this.damage.get(color);
+                int addDmg = additionalDamage.get(color);
+                int marks = this.marks.get(color);
+                int addMarks = additionalMarks.get(color);
+                this.damage.put(color, dmg + addDmg);
+                this.marks.put(color, marks + addMarks);
             }
         }
+    }
+
+    public boolean areOptionalAlreadyMoved(){
+        return true;
     }
 
     /**

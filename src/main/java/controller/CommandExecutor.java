@@ -817,9 +817,7 @@ public class CommandExecutor {
                             //if can't move target and target are valid apply damage
                             if(!weaponToUse.getBaseEffect().get(0).canMoveTarget() && weaponToUse.getBaseEffect().get(0).getStrategy().areTargetValid(currentPlayer, targets) && !canOptionalTargetMove()) {
                                 applyDamage(currentPlayer);
-                                message = "Target impostati corrrettamente e colpiti";
-                                notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
-                                commandExecutorLogger.log(Level.INFO, "target selected correctly "+currentPlayer.getName());
+                                notifyTargetHit(command.getAllReceivers(), userJsonReceiver);
                             }
                             //if can move the target
                             else if(weaponToUse.getBaseEffect().get(0).canMoveTarget() || canOptionalTargetMove()){
@@ -841,9 +839,7 @@ public class CommandExecutor {
                             //if can't move target and target are valid apply damage
                             if(!base.canMoveTarget() && base.getStrategy().areTargetValid(currentPlayer, targets) && !canOptionalTargetMove()) {
                                 applyDamage(currentPlayer);
-                                message = "Target impostati corrrettamente e colpiti";
-                                notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
-                                commandExecutorLogger.log(Level.INFO, "target selected correctly "+currentPlayer.getName());
+                                notifyTargetHit(command.getAllReceivers(), userJsonReceiver);
                             }
                             //if can move the target
                             else if(base.canMoveTarget() || canOptionalTargetMove()){
@@ -966,6 +962,9 @@ public class CommandExecutor {
                             //verify if now target are valid
                             if((base == null && weaponToUse.getBaseEffect().get(0).getStrategy().areTargetValid(currentPlayer, targets))||(base != null && base.getStrategy().areTargetValid(currentPlayer, targets))){
                                 shootState = ShootState.APPLYEFFECTDAMAGE;
+                                for (OptionalEffect opts: opt){
+                                    opts.se
+                                }
                                 applyDamage(currentPlayer);
                             }
                             else{
@@ -1457,7 +1456,7 @@ public class CommandExecutor {
             playerName.add(pl.getName());
         }
         for(String str: name){
-            if(!playerName.contains(str)){
+            if(!playerName.contains(str) || str.equals(gameManager.getMatch().getCurrentPlayer().getName())){
                 return false;
             }
         }
@@ -1475,10 +1474,80 @@ public class CommandExecutor {
 
     private void applyDamage(Player currentPlayer){
         shootState = ShootState.APPLYEFFECTDAMAGE;
-        //todo apply damage, possono essere più di uno?
-        weaponToUse.getBaseEffect().get(0).applyOptionalEffect(opt);
-        DamageTransporter dt = new DamageTransporter(targets.get(0), currentPlayer, weaponToUse.getBaseEffect().get(0).getDamage().get("red"),weaponToUse.getBaseEffect().get(0).getMarks().get("red"));
+        DamageTransporter dt = null;
+        //target red
+        if(base == null){
+            weaponToUse.getBaseEffect().get(0).applyOptionalEffect(opt);
+            dt =weaponToUse.getBaseEffect().get(0).useEffect(currentPlayer, targets.get(0), "red");
+        }
+        else{
+            base.applyOptionalEffect(opt);
+            dt = base.useEffect(currentPlayer, targets.get(0), "red");
+        }
         targets.get(0).getPlayerBoard().calculateDamage(dt);
-        //todo reset danni
+        dt = null;
+        //target blue
+        if(base == null && targets.size()>1){
+            weaponToUse.getBaseEffect().get(0).applyOptionalEffect(opt);
+            if(weaponToUse.getBaseEffect().get(0).getDamage().get("blue") != 0 ||weaponToUse.getBaseEffect().get(0).getMarks().get("blue") != 0){
+                dt =weaponToUse.getBaseEffect().get(0).useEffect(currentPlayer, targets.get(1), "blue");
+            }
+        }
+        else if(targets.size()>1){
+            base.applyOptionalEffect(opt);
+            if(base.getDamage().get("blue") != 0 || base.getMarks().get("blue") != 0) {
+                dt = base.useEffect(currentPlayer, targets.get(1), "blue");
+            }
+        }
+        if(dt != null){
+            targets.get(1).getPlayerBoard().calculateDamage(dt);
+        }
+
+        dt = null;
+        //target green
+        if(base == null && targets.size()>2){
+            weaponToUse.getBaseEffect().get(0).applyOptionalEffect(opt);
+            if(weaponToUse.getBaseEffect().get(0).getDamage().get("green") != 0 ||weaponToUse.getBaseEffect().get(0).getMarks().get("green") != 0){
+                dt =weaponToUse.getBaseEffect().get(0).useEffect(currentPlayer, targets.get(2), "green");
+            }
+        }
+        else if(targets.size()>2){
+            base.applyOptionalEffect(opt);
+            if(base.getDamage().get("green") != 0 || base.getMarks().get("green") != 0) {
+                dt = base.useEffect(currentPlayer, targets.get(2), "green");
+            }
+        }
+        if(dt != null){
+            targets.get(2).getPlayerBoard().calculateDamage(dt);
+        }
+
+        //reset effect
+        if(base == null){
+            weaponToUse.getBaseEffect().get(0).resetDmgAndMarks();
+            if(weaponToUse.getBaseEffect().get(0).isAlreadyMovedShooter() || base.isAlreadyMovedShooter() || weaponToUse.getBaseEffect().get(0).isAlreadyMovedTarget() || base .isAlreadyMovedTarget())
+        }
+        else{
+            base.resetDmgAndMarks();
+        }
+        weaponToUse.setLoaded(false);
+    }
+
+    public String printTargetsName() {
+        StringBuilder toReturn = new StringBuilder();
+        for(Player p: targets) {
+            toReturn.append(p.getName()+" ");
+        }
+        return toReturn.toString();
+    }
+
+    private void notifyTargetHit(List<JsonReceiver> receivers, JsonReceiver userJsonReceiver) throws IOException {
+        Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
+        String message = "Target impostati corrrettamente e colpiti";
+        notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
+        message = "Sono stati colpiti: "+printTargetsName();
+        for (JsonReceiver js : receivers) {
+            notifyToAllExceptCurrent(js, userJsonReceiver, message);
+        }
+        commandExecutorLogger.log(Level.INFO, "target selected correctly "+currentPlayer.getName());
     }
 }
