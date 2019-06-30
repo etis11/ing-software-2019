@@ -146,8 +146,13 @@ public class Effect {
         }
     }
 
-    public boolean areOptionalAlreadyMoved(){
-        return true;
+    public boolean areOptionalAlreadyMoved(List<OptionalEffect> optionalEffects){
+        for(OptionalEffect opt: optionalEffects){
+            if(opt.isShooterAlreadyMoved() || opt.isTargetAlreadyMoved()){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

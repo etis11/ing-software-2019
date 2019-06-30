@@ -548,8 +548,8 @@ public class CommandExecutor {
                             //shooter movement
                             else if (currentPlayer.getState().canShoot() && shootState.equals(ShootState.CHOOSEBASE)){
                                 //verify if the shooter can move before choose target
-                                if((base == null && !weaponToUse.getBaseEffect().get(0).canMoveShooter())||(base != null && !base.canMoveShooter())){
-                                    undoMovement(currentPlayer, userJsonReceiver,"Puoi soltanto scegliere chi colpire");
+                                if((base == null && !weaponToUse.getBaseEffect().get(0).canMoveShooter() && command.getMoves().size()>weaponToUse.getBaseEffect().get(0).getNumStepsShooter())||(base != null && !base.canMoveShooter() && command.getMoves().size()>base.getNumStepsShooter())){
+                                    undoMovement(currentPlayer, userJsonReceiver,"Puoi soltanto scegliere chi colpire(messaggio da differrenziare)");
                                 }
                                 else{
                                     if(base == null){
@@ -564,8 +564,14 @@ public class CommandExecutor {
                             }
                             //movement caused by optional effect
                             else if (currentPlayer.getState().canShoot() && shootState.equals(ShootState.CHOSENEFFECT)){
-                                if (!opt.isEmpty() && !canMoveShooterOpt()){
-                                    undoMovement(currentPlayer, userJsonReceiver,"Puoi soltanto scegliere chi colpire");
+                                int moves = 0;
+                                for (OptionalEffect opts : opt){
+                                    if(opts.canTargetMove()){
+                                        moves = opts.getTargetSteps();
+                                    }
+                                }
+                                if (!opt.isEmpty() && !canMoveShooterOpt() && command.getMoves().size() >moves){
+                                    undoMovement(currentPlayer, userJsonReceiver,"Puoi soltanto scegliere chi colpire(messaggio da differenziare)");
                                 }
                                 else if(!opt.isEmpty()){
                                     for(OptionalEffect opts :opt){
@@ -575,6 +581,17 @@ public class CommandExecutor {
                                 }
                                 //todo da rifare verifyHitMovedShooter(currentPlayer, userJsonReceiver, command)
                             }
+                            else if(currentPlayer.getState().canShoot() && shootState.equals(ShootState.APPLYEFFECTDAMAGE)){
+                                if((base == null && weaponToUse.getBaseEffect().get(0).canMoveShooter())||(base != null && base.canMoveShooter()) || canMoveShooterOpt()) {
+                                    //notify Spostamento
+                                    shootEnded();
+                                }
+                                else{
+                                    undoWithoutError(currentPlayer);
+                                }
+
+                            }
+
                         } catch (NotValidMovesException e) {
                             currentPlayer.getState().resetRemainingSteps();
                             String error ="Movimento non valido";
@@ -977,7 +994,7 @@ public class CommandExecutor {
                         if(base == null){
                             //if can't move target and target are valid apply damage
                             if(!weaponToUse.getBaseEffect().get(0).canMoveTarget() && weaponToUse.getBaseEffect().get(0).getStrategy().areTargetValid(currentPlayer, targets) && !canOptionalTargetMove()) {
-                                applyDamage(currentPlayer);
+                                applyDamage(currentPlayer, userJsonReceiver);
                                 notifyTargetHit(command.getAllReceivers(), userJsonReceiver);
                             }
                             //if can move the target
@@ -999,7 +1016,7 @@ public class CommandExecutor {
                         }else if (base != null){
                             //if can't move target and target are valid apply damage
                             if(!base.canMoveTarget() && base.getStrategy().areTargetValid(currentPlayer, targets) && !canOptionalTargetMove()) {
-                                applyDamage(currentPlayer);
+                                applyDamage(currentPlayer, userJsonReceiver);
                                 notifyTargetHit(command.getAllReceivers(), userJsonReceiver);
                             }
                             //if can move the target
@@ -1091,7 +1108,7 @@ public class CommandExecutor {
             }
             else {
                 if(shootState.equals(ShootState.TARGETASKED)){
-                    if((base == null && !weaponToUse.getBaseEffect().get(0).canMoveTarget())||(base != null && !base.canMoveTarget())||canOptionalTargetMove()){
+                    if((base == null && weaponToUse.getBaseEffect().get(0).canMoveTarget())||(base != null && base.canMoveTarget())||canOptionalTargetMove()){
                         //verify cannone
                         if(weaponToUse.getName().equals("Cannone vortex")){
                             //todo
@@ -1114,6 +1131,7 @@ public class CommandExecutor {
                             //verify if the moves passed are correct
                             if(command.getMoves().size()<= moves){
                                 try {
+                                    //todo Sposta altri
                                     targets.get(0).move(new Movement(new ArrayList<>(command.getMoves())));
                                 } catch (NotValidMovesException e) {
                                     String error ="Movimento non valido";
@@ -1124,9 +1142,9 @@ public class CommandExecutor {
                             if((base == null && weaponToUse.getBaseEffect().get(0).getStrategy().areTargetValid(currentPlayer, targets))||(base != null && base.getStrategy().areTargetValid(currentPlayer, targets))){
                                 shootState = ShootState.APPLYEFFECTDAMAGE;
                                 for (OptionalEffect opts: opt){
-                                    opts.se
+                                    opts.setTargetAlreadyMoved(true);
                                 }
-                                applyDamage(currentPlayer);
+                                applyDamage(currentPlayer, userJsonReceiver);
                             }
                             else{
                                 if(!weaponToUse.getName().equals("Cannone vortex")){
@@ -1141,6 +1159,40 @@ public class CommandExecutor {
 
                         }
                     }
+                }
+                else if(shootState.equals(ShootState.APPLYEFFECTDAMAGE)){
+                    if((base == null && weaponToUse.getBaseEffect().get(0).canMoveTarget())||(base != null && base.canMoveTarget())|| canOptionalTargetMove()) {
+                        //verify cannone
+                        if (weaponToUse.getName().equals("Cannone vortex")) {
+                            //todo
+                        } else {
+                            //verify leght of move
+                            targets.get(0).setOldTile(targets.get(0).getTile());
+                            int moves = 0;
+                            if (base == null && weaponToUse.getBaseEffect().get(0).canMoveTarget()) {
+                                moves = weaponToUse.getBaseEffect().get(0).getNumStepsTarget();
+                            } else if (base != null && base.canMoveTarget()) {
+                                moves = base.getNumStepsTarget();
+                            } else {
+                                for (OptionalEffect opts : opt) {
+                                    if (opts.canTargetMove()) {
+                                        moves = opts.getTargetSteps();
+                                    }
+                                }
+                            }
+                            //verify if the moves passed are correct
+                            if (command.getMoves().size() <= moves) {
+                                try {
+                                    //todo Sposta altri
+                                    targets.get(0).move(new Movement(new ArrayList<>(command.getMoves())));
+                                } catch (NotValidMovesException e) {
+                                    String error = "Movimento non valido";
+                                    notifier.notifyError(error, userJsonReceiver);
+                                }
+                            }
+                        }
+                    }
+                    shootEnded();
                 }
                 else{
                     String error ="Non sei nella fase di scelta movimento dell'avversario";
@@ -1544,7 +1596,7 @@ public class CommandExecutor {
         jsonCreator.reset();
     }
 
-    private void undoMovement(Player currentPlayer, JsonReceiver userJsonReceiver, String message) throws IOException {
+    private void undoMovement(Player currentPlayer, JsonReceiver userJsonReceiver, String message) {
         if(currentPlayer.getTile() != currentPlayer.getOldTile()) {
             currentPlayer.getOldTile().addPlayer(currentPlayer);
         }
@@ -1552,6 +1604,14 @@ public class CommandExecutor {
         notifier.notifyError(error, userJsonReceiver);
         currentPlayer.setOldTile(null);
     }
+
+    private void undoWithoutError(Player currentPlayer){
+        if(currentPlayer.getTile() != currentPlayer.getOldTile()) {
+            currentPlayer.getOldTile().addPlayer(currentPlayer);
+        }
+        currentPlayer.setOldTile(null);
+    }
+
 
     private boolean canMoveShooterOpt(){
         for(OptionalEffect opts : opt){
@@ -1562,14 +1622,6 @@ public class CommandExecutor {
         return false;
     }
 
-    private boolean canMoveTargetOpt(){
-        for(OptionalEffect opts : opt){
-            if(opts.canTargetMove()){
-                return true;
-            }
-        }
-        return false;
-    }
 
     private void resetShoot(){
         shootState = ShootState.BASE;
@@ -1629,7 +1681,7 @@ public class CommandExecutor {
         return false;
     }
 
-    private void applyDamage(Player currentPlayer){
+    private void applyDamage(Player currentPlayer, JsonReceiver userJsonReceiver){
         shootState = ShootState.APPLYEFFECTDAMAGE;
         DamageTransporter dt = null;
         //target red
@@ -1681,11 +1733,46 @@ public class CommandExecutor {
         //reset effect
         if(base == null){
             weaponToUse.getBaseEffect().get(0).resetDmgAndMarks();
-            if(weaponToUse.getBaseEffect().get(0).isAlreadyMovedShooter() || base.isAlreadyMovedShooter() || weaponToUse.getBaseEffect().get(0).isAlreadyMovedTarget() || base .isAlreadyMovedTarget())
         }
         else{
             base.resetDmgAndMarks();
         }
+        //verify if already moved or it can't, so if true end the routine
+        boolean baseMoved = false;
+        if(base != null){
+            baseMoved = base.isAlreadyMovedShooter() || base.isAlreadyMovedTarget()|| !base.canMoveShooter()|| !base.canMoveTarget();
+        }
+        if(weaponToUse.getBaseEffect().get(0).isAlreadyMovedShooter() || weaponToUse.getBaseEffect().get(0).isAlreadyMovedTarget() ||
+                weaponToUse.getBaseEffect().get(0).areOptionalAlreadyMoved(opt) || !weaponToUse.getBaseEffect().get(0).canMoveTarget() ||
+                !weaponToUse.getBaseEffect().get(0).canMoveShooter() ||  !canMoveShooterOpt() || !canOptionalTargetMove() || baseMoved){
+            shootEnded();
+        }
+        else{
+            shootState = ShootState.APPLYEFFECTDAMAGE;
+        }
+        //notify
+        String message = "";
+        if(base == null){
+            if((!weaponToUse.getBaseEffect().get(0).isAlreadyMovedShooter() && weaponToUse.getBaseEffect().get(0).canMoveShooter())
+                    ||(canMoveShooterOpt() && !weaponToUse.getBaseEffect().get(0).areOptionalAlreadyMoved(opt))) {
+                message = "Puoi ancora muoverti se vuoi";
+            }
+            else if ((!weaponToUse.getBaseEffect().get(0).isAlreadyMovedTarget() && weaponToUse.getBaseEffect().get(0).canMoveTarget())
+                    ||(canOptionalTargetMove() && !weaponToUse.getBaseEffect().get(0).areOptionalAlreadyMoved(opt))){
+                message = "Puoi ancora muovere i target se vuoi";
+            }
+        }
+        else{
+            if((!base.isAlreadyMovedShooter() && base.canMoveShooter())
+                    ||(canMoveShooterOpt() && !base.areOptionalAlreadyMoved(opt))) {
+                message = "Puoi ancora muoverti se vuoi";
+            }
+            else if ((!base.isAlreadyMovedTarget() && base.canMoveTarget())
+                    ||(canOptionalTargetMove() && !base.areOptionalAlreadyMoved(opt))){
+                message = "Puoi ancora muovere i target se vuoi";
+            }
+        }
+        notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
         weaponToUse.setLoaded(false);
     }
 
@@ -1706,6 +1793,18 @@ public class CommandExecutor {
             notifyToAllExceptCurrent(js, userJsonReceiver, message);
         }
         commandExecutorLogger.log(Level.INFO, "target selected correctly "+currentPlayer.getName());
+    }
+
+    private void shootEnded(){
+        Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
+        resetShoot();
+        currentPlayer.decrementMoves();
+        currentPlayer.getState().nextState(currentPlayer.getOldState().getName(), currentPlayer);
+        currentPlayer.setOldState(null);
+        if(currentPlayer.getOldTile() !=null){
+            currentPlayer.setOldTile(null);
+        }
+        //todo notify
     }
 
 }
