@@ -582,7 +582,14 @@ public class CommandExecutor {
                                 //todo da rifare verifyHitMovedShooter(currentPlayer, userJsonReceiver, command)
                             }
                             else if(currentPlayer.getState().canShoot() && shootState.equals(ShootState.APPLYEFFECTDAMAGE)){
-                                if((base == null && weaponToUse.getBaseEffect().get(0).canMoveShooter())||(base != null && base.canMoveShooter()) || canMoveShooterOpt()) {
+                                int moves = 0;
+                                for (OptionalEffect opts : opt){
+                                    if(opts.canTargetMove()){
+                                        moves = opts.getTargetSteps();
+                                    }
+                                }
+                                if((base == null && weaponToUse.getBaseEffect().get(0).canMoveShooter() && command.getMoves().size()>weaponToUse.getBaseEffect().get(0).getNumStepsShooter())
+                                        ||(base != null && base.canMoveShooter() && command.getMoves().size()>base.getNumStepsShooter()) || (canMoveShooterOpt()&&command.getMoves().size()>moves)) {
                                     //notify Spostamento
                                     shootEnded();
                                 }
