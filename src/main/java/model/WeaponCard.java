@@ -281,6 +281,12 @@ Method used to set an advanced effect
         stringBuilder.append(this.name);
         stringBuilder.append(", reloadCost: ");
         stringBuilder.append(reloadCost);
+        stringBuilder.append(", baseEffect: ");
+        stringBuilder.append(baseEffect);
+        stringBuilder.append(", advancedEffect: ");
+        stringBuilder.append(advancedEffect);
+        stringBuilder.append(", loaded: ");
+        stringBuilder.append(loaded);
         stringBuilder.append("}");
         return stringBuilder.toString();
 //        return "WeaponCard{" +

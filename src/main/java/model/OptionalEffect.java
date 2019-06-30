@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 public class OptionalEffect {
-
     private List<String> cost;
     private Map<String, Integer> additionalDamage;
     private Map<String, Integer> additionalMarks;
@@ -61,4 +60,19 @@ public class OptionalEffect {
     public void setShooterAlreadyMoved(boolean alreadyMoved) {
         this.shooterAlreadyMoved = alreadyMoved;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(", cost :").append(cost);
+        stringBuilder.append(", additionalDamage :").append(additionalDamage);
+        stringBuilder.append(", additionalMarks :").append(additionalMarks);
+        stringBuilder.append(", activated :").append(activated);
+        stringBuilder.append(", canMoveShooter :").append(canMoveShooter);
+        stringBuilder.append(", shooterSteps :").append(shooterSteps);
+        stringBuilder.append(", canMoveTarget :").append(canMoveTarget);
+        stringBuilder.append(", shooterAlreadyMoved :").append(shooterAlreadyMoved);
+        return stringBuilder.toString();
+    }
+
 }

@@ -238,4 +238,13 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
         }
         return toReturn;
     }
+
+    public static void main(String[] args) {
+        Match match = new Match();
+        WeaponCardDeserializer weaponCardDeserializer = new WeaponCardDeserializer(match);
+        List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards("/cards/weaponCards.json");
+        System.out.println(weaponCards.size());
+        for(WeaponCard weaponCard: weaponCards)
+            System.out.println(weaponCard);
+    }
 }

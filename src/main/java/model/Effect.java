@@ -233,4 +233,21 @@ public class Effect {
     public void setGlobal(boolean global) {
         isGlobal = global;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("{ isGlobal :").append(isGlobal);
+        stringBuilder.append(", cost :").append(cost);
+        stringBuilder.append(", strategy :").append(strategy);
+        stringBuilder.append(", damage :").append(damage);
+        stringBuilder.append(", marks :").append(marks);
+        stringBuilder.append(", optional Effects :").append(optionalEffects);
+        stringBuilder.append(", canMoveShooter :").append(canMoveShooter);
+        stringBuilder.append(", numStepsShooter :").append(numStepsShooter);
+        stringBuilder.append(", canMoveTarget :").append(canMoveTarget);
+        stringBuilder.append(", numStepsTarget :").append(numStepsTarget);
+        stringBuilder.append(", moveTargetAndHitAll :").append(moveTargetAndHitAll);
+        return stringBuilder.toString();
+    }
 }
