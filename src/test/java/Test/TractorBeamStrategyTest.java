@@ -4,6 +4,7 @@ import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -112,8 +113,11 @@ public class TractorBeamStrategyTest {
         targets.add(target4);
         targets.add(target5);
 
-        match.getPlayers().add(shooter);
-        match.getPlayers().addAll(enemies);
+        List<Player> toSet=new ArrayList<>();
+
+        toSet.add(shooter);
+        toSet.addAll(enemies);
+        match.setPlayers(toSet);
         System.out.println("match players : " + match.getPlayers());
         tractorBeam = new TractorBeamStrategy(match);
         System.out.println("init tests");

@@ -219,8 +219,8 @@ public class Match implements ChangesMatchObservable{
      * This method returns a copy of the list of players that are going to/will play when game starts
      */
     public synchronized List<Player> getPlayers() {
-      // return new LinkedList<>(this.players);
-       return this.players;
+       return new LinkedList<>(this.players);
+      // return this.players;
     }
 
     /**
