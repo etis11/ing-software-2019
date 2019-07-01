@@ -210,7 +210,7 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
                 toReturn = new FlameThrowerStrategy();
                 break;
             case "BBQStrategy":
-                //toReturn = new BBQStrategy(param,match);
+                toReturn = new BBQStrategy(match);
                 break;
             case "TractorBeamStrategy":
                 toReturn = new TractorBeamStrategy(param, match);
@@ -222,7 +222,7 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
                 toReturn = new IgnoreWallStrategy();
                 break;
             case "MeleeStrategy":
-                //toReturn = new MeleeStrategy( param, match);
+                toReturn = new MeleeStrategy( match);
                 break;
             case "AdjacentDifferentTilesStrategy":
                 toReturn = new AdjacentDifferentTilesStrategy(param, match);
