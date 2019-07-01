@@ -1,5 +1,7 @@
 package model;
 
+import jsonparser.Exclude;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,6 +22,7 @@ public class Effect {
     /**
      * Tells how the targets a re chosen
      */
+     @Exclude
     private TargetStrategy strategy;
 
     /**
