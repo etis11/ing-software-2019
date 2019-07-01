@@ -830,7 +830,7 @@ public class CommandExecutor {
                             gameManager.getMatch().addPowerUpToSlush(currentPlayer.throwPowerUp(toThrow));
                         } catch (Exception e) {
                            // e.printStackTrace();
-                            LOGGER.LOGGER.log(Level.WARNING,e.getStackTrace().toString());
+                            LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                         }
                         String message = currentPlayer.getName() + " si è rigenerato nel punto di rigenerazione" + regenPointColor;
                         for (JsonReceiver js : command.getAllReceivers()) {
@@ -1349,7 +1349,7 @@ public class CommandExecutor {
                     }
                 } catch (NotValidActionException e) {
                     LOGGER.LOGGER.log(Level.WARNING,e.getMessage());
-                    LOGGER.LOGGER.log(Level.WARNING,e.getStackTrace().toString());
+                    LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
 
                 }
             }

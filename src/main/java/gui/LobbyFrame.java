@@ -1,6 +1,7 @@
 package gui;
 
 import controller.CommandContainer;
+import controller.LOGGER;
 import controller.commandpack.*;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -23,6 +24,8 @@ import view.MessageListener;
 
 import java.io.InputStream;
 import java.rmi.RemoteException;
+import java.util.Arrays;
+import java.util.logging.Level;
 
 public class LobbyFrame implements MessageListener {
     final int buttonWidth = 75;
@@ -88,7 +91,7 @@ public class LobbyFrame implements MessageListener {
             try {
                 cmdLauncher.addCommand(new SetMapCommand(ClientSingleton.getInstance().getToken(), mapParser(Integer.parseInt(newValue.toString()))));
             } catch (RemoteException e) {
-                e.printStackTrace();
+                LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(e.getStackTrace()));
             }
         });
         comboBox.setLayoutX(50);
@@ -110,7 +113,7 @@ public class LobbyFrame implements MessageListener {
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "distruttore"));
                     } catch (RemoteException e) {
-                        e.printStackTrace();
+                        LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                     }
             }
         });
@@ -127,7 +130,7 @@ public class LobbyFrame implements MessageListener {
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "banshee"));
                     } catch (RemoteException e) {
-                        e.printStackTrace();
+                        LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                     }
             }
         });
@@ -144,7 +147,7 @@ public class LobbyFrame implements MessageListener {
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "dozer"));
                     } catch (RemoteException e) {
-                        e.printStackTrace();
+                        LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                     }
             }
         });
@@ -161,7 +164,7 @@ public class LobbyFrame implements MessageListener {
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "sprog"));
                     } catch (RemoteException e) {
-                        e.printStackTrace();
+                        LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                     }
             }
         });
@@ -178,7 +181,7 @@ public class LobbyFrame implements MessageListener {
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "violetta"));
                     } catch (RemoteException e) {
-                        e.printStackTrace();
+                        LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                     }
             }
         });
@@ -210,7 +213,7 @@ public class LobbyFrame implements MessageListener {
                     try {
                         cmdLauncher.addCommand(new SetUsernameCommand(ClientSingleton.getInstance().getToken(), usernameField.getText().trim()));
                     } catch (RemoteException e) {
-                        e.printStackTrace();
+                        LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                     }
                 } else {
                     info.setText("inserisci un username valido");
@@ -230,7 +233,7 @@ public class LobbyFrame implements MessageListener {
                     try {
                         cmdLauncher.addCommand(new SetEffectPhraseCommand(ClientSingleton.getInstance().getToken(), effectPhraseField.getText()));
                     } catch (RemoteException e) {
-                        e.printStackTrace();
+                        LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                     }
                 } else {
                     info.setText("inserisci una frase");
@@ -250,7 +253,7 @@ public class LobbyFrame implements MessageListener {
                     try {
                         cmdLauncher.addCommand(new SetNumberOfDeathCommand(ClientSingleton.getInstance().getToken(), Integer.parseInt(deathField.getText())));
                     } catch (RemoteException e) {
-                        e.printStackTrace();
+                        LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                     }
                 } else {
                     info.setText("Inserisci un valore");
@@ -270,7 +273,7 @@ public class LobbyFrame implements MessageListener {
                     try {
                         cmdLauncher.addCommand(new SetPlayerNumberCommand(ClientSingleton.getInstance().getToken(), Integer.parseInt(playerNumberField.getText())));
                     } catch (RemoteException e) {
-                        e.printStackTrace();
+                        LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                     }
                 } else {
                     info.setText("Inserisci un valore");
