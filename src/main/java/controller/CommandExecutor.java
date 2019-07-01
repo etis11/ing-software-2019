@@ -892,7 +892,7 @@ public class CommandExecutor {
                        }
                     }
                     //verify if the controller has to ask for base or advanced effect
-                    if(weaponToUse.getAdvancedEffect()!= null && !weaponToUse.getAdvancedEffect().isEmpty()) {
+                    if(weaponToUse!=null&&weaponToUse.getAdvancedEffect()!= null && !weaponToUse.getAdvancedEffect().isEmpty()) {
                         String message = "Scegli se usare l'effetto base o quello avanzato";
                         notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
                         commandExecutorLogger.log(Level.INFO, "Asked base or advanced effect to "+currentPlayer.getName());
@@ -1544,6 +1544,7 @@ public class CommandExecutor {
             }
         }
         jsonCreator.reset();
+        if(userToBeNotifiedThrow!=null)
         userToBeNotifiedThrow.sendJson(jsonCreator.createJsonWithMessage("scegli quale powerup scartare per spawnare"));
         jsonCreator.reset();
         //creates a timer for the first turn

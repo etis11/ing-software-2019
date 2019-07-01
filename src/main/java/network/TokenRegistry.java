@@ -1,6 +1,7 @@
 package network;
 
 import controller.JsonReceiver;
+import controller.LOGGER;
 import exceptions.DuplicateException;
 import model.User;
 
@@ -124,7 +125,9 @@ public class TokenRegistry {
             if (associatonTokenReceiver.containsKey(token))
                 throw new DuplicateException(">>> There is already a jsonReceiver associated to this token");
             if (!registeredTokens.contains(token)) registeredTokens.add(token);
-            associatonTokenReceiver.putIfAbsent(token, jsonReceiver);
+            JsonReceiver test= associatonTokenReceiver.putIfAbsent(token, jsonReceiver);
+            if(test!=null)
+            LOGGER.LOGGER.log(Level.INFO,test.toString());
             tokenRegistryLogger.log(Level.INFO, "Associated token and json receiver");
         }
     }
@@ -135,7 +138,9 @@ public class TokenRegistry {
      * @param user user that is associated to this
      */
     public void associateReceiverAndUser(JsonReceiver jr, User user){
-        receiverUser.putIfAbsent(jr, user);
+        User test2 = receiverUser.putIfAbsent(jr, user);
+        if(test2!=null)
+            LOGGER.LOGGER.log(Level.INFO,test2.toString());
         tokenRegistryLogger.log(Level.INFO, "Associated json receiver and user " + user.getUsername());
 
     }

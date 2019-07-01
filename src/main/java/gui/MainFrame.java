@@ -106,7 +106,9 @@ public class MainFrame{
                     info.setText("inserisci un username valido");
                     info.setVisible(true);
                 }
+
             }
+
         });
         //positioning rmi button
         startButtonRMI.setTranslateX(80);
