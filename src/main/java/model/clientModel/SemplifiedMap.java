@@ -14,7 +14,7 @@ public class SemplifiedMap {
 
 
 
-    public static String hash1 = "╔══════════╦══════════╦══════════╦══════════╗\n" +
+    private static String hash1 = "╔══════════╦══════════╦══════════╦══════════╗\n" +
             "║" + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "    REG   " + AnsiColor.RESET + "║          ║\n" +
             "║" + AnsiColor.BLUE_BACKGROUND + "     0    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "      1   " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "     2    " + AnsiColor.RESET + "║    3     ║\n" +
             "║" + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + "║          ║\n" +
@@ -28,7 +28,7 @@ public class SemplifiedMap {
             "║          ║" + AnsiColor.GREEN_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.GREEN_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + "║\n" +
             "╚══════════╩══════════╩══════════╩══════════╝";
 
-    public static String hash2 = "╔══════════╦══════════╦══════════╦══════════╗\n" +
+    private static String hash2 = "╔══════════╦══════════╦══════════╦══════════╗\n" +
             "║" + AnsiColor.RED_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.BLUE_BACKGROUND + "                REG  " + AnsiColor.RESET + "║          ║\n" +
             "║" + AnsiColor.RED_BACKGROUND + "     0    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "      1         2    " + AnsiColor.RESET + "║    3     ║\n" +
             "║" + AnsiColor.RED_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.BLUE_BACKGROUND + "                     " + AnsiColor.RESET + "║          ║\n" +
@@ -42,7 +42,7 @@ public class SemplifiedMap {
             "║" + AnsiColor.MAGENTA_BACKGROUND + "                                " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + "║\n" +
             "╚══════════╩══════════╩══════════╩══════════╝";
 
-    public static String hash3 = "╔══════════╦══════════╦══════════╦══════════╗\n" +
+    private static String hash3 = "╔══════════╦══════════╦══════════╦══════════╗\n" +
             "║" + AnsiColor.RED_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.BLUE_BACKGROUND + "              REG    " + AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + "          " + AnsiColor.RESET + "║\n" +
             "║" + AnsiColor.RED_BACKGROUND + "     0    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "      1         2    " + AnsiColor.RESET + " " + AnsiColor.GREEN_BACKGROUND + "    3     " + AnsiColor.RESET + "║\n" +
             "║" + AnsiColor.RED_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.BLUE_BACKGROUND + "                     " + AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + "          " + AnsiColor.RESET + "║\n" +
@@ -56,7 +56,7 @@ public class SemplifiedMap {
             "║" + AnsiColor.WHITE_BACKGROUND + "                     " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + "" + AnsiColor.YELLOW_BACKGROUND_BRIGHT + " " + AnsiColor.RESET + "" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + "║\n" +
             "╚══════════╩══════════╩══════════╩══════════╝";
 
-    public static String hash4 = "╔══════════╦══════════╦══════════╦══════════╗\n" +
+    private static String hash4 = "╔══════════╦══════════╦══════════╦══════════╗\n" +
             "║" + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "      REG " + AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + "          " + AnsiColor.RESET + "║\n" +
             "║" + AnsiColor.BLUE_BACKGROUND + "     0    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "     1    " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "     2    " + AnsiColor.RESET + " " + AnsiColor.GREEN_BACKGROUND + "    3     " + AnsiColor.RESET + "║\n" +
             "║" + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.BLUE_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + "          " + AnsiColor.RESET + "║\n" +

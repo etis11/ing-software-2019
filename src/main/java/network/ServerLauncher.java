@@ -3,6 +3,7 @@ package network;
 import controller.CommandLauncherInterface;
 import controller.CommandLauncherProvider;
 import controller.JsonReceiver;
+import controller.LOGGER;
 import controller.commandpack.Command;
 import network.RMI.ServerRMI;
 import network.Socket.SocketServer;
@@ -14,6 +15,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Arrays;
+import java.util.logging.Level;
 
 public class ServerLauncher {
 
@@ -30,9 +33,9 @@ public class ServerLauncher {
             ss = new SocketServer(8000, provider);
             ss.run();
         } catch (IOException i) {
-            System.out.println("Problemi con il server socket");
-            System.out.println(i.getMessage());
-            i.printStackTrace();
+            LOGGER.LOGGER.log(Level.WARNING,"Problemi con il server socket");
+            LOGGER.LOGGER.log(Level.WARNING,i.getMessage());
+            LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(i.getStackTrace()));
         }
 
 
