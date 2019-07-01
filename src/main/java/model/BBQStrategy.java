@@ -7,6 +7,12 @@ import java.util.List;
  */
 public class BBQStrategy extends FlameThrowerStrategy {
 
+    private Match match;
+
+    public BBQStrategy(Match m) {
+        this.match = m;
+    }
+
     /**
      * Checks if all the targets are in the same direction. The check is made on a cross centered in the shooter at a max distance
      * of two. More players can be in the same tile
