@@ -21,6 +21,7 @@ public class CommandExecutor {
     private List<OptionalEffect> opt;
     private List<Player> targets;
     private Effect base;
+    private long thousand = 1000;
 
     /**
      * Timer used to check and disconnect the current player
@@ -230,7 +231,7 @@ public class CommandExecutor {
             }
         }
         turnTimer = new Timer();
-        turnTimer.schedule(new TurnTimerTask(launcher, jsonReceiverCurrentTurn, notifier, timerUser), turnLength*1000);
+        turnTimer.schedule(new TurnTimerTask(launcher, jsonReceiverCurrentTurn, notifier, timerUser), turnLength*thousand);
     }
 
     /**
@@ -1400,7 +1401,7 @@ public class CommandExecutor {
             gameManager.getLobby().closeLobby();
             Timer timer = new Timer();
             commandExecutorLogger.log(Level.INFO, "creazione e inizio del timer");
-            timer.schedule(task, seconds * 1000);
+            timer.schedule(task, seconds * thousand);
         }
     }
 
@@ -1547,7 +1548,7 @@ public class CommandExecutor {
         jsonCreator.reset();
         //creates a timer for the first turn
         turnTimer = new Timer();
-        turnTimer.schedule(new TurnTimerTask(launcher, userToBeNotifiedThrow, notifier, timerUser), turnLength*1000);
+        turnTimer.schedule(new TurnTimerTask(launcher, userToBeNotifiedThrow, notifier, timerUser), turnLength*thousand);
     }
 
     private Color colorParser(String color){

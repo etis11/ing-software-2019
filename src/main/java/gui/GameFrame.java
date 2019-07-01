@@ -36,7 +36,7 @@ import java.util.logging.Level;
 
 public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
-    final int ammoDimension = 30;
+    final double ammoDimension = 30;
     final int buttonWidth = 100;
     private final InputStream pathBackWeapon = getClass().getResourceAsStream("/img/RetroArmi.png");
     private final InputStream pathBackPu = getClass().getResourceAsStream("/img/RetroPu.png");
@@ -858,8 +858,8 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                 playerInUpdateTile =onUpdateTile.getPlayers();
                 for(int k = 0; k<playerInUpdateTile.size();k++) {
                     tokenToUpdate = mapTokenParser(playerInUpdateTile.get(k).getName());
-                    tokenToUpdate.setLayoutX(coorTileX.get(tileId)+coorInTileX.get(k));
-                    tokenToUpdate.setLayoutY(coorTileY.get(tileId)+coorInTileY.get(k));
+                    tokenToUpdate.setLayoutX(coorTileX.get(tileId)+(double)coorInTileX.get(k));
+                    tokenToUpdate.setLayoutY(coorTileY.get(tileId)+(double)coorInTileY.get(k));
                     tokenToUpdate.setVisible(true);
                 }
                 if(onUpdateTile.isAmmoTile()) {
