@@ -9,7 +9,7 @@ public class AdjacentDifferentTilesStrategy extends AbstractTargetStrategy {
     private Match match;
     private GameMap map;
 
-    public AdjacentDifferentTilesStrategy(int distance, Match match) {
+    public AdjacentDifferentTilesStrategy(Match match) {
         this.map = map;
         this.match = match;
     }

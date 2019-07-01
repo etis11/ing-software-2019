@@ -10,8 +10,6 @@ import java.util.List;
 
 public class AdjacentStrategy extends AbstractTargetStrategy {
 
-    //TODO cancellare tutte le distance
-    private int distance;
     private Match match;
 
     /**
@@ -19,8 +17,7 @@ public class AdjacentStrategy extends AbstractTargetStrategy {
      */
     private GameMap gameMap;
 
-    public AdjacentStrategy(int distance, Match match) {
-        this.distance = distance;
+    public AdjacentStrategy(Match match) {
         this.match = match;
     }
 

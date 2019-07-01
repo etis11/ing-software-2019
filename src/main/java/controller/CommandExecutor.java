@@ -567,7 +567,7 @@ public class CommandExecutor {
                                 int moves = 0;
                                 for (OptionalEffect opts : opt){
                                     if(opts.canTargetMove()){
-                                        moves = opts.getTargetSteps();
+                                        moves = opts.getNumStepsTarget();
                                     }
                                 }
                                 if (!opt.isEmpty() && !canMoveShooterOpt() && command.getMoves().size() >moves){
@@ -585,7 +585,7 @@ public class CommandExecutor {
                                 int moves = 0;
                                 for (OptionalEffect opts : opt){
                                     if(opts.canTargetMove()){
-                                        moves = opts.getTargetSteps();
+                                        moves = opts.getNumStepsTarget();
                                     }
                                 }
                                 if((base == null && weaponToUse.getBaseEffect().get(0).canMoveShooter() && command.getMoves().size()>weaponToUse.getBaseEffect().get(0).getNumStepsShooter())
@@ -1131,7 +1131,7 @@ public class CommandExecutor {
                             }else{
                                 for (OptionalEffect opts : opt){
                                     if(opts.canTargetMove()){
-                                        moves = opts.getTargetSteps();
+                                        moves = opts.getNumStepsTarget();
                                     }
                                 }
                             }
@@ -1183,7 +1183,7 @@ public class CommandExecutor {
                             } else {
                                 for (OptionalEffect opts : opt) {
                                     if (opts.canTargetMove()) {
-                                        moves = opts.getTargetSteps();
+                                        moves = opts.getNumStepsTarget();
                                     }
                                 }
                             }

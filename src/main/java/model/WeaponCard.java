@@ -1,8 +1,15 @@
 package model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
 import exceptions.InsufficientAmmoException;
+import jsonparser.StrategyDeserializer;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,6 +23,7 @@ public class WeaponCard {
     /**
      * Each WeaponCard should contain a name to be distinguished by other cards
      */
+    @SerializedName("NAME")
     private String name;
     /**
      * List containing colorAmmo.
@@ -289,12 +297,15 @@ Method used to set an advanced effect
         stringBuilder.append(loaded).append("\n");
         stringBuilder.append("}").append("\n");
         return stringBuilder.toString();
-//        return "WeaponCard{" +
-//                "reloadCost=" + reloadCost.size() +
-//                ", baseEffect=" + baseEffect.get(0).getNumStepsShooter() +
-//                ", advancedEffect=" + advancedEffect.get(0).getNumStepsShooter() +
-//                ", loaded=" + loaded +
-//                ", name='" + name + '\'' +
-//                '}';
+    }
+
+    public static List<WeaponCard> getWeaponsFromJson(InputStream jsonFile, Match match){
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(TargetStrategy.class, new StrategyDeserializer(match));
+        Gson gson = gsonBuilder.create();
+
+        WeaponCard[] weaponCards = gson.fromJson(new InputStreamReader(jsonFile), WeaponCard[].class);
+        return new LinkedList<>(Arrays.asList(weaponCards));
+
     }
 }
