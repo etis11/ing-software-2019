@@ -155,14 +155,14 @@ public class WeaponCardDeserializer implements JsonDeserializer<WeaponCard> {
                 System.out.println("qua devo aggiungere qualcosa se no sonar si imppapa");
             }
             //List<String> costs = new ArrayList<>();
-            try {
+          /*  try {
                 JsonArray jsonCost = effect.get("cost").getAsJsonArray();
                 for (JsonElement cost : jsonCost) {
                     costs.add(cost.getAsString());
                 }
             } catch (Exception e) {
 
-            }
+            }*/
 
             JsonObject strategy = effect.get("strategy").getAsJsonObject();
             int param = 0;
