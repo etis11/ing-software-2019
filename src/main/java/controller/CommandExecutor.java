@@ -21,6 +21,7 @@ public class CommandExecutor {
     private List<OptionalEffect> opt;
     private List<Player> targets;
     private Effect base;
+    private long thousand = 1000;
 
     /**
      * Timer used to check and disconnect the current player
@@ -29,7 +30,7 @@ public class CommandExecutor {
     /**
      * duration of a turn expressed in seconds
      */
-    private final int turnLength = 20;
+    private final int turnLength = 20000;
 
     /**
      * gameManager is a reference to the model due to access to the match and lobby variables
@@ -230,7 +231,7 @@ public class CommandExecutor {
             }
         }
         turnTimer = new Timer();
-        turnTimer.schedule(new TurnTimerTask(launcher, jsonReceiverCurrentTurn, notifier, timerUser), turnLength*1000);
+        turnTimer.schedule(new TurnTimerTask(launcher, jsonReceiverCurrentTurn, notifier, timerUser), turnLength*thousand);
     }
 
     /**
@@ -829,7 +830,8 @@ public class CommandExecutor {
                         try {
                             gameManager.getMatch().addPowerUpToSlush(currentPlayer.throwPowerUp(toThrow));
                         } catch (Exception e) {
-                            e.printStackTrace();
+                           // e.printStackTrace();
+                            LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                         }
                         String message = currentPlayer.getName() + " si è rigenerato nel punto di rigenerazione" + regenPointColor;
                         for (JsonReceiver js : command.getAllReceivers()) {
@@ -890,7 +892,7 @@ public class CommandExecutor {
                        }
                     }
                     //verify if the controller has to ask for base or advanced effect
-                    if(weaponToUse.getAdvancedEffect()!= null && !weaponToUse.getAdvancedEffect().isEmpty()) {
+                    if(weaponToUse!=null&&weaponToUse.getAdvancedEffect()!= null && !weaponToUse.getAdvancedEffect().isEmpty()) {
                         String message = "Scegli se usare l'effetto base o quello avanzato";
                         notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
                         commandExecutorLogger.log(Level.INFO, "Asked base or advanced effect to "+currentPlayer.getName());
@@ -1347,8 +1349,9 @@ public class CommandExecutor {
                         }
                     }
                 } catch (NotValidActionException e) {
-                    e.getMessage();
-                    e.printStackTrace();
+                    LOGGER.LOGGER.log(Level.WARNING,e.getMessage());
+                    LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
+
                 }
             }
             //in case the json receiver is associated to the username, the new username should be checked
@@ -1398,7 +1401,7 @@ public class CommandExecutor {
             gameManager.getLobby().closeLobby();
             Timer timer = new Timer();
             commandExecutorLogger.log(Level.INFO, "creazione e inizio del timer");
-            timer.schedule(task, seconds * 1000);
+            timer.schedule(task, seconds * thousand);
         }
     }
 
@@ -1541,11 +1544,12 @@ public class CommandExecutor {
             }
         }
         jsonCreator.reset();
+        if(userToBeNotifiedThrow!=null)
         userToBeNotifiedThrow.sendJson(jsonCreator.createJsonWithMessage("scegli quale powerup scartare per spawnare"));
         jsonCreator.reset();
         //creates a timer for the first turn
         turnTimer = new Timer();
-        turnTimer.schedule(new TurnTimerTask(launcher, userToBeNotifiedThrow, notifier, timerUser), turnLength*1000);
+        turnTimer.schedule(new TurnTimerTask(launcher, userToBeNotifiedThrow, notifier, timerUser), turnLength*thousand);
     }
 
     private Color colorParser(String color){

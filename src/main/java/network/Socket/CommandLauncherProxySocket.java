@@ -1,12 +1,15 @@
 package network.Socket;
 
 import controller.CommandContainer;
+import controller.LOGGER;
 import controller.commandpack.Command;
 import view.AnsiColor;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Arrays;
+import java.util.logging.Level;
 
 /**
  * This class behave like a command Container, but instead of adding a command in a pool, sends it to the executor on the server
@@ -64,7 +67,7 @@ public class CommandLauncherProxySocket implements CommandContainer {
             socket.close();
         } catch (IOException i) {
             System.err.println(i.getMessage());
-            i.printStackTrace();
+            LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(i.getStackTrace()));
         }
     }
 }

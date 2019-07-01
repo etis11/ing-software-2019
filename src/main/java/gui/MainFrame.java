@@ -1,9 +1,6 @@
 package gui;
 
-import controller.CommandContainer;
-import controller.CommandLauncher;
-import controller.JsonReceiver;
-import controller.JsonUnwrapper;
+import controller.*;
 import controller.commandpack.SetUsernameCommand;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -30,6 +27,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Arrays;
+import java.util.logging.Level;
 
 public class MainFrame{
     private static final int BUTTON_WIDTH = 150;
@@ -87,9 +86,9 @@ public class MainFrame{
                             try {
                                 cmdLauncher = new CommandLauncherProxySocket(mySocket, "");
                             } catch (IOException i) {
-                                System.out.println(i.getMessage());
-                                i.printStackTrace();
-                                System.out.println(">>> Problemi con il socket");
+                                LOGGER.LOGGER.log(Level.WARNING,i.getMessage());
+                                LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(i.getStackTrace()));
+                                LOGGER.LOGGER.log(Level.WARNING,">>> Problemi con il socket");
                             }
                         }
                     }
@@ -99,7 +98,7 @@ public class MainFrame{
                     try {
                         cmdLauncher.addCommand(new SetUsernameCommand(ClientSingleton.getInstance().getToken(), userField.getText().trim()));
                     } catch (RemoteException e) {
-                        e.printStackTrace();
+                        LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                     }
                     //openNextStage(stage);
 
@@ -107,7 +106,9 @@ public class MainFrame{
                     info.setText("inserisci un username valido");
                     info.setVisible(true);
                 }
+
             }
+
         });
         //positioning rmi button
         startButtonRMI.setTranslateX(80);
@@ -147,7 +148,7 @@ public class MainFrame{
                     try {
                         cmdLauncher.addCommand(new SetUsernameCommand(ClientSingleton.getInstance().getToken(), userField.getText().trim()));
                     } catch (RemoteException e) {
-                        e.printStackTrace();
+                        LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                     }
                     //openNextStage(stage);
                 } else {

@@ -21,7 +21,7 @@ import java.util.List;
 
 public class PbFrame {
 
-    final int ammoDimension = 30;
+    final double ammoDimension = 30;
     final Border border = new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT));
 
 

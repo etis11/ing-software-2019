@@ -18,6 +18,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Arrays;
+import java.util.logging.Level;
 
 public class CLILauncher {
 
@@ -42,7 +44,7 @@ public class CLILauncher {
             try{
                 UnicastRemoteObject.exportObject(receiver,0);
             }catch(RemoteException i){
-                i.printStackTrace();
+                LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(i.getStackTrace()));
                 CLI.displayText(i.getMessage());
                 throw  new RuntimeException(i);
             }
@@ -83,7 +85,7 @@ public class CLILauncher {
 
             }
             catch (Exception r){
-                r.printStackTrace();
+                LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(r.getStackTrace()));
                 CLI.displayText(r.getMessage());
                 throw new RuntimeException(r);
             }

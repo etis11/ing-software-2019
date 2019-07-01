@@ -3,6 +3,7 @@ package network.RMI;
 import controller.CommandLauncherInterface;
 import controller.JsonReceiver;
 import controller.JsonUnwrapper;
+import controller.LOGGER;
 import controller.commandpack.AskPickCommand;
 import controller.commandpack.AskWalkCommand;
 import controller.commandpack.MoveCommand;
@@ -12,6 +13,8 @@ import view.ClientSingleton;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Arrays;
+import java.util.logging.Level;
 
 import static java.lang.Thread.sleep;
 
@@ -32,8 +35,9 @@ public class ClientLauncherRMI {
             ClientSingleton.getInstance().setToken(token);
             launcher = serverRMI.getCurrentCommandLauncher(receiver);
         } catch (Exception r) {
-            System.out.println(r.getMessage());
-            r.printStackTrace();
+            LOGGER.LOGGER.log(Level.WARNING,r.getMessage());
+            LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(r.getStackTrace()));
+
         } finally {
             if (launcher != null) {
                 AskPickCommand c = new AskPickCommand(token);

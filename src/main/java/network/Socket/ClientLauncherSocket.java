@@ -1,5 +1,6 @@
 package network.Socket;
 
+import controller.LOGGER;
 import controller.commandpack.AskPickCommand;
 import controller.commandpack.AskWalkCommand;
 import controller.commandpack.MoveCommand;
@@ -10,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Arrays;
+import java.util.logging.Level;
 
 import static java.lang.Thread.sleep;
 
@@ -36,7 +39,7 @@ public class ClientLauncherSocket {
                 cr = new CommandLauncherProxySocket(mySocket, "");
             } catch (IOException i) {
                 System.out.println(i.getMessage());
-                i.printStackTrace();
+                LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(i.getStackTrace()));
                 System.out.println(">>> Problemi con il socket");
             }
 
