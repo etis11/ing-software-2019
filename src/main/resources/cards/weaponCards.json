@@ -1134,14 +1134,18 @@
           "param": null
         },
         "optionalEffects": []
-      },
+      }
+    ],
+    "advancedEffect": [
       {
-        "cost": [],
+        "cost": [
+          "blue"
+        ],
         "moveTargetAndHitAll": false,
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
-          "red": 1,
+          "red": 2,
           "blue": 0,
           "green": 0
         },
@@ -1151,17 +1155,14 @@
           "green": 0
         },
         "canMoveShooter": true,
-        "numStepsShooter": 1,
+        "numStepsShooter": 2,
         "canMoveTarget": false,
         "numStepsTarget": 0,
         "strategy": {
           "type": "MeleeStrategy",
           "param": null
-        },
-        "optionalEffects": []
-      }
-    ],
-    "advancedEffect": [
+        }
+      },
       {
         "cost": [
           "blue"
