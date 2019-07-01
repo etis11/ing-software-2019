@@ -60,12 +60,12 @@ public class OptionalEffect {
         return shooterAlreadyMoved;
     }
 
-    public void setShooterAlreadyMoved(boolean alreadyMoved) {
-        this.shooterAlreadyMoved = alreadyMoved;
-    }
-
     public int getTargetSteps(){
         return targetSteps;
+    }
+
+    public void setShooterAlreadyMoved(boolean alreadyMoved) {
+        this.shooterAlreadyMoved = alreadyMoved;
     }
 
     public void setTargetAlreadyMoved( boolean alreadyMoved){
@@ -79,5 +79,6 @@ public class OptionalEffect {
     public boolean isTargetAlreadyMoved(){
         return targetAlreadyMoved;
     }
+
 
 }
