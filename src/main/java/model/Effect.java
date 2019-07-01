@@ -40,6 +40,7 @@ public class Effect {
     private int numStepsTarget;
     private boolean moveTargetAndHitAll;
     private boolean alreadyMovedTarget;
+    private boolean alreadyMovedShooter = false;
     //TODO da settare. Fare l'azione inversa dell'apply
     private int redDamage;
     private int blueDamage;
@@ -51,6 +52,7 @@ public class Effect {
     public Effect(List<String> cost, TargetStrategy strategy) {
         this.cost = cost;
         this.strategy = strategy;
+        this.alreadyMovedShooter = false;
         damage = new HashMap<>();
         damage.put("red", 0);
         damage.put("blue", 0);
@@ -106,6 +108,17 @@ public class Effect {
         this.alreadyMovedTarget = alreadyMovedTarget;
     }
 
+    public void setAlreadyMovedShooter(boolean alreadyMovedShooter) {
+        this.alreadyMovedShooter = alreadyMovedShooter;
+    }
+
+    public boolean isAlreadyMovedTarget(){
+        return alreadyMovedTarget;
+    }
+    public boolean isAlreadyMovedShooter(){
+        return alreadyMovedShooter;
+    }
+
     public TargetStrategy getStrategy() {
         return strategy;
     }
@@ -120,19 +133,26 @@ public class Effect {
     public void applyOptionalEffect(List<OptionalEffect> optionalEffects) {
         String[] colors = {"red", "blue", "yellow"};
         for (OptionalEffect o : optionalEffects) {
-            if (o.isActivated()) {
-                Map<String, Integer> additionalDamage = o.getAdditionalDamage();
-                Map<String, Integer> additionalMarks = o.getAdditionalDamage();
-                for (String color : colors) {
-                    int dmg = this.damage.get(color);
-                    int addDmg = additionalDamage.get(color);
-                    int marks = this.marks.get(color);
-                    int addMarks = additionalMarks.get(color);
-                    this.damage.put(color, dmg + addDmg);
-                    this.marks.put(color, marks + addMarks);
-                }
+            Map<String, Integer> additionalDamage = o.getAdditionalDamage();
+            Map<String, Integer> additionalMarks = o.getAdditionalDamage();
+            for (String color : colors) {
+                int dmg = this.damage.get(color);
+                int addDmg = additionalDamage.get(color);
+                int marks = this.marks.get(color);
+                int addMarks = additionalMarks.get(color);
+                this.damage.put(color, dmg + addDmg);
+                this.marks.put(color, marks + addMarks);
             }
         }
+    }
+
+    public boolean areOptionalAlreadyMoved(List<OptionalEffect> optionalEffects){
+        for(OptionalEffect opt: optionalEffects){
+            if(opt.isShooterAlreadyMoved() || opt.isTargetAlreadyMoved()){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
