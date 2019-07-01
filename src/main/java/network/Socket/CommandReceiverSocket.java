@@ -11,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.rmi.RemoteException;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -137,7 +138,7 @@ public class CommandReceiverSocket implements Runnable {
             }
         }
         catch (IOException ioe){
-            ioe.printStackTrace();
+            LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(ioe.getStackTrace()));
         }
 
 

@@ -1,9 +1,7 @@
 package Test;
 
 import jsonparser.JsonFileReader;
-import jsonparser.WeaponCardDeserializer;
 import model.*;
-import model.clientModel.SemplifiedPlayer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import view.AnsiColor;
@@ -81,9 +79,7 @@ public class WeaponCardTest {
       //  System.out.println("cards "+cards);
 
         Match match = new Match();
-        //List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards(cards);
-        WeaponCardDeserializer weaponCardDeserializer = new WeaponCardDeserializer(match);
-        List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards("/cards/weaponCards.json");
+        List<WeaponCard> weaponCards = null;
 
         System.out.println(weaponCards);
         System.out.println(weaponCards.get(0).getBaseEffect().get(0).getMarks());

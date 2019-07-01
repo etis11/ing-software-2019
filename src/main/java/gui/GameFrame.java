@@ -1,6 +1,7 @@
 package gui;
 
 import controller.CommandContainer;
+import controller.LOGGER;
 import controller.commandpack.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -28,12 +29,14 @@ import view.PlayerObserver;
 import java.io.InputStream;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
-    final int ammoDimension = 30;
+    final double ammoDimension = 30;
     final int buttonWidth = 100;
     private final InputStream pathBackWeapon = getClass().getResourceAsStream("/img/RetroArmi.png");
     private final InputStream pathBackPu = getClass().getResourceAsStream("/img/RetroPu.png");
@@ -340,7 +343,8 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                 try {
                     cmdLauncher.addCommand(new AskWalkCommand(ClientSingleton.getInstance().getToken()));
                 } catch (RemoteException e) {
-                    e.printStackTrace();
+                    LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
+
                 }
             }
         });
@@ -352,7 +356,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                 try {
                     cmdLauncher.addCommand(new AskPickCommand(ClientSingleton.getInstance().getToken()));
                 } catch (RemoteException e) {
-                    e.printStackTrace();
+                    LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                 }
             }
         });
@@ -364,7 +368,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                 try {
                     cmdLauncher.addCommand(new AskShootCommand(ClientSingleton.getInstance().getToken()));
                 } catch (RemoteException e) {
-                    e.printStackTrace();
+                    LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                 }
             }
         });
@@ -376,7 +380,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                 try {
                     cmdLauncher.addCommand(new AskUsePowerUpCommand(ClientSingleton.getInstance().getToken()));
                 } catch (RemoteException e) {
-                    e.printStackTrace();
+                    LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                 }
             }
         });
@@ -388,7 +392,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                 try {
                     cmdLauncher.addCommand(new AskReloadCommand(ClientSingleton.getInstance().getToken()));
                 } catch (RemoteException e) {
-                    e.printStackTrace();
+                    LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                 }
             }
         });
@@ -400,7 +404,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                 try {
                     cmdLauncher.addCommand(new AskEndTurnCommand(ClientSingleton.getInstance().getToken()));
                 } catch (RemoteException e) {
-                    e.printStackTrace();
+                    LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                 }
             }
         });
@@ -412,7 +416,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                 try {
                     cmdLauncher.addCommand(new AskPointsCommand(ClientSingleton.getInstance().getToken()));
                 } catch (RemoteException e) {
-                    e.printStackTrace();
+                    LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(e.getStackTrace()));
                 }
             }
         });
@@ -854,8 +858,8 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                 playerInUpdateTile =onUpdateTile.getPlayers();
                 for(int k = 0; k<playerInUpdateTile.size();k++) {
                     tokenToUpdate = mapTokenParser(playerInUpdateTile.get(k).getName());
-                    tokenToUpdate.setLayoutX(coorTileX.get(tileId)+coorInTileX.get(k));
-                    tokenToUpdate.setLayoutY(coorTileY.get(tileId)+coorInTileY.get(k));
+                    tokenToUpdate.setLayoutX(coorTileX.get(tileId)+(double)coorInTileX.get(k));
+                    tokenToUpdate.setLayoutY(coorTileY.get(tileId)+(double)coorInTileY.get(k));
                     tokenToUpdate.setVisible(true);
                 }
                 if(onUpdateTile.isAmmoTile()) {

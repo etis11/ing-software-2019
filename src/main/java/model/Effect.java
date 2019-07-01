@@ -20,7 +20,7 @@ public class Effect {
     /**
      * Tells how the targets a re chosen
      */
-    transient private TargetStrategy strategy;
+    private TargetStrategy strategy;
 
     /**
      * a map that correlates the color of the target with the damage that has to be dealt to him
@@ -252,5 +252,22 @@ public class Effect {
 
     public void setGlobal(boolean global) {
         isGlobal = global;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("{ isGlobal :").append(isGlobal).append("\n");
+        stringBuilder.append(", cost :").append(cost).append("\n");
+        stringBuilder.append(", strategy :").append(strategy).append("\n");
+        stringBuilder.append(", damage :").append(damage).append("\n");
+        stringBuilder.append(", marks :").append(marks).append("\n");
+        stringBuilder.append(", canMoveShooter :").append(canMoveShooter).append("\n");
+        stringBuilder.append(", numStepsShooter :").append(numStepsShooter).append("\n");
+        stringBuilder.append(", canMoveTarget :").append(canMoveTarget).append("\n");
+        stringBuilder.append(", numStepsTarget :").append(numStepsTarget).append("\n");
+        stringBuilder.append(", moveTargetAndHitAll :").append(moveTargetAndHitAll).append("\n");
+        stringBuilder.append(",\t optional Effects :").append(optionalEffects).append("\n");
+        return stringBuilder.toString();
     }
 }

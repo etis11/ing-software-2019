@@ -5,10 +5,8 @@ import java.util.List;
 public class HellionStrategy extends AbstractTargetStrategy {
 
     private Match match;
-    private int distance;
 
-    public HellionStrategy(int distance, Match match) {
-        this.distance = distance;
+    public HellionStrategy(Match match) {
         this.match = match;
     }
 

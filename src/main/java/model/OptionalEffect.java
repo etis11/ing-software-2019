@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 public class OptionalEffect {
-
     private List<String> cost;
     private Map<String, Integer> additionalDamage;
     private Map<String, Integer> additionalMarks;
@@ -14,8 +13,8 @@ public class OptionalEffect {
     private boolean canMoveShooter;
     private boolean canMoveTarget;
 
-    private int shooterSteps;
-    private int targetSteps;
+    private int numStepsShooter;
+    private int numStepsTarget;
     private boolean shooterAlreadyMoved;
     private boolean targetAlreadyMoved;
 
@@ -52,20 +51,35 @@ public class OptionalEffect {
         return new LinkedList<>(cost);
     }
 
-    public int getShooterSteps() {
-        return shooterSteps;
+    public int getNumStepsShooter() {
+        return numStepsShooter;
     }
 
     public boolean hasShooterAlreadyMoved() {
         return shooterAlreadyMoved;
     }
 
+    public int getNumStepsTarget(){
+        return numStepsTarget;
+    }
+
     public void setShooterAlreadyMoved(boolean alreadyMoved) {
         this.shooterAlreadyMoved = alreadyMoved;
     }
 
-    public int getTargetSteps(){
-        return targetSteps;
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(", cost :").append(cost).append("\n");
+        stringBuilder.append(", additionalDamage :").append(additionalDamage).append("\n");
+        stringBuilder.append(", additionalMarks :").append(additionalMarks).append("\n");
+        stringBuilder.append(", activated :").append(activated).append("\n");
+        stringBuilder.append(", canMoveShooter :").append(canMoveShooter).append("\n");
+        stringBuilder.append(", numStepsShooter :").append(numStepsShooter).append("\n");
+        stringBuilder.append(", canMoveTarget :").append(canMoveTarget).append("\n");
+        stringBuilder.append(", numStepsTarget :").append(numStepsTarget).append("\n");
+        stringBuilder.append(", shooterAlreadyMoved :").append(shooterAlreadyMoved).append("\n");
+        return stringBuilder.toString();
     }
 
     public void setTargetAlreadyMoved( boolean alreadyMoved){
@@ -79,5 +93,7 @@ public class OptionalEffect {
     public boolean isTargetAlreadyMoved(){
         return targetAlreadyMoved;
     }
+
+
 
 }

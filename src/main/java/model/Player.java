@@ -1,13 +1,16 @@
 package model;
 
 
+import controller.LOGGER;
 import exceptions.IllegalHavingException;
 import exceptions.InsufficientAmmoException;
 import exceptions.NotValidMovesException;
 import javafx.scene.paint.Color;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 
@@ -395,7 +398,7 @@ public class Player implements ChangesObservable{
         try {
             throwPowerUp(c);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(e.getStackTrace()));
         }
         notifyAllObservers();
     }
@@ -410,7 +413,7 @@ public class Player implements ChangesObservable{
         try {
             tile.removePlayer(this);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
         }
         newTile.addPlayer(this);
     }

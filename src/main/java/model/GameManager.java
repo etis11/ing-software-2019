@@ -2,13 +2,10 @@ package model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import jsonparser.JsonFileReader;
 import jsonparser.PowerUpDeserializer;
-import jsonparser.WeaponCardDeserializer;
+import jsonparser.mainArmi;
 import view.LobbyListener;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
@@ -179,8 +176,7 @@ public class GameManager implements CreationGameObservable {
     }
 
     private synchronized void initWeapon(Match match){
-        WeaponCardDeserializer weaponCardDeserializer = new WeaponCardDeserializer(match);
-        List<WeaponCard> weaponCards = weaponCardDeserializer.parseWeaponCards("/cards/weaponCards.json");
+        List<WeaponCard> weaponCards = WeaponCard.getWeaponsFromJson(mainArmi.class.getResourceAsStream("/cards/weaponCards.json") , match);
         match.createWeaponDeck(weaponCards);
         match.getWeaponDeck().shuffle();
         for (int i = 0; i<3;i++){

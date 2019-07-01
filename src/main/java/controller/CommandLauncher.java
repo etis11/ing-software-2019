@@ -80,7 +80,7 @@ public class CommandLauncher implements CommandLauncherInterface {
                     takenCommand.execute(commandExecutor);
                 } catch (IOException e) {
                     commandLauncherLogger.log(Level.INFO,"un client si è disconnesso e non sono riuscito a gestire bene la disconnessione");
-                    e.printStackTrace();
+                   // e.printStackTrace();
                 }
             }
         }
@@ -120,7 +120,9 @@ public class CommandLauncher implements CommandLauncherInterface {
         if (c == null) {
             throw new IllegalArgumentException();
         }
-        commandQueue.offer(c);
+        if(!commandQueue.offer(c))
+            LOGGER.LOGGER.log(Level.WARNING,"There was a problem with Queue");
+
     }
 
     @Override
