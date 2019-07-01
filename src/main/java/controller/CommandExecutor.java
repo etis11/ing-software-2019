@@ -29,7 +29,7 @@ public class CommandExecutor {
     /**
      * duration of a turn expressed in seconds
      */
-    private final int turnLength = 20;
+    private final int turnLength = 20000;
 
     /**
      * gameManager is a reference to the model due to access to the match and lobby variables
@@ -829,7 +829,8 @@ public class CommandExecutor {
                         try {
                             gameManager.getMatch().addPowerUpToSlush(currentPlayer.throwPowerUp(toThrow));
                         } catch (Exception e) {
-                            e.printStackTrace();
+                           // e.printStackTrace();
+                            LOGGER.LOGGER.log(Level.WARNING,e.getStackTrace().toString());
                         }
                         String message = currentPlayer.getName() + " si è rigenerato nel punto di rigenerazione" + regenPointColor;
                         for (JsonReceiver js : command.getAllReceivers()) {
@@ -1347,8 +1348,9 @@ public class CommandExecutor {
                         }
                     }
                 } catch (NotValidActionException e) {
-                    e.getMessage();
-                    e.printStackTrace();
+                    LOGGER.LOGGER.log(Level.WARNING,e.getMessage());
+                    LOGGER.LOGGER.log(Level.WARNING,e.getStackTrace().toString());
+
                 }
             }
             //in case the json receiver is associated to the username, the new username should be checked
