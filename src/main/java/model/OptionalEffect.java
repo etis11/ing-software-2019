@@ -70,14 +70,15 @@ public class OptionalEffect {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(", cost :").append(cost);
-        stringBuilder.append(", additionalDamage :").append(additionalDamage);
-        stringBuilder.append(", additionalMarks :").append(additionalMarks);
-        stringBuilder.append(", activated :").append(activated);
-        stringBuilder.append(", canMoveShooter :").append(canMoveShooter);
-        stringBuilder.append(", shooterSteps :").append(shooterSteps);
-        stringBuilder.append(", canMoveTarget :").append(canMoveTarget);
-        stringBuilder.append(", shooterAlreadyMoved :").append(shooterAlreadyMoved);
+        stringBuilder.append(", cost :").append(cost).append("\n");
+        stringBuilder.append(", additionalDamage :").append(additionalDamage).append("\n");
+        stringBuilder.append(", additionalMarks :").append(additionalMarks).append("\n");
+        stringBuilder.append(", activated :").append(activated).append("\n");
+        stringBuilder.append(", canMoveShooter :").append(canMoveShooter).append("\n");
+        stringBuilder.append(", shooterSteps :").append(shooterSteps).append("\n");
+        stringBuilder.append(", canMoveTarget :").append(canMoveTarget).append("\n");
+        stringBuilder.append(", targetSteps :").append(targetSteps).append("\n");
+        stringBuilder.append(", shooterAlreadyMoved :").append(shooterAlreadyMoved).append("\n");
         return stringBuilder.toString();
     }
 

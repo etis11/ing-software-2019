@@ -277,17 +277,17 @@ Method used to set an advanced effect
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("WeapondCard{name: ");
-        stringBuilder.append(this.name);
-        stringBuilder.append(", reloadCost: ");
-        stringBuilder.append(reloadCost);
-        stringBuilder.append(", baseEffect: ");
-        stringBuilder.append(baseEffect);
-        stringBuilder.append(", advancedEffect: ");
-        stringBuilder.append(advancedEffect);
-        stringBuilder.append(", loaded: ");
-        stringBuilder.append(loaded);
-        stringBuilder.append("}");
+        stringBuilder.append("WeapondCard{name: ").append("\n");
+        stringBuilder.append(this.name).append("\n");
+        stringBuilder.append(", reloadCost: ").append("\n");
+        stringBuilder.append(reloadCost).append("\n");
+        stringBuilder.append(", baseEffect: ").append("\n");
+        stringBuilder.append(baseEffect).append("\n");
+        stringBuilder.append(", advancedEffect: ").append("\n");
+        stringBuilder.append(advancedEffect).append("\n");
+        stringBuilder.append(", loaded: ").append("\n");
+        stringBuilder.append(loaded).append("\n");
+        stringBuilder.append("}").append("\n");
         return stringBuilder.toString();
 //        return "WeaponCard{" +
 //                "reloadCost=" + reloadCost.size() +
