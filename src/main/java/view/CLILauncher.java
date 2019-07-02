@@ -4,6 +4,7 @@ import controller.*;
 import controller.commandpack.Command;
 import controller.commandpack.SetUsernameCommand;
 import model.clientModel.SemplifiedGame;
+import model.clientModel.SemplifiedPlayer;
 import network.RMI.ServerRMIInterface;
 import network.Socket.CommandLauncherProxySocket;
 import network.Socket.JsonRouterSocket;
@@ -99,7 +100,7 @@ public class CLILauncher {
             receiver.attachMessageListener(CLI);
             receiver.attachPlayerObserver(CLI);
             receiver.attachMatchObserver(CLI);
-            startCLI(CLI, cmdLauncher);
+            startCLI(CLI, cmdLauncher, game);
         }
         else if(connectionType.equals("socket")){
             Socket mySocket;
@@ -158,7 +159,7 @@ public class CLILauncher {
             receiver.attachMatchObserver(CLI);
             if (jsonSocketReceiver == null) throw new RuntimeException("the json socket receiver is null");
             new Thread(jsonSocketReceiver).start();
-            startCLI(CLI, cmdLauncher);
+            startCLI(CLI, cmdLauncher, game);
             System.out.println("CLI lanciata");
         }
         else{
@@ -173,8 +174,9 @@ public class CLILauncher {
     }
 
 
-    private static void startCLI(CommandLineInterface CLI, CommandContainer cmdLauncher){
-        Parserator p = new Parserator(CLI, cmdLauncher);
+    private static void startCLI(CommandLineInterface CLI, CommandContainer cmdLauncher, SemplifiedGame game){
+        System.out.println(game);
+        Parserator p = new Parserator(CLI, cmdLauncher, game);
         Thread t = new Thread(p);
         t.start();
     }

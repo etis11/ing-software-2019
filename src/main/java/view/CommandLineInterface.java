@@ -491,6 +491,10 @@ The following 4 strings are the 4 maps.
         return playercolor;
     }
 
+    public void displayMap(SemplifiedMap map){
+
+    }
+
     /**
      * Returns the ansi color of the power up
      * @param powerUpCard
