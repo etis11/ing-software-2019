@@ -101,7 +101,7 @@ public class JsonCreator implements ChangesObserver, CreationGameObserver, Lobby
         playerSerializer.setCurrentPlayer(player);
         response.setMessage(s);
         String changes = gson.toJson(response);
-        System.out.println("Nel creator lista changhed players:" + response.getChangedPlayers());
+        System.out.println("Mandato a " + player.getName() + ".\n Messaggio: "+s+"\nNel creator lista changhed players:" + response.getChangedPlayers());
         response.resetMessage();
         playerSerializer.resetSet();
         playerSerializer.resetCurrentPlayer();
