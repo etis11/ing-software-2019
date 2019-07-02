@@ -1,9 +1,6 @@
 package network;
 
-import controller.CommandLauncherInterface;
-import controller.CommandLauncherProvider;
-import controller.JsonReceiver;
-import controller.LOGGER;
+import controller.*;
 import controller.commandpack.Command;
 import network.RMI.ServerRMI;
 import network.Socket.SocketServer;
@@ -27,6 +24,19 @@ public class ServerLauncher {
         }
 
         int port = Integer.parseInt(args[0]);
+        int turnTimer = -1;
+        int startTimer = -1;
+
+        if (args.length >= 2){
+            turnTimer = Integer.parseInt(args[1]);
+            CommandExecutor.turnLength = turnTimer;
+        }
+
+        if (args.length >= 3){
+            startTimer = Integer.parseInt(args[2]);
+            CommandExecutor.turnLength = startTimer;
+        }
+
         CommandLauncherProvider provider = new CommandLauncherProvider();
 
         ServerRMI rmiServer = new ServerRMI(provider);

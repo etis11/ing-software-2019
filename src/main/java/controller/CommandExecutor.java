@@ -15,13 +15,16 @@ import java.util.logging.Logger;
 public class CommandExecutor {
     private final TokenRegistry registry = TokenRegistry.getInstance();
     private final static Logger commandExecutorLogger = Logger.getLogger(CommandExecutor.class.getName());
-    private final int seconds = 1;
+    public static final int startMatchTimerDelay= 20;
     private ShootState shootState;
     private WeaponCard weaponToUse;
     private List<OptionalEffect> opt;
     private List<Player> targets;
     private Effect base;
-    private long thousand = 1000;
+    /**
+     * constant for multiplying values from seconds to millis
+     */
+    private final long thousand = 1000;
 
     /**
      * Timer used to check and disconnect the current player
@@ -30,7 +33,7 @@ public class CommandExecutor {
     /**
      * duration of a turn expressed in seconds
      */
-    private final int turnLength = 20000;
+    public static int turnLength = 20000;
 
     /**
      * gameManager is a reference to the model due to access to the match and lobby variables
@@ -1401,7 +1404,7 @@ public class CommandExecutor {
             gameManager.getLobby().closeLobby();
             Timer timer = new Timer();
             commandExecutorLogger.log(Level.INFO, "creazione e inizio del timer");
-            timer.schedule(task, seconds * thousand);
+            timer.schedule(task, startMatchTimerDelay * thousand);
         }
     }
 
