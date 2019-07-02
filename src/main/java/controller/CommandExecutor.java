@@ -1634,9 +1634,11 @@ public class CommandExecutor {
 
 
     private boolean canMoveShooterOpt(){
-        for(OptionalEffect opts : opt){
-            if(opts.canShooterMove()){
-                return true;
+        if(!opt.isEmpty()) {
+            for (OptionalEffect opts : opt) {
+                if (opts.canShooterMove()) {
+                    return true;
+                }
             }
         }
         return false;
@@ -1693,9 +1695,11 @@ public class CommandExecutor {
     }
 
     private boolean canOptionalTargetMove(){
-        for(OptionalEffect opts: opt){
-            if(opts.canTargetMove()){
-                return true;
+        if(!opt.isEmpty()) {
+            for (OptionalEffect opts : opt) {
+                if (opts.canTargetMove()) {
+                    return true;
+                }
             }
         }
         return false;

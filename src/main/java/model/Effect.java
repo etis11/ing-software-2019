@@ -150,9 +150,11 @@ public class Effect {
     }
 
     public boolean areOptionalAlreadyMoved(List<OptionalEffect> optionalEffects){
-        for(OptionalEffect opt: optionalEffects){
-            if(opt.isShooterAlreadyMoved() || opt.isTargetAlreadyMoved()){
-                return true;
+        if(!optionalEffects.isEmpty()) {
+            for (OptionalEffect opt : optionalEffects) {
+                if (opt.isShooterAlreadyMoved() || opt.isTargetAlreadyMoved()) {
+                    return true;
+                }
             }
         }
         return false;
