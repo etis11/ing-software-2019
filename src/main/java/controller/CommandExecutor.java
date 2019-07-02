@@ -97,7 +97,7 @@ public class CommandExecutor {
                 notifier.notifyError(error, userJsonReceiver);
             } else {
                 //verify the player state
-                if (!currentPlayer.getState().isNormalAction() && !currentPlayer.getState().isMoreAction() && !currentPlayer.getState().isMostAction()) {
+                if (!currentPlayer.getState().isNormalAction() && !currentPlayer.getState().isMoreAction() && !currentPlayer.getState().isMostAction() && !currentPlayer.getState().getName().equals("Reload")) {
                     String error ="Non puoi terminare il tuo turno al momento";
                     notifier.notifyError(error, userJsonReceiver);
                 } else {
@@ -327,10 +327,16 @@ public class CommandExecutor {
                     String error = "Non puoi ricaricare";
                     notifier.notifyError(error, userJsonReceiver);
                 } else {
-                    currentPlayer.getState().nextState("Reload", currentPlayer);
                     boolean hasWeapon = currentPlayer.getWeapons().isEmpty();
+                    boolean canPay = false;
+                    for(WeaponCard w:currentPlayer.getWeapons()){
+                        if(!w.isLoaded() && currentPlayer.canPay(w.getReloadCost().subList(1,w.getReloadCost().size()))){
+                            canPay = true;
+                        }
+                    }
                     //verify if the player has weapon
-                    if (!hasWeapon) {
+                    if (!hasWeapon && canPay) {
+                        currentPlayer.getState().nextState("Reload", currentPlayer);
                         String message = "Il giocatore attuale sta ricaricando";
                         for (JsonReceiver js : command.getAllReceivers()) {
                             if (js != userJsonReceiver) {
@@ -780,29 +786,32 @@ public class CommandExecutor {
                 String error ="Non puoi eseguire questa azione se non è il tuo turno";
                 notifier.notifyError(error, userJsonReceiver);
             } else {
-                if (command.getWeaponName() == null) {
-                    for (WeaponCard wpc : currentPlayer.getWeapons()) {
-                        if (wpc.getName().equals(command.getWeaponName())) {
-                            if (!wpc.isLoaded()) {
-                                try {
-                                    wpc.reload(currentPlayer.getPlayerBoard().getLoader());
-                                    String message = currentPlayer.getName()+" ha ricaricato: " + wpc.getName();
-                                    for (JsonReceiver js : command.getAllReceivers()) {
-                                        if (js != userJsonReceiver) {
-                                            notifier.notifyMessage(message, js);
-                                        }
+                if (command.getWeaponName() != null) {
+                    WeaponCard wpc = currentPlayer.hasWeapon(command.getWeaponName());
+                    if (wpc != null) {
+                        if (!wpc.isLoaded()) {
+                            try {
+                                wpc.reload(currentPlayer.getPlayerBoard().getLoader());
+                                String message = currentPlayer.getName()+" ha ricaricato: " + wpc.getName();
+                                for (JsonReceiver js : command.getAllReceivers()) {
+                                    if (js != userJsonReceiver) {
+                                        notifier.notifyMessage(message, js);
                                     }
-                                    notifier.notifyMessage("Arma ricaricata, vuoi ricaricare un'altra arma o finire il turno?", userJsonReceiver);
-                                    commandExecutorLogger.log(Level.INFO, "Asekd for new relaod to "+currentPlayer.getName());
-                                } catch (InsufficientAmmoException e) {
-                                    String error ="Non hai abbastanza munizioni per ricricare l'arma selezionata";
-                                    notifier.notifyError(error, userJsonReceiver);
                                 }
-                            } else {
-                                String error ="L'arma selezionata è già carica, vuoi ricaricare un'altra arma oppure finire il turno?";
+                                notifier.notifyMessage("Arma ricaricata, vuoi ricaricare un'altra arma o finire il turno?", userJsonReceiver);
+                                commandExecutorLogger.log(Level.INFO, "Asked for new relaod to "+currentPlayer.getName());
+                            } catch (InsufficientAmmoException e) {
+                                String error ="Non hai abbastanza munizioni per ricaricare l'arma selezionata";
                                 notifier.notifyError(error, userJsonReceiver);
                             }
+                        } else {
+                            String error ="L'arma selezionata è già carica, vuoi ricaricare un'altra arma oppure finire il turno?";
+                            notifier.notifyError(error, userJsonReceiver);
                         }
+                    }
+                    else {
+                        String error = "Non hai l'arma selezionata, vuoi ricaricare un'altra arma oppure finire il turno?";
+                        notifier.notifyError(error, userJsonReceiver);
                     }
                 }
                 else{
@@ -1832,12 +1841,19 @@ public class CommandExecutor {
                 shootState = ShootState.APPLYEFFECTDAMAGE;
             }
         }
-        if(advanced == null){
+        else{
 
             baseShooterMoved = weaponToUse.getBaseEffect().get(0).isAlreadyMovedShooter() || !weaponToUse.getBaseEffect().get(0).canMoveShooter();
             baseTargetMoved = !weaponToUse.getBaseEffect().get(0).canMoveTarget() || weaponToUse.getBaseEffect().get(0).isAlreadyMovedTarget();
 
             if(baseShooterMoved || baseTargetMoved){
+                shootEnded(userJsonReceiver);
+            }
+            else{
+                shootState = ShootState.APPLYEFFECTDAMAGE;
+            }
+
+            if(opt!= null && !opt.isEmpty() && (!canMoveShooterOpt() || !canOptionalTargetMove() || weaponToUse.getBaseEffect().get(0).areOptionalAlreadyMoved(opt))){
                 shootEnded(userJsonReceiver);
             }
             else{
@@ -1867,7 +1883,7 @@ public class CommandExecutor {
 
     private void shootEnded(JsonReceiver userJsonReceiver){
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        notifier.notifyMessageTargetPlayer("Hai sparato con successo a: "+getNameTarget(), userJsonReceiver, currentPlayer);
+        notifier.notifyMessageTargetPlayer("Hai sparato con successo a: "+printTargetsName(), userJsonReceiver, currentPlayer);
         resetShoot();
         currentPlayer.decrementMoves();
         currentPlayer.getState().nextState(currentPlayer.getOldState().getName(), currentPlayer);
@@ -1876,14 +1892,6 @@ public class CommandExecutor {
             currentPlayer.setOldTile(null);
         }
 
-    }
-
-    private String getNameTarget(){
-        StringBuilder sb = new StringBuilder();
-        for (Player p :targets){
-            sb.append(p.getName()).append(" ");
-        }
-        return sb.toString();
     }
 
 }
