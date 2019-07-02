@@ -129,6 +129,14 @@ public class Parserator implements Runnable {
                     return;
             }
 
+            if (command.contains("target")) {
+                List<String> toadd = new ArrayList<>();
+                if(!command.contains("none")) {
+                    toadd.addAll(Arrays.asList(command.split(" ")[1].split(",")));
+                }
+                commandLauncher.addCommand(new MoveTargetCommand(token, toadd));
+                return;
+            }
             if ((command.contains("up") || command.contains("right") || command.contains("left") || command.contains("down")|| command.contains("none")) && !command.contains("Cannone")) {
                 List<String> toadd = new ArrayList<>();
                 if(!command.contains("none")) {
@@ -193,6 +201,7 @@ public class Parserator implements Runnable {
                 commandLauncher.addCommand(new ChooseAdvanceCommand(token, command));
                 return;
             }
+
 
 
             throw new IllegalArgumentException();

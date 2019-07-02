@@ -20,7 +20,7 @@ public class TorpedineStrategy extends AbstractTargetStrategy {
         super.areTargetValid(shooter, targets);
         List<Player> visiblePlayer = match.getMap().allVisiblePlayers(shooter);
         List<Player> visiblePlayer2 = match.getMap().allVisiblePlayers(targets.get(0));
-        List<Player> visiblePlayer3 = match.getMap().allVisiblePlayers(targets.get(0));
+        List<Player> visiblePlayer3 = match.getMap().allVisiblePlayers(targets.get(1));
         if (!visiblePlayer.contains(targets.get(0))) {
             return false;
         }
