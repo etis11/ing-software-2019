@@ -94,23 +94,24 @@ public class GameManager implements CreationGameObservable {
         List<WeaponCard> weaponCards2 = WeaponCard.getWeaponsFromJson(GameManager.class.getResourceAsStream("/cards/weaponCards.json"), match);
         List<WeaponCard> weaponCards3 = WeaponCard.getWeaponsFromJson(GameManager.class.getResourceAsStream("/cards/weaponCards.json"), match);
 
+        String name = "Distruttore";
         WeaponCard armascelta = null;
         for(WeaponCard weaponCard: weaponCards){
-            if (weaponCard.getName().equals("Distruttore")){
+            if (weaponCard.getName().equals(name)){
                 armascelta = weaponCard;
             }
         }
 
         WeaponCard armascelta1 = null;
         for(WeaponCard weaponCard: weaponCards){
-            if (weaponCard.getName().equals("Distruttore")){
+            if (weaponCard.getName().equals(name)){
                 armascelta1 = weaponCard;
             }
         }
 
         WeaponCard armascelta2 = null;
         for(WeaponCard weaponCard: weaponCards){
-            if (weaponCard.getName().equals("Distruttore")){
+            if (weaponCard.getName().equals(name)){
                 armascelta2 = weaponCard;
             }
         }
@@ -122,7 +123,7 @@ public class GameManager implements CreationGameObservable {
 
         }
         catch (Exception e){
-            
+
         }
 
         GameMap map = GameMap.loadMap(GameManager.class.getResourceAsStream(mapPath));
