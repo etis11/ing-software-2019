@@ -1634,7 +1634,7 @@ public class CommandExecutor {
 
 
     private boolean canMoveShooterOpt(){
-        if(!opt.isEmpty()) {
+        if(opt != null && !opt.isEmpty()) {
             for (OptionalEffect opts : opt) {
                 if (opts.canShooterMove()) {
                     return true;
@@ -1695,7 +1695,7 @@ public class CommandExecutor {
     }
 
     private boolean canOptionalTargetMove(){
-        if(!opt.isEmpty()) {
+        if(opt != null && !opt.isEmpty()) {
             for (OptionalEffect opts : opt) {
                 if (opts.canTargetMove()) {
                     return true;
