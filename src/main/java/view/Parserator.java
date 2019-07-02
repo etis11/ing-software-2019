@@ -163,9 +163,11 @@ public class Parserator implements Runnable {
             }
             if(command.toLowerCase().contains("usa")){
                 String[] splittedCommand = command.split(" ",2);
-                if(isWeapon(splittedCommand[1])) {
-                    commandLauncher.addCommand(new WeaponCommand(token, splittedCommand[1]));
-                    return;
+                if(splittedCommand[1] != null){
+                    if(isWeapon(splittedCommand[1])) {
+                        commandLauncher.addCommand(new WeaponCommand(token, splittedCommand[1]));
+                        return;
+                    }
                 }
             }
             if(command.toLowerCase().contains("scarta")){

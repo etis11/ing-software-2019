@@ -94,38 +94,6 @@ public class GameManager implements CreationGameObservable {
         List<WeaponCard> weaponCards2 = WeaponCard.getWeaponsFromJson(GameManager.class.getResourceAsStream("/cards/weaponCards.json"), match);
         List<WeaponCard> weaponCards3 = WeaponCard.getWeaponsFromJson(GameManager.class.getResourceAsStream("/cards/weaponCards.json"), match);
 
-        String name = "Distruttore";
-        WeaponCard armascelta = null;
-        for(WeaponCard weaponCard: weaponCards){
-            if (weaponCard.getName().equals(name)){
-                armascelta = weaponCard;
-            }
-        }
-
-        WeaponCard armascelta1 = null;
-        for(WeaponCard weaponCard: weaponCards){
-            if (weaponCard.getName().equals(name)){
-                armascelta1 = weaponCard;
-            }
-        }
-
-        WeaponCard armascelta2 = null;
-        for(WeaponCard weaponCard: weaponCards){
-            if (weaponCard.getName().equals(name)){
-                armascelta2 = weaponCard;
-            }
-        }
-
-        try{
-            players.get(0).pickUpWeapon(armascelta);
-            players.get(1).pickUpWeapon(armascelta1);
-            players.get(2).pickUpWeapon(armascelta2);
-
-        }
-        catch (Exception e){
-
-        }
-
         GameMap map = GameMap.loadMap(GameManager.class.getResourceAsStream(mapPath));
         //TODO aggiungere final frenzy
         match = new Match(players, numOfSkulls, map);
@@ -212,6 +180,18 @@ public class GameManager implements CreationGameObservable {
 
     private synchronized void initWeapon(Match match){
         List<WeaponCard> weaponCards = WeaponCard.getWeaponsFromJson(mainArmi.class.getResourceAsStream("/cards/weaponCards.json") , match);
+        Iterator<WeaponCard> iterator = weaponCards.iterator();
+        WeaponCard weaponCard = null;
+        WeaponCard desired = null;
+        while(iterator.hasNext()){
+            weaponCard = iterator.next();
+            if (weaponCard.getName().equals("Distruttore")){
+                desired = weaponCard;
+                iterator.remove();
+
+            }
+        }
+        weaponCards.add(0, desired);
         match.createWeaponDeck(weaponCards);
         match.getWeaponDeck().shuffle();
         for (int i = 0; i<3;i++){
