@@ -1777,6 +1777,10 @@ public class CommandExecutor {
         //notify
         String message = "";
         if(base == null){
+            System.out.println(!weaponToUse.getBaseEffect().get(0).isAlreadyMovedShooter());
+            System.out.println(!weaponToUse.getBaseEffect().get(0).canMoveShooter());
+            System.out.println(canMoveShooterOpt());
+            System.out.println(!weaponToUse.getBaseEffect().get(0).areOptionalAlreadyMoved(opt));
             if((!weaponToUse.getBaseEffect().get(0).isAlreadyMovedShooter() && weaponToUse.getBaseEffect().get(0).canMoveShooter())
                     ||(canMoveShooterOpt() && !weaponToUse.getBaseEffect().get(0).areOptionalAlreadyMoved(opt))) {
                 message = "Puoi ancora muoverti se vuoi";
