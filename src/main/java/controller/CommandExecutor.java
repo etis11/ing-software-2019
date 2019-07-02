@@ -463,7 +463,13 @@ public class CommandExecutor {
                     notifier.notifyError(error, userJsonReceiver);
                 } else {
                     currentPlayer.setOldState(currentPlayer.getState());
-                    currentPlayer.getState().nextState("Run", currentPlayer);
+                    try{
+                        currentPlayer.getState().nextState("Run", currentPlayer);
+                    }
+                    catch (IllegalStateException ise){
+                        notifier.notifyMessageTargetPlayer("Non puoi fare questa azione", userJsonReceiver, currentPlayer);
+                        return;
+                    }
                     String message = currentPlayer.getName()+" si sta spostando";
                     for (JsonReceiver js : command.getAllReceivers()) {
                         if (js != userJsonReceiver) {
