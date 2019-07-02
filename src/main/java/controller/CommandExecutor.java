@@ -798,7 +798,7 @@ public class CommandExecutor {
                                         notifier.notifyMessage(message, js);
                                     }
                                 }
-                                notifier.notifyMessage("Arma ricaricata, vuoi ricaricare un'altra arma o finire il turno?", userJsonReceiver);
+                                notifier.notifyMessageTargetPlayer("Arma ricaricata, vuoi ricaricare un'altra arma o finire il turno?", userJsonReceiver, currentPlayer);
                                 commandExecutorLogger.log(Level.INFO, "Asked for new relaod to "+currentPlayer.getName());
                             } catch (InsufficientAmmoException e) {
                                 String error ="Non hai abbastanza munizioni per ricaricare l'arma selezionata";
