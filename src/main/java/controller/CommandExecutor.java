@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class CommandExecutor {
     private final TokenRegistry registry = TokenRegistry.getInstance();
     private final static Logger commandExecutorLogger = Logger.getLogger(CommandExecutor.class.getName());
-    public static int startMatchTimerDelay= 30;
+    public static int startMatchTimerDelay= 1;
     /**
      * duration of a turn expressed in seconds
      */

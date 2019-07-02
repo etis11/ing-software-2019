@@ -2,6 +2,7 @@ package model;
 
 import jsonparser.Exclude;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,10 +48,10 @@ public class Effect {
     //TODO da settare. Fare l'azione inversa dell'apply
     private int redDamage;
     private int blueDamage;
-    private int yellowDamage;
+    private int greenDamage;
     private int redMarks;
     private int blueMarks;
-    private int yellowMarks;
+    private int greenMarks;
 
     public Effect(List<String> cost, TargetStrategy strategy) {
         this.cost = cost;
@@ -59,11 +60,11 @@ public class Effect {
         damage = new HashMap<>();
         damage.put("red", 0);
         damage.put("blue", 0);
-        damage.put("yellow", 0);
+        damage.put("green", 0);
         marks = new HashMap<>();
         marks.put("red", 0);
         marks.put("blue", 0);
-        marks.put("yellow", 0);
+        marks.put("green", 0);
         optionalEffects = new LinkedList<>();
     }
 
@@ -136,17 +137,17 @@ public class Effect {
     public void setDeafultDamageAndMarks(){
         redDamage = damage.get("red");
         blueDamage = damage.get("blue");
-        yellowDamage = damage.get("yellow");
+        greenDamage = damage.get("green");
         redMarks = marks.get("red");
         blueMarks = marks.get("blue");
-        yellowMarks = marks.get("yellow");
+        greenMarks = marks.get("green");
     }
 
     /**
      * This method sums the damages and the marks of the optional effect in the current effect.
      */
     public void applyOptionalEffect(List<OptionalEffect> optionalEffects) {
-        String[] colors = {"red", "blue", "yellow"};
+        String[] colors = {"red", "blue", "green"};
         for (OptionalEffect o : optionalEffects) {
             Map<String, Integer> additionalDamage = o.getAdditionalDamage();
             Map<String, Integer> additionalMarks = o.getAdditionalDamage();
@@ -178,7 +179,7 @@ public class Effect {
     public void resetDmgAndMarks() {
         this.damage.put("red", redDamage);
         this.damage.put("blue", blueDamage);
-        this.damage.put("yellow", yellowDamage);
+        this.damage.put("green", greenDamage);
     }
 
     /**
@@ -250,6 +251,7 @@ public class Effect {
         return canMoveTarget;
     }
 
+
     /**
      * returns the number of the steps u can make do the target
      *
@@ -284,6 +286,12 @@ public class Effect {
         stringBuilder.append(", canMoveTarget :").append(canMoveTarget).append("\n");
         stringBuilder.append(", numStepsTarget :").append(numStepsTarget).append("\n");
         stringBuilder.append(", moveTargetAndHitAll :").append(moveTargetAndHitAll).append("\n");
+        stringBuilder.append(", redDamage :").append(redDamage).append("\n");
+        stringBuilder.append(", blueDamage :").append(blueDamage).append("\n");
+        stringBuilder.append(", greenDamage :").append(greenDamage).append("\n");
+        stringBuilder.append(", redMarks :").append(redMarks).append("\n");
+        stringBuilder.append(", blueMarks :").append(blueMarks).append("\n");
+        stringBuilder.append(", greenMarks :").append(greenMarks).append("\n");
         stringBuilder.append(",\t optional Effects :").append(optionalEffects).append("\n");
         return stringBuilder.toString();
     }
