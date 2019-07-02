@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,17 +20,28 @@ public class TorpedineStrategy extends AbstractTargetStrategy {
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         super.areTargetValid(shooter, targets);
         List<Player> visiblePlayer = match.getMap().allVisiblePlayers(shooter);
-        List<Player> visiblePlayer2 = match.getMap().allVisiblePlayers(targets.get(0));
-        List<Player> visiblePlayer3 = match.getMap().allVisiblePlayers(targets.get(0));
-        if (!visiblePlayer.contains(targets.get(0))) {
-            return false;
+        List<Player> visiblePlayer2 = new LinkedList<>();
+        List<Player> visiblePlayer3 = new LinkedList<>();
+
+        if( !targets.isEmpty() ){
+            if (!visiblePlayer.contains(targets.get(0))) {
+                return false;
+            }
         }
-        if (!visiblePlayer2.contains(targets.get(1))) {
-            return false;
+        if(targets.size()>1){
+            visiblePlayer2 = match.getMap().allVisiblePlayers(targets.get(0));
+            if (!visiblePlayer2.contains(targets.get(1))) {
+                return false;
+            }
         }
-        if (!visiblePlayer3.contains(targets.get(2))) {
-            return false;
+        if(targets.size()>2){
+            visiblePlayer3 = match.getMap().allVisiblePlayers(targets.get(1));
+            if (!visiblePlayer3.contains(targets.get(2))) {
+                return false;
+            }
         }
+
+
         return true;
     }
 
