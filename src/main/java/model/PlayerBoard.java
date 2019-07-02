@@ -1,5 +1,8 @@
 package model;
 
+import view.PlayerObservable;
+import view.PlayerObserver;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +40,7 @@ public class PlayerBoard {
         loader = new Loader();
         damageTokens = new LinkedList<>();
         marks = new LinkedList<>();
-        killValue = (IntStream.of(8, 6, 4, 2, 1, 1, 1, 1, 1).boxed().collect(Collectors.toCollection(LinkedList::new)));
+        killValue = (IntStream.of(8, 6, 4, 2, 1, 1, 1, 1, 1,1,1).boxed().collect(Collectors.toCollection(LinkedList::new)));
     }
 
 

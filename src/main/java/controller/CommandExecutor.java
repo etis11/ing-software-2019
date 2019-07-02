@@ -1740,7 +1740,7 @@ public class CommandExecutor {
             advanced.applyOptionalEffect(opt);
             dt = advanced.useEffect(currentPlayer, targets.get(0), "red");
         }
-        targets.get(0).getPlayerBoard().calculateDamage(dt);
+        targets.get(0).calculateDamage(dt);
         commandExecutorLogger.log(Level.INFO, "calculated damage for red "+dt.getNumDamage()+" damage and "+dt.getNumMark()+" marks to "+targets.get(0).getName());
         dt = null;
         //target blue
@@ -1757,7 +1757,7 @@ public class CommandExecutor {
             }
         }
         if(dt != null){
-            targets.get(1).getPlayerBoard().calculateDamage(dt);
+            targets.get(1).calculateDamage(dt);
             commandExecutorLogger.log(Level.INFO, "calculated damage for red "+dt.getNumDamage()+" damage and "+dt.getNumMark()+" marks to "+targets.get(1).getName());
         }
 
@@ -1776,7 +1776,7 @@ public class CommandExecutor {
             }
         }
         if(dt != null){
-            targets.get(2).getPlayerBoard().calculateDamage(dt);
+            targets.get(2).calculateDamage(dt);
             commandExecutorLogger.log(Level.INFO, "calculated damage for red "+dt.getNumDamage()+" damage and "+dt.getNumMark()+" marks to "+targets.get(2).getName());
         }
 
