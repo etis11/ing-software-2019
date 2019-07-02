@@ -27,6 +27,12 @@ public class CLILauncher {
     private static CommandLineInterface CLI;
 
     public static void main(String[] args) throws IOException {
+        if (args.length <2){
+            System.out.println(AnsiColor.RED +  "Inserire IP e porta del server");
+            System.exit(0);
+        }
+        String ip = args[0];
+        int port = Integer.parseInt(args[1]);
 
         CLI = new CommandLineInterface();
         SemplifiedGame game = new SemplifiedGame();
@@ -99,7 +105,7 @@ public class CLILauncher {
             Socket mySocket;
             JsonRouterSocket jsonSocketReceiver = null;
             try{
-                mySocket = new Socket("localhost", 8000);
+                mySocket = new Socket(ip, port);
                 BufferedReader input = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
                 PrintWriter output = new PrintWriter(mySocket.getOutputStream());
                 CLI.displayText("Inserisci un token.");

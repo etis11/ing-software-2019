@@ -21,6 +21,12 @@ import java.util.logging.Level;
 public class ServerLauncher {
 
     public static void main(String[] args) throws RemoteException, AlreadyBoundException, FileNotFoundException {
+        if (args.length == 0){
+            System.out.println("Porta mancante");
+            System.exit(0);
+        }
+
+        int port = Integer.parseInt(args[0]);
         CommandLauncherProvider provider = new CommandLauncherProvider();
 
         ServerRMI rmiServer = new ServerRMI(provider);
@@ -30,7 +36,7 @@ public class ServerLauncher {
         SocketServer ss;
         try {
 
-            ss = new SocketServer(8000, provider);
+            ss = new SocketServer(port, provider);
             ss.run();
         } catch (IOException i) {
             LOGGER.LOGGER.log(Level.WARNING,"Problemi con il server socket");
