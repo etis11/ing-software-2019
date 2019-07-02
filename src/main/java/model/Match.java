@@ -86,6 +86,7 @@ public class Match implements ChangesMatchObservable{
         this.skulls = skulls;
         this.players = players;
         this.map = GameMap.loadMap(Match.class.getResourceAsStream(mapPath));
+        map.createGraph();
         currentPlayer = -1;
         deathTrack = new LinkedList<>(new LinkedList<>());
         matchObservers = new LinkedList<>();
@@ -97,6 +98,7 @@ public class Match implements ChangesMatchObservable{
         this.playerNumber = playerNumber;
         this.skulls = skulls;
         this.map = map;
+        map.createGraph();
         this.players = new ArrayList<>(playerNumber);
         currentPlayer = -1;
         deathTrack = new LinkedList<>(new LinkedList<>());
@@ -106,6 +108,7 @@ public class Match implements ChangesMatchObservable{
     }
 
     public Match(List<Player> players, int numOfSkulls, GameMap map){
+        map.createGraph();
         this.playerNumber = players.size();
         this.skulls = numOfSkulls;
         this.map = map;
