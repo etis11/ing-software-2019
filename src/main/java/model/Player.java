@@ -557,6 +557,11 @@ public class Player implements ChangesObservable{
                 '}';
     }
 
+    public void calculateDamage(DamageTransporter damageTransporter){
+        playerBoard.calculateDamage(damageTransporter);
+        notifyAllObservers();
+    }
+
 
 
     /********************** changes observable **************************/

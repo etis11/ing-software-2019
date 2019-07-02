@@ -91,8 +91,7 @@ public class GameManager implements CreationGameObservable {
 
         String mapPath = getMapFromName(mapName);
         List<WeaponCard> weaponCards = WeaponCard.getWeaponsFromJson(GameManager.class.getResourceAsStream("/cards/weaponCards.json"), match);
-        List<WeaponCard> weaponCards2 = WeaponCard.getWeaponsFromJson(GameManager.class.getResourceAsStream("/cards/weaponCards.json"), match);
-        List<WeaponCard> weaponCards3 = WeaponCard.getWeaponsFromJson(GameManager.class.getResourceAsStream("/cards/weaponCards.json"), match);
+
 
         GameMap map = GameMap.loadMap(GameManager.class.getResourceAsStream(mapPath));
         //TODO aggiungere final frenzy
@@ -180,15 +179,17 @@ public class GameManager implements CreationGameObservable {
 
     private synchronized void initWeapon(Match match){
         List<WeaponCard> weaponCards = WeaponCard.getWeaponsFromJson(mainArmi.class.getResourceAsStream("/cards/weaponCards.json") , match);
+        for(WeaponCard weaponCard : weaponCards){
+            weaponCard.setUpEffects();
+        }
         Iterator<WeaponCard> iterator = weaponCards.iterator();
         WeaponCard weaponCard = null;
         WeaponCard desired = null;
         while(iterator.hasNext()){
             weaponCard = iterator.next();
-            if (weaponCard.getName().equals("Distruttore")){
+            if (weaponCard.getName().equals("Razzo termico")){
                 desired = weaponCard;
                 iterator.remove();
-
             }
         }
         weaponCards.add(0, desired);

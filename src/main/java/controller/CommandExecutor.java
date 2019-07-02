@@ -34,7 +34,11 @@ public class CommandExecutor {
      * Timer used to check and disconnect the current player
      */
     private Timer turnTimer;
-
+    /**
+     *
+     */
+    private Timer startGameTimer;
+    private boolean startGameTimerStarted;
 
     /**
      * gameManager is a reference to the model due to access to the match and lobby variables
@@ -125,9 +129,7 @@ public class CommandExecutor {
                             }
                         }
                     }
-                    jsonCreator.reset();
                     notifier.notifyMessageTargetPlayer("", userToBeNotifiedThrow, currentPlayer);
-                    jsonCreator.reset();
                     if((currentPlayer.getState().getName().equals("EndTurn")&& currentPlayer.getTile() == null) || currentPlayer.getState().getName().equals("Dead") || currentPlayer.getState().getName().equals("Overkilled")) {
                         notifier.notifyMessageTargetPlayer("scegli quale powerup scartare per spawnare", userToBeNotifiedThrow, currentPlayer);
                         commandExecutorLogger.log(Level.INFO, "Asked throwing for spawn to"+currentPlayer.getName());
@@ -1400,24 +1402,37 @@ public class CommandExecutor {
         }
         jsonCreator.reset();
 
-        boolean lobbyFull = gameManager.getLobby().isFull();
-        if(lobbyFull && !gameHasStarted && !gameManager.getLobby().isClosed()){
-            TimerTask task = new TimerTask(){
-                @Override
-                public void run() {
-                    commandExecutorLogger.log(Level.INFO, "timer scaduto");
-                    try {
-                        createMatchRoutine(command.getAllReceivers());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e.getMessage());
-                    }
+
+        //starts a timer for the start of the game when the lobby reaches the min size
+        TimerTask task = new TimerTask(){
+            @Override
+            public void run() {
+                commandExecutorLogger.log(Level.INFO, "timer scaduto");
+                try {
+                    createMatchRoutine(command.getAllReceivers());
+                } catch (IOException e) {
+                    throw new RuntimeException(e.getMessage());
                 }
-            };
-            gameManager.getLobby().closeLobby();
-            Timer timer = new Timer();
+            }
+        };
+        Lobby lobby = gameManager.getLobby();
+        //if the players are at least three and the timer did't start
+        if(lobby.hasReachedMinCapacity() && !gameHasStarted && !startGameTimerStarted){
+            startGameTimer = new Timer();
             commandExecutorLogger.log(Level.INFO, "creazione e inizio del timer");
-            timer.schedule(task, startMatchTimerDelay * thousand);
+            startGameTimer.schedule(task, startMatchTimerDelay * thousand);
+            startGameTimerStarted = true;
         }
+        //if lobby reach 5, stop old timer and start a new one
+        if (lobby.isFull() && !gameHasStarted && !lobby.isClosed()){
+            startGameTimer.cancel();
+            startGameTimer.purge();
+            startGameTimer = new Timer();
+            startGameTimer.schedule(task, 10*1000);
+            lobby.closeLobby();
+        }
+
+
     }
 
     public void execute(SetTokenCommand command) throws IOException {
@@ -1725,7 +1740,7 @@ public class CommandExecutor {
             advanced.applyOptionalEffect(opt);
             dt = advanced.useEffect(currentPlayer, targets.get(0), "red");
         }
-        targets.get(0).getPlayerBoard().calculateDamage(dt);
+        targets.get(0).calculateDamage(dt);
         commandExecutorLogger.log(Level.INFO, "calculated damage for red "+dt.getNumDamage()+" damage and "+dt.getNumMark()+" marks to "+targets.get(0).getName());
         dt = null;
         //target blue
@@ -1742,7 +1757,7 @@ public class CommandExecutor {
             }
         }
         if(dt != null){
-            targets.get(1).getPlayerBoard().calculateDamage(dt);
+            targets.get(1).calculateDamage(dt);
             commandExecutorLogger.log(Level.INFO, "calculated damage for red "+dt.getNumDamage()+" damage and "+dt.getNumMark()+" marks to "+targets.get(1).getName());
         }
 
@@ -1761,7 +1776,7 @@ public class CommandExecutor {
             }
         }
         if(dt != null){
-            targets.get(2).getPlayerBoard().calculateDamage(dt);
+            targets.get(2).calculateDamage(dt);
             commandExecutorLogger.log(Level.INFO, "calculated damage for red "+dt.getNumDamage()+" damage and "+dt.getNumMark()+" marks to "+targets.get(2).getName());
         }
 

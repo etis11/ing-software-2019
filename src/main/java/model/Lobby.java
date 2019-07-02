@@ -16,8 +16,11 @@ public class Lobby  implements  LobbyObservable{
     /**
      * maxPlayerInLobby are the maximum of player allowed in the lobby
      */
-    private transient int maxPlayerInLobby = 3;
-
+    private transient int maxPlayerInLobby = 5;
+    /**
+     *
+     */
+    private  transient  int minPlayerInLobby = 3;
     private transient final List<LobbyListener> lobbyListeners;
     /**
      * users are the User contained in the Lobby
@@ -61,6 +64,10 @@ public class Lobby  implements  LobbyObservable{
 
     public void setMaxPlayerInLobby(int maxPlayerInLobby){
         this.maxPlayerInLobby = maxPlayerInLobby;
+    }
+
+    public int getMinPlayerInLobby() {
+        return minPlayerInLobby;
     }
 
     /**
@@ -147,6 +154,14 @@ public class Lobby  implements  LobbyObservable{
 
     public boolean isFull(){
         return getNumOfUsers() == getMaxPlayerInLobby();
+    }
+
+    public boolean hasReachedMinCapacity(){
+        return users.size() == minPlayerInLobby;
+    }
+
+    public boolean hasReachedMaxCapacity(){
+        return users.size() == maxPlayerInLobby;
     }
 
     public boolean contains(User u){
