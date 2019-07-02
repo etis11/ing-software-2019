@@ -313,6 +313,12 @@ public class Player implements ChangesObservable{
      */
     public void setOldState(State oldState) {
         this.oldState = oldState;
+        if(oldState != null) {
+            System.out.println("old state settato a: " + oldState.getName());
+        }
+        else{
+            System.out.println("old state settato a: " + null);
+        }
     }
 
     /**
