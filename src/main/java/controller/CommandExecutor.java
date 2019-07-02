@@ -1777,12 +1777,6 @@ public class CommandExecutor {
         //notify
         String message = "";
         if(advanced == null){
-            System.out.println("arma: "+weaponToUse);
-            System.out.println("cella base advanced: "+weaponToUse.getBaseEffect().get(0));
-            System.out.println("shooter non mosso: "+!weaponToUse.getBaseEffect().get(0).isAlreadyMovedShooter());
-            System.out.println("shooter non muovibile: "+!weaponToUse.getBaseEffect().get(0).canMoveShooter());
-            System.out.println("opt can move shooter: "+canMoveShooterOpt());
-            System.out.println("opt non mosso shooter: "+!weaponToUse.getBaseEffect().get(0).areOptionalAlreadyMoved(opt));
             if((!weaponToUse.getBaseEffect().get(0).isAlreadyMovedShooter() && weaponToUse.getBaseEffect().get(0).canMoveShooter())
                     ||(canMoveShooterOpt() && !weaponToUse.getBaseEffect().get(0).areOptionalAlreadyMoved(opt))) {
                 message = "Puoi ancora muoverti se vuoi";
