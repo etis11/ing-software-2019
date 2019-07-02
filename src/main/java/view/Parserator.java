@@ -2,6 +2,8 @@ package view;
 
 import controller.CommandContainer;
 import controller.commandpack.*;
+import model.clientModel.SemplifiedGame;
+import model.clientModel.SemplifiedPlayer;
 import network.RMI.ClientLauncherRMI;
 
 import java.io.IOException;
@@ -16,6 +18,7 @@ public class Parserator implements Runnable {
     private List<String> weapons;
     private CommandLineInterface CLI;
     private boolean quit;
+    private SemplifiedGame game;
 
     /*
     String needed to return all possible commands that you can call on CLI
@@ -35,11 +38,12 @@ public class Parserator implements Runnable {
             AnsiColor.GREEN+"setpersonaggio *NOME*"+AnsiColor.RESET+" - Commando che connette il giocatore con il carattere del gioco. Es: setpersonaggio VIOLETTA\n"+
             AnsiColor.GREEN+"setfrenesia *si/no*"+AnsiColor.RESET+" - Commando che imposta la frenesia finale per la partita. Es: setfrenesia no\n";
 
-    public Parserator(CommandLineInterface cli, CommandContainer launcher) {
+    public Parserator(CommandLineInterface cli, CommandContainer launcher, SemplifiedGame game) {
         CLI = cli;
         commandLauncher = launcher;
         quit = false;
         token = ClientSingleton.getInstance().getToken();
+        this.game = game;
         createListWeapon();
     }
 
@@ -202,6 +206,35 @@ public class Parserator implements Runnable {
             if(command.trim().equalsIgnoreCase("avanzato") || command.trim().equalsIgnoreCase("base")){
                 commandLauncher.addCommand(new ChooseAdvanceCommand(token, command));
                 return;
+            }
+
+            if ( command.contains("mostra")){
+                String[] splittedCommand = command.split(" ");
+                //should be at least two words
+                if(splittedCommand.length >1){
+                    String paramater = splittedCommand[1];
+                    if(game.getMap()!= null &&paramater.equals("mappa")){
+                        CLI.onMapChange(game.getMap());
+                        return;
+                    }
+
+                }
+                if(splittedCommand.length>2){
+                    String board = splittedCommand[1];
+                    String playerName = splittedCommand[2];
+                    if ( game.getPlayers() != null && board.equals("plancia")){
+                        SemplifiedPlayer player = null;
+                        System.out.println(game.getPlayers());
+                        for(SemplifiedPlayer loopPlayer : game.getPlayers()){
+                            if(loopPlayer.getName().equals(playerName))
+                                player = loopPlayer;
+                        }
+                        if(player!= null){
+                            CLI.onPlayerChange(player);
+                            return;
+                        }
+                    }
+                }
             }
 
 
