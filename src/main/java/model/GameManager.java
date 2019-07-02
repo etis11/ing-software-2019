@@ -185,13 +185,13 @@ public class GameManager implements CreationGameObservable {
         WeaponCard desired = null;
         while(iterator.hasNext()){
             weaponCard = iterator.next();
-            if (weaponCard.getName().equals("Distruttore")){
+            if (weaponCard.getName().equals("Razzo termico")){
                 desired = weaponCard;
                 iterator.remove();
-
             }
         }
         weaponCards.add(0, desired);
+        System.out.println(weaponCards);
         match.createWeaponDeck(weaponCards);
         match.getWeaponDeck().shuffle();
         for (int i = 0; i<3;i++){

@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class CommandExecutor {
     private final TokenRegistry registry = TokenRegistry.getInstance();
     private final static Logger commandExecutorLogger = Logger.getLogger(CommandExecutor.class.getName());
-    public static int startMatchTimerDelay= 1;
+    public static int startMatchTimerDelay= 30;
     /**
      * duration of a turn expressed in seconds
      */
@@ -34,7 +34,11 @@ public class CommandExecutor {
      * Timer used to check and disconnect the current player
      */
     private Timer turnTimer;
-
+    /**
+     *
+     */
+    private Timer startGameTimer;
+    private boolean startGameTimerStarted;
 
     /**
      * gameManager is a reference to the model due to access to the match and lobby variables
@@ -125,9 +129,7 @@ public class CommandExecutor {
                             }
                         }
                     }
-                    jsonCreator.reset();
                     notifier.notifyMessageTargetPlayer("", userToBeNotifiedThrow, currentPlayer);
-                    jsonCreator.reset();
                     if((currentPlayer.getState().getName().equals("EndTurn")&& currentPlayer.getTile() == null) || currentPlayer.getState().getName().equals("Dead") || currentPlayer.getState().getName().equals("Overkilled")) {
                         notifier.notifyMessageTargetPlayer("scegli quale powerup scartare per spawnare", userToBeNotifiedThrow, currentPlayer);
                         commandExecutorLogger.log(Level.INFO, "Asked throwing for spawn to"+currentPlayer.getName());
@@ -1400,24 +1402,37 @@ public class CommandExecutor {
         }
         jsonCreator.reset();
 
-        boolean lobbyFull = gameManager.getLobby().isFull();
-        if(lobbyFull && !gameHasStarted && !gameManager.getLobby().isClosed()){
-            TimerTask task = new TimerTask(){
-                @Override
-                public void run() {
-                    commandExecutorLogger.log(Level.INFO, "timer scaduto");
-                    try {
-                        createMatchRoutine(command.getAllReceivers());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e.getMessage());
-                    }
+
+        //starts a timer for the start of the game when the lobby reaches the min size
+        TimerTask task = new TimerTask(){
+            @Override
+            public void run() {
+                commandExecutorLogger.log(Level.INFO, "timer scaduto");
+                try {
+                    createMatchRoutine(command.getAllReceivers());
+                } catch (IOException e) {
+                    throw new RuntimeException(e.getMessage());
                 }
-            };
-            gameManager.getLobby().closeLobby();
-            Timer timer = new Timer();
+            }
+        };
+        Lobby lobby = gameManager.getLobby();
+        //if the players are at least three and the timer did't start
+        if(lobby.hasReachedMinCapacity() && !gameHasStarted && !startGameTimerStarted){
+            startGameTimer = new Timer();
             commandExecutorLogger.log(Level.INFO, "creazione e inizio del timer");
-            timer.schedule(task, startMatchTimerDelay * thousand);
+            startGameTimer.schedule(task, startMatchTimerDelay * thousand);
+            startGameTimerStarted = true;
         }
+        //if lobby reach 5, stop old timer and start a new one
+        if (lobby.isFull() && !gameHasStarted && !lobby.isClosed()){
+            startGameTimer.cancel();
+            startGameTimer.purge();
+            startGameTimer = new Timer();
+            startGameTimer.schedule(task, 10*1000);
+            lobby.closeLobby();
+        }
+
+
     }
 
     public void execute(SetTokenCommand command) throws IOException {
