@@ -15,7 +15,11 @@ import java.util.logging.Logger;
 public class CommandExecutor {
     private final TokenRegistry registry = TokenRegistry.getInstance();
     private final static Logger commandExecutorLogger = Logger.getLogger(CommandExecutor.class.getName());
-    public static final int startMatchTimerDelay= 20;
+    public static int startMatchTimerDelay= 20;
+    /**
+     * duration of a turn expressed in seconds
+     */
+    public static int turnLength = 20;
     private ShootState shootState;
     private WeaponCard weaponToUse;
     private List<OptionalEffect> opt;
@@ -30,10 +34,7 @@ public class CommandExecutor {
      * Timer used to check and disconnect the current player
      */
     private Timer turnTimer;
-    /**
-     * duration of a turn expressed in seconds
-     */
-    public static int turnLength = 20000;
+
 
     /**
      * gameManager is a reference to the model due to access to the match and lobby variables
@@ -124,7 +125,9 @@ public class CommandExecutor {
                             }
                         }
                     }
+                    jsonCreator.reset();
                     notifier.notifyMessageTargetPlayer("", userToBeNotifiedThrow, currentPlayer);
+                    jsonCreator.reset();
                     if((currentPlayer.getState().getName().equals("EndTurn")&& currentPlayer.getTile() == null) || currentPlayer.getState().getName().equals("Dead") || currentPlayer.getState().getName().equals("Overkilled")) {
                         notifier.notifyMessageTargetPlayer("scegli quale powerup scartare per spawnare", userToBeNotifiedThrow, currentPlayer);
                         commandExecutorLogger.log(Level.INFO, "Asked throwing for spawn to"+currentPlayer.getName());
@@ -150,6 +153,7 @@ public class CommandExecutor {
             for(JsonReceiver jsonReceiver: allJsonReceivers) {
                 notifier.notifyDisconnection(forcedDisconnectedUser, currentPlayer, jsonReceiver);
             }
+            jsonCreator.reset();
             //put the current player in end turn
             currentPlayer.goToEndState();
             //disconnected, i dont have to notify him

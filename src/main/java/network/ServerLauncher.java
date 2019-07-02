@@ -34,7 +34,7 @@ public class ServerLauncher {
 
         if (args.length >= 3){
             startTimer = Integer.parseInt(args[2]);
-            CommandExecutor.turnLength = startTimer;
+            CommandExecutor.startMatchTimerDelay = startTimer;
         }
 
         CommandLauncherProvider provider = new CommandLauncherProvider();

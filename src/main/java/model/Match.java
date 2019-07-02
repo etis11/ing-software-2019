@@ -295,13 +295,15 @@ public class Match implements ChangesMatchObservable{
      * set the new current player. An inactive player is ignored
      */
     private void nextPlayer(){
+        int cycled = 0;
         //looks for the first active layer
         do{
             currentPlayer++;
+            cycled += 1;
             if(currentPlayer>=playerNumber){
                 currentPlayer = 0;
             }
-        } while (!getCurrentPlayer().isActive());
+        } while (!getCurrentPlayer().isActive() && cycled <5);
         getCurrentPlayer().setRemainingMoves(2);
         notifyAllObserversCurrentPlayer();
     }

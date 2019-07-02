@@ -90,6 +90,40 @@ public class GameManager implements CreationGameObservable {
         }
 
         String mapPath = getMapFromName(mapName);
+        List<WeaponCard> weaponCards = WeaponCard.getWeaponsFromJson(GameManager.class.getResourceAsStream("/cards/weaponCards.json"), match);
+        List<WeaponCard> weaponCards2 = WeaponCard.getWeaponsFromJson(GameManager.class.getResourceAsStream("/cards/weaponCards.json"), match);
+        List<WeaponCard> weaponCards3 = WeaponCard.getWeaponsFromJson(GameManager.class.getResourceAsStream("/cards/weaponCards.json"), match);
+
+        WeaponCard armascelta = null;
+        for(WeaponCard weaponCard: weaponCards){
+            if (weaponCard.getName().equals("Distruttore")){
+                armascelta = weaponCard;
+            }
+        }
+
+        WeaponCard armascelta1 = null;
+        for(WeaponCard weaponCard: weaponCards){
+            if (weaponCard.getName().equals("Distruttore")){
+                armascelta1 = weaponCard;
+            }
+        }
+
+        WeaponCard armascelta2 = null;
+        for(WeaponCard weaponCard: weaponCards){
+            if (weaponCard.getName().equals("Distruttore")){
+                armascelta2 = weaponCard;
+            }
+        }
+
+        try{
+            players.get(0).pickUpWeapon(armascelta);
+            players.get(1).pickUpWeapon(armascelta1);
+            players.get(2).pickUpWeapon(armascelta2);
+
+        }
+        catch (Exception e){
+            
+        }
 
         GameMap map = GameMap.loadMap(GameManager.class.getResourceAsStream(mapPath));
         //TODO aggiungere final frenzy
