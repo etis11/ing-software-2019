@@ -587,6 +587,7 @@ public class CommandExecutor {
                                     }
                                     shootState = ShootState.MOVEEFFECTOPTIONAL;
                                 }
+                                System.out.println("qui c'e qualcosa da verificare");
                                 //todo da rifare verifyHitMovedShooter(currentPlayer, userJsonReceiver, command)
                             }
                             else if(currentPlayer.getState().canShoot() && shootState.equals(ShootState.APPLYEFFECTDAMAGE)){
@@ -999,8 +1000,9 @@ public class CommandExecutor {
                 notifier.notifyError(error, userJsonReceiver);
             }
             else {
+                boolean noMove = shootState.equals(ShootState.CHOSENEFFECT) && ((base == null && !weaponToUse.getBaseEffect().get(0).canMoveShooter() && !weaponToUse.getBaseEffect().get(0).canMoveTarget())|| (base != null && !base.canMoveTarget() && !base.canMoveShooter()));
                 //verify if the state is correct to accept targets
-                if ((shootState.equals(ShootState.CHOSENWEAPON) && weaponToUse.getBaseEffect().get(0).getOptionalEffects().isEmpty())|| shootState.equals(ShootState.MOVEEFFECTBASE) || shootState.equals(ShootState.MOVEEFFECTOPTIONAL)) {
+                if (noMove || (shootState.equals(ShootState.CHOOSEBASE) && weaponToUse.getBaseEffect().get(0).getOptionalEffects().isEmpty())|| shootState.equals(ShootState.MOVEEFFECTBASE) || shootState.equals(ShootState.MOVEEFFECTOPTIONAL)) {
                     if(verifyTarget(command.getTarget(), gameManager.getMatch().getPlayers())) {
                         for (String str : command.getTarget()) {
                             targets.add(gameManager.getMatch().getPlayerFromName(str));
@@ -1016,9 +1018,9 @@ public class CommandExecutor {
                             //if can move the target
                             else if(weaponToUse.getBaseEffect().get(0).canMoveTarget() || canOptionalTargetMove()){
                                 shootState = ShootState.TARGETASKED;
-                                message = "Target impostati corrrettamente";
+                                message = "Target impostati corrrettamente, se vuoi puoi spostarli";
                                 notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
-                                commandExecutorLogger.log(Level.INFO, "target selected correctly "+currentPlayer.getName());
+                                commandExecutorLogger.log(Level.INFO, "target selected correctly and asked to move them to "+currentPlayer.getName());
                             }
                             //if target are not valid
                             else {
@@ -1099,7 +1101,7 @@ public class CommandExecutor {
                     commandExecutorLogger.log(Level.INFO, "Asked optional effect to "+currentPlayer.getName());
                 }
                 else{
-                    String error ="Non sei nella fase di scelta dell'efetto avanzato";
+                    String error ="Non sei nella fase di scelta dell'effetto avanzato";
                     notifier.notifyError(error, userJsonReceiver);
                 }
             }
