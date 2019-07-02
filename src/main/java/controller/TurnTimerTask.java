@@ -36,7 +36,9 @@ public class TurnTimerTask extends TimerTask {
             timerLogger.log(Level.INFO, "timer expired. Disconnecting user " + userToDisconnect.getUsername());
 
 
-        notifier.disconnectReceiver(currentTurnReceiver);
+        if(currentTurnReceiver != null) {
+            notifier.disconnectReceiver(currentTurnReceiver);
+        }
         //ask end turn. disconnects the json receiver
         ServerEndTurnCommand endTurnCommand = new ServerEndTurnCommand("", userToDisconnect);
         try {
