@@ -25,6 +25,7 @@ public class CommandResponse  extends AbstractCommandResponse{
     public void addChangedPlayer(Player p){
         changedPlayers.remove(p);
         changedPlayers.add(p);
+        System.out.println("in commandResponse : " + changedPlayers);
     }
 
     public List<Player> getAllPlayers() {
