@@ -131,6 +131,18 @@ public class Effect {
     }
 
     /**
+     * Sets the damage and marks default value
+     */
+    public void setDeafultDamageAndMarks(){
+        redDamage = damage.get("red");
+        blueDamage = damage.get("blue");
+        yellowDamage = damage.get("yellow");
+        redMarks = marks.get("red");
+        blueMarks = marks.get("blue");
+        yellowMarks = marks.get("yellow");
+    }
+
+    /**
      * This method sums the damages and the marks of the optional effect in the current effect.
      */
     public void applyOptionalEffect(List<OptionalEffect> optionalEffects) {

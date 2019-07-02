@@ -89,6 +89,18 @@ public class WeaponCard {
         return advancedEffect;
     }
 
+    /**
+     * set up the values of damage and marks for the wepaons
+     */
+    public void setUpEffects(){
+        for(Effect effect: baseEffect){
+            effect.setDeafultDamageAndMarks();
+        }
+        for(Effect effect: advancedEffect){
+            effect.setDeafultDamageAndMarks();
+        }
+    }
+
     /*
 Method used to set an advanced effect
 @param advancedEffect is a list of base effects
