@@ -40,7 +40,7 @@ public class AdjacentStrategy extends AbstractTargetStrategy {
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         super.areTargetValid(shooter, targets);
-        List<Player> adjacentPlayers = gameMap.allAdjacentPlayers(shooter);
+        List<Player> adjacentPlayers = match.getMap().allAdjacentPlayers(shooter);
         return adjacentPlayers.containsAll(targets);
     }
 

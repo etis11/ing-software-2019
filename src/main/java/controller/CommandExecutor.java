@@ -974,7 +974,7 @@ public class CommandExecutor {
                         }
                     }else if (command.getOpt().equals("no")){
                         shootState = ShootState.CHOSENEFFECT;
-                        message = "Nessun effetto opzionale impostato, se puoi muoverti inerisci il movimento se no inserisci i bersagli";
+                        message = "Nessun effetto opzionale impostato, se puoi muoverti o muovere il target inserisci il movimento se no inserisci i bersagli";
                         System.out.println("scelto nessun opt");
                     }
                     notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
@@ -1007,7 +1007,8 @@ public class CommandExecutor {
                 notifier.notifyError(error, userJsonReceiver);
             }
             else {
-                boolean noMove = shootState.equals(ShootState.CHOSENEFFECT) && ((advanced == null && !weaponToUse.getBaseEffect().get(0).canMoveShooter() && !weaponToUse.getBaseEffect().get(0).canMoveTarget())|| (advanced != null && !advanced.canMoveTarget() && !advanced.canMoveShooter()));
+//                boolean noMove = shootState.equals(ShootState.CHOSENEFFECT) && ((advanced == null && !weaponToUse.getBaseEffect().get(0).canMoveShooter() && !weaponToUse.getBaseEffect().get(0).canMoveTarget())|| (advanced != null && !advanced.canMoveTarget() && !advanced.canMoveShooter()));
+                boolean noMove = shootState.equals(ShootState.CHOSENEFFECT) && ((advanced == null && !weaponToUse.getBaseEffect().get(0).canMoveShooter())|| (advanced != null && !advanced.canMoveTarget() && !advanced.canMoveShooter()));
                 //verify if the state is correct to accept targets
                 if (noMove || (shootState.equals(ShootState.CHOOSEBASE) && weaponToUse.getBaseEffect().get(0).getOptionalEffects().isEmpty())|| shootState.equals(ShootState.MOVEEFFECTBASE) || shootState.equals(ShootState.MOVEEFFECTOPTIONAL)) {
                     if(verifyTarget(command.getTarget(), gameManager.getMatch().getPlayers())) {
