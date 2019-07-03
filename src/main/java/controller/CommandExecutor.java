@@ -337,7 +337,7 @@ public class CommandExecutor {
                     //verify if the player has weapon
                     if (!hasWeapon && canPay) {
                         currentPlayer.getState().nextState("Reload", currentPlayer);
-                        String message = "Il giocatore attuale sta ricaricando";
+                        String message = currentPlayer.getName()+" sta ricaricando";
                         for (JsonReceiver js : command.getAllReceivers()) {
                             if (js != userJsonReceiver) {
                                 notifier.notifyMessage(message, js);
@@ -379,7 +379,6 @@ public class CommandExecutor {
     }
 
     public void execute(AskShootCommand command) throws IOException {
-        //todo manca il movimento
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
@@ -791,14 +790,14 @@ public class CommandExecutor {
                     if (wpc != null) {
                         if (!wpc.isLoaded()) {
                             try {
-                                wpc.reload(currentPlayer.getPlayerBoard().getLoader());
+                                wpc.reload(currentPlayer);
                                 String message = currentPlayer.getName()+" ha ricaricato: " + wpc.getName();
                                 for (JsonReceiver js : command.getAllReceivers()) {
                                     if (js != userJsonReceiver) {
                                         notifier.notifyMessage(message, js);
                                     }
                                 }
-                                notifier.notifyMessage("Arma ricaricata, vuoi ricaricare un'altra arma o finire il turno?", userJsonReceiver);
+                                notifier.notifyMessageTargetPlayer("Arma ricaricata, vuoi ricaricare un'altra arma o finire il turno?", userJsonReceiver, currentPlayer);
                                 commandExecutorLogger.log(Level.INFO, "Asked for new relaod to "+currentPlayer.getName());
                             } catch (InsufficientAmmoException e) {
                                 String error ="Non hai abbastanza munizioni per ricaricare l'arma selezionata";

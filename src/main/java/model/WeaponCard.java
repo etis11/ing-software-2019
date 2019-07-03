@@ -142,12 +142,12 @@ Method used to set an advanced effect
     /**
      * Loads the weapon
      *
-     * @param loader the loader from where the ammos are taken
-     * @throws InsufficientAmmoException The player has not enough ammos
+     * @param p player from which the ammo are taken
+     * @throws InsufficientAmmoException The player has not enough ammo
      */
-    public void reload(Loader loader) throws InsufficientAmmoException {
-        if (getBlueCost() <= loader.getNumBlueAmmo() && getRedCost() <= loader.getNumRedAmmo() && getYellowCost() <= loader.getNumYellowAmmo()) {
-            loader.ammoToPool(getBlueCost(), getRedCost(), getYellowCost());
+    public void reload(Player p) throws InsufficientAmmoException {
+        if (p.canPay(getReloadCost().subList(1,getReloadCost().size()))) {
+            p.getPlayerBoard().getLoader().pay(getReloadCost().subList(1,getReloadCost().size()));
             loaded = true;
         } else {
             throw new InsufficientAmmoException("you don't have ammo");
