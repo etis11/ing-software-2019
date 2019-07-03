@@ -390,7 +390,7 @@ public class CommandExecutor {
                     System.out.println("no rem moves: "+(currentPlayer.getRemainingMoves() < 1));
                     System.out.println("loaded: "+!loaded);
                     String error ="Non puoi sparare";
-                    notifier.notifyError(error, userJsonReceiver);
+                    notifier.notifyErrorTargetPlayer(error, userJsonReceiver, currentPlayer);
                 } else {
                     currentPlayer.setOldState(currentPlayer.getState());
                     currentPlayer.getState().nextState("Shoot", currentPlayer);
@@ -1671,6 +1671,7 @@ public class CommandExecutor {
         weaponToUse = null;
         targets.clear();
         opt.clear();
+        System.out.println("dentro reset shoot: "+shootState.equals(ShootState.BASE));
         System.out.println("resettato lo shoot");
     }
 
@@ -1852,6 +1853,7 @@ public class CommandExecutor {
                 shootState = ShootState.APPLYEFFECTDAMAGE;
             }
         }
+        System.out.println("shootstate al termine dell'applicazione danno: " +shootState);
     }
 
     public String printTargetsName() {
