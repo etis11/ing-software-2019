@@ -1603,6 +1603,7 @@ public class CommandExecutor {
         }
         return null;
     }
+
     private PowerUpType powerUpParser(String powerUp){
         if(powerUp.equalsIgnoreCase("granata")){
             return PowerUpType.TAGBACK_GRANADE;

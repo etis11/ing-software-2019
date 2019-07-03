@@ -10,10 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -29,6 +26,8 @@ import java.util.logging.Level;
 
 public class LobbyFrame implements MessageListener {
     final int buttonWidth = 75;
+
+    private final Gui gui;
     private CommandContainer cmdLauncher;
     private Stage stage;
 
@@ -41,8 +40,9 @@ public class LobbyFrame implements MessageListener {
     final InputStream pathSprog = getClass().getResourceAsStream( "/img/Sprog.PNG");
     final InputStream pathVioletta = getClass().getResourceAsStream( "/img/Violetta.PNG");
 
-    public LobbyFrame(CommandContainer cmd) {
+    public LobbyFrame(CommandContainer cmd, Gui gui) {
         this.cmdLauncher = cmd;
+        this.gui=gui;
         this.stage = new Stage();
         generate();
     }
@@ -75,6 +75,8 @@ public class LobbyFrame implements MessageListener {
         TextField effectPhraseField = new TextField("Cambia frase ad effetto");
         TextField deathField = new TextField("Cambia numero morti");
         TextField playerNumberField = new TextField("Cambia numero giocatori");
+        ToggleButton toggleButtonFrenzy = new ToggleButton("Frenesia finale");
+
         info = new Label();
         ObservableList<String> comboItems = FXCollections.observableArrayList(
                 "Scegli Mappa",
@@ -90,6 +92,8 @@ public class LobbyFrame implements MessageListener {
         comboBox.valueProperty().addListener((ObservableValue observable, Object oldValue, Object newValue) -> {
             try {
                 cmdLauncher.addCommand(new SetMapCommand(ClientSingleton.getInstance().getToken(), mapParser(Integer.parseInt(newValue.toString()))));
+                gui.setMap(mapParser(Integer.parseInt(newValue.toString())));
+                gui.createGameFrame();
             } catch (RemoteException e) {
                 LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(e.getStackTrace()));
             }
@@ -212,6 +216,8 @@ public class LobbyFrame implements MessageListener {
                 if (checkUsername(usernameField.getText().trim())) {
                     try {
                         cmdLauncher.addCommand(new SetUsernameCommand(ClientSingleton.getInstance().getToken(), usernameField.getText().trim()));
+                        gui.setUsername(usernameField.getText().trim());
+                        gui.createGameFrame();
                     } catch (RemoteException e) {
                         LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                     }
@@ -290,9 +296,23 @@ public class LobbyFrame implements MessageListener {
                 BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
-        lobbyLabel.setLayoutY(50);
-        lobbyLabel.setLayoutY(450);
+        lobbyLabel.setLayoutY(25);
+        lobbyLabel.setLayoutX(450);
         lobbyLabel.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        toggleButtonFrenzy.setLayoutY(comboBox.getLayoutY());
+        toggleButtonFrenzy.setLayoutX(850);
+        toggleButtonFrenzy.setSelected(true);
+        toggleButtonFrenzy.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                try {
+                    cmdLauncher.addCommand(new SetFinalFrenzyCommand(ClientSingleton.getInstance().getToken(), toggleButtonFrenzy.isSelected()));
+                } catch (RemoteException e) {
+                    LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
+                }
+            }
+        });
 
         Pane box = new Pane();
         //adding background image to box
@@ -314,6 +334,7 @@ public class LobbyFrame implements MessageListener {
         box.getChildren().add(info);
         box.getChildren().add(comboBox);
         box.getChildren().add(lobbyLabel);
+        box.getChildren().add(toggleButtonFrenzy);
 
         stage.setScene(new Scene(box, 1000, 600));
 

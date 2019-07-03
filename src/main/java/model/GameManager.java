@@ -187,7 +187,7 @@ public class GameManager implements CreationGameObservable {
         WeaponCard desired = null;
         while(iterator.hasNext()){
             weaponCard = iterator.next();
-            if (weaponCard.getName().equals("Fucile a pompa")){
+            if (weaponCard.getName().equals("Lanciarazzi")){
                 desired = weaponCard;
                 iterator.remove();
             }

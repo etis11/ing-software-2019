@@ -35,12 +35,14 @@ public class MainFrame{
     private CommandContainer cmdLauncher;
     private boolean networkActive = true;
     private Stage stage;
+    private final Gui gui;
 
     private final InputStream pathAdrenaline = getClass().getResourceAsStream("/img/Adrenalina.PNG");
 
 
-    public MainFrame() {
+    public MainFrame(Gui gui) {
         this.stage = new Stage();
+        this.gui = gui;
         generate();
     }
 
@@ -52,15 +54,18 @@ public class MainFrame{
         Button startButtonSocket = new Button("Inizia con socket");
         Button startButtonRMI = new Button("Inizia con RMI");
         TextField userField = new TextField("Username");
+        TextField tokenField = new TextField("Token");
         Label info = new Label();
 
         info.setTranslateY(275);
         info.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
-        userField.setMaxWidth(200);
+        userField.setMaxWidth(250);
+        tokenField.setMaxWidth(250);
+        tokenField.setTranslateY(30);
         //positioning socket button
         startButtonSocket.setTranslateX(-80);
-        startButtonSocket.setTranslateY(60);
+        startButtonSocket.setTranslateY(90);
         startButtonSocket.setMinWidth(BUTTON_WIDTH);
         startButtonSocket.setMaxWidth(BUTTON_WIDTH);
         startButtonSocket.setOnAction(new EventHandler<ActionEvent>() {
@@ -85,6 +90,7 @@ public class MainFrame{
                         if (mySocket != null) {
                             try {
                                 cmdLauncher = new CommandLauncherProxySocket(mySocket, "");
+                                gui.setCmd(cmdLauncher);
                             } catch (IOException i) {
                                 LOGGER.LOGGER.log(Level.WARNING,i.getMessage());
                                 LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(i.getStackTrace()));
@@ -94,13 +100,14 @@ public class MainFrame{
                     }
                     if (cmdLauncher == null) {
                         cmdLauncher = new CommandLauncher(new GameManager(), new JsonCreator());
+                        gui.setCmd(cmdLauncher);
                     }
                     try {
                         cmdLauncher.addCommand(new SetUsernameCommand(ClientSingleton.getInstance().getToken(), userField.getText().trim()));
+                        gui.startLobby();
                     } catch (RemoteException e) {
                         LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                     }
-                    //openNextStage(stage);
 
                 } else {
                     info.setText("inserisci un username valido");
@@ -112,7 +119,7 @@ public class MainFrame{
         });
         //positioning rmi button
         startButtonRMI.setTranslateX(80);
-        startButtonRMI.setTranslateY(60);
+        startButtonRMI.setTranslateY(90);
         startButtonRMI.setMinWidth(BUTTON_WIDTH);
         startButtonRMI.setMaxWidth(BUTTON_WIDTH);
         startButtonRMI.setOnAction(new EventHandler<ActionEvent>() {
@@ -139,18 +146,20 @@ public class MainFrame{
                             //token = serverRMI.getPersonalToken(receiver, "");
                             ClientSingleton.getInstance().setToken(token);
                             cmdLauncher = serverRMI.getCurrentCommandLauncher(receiver);
+                            gui.setCmd(cmdLauncher);
                         } catch (Exception r) {
                             throw new RuntimeException(r);
                         }
                     } else {
                         cmdLauncher = new CommandLauncher(new GameManager(), new JsonCreator());
+                        gui.setCmd(cmdLauncher);
                     }
                     try {
                         cmdLauncher.addCommand(new SetUsernameCommand(ClientSingleton.getInstance().getToken(), userField.getText().trim()));
+                        gui.startLobby();
                     } catch (RemoteException e) {
                         LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                     }
-                    //openNextStage(stage);
                 } else {
                     info.setText("inserisci un username valido");
                     info.setVisible(true);
@@ -167,6 +176,7 @@ public class MainFrame{
         box.setBackground(new Background(myBI));
         //adding components to box
         box.getChildren().add(userField);
+        box.getChildren().add(tokenField);
         box.getChildren().add(startButtonSocket);
         box.getChildren().add(startButtonRMI);
         box.getChildren().add(info);
@@ -182,17 +192,6 @@ public class MainFrame{
         stage.close();
     }
 
-    //TODO da rivedere
-//    public void openNextStage(Stage stage) {
-//        LobbyFrame lf = new LobbyFrame();
-//        try {
-//            lf.init(cmdLauncher);
-//            lf.start(new Stage());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        stage.close();
-//    }
 
     private boolean checkUsername(String username) {
         return !username.equalsIgnoreCase("") && !username.equalsIgnoreCase("username");
