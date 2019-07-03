@@ -154,9 +154,13 @@ public class CommandExecutor {
             notifyNewTurnAndSpawning(allJsonReceivers);
     }
 
+    /**
+     * Stops the timer if there are not enough player in the lobby.
+     * @param command
+     */
     public void execute(StopTimerLobby command){
         List<JsonReceiver> allReceivers = command.getAllReceivers();
-        if (!gameManager.getLobby().hasReachedMinCapacity() && startGameTimerStarted){
+        if (!gameManager.getLobby().hasReachedMinCapacity() && startGameTimerStarted && !gameManager.isMatchStarted()){
             startGameTimer.cancel();
             startGameTimer.purge();
         }

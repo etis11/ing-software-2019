@@ -3,6 +3,7 @@ package network.Socket;
 import controller.*;
 import controller.commandpack.Command;
 import controller.commandpack.SetUsernameCommand;
+import controller.commandpack.StopTimerLobby;
 import model.User;
 import network.TokenRegistry;
 
@@ -189,6 +190,7 @@ public class CommandReceiverSocket implements Runnable {
                 registry.removeReceiverUserAssociation(jsonReceiverProxySocket);
                 //remove the association between token and json receiver
                 registry.removeTokenReceiverAssociation(myToken);
+                launcher.addCommand(new StopTimerLobby());
 
 
             } catch (RemoteException e) {
