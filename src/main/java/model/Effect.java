@@ -150,7 +150,7 @@ public class Effect {
         String[] colors = {"red", "blue", "green"};
         for (OptionalEffect o : optionalEffects) {
             Map<String, Integer> additionalDamage = o.getAdditionalDamage();
-            Map<String, Integer> additionalMarks = o.getAdditionalDamage();
+            Map<String, Integer> additionalMarks = o.getAdditionalMarks();
             for (String color : colors) {
                 int dmg = this.damage.get(color);
                 int addDmg = additionalDamage.get(color);
@@ -180,6 +180,9 @@ public class Effect {
         this.damage.put("red", redDamage);
         this.damage.put("blue", blueDamage);
         this.damage.put("green", greenDamage);
+        this.marks.put("red", redMarks);
+        this.marks.put("blue", blueMarks);
+        this.marks.put("green", greenMarks);
     }
 
     /**

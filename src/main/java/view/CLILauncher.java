@@ -5,6 +5,7 @@ import controller.commandpack.Command;
 import controller.commandpack.SetUsernameCommand;
 import model.clientModel.SemplifiedGame;
 import model.clientModel.SemplifiedPlayer;
+import network.RMI.ServerRMI;
 import network.RMI.ServerRMIInterface;
 import network.Socket.CommandLauncherProxySocket;
 import network.Socket.JsonRouterSocket;
@@ -27,6 +28,7 @@ public class CLILauncher {
 
     private static JsonUnwrapper receiver;
     private static CommandLineInterface CLI;
+    private static ServerRMIInterface serverRMI = null;
 
     public static void main(String[] args) throws IOException {
         if (args.length <2){
@@ -67,7 +69,7 @@ public class CLILauncher {
 //            try{
                 String newToken ;
                 Registry registry = LocateRegistry.getRegistry(ip, 1099);
-            ServerRMIInterface serverRMI = null;
+//            ServerRMIInterface serverRMI = null;
             try {
                 serverRMI = (ServerRMIInterface) registry.lookup("serverRMI");
             } catch (NotBoundException e) {
@@ -76,6 +78,7 @@ public class CLILauncher {
             CLI.displayText("Inserisci un token.");
                 //gets the token from the user
                 token = CLI.getUserInputString();
+                System.out.println(serverRMI);
                 newToken = serverRMI.getPersonalToken(token);
                 CLI.displayText("TOKEN: " + newToken);
                 ClientSingleton.getInstance().setToken(newToken);

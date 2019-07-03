@@ -1,62 +1,5 @@
 [
   {
-    "NAME": "Distruttore",
-    "reloadCost": [
-      "blue",
-      "blue"
-    ],
-    "baseEffect": [
-      {
-        "cost": [],
-        "moveTargetAndHitAll": false,
-        "alreadyMovedTarget": false,
-        "isGlobal": false,
-        "damage": {
-          "red": 2,
-          "blue": 0,
-          "green": 0
-        },
-        "marks": {
-          "red": 1,
-          "blue": 0,
-          "green": 0
-        },
-        "canMoveShooter": false,
-        "numStepsShooter": 0,
-        "canMoveTarget": false,
-        "numStepsTarget": 0,
-        "strategy": {
-          "type": "SeeStrategy",
-          "param": null
-        },
-        "optionalEffects": [
-          {
-            "cost": [
-              "red"
-            ],
-            "additionalDamage": {
-              "red": 0,
-              "blue": 0,
-              "green": 0
-            },
-            "additionalMarks": {
-              "red": 0,
-              "blue": 1,
-              "green": 0
-            },
-            "activated": false,
-            "canMoveShooter": false,
-            "canMoveTarget": false,
-            "numStepsShooter": 0,
-            "numStepsTarget": 0,
-            "alreadyMoved": false
-          }
-        ]
-      }
-    ],
-    "advancedEffect": []
-  },
-  {
     "NAME": "Mitragliatrice",
     "reloadCost": [
       "blue",
@@ -1325,5 +1268,62 @@
         }
       }
     ]
+  },
+  {
+    "NAME": "Distruttore",
+    "reloadCost": [
+      "blue",
+      "blue"
+    ],
+    "baseEffect": [
+      {
+        "cost": [],
+        "moveTargetAndHitAll": false,
+        "alreadyMovedTarget": false,
+        "isGlobal": false,
+        "damage": {
+          "red": 2,
+          "blue": 0,
+          "green": 0
+        },
+        "marks": {
+          "red": 1,
+          "blue": 0,
+          "green": 0
+        },
+        "canMoveShooter": false,
+        "numStepsShooter": 0,
+        "canMoveTarget": false,
+        "numStepsTarget": 0,
+        "strategy": {
+          "type": "SeeStrategy",
+          "param": null
+        },
+        "optionalEffects": [
+          {
+            "cost": [
+              "red"
+            ],
+            "additionalDamage": {
+              "red": 0,
+              "blue": 0,
+              "green": 0
+            },
+            "additionalMarks": {
+              "red": 0,
+              "blue": 1,
+              "green": 0
+            },
+            "activated": false,
+            "canMoveShooter": false,
+            "canMoveTarget": false,
+            "numStepsShooter": 0,
+            "numStepsTarget": 0,
+            "alreadyMoved": false
+          }
+        ]
+      }
+    ],
+    "advancedEffect": []
   }
 ]

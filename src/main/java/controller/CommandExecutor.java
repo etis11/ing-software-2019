@@ -322,14 +322,15 @@ public class CommandExecutor {
                     //verify if the player has weapon
                     if (!hasWeapon && canPay) {
                         currentPlayer.getState().nextState("Reload", currentPlayer);
+                        System.out.println(currentPlayer.getWeapons());
                         String message = currentPlayer.getName()+" sta ricaricando";
                         for (JsonReceiver js : command.getAllReceivers()) {
                             if (js != userJsonReceiver) {
                                 notifier.notifyMessage(message, js);
                             }
                         }
-                        notifier.notifyMessage("Scegli quale arma ricaricare tra: " + currentPlayer.weaponsToString(),
-                                userJsonReceiver);
+                        notifier.notifyMessageTargetPlayer("Scegli quale arma ricaricare tra: " + currentPlayer.weaponsToString(),
+                                userJsonReceiver, currentPlayer);
                         commandExecutorLogger.log(Level.INFO, "Asked weapon to reload to "+currentPlayer.getName());
                     } else {
                         String error = "Non hai armi da ricaricare";
@@ -384,6 +385,10 @@ public class CommandExecutor {
                 }
                 //verify the state
                 if (!currentPlayer.getState().canShoot() || !shootState.equals(ShootState.BASE)|| currentPlayer.getRemainingMoves() < 1 || !loaded) {
+                    System.out.println("canshoot: "+!currentPlayer.getState().canShoot());
+                    System.out.println("shootstate ok: "+!shootState.equals(ShootState.BASE));
+                    System.out.println("no rem moves: "+(currentPlayer.getRemainingMoves() < 1));
+                    System.out.println("loaded: "+!loaded);
                     String error ="Non puoi sparare";
                     notifier.notifyError(error, userJsonReceiver);
                 } else {
@@ -776,6 +781,7 @@ public class CommandExecutor {
                         if (!wpc.isLoaded()) {
                             try {
                                 wpc.reload(currentPlayer);
+                                System.out.println(currentPlayer.getWeapons());
                                 String message = currentPlayer.getName()+" ha ricaricato: " + wpc.getName();
                                 for (JsonReceiver js : command.getAllReceivers()) {
                                     if (js != userJsonReceiver) {
@@ -1738,14 +1744,12 @@ public class CommandExecutor {
         dt = null;
         //target blue
         if(advanced == null && targets.size()>1){
-            weaponToUse.getBaseEffect().get(0).applyOptionalEffect(opt);
             if(weaponToUse.getBaseEffect().get(0).getDamage().get("blue") != 0 || weaponToUse.getBaseEffect().get(0).getMarks().get("blue") != 0){
                 commandExecutorLogger.log(Level.INFO, "calculated  base damage transporter for blue target");
                 dt =weaponToUse.getBaseEffect().get(0).useEffect(currentPlayer, targets.get(1), "blue");
             }
         }
         else if(targets.size()>1){
-            advanced.applyOptionalEffect(opt);
             if(advanced.getDamage().get("blue") != 0 || advanced.getMarks().get("blue") != 0) {
                 commandExecutorLogger.log(Level.INFO, "calculated adv damage transporter for blue target");
                 dt = advanced.useEffect(currentPlayer, targets.get(1), "blue");
@@ -1759,14 +1763,12 @@ public class CommandExecutor {
         dt = null;
         //target green
         if(advanced == null && targets.size()>2){
-            weaponToUse.getBaseEffect().get(0).applyOptionalEffect(opt);
             if(weaponToUse.getBaseEffect().get(0).getDamage().get("green") != 0 ||weaponToUse.getBaseEffect().get(0).getMarks().get("green") != 0){
                 commandExecutorLogger.log(Level.INFO, "calculated base damage transporter for green target");
                 dt =weaponToUse.getBaseEffect().get(0).useEffect(currentPlayer, targets.get(2), "green");
             }
         }
         else if(targets.size()>2){
-            advanced.applyOptionalEffect(opt);
             if(advanced.getDamage().get("green") != 0 || advanced.getMarks().get("green") != 0) {
                 commandExecutorLogger.log(Level.INFO, "calculated adv damage transporter for green target");
                 dt = advanced.useEffect(currentPlayer, targets.get(2), "green");

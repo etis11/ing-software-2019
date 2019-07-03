@@ -1,5 +1,5 @@
 grant {
     // Allow everything...
     permission java.security.AllPermission;
-    permission java.net.SocketPermission "192.168.0.1:1099", "connect, resolve";
+    permission java.net.SocketPermission "192.168.0.1:1099", "accept, connect, resolve";
 };
