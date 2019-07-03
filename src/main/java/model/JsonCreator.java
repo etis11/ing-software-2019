@@ -91,6 +91,16 @@ public class JsonCreator implements ChangesObserver, CreationGameObserver, Lobby
         return changes;
     }
 
+    public String createJsonWithErrorTargetPlayer(String s, Player player){
+        playerSerializer.setCurrentPlayer(player);
+        response.setErrorMessage(s);
+        String changes = gson.toJson(response);
+        response.resetErrorMessage();
+        playerSerializer.resetSet();
+        playerSerializer.resetCurrentPlayer();
+        return changes;
+    }
+
     /**
      * creates a json with the information that the given player can see
      * @param s the message
