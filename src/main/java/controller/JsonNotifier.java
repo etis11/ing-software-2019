@@ -143,7 +143,7 @@ public class JsonNotifier implements Notifier {
         }
         registry.removeReceiverUserAssociation(jsonReceiver);
         try{
-            launcher.addCommand( new StopTimerLobby());
+            launcher.addCommand( new StopTimerLobby(""));
         }
         catch (RemoteException re){
             jsonNotifierLogger.log(Level.WARNING,

@@ -190,7 +190,8 @@ public class CommandReceiverSocket implements Runnable {
                 registry.removeReceiverUserAssociation(jsonReceiverProxySocket);
                 //remove the association between token and json receiver
                 registry.removeTokenReceiverAssociation(myToken);
-                launcher.addCommand(new StopTimerLobby());
+                launcher.addCommand(new StopTimerLobby(""));
+                stopReceiving();
 
 
             } catch (RemoteException e) {
