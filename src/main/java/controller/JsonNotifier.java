@@ -51,6 +51,14 @@ public class JsonNotifier implements Notifier {
     }
 
     @Override
+    public void notifyErrorTargetPlayer(String message, JsonReceiver jsonReceiver, Player player) {
+        if(jsonReceiver != null){
+            String json = jsonCreator.createJsonWithErrorTargetPlayer(message, player);
+            sendJsonAndHandleException(json, jsonReceiver);
+        }
+    }
+
+    @Override
     public void notifyMessage(final String message, JsonReceiver jsonReceiver) {
         if(jsonReceiver != null){
             String json = jsonCreator.createJsonWithMessage(message);

@@ -2,6 +2,7 @@ package network;
 
 import controller.*;
 import controller.commandpack.Command;
+import controller.commandpack.ServerEndTurnCommand;
 import network.RMI.ServerRMI;
 import network.Socket.SocketServer;
 
@@ -16,6 +17,8 @@ import java.util.Arrays;
 import java.util.logging.Level;
 
 public class ServerLauncher {
+
+    static private ServerRMI rmiServer= null;
 
     public static void main(String[] args) throws RemoteException, AlreadyBoundException, FileNotFoundException {
         if (args.length == 0){
@@ -44,7 +47,7 @@ public class ServerLauncher {
 
         CommandLauncherProvider provider = new CommandLauncherProvider();
 
-        ServerRMI rmiServer = new ServerRMI(provider);
+        rmiServer = new ServerRMI(provider);
         Registry registry = LocateRegistry.getRegistry(1099);
         registry.bind("serverRMI", rmiServer);
 
