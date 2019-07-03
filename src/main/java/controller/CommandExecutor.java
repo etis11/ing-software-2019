@@ -967,7 +967,7 @@ public class CommandExecutor {
                             currentPlayer.payOpt(weaponToUse.getBaseEffect().get(0).getOptionalEffects().get(Integer.parseInt(command.getOpt())));
                             message = "L'effetto opzionale selezionato è stato impostato, se puoi muoverti inserisci il movimento se no inserisci i bersagli";
                             shootState = ShootState.CHOSENEFFECT;
-                            System.out.println("scelto : "+opt.size()+" opt effect(uno solo num: "+command.getOpt()+")");
+                            System.out.println("scelto : "+opt.size()+" opt effect(uno solo il num: "+command.getOpt()+")");
                         }
                         else{
                             message = "Non puoi l'effetto opzionali, seleziona solo quelli ammessi";
@@ -1821,7 +1821,9 @@ public class CommandExecutor {
         boolean advancedTargetMoved = false;
         boolean baseShooterMoved = false;
         boolean baseTargetMoved = false;
+        boolean optMoved = false;
         if(advanced != null){
+            System.out.println("nel ramo adv");
             advancedShooterMoved = advanced.isAlreadyMovedShooter() || !advanced.canMoveShooter();
             advancedTargetMoved = advanced.isAlreadyMovedTarget() || !advanced.canMoveTarget();
             if(advancedShooterMoved){
@@ -1835,23 +1837,19 @@ public class CommandExecutor {
             }
         }
         else{
-
-            baseShooterMoved = weaponToUse.getBaseEffect().get(0).isAlreadyMovedShooter() || !weaponToUse.getBaseEffect().get(0).canMoveShooter();
+            System.out.println("nel ramo base");
+            baseShooterMoved = !weaponToUse.getBaseEffect().get(0).canMoveShooter() || weaponToUse.getBaseEffect().get(0).isAlreadyMovedShooter();
             baseTargetMoved = !weaponToUse.getBaseEffect().get(0).canMoveTarget() || weaponToUse.getBaseEffect().get(0).isAlreadyMovedTarget();
+            optMoved = opt!= null && !opt.isEmpty() && (!canMoveShooterOpt() || !canOptionalTargetMove() || weaponToUse.getBaseEffect().get(0).areOptionalAlreadyMoved(opt));
 
-            if(baseShooterMoved || baseTargetMoved){
+            if(baseShooterMoved || baseTargetMoved || optMoved){
+                System.out.println("nel ramo base shoot end");
                 shootEnded(userJsonReceiver);
             }
             else{
                 shootState = ShootState.APPLYEFFECTDAMAGE;
             }
 
-            if(opt!= null && !opt.isEmpty() && (!canMoveShooterOpt() || !canOptionalTargetMove() || weaponToUse.getBaseEffect().get(0).areOptionalAlreadyMoved(opt))){
-                shootEnded(userJsonReceiver);
-            }
-            else{
-                shootState = ShootState.APPLYEFFECTDAMAGE;
-            }
         }
         System.out.println("shootstate al termine dell'applicazione danno: " +shootState);
     }

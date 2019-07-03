@@ -198,7 +198,7 @@ public class Loader {
                 throw new RuntimeException("Invalid cost");
             }
         }
-        return y*b*r>=0;
+        return y>=0 && b>= 0 && r>=0;
     }
 
     public boolean canPayAll(List<OptionalEffect> opt){
@@ -218,7 +218,7 @@ public class Loader {
                 }
             }
         }
-        return y*b*r>=0;
+        return y>=0 && b>= 0 && r>=0;
     }
 
     public void pay(List<String> cost){
