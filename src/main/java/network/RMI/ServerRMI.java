@@ -10,8 +10,10 @@ import model.User;
 import network.TokenRegistry;
 
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.server.RMISocketFactory;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,7 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
      */
     private int currentLauncer = 0;
 
+
     /**
      * Creates a server with a launcher and the RMI registry.
      *
@@ -40,7 +43,9 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
      * @throws RemoteException If there are problem initializing the rmi registry.
      */
     public ServerRMI(CommandLauncherProvider provider) throws RemoteException {
+        super(1099);
         launchers = provider;
+
         LocateRegistry.createRegistry(1099);
         rmiServerLogger.log(Level.INFO, ">>> Created the registry");
     }
@@ -106,4 +111,5 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
         }
         return launcher;
     }
+
 }
