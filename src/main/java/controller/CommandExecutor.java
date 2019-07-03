@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class CommandExecutor {
     private final TokenRegistry registry = TokenRegistry.getInstance();
     private final static Logger commandExecutorLogger = Logger.getLogger(CommandExecutor.class.getName());
-    public static int startMatchTimerDelay= 1;
+    public static int startMatchTimerDelay= 15;
     /**
      * duration of a turn expressed in seconds
      */
@@ -152,6 +152,24 @@ public class CommandExecutor {
             //new turn
             newTimerCreation(allJsonReceivers);
             notifyNewTurnAndSpawning(allJsonReceivers);
+    }
+
+    /**
+     * Stops the timer if there are not enough player in the lobby.
+     * @param command
+     */
+    public void execute(StopTimerLobby command){
+        commandExecutorLogger.log(Level.INFO, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        List<JsonReceiver> allReceivers = command.getAllReceivers();
+        System.out.println(gameManager.getLobby().getUsers());
+        System.out.println("minCap " + gameManager.getLobby().hasReachedMinCapacity() + " " + gameManager.getLobby().getUsers().size());
+        System.out.println("start timer " + startGameTimerStarted);
+        System.out.println("matchs started" + gameManager.isMatchStarted());
+        if (!gameManager.getLobby().hasReachedMinCapacity() && startGameTimerStarted && !gameManager.isMatchStarted()){
+            startGameTimer.cancel();
+            startGameTimer.purge();
+            commandExecutorLogger.log(Level.INFO, "timer killed");
+        }
     }
 
 

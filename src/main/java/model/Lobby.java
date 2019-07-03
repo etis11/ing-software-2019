@@ -157,7 +157,7 @@ public class Lobby  implements  LobbyObservable{
     }
 
     public boolean hasReachedMinCapacity(){
-        return users.size() == minPlayerInLobby;
+        return users.size() >= minPlayerInLobby;
     }
 
     public boolean hasReachedMaxCapacity(){

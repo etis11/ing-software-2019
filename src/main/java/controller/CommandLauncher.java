@@ -2,6 +2,7 @@ package controller;
 
 
 import controller.commandpack.Command;
+import controller.commandpack.StopTimerLobby;
 import model.GameManager;
 import model.JsonCreator;
 import network.TokenRegistry;
@@ -99,6 +100,7 @@ public class CommandLauncher implements CommandLauncherInterface {
             allReceivers.remove(js);
             commandLauncherLogger.log(Level.INFO, "Removed a json receiver. A disconnection may have occurred");
         }
+        addCommand(new StopTimerLobby(""));
     }
 
     @Override

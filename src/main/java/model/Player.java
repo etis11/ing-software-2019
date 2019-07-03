@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -71,7 +72,7 @@ public class Player implements ChangesObservable{
     private final State endTurnState;
 
     //True if there is a connected user that is playing with this player
-    private boolean active = true;
+    private AtomicBoolean active = new AtomicBoolean(true);
 
     /**
      * A player without name is created. His hand is empty and the state is EndTurn (he cant do anything). Since no map or tile
@@ -206,11 +207,11 @@ public class Player implements ChangesObservable{
     }
 
     public boolean isActive() {
-        return active;
+        return active.get();
     }
 
     public void setActive(boolean active) {
-        this.active = active;
+        this.active.set(active);
     }
 
     /**

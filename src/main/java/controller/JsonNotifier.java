@@ -1,5 +1,6 @@
 package controller;
 
+import controller.commandpack.StopTimerLobby;
 import model.*;
 import network.TokenRegistry;
 
@@ -141,5 +142,12 @@ public class JsonNotifier implements Notifier {
             registry.removeTokenToUserAssociationAndToken(user.getUsername());
         }
         registry.removeReceiverUserAssociation(jsonReceiver);
+        try{
+            launcher.addCommand( new StopTimerLobby(""));
+        }
+        catch (RemoteException re){
+            jsonNotifierLogger.log(Level.WARNING,
+                    "Removing json receiver. This exception should never occour. " +re.getMessage());
+        }
     }
 }
