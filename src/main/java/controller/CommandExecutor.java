@@ -25,6 +25,7 @@ public class CommandExecutor {
     private List<OptionalEffect> opt;
     private List<Player> targets;
     private Effect advanced;
+    private boolean usePU;
     /**
      * constant for multiplying values from seconds to millis
      */
@@ -71,6 +72,7 @@ public class CommandExecutor {
         notifier = new JsonNotifier(jsonCreator, launcherInterface, gameManager);
         turnTimer = null;
         launcher = launcherInterface;
+        usePU = false;
     }
 
     public void setTurnTimer(Timer turnTimer) {
@@ -431,7 +433,6 @@ public class CommandExecutor {
     }
 
     public void execute(AskUsePowerUpCommand command) throws IOException {
-        //todo va rivisto
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started
@@ -443,7 +444,8 @@ public class CommandExecutor {
                 String error ="Non puoi usare powerup";
                 notifier.notifyError(error, userJsonReceiver);
             } else {
-                String message = "Il giocatore attuale sta usando un power up";
+                String message = owner.getName()+" sta usando un power up";
+                usePU =true;
                 for (JsonReceiver js : command.getAllReceivers()) {
                     if (js != userJsonReceiver) {
                         notifier.notifyMessage(message, js);
@@ -451,6 +453,40 @@ public class CommandExecutor {
                 }
                 notifier.notifyMessage("Scegli quale power up usare tra: " + currentPlayer.powerUpToString(),
                         userJsonReceiver);
+            }
+        }
+        else{
+            String error ="La partita non è ancora iniziata";
+            notifier.notifyError(error, userJsonReceiver);
+        }
+        jsonCreator.reset();
+    }
+
+    public void execute(UsePowerUpCommand command){
+        boolean gameHasStarted = hasMatchStarted(gameManager);
+        JsonReceiver userJsonReceiver = command.getJsonReceiver();
+        //verify if game started
+        if (gameHasStarted) {
+            Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
+            Player owner = registry.getJsonUserOwner(userJsonReceiver).getPlayer();
+            //verify if the owner is the current player
+            //todo forse va tolta o rivista questa condizione
+            if (owner != currentPlayer) {
+                String error ="Non puoi eseguire questa azione se non è il tuo turno";
+                notifier.notifyError(error, userJsonReceiver);
+            } else {
+                if(usePU){
+                    //todo
+                    //verifico se ce l'ha
+                    //rimuovo
+                    //applico
+                    usePU=false;
+                    //in caso di pu non valido riporto usePu a false
+                }
+                else{
+                    String error ="Non puoi usare power up";
+                    notifier.notifyError(error, userJsonReceiver);
+                }
             }
         }
         else{
