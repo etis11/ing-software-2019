@@ -4,6 +4,7 @@ import controller.*;
 import controller.commandpack.Command;
 import controller.commandpack.ServerEndTurnCommand;
 import network.RMI.ServerRMI;
+import network.RMI.ServerRMIInterface;
 import network.Socket.SocketServer;
 
 import java.io.FileNotFoundException;
@@ -18,7 +19,7 @@ import java.util.logging.Level;
 
 public class ServerLauncher {
 
-    static private ServerRMI rmiServer= null;
+    static private ServerRMIInterface rmiServer= null;
 
     public static void main(String[] args) throws RemoteException, AlreadyBoundException, FileNotFoundException {
         if (args.length == 0){
@@ -30,10 +31,10 @@ public class ServerLauncher {
         int turnTimer = -1;
         int startTimer = -1;
         //inizializzazione per rmi
-        System.setProperty("java.security.policy","myPolicy.policy");
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
+//        System.setProperty("java.security.policy","myPolicy.policy");
+//        if (System.getSecurityManager() == null) {
+//            System.setSecurityManager(new SecurityManager());
+//        }
 
         if (args.length >= 2){
             turnTimer = Integer.parseInt(args[1]);
@@ -48,8 +49,8 @@ public class ServerLauncher {
         CommandLauncherProvider provider = new CommandLauncherProvider();
 
         rmiServer = new ServerRMI(provider);
-        Registry registry = LocateRegistry.getRegistry(1099);
-        registry.bind("serverRMI", rmiServer);
+        Registry registry = LocateRegistry.getRegistry();
+        registry.rebind("serverRMI", rmiServer);
 
         SocketServer ss;
         try {

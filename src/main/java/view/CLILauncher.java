@@ -38,11 +38,11 @@ public class CLILauncher {
         String ip = args[0];
         int port = Integer.parseInt(args[1]);
 
-        System.setProperty("java.security.policy","myPolicy.policy");
-
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
+//        System.setProperty("java.security.policy","myPolicy.policy");
+//
+//        if (System.getSecurityManager() == null) {
+//            System.setSecurityManager(new SecurityManager());
+//        }
 
 
         CLI = new CommandLineInterface();
