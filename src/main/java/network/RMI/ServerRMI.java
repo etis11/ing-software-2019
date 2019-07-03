@@ -30,11 +30,6 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
      * Lists of all the command launchers. Each Command Launcher is associated to a single match
      */
     private final CommandLauncherProvider launchers;
-    /**
-     * index of the current available launcher
-     */
-    private int currentLauncer = 0;
-
 
     /**
      * Creates a server with a launcher and the RMI registry.

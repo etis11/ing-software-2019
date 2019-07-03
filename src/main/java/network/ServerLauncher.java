@@ -45,7 +45,7 @@ public class ServerLauncher {
         CommandLauncherProvider provider = new CommandLauncherProvider();
 
         ServerRMI rmiServer = new ServerRMI(provider);
-        Registry registry = LocateRegistry.getRegistry();
+        Registry registry = LocateRegistry.getRegistry(1099);
         registry.bind("serverRMI", rmiServer);
 
         SocketServer ss;
