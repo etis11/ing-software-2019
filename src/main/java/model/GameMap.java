@@ -225,6 +225,7 @@ public class GameMap {
     }
 
     public List<Player> allAdjacentPlayers(Player p) {
+        System.out.println("player who aks adjacent: "+p);
         List<Player> adjacendPlayers = new LinkedList<>();
         for (Tile tile : this.getAdjacentTiles(p)) {
             if (!tile.getPlayers().contains(p)) {
@@ -259,6 +260,7 @@ public class GameMap {
         if (null != westTile) {
             tiles.add(westTile);
         }
+        System.out.println("adj tile: "+tiles);
         return tiles;
     }
 
