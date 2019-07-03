@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.rmi.NoSuchObjectException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -63,11 +64,16 @@ public class CLILauncher {
                 throw  new RuntimeException(i);
             }
             //gets the command container
-            try{
+//            try{
                 String newToken ;
                 Registry registry = LocateRegistry.getRegistry(ip, 1099);
-                ServerRMIInterface serverRMI = (ServerRMIInterface) registry.lookup("serverRMI");
-                CLI.displayText("Inserisci un token.");
+            ServerRMIInterface serverRMI = null;
+            try {
+                serverRMI = (ServerRMIInterface) registry.lookup("serverRMI");
+            } catch (NotBoundException e) {
+                throw new RuntimeException(e);
+            }
+            CLI.displayText("Inserisci un token.");
                 //gets the token from the user
                 token = CLI.getUserInputString();
                 newToken = serverRMI.getPersonalToken(token);
@@ -97,12 +103,12 @@ public class CLILauncher {
 
 
 
-            }
-            catch (Exception r){
-                LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(r.getStackTrace()));
-                CLI.displayText(r.getMessage());
-                throw new RuntimeException(r);
-            }
+//            }
+//            catch (Exception r){
+//                LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(r.getStackTrace()));
+//                CLI.displayText(r.getMessage());
+//                throw new RuntimeException(r);
+//            }
             receiver.attachMapObserver(CLI);
             receiver.attachMessageListener(CLI);
             receiver.attachPlayerObserver(CLI);
