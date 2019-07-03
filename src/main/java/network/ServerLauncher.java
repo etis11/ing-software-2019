@@ -26,6 +26,11 @@ public class ServerLauncher {
         int port = Integer.parseInt(args[0]);
         int turnTimer = -1;
         int startTimer = -1;
+        //inizializzazione per rmi
+        System.setProperty("java.security.policy","myPolicy.policy");
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
 
         if (args.length >= 2){
             turnTimer = Integer.parseInt(args[1]);
@@ -40,7 +45,7 @@ public class ServerLauncher {
         CommandLauncherProvider provider = new CommandLauncherProvider();
 
         ServerRMI rmiServer = new ServerRMI(provider);
-        Registry registry = LocateRegistry.getRegistry();
+        Registry registry = LocateRegistry.getRegistry(1099);
         registry.bind("serverRMI", rmiServer);
 
         SocketServer ss;

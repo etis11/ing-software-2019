@@ -35,6 +35,13 @@ public class CLILauncher {
         String ip = args[0];
         int port = Integer.parseInt(args[1]);
 
+        System.setProperty("java.security.policy","myPolicy.policy");
+
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+
+
         CLI = new CommandLineInterface();
         SemplifiedGame game = new SemplifiedGame();
         receiver= new JsonUnwrapper(game);
@@ -58,7 +65,7 @@ public class CLILauncher {
             //gets the command container
             try{
                 String newToken ;
-                Registry registry = LocateRegistry.getRegistry();
+                Registry registry = LocateRegistry.getRegistry(ip, 1099);
                 ServerRMIInterface serverRMI = (ServerRMIInterface) registry.lookup("serverRMI");
                 CLI.displayText("Inserisci un token.");
                 //gets the token from the user
