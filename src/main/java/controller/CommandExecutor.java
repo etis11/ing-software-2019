@@ -154,6 +154,14 @@ public class CommandExecutor {
             notifyNewTurnAndSpawning(allJsonReceivers);
     }
 
+    public void execute(StopTimerLobby command){
+        List<JsonReceiver> allReceivers = command.getAllReceivers();
+        if (!gameManager.getLobby().hasReachedMinCapacity() && startGameTimerStarted){
+            startGameTimer.cancel();
+            startGameTimer.purge();
+        }
+    }
+
 
     /**
      * Notifies to the current player that the turn has ended. The board is filled and the timer is resetted
