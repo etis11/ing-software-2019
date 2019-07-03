@@ -286,12 +286,12 @@ public class Effect {
         stringBuilder.append(", canMoveTarget :").append(canMoveTarget).append("\n");
         stringBuilder.append(", numStepsTarget :").append(numStepsTarget).append("\n");
         stringBuilder.append(", moveTargetAndHitAll :").append(moveTargetAndHitAll).append("\n");
-        stringBuilder.append(", redDamage :").append(redDamage).append("\n");
-        stringBuilder.append(", blueDamage :").append(blueDamage).append("\n");
-        stringBuilder.append(", greenDamage :").append(greenDamage).append("\n");
-        stringBuilder.append(", redMarks :").append(redMarks).append("\n");
-        stringBuilder.append(", blueMarks :").append(blueMarks).append("\n");
-        stringBuilder.append(", greenMarks :").append(greenMarks).append("\n");
+//        stringBuilder.append(", redDamage :").append(redDamage).append("\n");
+//        stringBuilder.append(", blueDamage :").append(blueDamage).append("\n");
+//        stringBuilder.append(", greenDamage :").append(greenDamage).append("\n");
+//        stringBuilder.append(", redMarks :").append(redMarks).append("\n");
+//        stringBuilder.append(", blueMarks :").append(blueMarks).append("\n");
+//        stringBuilder.append(", greenMarks :").append(greenMarks).append("\n");
         stringBuilder.append(",\t optional Effects :").append(optionalEffects).append("\n");
         return stringBuilder.toString();
     }

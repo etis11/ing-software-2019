@@ -224,7 +224,6 @@ public class Parserator implements Runnable {
                     String playerName = splittedCommand[2];
                     if ( game.getPlayers() != null && board.equals("plancia")){
                         SemplifiedPlayer player = null;
-                        System.out.println(game.getPlayers());
                         for(SemplifiedPlayer loopPlayer : game.getPlayers()){
                             if(loopPlayer.getName().equals(playerName))
                                 player = loopPlayer;
