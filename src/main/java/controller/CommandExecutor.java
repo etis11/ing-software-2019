@@ -119,21 +119,6 @@ public class CommandExecutor {
                     //cycle that finds the json receiver of the person that should throw
                     notifyNewTurnAndSpawning(command.getAllReceivers());
                     commandExecutorLogger.log(Level.INFO, "Start round for player "+currentPlayer.getName());
-                    JsonReceiver userToBeNotifiedThrow = null;
-                    for(JsonReceiver jr : command.getAllReceivers()){
-                        User userToBeNotified= TokenRegistry.getInstance().getJsonUserOwner(jr);
-                        //TODO meglio fare una funzione per questo,è identico ad un codice che ho commentato
-                        if(userToBeNotified != null){
-                            if(userToBeNotified.getPlayer().getName().equals(gameManager.getMatch().getCurrentPlayer().getName())){
-                                userToBeNotifiedThrow = jr;
-                            }
-                        }
-                    }
-                    notifier.notifyMessageTargetPlayer("", userToBeNotifiedThrow, currentPlayer);
-                    if((currentPlayer.getState().getName().equals("EndTurn")&& currentPlayer.getTile() == null) || currentPlayer.getState().getName().equals("Dead") || currentPlayer.getState().getName().equals("Overkilled")) {
-                        notifier.notifyMessageTargetPlayer("scegli quale powerup scartare per spawnare", userToBeNotifiedThrow, currentPlayer);
-                        commandExecutorLogger.log(Level.INFO, "Asked throwing for spawn to"+currentPlayer.getName());
-                    }
                 }
             }
         }
@@ -1754,19 +1739,21 @@ public class CommandExecutor {
         //target blue
         if(advanced == null && targets.size()>1){
             weaponToUse.getBaseEffect().get(0).applyOptionalEffect(opt);
-            if(weaponToUse.getBaseEffect().get(0).getDamage().get("blue") != 0 ||weaponToUse.getBaseEffect().get(0).getMarks().get("blue") != 0){
+            if(weaponToUse.getBaseEffect().get(0).getDamage().get("blue") != 0 || weaponToUse.getBaseEffect().get(0).getMarks().get("blue") != 0){
+                commandExecutorLogger.log(Level.INFO, "calculated  base damage transporter for blue target");
                 dt =weaponToUse.getBaseEffect().get(0).useEffect(currentPlayer, targets.get(1), "blue");
             }
         }
         else if(targets.size()>1){
             advanced.applyOptionalEffect(opt);
             if(advanced.getDamage().get("blue") != 0 || advanced.getMarks().get("blue") != 0) {
+                commandExecutorLogger.log(Level.INFO, "calculated adv damage transporter for blue target");
                 dt = advanced.useEffect(currentPlayer, targets.get(1), "blue");
             }
         }
         if(dt != null){
             targets.get(1).calculateDamage(dt);
-            commandExecutorLogger.log(Level.INFO, "calculated damage for red "+dt.getNumDamage()+" damage and "+dt.getNumMark()+" marks to "+targets.get(1).getName());
+            commandExecutorLogger.log(Level.INFO, "calculated damage for blue "+dt.getNumDamage()+" damage and "+dt.getNumMark()+" marks to "+targets.get(1).getName());
         }
 
         dt = null;
@@ -1774,12 +1761,14 @@ public class CommandExecutor {
         if(advanced == null && targets.size()>2){
             weaponToUse.getBaseEffect().get(0).applyOptionalEffect(opt);
             if(weaponToUse.getBaseEffect().get(0).getDamage().get("green") != 0 ||weaponToUse.getBaseEffect().get(0).getMarks().get("green") != 0){
+                commandExecutorLogger.log(Level.INFO, "calculated base damage transporter for green target");
                 dt =weaponToUse.getBaseEffect().get(0).useEffect(currentPlayer, targets.get(2), "green");
             }
         }
         else if(targets.size()>2){
             advanced.applyOptionalEffect(opt);
             if(advanced.getDamage().get("green") != 0 || advanced.getMarks().get("green") != 0) {
+                commandExecutorLogger.log(Level.INFO, "calculated adv damage transporter for green target");
                 dt = advanced.useEffect(currentPlayer, targets.get(2), "green");
             }
         }
@@ -1787,7 +1776,7 @@ public class CommandExecutor {
             targets.get(2).calculateDamage(dt);
             commandExecutorLogger.log(Level.INFO, "calculated damage for red "+dt.getNumDamage()+" damage and "+dt.getNumMark()+" marks to "+targets.get(2).getName());
         }
-
+        System.out.println("Arma prima reset opt: "+weaponToUse);
         //reset effect
         if(advanced == null){
             weaponToUse.getBaseEffect().get(0).resetDmgAndMarks();
@@ -1796,6 +1785,8 @@ public class CommandExecutor {
             advanced.resetDmgAndMarks();
         }
         commandExecutorLogger.log(Level.INFO, "effect resetted");
+
+        System.out.println("Arma dopo reset opt: "+weaponToUse);
 
         //notify
         String message = "";
