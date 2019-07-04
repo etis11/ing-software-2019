@@ -161,7 +161,6 @@ public class CommandExecutor {
      * @param command
      */
     public void execute(StopTimerLobby command){
-        commandExecutorLogger.log(Level.INFO, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         List<JsonReceiver> allReceivers = command.getAllReceivers();
         System.out.println(gameManager.getLobby().getUsers());
         System.out.println("minCap " + gameManager.getLobby().hasReachedMinCapacity() + " " + gameManager.getLobby().getUsers().size());
@@ -170,7 +169,8 @@ public class CommandExecutor {
         if (!gameManager.getLobby().hasReachedMinCapacity() && startGameTimerStarted && !gameManager.isMatchStarted()){
             startGameTimer.cancel();
             startGameTimer.purge();
-            commandExecutorLogger.log(Level.INFO, "timer killed");
+            commandExecutorLogger.log(Level.INFO, "Timer killed");
+            startGameTimerStarted = false;
         }
     }
 
@@ -1461,6 +1461,9 @@ public class CommandExecutor {
 
         Lobby lobby = gameManager.getLobby();
         //if the players are at least three and the timer did't start
+        System.out.println("min capacity " + lobby.hasReachedMinCapacity());
+        System.out.println("not game started " + !gameHasStarted);
+        System.out.println("not timer started " + !startGameTimerStarted);
         if(lobby.hasReachedMinCapacity() && !gameHasStarted && !startGameTimerStarted){
             startGameTimer = new Timer();
             commandExecutorLogger.log(Level.INFO, "creazione e inizio del timer");
