@@ -1464,20 +1464,49 @@ public class CommandExecutor {
         System.out.println("min capacity " + lobby.hasReachedMinCapacity());
         System.out.println("not game started " + !gameHasStarted);
         System.out.println("not timer started " + !startGameTimerStarted);
+        TimerTask task = new TimerTask(){
+            @Override
+            public void run() {
+                commandExecutorLogger.log(Level.INFO, "timer scaduto");
+                try {
+                    List<JsonReceiver> allReceivers = command.getAllReceivers();
+                    //try to notify all the receivers. If rmi has disconnected, now it's disconnected for the server too
+                    for (JsonReceiver jsonReceiver: allReceivers){
+                        notifier.notifyMessage("La partita sta per iniziare", jsonReceiver);
+                    }
+
+                    //checking the receivers that are not associated to an user (because they are disconnected
+                    List<JsonReceiver> disconnected = new LinkedList<>();
+                    for(JsonReceiver jsonReceiver : allReceivers){
+                        //if the user is null, a disconnection may have occurred
+                        if (registry.getJsonUserOwner(jsonReceiver) == null){
+                            disconnected.add(jsonReceiver);
+                        }
+                    }
+
+                    //removing the mulfuntioning receivers
+                    for(JsonReceiver jsonReceiver : disconnected){
+                        allReceivers.remove(jsonReceiver);
+                    }
+
+                    if (allReceivers.size() >= gameManager.getLobby().getMinPlayerInLobby()){
+                        createMatchRoutine(allReceivers);
+                    }
+                    else {
+                        //notify that the match is not starting
+                        for(JsonReceiver jsonReceiver: allReceivers){
+                            notifier.notifyMessage("A causa di una disconnessione la partita non comincerà", jsonReceiver);
+                        }
+                    }
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e.getMessage());
+                }
+            }
+        };
         if(lobby.hasReachedMinCapacity() && !gameHasStarted && !startGameTimerStarted){
             startGameTimer = new Timer();
             commandExecutorLogger.log(Level.INFO, "creazione e inizio del timer");
-            TimerTask task = new TimerTask(){
-                @Override
-                public void run() {
-                    commandExecutorLogger.log(Level.INFO, "timer scaduto");
-                    try {
-                        createMatchRoutine(command.getAllReceivers());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e.getMessage());
-                    }
-                }
-            };
             startGameTimer.schedule(task, startMatchTimerDelay * thousand);
             startGameTimerStarted = true;
         }
@@ -1486,17 +1515,6 @@ public class CommandExecutor {
             startGameTimer.cancel();
             startGameTimer.purge();
             startGameTimer = new Timer();
-            TimerTask task = new TimerTask(){
-                @Override
-                public void run() {
-                    commandExecutorLogger.log(Level.INFO, "timer scaduto");
-                    try {
-                        createMatchRoutine(command.getAllReceivers());
-                    } catch (IOException e) {
-                        throw new RuntimeException(e.getMessage());
-                    }
-                }
-            };
             startGameTimer.schedule(task, 10*1000);
             lobby.closeLobby();
         }
