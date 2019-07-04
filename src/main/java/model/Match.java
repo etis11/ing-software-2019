@@ -473,16 +473,19 @@ public class Match implements ChangesMatchObservable{
      */
     private void calculatePointPerPlayer(int[] numDamagePerPlayer, int [] orderedDamagePerPlayer, int[] points, Player p){
         int pointsIndex = 0;
-        for(int i = playerNumber; i>=0;i--){
+        System.out.println("kill value: "+p.getPlayerBoard().getKillValue().toString());
+        for(int i = playerNumber-1; i>=0;i--){
             for (int j =0; j<playerNumber;j++){
                 if(orderedDamagePerPlayer[i]== numDamagePerPlayer[j] && i != players.indexOf(p)){
                     points[j]=p.getPlayerBoard().getKillValue().get(pointsIndex);
                     if(i>0 && orderedDamagePerPlayer[i-1]!=orderedDamagePerPlayer[i]){
                         pointsIndex++;
                     }
+                    System.out.println(players.get(j).getName()+" ha questi punti: "+points[j]);
                 }
                 else if (i == players.indexOf(p)){
                     points[j]=0;
+                    System.out.println(players.get(j).getName()+" ha questi punti: "+points[j]);
                 }
             }
         }
