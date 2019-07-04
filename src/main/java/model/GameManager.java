@@ -50,7 +50,7 @@ public class GameManager implements CreationGameObservable {
         this.lobby = new Lobby();
         started = false;
         startGameObservers = new LinkedList<>();
-        numOfSkulls = 1;
+        numOfSkulls = 8;
     }
 
     public  synchronized Match getMatch() {
