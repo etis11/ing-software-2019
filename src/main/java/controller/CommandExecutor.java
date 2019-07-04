@@ -967,6 +967,7 @@ public class CommandExecutor {
                 String state = currentPlayer.getState().getName();
                 //verify the player state
                 if ((state.equals("EndTurn")&& currentPlayer.getTile() == null) || state.equals("Dead") ||state.equals("Overkilled")) {
+
                     //verify if the current player has a powerup
                     if (!currentPlayer.hasPowerUp(powerUpParser(command.getPowerUpType()), colorParser(command.getColor()))) {
                         String error ="Non hai questo PowerUp";
@@ -974,13 +975,20 @@ public class CommandExecutor {
                     } else {
                         String regenPointColor = command.getColor();
                         Tile tileToSpawn = gameManager.getMatch().getMap().getRegenPoint(translateColor(regenPointColor));
+                        if(currentPlayer.getState().getName().equals("Dead") || currentPlayer.getState().getName().equals("Overkilled")){
+                            currentPlayer.getState().nextState("EndTurn", currentPlayer);
+                            try {
+                                currentPlayer.getTile().removePlayer(currentPlayer);
+                            } catch (Exception e) {
+                                LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
+                            }
+                        }
                         tileToSpawn.addPlayer(currentPlayer);
                         currentPlayer.getState().nextState("NormalAction", currentPlayer);
                         PowerUpCard toThrow= currentPlayer.getPowerUp(powerUpParser(command.getPowerUpType()), colorParser(command.getColor()));
                         try {
                             gameManager.getMatch().addPowerUpToSlush(currentPlayer.throwPowerUp(toThrow));
                         } catch (Exception e) {
-                           // e.printStackTrace();
                             LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                         }
                         String message = currentPlayer.getName() + " si è rigenerato nel punto di rigenerazione " + regenPointColor;
@@ -1043,9 +1051,9 @@ public class CommandExecutor {
                     }
                     //verify if the controller has to ask for advanced or advanced effect
                     if(weaponToUse!=null&&weaponToUse.getAdvancedEffect()!= null && !weaponToUse.getAdvancedEffect().isEmpty()) {
-                        String message = "Scegli se usare l'effetto advanced o quello avanzato";
+                        String message = "Scegli se usare l'effetto base o quello avanzato";
                         notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
-                        commandExecutorLogger.log(Level.INFO, "Asked advanced or advanced effect to "+currentPlayer.getName());
+                        commandExecutorLogger.log(Level.INFO, "Asked base or advanced effect to "+currentPlayer.getName());
                     }
                     else{
                         askOptional(currentPlayer, userJsonReceiver);
@@ -1238,7 +1246,7 @@ public class CommandExecutor {
                         }
                     }
                     else{
-                        commandExecutorLogger.log(Level.INFO, "Choosen advanced effect for "+weaponToUse.getName()+ " from "+currentPlayer.getName());
+                        commandExecutorLogger.log(Level.INFO, "Choosen base effect for "+weaponToUse.getName()+ " from "+currentPlayer.getName());
                     }
                     askOptional(currentPlayer, userJsonReceiver);
                     commandExecutorLogger.log(Level.INFO, "Asked optional effect to "+currentPlayer.getName());

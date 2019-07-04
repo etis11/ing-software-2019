@@ -381,6 +381,7 @@ public class Match implements ChangesMatchObservable{
         //decrease max point value
         p.getPlayerBoard().decreaseKillValue();
         //points for first damage
+        System.out.println("size damage: "+damage.size());
         points[players.indexOf(damage.get(0).getOwner())]++;
         //attribute points to each player
         for (int i=0; i<playerNumber;i++){
