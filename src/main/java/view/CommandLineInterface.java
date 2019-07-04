@@ -279,10 +279,11 @@ The following 4 strings are the 4 maps.
             if(semplifiedBloodToken!=null){
                 SemplifiedPlayer semplifiedPlayer = semplifiedBloodToken.getOwner();
                 if(semplifiedPlayer==null){
-                    output=output+"♡" ;
+                    output=output+"𖨠";
                 }else{
                     String color = playerColor(semplifiedPlayer);
-                    output=output+color+"♡"+AnsiColor.RESET;
+
+                    output=output+color+"𖨠"+AnsiColor.RESET;
                 }
             }
         }

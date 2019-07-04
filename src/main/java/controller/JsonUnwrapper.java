@@ -153,7 +153,7 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
             oldCurrentPlayer = currentPlayer;
         }
         String message = response.getMessage();
-        if(message!= null) {
+        if(message!= null && !message.equals("")) {
             notifyAllMessageListeners(message);
         }
 
