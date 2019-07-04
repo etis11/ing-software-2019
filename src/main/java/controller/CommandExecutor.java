@@ -215,7 +215,7 @@ public class CommandExecutor {
         }
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
         for (JsonReceiver jsonReceiver: allJsonReceiver){
-            if(jsonReceiver != userToBeNotifiedThrow){
+            if(jsonReceiver != userToBeNotifiedThrow && registry.getJsonUserOwner(jsonReceiver) != null){
                 notifier.notifyMessageTargetPlayer("", jsonReceiver, registry.getJsonUserOwner(jsonReceiver).getPlayer());
             }
         }

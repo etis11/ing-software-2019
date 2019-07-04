@@ -123,6 +123,7 @@ public class TokenRegistry {
      */
     public void associateTokenAndReceiver(String token, JsonReceiver jsonReceiver) {
         synchronized (registeredTokens) {
+            System.out.println("receiver associato al token " + associatonTokenReceiver.get(token));
             if (associatonTokenReceiver.get(token) != null)
                 throw new DuplicateException(">>> There is already a jsonReceiver associated to this token");
             if (!registeredTokens.contains(token)) registeredTokens.add(token);
@@ -174,10 +175,20 @@ public class TokenRegistry {
      */
     public void removeTokenReceiverAssociation(JsonReceiver jsonReceiver){
         synchronized (registeredTokens){
+            String toRemoveToken = null;
+            System.out.println(associatonTokenReceiver);
             for(String token: registeredTokens){
-                if (associatonTokenReceiver.get(token) == jsonReceiver){
-                    associatonTokenReceiver.remove(token, jsonReceiver);
+                System.out.println(associatonTokenReceiver.get(token));
+                System.out.println(jsonReceiver);
+                System.out.println(associatonTokenReceiver.get(token).equals(jsonReceiver));
+                System.out.println(associatonTokenReceiver.get(token) == (jsonReceiver));
+                if (associatonTokenReceiver.get(token).equals(jsonReceiver)){
+                    toRemoveToken = token;
                 }
+            }
+            if (toRemoveToken != null){
+                System.out.println("RIMOSSSOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+                removeTokenReceiverAssociation(toRemoveToken);
             }
         }
     }
