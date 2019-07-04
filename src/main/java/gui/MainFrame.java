@@ -46,6 +46,8 @@ public class MainFrame{
     private boolean connected;
     private BufferedReader input;
     private PrintWriter output;
+    private Socket mySocket;
+    private JsonRouterSocket jsonSocketReceiver = null;
 
     private final InputStream pathAdrenaline = getClass().getResourceAsStream("/img/Adrenalina.PNG");
 
@@ -88,15 +90,12 @@ public class MainFrame{
                 if (checkUsername(userField.getText().trim()) || checkToken(tokenField.getText().trim(), userField.getText().trim())) {
                     if (networkActive) {
                         if (!connected) {
-                            Socket mySocket;
-                            JsonRouterSocket jsonSocketReceiver = null;
-                            SemplifiedGame game = new SemplifiedGame();
-                            receiver = new JsonUnwrapper(game);
-                            String token = "";
+
                             try {
                                 mySocket = new Socket(ip, port);
                                 input = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
                                 output = new PrintWriter(mySocket.getOutputStream());
+                                String token = "";
                                 if (checkToken(tokenField.getText().trim(), userField.getText().trim())) {
                                     token = tokenField.getText().trim();
                                 }
@@ -109,72 +108,54 @@ public class MainFrame{
                                 } else {
                                     token = tokenResponse;
                                     gui.setToken(token);
-                                    //inserisci uno username
-                                    String possibleName = userField.getText().trim();
-                                    output.println(possibleName);
-                                    output.flush();
-                                    String serverResponse = input.readLine();
-                                    if (serverResponse.equals("OK")) {
-                                        try {
-                                            cmdLauncher = new CommandLauncherProxySocket(mySocket, token);
-                                            jsonSocketReceiver = new JsonRouterSocket(mySocket, receiver, token);
-                                        } catch (IOException i) {
-                                            info.setText(AnsiColor.RED + ">>> Problemi con il socket" + AnsiColor.RESET);
-                                            info.setVisible(true);
-                                        }
-                                        receiver.attachMapObserver(gui);
-                                        receiver.attachMessageListener(gui);
-                                        receiver.attachPlayerObserver(gui);
-                                        receiver.attachMatchObserver(gui);
-                                        new Thread(jsonSocketReceiver).start();
-                                        gui.setCmd(cmdLauncher);
-                                        try {
-                                            cmdLauncher.addCommand(new SetUsernameCommand(ClientSingleton.getInstance().getToken(), userField.getText().trim()));
-                                            gui.startLobby();
-                                        } catch (RemoteException e) {
-                                            LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(e.getStackTrace()));
-                                        }
-                                    } else {
-                                        info.setText(serverResponse);
-                                    }
-
                                 }
-                            } catch (IOException i) {
+                                connected = true;
+                            } catch(IOException i){
                                 info.setText(AnsiColor.RED + "Errore nella connessione. Probabilmente il server è down" + AnsiColor.RESET);
                                 info.setVisible(true);
                                 throw new RuntimeException("Server down");
                             }
-                            if (mySocket == null) throw new RuntimeException("null socket");
-                            connected = true;
-                        } else {
-                            //inserisci uno username
-                            String possibleName = userField.getText().trim();
-                            output.println(possibleName);
-                            output.flush();
+                        }
+                        try{
+                        //inserisci uno username
+                        String possibleName = userField.getText().trim();
+                        output.println(possibleName);
+                        output.flush();
                             String serverResponse = null;
-                            try {
                                 serverResponse = input.readLine();
-                            } catch (IOException e) {
-                                LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(e.getStackTrace()));
+
+                        if (serverResponse.equals("OK")) {
+                            try {
+                                cmdLauncher = new CommandLauncherProxySocket(mySocket, gui.getToken());
+                                jsonSocketReceiver = new JsonRouterSocket(mySocket, receiver, gui.getToken());
+                            } catch (IOException i) {
+                                info.setText(AnsiColor.RED + ">>> Problemi con il socket" + AnsiColor.RESET);
+                                info.setVisible(true);
                             }
-                            if (serverResponse.equals("OK")) {
-                                if (cmdLauncher == null) {
-                                    cmdLauncher = new CommandLauncher(new GameManager(), new JsonCreator());
-                                    gui.setCmd(cmdLauncher);
-                                }
-                                try {
-                                    cmdLauncher.addCommand(new SetUsernameCommand(ClientSingleton.getInstance().getToken(), userField.getText().trim()));
-                                    gui.startLobby();
-                                } catch (RemoteException e) {
-                                    LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(e.getStackTrace()));
-                                }
-                            } else {
-                                info.setText(serverResponse);
+                            receiver.attachMapObserver(gui);
+                            receiver.attachMessageListener(gui);
+                            receiver.attachPlayerObserver(gui);
+                            receiver.attachMatchObserver(gui);
+                            new Thread(jsonSocketReceiver).start();
+                            gui.setCmd(cmdLauncher);
+                            try {
+                                cmdLauncher.addCommand(new SetUsernameCommand(gui.getToken(), possibleName));
+                                gui.startLobby();
+                            } catch (RemoteException e) {
+                                LOGGER.LOGGER.log(Level.WARNING, e.getMessage());
                             }
+                        } else {
+                            info.setText(serverResponse);
                         }
 
-
-                    }
+                        }catch (IOException e) {
+                            LOGGER.LOGGER.log(Level.WARNING, e.getMessage());
+                        }
+                            SemplifiedGame game = new SemplifiedGame();
+                            receiver = new JsonUnwrapper(game);
+                            String token = "";
+                            if (mySocket == null) throw new RuntimeException("null socket");
+                        }
 
                 } else {
                     info.setText("inserisci un username e/o token valido");
