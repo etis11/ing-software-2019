@@ -2,7 +2,6 @@ package model;
 
 import jsonparser.Exclude;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
