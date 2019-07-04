@@ -183,11 +183,7 @@ public class PlayerBoard {
     }
 
     public void resetPlayerboard(){
-        for(BloodToken b : damageTokens){
-            damageTokens.remove(b);
-        }
-        for(BloodToken b : marks){
-            damageTokens.remove(b);
-        }
+        damageTokens.clear();
+        System.out.println("danni size: "+damageTokens.size());
     }
 }
