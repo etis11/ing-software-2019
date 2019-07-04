@@ -256,13 +256,45 @@ public class CommandExecutor {
     /**
      * Checks if the match has to stop. A match ends when there are less then 3 players or
      * all the player have played during "frenesia"
-     * TODO per adesso implementa solo la storia della disconnessione
+     * TODO per adesso implementa solo la storia della disconnessione e fine partita senza frenesia
      */
     private void checkEndMatch(List<JsonReceiver> allReceivers){
         Match match = gameManager.getMatch();
         if (match.getNumActivePlayers() < Match.getMinActivePlayers()){
             for(JsonReceiver jsonReceiver: allReceivers){
                 notifier.notifyMessage("La partita è terminata perchè non ci sono abbastanza utenti attivi", jsonReceiver);
+            }
+            //now i must disconnect all the json receivers
+            disconnectReceivers(allReceivers);
+            try{
+                launcher.stopExecuting();
+            }
+            catch (RemoteException re){
+                commandExecutorLogger.log(Level.WARNING, "This exception should never occur");
+            }
+        }
+        if(match.getSkulls()==0 && !match.getFinalFrenzy()){
+            match.endGame();
+            StringBuilder output = new StringBuilder();
+            output.append("La partita è terminata\n").append("CLASSIFICA:\n");
+            int[] points = new int[match.getPlayerNumber()];
+            for(int i = 0;i<match.getPlayerNumber();i++){
+                points[i]=match.getPlayers().get(i).getPoints();
+            }
+            for(int i = 0; i<match.getPlayerNumber();i++){
+                int indexMax = 0;
+                int max = 0;
+                for(int j = 0; j<match.getPlayerNumber();j++){
+                    if(points[j]>max){
+                        max = points[j];
+                        indexMax = j;
+                    }
+                }
+                output.append(i+1).append(") ").append(match.getPlayers().get(indexMax).getName()).append(" ").append(max).append(" punti\n");
+                points[indexMax] = -1;
+            }
+            for(JsonReceiver jsonReceiver: allReceivers){
+                notifier.notifyMessage(output.toString(), jsonReceiver);
             }
             //now i must disconnect all the json receivers
             disconnectReceivers(allReceivers);
@@ -2010,7 +2042,9 @@ public class CommandExecutor {
             }
         }
         notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
-        weaponToUse.setLoaded(false);
+        if(weaponToUse.getReloadCost().size()>1) {
+            weaponToUse.setLoaded(false);
+        }
 
         //verify if already moved or it can't, so if true end the routine
         boolean advancedShooterMoved = false;

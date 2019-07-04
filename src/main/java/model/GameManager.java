@@ -40,7 +40,7 @@ public class GameManager implements CreationGameObservable {
     /**
     * identify if the game ends with the final frenzy
     */
-    private boolean finalFrenzy = true;
+    private boolean finalFrenzy = false;
 
     private List<CreationGameObserver> startGameObservers;
     /**
@@ -50,7 +50,7 @@ public class GameManager implements CreationGameObservable {
         this.lobby = new Lobby();
         started = false;
         startGameObservers = new LinkedList<>();
-        numOfSkulls = 8;
+        numOfSkulls = 1;
     }
 
     public  synchronized Match getMatch() {
@@ -97,7 +97,7 @@ public class GameManager implements CreationGameObservable {
 
         GameMap map = GameMap.loadMap(GameManager.class.getResourceAsStream(mapPath));
         //TODO aggiungere final frenzy
-        match = new Match(players, numOfSkulls, map);
+        match = new Match(players, numOfSkulls, map, finalFrenzy);
         match.attach(jsonCreator);
         initWeapon(match);
         initAmmo(match);
