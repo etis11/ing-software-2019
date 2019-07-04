@@ -342,6 +342,11 @@ public class GameMap {
     return filePath;
 }
 
+    /**
+     * given the id , returns the corresponding tile
+     * @param id the id of the tile
+     * @return the tile of null if there wasn't a tile with that id
+     */
     public Tile getTileFromId(int id){
         List<Tile> tiles = mapAsList();
         Tile tile = null;
