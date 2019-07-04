@@ -139,7 +139,8 @@ public class CommandReceiverSocket implements Runnable {
             }
         }
         catch (IOException ioe){
-            LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(ioe.getStackTrace()));
+            LOGGER.LOGGER.log(Level.WARNING, ioe.getMessage());
+            ioe.printStackTrace();
         }
 
 
