@@ -196,14 +196,16 @@ public class TokenRegistry {
      * @param username user to be removed
      */
     public void removeTokenToUserAssociationAndToken(String username){
-        String toDeleteToken;
+        String toDeleteToken = null;
         synchronized (registeredTokens){
             for(String token: registeredTokens){
                 if (tokenToUsername.get(token).equals(username)){
                     tokenToUsername.remove(token, username);
-                    registeredTokens.remove(token);
+                    toDeleteToken = token;
                 }
             }
+            if (toDeleteToken != null)
+                registeredTokens.remove(toDeleteToken);
         }
     }
 
