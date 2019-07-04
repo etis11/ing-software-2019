@@ -161,6 +161,11 @@ public class JsonCreator implements ChangesObserver, CreationGameObserver, Lobby
         response.setLobby(l);
     }
 
+    @Override
+    public void notifyChangedMap(String mapName) {
+        response.setMap(mapName);
+    }
+
     /******************* Lobby listener ************************************************************/
 
     @Override

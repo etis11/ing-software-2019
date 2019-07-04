@@ -85,6 +85,9 @@ public class Parserator implements Runnable {
         }
         try {
             switch (realCommand.toLowerCase()) {
+                case "setmap":
+                    commandLauncher.addCommand((new SetMapCommand(token,param)));
+                    return;
                 case "help":
                     CLI.displayText(commandi);
                     return;
@@ -235,8 +238,6 @@ public class Parserator implements Runnable {
                     }
                 }
             }
-
-
 
             throw new IllegalArgumentException();
         } catch (RemoteException r) {

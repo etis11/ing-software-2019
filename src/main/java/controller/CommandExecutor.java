@@ -1458,22 +1458,23 @@ public class CommandExecutor {
 
 
         //starts a timer for the start of the game when the lobby reaches the min size
-        TimerTask task = new TimerTask(){
-            @Override
-            public void run() {
-                commandExecutorLogger.log(Level.INFO, "timer scaduto");
-                try {
-                    createMatchRoutine(command.getAllReceivers());
-                } catch (IOException e) {
-                    throw new RuntimeException(e.getMessage());
-                }
-            }
-        };
+
         Lobby lobby = gameManager.getLobby();
         //if the players are at least three and the timer did't start
         if(lobby.hasReachedMinCapacity() && !gameHasStarted && !startGameTimerStarted){
             startGameTimer = new Timer();
             commandExecutorLogger.log(Level.INFO, "creazione e inizio del timer");
+            TimerTask task = new TimerTask(){
+                @Override
+                public void run() {
+                    commandExecutorLogger.log(Level.INFO, "timer scaduto");
+                    try {
+                        createMatchRoutine(command.getAllReceivers());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                }
+            };
             startGameTimer.schedule(task, startMatchTimerDelay * thousand);
             startGameTimerStarted = true;
         }
@@ -1482,6 +1483,17 @@ public class CommandExecutor {
             startGameTimer.cancel();
             startGameTimer.purge();
             startGameTimer = new Timer();
+            TimerTask task = new TimerTask(){
+                @Override
+                public void run() {
+                    commandExecutorLogger.log(Level.INFO, "timer scaduto");
+                    try {
+                        createMatchRoutine(command.getAllReceivers());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e.getMessage());
+                    }
+                }
+            };
             startGameTimer.schedule(task, 10*1000);
             lobby.closeLobby();
         }

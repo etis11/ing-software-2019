@@ -53,6 +53,8 @@ public class Lobby  implements  LobbyObservable{
         this.closed = true;
     }
 
+    public void openLobby(){ this.closed = false;}
+
     /**
      * tells maximum number of player for the lobby
      *

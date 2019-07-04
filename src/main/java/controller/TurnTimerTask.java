@@ -21,7 +21,7 @@ public class TurnTimerTask extends TimerTask {
 
     private final User userToDisconnect;
 
-    protected TurnTimerTask(CommandLauncherInterface launcher, JsonReceiver currentTurnReceiver, Notifier notifier, User userToDisconnect) {
+    public TurnTimerTask(CommandLauncherInterface launcher, JsonReceiver currentTurnReceiver, Notifier notifier, User userToDisconnect) {
         super();
         this.launcher = launcher;
         this.currentTurnReceiver = currentTurnReceiver;
@@ -33,7 +33,7 @@ public class TurnTimerTask extends TimerTask {
     public void run() {
         TokenRegistry registry = TokenRegistry.getInstance();
         System.out.println("receiver " +currentTurnReceiver);
-            timerLogger.log(Level.INFO, "timer expired. Disconnecting user " + userToDisconnect.getUsername());
+        timerLogger.log(Level.INFO, "timer expired. Disconnecting user " + userToDisconnect.getUsername());
 
 
         if(currentTurnReceiver != null) {
