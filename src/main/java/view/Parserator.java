@@ -144,7 +144,7 @@ public class Parserator implements Runnable {
                 commandLauncher.addCommand(new MoveTargetCommand(token, toadd));
                 return;
             }
-            if ((command.contains("up") || command.contains("right") || command.contains("left") || command.contains("down")|| command.contains("none")) && !command.contains("Cannone")) {
+            if ((command.contains("up") || command.contains("right") || command.contains("left") || command.contains("down")|| command.contains("none")) && !command.contains("Cannone") && !command.contains("usapu")) {
                 List<String> toadd = new ArrayList<>();
                 if(!command.contains("none")) {
                     toadd.addAll(Arrays.asList(command.split(",")));
@@ -154,6 +154,17 @@ public class Parserator implements Runnable {
             }
 
             String power = command.toLowerCase();
+            if ((power.contains("granata")||power.contains("teletrasporto")||power.contains("mirino")||power.contains("raggiocinetico"))&& power.contains("usapu")){
+                String[] splittedPower = power.split(" ");
+                if(isValidColor(splittedPower[2])) {
+                    if(splittedPower.length == 5) {
+                        commandLauncher.addCommand(new UsePowerUpCommand(token, splittedPower[1], splittedPower[2], splittedPower[3], splittedPower[4]));
+                    }else{
+                        commandLauncher.addCommand(new UsePowerUpCommand(token, splittedPower[1], splittedPower[2], splittedPower[3], ""));
+                    }
+                    return;
+                }
+            }
             if (power.contains("granata")||power.contains("teletrasporto")||power.contains("mirino")||power.contains("raggiocinetico")){
                 String[] splittedPower = power.split(" ");
                 if(isValidColor(splittedPower[1])) {
