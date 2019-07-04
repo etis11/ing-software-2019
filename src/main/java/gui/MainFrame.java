@@ -117,21 +117,27 @@ public class MainFrame{
                             }
                         }
                         try{
-                        //inserisci uno username
-                        String possibleName = userField.getText().trim();
-                        output.println(possibleName);
-                        output.flush();
+                            //inserisci uno username
+                            String possibleName = userField.getText().trim();
+                            output.println(possibleName);
+                            output.flush();
                             String serverResponse = null;
-                                serverResponse = input.readLine();
+                            System.out.println("prima server response");
+                            serverResponse = input.readLine();
+                            System.out.println("dopo server response " + serverResponse);
 
                         if (serverResponse.equals("OK")) {
                             try {
+                                System.out.println("prima creazione");
                                 cmdLauncher = new CommandLauncherProxySocket(mySocket, gui.getToken());
+                                System.out.println("dopo creazione");
                                 jsonSocketReceiver = new JsonRouterSocket(mySocket, receiver, gui.getToken());
                             } catch (IOException i) {
                                 info.setText(AnsiColor.RED + ">>> Problemi con il socket" + AnsiColor.RESET);
                                 info.setVisible(true);
                             }
+                            SemplifiedGame game = new SemplifiedGame();
+                            receiver = new JsonUnwrapper(game);
                             receiver.attachMapObserver(gui);
                             receiver.attachMessageListener(gui);
                             receiver.attachPlayerObserver(gui);
@@ -151,9 +157,7 @@ public class MainFrame{
                         }catch (IOException e) {
                             LOGGER.LOGGER.log(Level.WARNING, e.getMessage());
                         }
-                            SemplifiedGame game = new SemplifiedGame();
-                            receiver = new JsonUnwrapper(game);
-                            String token = "";
+
                             if (mySocket == null) throw new RuntimeException("null socket");
                         }
 

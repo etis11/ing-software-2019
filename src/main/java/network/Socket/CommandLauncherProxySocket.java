@@ -3,6 +3,7 @@ package network.Socket;
 import controller.CommandContainer;
 import controller.LOGGER;
 import controller.commandpack.Command;
+import javafx.css.SimpleStyleableObjectProperty;
 import view.AnsiColor;
 
 import java.io.IOException;
@@ -38,7 +39,9 @@ public class CommandLauncherProxySocket implements CommandContainer {
 
     public CommandLauncherProxySocket(Socket s, String token) throws IOException {
         socket = s;
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         out = new ObjectOutputStream(s.getOutputStream());
+        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
         this.token = token;
     }
 

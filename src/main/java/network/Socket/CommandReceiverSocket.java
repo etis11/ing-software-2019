@@ -84,17 +84,22 @@ public class CommandReceiverSocket implements Runnable {
                 //now asks for the username fino a quando non è corretto.
                 boolean ok = false;
                 while (!ok){
+                    commandReceiverSocketLogger.log(Level.INFO, "richiesta username");
                     clientOutput.println("Inserisci uno username");
                     clientOutput.flush();
                     username = clientInput.nextLine();
-                    if (username.contains(" ") || username.equals(""))
+                    if (username.contains(" ") || username.equals("")){
+                        commandReceiverSocketLogger.log(Level.INFO, "Username non corretto");
                         clientOutput.println("Username con formato non corretto");
+                    }
                     else if (registry.checkAndInsertUsername(clientToken, username)){
+                        commandReceiverSocketLogger.log(Level.INFO, "Username già presente");
                         clientOutput.println("Username già presente, inserire di nuovo.");
                     }
                     else{
                         ok = true;
                         clientOutput.println("OK");
+                        commandReceiverSocketLogger.log(Level.INFO, "Username " + username);
                     }
                     clientOutput.flush();
                 }
