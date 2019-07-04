@@ -105,6 +105,7 @@ public class JsonUnwrapper implements JsonReceiver, MessageObservable, PlayerObs
         if (mapName != null && !mapName.equals(oldMapName)){
             for(MapObserver m : mapObservers)
                 m.onTypeMapChange(mapName);
+            oldMapName = mapName;
         }
 
         String error = response.getError();

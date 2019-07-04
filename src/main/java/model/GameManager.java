@@ -67,6 +67,8 @@ public class GameManager implements CreationGameObservable {
 
     public  synchronized void setMapName(String map){
         this.mapName = map;
+        for(CreationGameObserver observer: startGameObservers)
+            observer.notifyChangedMap(this.mapName);
     }
 
     public synchronized String getMapName(){
@@ -82,7 +84,7 @@ public class GameManager implements CreationGameObservable {
     public synchronized void createMatch(ChangesMatchObserver jsonCreator){
         List<User> users = lobby.getUsers();
         List<Player> players = new LinkedList<>();
-
+        setMapName(mapName);
         checkUser();
 
         for (User u: users){
@@ -153,7 +155,7 @@ public class GameManager implements CreationGameObservable {
                 return "/maps/map4.json";
             case "grande":
                 return "/maps/map2.json";
-            case "estrema":
+            case "esagerata":
                 return "/maps/map3.json";
             default: throw new RuntimeException("No map associated to " + name);
         }

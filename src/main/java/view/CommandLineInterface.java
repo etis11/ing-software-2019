@@ -10,6 +10,7 @@ import model.WeaponCard;
 import model.clientModel.*;
 
 import java.io.*;
+import java.lang.reflect.Parameter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -30,6 +31,8 @@ public class CommandLineInterface extends AbstractView  {
     private Scanner fromKeyBoard;
 
     private String token;
+
+    private String currentMap = "";
 
 
     /**
@@ -220,12 +223,31 @@ The following 4 strings are the 4 maps.
                 "║"+     p[8]     +"║" + AnsiColor.MAGENTA_BACKGROUND + p[9] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[10] + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + p[11]+ AnsiColor.RESET +"║\t"+"REG TILE: "+mappa.getTile(2,3).getId()+mappa.getTile(2,3).toString()+"\n" +
                 "╚══════════╩══════════╩══════════╩══════════╝";
 
-
-        displayText(hash2);
+        switch (currentMap){
+            case ("piccola"):
+                displayText(hash1);
+                break;
+            case ("media"):
+                displayText(hash4);
+                break;
+            case ("grande"):
+                displayText(hash2);
+                break;
+            case("esagerata"):
+                displayText(hash3);
+                break;
+        }
     }
 
     @Override
     public void onTypeMapChange(String mapName) {
+        if (mapName.equals("piccola") || mapName.equals("media") || mapName.equals("grande") ||mapName.equals("esagerata") ){
+            currentMap = mapName;
+            displayText("La mappa di gioco è: " + mapName);
+            return;
+        }
+        displayText("NOME MAPPA SBAGLIATO");
+
     }
 
 
@@ -285,10 +307,10 @@ The following 4 strings are the 4 maps.
             if(semplifiedBloodToken!=null){
                 SemplifiedPlayer semplifiedPlayer = semplifiedBloodToken.getOwner();
                 if(semplifiedPlayer==null){
-                    output=output+"\uD83D\uDCA7" ;
+                    output=output+"᮰" ;
                 }else{
                     String color = playerColor(semplifiedPlayer);
-                    output=output+color+"\uD83D\uDCA7"+AnsiColor.RESET;
+                    output=output+color+"᮰"+AnsiColor.RESET;
                 }
             }
         }
