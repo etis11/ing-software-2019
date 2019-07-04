@@ -337,43 +337,27 @@ public class GameMap {
     public List<Tile> getAllRegenPoints() {
         return new LinkedList<>(regenPoints.values());
     }
-/*
-    public Graph<Tile, DefaultEdge> createGraph(){
-        Graph<Tile, DefaultEdge> g
-                = new DefaultDirectedGraph<>(DefaultEdge.class);
-        for(Room room : this.getRooms()){
-            for(Tile tile : room.getTiles()){
-                //       System.out.println("tile id :"+tile.getID());
-                if(!g.containsVertex(tile)){
-                    // System.out.println("add vertex: "+tile.getID());
-                    g.addVertex(tile);
-                    // System.out.println("added vertex: "+tile.getID());
-                }else{
-                    //System.out.println("g.containsVertex : "+tile.getID());
-                }
-                for(Tile adjacent : tile.adjacentTiles()){
-                    if(!g.containsVertex(adjacent)){
-                        //   System.out.println("add vertex: "+adjacent.getID());
-                        g.addVertex(adjacent);
-                        // System.out.println("added vertex: "+adjacent.getID());
-                    }else{
-                        //System.out.println("g.containsVertex : "+adjacent.getID());
-                    }
-                    //System.out.println(" doing g.addEdge(tile,adjacent) "+adjacent.getID());
-                    g.addEdge(tile,adjacent);
-                    //System.out.println(" done g.addEdge(tile,adjacent) "+adjacent.getID());
-                }
-            }
-        }
-        return g;
-    }*/
-public static String getFilePath() {
+
+    public static String getFilePath() {
     return filePath;
 }
+
+    public Tile getTileFromId(int id){
+        List<Tile> tiles = mapAsList();
+        Tile tile = null;
+        for(Tile t: tiles){
+            if(t.getID() == id){
+                tile = t;
+                break;
+            }
+        }
+        return tile;
+    }
 
     public static void setFilePath(String filePath) {
         GameMap.filePath = filePath;
     }
+
     public void createGraph() {
         this.graph = new Graph();
         int idEdge = 1;

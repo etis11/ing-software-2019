@@ -9,6 +9,21 @@ public class SemplifiedWeaponCard {
     private boolean loaded;
     private List<SemplifiedEffect> baseEffect;
     private List<SemplifiedEffect> advancedEffect;
+    private int redCost;
+    private int blueCost;
+    private int yellowCost;
+
+    public int getRedCost() {
+        return redCost;
+    }
+
+    public int getBlueCost() {
+        return blueCost;
+    }
+
+    public int getYellowCost() {
+        return yellowCost;
+    }
 
     public String getName() {
         return name;
@@ -49,4 +64,24 @@ public class SemplifiedWeaponCard {
     public void setAdvancedEffect(List<SemplifiedEffect> advancedEffect) {
         this.advancedEffect = advancedEffect;
     }
+
+    public void canAfford(){
+        int red=0;
+        int blue=0;
+        int yellow=0;
+        for(int i=0;i<getCost().size();i++){
+            if(getCost().contains("red")){
+                red++;
+            }
+            if(getCost().contains("blue")){
+                blue++;
+            }
+            if(getCost().contains("yellow")){
+                yellow++;
+            }
+           ;
+        }
+    redCost=red;
+    blueCost=blue;
+    yellowCost=yellow;}
 }
