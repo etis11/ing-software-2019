@@ -341,7 +341,6 @@ public class Match implements ChangesMatchObservable{
         for(Player p:players){
             String state =p.getState().getName();
             if(state.equals("Dead") || state.equals("Overkilled")){
-                System.out.println("giocatore morto "+p.getName());
                 calculatePoints(p);
                 return true;
             }
@@ -364,7 +363,6 @@ public class Match implements ChangesMatchObservable{
      * @param p dead player
      */
     private void calculatePoints(Player p){
-        System.out.println("calcolo punti");
         List<BloodToken> damage = p.getPlayerBoard().getDamageTokens();
         int[] numDamagePerPlayer = new int[playerNumber];
         int[] orderedDamagePerPlayer = new int[playerNumber];
@@ -375,13 +373,13 @@ public class Match implements ChangesMatchObservable{
         if (playerNumber >= 0) System.arraycopy(numDamagePerPlayer, 0, orderedDamagePerPlayer, 0, playerNumber);
         Arrays.sort(orderedDamagePerPlayer);
         //attributes how many point scored each player
-        calculatePointPerPlayer(numDamagePerPlayer, orderedDamagePerPlayer, points, p);
+        points = calculatePointPerPlayer(numDamagePerPlayer, orderedDamagePerPlayer, points, p);
         //marks the overkill
         if (damage.size()==12){
            markPlayerAfterOverkill(damage.get(11).getOwner(), p);
         }
         //decrease max point value
-        p.getPlayerBoard().getKillValue().remove(0);
+        p.getPlayerBoard().decreaseKillValue();
         //points for first damage
         points[players.indexOf(damage.get(0).getOwner())]++;
         //attribute points to each player
@@ -460,7 +458,6 @@ public class Match implements ChangesMatchObservable{
             else{
                 numDamagePerPlayer[i] = 0;
             }
-            System.out.println(toEvaluate.getName()+" ha fatto "+numDamagePerPlayer[i]);
         }
     }
 
@@ -471,24 +468,22 @@ public class Match implements ChangesMatchObservable{
      * @param points points for scored for all player by this death
      * @param p player dead
      */
-    private void calculatePointPerPlayer(int[] numDamagePerPlayer, int [] orderedDamagePerPlayer, int[] points, Player p){
+    private int[] calculatePointPerPlayer(int[] numDamagePerPlayer, int [] orderedDamagePerPlayer, int[] points, Player p){
         int pointsIndex = 0;
-        System.out.println("kill value: "+p.getPlayerBoard().getKillValue().toString());
         for(int i = playerNumber-1; i>=0;i--){
             for (int j =0; j<playerNumber;j++){
-                if(orderedDamagePerPlayer[i]== numDamagePerPlayer[j] && i != players.indexOf(p)){
+                if(orderedDamagePerPlayer[i]== numDamagePerPlayer[j] && j != players.indexOf(p) && numDamagePerPlayer[j]!=0){
                     points[j]=p.getPlayerBoard().getKillValue().get(pointsIndex);
                     if(i>0 && orderedDamagePerPlayer[i-1]!=orderedDamagePerPlayer[i]){
                         pointsIndex++;
                     }
-                    System.out.println(players.get(j).getName()+" ha questi punti: "+points[j]);
                 }
-                else if (i == players.indexOf(p)){
+                else if (j == players.indexOf(p)||numDamagePerPlayer[j]==0){
                     points[j]=0;
-                    System.out.println(players.get(j).getName()+" ha questi punti: "+points[j]);
                 }
             }
         }
+        return points;
     }
 
     public Player getPlayerFromName(String name){

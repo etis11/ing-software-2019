@@ -61,6 +61,10 @@ public class PlayerBoard {
         return new LinkedList<>(killValue);
     }
 
+    public void decreaseKillValue() {
+        killValue.remove(0);
+    }
+
     /**
      * This method return the number of damage points
      *
@@ -184,6 +188,5 @@ public class PlayerBoard {
 
     public void resetPlayerboard(){
         damageTokens.clear();
-        System.out.println("danni size: "+damageTokens.size());
     }
 }

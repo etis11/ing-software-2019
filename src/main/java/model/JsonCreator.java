@@ -139,8 +139,6 @@ public class JsonCreator implements ChangesObserver, CreationGameObserver, Lobby
     public void notifyPlayerChange(Player p) {
         response.setPlayerChanged(true);
         response.addChangedPlayer(p);
-        System.out.println("Player cambiato " + p);
-        System.out.println("i suoi power up sono "+ p.getPowerUps());
     }
 
     /******************* CreationGameObserver ************************************************************/

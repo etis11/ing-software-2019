@@ -20,7 +20,7 @@ public class CommandExecutor {
     /**
      * duration of a turn expressed in seconds
      */
-    public static int turnLength = 50;
+    public static int turnLength = 500;
     private ShootState shootState;
     private WeaponCard weaponToUse;
     private List<OptionalEffect> opt;
