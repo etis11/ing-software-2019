@@ -478,6 +478,18 @@ public class CommandExecutor {
                 if(usePU){
                     //todo
                     //verifico se ce l'ha
+                    if(owner.hasPowerUp(powerUpParser(command.getPowerUpType()), colorParser(command.getColor()))){
+                        PowerUpCard powerUpCard = owner.getPowerUp(powerUpParser(command.getPowerUpType()), colorParser(command.getColor()));
+                        if(powerUpCard.getPowerUpType().equals(PowerUpType.TELEPORTER)){
+                            Tile toGo;
+                            currentPlayer.getTile().removePlayer(currentPlayer);
+                            toGo.addPlayer(owner);
+                        }
+                    }
+                    else{
+                        String error = "Non hai questo power up";
+                        notifier.notifyErrorTargetPlayer(error,userJsonReceiver, owner);
+                    }
                     //rimuovo
                     //applico
                     usePU=false;
@@ -1955,6 +1967,32 @@ public class CommandExecutor {
             currentPlayer.setOldTile(null);
         }
 
+    }
+
+    private String powerUpParser(PowerUpType powerUp){
+        switch (powerUp){
+            case TARGETING_SCOPE:
+                return "mirino";
+            case TAGBACK_GRANADE:
+                return "granata";
+            case TELEPORTER:
+                return "teletrasporto";
+            case NEWTON:
+                return "raggiocinetico";
+        }
+        return null;
+    }
+
+    private String colorParser(Color color){
+        if(color.equals(Color.RED)){
+            return "rosso";
+        }else if(color.equals(Color.BLUE)){
+            return "blu";
+        }else if(color.equals(Color.YELLOW)){
+            return "giallo";
+        }else{
+            return null;
+        }
     }
 
 }

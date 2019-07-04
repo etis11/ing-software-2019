@@ -119,18 +119,15 @@ public class MainFrame{
                         try{
                             //inserisci uno username
                             String possibleName = userField.getText().trim();
+                            String toPut = input.readLine();
                             output.println(possibleName);
                             output.flush();
                             String serverResponse = null;
-                            System.out.println("prima server response");
                             serverResponse = input.readLine();
-                            System.out.println("dopo server response " + serverResponse);
 
                         if (serverResponse.equals("OK")) {
                             try {
-                                System.out.println("prima creazione");
                                 cmdLauncher = new CommandLauncherProxySocket(mySocket, gui.getToken());
-                                System.out.println("dopo creazione");
                                 jsonSocketReceiver = new JsonRouterSocket(mySocket, receiver, gui.getToken());
                             } catch (IOException i) {
                                 info.setText(AnsiColor.RED + ">>> Problemi con il socket" + AnsiColor.RESET);
@@ -152,14 +149,15 @@ public class MainFrame{
                             }
                         } else {
                             info.setText(serverResponse);
+                            info.setVisible(true);
                         }
 
                         }catch (IOException e) {
                             LOGGER.LOGGER.log(Level.WARNING, e.getMessage());
                         }
 
-                            if (mySocket == null) throw new RuntimeException("null socket");
-                        }
+                        if (mySocket == null) throw new RuntimeException("null socket");
+                    }
 
                 } else {
                     info.setText("inserisci un username e/o token valido");
@@ -181,76 +179,83 @@ public class MainFrame{
                 info.setVisible(false);
                 if (checkUsername(userField.getText().trim()) || checkToken(tokenField.getText().trim(),userField.getText().trim())) {
                     if (networkActive) {
-                        String token = "";
-                        SemplifiedGame game = new SemplifiedGame();
-                        receiver= new JsonUnwrapper(game);
-                        //exports the jsonUnwrapper
-                        try{
-                            UnicastRemoteObject.exportObject(receiver,0);
-                        }catch(RemoteException i){
-                            LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(i.getStackTrace()));
-                            info.setText(i.getMessage());
-                            throw  new RuntimeException(i);
-                        }
-                        //gets the command container
-                        try{
-                        String newToken ;
-                        Registry registry = LocateRegistry.getRegistry(ip, 1099);
-//                        ServerRMIInterface serverRMI = null;
-                        try {
-                            serverRMI = (ServerRMIInterface) registry.lookup("serverRMI");
-                        } catch (NotBoundException e) {
-                            throw new RuntimeException(e);
-                        }
-                        //gets the token from the user
-                        if(checkToken(tokenField.getText().trim(),userField.getText().trim())) {
-                            token = tokenField.getText().trim();
-                        }
-                        System.out.println(serverRMI);
-                        newToken = serverRMI.getPersonalToken(token);
-                        gui.setToken(newToken);
-                        ClientSingleton.getInstance().setToken(newToken);
-                        //if newToken != token, a new user should be created
-                        if(!newToken.equals(token)){
-                            //user creation
-                            boolean ok = false;
-                            String serverResponse;
-                            String username;
-                            while (!ok){
-                                username = userField.getText().trim();
-                                serverResponse = serverRMI.checkUsername(newToken, username,receiver);
-                                if(serverResponse.contains("OK")){
-                                    ok = true;
-                                    cmdLauncher = serverRMI.getCurrentCommandLauncher(receiver);
-                                    cmdLauncher.addCommand(new SetUsernameCommand(newToken, username));
-                                    gui.setCmd(cmdLauncher);
 
+                            if(!connected){
+                            String token = "";
+                            SemplifiedGame game = new SemplifiedGame();
+                            receiver= new JsonUnwrapper(game);
+                            //exports the jsonUnwrapper
+                            try{
+                                UnicastRemoteObject.exportObject(receiver,0);
+                            }catch(RemoteException i){
+                                LOGGER.LOGGER.log(Level.WARNING, i.getMessage());
+                                info.setText(i.getMessage());
+                                info.setVisible(true);
+                                throw  new RuntimeException(i);
+                            }
+                            //gets the command container
+                            try {
+                                String newToken;
+                                Registry registry = LocateRegistry.getRegistry(ip, 1099);
+    //                        ServerRMIInterface serverRMI = null;
+                                try {
+                                    serverRMI = (ServerRMIInterface) registry.lookup("serverRMI");
+                                } catch (NotBoundException e) {
+                                    throw new RuntimeException(e);
                                 }
-                                else info.setText(serverResponse);
+                                //gets the token from the user
+                                if (checkToken(tokenField.getText().trim(), userField.getText().trim())) {
+                                    token = tokenField.getText().trim();
+                                }
+                                newToken = serverRMI.getPersonalToken(token);
+                                gui.setToken(newToken);
+                                //if newToken != token, a new user should be created and restarts the game
+    //                        if(newToken.equals(token)){
+    //                            cmdLauncher = serverRMI.reconnect(newToken, receiver);
+    //                            gui.setCmd(cmdLauncher);
+    //                        }
+                                connected = true;
+                            }
+                            catch (Exception r){
+                                LOGGER.LOGGER.log(Level.WARNING, r.getMessage());
+                                info.setText(r.getMessage());
+                                info.setVisible(true);
+                                throw new RuntimeException(r);
                             }
                         }
-                        else {
-                            cmdLauncher = serverRMI.reconnect(newToken, receiver);
-                            gui.setCmd(cmdLauncher);
+                        //user creation
+                        String serverResponse;
+                        String username;
+                        username = userField.getText().trim();
+                        try {
+                            serverResponse = serverRMI.checkUsername(gui.getToken(), username, receiver);
+                            if (serverResponse.contains("OK")) {
+
+                                cmdLauncher = serverRMI.getCurrentCommandLauncher(receiver);
+
+                                try {
+                                    cmdLauncher.addCommand(new SetUsernameCommand(gui.getToken(), username));
+                                    gui.setCmd(cmdLauncher);
+                                    gui.startLobby();
+                                } catch (RemoteException e) {
+                                    e.printStackTrace();
+                                }
+
+                            } else {
+                                info.setText(serverResponse);
+                                info.setVisible(true);
+                            }
+                        }catch (RemoteException e) {
+                            e.printStackTrace();
                         }
 
-
-
-                        }
-                        catch (Exception r){
-                            LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(r.getStackTrace()));
-                            info.setText(r.getMessage());
-                            throw new RuntimeException(r);
-                        }
                         receiver.attachMapObserver(gui);
                         receiver.attachMessageListener(gui);
                         receiver.attachPlayerObserver(gui);
                         receiver.attachMatchObserver(gui);
                         //todo frose servce setcmd
-                    } else {
-                        cmdLauncher = new CommandLauncher(new GameManager(), new JsonCreator());
-                        gui.setCmd(cmdLauncher);
                     }
+
                     try {
                         cmdLauncher.addCommand(new SetUsernameCommand(ClientSingleton.getInstance().getToken(), userField.getText().trim()));
                         gui.startLobby();
