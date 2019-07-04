@@ -31,18 +31,16 @@ public class CLILauncher {
     private static ServerRMIInterface serverRMI = null;
 
     public static void main(String[] args) throws IOException {
-        if (args.length <2){
-            System.out.println(AnsiColor.RED +  "Inserire IP e porta del server");
+        if (args.length <3){
+            System.out.println(AnsiColor.RED +  "Inserire IP ,porta del server e ip del client");
             System.exit(0);
         }
-        String ip = args[0];
+        String serverIp = args[0];
         int port = Integer.parseInt(args[1]);
+        String myIp = args[2];
 
-//        System.setProperty("java.security.policy","myPolicy.policy");
-//
-//        if (System.getSecurityManager() == null) {
-//            System.setSecurityManager(new SecurityManager());
-//        }
+
+        System.setProperty("java.rmi.server.hostname", myIp);
 
 
         CLI = new CommandLineInterface();
@@ -68,7 +66,7 @@ public class CLILauncher {
             //gets the command container
 //            try{
                 String newToken ;
-                Registry registry = LocateRegistry.getRegistry(ip, 1099);
+                Registry registry = LocateRegistry.getRegistry(serverIp, 1099);
 //            ServerRMIInterface serverRMI = null;
             try {
                 serverRMI = (ServerRMIInterface) registry.lookup("serverRMI");
@@ -122,7 +120,7 @@ public class CLILauncher {
             Socket mySocket;
             JsonRouterSocket jsonSocketReceiver = null;
             try{
-                mySocket = new Socket(ip, port);
+                mySocket = new Socket(serverIp, port);
                 BufferedReader input = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
                 PrintWriter output = new PrintWriter(mySocket.getOutputStream());
                 CLI.displayText("Inserisci un token.");

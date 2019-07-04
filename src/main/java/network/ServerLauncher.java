@@ -22,12 +22,13 @@ public class ServerLauncher {
     static private ServerRMIInterface rmiServer= null;
 
     public static void main(String[] args) throws RemoteException, AlreadyBoundException, FileNotFoundException {
-        if (args.length == 0){
-            System.out.println("Porta mancante");
+        if (args.length < 2){
+            System.out.println("Ip o porta mancante del server");
             System.exit(0);
         }
 
-        int port = Integer.parseInt(args[0]);
+        String serverIP = args[0];
+        int port = Integer.parseInt(args[1]);
         int turnTimer = -1;
         int startTimer = -1;
         //inizializzazione per rmi
@@ -35,6 +36,8 @@ public class ServerLauncher {
 //        if (System.getSecurityManager() == null) {
 //            System.setSecurityManager(new SecurityManager());
 //        }
+
+        System.setProperty("java.rmi.server.hostname", serverIP);
 
         if (args.length >= 2){
             turnTimer = Integer.parseInt(args[1]);

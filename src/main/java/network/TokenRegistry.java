@@ -187,7 +187,6 @@ public class TokenRegistry {
                 }
             }
             if (toRemoveToken != null){
-                System.out.println("RIMOSSSOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
                 removeTokenReceiverAssociation(toRemoveToken);
             }
         }
