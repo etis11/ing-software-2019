@@ -1,12 +1,10 @@
 package Test;
 
-import jsonparser.JsonFileReader;
 import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import view.AnsiColor;
 
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -68,7 +66,7 @@ public class WeaponCardTest {
         //oggetti distinti ma uguali->serve costruttore
     }
 
-    @Test
+   /* @Test
     void jsonLoadTest() {
         JsonFileReader jsonFileReader = new JsonFileReader();// C:\Users\new xps\Documents\ing-sw-2019-44\src\main\resources\cards\weaponCards.json
        // loadWeaponCards is never used
@@ -105,5 +103,5 @@ public class WeaponCardTest {
             }
         }
 
-    }
+    }*/
 }
