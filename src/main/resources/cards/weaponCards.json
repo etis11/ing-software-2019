@@ -1204,7 +1204,7 @@
         "alreadyMovedTarget": false,
         "isGlobal": false,
         "damage": {
-          "red": 2,
+          "red": 11,
           "blue": 0,
           "green": 0
         },

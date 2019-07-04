@@ -341,6 +341,7 @@ public class Match implements ChangesMatchObservable{
         for(Player p:players){
             String state =p.getState().getName();
             if(state.equals("Dead") || state.equals("Overkilled")){
+                System.out.println("giocatore morto "+p.getName());
                 calculatePoints(p);
                 return true;
             }
@@ -363,6 +364,7 @@ public class Match implements ChangesMatchObservable{
      * @param p dead player
      */
     private void calculatePoints(Player p){
+        System.out.println("calcolo punti");
         List<BloodToken> damage = p.getPlayerBoard().getDamageTokens();
         int[] numDamagePerPlayer = new int[playerNumber];
         int[] orderedDamagePerPlayer = new int[playerNumber];
@@ -458,6 +460,7 @@ public class Match implements ChangesMatchObservable{
             else{
                 numDamagePerPlayer[i] = 0;
             }
+            System.out.println(toEvaluate.getName()+" ha fatto "+numDamagePerPlayer[i]);
         }
     }
 

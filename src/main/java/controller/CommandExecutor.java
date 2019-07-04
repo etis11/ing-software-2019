@@ -1895,6 +1895,12 @@ public class CommandExecutor {
             dt = advanced.useEffect(currentPlayer, targets.get(0), "red");
         }
         targets.get(0).calculateDamage(dt);
+        if(targets.get(0).getPlayerBoard().getNumDamagePoints()==11){
+            targets.get(0).getState().nextState("Dead", targets.get(0));
+        }
+        if(targets.get(0).getPlayerBoard().getNumDamagePoints()==12){
+            targets.get(0).getState().nextState("Overkilled", targets.get(0));
+        }
         commandExecutorLogger.log(Level.INFO, "calculated damage for red "+dt.getNumDamage()+" damage and "+dt.getNumMark()+" marks to "+targets.get(0).getName());
         dt = null;
         //target blue
@@ -1912,6 +1918,12 @@ public class CommandExecutor {
         }
         if(dt != null){
             targets.get(1).calculateDamage(dt);
+            if(targets.get(1).getPlayerBoard().getNumDamagePoints()==11){
+                targets.get(1).getState().nextState("Dead", targets.get(1));
+            }
+            if(targets.get(1).getPlayerBoard().getNumDamagePoints()==12){
+                targets.get(1).getState().nextState("Overkilled", targets.get(1));
+            }
             commandExecutorLogger.log(Level.INFO, "calculated damage for blue "+dt.getNumDamage()+" damage and "+dt.getNumMark()+" marks to "+targets.get(1).getName());
         }
 
@@ -1931,6 +1943,12 @@ public class CommandExecutor {
         }
         if(dt != null){
             targets.get(2).calculateDamage(dt);
+            if(targets.get(2).getPlayerBoard().getNumDamagePoints()==11){
+                targets.get(2).getState().nextState("Dead", targets.get(2));
+            }
+            if(targets.get(2).getPlayerBoard().getNumDamagePoints()==12){
+                targets.get(2).getState().nextState("Overkilled", targets.get(2));
+            }
             commandExecutorLogger.log(Level.INFO, "calculated damage for red "+dt.getNumDamage()+" damage and "+dt.getNumMark()+" marks to "+targets.get(2).getName());
         }
         System.out.println("Arma prima reset opt: "+weaponToUse);

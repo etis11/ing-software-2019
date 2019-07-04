@@ -271,7 +271,7 @@ The following 4 strings are the 4 maps.
         String output = "";
         List<SemplifiedBloodToken> damageTokens = damagePlayer.getPlayerBoard().getDamageTokens() ;
         int a = damageTokens.size() ;
-        for(int i =0 ; i<10-a; i++){
+        for(int i =0 ; i<11-a; i++){
             damageTokens.add(new SemplifiedBloodToken());
         }
 
@@ -299,7 +299,7 @@ The following 4 strings are the 4 maps.
         String output = "";
         List<SemplifiedBloodToken> marxTokens = markedPlayer.getPlayerBoard().getMarksTokens() ;
         int a = marxTokens.size() ;
-        for(int i =0 ; i<10-a; i++){
+        for(int i =0 ; i<11-a; i++){
             marxTokens.add(new SemplifiedBloodToken());
         }
 
