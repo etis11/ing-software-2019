@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class CommandExecutor {
     private final TokenRegistry registry = TokenRegistry.getInstance();
     private final static Logger commandExecutorLogger = Logger.getLogger(CommandExecutor.class.getName());
-    public static int startMatchTimerDelay= 15;
+    public static int startMatchTimerDelay= 1;
     /**
      * duration of a turn expressed in seconds
      */
@@ -107,7 +107,7 @@ public class CommandExecutor {
                     String message = currentPlayer.getName()+" ha terminato il suo turno";
                     for (JsonReceiver js : command.getAllReceivers()) {
                         if (js != userJsonReceiver) {
-                            notifyToAllExceptCurrent(js, userJsonReceiver, message);
+                            notifyExceptCurrent(js, userJsonReceiver, message);
                         }
                     }
                     endTurnNotification(userJsonReceiver);
@@ -206,9 +206,6 @@ public class CommandExecutor {
         JsonReceiver userToBeNotifiedThrow = null;
         for(JsonReceiver jr : allJsonReceiver){
             User userToBeNotified= TokenRegistry.getInstance().getJsonUserOwner(jr);
-            //the user is null if the jsonreceiver has disconnected, so should not be checked.
-            //TODO probabilmente crea dei problemi nello spawning di un player disconnesso, bisogna scorrere
-            //TODO tutti i player, controllare che devono spawnare, ed farli spawnare in maniera automatica dal server
             if (userToBeNotified != null){
                 if(userToBeNotified.getPlayer().getName().equals(gameManager.getMatch().getCurrentPlayer().getName())){
                     userToBeNotifiedThrow = jr;
@@ -216,10 +213,17 @@ public class CommandExecutor {
             }
         }
         Player currentPlayer = gameManager.getMatch().getCurrentPlayer();
-        notifier.notifyMessageTargetPlayer("", userToBeNotifiedThrow, currentPlayer);
+        for (JsonReceiver jsonReceiver: allJsonReceiver){
+            if(jsonReceiver != userToBeNotifiedThrow){
+                notifier.notifyMessageTargetPlayer("", jsonReceiver, registry.getJsonUserOwner(jsonReceiver).getPlayer());
+            }
+        }
         if((currentPlayer.getState().getName().equals("EndTurn")&& currentPlayer.getTile() == null) || currentPlayer.getState().getName().equals("Dead") || currentPlayer.getState().getName().equals("Overkilled")) {
             notifier.notifyMessageTargetPlayer("scegli quale powerup scartare per spawnare", userToBeNotifiedThrow, currentPlayer);
             commandExecutorLogger.log(Level.INFO, "Richiesta scarto power up per spawn a "+currentPlayer.getName());
+        }
+        else {
+            notifier.notifyMessageTargetPlayer("E' iniziato il tuo turno", userToBeNotifiedThrow, currentPlayer);
         }
     }
 
@@ -417,7 +421,7 @@ public class CommandExecutor {
                     shootState = ShootState.ASKEDSHOOT;
                     String message = currentPlayer.getName()+" sta per sparare";
                     for (JsonReceiver js : command.getAllReceivers()) {
-                        notifyToAllExceptCurrent(js, userJsonReceiver, message);
+                        notifyExceptCurrent(js, userJsonReceiver, message);
                     }
                     notifier.notifyMessageTargetPlayer("Muoviti o scegli con quale arma sparare tra: "
                             + currentPlayer.weaponsToString(), userJsonReceiver, currentPlayer);
@@ -569,7 +573,7 @@ public class CommandExecutor {
                             //case run state
                             if (currentPlayer.getState().getName().equals("Run")) {
                                 for (JsonReceiver js : command.getAllReceivers()) {
-                                    notifyToAllExceptCurrent(js, userJsonReceiver, message);
+                                    notifyExceptCurrent(js, userJsonReceiver, message);
                                 }
                                 notifier.notifyMessageTargetPlayer("Ti sei spostato nel tile :" + currentPlayer.getTile().getID()
                                         , userJsonReceiver, currentPlayer);
@@ -589,7 +593,7 @@ public class CommandExecutor {
                                     //notifyMessage
                                     String message2 = currentPlayer.getName() + " si è spostato nel tile " + currentPlayer.getTile().getID() + " ha raccolto una carta munizioni";
                                     for (JsonReceiver js : command.getAllReceivers()) {
-                                        notifyToAllExceptCurrent(js, userJsonReceiver, message2);
+                                        notifyExceptCurrent(js, userJsonReceiver, message2);
                                     }
                                     notifier.notifyMessageTargetPlayer("Ti sei spostato nel tile " + currentPlayer.getTile().getID()
                                             + " e hai raccolto una carta munizioni", userJsonReceiver, currentPlayer);
@@ -736,7 +740,7 @@ public class CommandExecutor {
                                         currentPlayer.pickUpWeapon(weaponCard);
                                         String message = currentPlayer.getName()+" ha raccolto: " + weaponCard.getName();
                                         for (JsonReceiver js : command.getAllReceivers()) {
-                                            notifyToAllExceptCurrent(js, userJsonReceiver, message);
+                                            notifyExceptCurrent(js, userJsonReceiver, message);
                                         }
                                         notifier.notifyMessageTargetPlayer("Hai raccolto " + weaponCard.getName(), userJsonReceiver, currentPlayer);
                                         commandExecutorLogger.log(Level.INFO, "Picked up "+weaponCard.getName()+" from "+currentPlayer.getName());
@@ -793,7 +797,7 @@ public class CommandExecutor {
                         currentPlayer.throwWeaponCard(toThrow);
                         String message = currentPlayer.getName()+" ha scartato: "+command.getWeaponToThrow();
                         for (JsonReceiver js : command.getAllReceivers()) {
-                            notifyToAllExceptCurrent(js, userJsonReceiver, message);
+                            notifyExceptCurrent(js, userJsonReceiver, message);
                         }
                         notifier.notifyMessageTargetPlayer("Hai scartato: "+command.getWeaponToThrow(), userJsonReceiver, currentPlayer);
                         commandExecutorLogger.log(Level.INFO, "Thrown "+toThrow.getName()+" from "+currentPlayer.getName());
@@ -902,9 +906,9 @@ public class CommandExecutor {
                            // e.printStackTrace();
                             LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                         }
-                        String message = currentPlayer.getName() + " si è rigenerato nel punto di rigenerazione" + regenPointColor;
+                        String message = currentPlayer.getName() + " si è rigenerato nel punto di rigenerazione " + regenPointColor;
                         for (JsonReceiver js : command.getAllReceivers()) {
-                            notifyToAllExceptCurrent(js, userJsonReceiver, message);
+                            notifyExceptCurrent(js, userJsonReceiver, message);
                         };
                         notifier.notifyMessageTargetPlayer("Ti sei rigenerato nel punto di rigenerazione " + regenPointColor, userJsonReceiver, currentPlayer);
                         commandExecutorLogger.log(Level.INFO, "Spawn of "+currentPlayer.getName());
@@ -1705,7 +1709,7 @@ public class CommandExecutor {
     }
 
 
-    private void notifyToAllExceptCurrent(JsonReceiver js, JsonReceiver userJsonReceiver, String message) throws IOException {
+    private void notifyExceptCurrent(JsonReceiver js, JsonReceiver userJsonReceiver, String message) throws IOException {
         if (js != userJsonReceiver) {
             User userToBenotified = registry.getJsonUserOwner(js);
             Player userPlayer = userToBenotified.getPlayer();
@@ -1957,7 +1961,7 @@ public class CommandExecutor {
         notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
         message = "Sono stati colpiti: "+printTargetsName();
         for (JsonReceiver js : receivers) {
-            notifyToAllExceptCurrent(js, userJsonReceiver, message);
+            notifyExceptCurrent(js, userJsonReceiver, message);
         }
         commandExecutorLogger.log(Level.INFO, "target selected correctly "+currentPlayer.getName());
     }

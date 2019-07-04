@@ -74,7 +74,7 @@ public class SemplifiedTile {
         String weaponCardsString = "";
         if(this.weapons !=null && this.weapons.size()>0){
             for(SemplifiedWeaponCard weaponCard : this.weapons){
-                weaponCardsString= weaponCardsString +"  ||  "+weaponCard.getName()+weaponCard.getCost();
+                weaponCardsString= weaponCardsString +"  ||  "+weaponCard.getName();
                 weaponCard.getRedCost();
             }
         }
