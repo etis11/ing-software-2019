@@ -105,22 +105,29 @@ public class MainFrame{
                                 String tokenResponse;
                                 tokenResponse = input.readLine();
                                 if (tokenResponse.equals("TOKEN OK")) {
-                                    ClientSingleton.getInstance().setToken(token);
                                     gui.setToken(token);
                                 } else {
                                     token = tokenResponse;
                                     gui.setToken(token);
-                                    ClientSingleton.getInstance().setToken(token);
                                     //inserisci uno username
                                     String possibleName = userField.getText().trim();
                                     output.println(possibleName);
                                     output.flush();
                                     String serverResponse = input.readLine();
                                     if (serverResponse.equals("OK")) {
-                                        if (cmdLauncher == null) {
-                                            cmdLauncher = new CommandLauncher(new GameManager(), new JsonCreator());
-                                            gui.setCmd(cmdLauncher);
+                                        try {
+                                            cmdLauncher = new CommandLauncherProxySocket(mySocket, token);
+                                            jsonSocketReceiver = new JsonRouterSocket(mySocket, receiver, token);
+                                        } catch (IOException i) {
+                                            info.setText(AnsiColor.RED + ">>> Problemi con il socket" + AnsiColor.RESET);
+                                            info.setVisible(true);
                                         }
+                                        receiver.attachMapObserver(gui);
+                                        receiver.attachMessageListener(gui);
+                                        receiver.attachPlayerObserver(gui);
+                                        receiver.attachMatchObserver(gui);
+                                        new Thread(jsonSocketReceiver).start();
+                                        gui.setCmd(cmdLauncher);
                                         try {
                                             cmdLauncher.addCommand(new SetUsernameCommand(ClientSingleton.getInstance().getToken(), userField.getText().trim()));
                                             gui.startLobby();
@@ -138,21 +145,6 @@ public class MainFrame{
                                 throw new RuntimeException("Server down");
                             }
                             if (mySocket == null) throw new RuntimeException("null socket");
-                            try {
-                                cmdLauncher = new CommandLauncherProxySocket(mySocket, token);
-                                jsonSocketReceiver = new JsonRouterSocket(mySocket, receiver, token);
-                            } catch (IOException i) {
-                                info.setText(AnsiColor.RED + ">>> Problemi con il socket" + AnsiColor.RESET);
-                                info.setVisible(true);
-                            }
-                            receiver.attachMapObserver(gui);
-                            receiver.attachMessageListener(gui);
-                            receiver.attachPlayerObserver(gui);
-                            receiver.attachMatchObserver(gui);
-                            if (jsonSocketReceiver == null)
-                                throw new RuntimeException("the json socket receiver is null");
-                            new Thread(jsonSocketReceiver).start();
-                            gui.setCmd(cmdLauncher);
                             connected = true;
                         } else {
                             //inserisci uno username
