@@ -33,7 +33,7 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
      */
     private final CommandLauncherProvider launchers;
 
-    private final Registry registry;
+    public static Registry registry;
 
     /**
      * Creates a server with a launcher and the RMI registry.
