@@ -494,8 +494,73 @@ public class CommandExecutor {
                 if(usePU){
                     //todo
                     //verifico se ce l'ha
-                    //rimuovo
-                    //applico
+                    if(owner.hasPowerUp(powerUpParser(command.getPowerUpType()), colorParser(command.getColor()))){
+                        PowerUpCard powerUpCard = owner.getPowerUp(powerUpParser(command.getPowerUpType()), colorParser(command.getColor()));
+                        if(currentPlayer.getState().getName().equals("NormalAction") || currentPlayer.getState().getName().equals("MoreAction")|| currentPlayer.getState().getName().equals("MostAction")) {
+                            System.out.println("azione giusta");
+                            if (powerUpCard.getPowerUpType().equals(PowerUpType.TELEPORTER)) {
+                                System.out.println("teletrasporto");
+                                Tile toGo = gameManager.getMatch().getMap().getTileFromId(Integer.parseInt(command.getParam()));
+                                try {
+                                    currentPlayer.getTile().removePlayer(currentPlayer);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                toGo.addPlayer(owner);
+                                try {
+                                    gameManager.getMatch().getPowerUpSlushPile().addCard(currentPlayer.throwPowerUp(powerUpCard));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                String message = currentPlayer.getName() + " si è teletrasportato nel tile: " + currentPlayer.getTile().getID();
+                                for (JsonReceiver js : command.getAllReceivers()) {
+                                    notifyExceptCurrent(js, userJsonReceiver, message);
+                                }
+                                notifier.notifyMessageTargetPlayer(currentPlayer.getName()+" si è teletrasportato nel tile :" + currentPlayer.getTile().getID()
+                                        , userJsonReceiver, currentPlayer);
+                                commandExecutorLogger.log(Level.INFO, "teleport of  " + currentPlayer.getName() + " correctly done");
+                            }else if (powerUpCard.getPowerUpType().equals(PowerUpType.NEWTON)){
+                                Player playerToMove = gameManager.getMatch().getPlayerFromName(command.getParam());
+                                List<String> move = new LinkedList<>(Arrays.asList(command.getParam2().split(",")));
+                                playerToMove.setOldTile(playerToMove.getTile());
+                                if(move.size()<3){
+                                    if(move.size()==1 ||(move.size()==2 && move.get(0).equals(move.get(1)))){
+                                        try {
+                                            playerToMove.move(new Movement(move));
+                                        } catch (NotValidMovesException e) {
+                                            e.printStackTrace();
+                                        }
+                                        try {
+                                            gameManager.getMatch().getPowerUpSlushPile().addCard(currentPlayer.throwPowerUp(powerUpCard));
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        String message = playerToMove.getName() + " è stato spostato di nel tile: " + playerToMove.getTile().getID();
+                                        for (JsonReceiver js : command.getAllReceivers()) {
+                                            notifyExceptCurrent(js, userJsonReceiver, message);
+                                        }
+                                        notifier.notifyMessageTargetPlayer("Hai spostato "+playerToMove.getName()+" nel tile :" + playerToMove.getTile().getID()
+                                                , userJsonReceiver, currentPlayer);
+                                        commandExecutorLogger.log(Level.INFO, "Run of  " + playerToMove.getName() + " correctly done");
+                                    }
+                                    else{
+                                        String error = "Movimento sbagliato";
+                                        notifier.notifyErrorTargetPlayer(error,userJsonReceiver, owner);
+                                    }
+                                }
+                                else{
+                                    String error = "Movimento sbagliato";
+                                    notifier.notifyErrorTargetPlayer(error,userJsonReceiver, owner);
+                                }
+
+                            }
+
+                        }
+                    }
+                    else{
+                        String error = "Non hai questo power up";
+                        notifier.notifyErrorTargetPlayer(error,userJsonReceiver, owner);
+                    }
                     usePU=false;
                     //in caso di pu non valido riporto usePu a false
                 }
@@ -1721,7 +1786,7 @@ public class CommandExecutor {
     }
 
 
-    private void notifyExceptCurrent(JsonReceiver js, JsonReceiver userJsonReceiver, String message) throws IOException {
+    private void notifyExceptCurrent(JsonReceiver js, JsonReceiver userJsonReceiver, String message){
         if (js != userJsonReceiver) {
             User userToBenotified = registry.getJsonUserOwner(js);
             Player userPlayer = userToBenotified.getPlayer();
@@ -1729,7 +1794,7 @@ public class CommandExecutor {
         }
     }
 
-    private void returnOldState(Player currentPlayer, JsonReceiver userJsonReceiver, String message) throws IOException {
+    private void returnOldState(Player currentPlayer, JsonReceiver userJsonReceiver, String message){
         if(currentPlayer.getTile() != currentPlayer.getOldTile()) {
             currentPlayer.getOldTile().addPlayer(currentPlayer);
         }
@@ -1989,6 +2054,32 @@ public class CommandExecutor {
             currentPlayer.setOldTile(null);
         }
 
+    }
+
+    private String powerUpParser(PowerUpType powerUp){
+        switch (powerUp){
+            case TARGETING_SCOPE:
+                return "mirino";
+            case TAGBACK_GRANADE:
+                return "granata";
+            case TELEPORTER:
+                return "teletrasporto";
+            case NEWTON:
+                return "raggiocinetico";
+        }
+        return null;
+    }
+
+    private String colorParser(Color color){
+        if(color.equals(Color.RED)){
+            return "rosso";
+        }else if(color.equals(Color.BLUE)){
+            return "blu";
+        }else if(color.equals(Color.YELLOW)){
+            return "giallo";
+        }else{
+            return null;
+        }
     }
 
 }

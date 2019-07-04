@@ -162,6 +162,10 @@ public class Match implements ChangesMatchObservable{
         this.powerUpSlushPile = new Deck<>();
     }
 
+    public Deck<PowerUpCard> getPowerUpSlushPile() {
+        return powerUpSlushPile;
+    }
+
     /**
      * Method that returns number of skulls left during gameplay.
      */
