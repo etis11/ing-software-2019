@@ -92,6 +92,7 @@ public class TokenRegistry {
         if(receiver == null)
             System.out.println("accesso ad un receiver null, capire bene perchè. Forse perchè non ho implementato il salto dei player" +
                     "inattivi ");
+
         User owner = receiverUser.get(receiver);
         return owner;
     }
@@ -122,7 +123,7 @@ public class TokenRegistry {
      */
     public void associateTokenAndReceiver(String token, JsonReceiver jsonReceiver) {
         synchronized (registeredTokens) {
-            if (associatonTokenReceiver.containsKey(token))
+            if (associatonTokenReceiver.get(token) != null)
                 throw new DuplicateException(">>> There is already a jsonReceiver associated to this token");
             if (!registeredTokens.contains(token)) registeredTokens.add(token);
             JsonReceiver test= associatonTokenReceiver.putIfAbsent(token, jsonReceiver);

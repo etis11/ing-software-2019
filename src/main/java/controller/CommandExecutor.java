@@ -2,6 +2,7 @@ package controller;
 
 import controller.commandpack.*;
 import exceptions.*;
+import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import model.*;
 import network.TokenRegistry;
@@ -19,7 +20,7 @@ public class CommandExecutor {
     /**
      * duration of a turn expressed in seconds
      */
-    public static int turnLength = 500;
+    public static int turnLength = 50;
     private ShootState shootState;
     private WeaponCard weaponToUse;
     private List<OptionalEffect> opt;
@@ -279,6 +280,17 @@ public class CommandExecutor {
             notifier.disconnectReceiver(jsonReceiver);
         }
     }
+
+    /**
+     * called by the server with a reconnection, communicates the state of the model
+     * @param notifyReceiverCommand the receiver that connected
+     */
+    public void execute(NotifyReceiverCommand notifyReceiverCommand){
+        JsonReceiver jsonReceiver = notifyReceiverCommand.getJsonReceiver();
+        Player thisPlayer = registry.getJsonUserOwner(jsonReceiver).getPlayer();
+        notifier.notifyMessageTargetPlayer("Ti sei riconnesso", jsonReceiver, thisPlayer);
+    }
+
 
     public void execute(AskPickCommand command) throws IOException {
         boolean gameHasStarted = hasMatchStarted(gameManager);

@@ -2,6 +2,7 @@ package network.Socket;
 
 import controller.*;
 import controller.commandpack.Command;
+import controller.commandpack.NotifyReceiverCommand;
 import controller.commandpack.SetUsernameCommand;
 import controller.commandpack.StopTimerLobby;
 import model.User;
@@ -67,6 +68,7 @@ public class CommandReceiverSocket implements Runnable {
         String clientToken = null;
         String username = null;
         User user = null;
+        boolean reconnected = false;
         boolean mustCreateUser = false;
         try{
             PrintWriter clientOutput = new PrintWriter(clientSocket.getOutputStream());
@@ -118,8 +120,7 @@ public class CommandReceiverSocket implements Runnable {
                 System.out.println("dopo richiesta token");
                 user =provider.ReconnectUserToOldGame(username);
                 if (user == null) throw new RuntimeException("User ottenuto null");
-                System.out.println("dopo riconnessione");
-                System.out.println("Usern riattivato");
+                reconnected = true;
             }
 
             //creates a json Receiver and binds it to the client socket.
@@ -141,6 +142,9 @@ public class CommandReceiverSocket implements Runnable {
             if(mustCreateUser){
 
                 launcher.addCommand(new SetUsernameCommand(clientToken, username));
+            }
+            if (reconnected){
+                launcher.addCommand(new NotifyReceiverCommand("", jsonReceiverProxySocket));
             }
         }
         catch (IOException ioe){

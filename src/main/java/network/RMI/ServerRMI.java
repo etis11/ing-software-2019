@@ -4,6 +4,7 @@ import controller.CommandLauncher;
 import controller.CommandLauncherInterface;
 import controller.CommandLauncherProvider;
 import controller.JsonReceiver;
+import controller.commandpack.NotifyReceiverCommand;
 import controller.commandpack.SetUsernameCommand;
 import exceptions.DuplicateException;
 import model.User;
@@ -45,7 +46,7 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
         launchers = provider;
 
         registry = LocateRegistry.createRegistry(1099);
-        rmiServerLogger.log(Level.INFO, ">>> Created the registry");
+        rmiServerLogger.log(Level.INFO, "WCreated the registry");
     }
 
     public Registry getRegistry() {
@@ -68,9 +69,6 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
 
     /**
      * creates a token and adds it to the list of tokens
-     *TODO ATTENZIONE, potrebbe essere che se io conoscessi il token di passoni potrei connettermi e registrare il mio json receiver
-     * TODO al posto del suo per vedere le sue notifiche. Non penso che sia un vero problema perchè associateTokenAndReceiver inserisce l'associazione
-     * TODO solo se il token non è già associato
      * @return the token
      */
     @Override
@@ -111,6 +109,7 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
         if (user!= null){
             registry.associateReceiverAndUser(receiver, user);
         }
+        launcher.addCommand( new NotifyReceiverCommand("",receiver));
         return launcher;
     }
 
