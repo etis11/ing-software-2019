@@ -176,7 +176,6 @@ public class CLILauncher {
             if (jsonSocketReceiver == null) throw new RuntimeException("the json socket receiver is null");
             new Thread(jsonSocketReceiver).start();
             startCLI(CLI, cmdLauncher, game);
-            System.out.println("CLI lanciata");
         }
         else{
             cmdLauncher = new CommandContainer() {

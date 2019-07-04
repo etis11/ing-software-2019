@@ -25,6 +25,7 @@ public class Gui extends Application implements LobbyListener, MapObserver, Mess
 
     private String username;
     private String map =  "piccola";
+    private String token;
     private CommandContainer cmd = new CommandLauncher(new GameManager(), new JsonCreator());
     private MainFrame mainFrame;
     private LobbyFrame lobbyFrame;
@@ -32,7 +33,16 @@ public class Gui extends Application implements LobbyListener, MapObserver, Mess
 
     @Override
     public void start(Stage stage) throws Exception {
-        mainFrame = new MainFrame(this);
+        Parameters params = getParameters();
+        List<String> args = params.getRaw();
+        if (args.size() <2){
+            System.out.println(AnsiColor.RED +  "Inserire IP e porta del server");
+            System.exit(0);
+        }
+        String ip = args.get(0);
+        int port = Integer.parseInt(args.get(1));
+
+        mainFrame = new MainFrame(this, ip, port);
         mainFrame.show();
 //        lobbyFrame.show();
 //        gameFrame.show();
@@ -63,6 +73,14 @@ public class Gui extends Application implements LobbyListener, MapObserver, Mess
 
     public void setMap(String map){
         this.map = map;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override
