@@ -176,9 +176,9 @@ The following 4 strings are the 4 maps.
                 "║" + AnsiColor.RED_BACKGROUND + "     4    " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "     5    " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "     6    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "     7    " + AnsiColor.RESET + "║"+user[4]+"\n" +
                 "║" + AnsiColor.RED_BACKGROUND + p[4] + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + p[5] + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + p[6] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[7] + AnsiColor.RESET + "║\n" +
                 "╠══════════╬═══    ═══╬══════════╬          ╣\t\t\t\tLEGENDA DELLE ARMI\n" +
-                "║          ║" + AnsiColor.GREEN_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.GREEN_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND +" "+AnsiColor.RESET+AnsiColor.BLACK+"REG TILE"+AnsiColor.RESET+AnsiColor.YELLOW_BACKGROUND+" " + AnsiColor.RESET +"║\t"+AnsiColor.BLUE+"REG TILE: "+AnsiColor.RESET+mappa.getTile(0,2).getId()+" "+mappa.getTile(0,2).toString()+"\n" +
-                "║     8    ║" + AnsiColor.GREEN_BACKGROUND + "     9    " + AnsiColor.RESET + " " + AnsiColor.GREEN_BACKGROUND + "    10    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    11    " + AnsiColor.RESET + "║\t"+AnsiColor.RED+"REG TILE: "+AnsiColor.RESET+mappa.getTile(1,0).getId()+" "+mappa.getTile(1,0).toString()+"\n" +
-                "║"+     p[8]     +"║" + AnsiColor.GREEN_BACKGROUND + p[9] + AnsiColor.RESET + " " + AnsiColor.GREEN_BACKGROUND + p[10] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[11] + AnsiColor.RESET + "║\t"+AnsiColor.YELLOW+"REG TILE: "+AnsiColor.RESET+mappa.getTile(2,3).getId()+mappa.getTile(2,3).toString()+"\n" +
+                "║          ║" + AnsiColor.GREEN_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.GREEN_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND +" "+AnsiColor.RESET+AnsiColor.BLACK+"REG TILE"+AnsiColor.RESET+AnsiColor.YELLOW_BACKGROUND+" " + AnsiColor.RESET +"║\t"+"REG TILE: "+mappa.getTile(0,2).getId()+" "+mappa.getTile(0,2).toString()+"\n" +
+                "║     8    ║" + AnsiColor.GREEN_BACKGROUND + "     9    " + AnsiColor.RESET + " " + AnsiColor.GREEN_BACKGROUND + "    10    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    11    " + AnsiColor.RESET + "║\t"+"REG TILE: "+mappa.getTile(1,0).getId()+" "+mappa.getTile(1,0).toString()+"\n" +
+                "║"+     p[8]     +"║" + AnsiColor.GREEN_BACKGROUND + p[9] + AnsiColor.RESET + " " + AnsiColor.GREEN_BACKGROUND + p[10] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[11] + AnsiColor.RESET + "║\t"+"REG TILE: "+mappa.getTile(2,3).getId()+mappa.getTile(2,3).toString()+"\n" +
                 "╚══════════╩══════════╩══════════╩══════════╝";
 
         String hash2 = AnsiColor.WHITE+"╔══════════╦══════════╦══════════╦══════════╗\t\t\t\tLEGENDA DELLA MAPPA\n" +
@@ -190,9 +190,9 @@ The following 4 strings are the 4 maps.
                 "║" + AnsiColor.RED_BACKGROUND + "     4    " + AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + "     5    "+AnsiColor.RESET+" "+ AnsiColor.GREEN_BACKGROUND + "     6    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "     7    " + AnsiColor.RESET + "║"+user[4]+"\n" +
                 "║" + AnsiColor.RED_BACKGROUND + p[4] + AnsiColor.RESET + "║" + AnsiColor.GREEN_BACKGROUND + p[5] + AnsiColor.RESET + " " +AnsiColor.GREEN_BACKGROUND + p[6]+ AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[7]+ AnsiColor.RESET + "║\n" +
                 "╠═══    ═══╬═══    ═══╬══════════╬          ╣\t\t\t\tLEGGENDA DELLE ARMI\n" +
-                "║" + AnsiColor.MAGENTA_BACKGROUND + "          "+AnsiColor.RESET+" "+AnsiColor.MAGENTA_BACKGROUND+"          "+AnsiColor.RESET+" "+AnsiColor.MAGENTA_BACKGROUND+"          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND +" "+AnsiColor.RESET+ "REG TILE" + AnsiColor.YELLOW_BACKGROUND +" " +AnsiColor.RESET+ "║\t"+AnsiColor.BLUE+"REG TILE: "+AnsiColor.RESET+mappa.getTile(0,2).getId()+" "+mappa.getTile(0,2).toString()+"\n" +
-                "║" + AnsiColor.MAGENTA_BACKGROUND + "     8    "+AnsiColor.RESET+" "+AnsiColor.MAGENTA_BACKGROUND+"     9    "+AnsiColor.RESET+" "+AnsiColor.MAGENTA_BACKGROUND+"    10    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    11    " + AnsiColor.RESET + "║\t"+AnsiColor.RED+"REG TILE: "+AnsiColor.RESET+mappa.getTile(1,0).getId()+" "+mappa.getTile(1,0).toString()+"\n" +
-                "║" + AnsiColor.MAGENTA_BACKGROUND + p[8]+AnsiColor.RESET+" "+AnsiColor.MAGENTA_BACKGROUND+p[9]+AnsiColor.RESET+" "+AnsiColor.MAGENTA_BACKGROUND+p[10]+ AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[11] + AnsiColor.RESET + "║\t"+AnsiColor.YELLOW+"REG TILE: "+AnsiColor.RESET+mappa.getTile(2,3).getId()+mappa.getTile(2,3).toString()+"\n" +
+                "║" + AnsiColor.MAGENTA_BACKGROUND + "          "+AnsiColor.RESET+" "+AnsiColor.MAGENTA_BACKGROUND+"          "+AnsiColor.RESET+" "+AnsiColor.MAGENTA_BACKGROUND+"          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND +" "+AnsiColor.RESET+ "REG TILE" + AnsiColor.YELLOW_BACKGROUND +" " +AnsiColor.RESET+ "║\t"+"REG TILE: "+mappa.getTile(0,2).getId()+" "+mappa.getTile(0,2).toString()+"\n" +
+                "║" + AnsiColor.MAGENTA_BACKGROUND + "     8    "+AnsiColor.RESET+" "+AnsiColor.MAGENTA_BACKGROUND+"     9    "+AnsiColor.RESET+" "+AnsiColor.MAGENTA_BACKGROUND+"    10    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    11    " + AnsiColor.RESET + "║\t"+"REG TILE: "+mappa.getTile(1,0).getId()+" "+mappa.getTile(1,0).toString()+"\n" +
+                "║" + AnsiColor.MAGENTA_BACKGROUND + p[8]+AnsiColor.RESET+" "+AnsiColor.MAGENTA_BACKGROUND+p[9]+AnsiColor.RESET+" "+AnsiColor.MAGENTA_BACKGROUND+p[10]+ AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[11] + AnsiColor.RESET + "║\t"+"REG TILE: "+mappa.getTile(2,3).getId()+mappa.getTile(2,3).toString()+"\n" +
                 "╚══════════╩══════════╩══════════╩══════════╝";
 
         String hash3 = AnsiColor.WHITE+"╔══════════╦══════════╦══════════╦══════════╗\t\t\t\tLEGGENDA DELLA MAPPA\n" +
@@ -204,9 +204,9 @@ The following 4 strings are the 4 maps.
                 "║" + AnsiColor.RED_BACKGROUND + "     4    " + AnsiColor.RESET + "║" + AnsiColor.MAGENTA_BACKGROUND + "     5    " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "     6    " + AnsiColor.RESET +  " " + AnsiColor.YELLOW_BACKGROUND + "     7    " + AnsiColor.RESET + "║"+user[4]+"\n" +
                 "║" + AnsiColor.RED_BACKGROUND + p[4]+ AnsiColor.RESET + "║" + AnsiColor.MAGENTA_BACKGROUND + p[5]+ AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[6] + AnsiColor.RESET + " " +  AnsiColor.YELLOW_BACKGROUND + p[7] + AnsiColor.RESET + "║\n" +
                 "╠═══    ═══╬═══    ═══╬          ╬          ╣\t\t\t\tLEGGENDA DELLE ARMI\n" +
-                "║" + AnsiColor.WHITE_BACKGROUND + "          "+AnsiColor.RESET+" "+AnsiColor.WHITE_BACKGROUND+"          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + " " + AnsiColor.RESET+ "REG TILE" + AnsiColor.YELLOW_BACKGROUND +" " +AnsiColor.RESET+ "║\t"+AnsiColor.BLUE+"REG TILE: "+AnsiColor.RESET+mappa.getTile(0,2).getId()+" "+mappa.getTile(0,2).toString()+"\n" +
-                "║" + AnsiColor.WHITE_BACKGROUND + "     8    "+AnsiColor.RESET+" "+AnsiColor.WHITE_BACKGROUND+"     9    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    10    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    11    " + AnsiColor.RESET + "║\t"+AnsiColor.RED+"REG TILE: "+AnsiColor.RESET+mappa.getTile(1,0).getId()+" "+mappa.getTile(1,0).toString()+"\n" +
-                "║" + AnsiColor.WHITE_BACKGROUND +p[8]+AnsiColor.RESET+" "+AnsiColor.WHITE_BACKGROUND+p[9] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[10] +  AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + p[11]+ AnsiColor.RESET + "║║\t"+AnsiColor.YELLOW+"REG TILE: "+AnsiColor.RESET+mappa.getTile(2,3).getId()+mappa.getTile(2,3).toString()+"\n" +
+                "║" + AnsiColor.WHITE_BACKGROUND + "          "+AnsiColor.RESET+" "+AnsiColor.WHITE_BACKGROUND+"          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + " " + AnsiColor.RESET+ "REG TILE" + AnsiColor.YELLOW_BACKGROUND +" " +AnsiColor.RESET+ "║\t"+"REG TILE: "+mappa.getTile(0,2).getId()+" "+mappa.getTile(0,2).toString()+"\n" +
+                "║" + AnsiColor.WHITE_BACKGROUND + "     8    "+AnsiColor.RESET+" "+AnsiColor.WHITE_BACKGROUND+"     9    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    10    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    11    " + AnsiColor.RESET + "║\t"+"REG TILE: "+mappa.getTile(1,0).getId()+" "+mappa.getTile(1,0).toString()+"\n" +
+                "║" + AnsiColor.WHITE_BACKGROUND +p[8]+AnsiColor.RESET+" "+AnsiColor.WHITE_BACKGROUND+p[9] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[10] +  AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + p[11]+ AnsiColor.RESET + "║║\t"+"REG TILE: "+mappa.getTile(2,3).getId()+mappa.getTile(2,3).toString()+"\n" +
                 "╚══════════╩══════════╩══════════╩══════════╝";
 
         String hash4 = AnsiColor.WHITE+"╔══════════╦══════════╦══════════╦══════════╗\t\t\t\tLEGGENDA DELLA MAPPA\n" +
@@ -218,9 +218,9 @@ The following 4 strings are the 4 maps.
                 "║" + AnsiColor.RED_BACKGROUND + "     4    " + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + "     5    " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "     6    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "     7    " + AnsiColor.RESET + "║"+user[4]+"\n" +
                 "║" + AnsiColor.RED_BACKGROUND + p[4] + AnsiColor.RESET + " " + AnsiColor.RED_BACKGROUND + p[5] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[6] + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + p[7] + AnsiColor.RESET + "║\n" +
                 "╠══════════╬═══    ═══╬          ╬          ╣\t\t\t\tLEGGENDA DELLE ARMI\n" +
-                "║          ║" + AnsiColor.MAGENTA_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND +" "+AnsiColor.RESET+AnsiColor.BLACK+"REG TILE"+AnsiColor.RESET+AnsiColor.YELLOW_BACKGROUND+" " + AnsiColor.RESET +"║\t"+AnsiColor.BLUE+"REG TILE: "+AnsiColor.RESET+mappa.getTile(0,2).getId()+" "+mappa.getTile(0,2).toString()+"\n" +
-                "║     8    ║" + AnsiColor.MAGENTA_BACKGROUND + "     9    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    10    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    11    " + AnsiColor.RESET +"║\t"+AnsiColor.RED+"REG TILE: "+AnsiColor.RESET+mappa.getTile(1,0).getId()+" "+mappa.getTile(1,0).toString()+"\n" +
-                "║"+     p[8]     +"║" + AnsiColor.MAGENTA_BACKGROUND + p[9] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[10] + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + p[11]+ AnsiColor.RESET +"║\t"+AnsiColor.YELLOW+"REG TILE: "+AnsiColor.RESET+mappa.getTile(2,3).getId()+mappa.getTile(2,3).toString()+"\n" +
+                "║          ║" + AnsiColor.MAGENTA_BACKGROUND + "          " + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + "          " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND +" "+AnsiColor.RESET+AnsiColor.BLACK+"REG TILE"+AnsiColor.RESET+AnsiColor.YELLOW_BACKGROUND+" " + AnsiColor.RESET +"║\t"+"REG TILE: "+mappa.getTile(0,2).getId()+" "+mappa.getTile(0,2).toString()+"\n" +
+                "║     8    ║" + AnsiColor.MAGENTA_BACKGROUND + "     9    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    10    " + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + "    11    " + AnsiColor.RESET +"║\t"+"REG TILE: "+mappa.getTile(1,0).getId()+" "+mappa.getTile(1,0).toString()+"\n" +
+                "║"+     p[8]     +"║" + AnsiColor.MAGENTA_BACKGROUND + p[9] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[10] + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + p[11]+ AnsiColor.RESET +"║\t"+"REG TILE: "+mappa.getTile(2,3).getId()+mappa.getTile(2,3).toString()+"\n" +
                 "╚══════════╩══════════╩══════════╩══════════╝";
 
         switch (currentMap){
@@ -271,7 +271,7 @@ The following 4 strings are the 4 maps.
         String output = "";
         List<SemplifiedBloodToken> damageTokens = damagePlayer.getPlayerBoard().getDamageTokens() ;
         int a = damageTokens.size() ;
-        for(int i =0 ; i<11-a; i++){
+        for(int i =0 ; i<10-a; i++){
             damageTokens.add(new SemplifiedBloodToken());
         }
 
@@ -279,11 +279,10 @@ The following 4 strings are the 4 maps.
             if(semplifiedBloodToken!=null){
                 SemplifiedPlayer semplifiedPlayer = semplifiedBloodToken.getOwner();
                 if(semplifiedPlayer==null){
-                    output=output+"𖨠";
+                    output=output+"♡" ;
                 }else{
                     String color = playerColor(semplifiedPlayer);
-
-                    output=output+color+"𖨠"+AnsiColor.RESET;
+                    output=output+color+"♡"+AnsiColor.RESET;
                 }
             }
         }
@@ -300,7 +299,7 @@ The following 4 strings are the 4 maps.
         String output = "";
         List<SemplifiedBloodToken> marxTokens = markedPlayer.getPlayerBoard().getMarksTokens() ;
         int a = marxTokens.size() ;
-        for(int i =0 ; i<11-a; i++){
+        for(int i =0 ; i<10-a; i++){
             marxTokens.add(new SemplifiedBloodToken());
         }
 
@@ -308,10 +307,10 @@ The following 4 strings are the 4 maps.
             if(semplifiedBloodToken!=null){
                 SemplifiedPlayer semplifiedPlayer = semplifiedBloodToken.getOwner();
                 if(semplifiedPlayer==null){
-                    output=output+"᮰" ;
+                    output=output+"ᐁ" ;
                 }else{
                     String color = playerColor(semplifiedPlayer);
-                    output=output+color+"᮰"+AnsiColor.RESET;
+                    output=output+color+"ᐁ"+AnsiColor.RESET;
                 }
             }
         }
