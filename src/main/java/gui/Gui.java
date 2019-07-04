@@ -1,6 +1,8 @@
 package gui;
 
+import controller.CommandContainer;
 import controller.CommandLauncher;
+import controller.commandpack.Command;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -12,26 +14,55 @@ import model.clientModel.SemplifiedBloodToken;
 import model.clientModel.SemplifiedMap;
 import model.clientModel.SemplifiedPlayer;
 import view.*;
-
 import java.util.List;
+
+
+
+
 
 public class Gui extends Application implements LobbyListener, MapObserver, MessageListener, PlayerObserver, MatchObserver  {
 
-    CommandLauncher cmd = new CommandLauncher(new GameManager(), new JsonCreator());
-    MainFrame mainFrame = new MainFrame();
-//    LobbyFrame lobbyFrame = new LobbyFrame(cmd);
-    GameFrame gameFrame = new GameFrame(cmd, "distruttore", "picccola");
+
+    private String username;
+    private String map =  "piccola";
+    private CommandContainer cmd = new CommandLauncher(new GameManager(), new JsonCreator());
+    private MainFrame mainFrame;
+    private LobbyFrame lobbyFrame;
+    private GameFrame gameFrame = new GameFrame(cmd, "distruttore", "picccola");
 
     @Override
     public void start(Stage stage) throws Exception {
-//        mainFrame.show();
+        mainFrame = new MainFrame(this);
+        mainFrame.show();
 //        lobbyFrame.show();
-        gameFrame.show();
+//        gameFrame.show();
     }
 
     public void startLobby(){
         mainFrame.close();
-        //lobbyFrame.show();
+        lobbyFrame = new LobbyFrame(cmd, this);
+        lobbyFrame.show();
+    }
+
+    public void startGame(){
+        lobbyFrame.close();
+        gameFrame.show();
+    }
+
+    public void setUsername(String username){
+        this.username=username;
+    }
+
+    public void createGameFrame(){
+        gameFrame = new GameFrame(cmd, username, map);
+    }
+
+    public void setCmd(CommandContainer cmd) {
+        this.cmd = cmd;
+    }
+
+    public void setMap(String map){
+        this.map = map;
     }
 
     @Override

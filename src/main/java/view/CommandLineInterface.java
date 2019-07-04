@@ -220,12 +220,12 @@ The following 4 strings are the 4 maps.
                 "║"+     p[8]     +"║" + AnsiColor.MAGENTA_BACKGROUND + p[9] + AnsiColor.RESET + "║" + AnsiColor.YELLOW_BACKGROUND + p[10] + AnsiColor.RESET + " " + AnsiColor.YELLOW_BACKGROUND + p[11]+ AnsiColor.RESET +"║\t"+"REG TILE: "+mappa.getTile(2,3).getId()+mappa.getTile(2,3).toString()+"\n" +
                 "╚══════════╩══════════╩══════════╩══════════╝";
 
-        displayText(hash1);
+
+        displayText(hash2);
     }
 
     @Override
     public void onTypeMapChange(String mapName) {
-
     }
 
 

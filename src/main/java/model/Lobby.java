@@ -20,7 +20,7 @@ public class Lobby  implements  LobbyObservable{
     /**
      *
      */
-    private  transient  int minPlayerInLobby = 3;
+    private  transient  int minPlayerInLobby = 5;
     private transient final List<LobbyListener> lobbyListeners;
     /**
      * users are the User contained in the Lobby
