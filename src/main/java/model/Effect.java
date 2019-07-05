@@ -14,6 +14,10 @@ import java.util.Map;
  */
 public class Effect {
 
+    /**
+     * returns true or false based on whether the effect applies to all the
+     * targets or not
+     */
     private boolean isGlobal;
     /**
      * the cost of the effect
@@ -37,21 +41,78 @@ public class Effect {
      * the optional effect. Can be empty
      */
     private List<OptionalEffect> optionalEffects;
+
+    /**
+     * boolean that determines if the shooter can move or not
+     */
     private boolean canMoveShooter;
+
+    /**
+     * If a shooter can move than this integer is needed to set how many steps
+     * he can move
+     */
     private int numStepsShooter;
+
+    /**
+     * boolean that determines if the target can move or not
+     */
     private boolean canMoveTarget;
+
+    /**
+     * If a target can move(thanks to the effect of the weaponCard ,
+     * than this integer is needed to set how many steps he can move
+     */
     private int numStepsTarget;
+
+    /**
+     * This boolean returns true or false if the effect allows you or not
+     * to move the chosen target for then hitting all
+     */
     private boolean moveTargetAndHitAll;
+
+    /**
+     * Boolean that tells you whether the target has already moved or not
+     */
     private boolean alreadyMovedTarget;
+
+    /**
+     * boolean that is false by default
+     */
     private boolean alreadyMovedShooter = false;
-    //TODO da settare. Fare l'azione inversa dell'apply
+
+    /**
+     * Integer that sets the damage to be dealt to the first target
+     */
     private int redDamage;
+    /**
+     * Integer that sets the damage to be dealt to the second target
+     */
     private int blueDamage;
+    /**
+     * Integer that sets the damage to be dealt to the third target
+     */
     private int greenDamage;
+
+    /**
+     * Integer that sets the marks to be dealt to the first target
+     */
     private int redMarks;
+
+    /**
+     * Integer that sets the marks to be dealt to the second target
+     */
     private int blueMarks;
+
+    /**
+     * Integer that sets the marks to be dealt to the third target
+     */
     private int greenMarks;
 
+    /**
+     * Constructor of the class
+     * @param cost is a list of colored ammos that is needed to us that effect
+     * @param strategy is the strategy to be applied in case you use that effect
+     */
     public Effect(List<String> cost, TargetStrategy strategy) {
         this.cost = cost;
         this.strategy = strategy;
@@ -67,38 +128,72 @@ public class Effect {
         optionalEffects = new LinkedList<>();
     }
 
+    /**
+     * Constructor for optionalEffects
+     */
     public Effect() {
         optionalEffects = new LinkedList<>();
     }
 
+    /**
+     * Method to bind each damage to the red,blue,green damages
+     * @return hashmap of damage
+     */
     public Map<String, Integer> getDamage() {
         return damage;
     }
 
+    /**
+     * Sets damage for each target
+     * @param damage is a hashmap that binds damage
+     */
     public void setDamage(Map<String, Integer> damage) {
         this.damage = damage;
     }
 
+    /**
+     * Method to bind each value of marks to the red,blue,green damages
+     * @return hashmap of marks
+     */
     public Map<String, Integer> getMarks() {
         return marks;
     }
-
+    /**
+     * Sets marks for each target
+     * @param marks is a hashmap that binds marks
+     */
     public void setMarks(Map<String, Integer> marks) {
         this.marks = marks;
     }
 
+    /**
+     * Method that checks whether or not the shooter can move
+     * @return true or false
+     */
     public boolean isCanMoveShooter() {
         return canMoveShooter;
     }
 
+    /**
+     * Method that sets  if the shooter is able to move or not
+     * @param canMoveShooter is a boolean
+     */
     public void setCanMoveShooter(boolean canMoveShooter) {
         this.canMoveShooter = canMoveShooter;
     }
 
+    /**
+     * Method that checks whether or not the target can move
+     * @return true or false
+     */
     public boolean isCanMoveTarget() {
         return canMoveTarget;
     }
 
+    /**
+     * Method that sets  if the target is able to move or not
+     * @param canMoveTarget is a boolean
+     */
     public void setCanMoveTarget(boolean canMoveTarget) {
         this.canMoveTarget = canMoveTarget;
     }
