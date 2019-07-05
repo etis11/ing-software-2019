@@ -113,18 +113,15 @@ public class CommandReceiverSocket implements Runnable {
                 clientOutput.println("TOKEN OK");
                 clientOutput.flush();
                 myToken = clientToken;
-                System.out.println("prima di riattivare lo user");
                 //lo user è di nuovo attivo
                 username = registry.getUsernameFromToken(clientToken);
                 launcher = provider.getConnectedBeforeLauncher(username);
-                System.out.println("dopo richiesta token");
                 user =provider.ReconnectUserToOldGame(username);
                 if (user == null) throw new RuntimeException("User ottenuto null");
                 reconnected = true;
             }
 
             //creates a json Receiver and binds it to the client socket.
-            System.out.println("creazione comunicazione");
             //comune
             jsonReceiverProxySocket = new JsonReceiverProxySocket(clientSocket);
             //comune, launcher già settato
@@ -136,9 +133,7 @@ public class CommandReceiverSocket implements Runnable {
             if (user!= null){
                 registry.associateReceiverAndUser(jsonReceiverProxySocket, user);
             }
-            System.out.println("prima dell'input object stream");
             in = new ObjectInputStream(clientSocket.getInputStream());
-            System.out.println("dopo l'input object stream");
             if(mustCreateUser){
 
                 launcher.addCommand(new SetUsernameCommand(clientToken, username));

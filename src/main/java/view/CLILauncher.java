@@ -188,7 +188,6 @@ public class CLILauncher {
 
 
     private static void startCLI(CommandLineInterface CLI, CommandContainer cmdLauncher, SemplifiedGame game){
-        System.out.println(game);
         Parserator p = new Parserator(CLI, cmdLauncher, game);
         Thread t = new Thread(p);
         t.start();
