@@ -76,7 +76,7 @@ public class OptionalEffect {
         return activated;
     }
 
-    
+
     public boolean canShooterMove() {
         return canMoveShooter;
     }
