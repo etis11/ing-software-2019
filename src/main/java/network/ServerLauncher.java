@@ -32,12 +32,6 @@ public class ServerLauncher {
         int port = Integer.parseInt(args[0]);
         int turnTimer = -1;
         int startTimer = -1;
-        //inizializzazione per rmi
-//        System.setProperty("java.security.policy","myPolicy.policy");
-//        if (System.getSecurityManager() == null) {
-//            System.setSecurityManager(new SecurityManager());
-//        }
-
         //System.setProperty("java.rmi.server.hostname", serverIP);
 
         if (args.length >= 2){
