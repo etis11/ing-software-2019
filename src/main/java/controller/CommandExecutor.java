@@ -20,7 +20,7 @@ public class CommandExecutor {
     /**
      * duration of a turn expressed in seconds
      */
-    public static int turnLength = 50;
+    public static int turnLength = 500;
     private ShootState shootState;
     private WeaponCard weaponToUse;
     private List<OptionalEffect> opt;
@@ -256,13 +256,45 @@ public class CommandExecutor {
     /**
      * Checks if the match has to stop. A match ends when there are less then 3 players or
      * all the player have played during "frenesia"
-     * TODO per adesso implementa solo la storia della disconnessione
+     * TODO per adesso implementa solo la storia della disconnessione e fine partita senza frenesia
      */
     private void checkEndMatch(List<JsonReceiver> allReceivers){
         Match match = gameManager.getMatch();
         if (match.getNumActivePlayers() < Match.getMinActivePlayers()){
             for(JsonReceiver jsonReceiver: allReceivers){
                 notifier.notifyMessage("La partita è terminata perchè non ci sono abbastanza utenti attivi", jsonReceiver);
+            }
+            //now i must disconnect all the json receivers
+            disconnectReceivers(allReceivers);
+            try{
+                launcher.stopExecuting();
+            }
+            catch (RemoteException re){
+                commandExecutorLogger.log(Level.WARNING, "This exception should never occur");
+            }
+        }
+        if(match.getSkulls()==0 && !match.getFinalFrenzy()){
+            match.endGame();
+            StringBuilder output = new StringBuilder();
+            output.append("La partita è terminata\n").append("CLASSIFICA:\n");
+            int[] points = new int[match.getPlayerNumber()];
+            for(int i = 0;i<match.getPlayerNumber();i++){
+                points[i]=match.getPlayers().get(i).getPoints();
+            }
+            for(int i = 0; i<match.getPlayerNumber();i++){
+                int indexMax = 0;
+                int max = 0;
+                for(int j = 0; j<match.getPlayerNumber();j++){
+                    if(points[j]>max){
+                        max = points[j];
+                        indexMax = j;
+                    }
+                }
+                output.append(i+1).append(") ").append(match.getPlayers().get(indexMax).getName()).append(" ").append(max).append(" punti\n");
+                points[indexMax] = -1;
+            }
+            for(JsonReceiver jsonReceiver: allReceivers){
+                notifier.notifyMessage(output.toString(), jsonReceiver);
             }
             //now i must disconnect all the json receivers
             disconnectReceivers(allReceivers);
@@ -967,6 +999,7 @@ public class CommandExecutor {
                 String state = currentPlayer.getState().getName();
                 //verify the player state
                 if ((state.equals("EndTurn")&& currentPlayer.getTile() == null) || state.equals("Dead") ||state.equals("Overkilled")) {
+
                     //verify if the current player has a powerup
                     if (!currentPlayer.hasPowerUp(powerUpParser(command.getPowerUpType()), colorParser(command.getColor()))) {
                         String error ="Non hai questo PowerUp";
@@ -974,13 +1007,20 @@ public class CommandExecutor {
                     } else {
                         String regenPointColor = command.getColor();
                         Tile tileToSpawn = gameManager.getMatch().getMap().getRegenPoint(translateColor(regenPointColor));
+                        if(currentPlayer.getState().getName().equals("Dead") || currentPlayer.getState().getName().equals("Overkilled")){
+                            currentPlayer.getState().nextState("EndTurn", currentPlayer);
+                            try {
+                                currentPlayer.getTile().removePlayer(currentPlayer);
+                            } catch (Exception e) {
+                                LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
+                            }
+                        }
                         tileToSpawn.addPlayer(currentPlayer);
                         currentPlayer.getState().nextState("NormalAction", currentPlayer);
                         PowerUpCard toThrow= currentPlayer.getPowerUp(powerUpParser(command.getPowerUpType()), colorParser(command.getColor()));
                         try {
                             gameManager.getMatch().addPowerUpToSlush(currentPlayer.throwPowerUp(toThrow));
                         } catch (Exception e) {
-                           // e.printStackTrace();
                             LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
                         }
                         String message = currentPlayer.getName() + " si è rigenerato nel punto di rigenerazione " + regenPointColor;
@@ -1043,9 +1083,9 @@ public class CommandExecutor {
                     }
                     //verify if the controller has to ask for advanced or advanced effect
                     if(weaponToUse!=null&&weaponToUse.getAdvancedEffect()!= null && !weaponToUse.getAdvancedEffect().isEmpty()) {
-                        String message = "Scegli se usare l'effetto advanced o quello avanzato";
+                        String message = "Scegli se usare l'effetto base o quello avanzato";
                         notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
-                        commandExecutorLogger.log(Level.INFO, "Asked advanced or advanced effect to "+currentPlayer.getName());
+                        commandExecutorLogger.log(Level.INFO, "Asked base or advanced effect to "+currentPlayer.getName());
                     }
                     else{
                         askOptional(currentPlayer, userJsonReceiver);
@@ -1238,7 +1278,7 @@ public class CommandExecutor {
                         }
                     }
                     else{
-                        commandExecutorLogger.log(Level.INFO, "Choosen advanced effect for "+weaponToUse.getName()+ " from "+currentPlayer.getName());
+                        commandExecutorLogger.log(Level.INFO, "Choosen base effect for "+weaponToUse.getName()+ " from "+currentPlayer.getName());
                     }
                     askOptional(currentPlayer, userJsonReceiver);
                     commandExecutorLogger.log(Level.INFO, "Asked optional effect to "+currentPlayer.getName());
@@ -2002,7 +2042,9 @@ public class CommandExecutor {
             }
         }
         notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
-        weaponToUse.setLoaded(false);
+        if(weaponToUse.getReloadCost().size()>1) {
+            weaponToUse.setLoaded(false);
+        }
 
         //verify if already moved or it can't, so if true end the routine
         boolean advancedShooterMoved = false;

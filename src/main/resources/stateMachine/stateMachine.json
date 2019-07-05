@@ -193,6 +193,7 @@
     "remainingSteps": 0,
     "possibleNextState": {
       "Dead": "Dead",
+      "Overkilled": "Overkilled",
       "NormalAction": "NormalAction",
       "MoreAction": "MoreAction",
       "MostAction": "MostAction"

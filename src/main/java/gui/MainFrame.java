@@ -125,6 +125,9 @@ public class MainFrame{
                             String serverResponse = null;
                             serverResponse = input.readLine();
 
+                            SemplifiedGame game = new SemplifiedGame();
+                            receiver = new JsonUnwrapper(game);
+
                         if (serverResponse.equals("OK")) {
                             try {
                                 cmdLauncher = new CommandLauncherProxySocket(mySocket, gui.getToken());
@@ -133,8 +136,7 @@ public class MainFrame{
                                 info.setText(AnsiColor.RED + ">>> Problemi con il socket" + AnsiColor.RESET);
                                 info.setVisible(true);
                             }
-                            SemplifiedGame game = new SemplifiedGame();
-                            receiver = new JsonUnwrapper(game);
+
                             receiver.attachMapObserver(gui);
                             receiver.attachMessageListener(gui);
                             receiver.attachPlayerObserver(gui);
