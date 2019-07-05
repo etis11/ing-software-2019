@@ -27,7 +27,7 @@ java -jar server.jar [server IP] [serverPort] [timerTurno] [timerStartPartita]
 - [severIP] MANDATORY : server ip, necessary for rmi
 - [serverPort] MANDATORY: server port
 - [timerTurno] optional: timer expressed in seconds, it's the lenght of a turn
-- [timerStartPartita] : timer expressed in seconds, it's the waiting time in the lobby
+- [timerStartPartita] optional: timer expressed in seconds, it's the waiting time in the lobby
 
 How to launch the client (working directory /jar/server)
 java -jar client.jar <server Ip> <serverPort> <client IP>
