@@ -16,11 +16,11 @@ import java.util.logging.Logger;
 public class CommandExecutor {
     private final TokenRegistry registry = TokenRegistry.getInstance();
     private final static Logger commandExecutorLogger = Logger.getLogger(CommandExecutor.class.getName());
-    public static int startMatchTimerDelay= 1;
+    public static int startMatchTimerDelay= 15;
     /**
      * duration of a turn expressed in seconds
      */
-    public static int turnLength = 500;
+    public static int turnLength = 180;
     private ShootState shootState;
     private WeaponCard weaponToUse;
     private List<OptionalEffect> opt;
