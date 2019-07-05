@@ -5,32 +5,78 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Represent all the optional effect of a card
+ */
 public class OptionalEffect {
+
+    /**
+     * cost of the weapon
+     */
     private List<String> cost;
+    /**
+     * Additional damage that can be dealt using this optional
+     */
     private Map<String, Integer> additionalDamage;
+    /**
+     * Additional marks that can be dealt
+     */
     private Map<String, Integer> additionalMarks;
+    /**
+     * tells if the optional effect is currently used or not
+     */
     private boolean activated;
+    /**
+     * true if the shooter can move during the shooting phase
+     */
     private boolean canMoveShooter;
+    /**
+     * true if the target can be moved during the shooting phase
+     */
     private boolean canMoveTarget;
 
+    /**
+     * num steps that the shooter can do
+     */
     private int numStepsShooter;
+    /**
+     * num of stapes that can be used to move the target
+     */
     private int numStepsTarget;
+    /**
+     * tells if the shooter already moved
+     */
     private boolean shooterAlreadyMoved;
+    /**
+     * tells if the targets have been already moved
+     */
     private boolean targetAlreadyMoved;
 
-
+    /**
+     * return the association between  player and damage that can be dealt
+     * @return
+     */
     public Map<String, Integer> getAdditionalDamage() {
         return new HashMap<>(additionalDamage);
     }
 
+    /**
+     * returns the association between player color and marks that can be dealt
+     * @return
+     */
     public Map<String, Integer> getAdditionalMarks() {
         return new HashMap<>(additionalMarks);
     }
 
+    /**
+     * true if the optional has been sued
+     * @return
+     */
     public boolean isActivated() {
         return activated;
     }
 
+    
     public boolean canShooterMove() {
         return canMoveShooter;
     }
