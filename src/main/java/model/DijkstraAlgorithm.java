@@ -2,6 +2,9 @@ package model;
 
 import java.util.*;
 
+/**
+ * This class is used to implements all the functions regarding the graphs
+ */
 public class DijkstraAlgorithm {
 
     private final List<Tile> nodes;
@@ -11,12 +14,20 @@ public class DijkstraAlgorithm {
     private Map<Tile, Tile> predecessors;
     private Map<Tile, Integer> distance;
 
+    /**
+     * Constructor of the class
+     * @param graph
+     */
     public DijkstraAlgorithm(Graph graph) {
         // create a copy of the array so that we can operate on this array
         this.nodes = new ArrayList<Tile>(graph.getVertexes());
         this.edges = new ArrayList<Edge>(graph.getEdges());
     }
 
+    /**
+     * Method used to make connections between tiles
+     * @param source
+     */
     public void execute(Tile source) {
         settledNodes = new HashSet<Tile>();
         unSettledNodes = new HashSet<Tile>();
@@ -32,6 +43,11 @@ public class DijkstraAlgorithm {
         }
     }
 
+    /**
+     * This method is very useful to find the distance (using the shortest path)
+     * between two tiles,let it be adjacent or none
+     * @param node
+     */
     private void findMinimalDistances(Tile node) {
         List<Tile> adjacentNodes = getNeighbors(node);
         for (Tile target : adjacentNodes) {
@@ -46,6 +62,11 @@ public class DijkstraAlgorithm {
 
     }
 
+    /**
+     * Returns the neighbours of the current tile in the graph
+     * @param node current node
+     * @return adjacents tile
+     */
     private List<Tile> getNeighbors(Tile node) {
         List<Tile> neighbors = new ArrayList<Tile>();
         for (Edge edge : edges) {
@@ -57,6 +78,11 @@ public class DijkstraAlgorithm {
         return neighbors;
     }
 
+    /**
+     * Method needed to return the minimum value between vertexes
+     * @param vertexes
+     * @return minimum
+     */
     private Tile getMinimum(Set<Tile> vertexes) {
         Tile minimum = null;
         for (Tile vertex : vertexes) {
@@ -71,10 +97,20 @@ public class DijkstraAlgorithm {
         return minimum;
     }
 
+    /**
+     * Method that returns a boolean to check whether or not a vertex is set
+     * @param vertex
+     * @return true or false
+     */
     private boolean isSettled(Tile vertex) {
         return settledNodes.contains(vertex);
     }
 
+    /**
+     * return the shortest distance between the root and the destination
+     * @param destination the tile that has to be evaluated
+     * @return the shortest distance
+     */
     private int getShortestDistance(Tile destination) {
         Integer d = distance.get(destination);
         if (d == null) {

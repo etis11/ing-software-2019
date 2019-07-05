@@ -10,6 +10,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.*;
 
+/**
+ * A game manager contains a lobby and the match associated to it. It's the entity that has to instantiate and control
+ * both the lobby and match and contains all the logic that links them.
+ */
 public class GameManager implements CreationGameObservable {
 
     /**
@@ -23,7 +27,7 @@ public class GameManager implements CreationGameObservable {
     private boolean started;
 
     /**
-     * Name of the map
+     * Name of the map. The default map is "piccola", but can be overwritten
      */
     private String mapName = "piccola";
 
@@ -81,6 +85,11 @@ public class GameManager implements CreationGameObservable {
         return finalFrenzy;
     }
 
+    /**
+     * Create a match assigning the players to the users that still dont have it, instantiating the map and all the decks
+     * where ammo weapons and power ups are stored
+     * @param jsonCreator the observer interested in all of this changes
+     */
     public synchronized void createMatch(ChangesMatchObserver jsonCreator){
         List<User> users = lobby.getUsers();
         List<Player> players = new LinkedList<>();
@@ -146,6 +155,11 @@ public class GameManager implements CreationGameObservable {
         }
     }
 
+    /**
+     * Given the name, returns the corresponding path in the resources folder
+     * @param name the convention in our code
+     * @return the resource path
+     */
     private  synchronized String getMapFromName(String name){
         // piccola media grande estrema
         switch (name){
@@ -160,6 +174,7 @@ public class GameManager implements CreationGameObservable {
             default: throw new RuntimeException("No map associated to " + name);
         }
     }
+
 
     private synchronized void checkUser(){
         List<String> names = new ArrayList<>(5);
@@ -179,6 +194,10 @@ public class GameManager implements CreationGameObservable {
         }
     }
 
+    /**
+     * creates all the weapons and their deck.
+     * @param match
+     */
     private synchronized void initWeapon(Match match){
         List<WeaponCard> weaponCards = WeaponCard.getWeaponsFromJson(mainArmi.class.getResourceAsStream("/cards/weaponCards.json") , match);
         for(WeaponCard weaponCard : weaponCards){
@@ -204,6 +223,10 @@ public class GameManager implements CreationGameObservable {
         }
     }
 
+    /**
+     * creates all the ammos and puts them in a deck
+     * @param match
+     */
     private synchronized void initAmmo(Match match){
         Gson gson = new Gson();
         AmmoCard[] newCard = gson.fromJson(new InputStreamReader(getClass().getResourceAsStream("/cards/ammoCards.json")), AmmoCard[].class);
@@ -218,6 +241,10 @@ public class GameManager implements CreationGameObservable {
         }
     }
 
+    /**
+     * creates all the power ups and creates their deck
+     * @param match
+     */
     private synchronized void initPowerUp(Match match) {
         GsonBuilder gb = new GsonBuilder();
         gb.registerTypeAdapter(PowerUpCard.class, new PowerUpDeserializer());

@@ -504,6 +504,13 @@ public class Player implements ChangesObservable{
         }
         return false;
     }
+
+    /**
+     * return the power up in the hand of the player
+     * @param type type of the power up
+     * @param color color, can be only "red" "blu" "yellow"
+     * @return
+     */
     public PowerUpCard getPowerUp(PowerUpType type, Color color){
         for(PowerUpCard pc :powerUps){
             if(pc.getPowerUpType().equals(type) && pc.getColor().equals(color)){
@@ -520,12 +527,21 @@ public class Player implements ChangesObservable{
     public boolean canPayAll(List<OptionalEffect> opt){
         return playerBoard.getLoader().canPayAll(opt);
     }
+
+    /**
+     * payes for all the optionals
+     * @param opt
+     */
     public void payOpt(List<OptionalEffect> opt){
         for (OptionalEffect opts: opt) {
             playerBoard.getLoader().pay(opts.getCost());
         }
     }
 
+    /**
+     * pays only one optional
+     * @param opt
+     */
     public void payOpt(OptionalEffect opt){
         playerBoard.getLoader().pay(opt.getCost());
     }
@@ -543,6 +559,10 @@ public class Player implements ChangesObservable{
         return null;
     }
 
+    /**
+     * discard a weapon card
+     * @param wc
+     */
     public void throwWeaponCard(WeaponCard wc){
         if(wc == null) throw new IllegalArgumentException("passed null weapon card");
         getTile().putWeaponCard(wc);
@@ -558,6 +578,10 @@ public class Player implements ChangesObservable{
                 '}';
     }
 
+    /**
+     * applies the damage transporter on the player
+     * @param damageTransporter
+     */
     public void calculateDamage(DamageTransporter damageTransporter){
         playerBoard.calculateDamage(damageTransporter);
         notifyAllObservers();

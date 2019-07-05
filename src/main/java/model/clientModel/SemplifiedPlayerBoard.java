@@ -8,6 +8,9 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Semplified version of the player board. Contains only the relevant parts of the board.
+ */
 public class SemplifiedPlayerBoard {
     private List<SemplifiedBloodToken> damageTokens;
     private List<SemplifiedBloodToken> marksTokens;

@@ -18,7 +18,7 @@ public class PlayerBoardTest {
         p = new PlayerBoard();
     }
 
-    @Test
+
     void testConstructor() {
         assertNotNull(p.getLoader(), () -> "ERRORE the loader is null, but should be instantiated");
         assertEquals(0, p.getNumDamagePoints(), () -> "ERRORE, the player's damage is not 0.");

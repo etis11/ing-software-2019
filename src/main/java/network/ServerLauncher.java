@@ -10,6 +10,7 @@ import network.Socket.SocketServer;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.rmi.AlreadyBoundException;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -22,22 +23,16 @@ public class ServerLauncher {
     static private ServerRMIInterface rmiServer= null;
 
     public static void main(String[] args) throws RemoteException, AlreadyBoundException, FileNotFoundException {
-        if (args.length < 2){
+        if (args.length < 1){
             System.out.println("Ip o porta mancante del server");
             System.exit(0);
         }
 
-        String serverIP = args[0];
-        int port = Integer.parseInt(args[1]);
+        //String serverIP = args[0];
+        int port = Integer.parseInt(args[0]);
         int turnTimer = -1;
         int startTimer = -1;
-        //inizializzazione per rmi
-//        System.setProperty("java.security.policy","myPolicy.policy");
-//        if (System.getSecurityManager() == null) {
-//            System.setSecurityManager(new SecurityManager());
-//        }
-
-        System.setProperty("java.rmi.server.hostname", serverIP);
+        //System.setProperty("java.rmi.server.hostname", serverIP);
 
         if (args.length >= 2){
             turnTimer = Integer.parseInt(args[1]);
@@ -53,6 +48,7 @@ public class ServerLauncher {
 
         rmiServer = new ServerRMI(provider);
         Registry registry = LocateRegistry.getRegistry();
+        //Naming.rebind(uguale)
         registry.rebind("serverRMI", rmiServer);
 
         SocketServer ss;

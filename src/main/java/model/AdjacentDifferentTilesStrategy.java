@@ -5,15 +5,25 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Strategy used from the weapons that hit the characters around them.
+ */
 public class AdjacentDifferentTilesStrategy extends AbstractTargetStrategy {
     private Match match;
     private GameMap map;
+
 
     public AdjacentDifferentTilesStrategy(Match match) {
         this.map = map;
         this.match = match;
     }
 
+    /**
+     * Returns turn if the targets are around the player
+     * @param shooter the player shooting
+     * @param targets list of possible targets
+     * @return
+     */
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         super.areTargetValid(shooter, targets);
@@ -35,6 +45,11 @@ public class AdjacentDifferentTilesStrategy extends AbstractTargetStrategy {
         }
     }
 
+    /**
+     * Return true if there is at least one player that is in an adjacent tile
+     * @param shooter is the player whose turn is
+     * @return
+     */
     @Override
     public boolean canHitSomeone(Player shooter) {
         List<Player> adjacentPlayers = map.allAdjacentPlayers(shooter);
@@ -42,6 +57,11 @@ public class AdjacentDifferentTilesStrategy extends AbstractTargetStrategy {
     }
 
 
+    /**
+     * Returns a list of all the possible hittable targets
+     * @param shooter is the player whose turn is
+     * @return
+     */
     @Override
     public List<Player> getHittableTargets(Player shooter) {
         return map.allAdjacentPlayers(shooter);

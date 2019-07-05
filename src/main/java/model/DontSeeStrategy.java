@@ -34,6 +34,13 @@ public class DontSeeStrategy extends AbstractTargetStrategy {
      * @return a boolean which checks if the selected players are all targets or not
      */
 
+    /**
+     * The following method is helpful to understand if the list of the given
+     * targets is valid Target List for the shooter
+     * @param shooter is the player whose turn is and got the right to shoot
+     * @param targets is the list of all the other players that can be shoot by the shooter
+     * @return true if all the other player are valid targets for the shooter or not
+     */
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         super.areTargetValid(shooter, targets);
@@ -44,7 +51,6 @@ public class DontSeeStrategy extends AbstractTargetStrategy {
             }
         }
         return true;
-        //return notVisiblePlayers.containsAll(targets);
     }
 
     /**
@@ -54,20 +60,6 @@ public class DontSeeStrategy extends AbstractTargetStrategy {
      * @param shooter is the player who is going to perform the action. Needed to check all of his valid targets
      * @return a boolean when trying to check if there are any targets or not
      * */
-    /**
-     * @Override public boolean canHitSomeone(Player shooter) {
-     * List<Player> notVisiblePlayers = gameMap.allNotVisiblePlayers(shooter);
-     * for(Player p: match.getPlayers()){
-     * if (notVisiblePlayers.contains(p)){
-     * return true;
-     * }
-     * }
-     * return false;
-     * }
-     */
-    //public boolean canHitSomeone(Player shooter) {
-    // return !getHittableTargets(shooter).isEmpty();
-    //   }
     @Override
     public boolean canHitSomeone(Player shooter) {
         List<Player> notVisiblePlayers = match.getMap().allNotVisiblePlayers(shooter);

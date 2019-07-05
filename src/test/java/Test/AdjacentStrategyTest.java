@@ -22,7 +22,6 @@ public class AdjacentStrategyTest {
         match = new Match();
     }
 
-    @Test
     void adjacentPlayersTesting() {
         Tile red = new Tile();
         Tile blue = new Tile();

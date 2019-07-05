@@ -4,6 +4,9 @@ import model.Player;
 
 import java.util.List;
 
+/**
+ * Semplified version of the game for the client. Contains only all the players, the current player,  and   a reference to the map
+ */
 public class SemplifiedGame {
 
     private List<SemplifiedPlayer> players;
