@@ -1959,6 +1959,9 @@ public class CommandExecutor {
         DamageTransporter dt = null;
         //target red
         if(advanced == null){
+            if(targetScope && targets.get(0).getName().equals(targetedPlayer)){
+                weaponToUse.getBaseEffect().get(0).applyTargetScope("red");
+            }
             weaponToUse.getBaseEffect().get(0).applyOptionalEffect(opt);
 
             dt =weaponToUse.getBaseEffect().get(0).useEffect(currentPlayer, targets.get(0), "red");
@@ -1978,12 +1981,18 @@ public class CommandExecutor {
         dt = null;
         //target blue
         if(advanced == null && targets.size()>1){
+            if(targetScope && targets.get(1).getName().equals(targetedPlayer)){
+                weaponToUse.getBaseEffect().get(0).applyTargetScope("blue");
+            }
             if(weaponToUse.getBaseEffect().get(0).getDamage().get("blue") != 0 || weaponToUse.getBaseEffect().get(0).getMarks().get("blue") != 0){
                 commandExecutorLogger.log(Level.INFO, "calculated  base damage transporter for blue target");
                 dt =weaponToUse.getBaseEffect().get(0).useEffect(currentPlayer, targets.get(1), "blue");
             }
         }
         else if(targets.size()>1){
+            if(targetScope && targets.get(1).getName().equals(targetedPlayer)){
+                advanced.applyTargetScope("blue");
+            }
             if(advanced.getDamage().get("blue") != 0 || advanced.getMarks().get("blue") != 0) {
                 commandExecutorLogger.log(Level.INFO, "calculated adv damage transporter for blue target");
                 dt = advanced.useEffect(currentPlayer, targets.get(1), "blue");
@@ -2003,12 +2012,18 @@ public class CommandExecutor {
         dt = null;
         //target green
         if(advanced == null && targets.size()>2){
+            if(targetScope && targets.get(2).getName().equals(targetedPlayer)){
+                weaponToUse.getBaseEffect().get(0).applyTargetScope("green");
+            }
             if(weaponToUse.getBaseEffect().get(0).getDamage().get("green") != 0 ||weaponToUse.getBaseEffect().get(0).getMarks().get("green") != 0){
                 commandExecutorLogger.log(Level.INFO, "calculated base damage transporter for green target");
                 dt =weaponToUse.getBaseEffect().get(0).useEffect(currentPlayer, targets.get(2), "green");
             }
         }
         else if(targets.size()>2){
+            if(targetScope && targets.get(2).getName().equals(targetedPlayer)){
+                advanced.applyTargetScope("green");
+            }
             if(advanced.getDamage().get("green") != 0 || advanced.getMarks().get("green") != 0) {
                 commandExecutorLogger.log(Level.INFO, "calculated adv damage transporter for green target");
                 dt = advanced.useEffect(currentPlayer, targets.get(2), "green");
