@@ -258,6 +258,7 @@ public class Effect {
 
     public void applyTargetScope(String targetColor){
         int dmg = this.damage.get(targetColor);
+        this.damage.put(targetColor, dmg + 1);
     }
 
     public boolean areOptionalAlreadyMoved(List<OptionalEffect> optionalEffects){
