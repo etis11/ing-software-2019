@@ -42,7 +42,7 @@ di roba Oscar
 
 
 DA FARE INSIEME
-4) vedere se la gui funziona
+4) vedere se la view.gui funziona
 5) assicurarsi che la creazione di una partita funzioni
 6) metodi per la partita
 7) timer
@@ -70,7 +70,7 @@ LEGENDA
 X = da fare
 
 1) * mettere a posto la deserializzazione e testare il ritorno dei json dalla rete. JsonReceiver Observer Oscar
-2) * mappa su gui, marchi, playerboard degli altri, inserire tutte le immagini. Implementare gli observer  Alessandro
+2) * mappa su view.gui, marchi, playerboard degli altri, inserire tutte le immagini. Implementare gli observer  Alessandro
 3) Xmappa dinamica, implementare gli observer Etis
 
 
@@ -99,13 +99,13 @@ X = da fare
 
 1) modello semplificato etis
 2) serializzazione e deserializzazione oscar
-3) mappa di gioco sulla gui passoni
+3) mappa di gioco sulla view.gui passoni
 4) finire comandi passoni
 5) mappa, player e player board sulla CLI etis
 6) json delle ammo card etis
 
 cose da fare  insieme l'11
-1) capire la cli e la gui come interagiscono con il modello
+1) capire la cli e la view.gui come interagiscono con il modello
 2) definire come viene creato il modello sul client
 3) ammo card
 4) creare una partita lato modello
@@ -115,7 +115,7 @@ cose da fare  insieme l'11
 
 cosa fare adesso
 *1) mettere in piedi la rete si può fare
-*2) nella gui settare per bene il token (inserire il lancio del client RMI o socket) fato /da fare
+*2) nella view.gui settare per bene il token (inserire il lancio del client RMI o socket) fato /da fare
 *3) sistema command executor con tutta la storia del json receiver da fare
 *4) creare una cli con string parser
 
@@ -138,7 +138,7 @@ lungo periodo
 7 giugno
 #1) cambiare i comandi. ora accettano un token che rende più facile chi sta chiedendo cosa Ing. Passoni parzialmente
 *2) completare la network. Oscar (inizializzare il client Singleton) fatto
-#3) continuare la gui. Passoni e etis ? fatto, sistemati i comandi della lobby. Scelta personaggio da fare
+#3) continuare la view.gui. Passoni e etis ? fatto, sistemati i comandi della lobby. Scelta personaggio da fare
 *4) rincontrollare armi etis fatto
 *5) singleton passoni fatto
 *6) risolvere il string parser etis. (Passoni ha cambiato i comandi, modificare i parametri) fatto
@@ -154,7 +154,7 @@ x1) mettere in piedi una CLI impossibile
 #2) mettere in piedi la rete si può fare
 x3) comando di sparo impossibile
 *X4) parlare del modello semplificato da fare
-#5) nella gui settare per bene il token (inserire il lancio del client RMI o socket) fato /da fare
+#5) nella view.gui settare per bene il token (inserire il lancio del client RMI o socket) fato /da fare
 x6) sistema command executor con tutta la storia del json receiver da fare
 
 

@@ -33,7 +33,7 @@ public class SemplifiedPlayerDeserializerConModifiche implements JsonDeserialize
                 jsonPlayer.getAsJsonArray("weaponCards"), SemplifiedWeaponCard[].class);
         player.setWeaponCards(weaponCards);
 
-        //this could give problems on the gui for order
+        //this could give problems on the view.gui for order
         PowerUpCard[] powerUpCards = jsonDeserializationContext.deserialize(
                 jsonPlayer.getAsJsonArray("powerUps"), PowerUpCard[].class);
         player.setPowerUpCards(powerUpCards);

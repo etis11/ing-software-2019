@@ -1,4 +1,4 @@
-package gui;
+package view.gui;
 
 import controller.CommandContainer;
 import controller.LOGGER;

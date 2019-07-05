@@ -81,7 +81,7 @@ public class Match implements ChangesMatchObservable{
     /**
      * minimum number of players that have to be active in a match
      */
-    private static final int minActivePlayers = 2;
+    private static final int minActivePlayers = 3;
 
 
     public Match() {
@@ -415,7 +415,9 @@ public class Match implements ChangesMatchObservable{
         //attributes how many point scored each player
         points = calculatePointPerPlayer(numDamagePerPlayer, orderedDamagePerPlayer, points, killValue);
         //points for first damage
-        points[players.indexOf(damage.get(0).getOwner())]++;
+        if(damage.size()>0) {
+            points[players.indexOf(damage.get(0).getOwner())]++;
+        }
         //attribute points to each player
         for (int i=0; i<playerNumber;i++){
             players.get(i).addPoints(points[i]);

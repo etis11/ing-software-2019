@@ -1,10 +1,8 @@
-package gui;
+package view.gui;
 
 import controller.CommandContainer;
 import controller.LOGGER;
 import controller.commandpack.SpawnCommand;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;

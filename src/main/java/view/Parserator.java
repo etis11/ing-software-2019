@@ -152,7 +152,26 @@ public class Parserator implements Runnable {
                 commandLauncher.addCommand(new MoveCommand(token, toadd));
                 return;
             }
-
+            if(command.toLowerCase().contains("sprog") || command.toLowerCase().contains("distruttore") || command.toLowerCase().contains("dozer")|| command.toLowerCase().contains("violetta")||command.toLowerCase().contains("banshee")){
+                List<String> toadd = new ArrayList<>();
+                if(command.contains("mirino")){
+                    String[] splittedCommand = command.split(" ");
+                    toadd.addAll(Arrays.asList(splittedCommand[0].split(",")));
+                    //sprog,violetta mirino blu sprog rosso
+                    if(splittedCommand.length == 5 && toadd.contains(splittedCommand[3]) && isValidColor(splittedCommand[2]) && splittedCommand[1].equals("mirino") &&
+                        isNameValid(toadd) && isValidColor(splittedCommand[4])) {
+                        commandLauncher.addCommand(new ChooseTargetCommand(token, toadd, splittedCommand[2], splittedCommand[3], splittedCommand[4]));
+                        return;
+                    }
+                }
+                else {
+                    toadd.addAll(Arrays.asList(command.split(",")));
+                    if (isNameValid(toadd)) {
+                        commandLauncher.addCommand(new ChooseTargetCommand(token, toadd, null, null, null));
+                        return;
+                    }
+                }
+            }
             String power = command.toLowerCase();
             if ((power.contains("granata")||power.contains("teletrasporto")||power.contains("mirino")||power.contains("raggiocinetico"))&& power.contains("usapu")){
                 String[] splittedPower = power.split(" ");
@@ -165,7 +184,7 @@ public class Parserator implements Runnable {
                     return;
                 }
             }
-            if (power.contains("granata")||power.contains("teletrasporto")||power.contains("mirino")||power.contains("raggiocinetico")){
+            if ((power.contains("granata")||power.contains("teletrasporto")||power.contains("mirino")||power.contains("raggiocinetico") && !(command.toLowerCase().contains("sprog") || command.toLowerCase().contains("distruttore") || command.toLowerCase().contains("dozer")|| command.toLowerCase().contains("violetta")||command.toLowerCase().contains("banshee")))){
                 String[] splittedPower = power.split(" ");
                 if(isValidColor(splittedPower[1])) {
                     commandLauncher.addCommand(new SpawnCommand(token, splittedPower[0], splittedPower[1]));
@@ -180,9 +199,9 @@ public class Parserator implements Runnable {
                 }
             }
             if(command.toLowerCase().contains("usa")){
-                String[] splittedCommand = command.split(" ",2);
-                if(splittedCommand[1] != null){
-                    if(isWeapon(splittedCommand[1])) {
+                String[] splittedCommand = command.split(" ", 2);
+                if (splittedCommand[1] != null) {
+                    if (isWeapon(splittedCommand[1])) {
                         commandLauncher.addCommand(new WeaponCommand(token, splittedCommand[1]));
                         return;
                     }
@@ -208,14 +227,6 @@ public class Parserator implements Runnable {
                     commandLauncher.addCommand(new ChooseOptEffectCommand(token, splittedCommand[0]));
                 }
                 return;
-            }
-            if(command.toLowerCase().contains("sprog") || command.toLowerCase().contains("distruttore") || command.toLowerCase().contains("dozer")|| command.toLowerCase().equals("violetta")||command.toLowerCase().contains("banshee")){
-                List<String> toadd = new ArrayList<>();
-                toadd.addAll(Arrays.asList(command.split(",")));
-                if(isNameValid(toadd)) {
-                    commandLauncher.addCommand(new ChooseTargetCommand(token, toadd));
-                    return;
-                }
             }
             if(command.trim().equalsIgnoreCase("avanzato") || command.trim().equalsIgnoreCase("base")){
                 commandLauncher.addCommand(new ChooseAdvanceCommand(token, command));

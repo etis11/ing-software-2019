@@ -7,11 +7,17 @@ import java.util.List;
 
 public class ChooseTargetCommand extends AbstractCommand {
 
-    List<String> target;
+    private List<String> target;
+    private String color;
+    private String targetName;
+    private String cost;
 
-    public ChooseTargetCommand(String command, List<String> target){
-        super(command);
+    public ChooseTargetCommand(String token, List<String> target, String color, String targetName, String cost) {
+        super(token);
         this.target = target;
+        this.color = color;
+        this.targetName = targetName;
+        this.cost = cost;
     }
 
     public List<String> getTarget(){

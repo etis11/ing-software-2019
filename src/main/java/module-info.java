@@ -8,5 +8,5 @@ open module project {
     requires java.rmi;
     requires java.sql;
 
-    exports gui to javafx.graphics, javafx.fxml;
+    exports view.gui to javafx.graphics, javafx.fxml;
 }

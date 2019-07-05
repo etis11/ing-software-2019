@@ -1,4 +1,4 @@
-package gui;
+package view.gui;
 
 import controller.*;
 import controller.commandpack.SetUsernameCommand;
@@ -13,9 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import model.GameManager;
-import model.JsonCreator;
-import model.Match;
 import model.clientModel.SemplifiedGame;
 import network.RMI.ServerRMIInterface;
 import network.Socket.CommandLauncherProxySocket;
@@ -214,7 +211,7 @@ public class MainFrame{
                                 //if newToken != token, a new user should be created and restarts the game
     //                        if(newToken.equals(token)){
     //                            cmdLauncher = serverRMI.reconnect(newToken, receiver);
-    //                            gui.setCmd(cmdLauncher);
+    //                            view.gui.setCmd(cmdLauncher);
     //                        }
                                 connected = true;
                             }

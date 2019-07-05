@@ -1,14 +1,9 @@
-package gui;
+package view.gui;
 
 import controller.CommandContainer;
-import controller.CommandLauncher;
-import controller.commandpack.Command;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import model.GameManager;
-import model.JsonCreator;
-import model.Match;
 import model.User;
 import model.clientModel.SemplifiedBloodToken;
 import model.clientModel.SemplifiedMap;

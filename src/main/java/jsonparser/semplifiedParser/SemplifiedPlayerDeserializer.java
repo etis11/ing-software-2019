@@ -50,7 +50,7 @@ public class SemplifiedPlayerDeserializer implements JsonDeserializer<Semplified
             player.setWeaponCards(weaponCards);
         }
 
-        //this could give problems on the gui for order
+        //this could give problems on the view.gui for order
         if (jsonPlayer.has("powerUps")){
             PowerUpCard[] powerUpCards = jsonDeserializationContext.deserialize(
                     jsonPlayer.getAsJsonArray("powerUps"), PowerUpCard[].class);
