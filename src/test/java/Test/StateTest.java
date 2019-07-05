@@ -21,7 +21,7 @@ public class StateTest {
         player.setState(fromJson(path));
     }
 
-    @Test
+
     public void initTest() {
         //TEST END TURN
         assertEquals("EndTurn", player.getState().getName(), "ERROR: bad initialization");

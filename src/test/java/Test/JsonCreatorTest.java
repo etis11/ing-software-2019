@@ -37,7 +37,6 @@ public class JsonCreatorTest {
         jsonCreator = new JsonCreator();
     }
 
-    @Test
     void correctPlayerFormat() {
         jsonCreator.notifyPlayerChange(gigino);
         jsonCreator.notifyPlayerChange(pinotto);
