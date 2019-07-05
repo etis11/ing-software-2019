@@ -81,7 +81,7 @@ public class DontSeeStrategyTest {
         map.addRoom(blue);
         map.addRoom(white);
         map.addRoom(pink);
-        System.out.println("match players : " + match.getPlayers().toString());
+
 
         List<Player> toSet=new ArrayList<>();
         toSet.add(shooter);
@@ -90,12 +90,6 @@ public class DontSeeStrategyTest {
         toSet.add(target3);
         match.setPlayers(toSet);
 
-        for (Player player : match.getPlayers()) {
-            System.out.println("match players : " + player.getName());
-        }
-        System.out.println("match players : " + match.getPlayers());
-        System.out.println("match players : " + match.getPlayers().toString());
-        System.out.println("match players : " + match.getPlayers());
         assertFalse(match.getPlayers().isEmpty(), "match players are empty");
 
         map.addRoom(white);
@@ -103,9 +97,9 @@ public class DontSeeStrategyTest {
         map.addRoom(blue);
 
         List<Player> invisiblePlayers = map.allNotVisiblePlayers(shooter);
-        System.out.println(invisiblePlayers);
+
         List<Player> invisiblePlayersTarget3 = map.allNotVisiblePlayers(target3);
-        System.out.println(invisiblePlayersTarget3);
+
 
         assertTrue(invisiblePlayers.contains(target3), "Target should be invisible");
         assertFalse(invisiblePlayers.contains(target2), "Target should be visible");

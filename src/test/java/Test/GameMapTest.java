@@ -46,7 +46,7 @@ public class GameMapTest {
         encounteredTiles.put(startingTile, true);
         while (!stack.empty()) {
             current = stack.pop();
-            //System.out.println(current.getID());
+            //
             numOfTiles += 1;
             for (String dir : directions) {
                 toPut = current.getTile(dir);
@@ -58,7 +58,7 @@ public class GameMapTest {
             }
         }
         //switch case for every map. every map has a different number of tiles. the numOftiles counted must be the one expected
-        // System.out.println("\n\n" +numOfTiles + "\n\n");
+        //
         if (path.equals(pathMap1))
             return (numOfTiles == 10);
         if (path.equals(pathMap2))
@@ -95,7 +95,7 @@ public class GameMapTest {
         while (!stack.empty()) {
             current = stack.pop();
             if (current.canContainWeapons()) weaponTiles.add(current);
-            //System.out.println(current.getID());
+            //
             for (String dir : directions) {
                 toPut = current.getTile(dir);
                 //if the tile is not null and the i didn't encountered it (so it's not in the map)
@@ -131,7 +131,7 @@ public class GameMapTest {
         try {
             gameMap.addRoom(r);
         } catch (NullPointerException n) {
-            System.out.println(n.getMessage());
+
             fail(() -> "The room shouldnt be null");
         }
 
@@ -149,7 +149,7 @@ public class GameMapTest {
             gameMap.addRegenPoint("blue", blue);
             gameMap.addRegenPoint("yellow", yellow);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+
             fail(() -> "ERROR: One of the tile has been inserted in the wrong way");
         }
 
@@ -170,7 +170,7 @@ public class GameMapTest {
             gameMap.addRegenPoint("blue", blue);
             gameMap.addRegenPoint("yellow", yellow);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+
             fail(() -> "ERROR: One of the tile has been inserted in the wrong way");
         }
 
@@ -256,15 +256,15 @@ public class GameMapTest {
     @Test
     void jGraphTest() {
         GameMap map = GameMap.loadMap(pathMap1);
-        System.out.println("size " + map.getRooms().size());
+
 
 //duhet te shtohet kur te behen lidhjet e tile-ve gjate inicializimit te lojes
         map.createGraph();
         Graph g = map.getGraph();
-        System.out.println("map created");
-        System.out.println("vertex size " + g.getVertexes().size());
+
+
         assertTrue(g.getVertexes().contains(map.getRooms().get(0).getTiles().get(0)));
-        // g.getVertexes().forEach( t -> System.out.println("id : "+t.getID()) );
+        // g.getVertexes().forEach( t ->
         List<Tile> allTiles = new LinkedList<>();
         for (Room room : map.getRooms()) {
             allTiles.addAll(room.getTiles());
@@ -286,15 +286,15 @@ public class GameMapTest {
         //     GraphPath<Tile, DefaultEdge> graphPath = dijkstraShortestPath.getPath(t1, t10);
         //     for ( Tile tile : graphPath.getVertexList()){
         //         ids.add(tile.getID());
-        //         System.out.println("id : "+ids);
+        //
         //     }
 
         for (Tile tile : g.getVertexes()) {
             ids.add(tile.getID());
-            // System.out.println("id : "+ids);
+            //
             for (Tile tile2 : g.getVertexes()) {
                 if (!tile2.equals(tile)) {
-                    //       System.out.println("tile ID: "+tile.getID()+" tile2 ID: "+tile2.getID());
+                    //
                     dijkstraShortestPath.execute(tile);
                     assertTrue(dijkstraShortestPath.getPath(tile2).size() >= 0, "dijkstraShortestPath.getPathWeight(tile,tile2)>=0");
                 }
@@ -302,12 +302,12 @@ public class GameMapTest {
         }
 
         dijkstraShortestPath.execute(t4);
-        System.out.println("La distanza tra t4-t6 " + dijkstraShortestPath.getPath(t6).size());
+
         int firstDist = dijkstraShortestPath.getPath(t6).size();
-        System.out.println(firstDist);
+
         dijkstraShortestPath.execute(t1);
         assertTrue(dijkstraShortestPath.getPath(t6).size() == firstDist, "ERROR: Distances should be equal");
-        System.out.println("La distanza tra t1-t10 " + dijkstraShortestPath.getPath(t10).size());
+
 
 
         assertNotNull(dijkstraShortestPath.getPath(t6), "its not null dude");

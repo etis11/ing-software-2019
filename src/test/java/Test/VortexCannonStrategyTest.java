@@ -103,40 +103,40 @@ public class VortexCannonStrategyTest {
         toSet.addAll(enemies);
         match.setPlayers(toSet);
 
-        System.out.println("match players : " + match.getPlayers());
+
         assertNotNull(match.getPlayers());
         vortex = new VortexCannonStrategy(map, match);
-        System.out.println("init tests");
+
         List<Tile> tiles = map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).collect(Collectors.toList());
         assertNotNull(map.allVisibleTiles(shooter), "The shooter has some visible tiles");
-        System.out.println("tiles : " + tiles);
-
-        System.out.println("boolean Distance : " + (blue1.distance(shooter, map) < 1));
-        System.out.println("boolean Distance2 : " + (blue2.distance(shooter, map) <= 1));
-        System.out.println("distanza : " + blue1.distance(shooter, map));
-        System.out.println("boolean Distance2 : " + (pink1.distance(shooter, map)));
-        System.out.println("boolean Distance2 : " + (pink2.distance(shooter, map)));
-        System.out.println("distanza : " + white1.distance(shooter, map));
-
-        System.out.println("boolean Distance2 : " + (white1.distance(shooter, map)));
 
 
-        System.out.println("boolean any match : " + map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(shooter, map) <= 1)));
+
+
+
+
+
+
+
+
+
+
+
 
         List<Player> playersss = match.getPlayers().stream().filter(playerr -> map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(playerr, map) <= 1)) && !playerr.equals(shooter)).collect(Collectors.toList());
 
-        System.out.println("players : " + playersss);
+
         // match.getPlayers().stream().filter(player -> match.getMap().allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(shooter, map) <= 1)) && !player.equals(shooter)).collect(Collectors.toList());
 
-        System.out.println("allVisibleTiles : " + map.allVisibleTiles(shooter));
+
 
         toSet.add(shooter);
         toSet.addAll(targets);
         match.setPlayers(toSet);
-        System.out.println("getHittableTargets : " + vortex.getHittableTargets(shooter));
-        System.out.println("Are Targets valid : " + vortex.areTargetValid(shooter, targets));
+
+
         vortex.areTargetValid(shooter, targets);
-        System.out.println("canHitSomeone : " + vortex.canHitSomeone(shooter));
+
         vortex.canHitSomeone(shooter);
         assertTrue(vortex.areTargetValid(shooter, targets), "but they should all be targets");
         assertTrue(vortex.areTargetValid(shooter, enemies), "target3 is not a target!!!");
