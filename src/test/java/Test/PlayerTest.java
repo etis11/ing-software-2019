@@ -20,17 +20,14 @@ public class PlayerTest {
     @Test
     void weaponOneInsertionTest() {
         WeaponCard w = new WeaponCard();
-        System.out.println(" p.getWeapons().size :"+ p.getWeapons().size());
         Tile tile = new Tile(1,false,true);
         tile.putWeaponCard(w);
         p.setTile(tile);
-        System.out.println(" p.getTile :"+ p.getTile().getID());
         try {
             p.pickUpWeapon(w);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("after p.getWeapons().size :"+ p.getWeapons().size());
 
 
 

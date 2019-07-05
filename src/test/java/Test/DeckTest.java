@@ -13,6 +13,5 @@ public class DeckTest {
         card1.setName("testing");
         deck.addCard(card1);
         WeaponCard cardDraw = (WeaponCard) deck.draw();
-        System.out.println("name of Draw Card is : " + cardDraw.getName());
     }
 }

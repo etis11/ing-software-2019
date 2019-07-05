@@ -75,12 +75,10 @@ public class ServerRMI extends UnicastRemoteObject implements ServerRMIInterface
     public String getPersonalToken(String token){
         rmiServerLogger.log(Level.INFO , ">>>A is trying to register");
         String newToken = token;
-        System.out.println(newToken);
         TokenRegistry registry = TokenRegistry.getInstance();
         if (!registry.tokenAlreadyGenerated(token)) {
             newToken = UUID.randomUUID().toString();
         }
-        System.out.println(newToken);
         return newToken;
     }
 

@@ -13,7 +13,6 @@ public class SemplifiedWeaponDeserializer implements JsonDeserializer<Semplified
     @Override
     public SemplifiedWeaponCard deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
 
-        System.out.println("STO DESERIALIZZANDO L'ARMA");
         JsonObject jsonWeaponCard = jsonElement.getAsJsonObject();
 
         final SemplifiedWeaponCard weaponCard = new SemplifiedWeaponCard();

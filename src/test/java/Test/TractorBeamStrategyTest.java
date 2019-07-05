@@ -53,7 +53,6 @@ public class TractorBeamStrategyTest {
 
  myMap.getYellowRegenPoint().addPlayer(shooter);
  myMap.getBlueRegenPoint().addPlayer(target1);
- System.out.println(myMap.getYellowRegenPoint().distance(target1));
  */
 
         blue1.setSouthTile(pink1);
@@ -118,37 +117,17 @@ public class TractorBeamStrategyTest {
         toSet.add(shooter);
         toSet.addAll(enemies);
         match.setPlayers(toSet);
-        System.out.println("match players : " + match.getPlayers());
         tractorBeam = new TractorBeamStrategy(match);
-        System.out.println("init tests");
         List<Tile> allvisibtiles = map.allVisibleTiles(shooter);
         List<Tile> tiles = map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).collect(Collectors.toList());
-        System.out.println("tiles : " + tiles);
-        System.out.println("allvisibtiles : " + allvisibtiles);
-        System.out.println("boolean Distance : " + (blue1.distance(target1, map)));
-        System.out.println("boolean Distance : " + (blue1.distance(target2, map)));
-        System.out.println("boolean Distance : " + (blue1.distance(target4, map)));
-        System.out.println("boolean Distance : " + (blue1.distance(target5, map)));
-        System.out.println("boolean Distance : " + (blue1.distance(shooter, map) < 1));
-        System.out.println("boolean Distance2 : " + (blue2.distance(shooter, map) <= 1));
-        System.out.println("distanza : " + blue1.distance(shooter, map));
-        System.out.println("boolean Distance2 : " + (pink1.distance(shooter, map)));
-        System.out.println("boolean Distance2 : " + (pink2.distance(shooter, map)));
-        System.out.println("distanza : " + white1.distance(shooter, map));
 
-
-        System.out.println("boolean Distance2 : " + (white1.distance(shooter, map)));
 
         match.setMap(map);
 
-        System.out.println("boolean any match : " + map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(shooter, map) <= 1)));
 
         List<Player> playersss = match.getPlayers().stream().filter(playerr -> map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(playerr, map) <= 1)) && !playerr.equals(shooter)).collect(Collectors.toList());
 
-        System.out.println("players : " + playersss);
         match.getPlayers().stream().filter(player -> map.allVisibleTiles(shooter).stream().filter(tile -> !tile.equals(shooter.getTile())).anyMatch(visible -> (visible.distance(player, map) <= 1)) && !player.equals(shooter)).collect(Collectors.toList());
-
-        System.out.println("allVisibleTiles : " + map.allVisibleTiles(shooter));
 
 
         assertTrue(tractorBeam.canHitSomeone(shooter), "ERROR:he can hit!!!");

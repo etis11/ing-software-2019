@@ -768,7 +768,7 @@ public class CommandExecutor {
                                     }
                                     shootState = ShootState.MOVEEFFECTOPTIONAL;
                                 }
-                                System.out.println("qui c'e qualcosa da verificare");
+                                //System.out.println("qui c'e qualcosa da verificare");
                                 //todo da rifare verifyHitMovedShooter(currentPlayer, userJsonReceiver, command)
                             }
                             else if(currentPlayer.getState().canShoot() && shootState.equals(ShootState.APPLYEFFECTDAMAGE)){

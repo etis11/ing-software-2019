@@ -10,7 +10,7 @@ public class mainArmi {
     public static void main(String[] args) {
         Match match = new Match();
         List<WeaponCard> weaponCards = WeaponCard.getWeaponsFromJson(mainArmi.class.getResourceAsStream("/cards/weaponCards.json") , match);
-        System.out.println(weaponCards.size());
+
         for(WeaponCard weaponCard: weaponCards)
             System.out.println(weaponCard);
     }

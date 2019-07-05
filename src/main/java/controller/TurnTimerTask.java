@@ -32,7 +32,6 @@ public class TurnTimerTask extends TimerTask {
     @Override
     public void run() {
         TokenRegistry registry = TokenRegistry.getInstance();
-        System.out.println("receiver " +currentTurnReceiver);
         timerLogger.log(Level.INFO, "timer expired. Disconnecting user " + userToDisconnect.getUsername());
 
 
