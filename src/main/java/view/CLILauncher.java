@@ -40,7 +40,7 @@ public class CLILauncher {
         String myIp = args[2];
 
 
-        System.setProperty("java.rmi.server.hostname", myIp);
+        //System.setProperty("java.rmi.server.hostname", myIp);
 
 
         CLI = new CommandLineInterface();

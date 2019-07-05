@@ -5,6 +5,10 @@ import view.AnsiColor;
 import java.util.List;
 
 
+/**
+ * Semplified version of the map for client. The rapresentation is a matrix, so it's much easier to work with, since on the server side
+ * the map is a graph
+ */
 public class SemplifiedMap {
 
     private final int rows = 3;
