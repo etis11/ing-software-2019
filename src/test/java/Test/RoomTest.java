@@ -32,7 +32,6 @@ public class RoomTest {
             System.out.println(n.getMessage());
             fail(() -> "Error in the insertion");
         }
-        System.out.println(tileToAdd.getRoom());
         assertSame(room, tileToAdd.getRoom(), () -> "ERROR: the room and the room in the tile should be the same");
         assertSame(tileToAdd, room.getTiles().get(0), () -> "ERROR: the tile should be the same tile in the room");
 

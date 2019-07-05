@@ -20,8 +20,6 @@ public class AskCommandTest {
 //        players = new LinkedList<>();
 //        players.add(player);
 //        gm.getMatch().setPlayers(players);
-//        messageListener = (s)->{System.out.println(s);};
-//        messageListener2 = (s)->{System.out.println(s);};
 //        views = new ArrayList<>();
 //        views.add(messageListener);
 //        views.add(messageListener2);

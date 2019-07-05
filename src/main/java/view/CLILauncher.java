@@ -76,7 +76,6 @@ public class CLILauncher {
             CLI.displayText("Inserisci un token.");
                 //gets the token from the user
                 token = CLI.getUserInputString();
-                System.out.println(serverRMI);
                 newToken = serverRMI.getPersonalToken(token);
                 CLI.displayText("TOKEN: " + newToken);
                 ClientSingleton.getInstance().setToken(newToken);
@@ -188,7 +187,6 @@ public class CLILauncher {
 
 
     private static void startCLI(CommandLineInterface CLI, CommandContainer cmdLauncher, SemplifiedGame game){
-        System.out.println(game);
         Parserator p = new Parserator(CLI, cmdLauncher, game);
         Thread t = new Thread(p);
         t.start();

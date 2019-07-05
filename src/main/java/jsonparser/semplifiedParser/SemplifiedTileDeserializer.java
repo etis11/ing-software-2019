@@ -13,7 +13,7 @@ import java.util.LinkedList;
 public class SemplifiedTileDeserializer  implements JsonDeserializer<SemplifiedTile> {
     @Override
     public SemplifiedTile deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-        System.out.println("DESERIALIZZO IL TILE");
+
 
         JsonObject jsonTile = jsonElement.getAsJsonObject();
         SemplifiedTile tile = new SemplifiedTile();
@@ -36,7 +36,6 @@ public class SemplifiedTileDeserializer  implements JsonDeserializer<SemplifiedT
             tile.setAmmoCard(jsonDeserializationContext.deserialize(jsonTile.get("ammoCard").getAsJsonObject(), AmmoCard.class));
 
         if(jsonTile.has("weapons")){
-            System.out.println("WEAPON CARD CI SIAMO");
             SemplifiedWeaponCard[] weaponCards = jsonDeserializationContext.deserialize(jsonTile.get("weapons").getAsJsonObject(), SemplifiedWeaponCard.class);
             tile.setWeapons(Arrays.asList(weaponCards));
         }

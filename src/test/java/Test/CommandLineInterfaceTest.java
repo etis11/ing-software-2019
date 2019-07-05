@@ -16,33 +16,10 @@ public class CommandLineInterfaceTest {
         //  void cliTest () {
         CommandLineInterface commandLineInterface = new CommandLineInterface();
 
-       // System.out.println("write something!!!");
- //       Scanner scanner = new Scanner(System.in);
- //       String c = scanner.nextLine();
-        // scanner.close();
- //       System.out.println("You wrote something again!!! " + c);
 
-   //     Scanner ss = new Scanner(System.in);
-   //     System.out.println("write something bb!!! ");
-     //   String bb = scanner.nextLine();
-     //   System.out.println("You wrote something bb!!! " + bb);
-     //   System.out.println(bb);
-     //   String cc = commandLineInterface.getUserInputString();
-      //  commandLineInterface.displayText(cc);
-     //   System.out.println("write some number man");
-     //   Integer a = commandLineInterface.getUserInputInt();
-    //    String aString = a.toString();
-     //   commandLineInterface.displayText(aString);
         User user = new User();
         user.setUsername("etis@mail.it");
-     //   commandLineInterface.onJoin(user);
-   //     System.out.println("Enter some Number");
- //       String numberString = scanner.nextLine();
-  //      numberString = numberString.trim();
- //       int numero = Integer.valueOf(numberString);
-//        System.out.println("numero : " + numero);
-//        int n = numero + 3;
-//        System.out.println("numero = 3 : " + n);
+
         SemplifiedWeaponCard weapon1 = new SemplifiedWeaponCard();
         SemplifiedWeaponCard weapon2 = new SemplifiedWeaponCard();
         SemplifiedWeaponCard weapon3 = new SemplifiedWeaponCard();
@@ -75,12 +52,7 @@ public class CommandLineInterfaceTest {
         player3.setName("banshee");
         SemplifiedPlayer player4 = new SemplifiedPlayer();
         player4.setName("violetta");
-      //  commandLineInterface.onAmmoChange(player);
-//        player.getPlayerBoard().getLoader().askReload(2, 0, 1);
-      //  commandLineInterface.onAmmoChange(player);
-     //   commandLineInterface.onHpChange(player);
-     //   commandLineInterface.onMarksChange(player);
-      //  commandLineInterface.onPowerUpChange(player);
+
         SemplifiedMap semplifiedMap = new SemplifiedMap();
         SemplifiedTile semplifiedTile = new SemplifiedTile(0,false,false);
         SemplifiedTile semplifiedTile1= new SemplifiedTile(1,false,false);
@@ -160,7 +132,6 @@ SemplifiedWeaponCard[] weaponsPlayer = new SemplifiedWeaponCard[1];
         semplifiedMap.getTile(0,0).setAmmoCard(ammoCard1);
 
 
-        // System.out.println("player3 tile : "+player3.getTile());
         commandLineInterface.onMapChange(semplifiedMap);
 
         player.setPlayerBoard(new SemplifiedPlayerBoard());

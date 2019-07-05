@@ -68,10 +68,7 @@ public class CommandLauncher implements CommandLauncherInterface {
                 takenCommand.setJsonReceiver(clientReceiver);
                 takenCommand.setAllJsonReceivers(getAllReceivers());
             } catch (InterruptedException i) {
-                System.out.println(i.getMessage());
                 commandLauncherLogger.log(Level.WARNING, i.getMessage(), i);
-                System.out.println("Unable to extract a command because the reading thread has been interrupted. " +
-                        "Stopping the command executor");
                 pool.shutdown();
                 stopExecuting();
                 Thread.currentThread().interrupt();

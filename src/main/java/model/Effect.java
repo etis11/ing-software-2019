@@ -197,30 +197,52 @@ public class Effect {
     public void setCanMoveTarget(boolean canMoveTarget) {
         this.canMoveTarget = canMoveTarget;
     }
-
+    /**
+     * Method that checks if you can move target and then hit all the targetd
+     * @param moveTargetAndHitAll is a boolean
+     */
     public void setMoveTargetAndHitAll(boolean moveTargetAndHitAll) {
         this.moveTargetAndHitAll = moveTargetAndHitAll;
     }
-
+    /**
+     * Method that checks whether or not the targets has already moved
+     * @param alreadyMovedTarget returns true or false
+     */
     public void setAlreadyMovedTarget(boolean alreadyMovedTarget) {
         this.alreadyMovedTarget = alreadyMovedTarget;
     }
-
+    /**
+     * Method that checks whether or not the targets has already moved
+     * @param alreadyMovedShooter returns true or false
+     */
     public void setAlreadyMovedShooter(boolean alreadyMovedShooter) {
         this.alreadyMovedShooter = alreadyMovedShooter;
     }
-
+    /**
+     * Method that returns true or false if the target has already moved or not
+     * @return a boolean
+     */
     public boolean isAlreadyMovedTarget(){
         return alreadyMovedTarget;
     }
+    /**
+     * Method that returns true or false if the shooter has already moved or not
+     * @return a boolean
+     */
     public boolean isAlreadyMovedShooter(){
         return alreadyMovedShooter;
     }
-
+    /**
+     * Method that gets the strategy applied to a certain weaponCard
+     * @return name of the strategy applied
+     */
     public TargetStrategy getStrategy() {
         return strategy;
     }
-
+    /**
+     * Sets the strategy of a weaponCard
+     * @param strategy is the strategy set to a weaponCard
+     */
     public void setStrategy(TargetStrategy strategy) {
         this.strategy = strategy;
     }
@@ -258,8 +280,15 @@ public class Effect {
 
     public void applyTargetScope(String targetColor){
         int dmg = this.damage.get(targetColor);
+        this.damage.put(targetColor, dmg + 1);
     }
 
+    /**
+     * Method that checks whether or not the targets or shooter has already moved.
+     * This applies only when entering in an optional effect
+     * @param optionalEffects is the list of optional effects binded to the weaponCard
+     * @return a boolean
+     */
     public boolean areOptionalAlreadyMoved(List<OptionalEffect> optionalEffects){
         if(optionalEffects != null && !optionalEffects.isEmpty()) {
             for (OptionalEffect opt : optionalEffects) {
@@ -303,7 +332,10 @@ public class Effect {
     public List<String> getCost() {
         return cost;
     }
-
+    /**
+     * Sets the cost of a chosen effect
+     * @param cost
+     */
     public void setCost(List<String> cost) {
         this.cost = cost;
     }
@@ -316,7 +348,10 @@ public class Effect {
     public List<OptionalEffect> getOptionalEffects() {
         return this.optionalEffects;
     }
-
+    /**
+     * Sets optional effects to a certain Effect
+     * @param optionalEffects is a list of optional Effects
+     */
     public void setOptionalEffects(List<OptionalEffect> optionalEffects) {
         this.optionalEffects = optionalEffects;
     }
@@ -324,7 +359,7 @@ public class Effect {
     /**
      * tells if the player can move
      *
-     * @return
+     * @return true or false
      */
     public boolean canMoveShooter() {
         return canMoveShooter;
@@ -333,12 +368,16 @@ public class Effect {
     /**
      * num of steps the shooter can do
      *
-     * @return
+     * @return number of steps a shooter can move
      */
     public int getNumStepsShooter() {
         return numStepsShooter;
     }
 
+    /**
+     * Sets number of steps a shooter can make
+     * @param numStepsShooter returns number of steps
+     */
     public void setNumStepsShooter(int numStepsShooter) {
         this.numStepsShooter = numStepsShooter;
     }
@@ -346,7 +385,7 @@ public class Effect {
     /**
      * if the effect can move a target
      *
-     * @return
+     * @return a boolean
      */
     public boolean canMoveTarget() {
         return canMoveTarget;
@@ -356,24 +395,40 @@ public class Effect {
     /**
      * returns the number of the steps u can make do the target
      *
-     * @return
+     * @return numbers of steps a chosen target can make
      */
     public int getNumStepsTarget() {
         return numStepsTarget;
     }
 
+    /**
+     * sets number of steps for a targets
+     * @param numStepsTarget returns number of steps of a certain target
+     */
     public void setNumStepsTarget(int numStepsTarget) {
         this.numStepsTarget = numStepsTarget;
     }
 
+    /**
+     * Method that returns the status of global,true or false if the effect can be applied to all or not
+     * @return a boolean
+     */
     public boolean isGlobal() {
         return isGlobal;
     }
 
+    /**
+     * Sets a boolean for the variable isGlobal
+     * @param global returns true or false
+     */
     public void setGlobal(boolean global) {
         isGlobal = global;
     }
 
+    /**
+     * Useful method to return useful data for an Effect
+     * @return useful data of an Effect
+     */
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

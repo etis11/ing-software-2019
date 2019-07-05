@@ -89,10 +89,6 @@ public class TokenRegistry {
      * @return correspongind user
      */
     public User getJsonUserOwner(JsonReceiver receiver) {
-        if(receiver == null)
-            System.out.println("accesso ad un receiver null, capire bene perchè. Forse perchè non ho implementato il salto dei player" +
-                    "inattivi ");
-
         User owner = receiverUser.get(receiver);
         return owner;
     }
@@ -103,10 +99,7 @@ public class TokenRegistry {
      * @return user, can be null
      */
     public String getUsernameFromToken(String token){
-        System.out.println("prima tokenToUsername     " + tokenToUsername);
-        System.out.println("chiave: " + token);
         String username = tokenToUsername.get(token);
-        System.out.println("dopo token to username" + username);
         return username;
     }
 
@@ -123,7 +116,6 @@ public class TokenRegistry {
      */
     public void associateTokenAndReceiver(String token, JsonReceiver jsonReceiver) {
         synchronized (registeredTokens) {
-            System.out.println("receiver associato al token " + associatonTokenReceiver.get(token));
             if (associatonTokenReceiver.get(token) != null)
                 throw new DuplicateException(">>> There is already a jsonReceiver associated to this token");
             if (!registeredTokens.contains(token)) registeredTokens.add(token);
@@ -153,7 +145,6 @@ public class TokenRegistry {
      * @param username value
      */
     public void associateTokenAndUser(String token, String username){
-        System.out.println(tokenToUsername.values());
         tokenToUsername.put(token, username);
         tokenRegistryLogger.log(Level.INFO, "Associated token and user " + username);
 
@@ -176,12 +167,7 @@ public class TokenRegistry {
     public void removeTokenReceiverAssociation(JsonReceiver jsonReceiver){
         synchronized (registeredTokens){
             String toRemoveToken = null;
-            System.out.println(associatonTokenReceiver);
             for(String token: registeredTokens){
-                System.out.println(associatonTokenReceiver.get(token));
-                System.out.println(jsonReceiver);
-                System.out.println(associatonTokenReceiver.get(token).equals(jsonReceiver));
-                System.out.println(associatonTokenReceiver.get(token) == (jsonReceiver));
                 if (associatonTokenReceiver.get(token).equals(jsonReceiver)){
                     toRemoveToken = token;
                 }
