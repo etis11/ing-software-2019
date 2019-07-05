@@ -24,6 +24,18 @@ public class ChooseTargetCommand extends AbstractCommand {
         return target;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public String getTargetName() {
+        return targetName;
+    }
+
+    public String getCost() {
+        return cost;
+    }
+
     @Override
     public void execute(CommandExecutor exe) throws IOException {
         exe.execute(this);

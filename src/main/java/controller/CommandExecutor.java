@@ -1187,13 +1187,28 @@ public class CommandExecutor {
                 notifier.notifyError(error, userJsonReceiver);
             }
             else {
-//                boolean noMove = shootState.equals(ShootState.CHOSENEFFECT) && ((advanced == null && !weaponToUse.getBaseEffect().get(0).canMoveShooter() && !weaponToUse.getBaseEffect().get(0).canMoveTarget())|| (advanced != null && !advanced.canMoveTarget() && !advanced.canMoveShooter()));
                 boolean noMove = shootState.equals(ShootState.CHOSENEFFECT) && ((advanced == null && !weaponToUse.getBaseEffect().get(0).canMoveShooter())|| (advanced != null && !advanced.canMoveTarget() && !advanced.canMoveShooter()));
                 //verify if the state is correct to accept targets
                 if (noMove || (shootState.equals(ShootState.CHOOSEBASE) && weaponToUse.getBaseEffect().get(0).getOptionalEffects().isEmpty())|| shootState.equals(ShootState.MOVEEFFECTBASE) || shootState.equals(ShootState.MOVEEFFECTOPTIONAL)) {
                     if(verifyTarget(command.getTarget(), gameManager.getMatch().getPlayers())) {
                         for (String str : command.getTarget()) {
                             targets.add(gameManager.getMatch().getPlayerFromName(str));
+                        }
+                        if (command.getColor()!=null) {
+                            targetScope = true;
+                            targetedPlayer = command.getTargetName();
+                            List<String> cost = new ArrayList<>();
+                            cost.add(command.getCost());
+                            if (currentPlayer.hasPowerUp(PowerUpType.TARGETING_SCOPE, colorParser(command.getColor())) && currentPlayer.canPay(cost)){
+                                PowerUpCard powerUpCard = owner.getPowerUp(PowerUpType.TARGETING_SCOPE, colorParser(command.getColor()));
+                                currentPlayer.payTargetScope(cost);
+                                try {
+                                    gameManager.getMatch().getPowerUpSlushPile().addCard(currentPlayer.throwPowerUp(powerUpCard));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
                         }
                         String message ="";
                         //if using advanced effect
@@ -1257,7 +1272,7 @@ public class CommandExecutor {
         jsonCreator.reset();
     }
 
-    public void execute(ChooseAdvanceCommand command) throws IOException{
+    public void execute(ChooseAdvanceCommand command){
         boolean gameHasStarted = hasMatchStarted(gameManager);
         JsonReceiver userJsonReceiver = command.getJsonReceiver();
         //verify if game started

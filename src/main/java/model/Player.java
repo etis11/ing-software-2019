@@ -314,12 +314,6 @@ public class Player implements ChangesObservable{
      */
     public void setOldState(State oldState) {
         this.oldState = oldState;
-        if(oldState != null) {
-            System.out.println("old state settato a: " + oldState.getName());
-        }
-        else{
-            System.out.println("old state settato a: " + null);
-        }
     }
 
     /**
@@ -393,19 +387,6 @@ public class Player implements ChangesObservable{
 //        verify if the card allow to draw a PowerUp and if the player has less than 3 PowerUp
         if (card.isDrawPowerUp() && getNumPowerUps() < MAX_POWERUP_CARDS) {
             powerUps.add(deck.draw());
-        }
-        notifyAllObservers();
-    }
-
-    /**
-     *
-     */
-    public void usePowerUp(PowerUpCard c) {
-        //TODO
-        try {
-            throwPowerUp(c);
-        } catch (Exception e) {
-            LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(e.getStackTrace()));
         }
         notifyAllObservers();
     }
@@ -548,6 +529,10 @@ public class Player implements ChangesObservable{
 
     public void pay(Effect effect){
         playerBoard.getLoader().pay(effect.getCost());
+    }
+
+    public void payTargetScope(List<String> cost){
+        playerBoard.getLoader().pay(cost);
     }
 
     public WeaponCard hasWeapon(String name){
