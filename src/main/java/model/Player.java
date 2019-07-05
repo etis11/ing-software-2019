@@ -53,6 +53,9 @@ public class Player implements ChangesObservable{
      */
     private Tile tile;
 
+    /**
+     * tile where the player was before
+     */
     private Tile oldTile;
     /**
      * board that contains all the "public" information of the player. this informations can be obtained by the others player too.
@@ -67,8 +70,14 @@ public class Player implements ChangesObservable{
      */
     private List<ChangesObserver> playerObservers;
 
+    /**
+     * boolean set as true by default that tells if a weapon has alaredy been paid or not
+     */
     private boolean payWewapon = true;
 
+    /**
+     * sets State as endturnState
+     */
     private final State endTurnState;
 
     //True if there is a connected user that is playing with this player
@@ -151,10 +160,18 @@ public class Player implements ChangesObservable{
         return points;
     }
 
+    /**
+     * Meyhod that returns the tile where the player was before taking action
+     * @return older position of player
+     */
     public Tile getOldTile() {
         return oldTile;
     }
 
+    /**
+     * Sets old tile position  of player
+     * @param oldTile is the tile where there player was before
+     */
     public void setOldTile(Tile oldTile) {
         this.oldTile = oldTile;
     }
@@ -177,6 +194,9 @@ public class Player implements ChangesObservable{
         state = s;
     }
 
+    /**
+     * Change state to endState
+     */
     public void goToEndState(){
         state = endTurnState;
     }
@@ -206,10 +226,18 @@ public class Player implements ChangesObservable{
         this.remainingMoves--;
     }
 
+    /**
+     * Check if the player is active or not
+     * @return it's situation
+     */
     public boolean isActive() {
         return active.get();
     }
 
+    /**
+     * Sets if player is active or not
+     * @param active returns a boolean
+     */
     public void setActive(boolean active) {
         this.active.set(active);
     }
@@ -264,6 +292,10 @@ public class Player implements ChangesObservable{
         return powerUps.size();
     }
 
+    /**
+     * Method that picks up a powerup
+     * @param p is the powerup set to be picked up
+     */
     public void pickUpPowerUp(PowerUpCard p) {
         powerUps.add(p);
         if (getNumPowerUps()>3){
@@ -406,6 +438,12 @@ public class Player implements ChangesObservable{
         newTile.addPlayer(this);
     }
 
+    /**
+     * Method needed to check if the player can move in a certain way or not
+     * @param movement is the movement the player with make
+     * @return the new tile position
+     * @throws NotValidMovesException
+     */
     private Tile explorePath(Movement movement) throws NotValidMovesException {
         Tile newTile = getTile();
         if (movement == null) throw new IllegalArgumentException("null movement");
@@ -446,6 +484,12 @@ public class Player implements ChangesObservable{
         return newTile;
     }
 
+    /**
+     * Checks if the move is valid or not
+     * @param movement is the movement of the player
+     * @return new tile
+     * @throws NotValidMovesException if the move can't be done
+     */
     public boolean checkMove(Movement movement) throws NotValidMovesException {
         Tile newTile = explorePath(movement);
         return newTile.isPresentAmmoCard() || !newTile.getWeapons().isEmpty();
@@ -477,6 +521,12 @@ public class Player implements ChangesObservable{
         return toReturn.toString();
     }
 
+    /**
+     * Method that checks if player has a certain powerup
+     * @param type is the type of powerup
+     * @param color color of the powerup
+     * @return a boolean
+     */
     public boolean hasPowerUp(PowerUpType type, Color color){
         for(PowerUpCard pc :getPowerUps()){
             if(pc.getPowerUpType().equals(type) && pc.getColor().equals(color)){
@@ -501,10 +551,20 @@ public class Player implements ChangesObservable{
         throw  new RuntimeException("missed control if the power up is present");
     }
 
+    /**
+     * Checks if player can pay for certain weaponCard or not
+     * @param cost is the list of costs of the weaponCard
+     * @return a boolean
+     */
     public boolean canPay(List<String> cost){
         return playerBoard.getLoader().canPay(cost);
     }
 
+    /**
+     * Checks if ou can pay all optional effects also
+     * @param opt list of optional effects
+     * @return a boolean
+     */
     public boolean canPayAll(List<OptionalEffect> opt){
         return playerBoard.getLoader().canPayAll(opt);
     }
@@ -527,6 +587,10 @@ public class Player implements ChangesObservable{
         playerBoard.getLoader().pay(opt.getCost());
     }
 
+    /**
+     * Method that pays for an Effect to be used
+     * @param effect is the effect of the card chosen by the user to be used
+     */
     public void pay(Effect effect){
         playerBoard.getLoader().pay(effect.getCost());
     }
@@ -535,6 +599,11 @@ public class Player implements ChangesObservable{
         playerBoard.getLoader().pay(cost);
     }
 
+    /**
+     * CHhecks whether or not the weaponcard has a name or not
+     * @param name is the name of the weaponCard
+     * @return the weapon card or else NULL
+     */
     public WeaponCard hasWeapon(String name){
         for (WeaponCard wc: weapons){
             if(wc.getName().equals(name)){
@@ -555,6 +624,10 @@ public class Player implements ChangesObservable{
         notifyAllObservers();
     }
 
+    /**
+     * Method that returns name of the player and the tile
+     * @return
+     */
     @Override
     public String toString() {
         return "Player{" +

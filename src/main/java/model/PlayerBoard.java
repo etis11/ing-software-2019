@@ -43,11 +43,18 @@ public class PlayerBoard {
         killValue = (IntStream.of(8, 6, 4, 2, 1, 1, 1, 1, 1,1,1).boxed().collect(Collectors.toCollection(LinkedList::new)));
     }
 
-
+    /**
+     * The following method gets damageTokens
+     * @return a linked list of damage tokens
+     */
     public List<BloodToken> getDamageTokens() {
         return new LinkedList<>(damageTokens);
     }
 
+    /**
+     * Method that gets all marks
+     * @return linked list of marks
+     */
     public List<BloodToken> getMarks() {
         return new LinkedList<>(marks);
     }
@@ -61,6 +68,9 @@ public class PlayerBoard {
         return new LinkedList<>(killValue);
     }
 
+    /**
+     * Used to decrease the killvalues
+     */
     public void decreaseKillValue() {
         killValue.remove(0);
     }
@@ -186,6 +196,9 @@ public class PlayerBoard {
         }
     }
 
+    /**
+     * Method that resets from Playerboard all damageTokens
+     */
     public void resetPlayerboard(){
         damageTokens.clear();
     }

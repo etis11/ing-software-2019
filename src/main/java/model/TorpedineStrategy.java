@@ -7,8 +7,14 @@ import java.util.stream.Collectors;
 
 public class TorpedineStrategy extends AbstractTargetStrategy {
 
+    /**
+     * variable that sets a Match
+     */
     private Match match;
 
+    /*
+    Creates a TorpedineStrategy
+     */
     public TorpedineStrategy(Match match) {
         this.match = match;
     }
@@ -16,6 +22,12 @@ public class TorpedineStrategy extends AbstractTargetStrategy {
     public TorpedineStrategy() {
     }
 
+    /**
+     * Method used to check whether or not the targets are valid or not
+     * @param shooter is the player whose turn is
+     * @param targets is the list of all possible targets
+     * @return true or false
+     */
     @Override
     public boolean areTargetValid(Player shooter, List<Player> targets) {
         super.areTargetValid(shooter, targets);

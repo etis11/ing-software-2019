@@ -76,43 +76,81 @@ public class OptionalEffect {
         return activated;
     }
 
-
+    /**
+     * Method that checks whether or not the shooter can move
+     * @return a boolean
+     */
     public boolean canShooterMove() {
         return canMoveShooter;
     }
 
+    /**
+     * Method that checks whether or not the target can move
+     * @return a boolean
+     */
     public boolean canTargetMove() {
         return canMoveTarget;
     }
 
+    /**
+     * Sets the target can move or not
+     * @param canMoveTarget boolean that determines whether the target can move or not
+     */
     public void setCanMoveTarget(boolean canMoveTarget) {
         this.canMoveTarget = canMoveTarget;
     }
 
+    /**
+     * Checks if an effect is activated or not
+     * @param activated is boolean
+     */
     public void activate(boolean activated) {
         this.activated = activated;
     }
 
+    /**
+     * Returns cost of an optional effect needed to pay to activate it
+     * @return list of costs
+     */
     public List<String> getCost() {
         return new LinkedList<>(cost);
     }
 
+    /**
+     * Returns nnumber of steps of shooter to be applied during OptionEffect
+     * @return an integercontaining number of steps
+     */
     public int getNumStepsShooter() {
         return numStepsShooter;
     }
 
+    /**
+     * Checks whether or not the shooter has already moved or not
+     * @return a boolean
+     */
     public boolean hasShooterAlreadyMoved() {
         return shooterAlreadyMoved;
     }
-
+    /**
+     * Returns nnumber of steps of shooter to be applied during OptionEffect
+     * @return an integercontaining number of steps
+     */
     public int getNumStepsTarget(){
         return numStepsTarget;
     }
 
+    /**
+     * Sets if the shooter has already moved or not
+     * @param alreadyMoved returns true or false
+     */
     public void setShooterAlreadyMoved(boolean alreadyMoved) {
         this.shooterAlreadyMoved = alreadyMoved;
     }
 
+    /**
+     * Method used to obtain juicy info from an optional Effect
+     * @return
+     */
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -128,14 +166,26 @@ public class OptionalEffect {
         return stringBuilder.toString();
     }
 
+    /**
+     * Method used to set if target has already moved or not
+     * @param alreadyMoved returns boolean
+     */
     public void setTargetAlreadyMoved( boolean alreadyMoved){
         this.targetAlreadyMoved =alreadyMoved;
     }
 
+    /**
+     *  returns a boolean needed to check whether the shooter has already moved or not
+     * @return true or false
+     */
     public boolean isShooterAlreadyMoved(){
         return shooterAlreadyMoved;
     }
 
+    /**
+     *  returns a boolean needed to check whether the target has already moved or not
+     * @return true or false
+     */
     public boolean isTargetAlreadyMoved(){
         return targetAlreadyMoved;
     }

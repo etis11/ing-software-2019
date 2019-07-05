@@ -11,6 +11,9 @@ import java.util.List;
  */
 public class SeeStrategy extends AbstractTargetStrategy {
 
+    /**
+     * Variable that sets a match
+     */
     private Match match;
 
     /**

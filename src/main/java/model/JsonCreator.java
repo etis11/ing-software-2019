@@ -22,6 +22,9 @@ public class JsonCreator implements ChangesObserver, CreationGameObserver, Lobby
     private final PlayerSerializer playerSerializer;
     private transient final Gson gson;
 
+    /**
+     * Constructor of the class
+     */
     public JsonCreator(){
         GsonBuilder gb = new GsonBuilder();
         gb.registerTypeAdapter(BloodToken.class, new BloodTokenSerializer());

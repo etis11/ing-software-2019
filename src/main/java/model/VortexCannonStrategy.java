@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
  */
 public class VortexCannonStrategy extends AbstractTargetStrategy {
 
+    /**
+     * Variable that sets a Match
+     */
     private Match match;
     /**
      * Private attribute of type GameMap needed to check other players position in the map

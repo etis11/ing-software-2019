@@ -20,6 +20,9 @@ import java.util.logging.Logger;
  */
 public class State {
 
+    /**
+     * LOGGER needed for debug and to avoid Sonar errors
+     */
     private static final Logger LOGGER = Logger.getLogger(State.class.getName());
 
     /**
@@ -92,6 +95,22 @@ public class State {
      */
     private int remainingSteps;
 
+    /**
+     * Constructor of class
+     * @param name
+     * @param maxPossibleSteps number of maximum steps the player can make
+     * @param normalAction boolean that has a value based on if the action is normal or not
+     * @param moreAction
+     * @param mostAction
+     * @param run boolean set as true if the player is in run state or not,else false
+     * @param pickUp boolean set as true if the player is in pickUp state or not,else false
+     * @param shoot boolean set as true if the player is in shoot state or not,else false
+     * @param usePowerUp boolean  whether the player has used powerup or not
+     * @param reload boolean
+     * @param dead boolean that tells if player is dead or not
+     * @param overKilled
+     * @param possibleNextState
+     */
     public State(String name, int maxPossibleSteps, boolean normalAction, boolean moreAction, boolean mostAction, boolean run, boolean pickUp, boolean shoot, boolean usePowerUp, boolean reload, boolean dead, boolean overKilled, Map<String, State> possibleNextState) {
         this.name = name;
         this.maxPossibleSteps = maxPossibleSteps;
@@ -109,7 +128,11 @@ public class State {
         this.reload = reload;
     }
 
-
+    /**
+     * CLassic method offered by Gson that returns endTurn
+     * @param path is the path
+     * @return the state in which the player is
+     */
     public static State fromJson(String path) {
         //creates a builder with the state machine deserializer
         GsonBuilder gb = new GsonBuilder().registerTypeAdapter(State[].class, new StateMachineDeserializer());

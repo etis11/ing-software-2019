@@ -8,7 +8,9 @@ import java.util.List;
  */
 public class Room {
 
-    //TODO doc
+    /**
+     * List of tiles
+     */
     private List<Tile> tiles;
 
     /**

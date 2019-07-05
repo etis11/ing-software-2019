@@ -83,11 +83,19 @@ public class Match implements ChangesMatchObservable{
      */
     private static final int minActivePlayers = 3;
 
-
+    /**
+     * SImple constructor of the class
+     */
     public Match() {
         this.playerNumber = 5;
     }
 
+    /**
+     * Constructor of the class
+     * @param skulls
+     * @param mapPath
+     * @param players
+     */
     public Match(int skulls, String mapPath, List<Player> players){
         playerNumber = players.size();
         this.skulls = skulls;
@@ -129,6 +137,10 @@ public class Match implements ChangesMatchObservable{
         this.finalfrenzy = finalfrenzy;
     }
 
+    /**
+     * Method that returns minimum active players
+     * @return an int that declares number of minimum active players
+     */
     public static int getMinActivePlayers() {
         return minActivePlayers;
     }
@@ -190,6 +202,10 @@ public class Match implements ChangesMatchObservable{
         this.skulls = skulls;
     }
 
+    /**
+     * Returns value of finalfrenzy,if active or not
+     * @return a boolean
+     */
     public synchronized boolean getFinalFrenzy(){
         return finalfrenzy;
     }
@@ -360,6 +376,9 @@ public class Match implements ChangesMatchObservable{
         return false;
     }
 
+    /**
+     * Method that checks whether a player is dead or not
+     */
     private void verifyDead(){
         if(checkDead()){
             //decrease remaining skulls
@@ -372,6 +391,9 @@ public class Match implements ChangesMatchObservable{
         }
     }
 
+    /**
+     * Method that is called when the game has ended
+     */
     public void endGame(){
         for(Player p:players){
             if(p.getPlayerBoard().getNumDamagePoints()>0){
@@ -381,6 +403,10 @@ public class Match implements ChangesMatchObservable{
         calculateDeathTrackPoints();
     }
 
+    /**
+     * The following method returns the final points for a certain player
+     * @param p is the player whose points get calculated
+     */
     private void calculateFinalPoints(Player p){
         List<BloodToken> damage = p.getPlayerBoard().getDamageTokens();
         int[] numDamagePerPlayer = new int[playerNumber];
@@ -401,6 +427,9 @@ public class Match implements ChangesMatchObservable{
         }
     }
 
+    /**
+     * Calculates the way the death points are shared to each player
+     */
     private void calculateDeathTrackPoints(){
         List<Integer> killValue = (IntStream.of(8, 6, 4, 2, 1, 1, 1, 1, 1,1,1).boxed().collect(Collectors.toCollection(LinkedList::new)));
         List<BloodToken> damage = getTokenFromTrack();
@@ -424,6 +453,10 @@ public class Match implements ChangesMatchObservable{
         }
     }
 
+    /**
+     * Method that returns list of Bloodtokens
+     * @return list of bloodtokens
+     */
     private List<BloodToken> getTokenFromTrack(){
         List<BloodToken> bloodTokenList = new ArrayList<>();
         for(List<BloodToken> btl:deathTrack){
@@ -488,6 +521,10 @@ public class Match implements ChangesMatchObservable{
         replaceCards();
     }
 
+    /**
+     * Gets number of active players
+     * @return
+     */
     public int getNumActivePlayers(){
         int i = 0;
         for(Player p: players){
@@ -607,6 +644,11 @@ public class Match implements ChangesMatchObservable{
         return points;
     }
 
+    /**
+     * It gets the name of a certain player and checks whether or not the player exists or not
+     * @param name is the name of a player
+     * @return player
+     */
     public Player getPlayerFromName(String name){
         for (Player p: players){
             if(p.getName().equals(name)){

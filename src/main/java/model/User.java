@@ -103,10 +103,18 @@ public class User {
         player = new Player(name, fromJson(stateMachinePath));
     }
 
+    /**
+     * Method that checks whether or not the user is disconnected or not
+     * @return a boolean
+     */
     public  synchronized boolean isDisconnected() {
         return disconnected;
     }
 
+    /**
+     * Method that sets disconnect status to a user when he gets disconnected
+     * @param disconnected
+     */
     public synchronized void setDisconnected(boolean disconnected) {
         this.disconnected = disconnected;
         //if disconnected, the player is inactive

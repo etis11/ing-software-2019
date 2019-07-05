@@ -11,6 +11,9 @@ import java.util.List;
  */
 public class RoomStrategy extends AbstractTargetStrategy {
 
+    /**
+     * variable that sets a Match
+     */
     private Match match;
 
 

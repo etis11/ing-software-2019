@@ -85,6 +85,10 @@ public class WeaponCard {
         this.baseEffect = baseEffect;
     }
 
+    /**
+     * Method that gets the advancedEffect
+     * @return the advanced effect
+     */
     public List<Effect> getAdvancedEffect() {
         return advancedEffect;
     }
@@ -101,7 +105,7 @@ public class WeaponCard {
         }
     }
 
-    /*
+    /**
 Method used to set an advanced effect
 @param advancedEffect is a list of base effects
  */
@@ -131,9 +135,9 @@ Method used to set an advanced effect
         return name;
     }
 
-    /*
+    /**
     Method used to set for the Weapon card
-    @param namee is a String type needed to set up a name for our card
+    @param name is a String type needed to set up a name for our card
      */
     public void setName(String name) {
         this.name = name;
@@ -220,6 +224,11 @@ Method used to set an advanced effect
         this.loaded = loaded;
     }
 
+    /**
+     * Checks if the current player can use OptionalEffects or not
+     * @param currentPlayer is the player whose turn is
+     * @return a boolean
+     */
     public boolean canOpt(Player currentPlayer){
         if(getBaseEffect().get(0).getOptionalEffects()!= null && !getBaseEffect().get(0).getOptionalEffects().isEmpty()){
             for(OptionalEffect opt: getBaseEffect().get(0).getOptionalEffects()){
@@ -231,6 +240,10 @@ Method used to set an advanced effect
         return false;
     }
 
+    /**
+     * Gets cost of blues
+     * @return reload cost of blues
+     */
     public int getBluePickCost(){
         int toReturn = 0;
         if(reloadCost.size()>1){
@@ -242,6 +255,10 @@ Method used to set an advanced effect
         }
         return toReturn;
     }
+    /**
+     * Gets cost of reds
+     * @return reload cost of reds
+     */
     public int getRedPickCost(){
         int toReturn = 0;
         if(reloadCost.size()>1){
@@ -253,6 +270,10 @@ Method used to set an advanced effect
         }
         return toReturn;
     }
+    /**
+     * Gets cost of yellows
+     * @return reload cost of yellows
+     */
     public int getYellowPickCost(){
         int toReturn = 0;
         if(reloadCost.size()>1){
@@ -311,6 +332,12 @@ Method used to set an advanced effect
         return stringBuilder.toString();
     }
 
+    /**
+     * Method that gets all Weapons from the jSON file
+     * @param jsonFile is the file that has all weaponCards with their jSON format
+     * @param match is the running game
+     * @return list of all weaponcards
+     */
     public static List<WeaponCard> getWeaponsFromJson(InputStream jsonFile, Match match){
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(TargetStrategy.class, new StrategyDeserializer(match));

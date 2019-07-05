@@ -19,6 +19,9 @@ import static java.util.stream.Collectors.toCollection;
  */
 public class Tile implements ChangesObservable {
 
+    /**
+     * variable needed to give an ID to each tile
+     */
     private int ID;
 
     /**
@@ -135,6 +138,11 @@ public class Tile implements ChangesObservable {
         mapObservers = new LinkedList<>();
     }
 
+    /**
+     * Creates a tile and sets it as ammotile or weapontile
+     * @param ammoTile tells if true or false
+     * @param weaponTile tells if true or false
+     */
     public Tile(boolean ammoTile, boolean weaponTile) {
         northTile = null;
         eastTile = null;
@@ -149,6 +157,12 @@ public class Tile implements ChangesObservable {
         mapObservers = new LinkedList<>();
     }
 
+    /**
+     * Builds a tile with an ID and type (ammoTile or weaponTile)
+     * @param id is the id to be given to the tile
+     * @param ammoTile if it's ammoTile or not
+     * @param weaponTile if it's weaponTile or not
+     */
     public Tile(int id, boolean ammoTile, boolean weaponTile) {
         this.ID = id;
         northTile = null;
@@ -164,10 +178,18 @@ public class Tile implements ChangesObservable {
         mapObservers = new LinkedList<>();
     }
 
+    /**
+     * Method that returns ID of a tile
+     * @return ID of the tile
+     */
     public int getID() {
         return ID;
     }
 
+    /**
+     * Method that sets an ID of a tile
+     * @param i is given to the ID
+     */
     public void setID(int i) {
         ID = i;
     }
@@ -388,6 +410,11 @@ public class Tile implements ChangesObservable {
         }
     }
 
+    /**
+     * Sets a Tile which is not connected to another one and there's a wall between them
+     * @param dir if the position between those two is on northeast,west,south
+     * @param t the tile that is used to check it's BehindTheWall tile
+     */
     public void setTileBehindWall(String dir, Tile t) {
         if (t == null) throw new IllegalArgumentException("The tile is null");
         switch (dir) {
@@ -623,6 +650,10 @@ public class Tile implements ChangesObservable {
         return room;
     }
 
+    /**
+     * Sets room
+     * @param r is the already created room
+     */
     public void setRoom(Room r) {
         this.room = r;
     }
@@ -638,6 +669,11 @@ public class Tile implements ChangesObservable {
         notifyAllObserver();
     }
 
+    /**
+     * Method that checks whether or not the player is in the lust of given players
+     * @param p is the player to be checked
+     * @return is a boolean
+     */
     public boolean isPlayerPresent(Player p) {
         return players.contains(p);
     }
@@ -655,6 +691,13 @@ public class Tile implements ChangesObservable {
         return playerToRemove; //test
     }
 
+    /**
+     * Important method to determine the distancve between a player and another one on a given map.The logic behind
+     * this is given by Dijkstra Algorithm that gets minimal distance between two targets
+     * @param target is the target chosen by the shooter
+     * @param map is the map where the players are set
+     * @return the size of the path between  the shooter's tile and target
+     */
     public int distance(Player target, GameMap map) {
         DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(map.getGraph());
         dijkstra.execute(this);
@@ -667,7 +710,7 @@ public class Tile implements ChangesObservable {
     /**
      * Gives a list with the tiles around the current tile.
      *
-     * @return
+     * @return adjacent tiles
      */
     public List<Tile> adjacentTiles() {
         List<Tile> adj = new LinkedList<>();
