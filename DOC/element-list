@@ -1,0 +1,14 @@
+module:project
+controller
+controller.commandpack
+exceptions
+jsonparser
+jsonparser.semplifiedParser
+model
+model.clientModel
+network
+network.RMI
+network.Socket
+Test
+view
+view.gui
