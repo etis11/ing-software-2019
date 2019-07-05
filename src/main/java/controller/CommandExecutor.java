@@ -1198,7 +1198,7 @@ public class CommandExecutor {
                             targetScope = true;
                             targetedPlayer = command.getTargetName();
                             List<String> cost = new ArrayList<>();
-                            cost.add(command.getCost());
+                            cost.add(translateColor(command.getCost()));
                             if (currentPlayer.hasPowerUp(PowerUpType.TARGETING_SCOPE, colorParser(command.getColor())) && currentPlayer.canPay(cost)){
                                 PowerUpCard powerUpCard = owner.getPowerUp(PowerUpType.TARGETING_SCOPE, colorParser(command.getColor()));
                                 currentPlayer.payTargetScope(cost);
