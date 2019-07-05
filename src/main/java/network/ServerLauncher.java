@@ -28,11 +28,11 @@ public class ServerLauncher {
             System.exit(0);
         }
 
-        //String serverIP = args[0];
-        int port = Integer.parseInt(args[0]);
+        String serverIP = args[0];
+        int port = Integer.parseInt(args[1]);
         int turnTimer = -1;
         int startTimer = -1;
-        //System.setProperty("java.rmi.server.hostname", serverIP);
+        System.setProperty("java.rmi.server.hostname", serverIP);
 
         if (args.length >= 2){
             turnTimer = Integer.parseInt(args[1]);
