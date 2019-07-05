@@ -5,6 +5,10 @@ import model.AmmoCard;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Semplified version of the tile for the client. It has all the information regarding a tile and what it's contained in
+ * it
+ */
 public class SemplifiedTile {
     private  int id;
     private  boolean ammoTile;

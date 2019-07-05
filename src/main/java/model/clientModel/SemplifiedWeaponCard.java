@@ -2,6 +2,10 @@ package model.clientModel;
 
 import java.util.List;
 
+/**
+ * Sempnlified version of a weaponcard for the client. All the implementations field from the original card have been removed,
+ * since the client should not care.
+ */
 public class SemplifiedWeaponCard {
 
     private String name;

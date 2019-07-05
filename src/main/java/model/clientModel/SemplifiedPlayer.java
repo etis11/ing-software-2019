@@ -11,6 +11,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * semplified version of the player for the client.
+ */
 public class SemplifiedPlayer {
 
     private String name;
@@ -21,7 +24,6 @@ public class SemplifiedPlayer {
     private List<PowerUpCard> powerUpCards = new LinkedList<>();
     private int tile;
     private SemplifiedPlayerBoard playerBoard;
-    private List<SemplifiedWeaponCard> carte;
 
 
     public String getName() {

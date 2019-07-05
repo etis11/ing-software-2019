@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Transport all the information regarding the damage and the source that generated it
+ */
 public class DamageTransporter {
 
     /**

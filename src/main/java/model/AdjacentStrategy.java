@@ -59,10 +59,6 @@ public class AdjacentStrategy extends AbstractTargetStrategy {
         return match.getPlayers().stream().anyMatch(p -> adjacentPlayers.contains(p));
     }
 
-    // public boolean canHitSomeone(Player shooter) {
-    //   return !getHittableTargets(shooter).isEmpty();
-    //   }
-
     /**
      * The following method is used to return all the players that can be targeted by the shooter bvased on the
      * way the strategy itself works.
