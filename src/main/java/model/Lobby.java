@@ -18,9 +18,13 @@ public class Lobby  implements  LobbyObservable{
      */
     private transient int maxPlayerInLobby = 5;
     /**
-     *
+     *defines minimum number of players needed for the game to start
      */
     private  transient  int minPlayerInLobby = 3;
+
+    /**
+     * List of lobby listeners
+     */
     private transient final List<LobbyListener> lobbyListeners;
     /**
      * users are the User contained in the Lobby
@@ -64,10 +68,18 @@ public class Lobby  implements  LobbyObservable{
         return maxPlayerInLobby;
     }
 
+    /**
+     * Sets maximum number of players in lobby
+     * @param maxPlayerInLobby which is an integer
+     */
     public void setMaxPlayerInLobby(int maxPlayerInLobby){
         this.maxPlayerInLobby = maxPlayerInLobby;
     }
 
+    /**
+     *  Gets minimum number of players in lobby needed to start the game
+     * @return
+     */
     public int getMinPlayerInLobby() {
         return minPlayerInLobby;
     }
@@ -135,12 +147,20 @@ public class Lobby  implements  LobbyObservable{
         }
     }
 
+    /**
+     * Method the get number of users in the lobby
+     * @return the number of users in the lobby
+     */
     public int getNumOfUsers() {
         synchronized (users){
             return users.size();
         }
     }
 
+    /**
+     * Method that is needed to get the name chosen for the users
+     * @return name of each user
+     */
     public List<String> getNameToken(){
         synchronized (users){
             List<String> toReturn = new ArrayList<>();
@@ -154,18 +174,34 @@ public class Lobby  implements  LobbyObservable{
         }
     }
 
+    /**
+     * Returns true or false based on the number of users in lobby
+     * @return a boolean
+     */
     public boolean isFull(){
         return getNumOfUsers() == getMaxPlayerInLobby();
     }
 
+    /**
+     * CHecks if minimum capacity of users in Lobby has been reached or not
+     * @return a boolean
+     */
     public boolean hasReachedMinCapacity(){
         return users.size() >= minPlayerInLobby;
     }
-
+    /**
+     * Checks whether the number of maximum users in Lobby is reached or not
+     * @return a boolean
+     */
     public boolean hasReachedMaxCapacity(){
         return users.size() == maxPlayerInLobby;
     }
 
+    /**
+     * Method needed to check whether a user is part of the list of the users
+     * @param u is a certain user
+     * @return true or false
+     */
     public boolean contains(User u){
         synchronized (users){
             return users.contains(u);

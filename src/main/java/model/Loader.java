@@ -183,6 +183,11 @@ public class Loader {
         ammoPool.insertAmmo(toReturn);
     }
 
+    /**
+     * Method used to check whether or not the player can afford to pickup the weapon or not
+     * @param cost is the list of the cost of a weaponCard
+     * @return true if the ammos the player has are more or equal to the cost of the weaponCard
+     */
     public boolean canPay(List<String> cost){
         int y = getNumYellowAmmo();
         int b = getNumBlueAmmo();
@@ -201,6 +206,11 @@ public class Loader {
         return y>=0 && b>= 0 && r>=0;
     }
 
+    /**
+     * Method to check whether the player can afford to pay the cost of the optional effects also or not
+     * @param opt is a list of optional effects
+     * @return true or false
+     */
     public boolean canPayAll(List<OptionalEffect> opt){
         int y = getNumYellowAmmo();
         int b = getNumBlueAmmo();
@@ -221,6 +231,11 @@ public class Loader {
         return y>=0 && b>= 0 && r>=0;
     }
 
+    /**
+     * Method that is applied after the current player can afford to pay for the weapon.This method
+     * detracts from the ammos he has, the cost for the certain ammo he is going to pickup or use
+     * @param cost is list of costs of the weaponCard
+     */
     public void pay(List<String> cost){
         int r =0;
         int y = 0;
