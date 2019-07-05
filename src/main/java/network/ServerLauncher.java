@@ -34,13 +34,13 @@ public class ServerLauncher {
         int startTimer = -1;
         System.setProperty("java.rmi.server.hostname", serverIP);
 
-        if (args.length >= 2){
-            turnTimer = Integer.parseInt(args[1]);
+        if (args.length > 2){
+            turnTimer = Integer.parseInt(args[2]);
             CommandExecutor.turnLength = turnTimer;
         }
 
-        if (args.length >= 3){
-            startTimer = Integer.parseInt(args[2]);
+        if (args.length > 3){
+            startTimer = Integer.parseInt(args[3]);
             CommandExecutor.startMatchTimerDelay = startTimer;
         }
 
