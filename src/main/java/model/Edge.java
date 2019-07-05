@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Represents and edge on the dijkstra graph
+ */
 public class Edge {
     private final String id;
     private final Tile source;

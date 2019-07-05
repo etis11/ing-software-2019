@@ -10,6 +10,10 @@ import view.LobbyListener;
 
 import java.util.List;
 
+/**
+ * Represent an object that is an observer of the whole model and when notified remembers the changes. Then is able to
+ * create a json file with all the information regarding the model
+ */
 public class JsonCreator implements ChangesObserver, CreationGameObserver, LobbyListener, ChangesMatchObserver {
 
     private boolean prettyPrinting = false;

@@ -2,6 +2,9 @@ package model;
 
 import java.util.List;
 
+/**
+ * this strategies hits all the players in a room
+ */
 public class HellionStrategy extends AbstractTargetStrategy {
 
     private Match match;

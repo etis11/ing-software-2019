@@ -3,6 +3,9 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Graph used by the dijkstra alghoritm
+ */
 public class Graph {
     private List<Tile> vertexes;
     private List<Edge> edges;

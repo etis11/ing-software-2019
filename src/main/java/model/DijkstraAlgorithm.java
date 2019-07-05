@@ -2,6 +2,9 @@ package model;
 
 import java.util.*;
 
+/**
+ * This class is used to implements all the functions regarding the graphs
+ */
 public class DijkstraAlgorithm {
 
     private final List<Tile> nodes;
@@ -16,6 +19,7 @@ public class DijkstraAlgorithm {
         this.nodes = new ArrayList<Tile>(graph.getVertexes());
         this.edges = new ArrayList<Edge>(graph.getEdges());
     }
+
 
     public void execute(Tile source) {
         settledNodes = new HashSet<Tile>();
@@ -46,6 +50,11 @@ public class DijkstraAlgorithm {
 
     }
 
+    /**
+     * Returns the neighbours of the current tile in the graph
+     * @param node current node
+     * @return adjacents tile
+     */
     private List<Tile> getNeighbors(Tile node) {
         List<Tile> neighbors = new ArrayList<Tile>();
         for (Edge edge : edges) {
@@ -75,6 +84,11 @@ public class DijkstraAlgorithm {
         return settledNodes.contains(vertex);
     }
 
+    /**
+     * return the shortest distance between the root and the destination
+     * @param destination the tile that has to be evaluated
+     * @return the shortest distance
+     */
     private int getShortestDistance(Tile destination) {
         Integer d = distance.get(destination);
         if (d == null) {

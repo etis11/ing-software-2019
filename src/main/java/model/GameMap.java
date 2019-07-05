@@ -17,6 +17,10 @@ import java.util.logging.Logger;
 public class GameMap {
 
     private static final Logger LOGGER = Logger.getLogger(GameMap.class.getName());
+
+    /**
+     * Used to apply the dijkstra alghoritm
+     */
     private Graph graph;
 
 

@@ -54,20 +54,6 @@ public class DontSeeStrategy extends AbstractTargetStrategy {
      * @param shooter is the player who is going to perform the action. Needed to check all of his valid targets
      * @return a boolean when trying to check if there are any targets or not
      * */
-    /**
-     * @Override public boolean canHitSomeone(Player shooter) {
-     * List<Player> notVisiblePlayers = gameMap.allNotVisiblePlayers(shooter);
-     * for(Player p: match.getPlayers()){
-     * if (notVisiblePlayers.contains(p)){
-     * return true;
-     * }
-     * }
-     * return false;
-     * }
-     */
-    //public boolean canHitSomeone(Player shooter) {
-    // return !getHittableTargets(shooter).isEmpty();
-    //   }
     @Override
     public boolean canHitSomeone(Player shooter) {
         List<Player> notVisiblePlayers = match.getMap().allNotVisiblePlayers(shooter);
