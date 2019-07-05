@@ -26,7 +26,7 @@ public class Gui extends Application implements LobbyListener, MapObserver, Mess
     private String username;
     private String map =  "piccola";
     private String token;
-    private CommandContainer cmd = new CommandLauncher(new GameManager(), new JsonCreator());
+    private CommandContainer cmd;
     private MainFrame mainFrame;
     private LobbyFrame lobbyFrame;
     private GameFrame gameFrame = new GameFrame(cmd, "distruttore", "picccola");
@@ -44,8 +44,6 @@ public class Gui extends Application implements LobbyListener, MapObserver, Mess
 
         mainFrame = new MainFrame(this, ip, port);
         mainFrame.show();
-//        lobbyFrame.show();
-//        gameFrame.show();
     }
 
     public void startLobby(){
@@ -55,8 +53,8 @@ public class Gui extends Application implements LobbyListener, MapObserver, Mess
     }
 
     public void startGame(){
-        lobbyFrame.close();
-        gameFrame.show();
+        Platform.runLater(()-> lobbyFrame.close());
+        Platform.runLater(()-> gameFrame.show());
     }
 
     public void setUsername(String username){
@@ -95,7 +93,7 @@ public class Gui extends Application implements LobbyListener, MapObserver, Mess
 
     @Override
     public void onMapChange(SemplifiedMap map) {
-
+        Platform.runLater(()-> gameFrame.onMapChange(map));
     }
 
     @Override
@@ -115,37 +113,43 @@ public class Gui extends Application implements LobbyListener, MapObserver, Mess
 
     @Override
     public void notifyMessage(String message) {
-
-        Platform.runLater(()-> gameFrame.notifyMessage("yolo"));
+        switch (message){
+            case "La partita sta per iniziare":
+                startGame();
+                Platform.runLater(()-> gameFrame.notifyMessage(message));
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
     public void onHpChange(SemplifiedPlayer damagePlayer) {
-
+        Platform.runLater(()-> gameFrame.onHpChange(damagePlayer));
     }
 
     @Override
     public void onMarksChange(SemplifiedPlayer markedPlayer) {
-
+        Platform.runLater(()-> gameFrame.onMarksChange(markedPlayer));
     }
 
     @Override
     public void onAmmoChange(SemplifiedPlayer p) {
-
+        Platform.runLater(()-> gameFrame.onAmmoChange(p));
     }
 
     @Override
     public void onPowerUpChange(SemplifiedPlayer p) {
-
+        Platform.runLater(()-> gameFrame.onPowerUpChange(p));
     }
 
     @Override
     public void onWeaponChange(SemplifiedPlayer p) {
-
+        Platform.runLater(()-> gameFrame.onWeaponChange(p));
     }
 
     @Override
     public void onPlayerChange(SemplifiedPlayer p) {
-
+        Platform.runLater(()-> gameFrame.onPlayerChange(p));
     }
 }

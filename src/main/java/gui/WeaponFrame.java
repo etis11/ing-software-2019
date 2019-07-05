@@ -297,7 +297,7 @@ public class WeaponFrame {
         switch (weapon) {
             case "Cannone vortex":
                 return getClass().getResourceAsStream("/img/CannoneVortex.png");
-            case "CyberGuanto":
+            case "Cyberguanto":
                 return getClass().getResourceAsStream("/img/CyberGuanto.png");
             case "Distruttore":
                 return getClass().getResourceAsStream("/img/DistruttoreWeap.png");
@@ -335,7 +335,7 @@ public class WeaponFrame {
                 return getClass().getResourceAsStream("/img/Torpedine.png");
             case "Vulcanizzatore":
                 return getClass().getResourceAsStream("/img/Vulcanizzatore.png");
-            case "Zx-2":
+            case "ZX-2":
                 return getClass().getResourceAsStream("/img/ZxZ.png");
             default:
                 return getClass().getResourceAsStream("/img/RetroArmi.png");

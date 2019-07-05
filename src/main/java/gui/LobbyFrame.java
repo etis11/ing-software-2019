@@ -302,7 +302,7 @@ public class LobbyFrame implements MessageListener {
 
         toggleButtonFrenzy.setLayoutY(comboBox.getLayoutY());
         toggleButtonFrenzy.setLayoutX(850);
-        toggleButtonFrenzy.setSelected(true);
+        toggleButtonFrenzy.setSelected(false);
         toggleButtonFrenzy.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
