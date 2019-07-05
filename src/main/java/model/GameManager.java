@@ -203,19 +203,9 @@ public class GameManager implements CreationGameObservable {
         for(WeaponCard weaponCard : weaponCards){
             weaponCard.setUpEffects();
         }
-        Iterator<WeaponCard> iterator = weaponCards.iterator();
-        WeaponCard weaponCard = null;
-        WeaponCard desired = null;
-        while(iterator.hasNext()){
-            weaponCard = iterator.next();
-            if (weaponCard.getName().equals("Distruttore")){
-                desired = weaponCard;
-                iterator.remove();
-            }
-        }
-        weaponCards.add(weaponCards.size()-1, desired);
+        
         match.createWeaponDeck(weaponCards);
-        //match.getWeaponDeck().shuffle();
+        match.getWeaponDeck().shuffle();
         for (int i = 0; i<3;i++){
             match.getMap().getRegenPoint("red").putWeaponCard(match.getWeaponDeck().draw());
             match.getMap().getRegenPoint("blue").putWeaponCard(match.getWeaponDeck().draw());

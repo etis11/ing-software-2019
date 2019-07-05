@@ -67,7 +67,7 @@ public class Player implements ChangesObservable{
      */
     private List<ChangesObserver> playerObservers;
 
-    private boolean payWewapon = false;
+    private boolean payWewapon = true;
 
     private final State endTurnState;
 
