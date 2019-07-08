@@ -402,7 +402,7 @@ public class CommandExecutor {
                     boolean hasWeapon = currentPlayer.getWeapons().isEmpty();
                     boolean canPay = false;
                     for(WeaponCard w:currentPlayer.getWeapons()){
-                        if(!w.isLoaded() && currentPlayer.canPay(w.getReloadCost().subList(1,w.getReloadCost().size()))){
+                        if(!w.isLoaded() && currentPlayer.canPay(w.getReloadCost())){
                             canPay = true;
                         }
                     }
@@ -2072,9 +2072,9 @@ public class CommandExecutor {
             }
         }
         notifier.notifyMessageTargetPlayer(message, userJsonReceiver, currentPlayer);
-        if(weaponToUse.getReloadCost().size()>1) {
-            weaponToUse.setLoaded(false);
-        }
+
+        weaponToUse.setLoaded(false);
+
 
         //verify if already moved or it can't, so if true end the routine
         boolean advancedShooterMoved = false;

@@ -132,18 +132,18 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         this.mapPath = mapParser(map);
         this.color = new ArrayList<>();
         this.token = new ArrayList<>();
-        this.color.add(Color.GREY);
-        this.color.add(Color.YELLOW);
         this.color.add(Color.BLUEVIOLET);
         this.color.add(Color.DARKGREEN);
         this.color.add(Color.TEAL);
+        this.color.add(Color.GREY);
+        this.color.add(Color.YELLOW);
         this.players = new ArrayList<>();
         this.marksT = new ArrayList<>();
-        this.players.add("dozer");
-        this.players.add("distruttore");
         this.players.add("violetta");
         this.players.add("sprog");
         this.players.add("banshee");
+        this.players.add("dozer");
+        this.players.add("distruttore");
         this.boardPath = boardParser(board);
         pbFrame = new PbFrame(this.players, this.color);
         weaponFrame = new WeaponFrame(this.players);
@@ -179,16 +179,16 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     }
     private void addCoorY(){
         coorTileY.add(10);
-        coorTileY.add(180);
-        coorTileY.add(350);
+        coorTileY.add(10);
+        coorTileY.add(10);
         coorTileY.add(10);
         coorTileY.add(180);
-        coorTileY.add(350);
-        coorTileY.add(10);
+        coorTileY.add(180);
+        coorTileY.add(180);
         coorTileY.add(180);
         coorTileY.add(350);
-        coorTileY.add(10);
-        coorTileY.add(180);
+        coorTileY.add(350);
+        coorTileY.add(350);
         coorTileY.add(350);
         coorInTileY.add(70);
         coorInTileY.add(70);
@@ -854,24 +854,25 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         for(int i = 0; i<3;i++){
             for (int j = 0; j<4; j++){
                 onUpdateTile =map.getTile(i, j);
-                tileId = onUpdateTile.getId();
-                playerInUpdateTile =onUpdateTile.getPlayers();
-                for(int k = 0; k<playerInUpdateTile.size();k++) {
-                    tokenToUpdate = mapTokenParser(playerInUpdateTile.get(k).getName());
-                    tokenToUpdate.setLayoutX(coorTileX.get(tileId)+(double)coorInTileX.get(k));
-                    tokenToUpdate.setLayoutY(coorTileY.get(tileId)+(double)coorInTileY.get(k));
-                    tokenToUpdate.setVisible(true);
-                }
-                if(onUpdateTile.isAmmoTile()) {
-                    ammoList.get(tileId).setVisible(true);
-                    if (onUpdateTile.getAmmoCard() == null) {
-                        ammoList.get(tileId).setBackground(new Background(ammoBack));
-                    } else {
-                        ammoList.get(tileId).setBackground(new Background(ammoParser(onUpdateTile.getAmmoCard().getId())));
+                if(onUpdateTile!=null) {
+                    tileId = onUpdateTile.getId();
+                    playerInUpdateTile = onUpdateTile.getPlayers();
+                    for (int k = 0; k < playerInUpdateTile.size(); k++) {
+                        tokenToUpdate = mapTokenParser(playerInUpdateTile.get(k).getName());
+                        tokenToUpdate.setLayoutX(coorTileX.get(tileId) + (double) coorInTileX.get(k));
+                        tokenToUpdate.setLayoutY(coorTileY.get(tileId) + (double) coorInTileY.get(k));
+                        tokenToUpdate.setVisible(true);
                     }
-                }
-                else{
-                    regenFrame.updateRegen(map);
+                    if (onUpdateTile.isAmmoTile()) {
+                        ammoList.get(tileId).setVisible(true);
+                        if (onUpdateTile.getAmmoCard() == null) {
+                            ammoList.get(tileId).setBackground(new Background(ammoBack));
+                        } else {
+                            ammoList.get(tileId).setBackground(new Background(ammoParser(onUpdateTile.getAmmoCard().getId())));
+                        }
+                    } else {
+                        regenFrame.updateRegen(map);
+                    }
                 }
             }
         }
@@ -1039,7 +1040,11 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
     @Override
     public void onPlayerChange(SemplifiedPlayer p) {
-        //TODO
+        onAmmoChange(p);
+        onPowerUpChange(p);
+        onWeaponChange(p);
+        onHpChange(p);
+        onMarksChange(p);
     }
 
     private Circle mapTokenParser(String name){
