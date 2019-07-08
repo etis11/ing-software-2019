@@ -272,7 +272,7 @@ public class CommandExecutor {
                 int indexMax = 0;
                 int max = 0;
                 for(int j = 0; j<match.getPlayerNumber();j++){
-                    if(points[j]>max){
+                    if(points[j]>=max){
                         max = points[j];
                         indexMax = j;
                     }
@@ -304,7 +304,7 @@ public class CommandExecutor {
                 int indexMax = 0;
                 int max = 0;
                 for(int j = 0; j<match.getPlayerNumber();j++){
-                    if(points[j]>max){
+                    if(points[j]>=max){
                         max = points[j];
                         indexMax = j;
                     }
