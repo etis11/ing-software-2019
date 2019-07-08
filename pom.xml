@@ -121,7 +121,7 @@
 
                     <archive>
                         <manifest>
-                            <mainClass>view.gui.Gui</mainClass>
+                            <mainClass>network.ServerLauncher</mainClass>
                         </manifest>
                     </archive>
 
