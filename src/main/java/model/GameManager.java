@@ -203,7 +203,6 @@ public class GameManager implements CreationGameObservable {
         for(WeaponCard weaponCard : weaponCards){
             weaponCard.setUpEffects();
         }
-        
         match.createWeaponDeck(weaponCards);
         match.getWeaponDeck().shuffle();
         for (int i = 0; i<3;i++){

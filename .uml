@@ -4,50 +4,50 @@
   <OriginalElement />
   <nodes>
     <node x="2339.5" y="4524.0">network.TokenRegistry</node>
-    <node x="3445.0" y="4361.0">controller.commandpack.SpawnCommand</node>
-    <node x="0.0" y="3475.0">model.SeeStrategy</node>
+    <node x="6625.0" y="4361.0">controller.commandpack.SpawnCommand</node>
     <node x="5406.5" y="4524.0">network.Socket.CommandReceiverSocket</node>
+    <node x="0.0" y="3475.0">model.SeeStrategy</node>
     <node x="0.0" y="5587.0">network.Socket.ClientLauncherSocket</node>
-    <node x="591.0" y="251.0">view.gui.GameFrame</node>
-    <node x="2008.0815476190478" y="44.0">model.ChangesMatchObserver</node>
-    <node x="1292.0" y="3464.0">model.AdjacentDifferentTilesStrategy</node>
+    <node x="2514.647023809524" y="44.0">model.ChangesMatchObserver</node>
+    <node x="591.0000000000002" y="251.0">view.gui.GameFrame</node>
+    <node x="2584.0" y="3464.0">model.AdjacentDifferentTilesStrategy</node>
     <node x="6343.0" y="5194.0">jsonparser.StateMachineDeserializer</node>
     <node x="2313.0" y="5468.0">jsonparser.WeaponCardSerializer</node>
     <node x="6800.0" y="5194.0">model.Room</node>
-    <node x="2907.0" y="3475.0">model.TorpedineStrategy</node>
     <node x="0.0" y="0.0">view.gui.PbFrame</node>
-    <node x="214.0" y="5587.0">network.RMI.ClientLauncherRMI</node>
-    <node x="630.0" y="4837.0">controller.CommandLauncher</node>
+    <node x="3553.0" y="3475.0">model.TorpedineStrategy</node>
     <node x="1938.0" y="3067.0">model.TargetStrategy</node>
-    <node x="3988.081547619048" y="101.0">model.Player</node>
-    <node x="4505.0" y="4372.0">controller.commandpack.ThrowWeaponCommand</node>
+    <node x="3974.647023809524" y="101.0">model.Player</node>
+    <node x="630.0" y="4837.0">controller.CommandLauncher</node>
+    <node x="214.0" y="5587.0">network.RMI.ClientLauncherRMI</node>
+    <node x="7155.0" y="4372.0">controller.commandpack.ThrowWeaponCommand</node>
     <node x="3830.0" y="5468.0">jsonparser.semplifiedParser.SemplifiedTileDeserializer</node>
     <node x="0.0" y="4524.0">model.GameMap</node>
-    <node x="3975.0" y="4372.0">controller.commandpack.ServerEndTurnCommand</node>
+    <node x="4505.0" y="4372.0">controller.commandpack.ServerEndTurnCommand</node>
     <node x="6392.5" y="3566.0">controller.CommandResponse</node>
-    <node x="2485.0" y="5587.0">exceptions.IllegalHavingException</node>
     <node x="5784.5" y="4524.0">view.Parserator</node>
-    <node x="6890.0" y="4372.0">controller.commandpack.SetEffectPhraseCommand</node>
+    <node x="2485.0" y="5587.0">exceptions.IllegalHavingException</node>
+    <node x="1060.0" y="4372.0">controller.commandpack.SetEffectPhraseCommand</node>
     <node x="2104.0" y="5468.0">model.Movement</node>
     <node x="3546.5" y="4007.0">controller.commandpack.AbstractCommand</node>
-    <node x="993.0" y="5194.0">network.Socket.SocketServer</node>
     <node x="1228.5" y="4524.0">view.gui.RegenFrame</node>
-    <node x="7155.0" y="4372.0">controller.commandpack.SetTokenCommand</node>
+    <node x="993.0" y="5194.0">network.Socket.SocketServer</node>
     <node x="2232.0" y="5194.0">model.User</node>
+    <node x="1325.0" y="4372.0">controller.commandpack.SetTokenCommand</node>
     <node x="3282.0" y="5468.0">jsonparser.semplifiedParser.SemplifiedWeaponDeserializer</node>
     <node x="6218.0" y="5468.0">jsonparser.EffectSerializer</node>
     <node x="3425.0" y="5194.0">controller.TurnTimerTask</node>
-    <node x="4240.0" y="4372.0">controller.commandpack.MoveCommand</node>
-    <node x="1855.0" y="4383.5">controller.commandpack.AskWalkCommand</node>
+    <node x="5300.0" y="4383.5">controller.commandpack.AskWalkCommand</node>
+    <node x="4770.0" y="4372.0">controller.commandpack.MoveCommand</node>
     <node x="1054.0" y="5468.0">jsonparser.StrategyDeserializer</node>
     <node x="2698.0" y="5587.0">exceptions.DuplicateException</node>
-    <node x="4496.0" y="5194.0">model.Edge</node>
-    <node x="4299.5" y="3078.0">model.LobbyObservable</node>
     <node x="4859.5" y="3078.0">view.MapObservable</node>
-    <node x="5300.0" y="4372.0">controller.commandpack.SetPlayerNumberCommand</node>
+    <node x="4299.5" y="3078.0">model.LobbyObservable</node>
+    <node x="4496.0" y="5194.0">model.Edge</node>
+    <node x="2385.0" y="4372.0">controller.commandpack.SetPlayerNumberCommand</node>
     <node x="4824.0" y="5468.0">jsonparser.OptionalEffectSerializer</node>
-    <node x="5830.0" y="4372.0">controller.commandpack.ChooseAdvanceCommand</node>
-    <node x="2619.081547619048" y="33.0">model.CreationGameObserver</node>
+    <node x="2650.0" y="4372.0">controller.commandpack.ChooseAdvanceCommand</node>
+    <node x="2253.6470238095244" y="33.0">model.CreationGameObserver</node>
     <node x="5471.5" y="3078.0">view.MatchObservable</node>
     <node x="1615.0" y="5194.0">model.clientModel.SemplifiedPlayerBoard</node>
     <node x="1166.0" y="5587.0">model.Ammo</node>
@@ -58,109 +58,109 @@
     <node x="5297.0" y="5468.0">jsonparser.BloodTokenSerializer</node>
     <node x="1810.0" y="5587.0">exceptions.IllegalNextStateException</node>
     <node x="1938.0" y="3212.0">model.AbstractTargetStrategy</node>
-    <node x="1544.5065476190478" y="1252.5">view.AbstractView</node>
-    <node x="3874.081547619048" y="0.0">model.ChangesObservable</node>
-    <node x="2261.0" y="3464.0">model.TractorBeamStrategy</node>
+    <node x="1539.0720238095241" y="1252.5">view.AbstractView</node>
+    <node x="3860.647023809524" y="0.0">model.ChangesObservable</node>
     <node x="3791.5" y="4524.0">model.Loader</node>
+    <node x="1938.0" y="3464.0">model.TractorBeamStrategy</node>
     <node x="5827.5" y="3409.0">network.Socket.JsonReceiverProxySocket</node>
     <node x="6069.5" y="3566.0">controller.CommandResponseClient</node>
-    <node x="3180.0" y="4383.5">controller.commandpack.AskEndTurnCommand</node>
+    <node x="6890.0" y="4383.5">controller.commandpack.AskEndTurnCommand</node>
     <node x="2915.0" y="4383.5">controller.commandpack.StopTimerLobby</node>
     <node x="6645.0" y="5468.0">jsonparser.TileSerializer</node>
     <node x="543.0" y="5468.0">jsonparser.semplifiedParser.SemplifiedPlayerDeserializerConModifiche</node>
-    <node x="1818.0815476190478" y="44.0">view.LobbyListener</node>
-    <node x="4825.081547619047" y="0.0">view.gui.WeaponFrame</node>
+    <node x="1804.6470238095242" y="44.0">view.LobbyListener</node>
+    <node x="4811.647023809524" y="0.0">view.gui.WeaponFrame</node>
     <node x="1323.0" y="5587.0">exceptions.PickableNotPresentException</node>
     <node x="649.5" y="4647.5">controller.CommandLauncherInterface</node>
     <node x="317.0" y="1032.0">view.gui.LobbyFrame</node>
     <node x="2035.0" y="5587.0">exceptions.NotValidActionException</node>
     <node x="326.0" y="4524.0">model.State</node>
-    <node x="6360.0" y="4383.5">controller.commandpack.AskPickCommand</node>
+    <node x="5830.0" y="4383.5">controller.commandpack.AskPickCommand</node>
     <node x="4529.5" y="3078.0">view.MessageObservable</node>
-    <node x="4770.0" y="4372.0">controller.commandpack.MoveTargetCommand</node>
     <node x="4449.5" y="4524.0">model.WeaponCard</node>
+    <node x="3975.0" y="4372.0">controller.commandpack.MoveTargetCommand</node>
     <node x="1925.0" y="5194.0">model.clientModel.SemplifiedTile</node>
-    <node x="1427.0815476190478" y="44.0">view.MatchObserver</node>
-    <node x="5565.0" y="4383.5">controller.commandpack.AskUsePowerUpCommand</node>
+    <node x="1413.6470238095242" y="44.0">view.MatchObserver</node>
     <node x="6684.5" y="3067.0">model.Effect</node>
+    <node x="795.0" y="4383.5">controller.commandpack.AskUsePowerUpCommand</node>
     <node x="4328.0" y="5468.0">jsonparser.PowerUpDeserializer</node>
-    <node x="2650.0" y="4372.0">controller.commandpack.SetMapCommand</node>
-    <node x="1590.0" y="4339.0">controller.commandpack.ChooseTargetCommand</node>
-    <node x="4399.081547619047" y="101.0">model.Match</node>
-    <node x="646.0" y="3475.0">model.HellionStrategy</node>
-    <node x="969.0" y="3486.5">model.IgnoreWallStrategy</node>
+    <node x="5565.0" y="4372.0">controller.commandpack.SetMapCommand</node>
+    <node x="3445.0" y="4339.0">controller.commandpack.ChooseTargetCommand</node>
+    <node x="4385.647023809524" y="101.0">model.Match</node>
+    <node x="3230.0" y="3475.0">model.HellionStrategy</node>
+    <node x="323.0" y="3486.5">model.IgnoreWallStrategy</node>
     <node x="4224.0" y="3265.5">model.Lobby</node>
     <node x="840.0" y="5587.0">model.BloodToken</node>
     <node x="6256.5" y="3067.0">controller.AbstractCommandResponse</node>
     <node x="642.0" y="5587.0">controller.LOGGER</node>
-    <node x="1417.506547619048" y="2333.0">view.CommandLineInterface</node>
+    <node x="1412.0720238095241" y="2333.0">view.CommandLineInterface</node>
     <node x="2837.0" y="5468.0">model.PowerUpCard</node>
     <node x="0.0" y="5468.0">jsonparser.semplifiedParser.SemplifiedBloodTokenDeserializer</node>
-    <node x="1008.6470238095237" y="987.5">view.gui.Gui</node>
-    <node x="3710.0" y="4383.5">controller.commandpack.AskReloadCommand</node>
-    <node x="2120.0" y="4372.0">controller.commandpack.PickUpCommand</node>
+    <node x="1008.6470238095242" y="987.5">view.gui.Gui</node>
+    <node x="2120.0" y="4383.5">controller.commandpack.AskReloadCommand</node>
     <node x="1564.5" y="4524.0">model.CreationGameObservable</node>
-    <node x="4458.081547619047" y="0.0">model.ChangesMatchObservable</node>
-    <node x="2475.0" y="5194.0">jsonparser.PlayerSerializer</node>
+    <node x="1590.0" y="4372.0">controller.commandpack.PickUpCommand</node>
+    <node x="4444.647023809524" y="0.0">model.ChangesMatchObservable</node>
     <node x="6114.5" y="4524.0">model.clientModel.SemplifiedPlayer</node>
+    <node x="2475.0" y="5194.0">jsonparser.PlayerSerializer</node>
     <node x="0.0" y="5194.0">controller.CommandLauncherProvider</node>
-    <node x="3374.081547619048" y="0.0">view.AnsiColor</node>
+    <node x="3360.647023809524" y="0.0">view.AnsiColor</node>
     <node x="4121.5" y="4524.0">model.OptionalEffect</node>
     <node x="5172.0" y="5194.0">jsonparser.semplifiedParser.SemplifiedPlayerDeserializer</node>
     <node x="5758.0" y="5468.0">jsonparser.PlayerBoardSerializer</node>
-    <node x="323.0" y="3475.0">model.MeleeStrategy</node>
-    <node x="3876.0" y="3464.0">model.DontSeeStrategy</node>
+    <node x="1292.0" y="3475.0">model.MeleeStrategy</node>
     <node x="6420.5" y="4524.0">model.DijkstraAlgorithm</node>
+    <node x="969.0" y="3464.0">model.DontSeeStrategy</node>
     <node x="4158.0" y="5194.0">model.clientModel.SemplifiedGame</node>
-    <node x="5881.0" y="5194.0">model.PowerUpType</node>
     <node x="2260.0" y="5587.0">exceptions.NotValidMovesException</node>
+    <node x="5881.0" y="5194.0">model.PowerUpType</node>
     <node x="428.0" y="5587.0">jsonparser.mainArmi</node>
-    <node x="1325.0" y="4383.5">controller.commandpack.AskShootCommand</node>
+    <node x="3710.0" y="4383.5">controller.commandpack.AskShootCommand</node>
     <node x="4899.5" y="4691.0">network.RMI.ServerRMI</node>
-    <node x="3230.0" y="3698.5">model.BBQStrategy</node>
+    <node x="265.0" y="4372.0">controller.commandpack.WeaponCommand</node>
+    <node x="3876.0" y="3698.5">model.BBQStrategy</node>
     <node x="3086.0" y="5468.0">model.Graph</node>
-    <node x="6625.0" y="4372.0">controller.commandpack.WeaponCommand</node>
-    <node x="1938.0" y="3464.0">model.VortexCannonStrategy</node>
-    <node x="2180.65" y="1021.0">model.JsonCreator</node>
+    <node x="2907.0" y="3464.0">model.VortexCannonStrategy</node>
+    <node x="2100.7333333333336" y="1021.0">model.JsonCreator</node>
     <node x="0.0" y="3654.0">model.FixedDistanceStrategy</node>
     <node x="5683.0" y="5194.0">model.DamageTransporter</node>
     <node x="768.0" y="5194.0">network.Socket.JsonRouterSocket</node>
-    <node x="6095.0" y="4372.0">controller.commandpack.SetFinalFrenzyCommand</node>
-    <node x="3230.0" y="3486.5">model.FlameThrowerStrategy</node>
-    <node x="3644.081547619048" y="178.0">model.Tile</node>
-    <node x="5157.5" y="3078.0">view.PlayerObservable</node>
+    <node x="3876.0" y="3486.5">model.FlameThrowerStrategy</node>
+    <node x="6360.0" y="4372.0">controller.commandpack.SetFinalFrenzyCommand</node>
     <node x="4694.0" y="5194.0">jsonparser.GameMapDeserializer</node>
+    <node x="5157.5" y="3078.0">view.PlayerObservable</node>
+    <node x="3630.647023809524" y="178.0">model.Tile</node>
     <node x="946.5" y="4625.0">network.Socket.CommandLauncherProxySocket</node>
     <node x="808.0" y="4524.0">controller.CommandContainer</node>
     <node x="3136.5" y="4524.0">view.gui.MainFrame</node>
     <node x="7061.0" y="5468.0">model.clientModel.SemplifiedBloodToken</node>
-    <node x="1838.0" y="5468.0">network.ServerLauncher</node>
     <node x="2793.5" y="4524.0">view.gui.PopupPowerUp</node>
+    <node x="1838.0" y="5468.0">network.ServerLauncher</node>
     <node x="1526.5" y="4625.0">model.GameManager</node>
-    <node x="1113.0815476190478" y="0.0">view.PlayerObserver</node>
+    <node x="769.8970238095242" y="0.0">view.PlayerObserver</node>
+    <node x="646.0" y="3475.0">model.RoomStrategy</node>
     <node x="1554.0" y="5468.0">jsonparser.JsonFileReader</node>
-    <node x="3553.0" y="3475.0">model.RoomStrategy</node>
-    <node x="5035.0" y="4383.5">controller.commandpack.AskPointsCommand</node>
+    <node x="4240.0" y="4383.5">controller.commandpack.AskPointsCommand</node>
     <node x="1304.0" y="5194.0">model.AmmoPool</node>
     <node x="3740.0" y="5194.0">model.AmmoCard</node>
-    <node x="780.5636904761905" y="44.0">view.MapObserver</node>
+    <node x="1131.6470238095242" y="44.0">view.MapObserver</node>
     <node x="1006.0" y="5587.0">view.StringView</node>
-    <node x="1060.0" y="4372.0">controller.commandpack.ReloadCommand</node>
-    <node x="512.5866071428572" y="55.0">view.MessageListener</node>
+    <node x="6095.0" y="4372.0">controller.commandpack.ReloadCommand</node>
+    <node x="509.4020833333336" y="55.0">view.MessageListener</node>
     <node x="6702.5" y="4524.0">model.clientModel.SemplifiedMap</node>
     <node x="3447.5" y="4524.0">model.PlayerBoard</node>
     <node x="3958.0" y="5194.0">model.Deck</node>
     <node x="4899.5" y="4524.0">network.RMI.ServerRMIInterface</node>
-    <node x="2905.081547619048" y="0.0">controller.CommandExecutor</node>
-    <node x="795.0" y="4372.0">controller.commandpack.NotifyReceiverCommand</node>
-    <node x="265.0" y="4339.0">controller.commandpack.UsePowerUpCommand</node>
+    <node x="2891.647023809524" y="0.0">controller.CommandExecutor</node>
+    <node x="1855.0" y="4372.0">controller.commandpack.NotifyReceiverCommand</node>
     <node x="6076.0" y="5194.0">view.ClientSingleton</node>
+    <node x="3180.0" y="4339.0">controller.commandpack.UsePowerUpCommand</node>
     <node x="466.0" y="5194.0">model.clientModel.SemplifiedWeaponCard</node>
     <node x="1570.0" y="5587.0">exceptions.InsufficientAmmoException</node>
     <node x="3577.5" y="3839.0">controller.commandpack.Command</node>
-    <node x="2385.0" y="4372.0">controller.commandpack.SetUsernameCommand</node>
-    <node x="2360.081547619048" y="44.0">model.ChangesObserver</node>
-    <node x="2584.0" y="3475.0">model.TractorBeamAdvancedStrategy</node>
+    <node x="5035.0" y="4372.0">controller.commandpack.SetUsernameCommand</node>
+    <node x="1994.6470238095242" y="44.0">model.ChangesObserver</node>
+    <node x="2261.0" y="3475.0">model.TractorBeamAdvancedStrategy</node>
     <node x="3071.0" y="5587.0">jsonparser.Exclude</node>
     <node x="530.0" y="4372.0">controller.commandpack.SetNumberOfDeathCommand</node>
     <node x="2892.0" y="5587.0">model.clientModel.SemplifiedEffect</node>
@@ -171,237 +171,15 @@
   </nodes>
   <notes />
   <edges>
-    <edge source="model.RoomStrategy" target="model.AbstractTargetStrategy">
-      <point x="0.0" y="-59.0" />
-      <point x="3704.5" y="3404.0" />
-      <point x="2206.0384615384614" y="3404.0" />
-      <point x="116.53846153846143" y="81.0" />
-    </edge>
-    <edge source="model.JsonCreator" target="model.ChangesMatchObserver">
-      <point x="-43.875" y="-246.0" />
-      <point x="2312.275" y="221.0" />
-      <point x="2174.081547619048" y="221.0" />
-      <point x="0.0" y="36.5" />
-    </edge>
-    <edge source="view.gui.GameFrame" target="view.PlayerObserver">
-      <point x="99.33333333333348" y="-1016.0" />
-      <point x="839.3333333333335" y="231.0" />
-      <point x="1162.0815476190478" y="231.0" />
-      <point x="-98.0" y="80.5" />
-    </edge>
-    <edge source="controller.commandpack.ChooseOptEffectCommand" target="controller.commandpack.AbstractCommand">
-      <point x="0.0" y="-37.0" />
-      <point x="122.5" y="4189.0" />
-      <point x="3551.982142857143" y="4189.0" />
-      <point x="-148.01785714285734" y="81.0" />
-    </edge>
-    <edge source="model.SeeStrategy" target="model.AbstractTargetStrategy">
-      <point x="0.0" y="-59.0" />
-      <point x="151.5" y="3394.0" />
-      <point x="1949.6538461538462" y="3394.0" />
-      <point x="-139.8461538461538" y="81.0" />
-    </edge>
-    <edge source="controller.commandpack.ThrowWeaponCommand" target="controller.commandpack.AbstractCommand">
-      <point x="0.0" y="-37.0" />
-      <point x="4627.5" y="4289.0" />
-      <point x="3738.375" y="4289.0" />
-      <point x="38.375" y="81.0" />
-    </edge>
-    <edge source="controller.JsonUnwrapper" target="view.PlayerObservable">
-      <point x="35.25" y="-290.0" />
-      <point x="5186.75" y="3160.0" />
-      <point x="5304.5" y="3160.0" />
-      <point x="0.0" y="25.5" />
-    </edge>
-    <edge source="controller.CommandResponse" target="controller.AbstractCommandResponse">
-      <point x="0.0" y="-92.0" />
-      <point x="6516.0" y="3541.0" />
-      <point x="6424.5" y="3541.0" />
-      <point x="56.0" y="224.5" />
-    </edge>
-    <edge source="controller.commandpack.AskPickCommand" target="controller.commandpack.AbstractCommand">
-      <point x="0.0" y="-25.5" />
-      <point x="6482.5" y="4219.0" />
-      <point x="3815.125" y="4219.0" />
-      <point x="115.125" y="81.0" />
-    </edge>
-    <edge source="controller.commandpack.SetUsernameCommand" target="controller.commandpack.AbstractCommand">
-      <point x="0.0" y="-37.0" />
-      <point x="2507.5" y="4279.0" />
-      <point x="3650.6607142857147" y="4279.0" />
-      <point x="-49.33928571428578" y="81.0" />
-    </edge>
     <edge source="controller.commandpack.SetNumberOfDeathCommand" target="controller.commandpack.AbstractCommand">
       <point x="0.0" y="-37.0" />
       <point x="652.5" y="4209.0" />
       <point x="3573.9107142857147" y="4209.0" />
       <point x="-126.08928571428578" y="81.0" />
     </edge>
-    <edge source="model.BBQStrategy" target="model.FlameThrowerStrategy">
-      <point x="0.0" y="-25.5" />
-      <point x="0.0" y="47.5" />
-    </edge>
-    <edge source="controller.commandpack.SetFinalFrenzyCommand" target="controller.commandpack.AbstractCommand">
-      <point x="0.0" y="-37.0" />
-      <point x="6217.5" y="4229.0" />
-      <point x="3804.1607142857147" y="4229.0" />
-      <point x="104.16071428571422" y="81.0" />
-    </edge>
-    <edge source="view.gui.Gui" target="view.MessageListener">
-      <point x="-148.39999999999986" y="-279.5" />
-      <point x="1045.7470238095239" y="221.0" />
-      <point x="644.4616071428572" y="221.0" />
-      <point x="26.375" y="25.5" />
-    </edge>
-    <edge source="controller.commandpack.AskWalkCommand" target="controller.commandpack.AbstractCommand">
-      <point x="0.0" y="-25.5" />
-      <point x="1977.5" y="4259.0" />
-      <point x="3628.732142857143" y="4259.0" />
-      <point x="-71.26785714285734" y="81.0" />
-    </edge>
-    <edge source="controller.JsonUnwrapper" target="view.MapObservable">
-      <point x="-35.25" y="-290.0" />
-      <point x="5116.25" y="3160.0" />
-      <point x="4998.5" y="3160.0" />
+    <edge source="model.GameManager" target="model.CreationGameObservable">
+      <point x="0.0" y="-246.5" />
       <point x="0.0" y="25.5" />
-    </edge>
-    <edge source="controller.commandpack.ChooseAdvanceCommand" target="controller.commandpack.AbstractCommand">
-      <point x="0.0" y="-37.0" />
-      <point x="5952.5" y="4239.0" />
-      <point x="3793.1964285714284" y="4239.0" />
-      <point x="93.19642857142844" y="81.0" />
-    </edge>
-    <edge source="controller.JsonNotifier" target="controller.Notifier">
-      <point x="0.0" y="-158.0" />
-      <point x="0.0" y="80.5" />
-    </edge>
-    <edge source="controller.commandpack.AskPointsCommand" target="controller.commandpack.AbstractCommand">
-      <point x="0.0" y="-25.5" />
-      <point x="5157.5" y="4269.0" />
-      <point x="3760.3035714285716" y="4269.0" />
-      <point x="60.30357142857156" y="81.0" />
-    </edge>
-    <edge source="controller.commandpack.AbstractCommand" target="controller.commandpack.Command">
-      <point x="0.0" y="-81.0" />
-      <point x="0.0" y="59.0" />
-    </edge>
-    <edge source="model.Match" target="model.ChangesMatchObservable">
-      <point x="0.0" y="-521.5" />
-      <point x="0.0" y="25.5" />
-    </edge>
-    <edge source="model.HellionStrategy" target="model.AbstractTargetStrategy">
-      <point x="0.0" y="-59.0" />
-      <point x="797.5" y="3414.0" />
-      <point x="1996.2692307692307" y="3414.0" />
-      <point x="-93.23076923076928" y="81.0" />
-    </edge>
-    <edge source="model.AdjacentDifferentTilesStrategy" target="model.AbstractTargetStrategy">
-      <point x="0.0" y="-70.0" />
-      <point x="1443.5" y="3434.0" />
-      <point x="2042.8846153846155" y="3434.0" />
-      <point x="-46.61538461538453" y="81.0" />
-    </edge>
-    <edge source="view.gui.GameFrame" target="view.MessageListener">
-      <point x="-99.33333333333348" y="-1016.0" />
-      <point x="640.6666666666665" y="231.0" />
-      <point x="591.7116071428572" y="231.0" />
-      <point x="-26.375" y="25.5" />
-    </edge>
-    <edge source="view.AbstractView" target="view.MessageListener">
-      <point x="-46.799999999999955" y="-14.5" />
-      <point x="1556.2065476190478" y="201.0" />
-      <point x="697.2116071428572" y="201.0" />
-      <point x="79.125" y="25.5" />
-    </edge>
-    <edge source="controller.commandpack.SpawnCommand" target="controller.commandpack.AbstractCommand">
-      <point x="0.0" y="-48.0" />
-      <point x="3567.5" y="4319.0" />
-      <point x="3694.517857142857" y="4319.0" />
-      <point x="-5.482142857143117" y="81.0" />
-    </edge>
-    <edge source="controller.JsonUnwrapper" target="view.MatchObservable">
-      <point x="105.75" y="-290.0" />
-      <point x="5257.25" y="3170.0" />
-      <point x="5620.5" y="3170.0" />
-      <point x="0.0" y="25.5" />
-    </edge>
-    <edge source="controller.commandpack.MoveCommand" target="controller.commandpack.AbstractCommand">
-      <point x="0.0" y="-37.0" />
-      <point x="4362.5" y="4299.0" />
-      <point x="3727.4107142857147" y="4299.0" />
-      <point x="27.41071428571422" y="81.0" />
-    </edge>
-    <edge source="model.TractorBeamStrategy" target="model.AbstractTargetStrategy">
-      <point x="0.0" y="-70.0" />
-      <point x="2412.5" y="3444.0" />
-      <point x="2112.8076923076924" y="3444.0" />
-      <point x="23.307692307692378" y="81.0" />
-    </edge>
-    <edge source="controller.commandpack.ChooseTargetCommand" target="controller.commandpack.AbstractCommand">
-      <point x="0.0" y="-70.0" />
-      <point x="1712.5" y="4249.0" />
-      <point x="3617.767857142858" y="4249.0" />
-      <point x="-82.23214285714266" y="81.0" />
-    </edge>
-    <edge source="model.AdjacentStrategy" target="model.AbstractTargetStrategy">
-      <point x="0.0" y="-70.0" />
-      <point x="1766.5" y="3444.0" />
-      <point x="2066.1923076923076" y="3444.0" />
-      <point x="-23.307692307692378" y="81.0" />
-    </edge>
-    <edge source="controller.JsonUnwrapper" target="model.LobbyObservable">
-      <point x="-176.25" y="-290.0" />
-      <point x="4975.25" y="3180.0" />
-      <point x="4457.0" y="3180.0" />
-      <point x="52.5" y="25.5" />
-    </edge>
-    <edge source="model.FlameThrowerStrategy" target="model.AbstractTargetStrategy">
-      <point x="0.0" y="-47.5" />
-      <point x="3381.5" y="3414.0" />
-      <point x="2182.730769230769" y="3414.0" />
-      <point x="93.23076923076906" y="81.0" />
-    </edge>
-    <edge source="view.gui.Gui" target="view.LobbyListener">
-      <point x="148.4000000000001" y="-279.5" />
-      <point x="1342.5470238095238" y="221.0" />
-      <point x="1846.414880952381" y="221.0" />
-      <point x="-56.66666666666674" y="36.5" />
-    </edge>
-    <edge source="controller.commandpack.WeaponCommand" target="controller.commandpack.AbstractCommand">
-      <point x="0.0" y="-37.0" />
-      <point x="6747.5" y="4209.0" />
-      <point x="3826.0892857142862" y="4209.0" />
-      <point x="126.08928571428578" y="81.0" />
-    </edge>
-    <edge source="controller.JsonUnwrapper" target="view.MessageObservable">
-      <point x="-105.75" y="-290.0" />
-      <point x="5045.75" y="3170.0" />
-      <point x="4684.5" y="3170.0" />
-      <point x="0.0" y="25.5" />
-    </edge>
-    <edge source="controller.commandpack.NotifyReceiverCommand" target="controller.commandpack.AbstractCommand">
-      <point x="0.0" y="-37.0" />
-      <point x="917.5" y="4219.0" />
-      <point x="3584.875" y="4219.0" />
-      <point x="-115.125" y="81.0" />
-    </edge>
-    <edge source="model.Player" target="model.ChangesObservable">
-      <point x="0.0" y="-532.5" />
-      <point x="4171.081547619047" y="76.0" />
-      <point x="4045.831547619048" y="76.0" />
-      <point x="57.25" y="25.5" />
-    </edge>
-    <edge source="network.Socket.CommandLauncherProxySocket" target="controller.CommandContainer">
-      <point x="0.0" y="-81.0" />
-      <point x="1065.0" y="4600.0" />
-      <point x="985.75" y="4600.0" />
-      <point x="59.25" y="25.5" />
-    </edge>
-    <edge source="view.gui.Gui" target="view.PlayerObserver">
-      <point x="0.0" y="-279.5" />
-      <point x="1194.1470238095237" y="231.0" />
-      <point x="1260.0815476190478" y="231.0" />
-      <point x="0.0" y="80.5" />
     </edge>
     <edge source="network.Socket.JsonReceiverProxySocket" target="controller.JsonReceiver">
       <point x="0.0" y="-81.0" />
@@ -409,105 +187,125 @@
     </edge>
     <edge source="controller.commandpack.ReloadCommand" target="controller.commandpack.AbstractCommand">
       <point x="0.0" y="-37.0" />
-      <point x="1182.5" y="4229.0" />
-      <point x="3595.8392857142862" y="4229.0" />
-      <point x="-104.16071428571422" y="81.0" />
+      <point x="6217.5" y="4229.0" />
+      <point x="3804.1607142857147" y="4229.0" />
+      <point x="104.16071428571422" y="81.0" />
+    </edge>
+    <edge source="controller.commandpack.ChooseTargetCommand" target="controller.commandpack.AbstractCommand">
+      <point x="0.0" y="-70.0" />
+      <point x="3567.5" y="4319.0" />
+      <point x="3694.517857142857" y="4319.0" />
+      <point x="-5.482142857143117" y="81.0" />
+    </edge>
+    <edge source="model.BBQStrategy" target="model.FlameThrowerStrategy">
+      <point x="0.0" y="-25.5" />
+      <point x="0.0" y="47.5" />
+    </edge>
+    <edge source="model.JsonCreator" target="model.ChangesMatchObserver">
+      <point x="131.625" y="-246.0" />
+      <point x="2407.8583333333336" y="231.0" />
+      <point x="2680.647023809524" y="231.0" />
+      <point x="0.0" y="36.5" />
     </edge>
     <edge source="controller.commandpack.SetTokenCommand" target="controller.commandpack.AbstractCommand">
       <point x="0.0" y="-37.0" />
-      <point x="7277.5" y="4189.0" />
-      <point x="3848.017857142858" y="4189.0" />
-      <point x="148.01785714285734" y="81.0" />
+      <point x="1447.5" y="4239.0" />
+      <point x="3606.8035714285716" y="4239.0" />
+      <point x="-93.19642857142844" y="81.0" />
     </edge>
-    <edge source="network.RMI.ServerRMI" target="network.RMI.ServerRMIInterface">
-      <point x="0.0" y="-103.5" />
-      <point x="0.0" y="58.5" />
-    </edge>
-    <edge source="controller.commandpack.AskReloadCommand" target="controller.commandpack.AbstractCommand">
-      <point x="0.0" y="-25.5" />
-      <point x="3832.5" y="4319.0" />
-      <point x="3705.482142857143" y="4319.0" />
-      <point x="5.482142857142662" y="81.0" />
-    </edge>
-    <edge source="view.gui.Gui" target="view.MatchObserver">
-      <point x="74.20000000000005" y="-279.5" />
-      <point x="1268.3470238095238" y="211.0" />
-      <point x="1519.8315476190478" y="211.0" />
-      <point x="-92.75" y="36.5" />
-    </edge>
-    <edge source="controller.CommandLauncherInterface" target="controller.CommandContainer">
-      <point x="0.0" y="-58.5" />
-      <point x="788.0" y="4600.0" />
-      <point x="867.25" y="4600.0" />
-      <point x="-59.25" y="25.5" />
-    </edge>
-    <edge source="view.AbstractView" target="view.PlayerObserver">
-      <point x="0.0" y="-14.5" />
-      <point x="1603.0065476190478" y="181.0" />
-      <point x="1358.0815476190478" y="181.0" />
-      <point x="98.0" y="80.5" />
-    </edge>
-    <edge source="model.JsonCreator" target="view.LobbyListener">
-      <point x="-131.625" y="-246.0" />
-      <point x="2224.525" y="231.0" />
-      <point x="1959.7482142857145" y="231.0" />
-      <point x="56.66666666666674" y="36.5" />
-    </edge>
-    <edge source="controller.commandpack.UsePowerUpCommand" target="controller.commandpack.AbstractCommand">
-      <point x="0.0" y="-70.0" />
-      <point x="387.5" y="4199.0" />
-      <point x="3562.9464285714284" y="4199.0" />
-      <point x="-137.05357142857156" y="81.0" />
-    </edge>
-    <edge source="model.TorpedineStrategy" target="model.AbstractTargetStrategy">
+    <edge source="model.RoomStrategy" target="model.AbstractTargetStrategy">
       <point x="0.0" y="-59.0" />
-      <point x="3058.5" y="3424.0" />
-      <point x="2159.4230769230767" y="3424.0" />
-      <point x="69.92307692307668" y="81.0" />
+      <point x="797.5" y="3414.0" />
+      <point x="1996.2692307692307" y="3414.0" />
+      <point x="-93.23076923076928" y="81.0" />
     </edge>
-    <edge source="model.Tile" target="model.ChangesObservable">
-      <point x="0.0" y="-455.5" />
-      <point x="3806.081547619048" y="76.0" />
-      <point x="3931.331547619048" y="76.0" />
-      <point x="-57.25" y="25.5" />
+    <edge source="controller.commandpack.SetFinalFrenzyCommand" target="controller.commandpack.AbstractCommand">
+      <point x="0.0" y="-37.0" />
+      <point x="6482.5" y="4219.0" />
+      <point x="3815.125" y="4219.0" />
+      <point x="115.125" y="81.0" />
     </edge>
-    <edge source="controller.commandpack.ServerEndTurnCommand" target="controller.commandpack.AbstractCommand">
+    <edge source="view.gui.Gui" target="view.MessageListener">
+      <point x="-148.39999999999986" y="-279.5" />
+      <point x="1045.7470238095243" y="221.0" />
+      <point x="641.2770833333336" y="221.0" />
+      <point x="26.375" y="25.5" />
+    </edge>
+    <edge source="view.gui.GameFrame" target="view.PlayerObserver">
+      <point x="0.0" y="-1016.0" />
+      <point x="740.0000000000002" y="231.0" />
+      <point x="818.8970238095242" y="231.0" />
+      <point x="-98.0" y="80.5" />
+    </edge>
+    <edge source="model.AdjacentStrategy" target="model.AbstractTargetStrategy">
+      <point x="0.0" y="-70.0" />
+      <point x="1766.5" y="3444.0" />
+      <point x="2066.1923076923076" y="3444.0" />
+      <point x="-23.307692307692378" y="81.0" />
+    </edge>
+    <edge source="view.gui.GameFrame" target="view.MapObserver">
+      <point x="99.33333333333337" y="-1016.0" />
+      <point x="839.3333333333336" y="231.0" />
+      <point x="1175.313690476191" y="231.0" />
+      <point x="-87.33333333333326" y="36.5" />
+    </edge>
+    <edge source="controller.commandpack.AskWalkCommand" target="controller.commandpack.AbstractCommand">
+      <point x="0.0" y="-25.5" />
+      <point x="5422.5" y="4259.0" />
+      <point x="3771.267857142858" y="4259.0" />
+      <point x="71.26785714285734" y="81.0" />
+    </edge>
+    <edge source="controller.commandpack.MoveTargetCommand" target="controller.commandpack.AbstractCommand">
       <point x="0.0" y="-37.0" />
       <point x="4097.5" y="4309.0" />
       <point x="3716.4464285714284" y="4309.0" />
       <point x="16.44642857142844" y="81.0" />
     </edge>
-    <edge source="model.GameManager" target="model.CreationGameObservable">
-      <point x="0.0" y="-246.5" />
-      <point x="0.0" y="25.5" />
+    <edge source="view.gui.GameFrame" target="view.MessageListener">
+      <point x="-99.33333333333326" y="-1016.0" />
+      <point x="640.666666666667" y="231.0" />
+      <point x="588.5270833333336" y="231.0" />
+      <point x="-26.375" y="25.5" />
     </edge>
     <edge source="model.MeleeStrategy" target="model.AbstractTargetStrategy">
       <point x="0.0" y="-59.0" />
+      <point x="1443.5" y="3434.0" />
+      <point x="2042.8846153846155" y="3434.0" />
+      <point x="-46.61538461538453" y="81.0" />
+    </edge>
+    <edge source="model.IgnoreWallStrategy" target="model.AbstractTargetStrategy">
+      <point x="0.0" y="-47.5" />
       <point x="474.5" y="3404.0" />
       <point x="1972.9615384615386" y="3404.0" />
       <point x="-116.53846153846143" y="81.0" />
     </edge>
     <edge source="controller.commandpack.SetPlayerNumberCommand" target="controller.commandpack.AbstractCommand">
       <point x="0.0" y="-37.0" />
-      <point x="5422.5" y="4259.0" />
-      <point x="3771.267857142858" y="4259.0" />
-      <point x="71.26785714285734" y="81.0" />
+      <point x="2507.5" y="4279.0" />
+      <point x="3650.6607142857147" y="4279.0" />
+      <point x="-49.33928571428578" y="81.0" />
     </edge>
-    <edge source="model.IgnoreWallStrategy" target="model.AbstractTargetStrategy">
-      <point x="0.0" y="-47.5" />
+    <edge source="controller.JsonUnwrapper" target="view.MapObservable">
+      <point x="-35.25" y="-290.0" />
+      <point x="5116.25" y="3160.0" />
+      <point x="4998.5" y="3160.0" />
+      <point x="0.0" y="25.5" />
+    </edge>
+    <edge source="controller.JsonUnwrapper" target="model.LobbyObservable">
+      <point x="-176.25" y="-290.0" />
+      <point x="4975.25" y="3180.0" />
+      <point x="4457.0" y="3180.0" />
+      <point x="52.5" y="25.5" />
+    </edge>
+    <edge source="model.DontSeeStrategy" target="model.AbstractTargetStrategy">
+      <point x="0.0" y="-70.0" />
       <point x="1120.5" y="3424.0" />
       <point x="2019.576923076923" y="3424.0" />
       <point x="-69.9230769230769" y="81.0" />
     </edge>
-    <edge source="model.DontSeeStrategy" target="model.AbstractTargetStrategy">
-      <point x="0.0" y="-70.0" />
-      <point x="4027.5" y="3394.0" />
-      <point x="2229.346153846154" y="3394.0" />
-      <point x="139.8461538461538" y="81.0" />
-    </edge>
-    <edge source="model.FixedDistanceStrategy" target="model.SeeStrategy">
-      <point x="0.0" y="-70.0" />
-      <point x="0.0" y="59.0" />
+    <edge source="network.RMI.ServerRMI" target="network.RMI.ServerRMIInterface">
+      <point x="0.0" y="-103.5" />
+      <point x="0.0" y="58.5" />
     </edge>
     <edge source="controller.JsonUnwrapper" target="controller.JsonReceiver">
       <point x="176.25" y="-290.0" />
@@ -515,63 +313,195 @@
       <point x="5835.0" y="3180.0" />
       <point x="-45.5" y="36.5" />
     </edge>
+    <edge source="model.FixedDistanceStrategy" target="model.SeeStrategy">
+      <point x="0.0" y="-70.0" />
+      <point x="0.0" y="59.0" />
+    </edge>
+    <edge source="model.FlameThrowerStrategy" target="model.AbstractTargetStrategy">
+      <point x="0.0" y="-47.5" />
+      <point x="4027.5" y="3394.0" />
+      <point x="2229.346153846154" y="3394.0" />
+      <point x="139.8461538461538" y="81.0" />
+    </edge>
+    <edge source="view.gui.Gui" target="view.LobbyListener">
+      <point x="148.4000000000001" y="-279.5" />
+      <point x="1342.5470238095243" y="221.0" />
+      <point x="1832.9803571428574" y="221.0" />
+      <point x="-56.66666666666674" y="36.5" />
+    </edge>
+    <edge source="view.AbstractView" target="view.MatchObserver">
+      <point x="23.40000000000009" y="-14.5" />
+      <point x="1620.9720238095242" y="211.0" />
+      <point x="1691.8970238095242" y="211.0" />
+      <point x="92.75" y="36.5" />
+    </edge>
+    <edge source="controller.commandpack.AskReloadCommand" target="controller.commandpack.AbstractCommand">
+      <point x="0.0" y="-25.5" />
+      <point x="2242.5" y="4269.0" />
+      <point x="3639.6964285714284" y="4269.0" />
+      <point x="-60.30357142857156" y="81.0" />
+    </edge>
+    <edge source="controller.commandpack.ChooseOptEffectCommand" target="controller.commandpack.AbstractCommand">
+      <point x="0.0" y="-37.0" />
+      <point x="122.5" y="4189.0" />
+      <point x="3551.982142857143" y="4189.0" />
+      <point x="-148.01785714285734" y="81.0" />
+    </edge>
     <edge source="model.TractorBeamAdvancedStrategy" target="model.AbstractTargetStrategy">
       <point x="0.0" y="-59.0" />
-      <point x="2735.5" y="3434.0" />
-      <point x="2136.1153846153848" y="3434.0" />
-      <point x="46.615384615384755" y="81.0" />
+      <point x="2412.5" y="3444.0" />
+      <point x="2112.8076923076924" y="3444.0" />
+      <point x="23.307692307692378" y="81.0" />
+    </edge>
+    <edge source="controller.commandpack.ChooseAdvanceCommand" target="controller.commandpack.AbstractCommand">
+      <point x="0.0" y="-37.0" />
+      <point x="2772.5" y="4289.0" />
+      <point x="3661.625" y="4289.0" />
+      <point x="-38.375" y="81.0" />
     </edge>
     <edge source="model.JsonCreator" target="model.ChangesObserver">
-      <point x="43.875" y="-246.0" />
-      <point x="2400.025" y="231.0" />
-      <point x="2479.581547619048" y="231.0" />
+      <point x="-43.875" y="-246.0" />
+      <point x="2232.3583333333336" y="221.0" />
+      <point x="2114.1470238095244" y="221.0" />
       <point x="0.0" y="36.5" />
     </edge>
     <edge source="view.AbstractView" target="view.MapObserver">
-      <point x="-23.40000000000009" y="-14.5" />
-      <point x="1579.6065476190477" y="191.0" />
-      <point x="998.8970238095237" y="191.0" />
+      <point x="0.0" y="-14.5" />
+      <point x="1597.5720238095241" y="181.0" />
+      <point x="1349.9803571428574" y="181.0" />
       <point x="87.33333333333326" y="36.5" />
+    </edge>
+    <edge source="model.SeeStrategy" target="model.AbstractTargetStrategy">
+      <point x="0.0" y="-59.0" />
+      <point x="151.5" y="3394.0" />
+      <point x="1949.6538461538462" y="3394.0" />
+      <point x="-139.8461538461538" y="81.0" />
+    </edge>
+    <edge source="view.AbstractView" target="view.MessageListener">
+      <point x="-46.799999999999955" y="-14.5" />
+      <point x="1550.7720238095242" y="201.0" />
+      <point x="694.0270833333336" y="201.0" />
+      <point x="79.125" y="25.5" />
     </edge>
     <edge source="controller.CommandLauncher" target="controller.CommandLauncherInterface">
       <point x="0.0" y="-147.0" />
       <point x="0.0" y="58.5" />
     </edge>
-    <edge source="view.CommandLineInterface" target="view.AbstractView">
-      <point x="-2.2737367544323206E-13" y="-312.5" />
-      <point x="0.0" y="14.5" />
+    <edge source="view.gui.Gui" target="view.MatchObserver">
+      <point x="74.20000000000005" y="-279.5" />
+      <point x="1268.3470238095242" y="211.0" />
+      <point x="1506.3970238095242" y="211.0" />
+      <point x="-92.75" y="36.5" />
     </edge>
-    <edge source="model.VortexCannonStrategy" target="model.AbstractTargetStrategy">
-      <point x="0.0" y="-70.0" />
-      <point x="0.0" y="81.0" />
-    </edge>
-    <edge source="view.gui.Gui" target="view.MapObserver">
-      <point x="-74.20000000000005" y="-279.5" />
-      <point x="1119.9470238095237" y="211.0" />
-      <point x="911.5636904761905" y="211.0" />
-      <point x="0.0" y="36.5" />
-    </edge>
-    <edge source="model.AbstractTargetStrategy" target="model.TargetStrategy">
-      <point x="0.0" y="-81.0" />
-      <point x="0.0" y="47.5" />
-    </edge>
-    <edge source="view.gui.GameFrame" target="view.MapObserver">
-      <point x="0.0" y="-1016.0" />
-      <point x="740.0" y="231.0" />
-      <point x="824.2303571428572" y="231.0" />
-      <point x="-87.33333333333326" y="36.5" />
+    <edge source="controller.JsonNotifier" target="controller.Notifier">
+      <point x="0.0" y="-158.0" />
+      <point x="0.0" y="80.5" />
     </edge>
     <edge source="controller.commandpack.PickUpCommand" target="controller.commandpack.AbstractCommand">
       <point x="0.0" y="-37.0" />
-      <point x="2242.5" y="4269.0" />
-      <point x="3639.6964285714284" y="4269.0" />
-      <point x="-60.30357142857156" y="81.0" />
+      <point x="1712.5" y="4249.0" />
+      <point x="3617.767857142858" y="4249.0" />
+      <point x="-82.23214285714266" y="81.0" />
+    </edge>
+    <edge source="controller.commandpack.SetEffectPhraseCommand" target="controller.commandpack.AbstractCommand">
+      <point x="0.0" y="-37.0" />
+      <point x="1182.5" y="4229.0" />
+      <point x="3595.8392857142862" y="4229.0" />
+      <point x="-104.16071428571422" y="81.0" />
+    </edge>
+    <edge source="controller.CommandLauncherInterface" target="controller.CommandContainer">
+      <point x="0.0" y="-58.5" />
+      <point x="788.0" y="4600.0" />
+      <point x="867.25" y="4600.0" />
+      <point x="-59.25" y="25.5" />
+    </edge>
+    <edge source="controller.commandpack.WeaponCommand" target="controller.commandpack.AbstractCommand">
+      <point x="0.0" y="-37.0" />
+      <point x="387.5" y="4199.0" />
+      <point x="3562.9464285714284" y="4199.0" />
+      <point x="-137.05357142857156" y="81.0" />
+    </edge>
+    <edge source="controller.JsonUnwrapper" target="view.MessageObservable">
+      <point x="-105.75" y="-290.0" />
+      <point x="5045.75" y="3170.0" />
+      <point x="4684.5" y="3170.0" />
+      <point x="0.0" y="25.5" />
+    </edge>
+    <edge source="controller.commandpack.SpawnCommand" target="controller.commandpack.AbstractCommand">
+      <point x="0.0" y="-48.0" />
+      <point x="6747.5" y="4209.0" />
+      <point x="3826.0892857142862" y="4209.0" />
+      <point x="126.08928571428578" y="81.0" />
+    </edge>
+    <edge source="view.AbstractView" target="view.PlayerObserver">
+      <point x="-23.40000000000009" y="-14.5" />
+      <point x="1574.172023809524" y="191.0" />
+      <point x="1014.8970238095242" y="191.0" />
+      <point x="98.0" y="80.5" />
     </edge>
     <edge source="controller.commandpack.SetMapCommand" target="controller.commandpack.AbstractCommand">
       <point x="0.0" y="-37.0" />
-      <point x="2772.5" y="4289.0" />
-      <point x="3661.625" y="4289.0" />
-      <point x="-38.375" y="81.0" />
+      <point x="5687.5" y="4249.0" />
+      <point x="3782.232142857143" y="4249.0" />
+      <point x="82.23214285714312" y="81.0" />
+    </edge>
+    <edge source="model.JsonCreator" target="view.LobbyListener">
+      <point x="-131.625" y="-246.0" />
+      <point x="2144.6083333333336" y="231.0" />
+      <point x="1946.313690476191" y="231.0" />
+      <point x="56.66666666666674" y="36.5" />
+    </edge>
+    <edge source="controller.commandpack.UsePowerUpCommand" target="controller.commandpack.AbstractCommand">
+      <point x="0.0" y="-70.0" />
+      <point x="3302.5" y="4309.0" />
+      <point x="3683.5535714285716" y="4309.0" />
+      <point x="-16.44642857142844" y="81.0" />
+    </edge>
+    <edge source="controller.JsonUnwrapper" target="view.MatchObservable">
+      <point x="105.75" y="-290.0" />
+      <point x="5257.25" y="3170.0" />
+      <point x="5620.5" y="3170.0" />
+      <point x="0.0" y="25.5" />
+    </edge>
+    <edge source="controller.commandpack.ThrowWeaponCommand" target="controller.commandpack.AbstractCommand">
+      <point x="0.0" y="-37.0" />
+      <point x="7277.5" y="4189.0" />
+      <point x="3848.017857142858" y="4189.0" />
+      <point x="148.01785714285734" y="81.0" />
+    </edge>
+    <edge source="controller.commandpack.NotifyReceiverCommand" target="controller.commandpack.AbstractCommand">
+      <point x="0.0" y="-37.0" />
+      <point x="1977.5" y="4259.0" />
+      <point x="3628.732142857143" y="4259.0" />
+      <point x="-71.26785714285734" y="81.0" />
+    </edge>
+    <edge source="model.Player" target="model.ChangesObservable">
+      <point x="0.0" y="-532.5" />
+      <point x="4157.6470238095235" y="76.0" />
+      <point x="4032.397023809524" y="76.0" />
+      <point x="57.25" y="25.5" />
+    </edge>
+    <edge source="model.TorpedineStrategy" target="model.AbstractTargetStrategy">
+      <point x="0.0" y="-59.0" />
+      <point x="3704.5" y="3404.0" />
+      <point x="2206.0384615384614" y="3404.0" />
+      <point x="116.53846153846143" y="81.0" />
+    </edge>
+    <edge source="view.CommandLineInterface" target="view.AbstractView">
+      <point x="0.0" y="-312.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="network.Socket.CommandLauncherProxySocket" target="controller.CommandContainer">
+      <point x="0.0" y="-81.0" />
+      <point x="1065.0" y="4600.0" />
+      <point x="985.75" y="4600.0" />
+      <point x="59.25" y="25.5" />
+    </edge>
+    <edge source="model.VortexCannonStrategy" target="model.AbstractTargetStrategy">
+      <point x="0.0" y="-70.0" />
+      <point x="3058.5" y="3424.0" />
+      <point x="2159.4230769230767" y="3424.0" />
+      <point x="69.92307692307668" y="81.0" />
     </edge>
     <edge source="controller.commandpack.StopTimerLobby" target="controller.commandpack.AbstractCommand">
       <point x="0.0" y="-25.5" />
@@ -579,53 +509,23 @@
       <point x="3672.5892857142862" y="4299.0" />
       <point x="-27.41071428571422" y="81.0" />
     </edge>
-    <edge source="controller.commandpack.AskUsePowerUpCommand" target="controller.commandpack.AbstractCommand">
-      <point x="0.0" y="-25.5" />
-      <point x="5687.5" y="4249.0" />
-      <point x="3782.232142857143" y="4249.0" />
-      <point x="82.23214285714312" y="81.0" />
-    </edge>
-    <edge source="controller.commandpack.AskEndTurnCommand" target="controller.commandpack.AbstractCommand">
-      <point x="0.0" y="-25.5" />
-      <point x="3302.5" y="4309.0" />
-      <point x="3683.5535714285716" y="4309.0" />
-      <point x="-16.44642857142844" y="81.0" />
-    </edge>
-    <edge source="view.gui.LobbyFrame" target="view.MessageListener">
-      <point x="0.0" y="-235.0" />
-      <point x="444.0" y="231.0" />
-      <point x="538.9616071428572" y="231.0" />
-      <point x="-79.125" y="25.5" />
-    </edge>
-    <edge source="controller.commandpack.AskShootCommand" target="controller.commandpack.AbstractCommand">
-      <point x="0.0" y="-25.5" />
-      <point x="1447.5" y="4239.0" />
-      <point x="3606.8035714285716" y="4239.0" />
-      <point x="-93.19642857142844" y="81.0" />
-    </edge>
-    <edge source="model.JsonCreator" target="model.CreationGameObserver">
-      <point x="131.625" y="-246.0" />
-      <point x="2487.775" y="231.0" />
-      <point x="2739.581547619048" y="231.0" />
-      <point x="0.0" y="47.5" />
-    </edge>
-    <edge source="controller.commandpack.MoveTargetCommand" target="controller.commandpack.AbstractCommand">
+    <edge source="controller.commandpack.MoveCommand" target="controller.commandpack.AbstractCommand">
       <point x="0.0" y="-37.0" />
       <point x="4892.5" y="4279.0" />
       <point x="3749.3392857142862" y="4279.0" />
       <point x="49.33928571428578" y="81.0" />
     </edge>
-    <edge source="view.AbstractView" target="view.MatchObserver">
-      <point x="23.40000000000009" y="-14.5" />
-      <point x="1626.4065476190478" y="211.0" />
-      <point x="1705.3315476190478" y="211.0" />
-      <point x="92.75" y="36.5" />
+    <edge source="controller.JsonUnwrapper" target="view.PlayerObservable">
+      <point x="35.25" y="-290.0" />
+      <point x="5186.75" y="3160.0" />
+      <point x="5304.5" y="3160.0" />
+      <point x="0.0" y="25.5" />
     </edge>
-    <edge source="controller.commandpack.SetEffectPhraseCommand" target="controller.commandpack.AbstractCommand">
-      <point x="0.0" y="-37.0" />
-      <point x="7012.5" y="4199.0" />
-      <point x="3837.0535714285716" y="4199.0" />
-      <point x="137.05357142857156" y="81.0" />
+    <edge source="view.gui.Gui" target="view.PlayerObserver">
+      <point x="-74.19999999999982" y="-279.5" />
+      <point x="1119.9470238095244" y="211.0" />
+      <point x="916.8970238095242" y="211.0" />
+      <point x="0.0" y="80.5" />
     </edge>
     <edge source="controller.CommandResponseClient" target="controller.AbstractCommandResponse">
       <point x="0.0" y="-92.0" />
@@ -633,19 +533,121 @@
       <point x="6312.5" y="3541.0" />
       <point x="-56.0" y="224.5" />
     </edge>
+    <edge source="model.Tile" target="model.ChangesObservable">
+      <point x="4.547473508864641E-13" y="-455.5" />
+      <point x="3792.6470238095244" y="76.0" />
+      <point x="3917.897023809524" y="76.0" />
+      <point x="-57.25" y="25.5" />
+    </edge>
+    <edge source="controller.commandpack.ServerEndTurnCommand" target="controller.commandpack.AbstractCommand">
+      <point x="0.0" y="-37.0" />
+      <point x="4627.5" y="4289.0" />
+      <point x="3738.375" y="4289.0" />
+      <point x="38.375" y="81.0" />
+    </edge>
+    <edge source="controller.commandpack.AskEndTurnCommand" target="controller.commandpack.AbstractCommand">
+      <point x="0.0" y="-25.5" />
+      <point x="7012.5" y="4199.0" />
+      <point x="3837.0535714285716" y="4199.0" />
+      <point x="137.05357142857156" y="81.0" />
+    </edge>
+    <edge source="controller.CommandResponse" target="controller.AbstractCommandResponse">
+      <point x="0.0" y="-92.0" />
+      <point x="6516.0" y="3541.0" />
+      <point x="6424.5" y="3541.0" />
+      <point x="56.0" y="224.5" />
+    </edge>
+    <edge source="controller.commandpack.AskUsePowerUpCommand" target="controller.commandpack.AbstractCommand">
+      <point x="0.0" y="-25.5" />
+      <point x="917.5" y="4219.0" />
+      <point x="3584.875" y="4219.0" />
+      <point x="-115.125" y="81.0" />
+    </edge>
+    <edge source="controller.commandpack.AskPickCommand" target="controller.commandpack.AbstractCommand">
+      <point x="0.0" y="-25.5" />
+      <point x="5952.5" y="4239.0" />
+      <point x="3793.1964285714284" y="4239.0" />
+      <point x="93.19642857142844" y="81.0" />
+    </edge>
+    <edge source="controller.commandpack.AskPointsCommand" target="controller.commandpack.AbstractCommand">
+      <point x="0.0" y="-25.5" />
+      <point x="4362.5" y="4299.0" />
+      <point x="3727.4107142857147" y="4299.0" />
+      <point x="27.41071428571422" y="81.0" />
+    </edge>
     <edge source="view.AbstractView" target="view.LobbyListener">
       <point x="46.799999999999955" y="-14.5" />
-      <point x="1649.8065476190477" y="231.0" />
-      <point x="1903.0815476190478" y="231.0" />
+      <point x="1644.372023809524" y="231.0" />
+      <point x="1889.6470238095242" y="231.0" />
       <point x="0.0" y="36.5" />
+    </edge>
+    <edge source="controller.commandpack.AbstractCommand" target="controller.commandpack.Command">
+      <point x="0.0" y="-81.0" />
+      <point x="0.0" y="59.0" />
+    </edge>
+    <edge source="view.gui.LobbyFrame" target="view.MessageListener">
+      <point x="0.0" y="-235.0" />
+      <point x="444.0" y="231.0" />
+      <point x="535.7770833333336" y="231.0" />
+      <point x="-79.125" y="25.5" />
     </edge>
     <edge source="model.Lobby" target="model.LobbyObservable">
       <point x="0.0" y="-224.5" />
       <point x="-52.5" y="25.5" />
     </edge>
+    <edge source="model.TractorBeamStrategy" target="model.AbstractTargetStrategy">
+      <point x="0.0" y="-70.0" />
+      <point x="0.0" y="81.0" />
+    </edge>
+    <edge source="controller.commandpack.AskShootCommand" target="controller.commandpack.AbstractCommand">
+      <point x="0.0" y="-25.5" />
+      <point x="3832.5" y="4319.0" />
+      <point x="3705.482142857143" y="4319.0" />
+      <point x="5.482142857142662" y="81.0" />
+    </edge>
+    <edge source="model.Match" target="model.ChangesMatchObservable">
+      <point x="0.0" y="-521.5" />
+      <point x="0.0" y="25.5" />
+    </edge>
+    <edge source="model.HellionStrategy" target="model.AbstractTargetStrategy">
+      <point x="0.0" y="-59.0" />
+      <point x="3381.5" y="3414.0" />
+      <point x="2182.730769230769" y="3414.0" />
+      <point x="93.23076923076906" y="81.0" />
+    </edge>
+    <edge source="model.AdjacentDifferentTilesStrategy" target="model.AbstractTargetStrategy">
+      <point x="0.0" y="-70.0" />
+      <point x="2735.5" y="3434.0" />
+      <point x="2136.1153846153848" y="3434.0" />
+      <point x="46.615384615384755" y="81.0" />
+    </edge>
+    <edge source="view.gui.Gui" target="view.MapObserver">
+      <point x="0.0" y="-279.5" />
+      <point x="1194.1470238095242" y="231.0" />
+      <point x="1262.6470238095242" y="231.0" />
+      <point x="0.0" y="36.5" />
+    </edge>
+    <edge source="controller.commandpack.SetUsernameCommand" target="controller.commandpack.AbstractCommand">
+      <point x="0.0" y="-37.0" />
+      <point x="5157.5" y="4269.0" />
+      <point x="3760.3035714285716" y="4269.0" />
+      <point x="60.30357142857156" y="81.0" />
+    </edge>
+    <edge source="model.JsonCreator" target="model.CreationGameObserver">
+      <point x="43.875" y="-246.0" />
+      <point x="2320.1083333333336" y="231.0" />
+      <point x="2374.1470238095244" y="231.0" />
+      <point x="0.0" y="47.5" />
+    </edge>
+    <edge source="model.AbstractTargetStrategy" target="model.TargetStrategy">
+      <point x="0.0" y="-81.0" />
+      <point x="0.0" y="47.5" />
+    </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.1" x="3662.0" y="2585.0" />
-  <SelectedNodes />
+  <settings layout="Hierarchic Group" zoom="0.1" x="3284.857142857142" y="2713.3333333333358" />
+  <SelectedNodes>
+    <node>network.TokenRegistry</node>
+  </SelectedNodes>
   <Categories>
     <Category>Fields</Category>
     <Category>Methods</Category>

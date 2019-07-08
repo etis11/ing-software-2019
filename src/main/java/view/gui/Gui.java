@@ -24,7 +24,7 @@ public class Gui extends Application implements LobbyListener, MapObserver, Mess
     private CommandContainer cmd;
     private MainFrame mainFrame;
     private LobbyFrame lobbyFrame;
-    private GameFrame gameFrame = new GameFrame(cmd, "distruttore", "picccola");
+    private GameFrame gameFrame = new GameFrame(cmd, "banshee", "picccola");
 
     @Override
     public void start(Stage stage) throws Exception {

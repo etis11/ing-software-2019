@@ -150,8 +150,8 @@ Method used to set an advanced effect
      * @throws InsufficientAmmoException The player has not enough ammo
      */
     public void reload(Player p) throws InsufficientAmmoException {
-        if (p.canPay(getReloadCost().subList(1,getReloadCost().size()))) {
-            p.getPlayerBoard().getLoader().pay(getReloadCost().subList(1,getReloadCost().size()));
+        if (p.canPay(getReloadCost())) {
+            p.getPlayerBoard().getLoader().pay(getReloadCost());
             loaded = true;
         } else {
             throw new InsufficientAmmoException("you don't have ammo");
