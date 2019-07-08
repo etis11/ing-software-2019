@@ -168,8 +168,10 @@ public class TokenRegistry {
         synchronized (registeredTokens){
             String toRemoveToken = null;
             for(String token: registeredTokens){
-                if (associatonTokenReceiver.get(token).equals(jsonReceiver)){
-                    toRemoveToken = token;
+                if( token!= null && jsonReceiver!= null && associatonTokenReceiver.get(token) != null){
+                    if (associatonTokenReceiver.get(token).equals(jsonReceiver)){
+                        toRemoveToken = token;
+                    }
                 }
             }
             if (toRemoveToken != null){
