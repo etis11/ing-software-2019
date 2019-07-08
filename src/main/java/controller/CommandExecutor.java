@@ -1252,17 +1252,17 @@ public class CommandExecutor {
                                 resetShoot();
                                 command.endCommandToAction(gameManager);
                                 String error ="I target che hai inserito non puoi colpirli, hai perso la mossa";
-                                notifier.notifyError(error, userJsonReceiver);
+                                notifier.notifyErrorTargetPlayer(error, userJsonReceiver, currentPlayer);
                             }
                         }
                     }else{
                         String error ="Target inseriti non validi";
-                        notifier.notifyError(error, userJsonReceiver);
+                        notifier.notifyErrorTargetPlayer(error, userJsonReceiver, currentPlayer);
                     }
                 }
                 else{
                     String error ="Non sei nella fase di scelta dei target";
-                    notifier.notifyError(error, userJsonReceiver);
+                    notifier.notifyErrorTargetPlayer(error, userJsonReceiver, currentPlayer);
                 }
             }
         } else {
