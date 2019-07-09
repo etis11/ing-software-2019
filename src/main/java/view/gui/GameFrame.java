@@ -718,24 +718,24 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private InputStream boardParser(String board) {
         switch (board) {
             case "distruttore":
-                color.remove(1);
-                players.remove(1);
-                return getClass().getResourceAsStream("/img/DistruttoreBoard.png");
-            case "sprog":
-                color.remove(3);
-                players.remove(3);
-                return getClass().getResourceAsStream("/img/SprogBoard.png");
-            case "dozer":
-                color.remove(0);
-                players.remove(0);
-                return getClass().getResourceAsStream("/img/DozerBoard.png");
-            case "violetta":
-                color.remove(2);
-                players.remove(2);
-                return getClass().getResourceAsStream("/img/ViolettaBoard.png");
-            case "banshee":
                 color.remove(4);
                 players.remove(4);
+                return getClass().getResourceAsStream("/img/DistruttoreBoard.png");
+            case "sprog":
+                color.remove(1);
+                players.remove(1);
+                return getClass().getResourceAsStream("/img/SprogBoard.png");
+            case "dozer":
+                color.remove(3);
+                players.remove(3);
+                return getClass().getResourceAsStream("/img/DozerBoard.png");
+            case "violetta":
+                color.remove(0);
+                players.remove(0);
+                return getClass().getResourceAsStream("/img/ViolettaBoard.png");
+            case "banshee":
+                color.remove(2);
+                players.remove(2);
                 return getClass().getResourceAsStream("/img/BansheeBoard.png");
             default:
                 throw new RuntimeException("not valid name");

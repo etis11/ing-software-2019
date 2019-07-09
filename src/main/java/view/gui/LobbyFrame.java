@@ -183,9 +183,9 @@ public class LobbyFrame implements MessageListener {
             public void handle(ActionEvent actionEvent) {
                 info.setVisible(false);
                     try {
-                        cmdLauncher.addCommand(new SetTokenCommand(ClientSingleton.getInstance().getToken(), "violetta"));
+                        cmdLauncher.addCommand(new SetTokenCommand(gui.getToken(), "violetta"));
                     } catch (RemoteException e) {
-                        LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
+                        LOGGER.LOGGER.log(Level.WARNING,e.getMessage());
                     }
             }
         });
