@@ -420,6 +420,7 @@ public class Player implements ChangesObservable{
         if (card.isDrawPowerUp() && getNumPowerUps() < MAX_POWERUP_CARDS) {
             powerUps.add(deck.draw());
         }
+        //todo gestione 4 power up
         notifyAllObservers();
     }
 

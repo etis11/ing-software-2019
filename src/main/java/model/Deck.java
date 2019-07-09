@@ -62,4 +62,8 @@ public class Deck<T> {
         cards.push(card);
     }
 
+    public int size(){
+        return cards.size();
+    }
+
 }

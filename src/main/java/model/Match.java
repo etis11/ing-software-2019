@@ -310,10 +310,13 @@ public class Match implements ChangesMatchObservable{
                 t.putAmmoCard(ammoDeck.draw());
             }
         }
+        if(powerUpDeck.size()<2){
+            powerUpSlushToDeck();
+        }
     }
 
     /**
-     * reset the ammoDeck from his slush pile
+     * reset the ammoDeck from its slush pile
      */
     private void ammoSlushToDeck(){
         while (!ammoSlushPile.isEmpty()){
@@ -322,6 +325,20 @@ public class Match implements ChangesMatchObservable{
         ammoDeck.shuffle();
     }
 
+    /**
+     * reset the powerUpDeck from its slush pile
+     */
+    public void powerUpSlushToDeck(){
+        while (!powerUpSlushPile.isEmpty()){
+            powerUpDeck.addCard(powerUpSlushPile.draw());
+        }
+        powerUpDeck.shuffle();
+    }
+
+    /**
+     * add a thrown or used PowerUpCard to its slush pile
+     * @param pc PowerUpCard to add
+     */
     public void addPowerUpToSlush(PowerUpCard pc){
         powerUpSlushPile.addCard(pc);
     }
