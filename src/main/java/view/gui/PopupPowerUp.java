@@ -26,6 +26,7 @@ import java.util.logging.Level;
 
 public class PopupPowerUp {
 
+    private Gui gui;
     private SemplifiedPlayer semplifiedPlayer;
     private final CommandContainer cmdLauncher;
     private final InputStream pathBackPu = getClass().getResourceAsStream("/img/RetroPu.png");
@@ -46,12 +47,13 @@ public class PopupPowerUp {
 
     List<String> players;
 
-    public PopupPowerUp(List<String> players, CommandContainer cmdLauncher){
+    public PopupPowerUp(List<String> players, CommandContainer cmdLauncher, Gui gui, SemplifiedPlayer currentPlayer){
         stage = new Stage();
         pane = new Pane();
         this.players = players;
         this.cmdLauncher = cmdLauncher;
-        //TODO semplified player
+        this.gui = gui;
+        semplifiedPlayer = currentPlayer;
         generate();
     }
 
@@ -63,13 +65,17 @@ public class PopupPowerUp {
 
         generatePu();
 
+        for(int i = 0; i<semplifiedPlayer.getPowerUpCards().size();i++){
+            pwups.get(i).setVisible(true);
+        }
+
         pwu1.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent actionEvent) {
                 try {
-                    cmdLauncher.addCommand(new SpawnCommand(ClientSingleton.getInstance().getToken(), powerUpParser(semplifiedPlayer.getPowerUpCards().get(0).getPowerUpType()), colorParser(semplifiedPlayer.getPowerUpCards().get(0).getColor())));
+                    cmdLauncher.addCommand(new SpawnCommand(gui.getToken(), powerUpParser(semplifiedPlayer.getPowerUpCards().get(0).getPowerUpType()), colorParser(semplifiedPlayer.getPowerUpCards().get(0).getColor())));
                 } catch (RemoteException e) {
-                    LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(e.getStackTrace()));
+                    LOGGER.LOGGER.log(Level.WARNING, e.getMessage());
                 }
                 stage.close();
             }
@@ -79,9 +85,9 @@ public class PopupPowerUp {
             @Override
             public void handle(MouseEvent actionEvent) {
                 try {
-                    cmdLauncher.addCommand(new SpawnCommand(ClientSingleton.getInstance().getToken(), powerUpParser(semplifiedPlayer.getPowerUpCards().get(1).getPowerUpType()), colorParser(semplifiedPlayer.getPowerUpCards().get(1).getColor())));
+                    cmdLauncher.addCommand(new SpawnCommand(gui.getToken(), powerUpParser(semplifiedPlayer.getPowerUpCards().get(1).getPowerUpType()), colorParser(semplifiedPlayer.getPowerUpCards().get(1).getColor())));
                 } catch (RemoteException e) {
-                    LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(e.getStackTrace()));
+                    LOGGER.LOGGER.log(Level.WARNING, e.getMessage());
                 }
                 stage.close();
             }
@@ -132,10 +138,10 @@ public class PopupPowerUp {
         pwups.add(pwu4);
 
         for (Label l:pwups){
+            l.setVisible(false);
             l.setLayoutY(50);
             l.setMinWidth(110);
             l.setMinHeight(190);
-            l.setVisible(true);
             l.setBorder(border);
             pane.getChildren().add(l);
         }

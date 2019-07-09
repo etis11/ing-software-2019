@@ -36,6 +36,8 @@ import java.util.logging.Level;
 
 public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
 
+    private Gui gui;
+
     final double ammoDimension = 30;
     final int buttonWidth = 100;
     private final InputStream pathBackWeapon = getClass().getResourceAsStream("/img/RetroArmi.png");
@@ -56,6 +58,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     private PbFrame pbFrame;
     private WeaponFrame weaponFrame;
     private RegenFrame regenFrame;
+    private PopupPowerUp popupPowerUp;
 
     private CommandContainer cmdLauncher;
 
@@ -209,6 +212,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         buttonPane = new VBox();
         mapPane = new Pane();
         playerBoardPane = new Pane();
+
 
         infoGame = new TextArea();
 

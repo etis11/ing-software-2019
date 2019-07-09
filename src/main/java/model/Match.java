@@ -195,14 +195,6 @@ public class Match implements ChangesMatchObservable{
     }
 
     /**
-     * Method called before gameplay. Used to store the number of skulls before gameplay so that each player
-     * before game starting, gets to know how long the game might last and so on.
-     */
-    public synchronized void setSkulls(int skulls) {
-        this.skulls = skulls;
-    }
-
-    /**
      * Returns value of finalfrenzy,if active or not
      * @return a boolean
      */
@@ -215,14 +207,6 @@ public class Match implements ChangesMatchObservable{
      */
     public synchronized int getPlayerNumber() {
         return playerNumber;
-    }
-
-    /**
-     * Method called before gameplay. Used to store the number of players before gameplay so that each player
-     * before game starting, gets to know how many player plays.
-     */
-    public synchronized void setPlayerNumber(int playerNumber) {
-        this.playerNumber = playerNumber;
     }
 
     /**
@@ -328,7 +312,7 @@ public class Match implements ChangesMatchObservable{
     /**
      * reset the powerUpDeck from its slush pile
      */
-    public void powerUpSlushToDeck(){
+    private void powerUpSlushToDeck(){
         while (!powerUpSlushPile.isEmpty()){
             powerUpDeck.addCard(powerUpSlushPile.draw());
         }

@@ -23,19 +23,19 @@ public class Parserator implements Runnable {
     /*
     String needed to return all possible commands that you can call on CLI
      */
-    String commandi=AnsiColor.GREEN+"quit"+AnsiColor.RESET+" - Uscire dal gioco\n" +
-            AnsiColor.GREEN+"muovi *up/right/down/left*"+AnsiColor.RESET+" - Fa muovere il giocatore aggiungendo anche la/le direzione/i. Es: muovi up,left\n" +
-            AnsiColor.GREEN+"spara"+AnsiColor.RESET+" - Commando che autorizza il giocatore a sparare\n" +
-            AnsiColor.GREEN+"raccogli"+AnsiColor.RESET+" - Raccoglie nel tile in cui si trova le ammo o la WeaponCard\n" +
-            AnsiColor.GREEN+"ricarica"+AnsiColor.RESET+" - Commando che carica l'arma\n" +
-            AnsiColor.GREEN+"fineturno"+AnsiColor.RESET+" - Serve per terminare il tuo turno\n" +
-            AnsiColor.GREEN+"powerup"+AnsiColor.RESET+" - Commando che server per chiedere conferma per poter usare la PowerUp\n" +
-            AnsiColor.GREEN+"setusername *NOME*"+AnsiColor.RESET+" - Commando che server per defnire il nome del tuo player. Es: setusername Paolo\n" +
-            AnsiColor.GREEN+"setfraseeffetto *FRASE*"+AnsiColor.RESET+" - Commando che server per dare una frase al tuo player.Es: setphraseeffect This is Sparta!\n" +
-            AnsiColor.GREEN+"setuccisioni *NUMERO*"+AnsiColor.RESET+" - Commando che decide i numeri di teschi a inizio partita. Es: setuccisioni 4\n" +
-            AnsiColor.GREEN+"setgiocatori *NUMERO*"+AnsiColor.RESET+" - Comando che serve per decidere i numeri di giocatori nella partita. Es: setgiocatori 5\n" +
-            AnsiColor.GREEN+"punti"+AnsiColor.RESET+" - Commando che ritorna la quantita dei punti del giocatore che fa la richiesta\n" +
-            AnsiColor.GREEN+"setpersonaggio *NOME*"+AnsiColor.RESET+" - Commando che connette il giocatore con il carattere del gioco. Es: setpersonaggio VIOLETTA\n"+
+    private String commandi=AnsiColor.GREEN+"quit"+AnsiColor.RESET+" - Uscire dal gioco\n" +
+            AnsiColor.GREEN+"muovi"+AnsiColor.RESET+" - Richiede se il giocatore può muoversi\n" +
+            AnsiColor.GREEN+"spara"+AnsiColor.RESET+" - Richiede se il giocatore può sparare\n" +
+            AnsiColor.GREEN+"raccogli"+AnsiColor.RESET+" - Richiede se il giocatore può raccogliere\n" +
+            AnsiColor.GREEN+"ricarica"+AnsiColor.RESET+" - Comando per ricaricare un'arma\n" +
+            AnsiColor.GREEN+"fineturno"+AnsiColor.RESET+" - Comando per terminare il turno\n" +
+            AnsiColor.GREEN+"powerup"+AnsiColor.RESET+" - Commando che serve per chiedere conferma di poter usare un PowerUp\n" +
+            AnsiColor.GREEN+"setusername *NOME*"+AnsiColor.RESET+" - Commando che serve per defnire il nome del tuo player. Es: setusername Paolo\n" +
+            AnsiColor.GREEN+"setfraseeffetto *FRASE*"+AnsiColor.RESET+" - Commando che serve per dare una frase al tuo player.Es: setphraseeffect This is Sparta!\n" +
+            AnsiColor.GREEN+"setuccisioni *NUMERO*"+AnsiColor.RESET+" - Commando che decide il numero di uccisioni per la partita. Es: setuccisioni 4\n" +
+            AnsiColor.GREEN+"setgiocatori *NUMERO*"+AnsiColor.RESET+" - Comando che serve per impostare il numero di giocatori nella partita. Es: setgiocatori 5\n" +
+            AnsiColor.GREEN+"punti"+AnsiColor.RESET+" - Commando che ritorna i punti del giocatore\n" +
+            AnsiColor.GREEN+"setpersonaggio *nome*"+AnsiColor.RESET+" - Commando per scegliere il personaggio del gioco. Es: setpersonaggio violetta\n"+
             AnsiColor.GREEN+"setfrenesia *si/no*"+AnsiColor.RESET+" - Commando che imposta la frenesia finale per la partita. Es: setfrenesia no\n";
 
     public Parserator(CommandLineInterface cli, CommandContainer launcher, SemplifiedGame game) {
@@ -152,7 +152,8 @@ public class Parserator implements Runnable {
                 commandLauncher.addCommand(new MoveCommand(token, toadd));
                 return;
             }
-            if(command.toLowerCase().contains("sprog") || command.toLowerCase().contains("distruttore") || command.toLowerCase().contains("dozer")|| command.toLowerCase().contains("violetta")||command.toLowerCase().contains("banshee")){
+            if((command.toLowerCase().contains("sprog") || command.toLowerCase().contains("distruttore") || command.toLowerCase().contains("dozer")
+                    || command.toLowerCase().contains("violetta")||command.toLowerCase().contains("banshee")) && !command.toLowerCase().contains("usa")){
                 List<String> toadd = new ArrayList<>();
                 if(command.contains("mirino")){
                     String[] splittedCommand = command.split(" ");
@@ -184,7 +185,9 @@ public class Parserator implements Runnable {
                     return;
                 }
             }
-            if ((power.contains("granata")||power.contains("teletrasporto")||power.contains("mirino")||power.contains("raggiocinetico") && !(command.toLowerCase().contains("sprog") || command.toLowerCase().contains("distruttore") || command.toLowerCase().contains("dozer")|| command.toLowerCase().contains("violetta")||command.toLowerCase().contains("banshee")))){
+            if ((power.contains("granata")||power.contains("teletrasporto")||power.contains("mirino") ||power.contains("raggiocinetico")
+                    && !(command.toLowerCase().contains("sprog") || command.toLowerCase().contains("distruttore")
+                    || command.toLowerCase().contains("dozer")|| command.toLowerCase().contains("violetta")||command.toLowerCase().contains("banshee")))){
                 String[] splittedPower = power.split(" ");
                 if(isValidColor(splittedPower[1])) {
                     commandLauncher.addCommand(new SpawnCommand(token, splittedPower[0], splittedPower[1]));
@@ -214,7 +217,7 @@ public class Parserator implements Runnable {
                     return;
                 }
             }
-            if (isWeapon(command)){
+            if (isWeapon(command) && !command.toLowerCase().contains("usa") && !command.toLowerCase().contains("prendi")){
                 commandLauncher.addCommand(new ReloadCommand(token, command));
                 return;
             }

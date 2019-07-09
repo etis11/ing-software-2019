@@ -116,6 +116,8 @@ public class LobbyFrame implements MessageListener {
                 info.setVisible(false);
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(gui.getToken(), "distruttore"));
+                        gui.setUsername("distruttore");
+                        gui.createGameFrame();
                     } catch (RemoteException e) {
                         LOGGER.LOGGER.log(Level.WARNING,e.getMessage());
                     }
@@ -133,6 +135,8 @@ public class LobbyFrame implements MessageListener {
                 info.setVisible(false);
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(gui.getToken(), "banshee"));
+                        gui.setUsername("banshee");
+                        gui.createGameFrame();
                     } catch (RemoteException e) {
                         LOGGER.LOGGER.log(Level.WARNING,e.getMessage());
                     }
@@ -150,6 +154,8 @@ public class LobbyFrame implements MessageListener {
                 info.setVisible(false);
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(gui.getToken(), "dozer"));
+                        gui.setUsername("dozer");
+                        gui.createGameFrame();
                     } catch (RemoteException e) {
                         LOGGER.LOGGER.log(Level.WARNING,e.getMessage());
                     }
@@ -167,6 +173,8 @@ public class LobbyFrame implements MessageListener {
                 info.setVisible(false);
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(gui.getToken(), "sprog"));
+                        gui.setUsername("sprog");
+                        gui.createGameFrame();
                     } catch (RemoteException e) {
                         LOGGER.LOGGER.log(Level.WARNING,e.getMessage());
                     }
@@ -184,6 +192,8 @@ public class LobbyFrame implements MessageListener {
                 info.setVisible(false);
                     try {
                         cmdLauncher.addCommand(new SetTokenCommand(gui.getToken(), "violetta"));
+                        gui.setUsername("violetta");
+                        gui.createGameFrame();
                     } catch (RemoteException e) {
                         LOGGER.LOGGER.log(Level.WARNING,e.getMessage());
                     }
@@ -217,7 +227,6 @@ public class LobbyFrame implements MessageListener {
                     try {
                         cmdLauncher.addCommand(new SetUsernameCommand(gui.getToken(), usernameField.getText().trim()));
                         gui.setUsername(usernameField.getText().trim());
-                        gui.createGameFrame();
                     } catch (RemoteException e) {
                         LOGGER.LOGGER.log(Level.WARNING,e.getMessage());
                     }

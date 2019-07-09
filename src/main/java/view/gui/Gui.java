@@ -24,7 +24,7 @@ public class Gui extends Application implements LobbyListener, MapObserver, Mess
     private CommandContainer cmd;
     private MainFrame mainFrame;
     private LobbyFrame lobbyFrame;
-    private GameFrame gameFrame = new GameFrame(cmd, "banshee", "picccola");
+    private GameFrame gameFrame;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -48,6 +48,9 @@ public class Gui extends Application implements LobbyListener, MapObserver, Mess
     }
 
     public void startGame(){
+        if(username==null){
+            createGameFrame();
+        }
         Platform.runLater(()-> lobbyFrame.close());
         Platform.runLater(()-> gameFrame.show());
     }
@@ -114,6 +117,9 @@ public class Gui extends Application implements LobbyListener, MapObserver, Mess
                 Platform.runLater(()-> gameFrame.notifyMessage(message));
                 break;
             default:
+                if(gameFrame!= null) {
+                    Platform.runLater(() -> gameFrame.notifyMessage(message));
+                }
                 break;
         }
     }

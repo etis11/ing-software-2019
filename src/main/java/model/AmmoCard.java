@@ -11,7 +11,6 @@ public class AmmoCard {
     /**
      * id refers to an int needed to bind ammocards with their images thanks to jSON
      */
-    @SerializedName("ID")
     private int id;
 
     /**

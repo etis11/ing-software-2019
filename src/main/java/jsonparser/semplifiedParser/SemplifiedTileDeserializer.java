@@ -32,8 +32,9 @@ public class SemplifiedTileDeserializer  implements JsonDeserializer<SemplifiedT
             tile.setPlayers(new LinkedList<>(Arrays.asList(players)));
         }
 
-        if (jsonTile.has("ammoCard"))
+        if (jsonTile.has("ammoCard")) {
             tile.setAmmoCard(jsonDeserializationContext.deserialize(jsonTile.get("ammoCard").getAsJsonObject(), AmmoCard.class));
+        }
 
         if(jsonTile.has("weapons")){
             SemplifiedWeaponCard[] weaponCards = jsonDeserializationContext.deserialize(jsonTile.get("weapons").getAsJsonObject(), SemplifiedWeaponCard.class);

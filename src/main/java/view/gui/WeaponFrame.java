@@ -249,7 +249,7 @@ public class WeaponFrame {
     public void updateWeapon(SemplifiedPlayer p){
         List<Label> parsedWeapon = playerWeaponParser(p.getName());
         List<SemplifiedWeaponCard> weaponUpdated = p.getWeaponCards();
-        if(weaponUpdated.get(0).isLoaded()){
+        if(weaponUpdated.isEmpty() || weaponUpdated.get(0).isLoaded()){
             parsedWeapon.get(0).setBackground(new Background(weaponBack));
         }
         else{
@@ -257,7 +257,7 @@ public class WeaponFrame {
                     BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                     BackgroundSize.DEFAULT)));
         }
-        if(weaponUpdated.get(1).isLoaded()){
+        if(weaponUpdated.size()<2 ||weaponUpdated.get(1).isLoaded()){
             parsedWeapon.get(1).setBackground(new Background(weaponBack));
         }
         else{
@@ -265,7 +265,7 @@ public class WeaponFrame {
                     BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                     BackgroundSize.DEFAULT)));
         }
-        if(weaponUpdated.get(2).isLoaded()){
+        if(weaponUpdated.size()<3 ||weaponUpdated.get(2).isLoaded()){
             parsedWeapon.get(2).setBackground(new Background(weaponBack));
         }
         else{
