@@ -78,5 +78,36 @@ public class LobbyTest {
 
     }
 
+    @Test
+    public void openedLobbyTest(){
+        assertFalse(lobby.isClosed(), "ERROR Lobby has to be open");
+        lobby.closeLobby();
+        assertTrue(lobby.isClosed(), "ERROR lobby has to be closed");
+        lobby.openLobby();
+        assertFalse(lobby.isClosed(), "ERROR Lobby has to be open");
+    }
 
+    @Test
+    public void minMaxPlayerInLobby(){
+        assertSame(3, lobby.getMinPlayerInLobby(), "ERROR min player incorrect");
+        assertSame(5, lobby.getMaxPlayerInLobby(), "ERROR max player incorrect");
+        lobby.setMaxPlayerInLobby(4);
+        assertSame(4, lobby.getMaxPlayerInLobby(), "ERROR max player not updated");
+    }
+
+    @Test
+    public void limitatedJoinTest(){
+        lobby.setMaxPlayerInLobby(4);
+        assertDoesNotThrow(() -> lobby.join(user1), "ERROR: lobby not full");
+        assertDoesNotThrow(() -> lobby.join(user2), "ERROR: lobby not full");
+        assertFalse(lobby.hasReachedMinCapacity(), "ERROR min capacity not reached");
+        assertDoesNotThrow(() -> lobby.join(user3), "ERROR: lobby not full");
+        assertTrue(lobby.hasReachedMinCapacity(), "ERROR min capacity reached");
+        assertFalse(lobby.hasReachedMaxCapacity(), "ERROR max capacity not reached");
+        assertDoesNotThrow(() -> lobby.join(user4), "ERROR: lobby not full");
+        assertTrue(lobby.hasReachedMaxCapacity(), "ERROR max capacity reached");
+        assertThrows(Exception.class, () -> lobby.join(user5));
+        assertSame(4, lobby.getNumOfUsers(), "ERROR wrong user number");
+
+    }
 }
