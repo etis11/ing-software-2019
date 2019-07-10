@@ -51,12 +51,16 @@ public class LobbyTest {
         assertDoesNotThrow(() -> lobby.join(user4), "ERROR: lobby not full");
         assertSame(lobby.getUsers().size(), 4, "ERROR: not inserted user");
 
+        assertFalse(lobby.isFull(), "ERROR lobby not full");
+
         assertDoesNotThrow(() -> lobby.join(user5), "ERROR: lobby not full");
         assertSame(lobby.getUsers().size(), 5, "ERROR: not inserted user");
 
         User user6 = new User();
         assertThrows(Exception.class, () -> lobby.join(user6));
         assertSame(lobby.getUsers().size(), 5, "ERROR: inserted player in a full lobby");
+
+        assertTrue(lobby.isFull(), "ERROR lobby full");
     }
 
     @Test
@@ -108,6 +112,16 @@ public class LobbyTest {
         assertTrue(lobby.hasReachedMaxCapacity(), "ERROR max capacity reached");
         assertThrows(Exception.class, () -> lobby.join(user5));
         assertSame(4, lobby.getNumOfUsers(), "ERROR wrong user number");
+        assertNotNull(lobby.getNameToken(), "ERROR users present");
+        assertSame(4,lobby.getNameToken().size(), "ERROR users present");
+    }
 
+    @Test
+    public  void containsTest(){
+        assertDoesNotThrow(() -> lobby.join(user1), "ERROR: lobby not full");
+        assertDoesNotThrow(() -> lobby.join(user2), "ERROR: lobby not full");
+        assertTrue(lobby.contains(user1), "ERROR user in the lobby");
+        assertTrue(lobby.contains(user2), "ERROR user in the lobby");
+        assertFalse(lobby.contains(user3), "ERROR user not in the lobby");
     }
 }
