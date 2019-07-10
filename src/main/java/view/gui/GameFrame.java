@@ -359,9 +359,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    cmdLauncher.addCommand(new AskPickCommand(ClientSingleton.getInstance().getToken()));
+                    cmdLauncher.addCommand(new AskPickCommand(gui.getToken()));
                 } catch (RemoteException e) {
-                    LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
+                    LOGGER.LOGGER.log(Level.WARNING,e.getMessage());
                 }
             }
         });
@@ -371,9 +371,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    cmdLauncher.addCommand(new AskShootCommand(ClientSingleton.getInstance().getToken()));
+                    cmdLauncher.addCommand(new AskShootCommand(gui.getToken()));
                 } catch (RemoteException e) {
-                    LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
+                    LOGGER.LOGGER.log(Level.WARNING,e.getMessage());
                 }
             }
         });
@@ -383,9 +383,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    cmdLauncher.addCommand(new AskUsePowerUpCommand(ClientSingleton.getInstance().getToken()));
+                    cmdLauncher.addCommand(new AskUsePowerUpCommand(gui.getToken()));
                 } catch (RemoteException e) {
-                    LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
+                    LOGGER.LOGGER.log(Level.WARNING,e.getMessage());
                 }
             }
         });
@@ -395,9 +395,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    cmdLauncher.addCommand(new AskReloadCommand(ClientSingleton.getInstance().getToken()));
+                    cmdLauncher.addCommand(new AskReloadCommand(gui.getToken()));
                 } catch (RemoteException e) {
-                    LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
+                    LOGGER.LOGGER.log(Level.WARNING,e.getMessage());
                 }
             }
         });
@@ -419,9 +419,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    cmdLauncher.addCommand(new AskPointsCommand(ClientSingleton.getInstance().getToken()));
+                    cmdLauncher.addCommand(new AskPointsCommand(gui.getToken()));
                 } catch (RemoteException e) {
-                    LOGGER.LOGGER.log(Level.WARNING, Arrays.toString(e.getStackTrace()));
+                    LOGGER.LOGGER.log(Level.WARNING, e.getMessage());
                 }
             }
         });

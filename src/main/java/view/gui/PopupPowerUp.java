@@ -158,6 +158,9 @@ public class PopupPowerUp {
 
     public void updatePu(SemplifiedPlayer p){
         if (!players.contains(p.getName())){
+            for (int i = 0; i < pwups.size(); i++) {
+                pwups.get(i).setVisible(false);
+            }
             List<PowerUpCard> powerUp = p.getPowerUpCards();
             int index = 0;
             while ( index < p.getNumPowerUps()){
