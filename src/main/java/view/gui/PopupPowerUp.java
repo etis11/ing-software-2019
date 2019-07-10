@@ -47,14 +47,17 @@ public class PopupPowerUp {
 
     List<String> players;
 
-    public PopupPowerUp(List<String> players, CommandContainer cmdLauncher, Gui gui, SemplifiedPlayer currentPlayer){
+    public PopupPowerUp(List<String> players, CommandContainer cmdLauncher, Gui gui){
         stage = new Stage();
         pane = new Pane();
         this.players = players;
         this.cmdLauncher = cmdLauncher;
         this.gui = gui;
-        semplifiedPlayer = currentPlayer;
         generate();
+    }
+
+    public void setSemplifiedPlayer(SemplifiedPlayer player){
+        this.semplifiedPlayer = player;
     }
 
     private void generate() {
@@ -65,9 +68,6 @@ public class PopupPowerUp {
 
         generatePu();
 
-        for(int i = 0; i<semplifiedPlayer.getPowerUpCards().size();i++){
-            pwups.get(i).setVisible(true);
-        }
 
         pwu1.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -206,6 +206,9 @@ public class PopupPowerUp {
                 }
                 index++;
             }
+        }
+        for (int i = 0; i < semplifiedPlayer.getPowerUpCards().size(); i++) {
+            pwups.get(i).setVisible(true);
         }
     }
 

@@ -130,8 +130,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
     double coorX;
     double coorY;
 
-    public GameFrame(CommandContainer cmd, String board, String map) {
+    public GameFrame(CommandContainer cmd, String board, String map, Gui gui) {
         this.cmdLauncher = cmd;
+        this.gui = gui;
         this.mapPath = mapParser(map);
         this.color = new ArrayList<>();
         this.token = new ArrayList<>();
@@ -212,7 +213,7 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
         buttonPane = new VBox();
         mapPane = new Pane();
         playerBoardPane = new Pane();
-
+        popupPowerUp = new PopupPowerUp(players,cmdLauncher,gui);
 
         infoGame = new TextArea();
 
@@ -406,9 +407,9 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    cmdLauncher.addCommand(new AskEndTurnCommand(ClientSingleton.getInstance().getToken()));
+                    cmdLauncher.addCommand(new AskEndTurnCommand(gui.getToken()));
                 } catch (RemoteException e) {
-                    LOGGER.LOGGER.log(Level.WARNING,Arrays.toString(e.getStackTrace()));
+                    LOGGER.LOGGER.log(Level.WARNING,e.getMessage());
                 }
             }
         });
@@ -990,6 +991,12 @@ public class GameFrame implements MapObserver, PlayerObserver, MessageListener {
                 index++;
             }
         }
+        popupPowerUp.setSemplifiedPlayer(p);
+        popupPowerUp.updatePu(p);
+    }
+
+    public void showPopUpPowerUp(){
+        popupPowerUp.show();
     }
 
     @Override

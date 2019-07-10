@@ -60,7 +60,7 @@ public class Gui extends Application implements LobbyListener, MapObserver, Mess
     }
 
     public void createGameFrame(){
-        gameFrame = new GameFrame(cmd, username, map);
+        gameFrame = new GameFrame(cmd, username, map, this);
     }
 
     public void setCmd(CommandContainer cmd) {
@@ -116,6 +116,8 @@ public class Gui extends Application implements LobbyListener, MapObserver, Mess
                 startGame();
                 Platform.runLater(()-> gameFrame.notifyMessage(message));
                 break;
+            case "scegli quale powerup scartare per spawnare":
+                Platform.runLater(()-> gameFrame.showPopUpPowerUp());
             default:
                 if(gameFrame!= null) {
                     Platform.runLater(() -> gameFrame.notifyMessage(message));
